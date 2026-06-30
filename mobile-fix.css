@@ -1,0 +1,283 @@
+/* Mobile-first correction layer for Nykuto homepage and static pages. */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+@media (max-width: 760px) {
+  .site-header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 16px;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    border-radius: 0 0 22px 22px;
+  }
+
+  .brand {
+    max-width: calc(100% - 92px);
+  }
+
+  .brand-mark {
+    width: 54px;
+    height: 54px;
+    border-radius: 18px;
+    flex: 0 0 auto;
+  }
+
+  .brand strong {
+    font-size: 20px;
+  }
+
+  .brand small {
+    font-size: 13px;
+  }
+
+  .hero,
+  .home-route-grid,
+  .short-proof,
+  .page-shell,
+  .site-footer {
+    width: min(100% - 28px, 720px);
+  }
+
+  .hero {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding: 36px 0 22px;
+  }
+
+  .eyebrow,
+  .section-kicker {
+    font-size: 11px;
+    line-height: 1.65;
+    letter-spacing: .18em;
+    overflow-wrap: anywhere;
+  }
+
+  h1,
+  .page-hero h1 {
+    font-size: clamp(38px, 11vw, 54px);
+    line-height: 1.02;
+    letter-spacing: -.055em;
+    margin-bottom: 18px;
+  }
+
+  .hero-text,
+  .page-hero p,
+  .short-proof p,
+  .split-panel p,
+  .contact-card p,
+  .price-card p,
+  .price-card li,
+  .showcase-card p,
+  .timeline p,
+  .faq-list p,
+  details p {
+    font-size: 17px;
+    line-height: 1.65;
+  }
+
+  .hero-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .primary-btn,
+  .secondary-btn,
+  .price-card a {
+    width: 100%;
+    min-height: 58px;
+    padding: 16px 18px;
+    font-size: 18px;
+  }
+
+  .signal-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  .signal-row span,
+  .tag-row span,
+  .module-grid span {
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+    font-size: 14px;
+    line-height: 1.25;
+  }
+
+  .hero-lab {
+    width: 100%;
+    padding: 16px;
+    border-radius: 28px;
+  }
+
+  .lab-topline {
+    display: grid;
+    grid-template-columns: auto auto auto 1fr;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .lab-topline strong {
+    margin-left: 0;
+    font-size: 12px;
+    text-align: right;
+  }
+
+  .lab-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .lab-panel {
+    width: 100%;
+    padding: 16px;
+    border-radius: 20px;
+  }
+
+  .main-panel {
+    min-height: auto;
+  }
+
+  .main-panel h2 {
+    font-size: clamp(28px, 8vw, 38px);
+    line-height: 1.05;
+  }
+
+  .mini-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .mini-layout span {
+    height: 42px;
+  }
+
+  .metric {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .metric strong {
+    display: block;
+    min-width: 62px;
+    font-size: 36px;
+    line-height: 1;
+  }
+
+  .metric span {
+    display: block;
+    font-size: 15px;
+    line-height: 1.35;
+  }
+
+  .stack-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .stack-list span {
+    display: block;
+    text-align: center;
+    padding: 10px 8px;
+    font-size: 13px;
+    line-height: 1.2;
+  }
+
+  .home-route-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 16px 0 34px;
+  }
+
+  .home-route-grid a {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    column-gap: 14px;
+    row-gap: 3px;
+    align-items: center;
+    padding: 18px;
+    border-radius: 22px;
+  }
+
+  .home-route-grid a span {
+    grid-row: span 2;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 16px;
+    background: rgba(35,244,255,.12);
+  }
+
+  .home-route-grid a strong {
+    margin-top: 0;
+    font-size: 19px;
+    line-height: 1.15;
+  }
+
+  .home-route-grid a small {
+    margin-top: 0;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .short-proof {
+    padding: 24px;
+    margin-bottom: 44px;
+    border-radius: 26px;
+  }
+
+  .short-proof h2 {
+    font-size: clamp(30px, 9vw, 42px);
+    line-height: 1.05;
+    letter-spacing: -.045em;
+  }
+
+  .page-shell {
+    padding: 42px 0 56px;
+  }
+
+  .pricing-grid,
+  .showcase-grid,
+  .limits-grid,
+  .contact-layout,
+  .split-panel {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .price-card,
+  .showcase-card,
+  .module-wall,
+  .split-panel,
+  .contact-card,
+  .contact-form {
+    padding: 22px;
+    border-radius: 24px;
+  }
+
+  .site-footer {
+    display: grid;
+    gap: 20px;
+    padding-bottom: 32px;
+  }
+
+  .site-footer nav {
+    display: grid;
+    gap: 12px;
+  }
+}
