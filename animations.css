@@ -1,0 +1,326 @@
+/* Nykuto animation layer — subtle, premium, performance-conscious. */
+:root {
+  --motion-fast: 180ms;
+  --motion-medium: 420ms;
+  --motion-slow: 900ms;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body.future-mode {
+  animation: pageFadeIn .52s ease both;
+}
+
+.tech-noise {
+  animation: gridDrift 18s linear infinite;
+  will-change: background-position;
+}
+
+.orb {
+  animation: orbFloat 10s ease-in-out infinite alternate;
+}
+
+.orb-b {
+  animation-duration: 13s;
+  animation-delay: -4s;
+}
+
+.future-header {
+  animation: headerDrop .58s ease both;
+}
+
+.future-mark::after {
+  animation: markPulse 3.8s ease-in-out infinite;
+}
+
+.future-hero::after,
+.page-hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 8% -18% 8%;
+  height: 42%;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 50%, rgba(35,244,255,.18), transparent 62%);
+  filter: blur(34px);
+  opacity: .72;
+  animation: heroGlow 5s ease-in-out infinite alternate;
+}
+
+.future-hero,
+.page-hero {
+  position: relative;
+}
+
+.future-hero h1,
+.page-hero h1 {
+  position: relative;
+}
+
+.future-hero h1::after,
+.page-hero h1::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -.16em;
+  width: min(280px, 46vw);
+  height: 3px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, transparent, rgba(35,244,255,.9), rgba(138,92,255,.82), transparent);
+  box-shadow: 0 0 28px rgba(35,244,255,.42);
+  animation: titleScan 3.8s ease-in-out infinite;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(22px) scale(.985);
+  filter: blur(8px);
+  transition: opacity .72s ease, transform .72s ease, filter .72s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+.primary-btn,
+.secondary-btn,
+.header-cta,
+.price-card a,
+.future-tile,
+.showroom-card,
+.faq-list details,
+.contact-card,
+.contact-form,
+.split-panel,
+.limits-grid article {
+  position: relative;
+  overflow: hidden;
+}
+
+.primary-btn::after,
+.secondary-btn::after,
+.header-cta::after,
+.price-card a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-120%) skewX(-18deg);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.34), transparent);
+  transition: transform .68s ease;
+}
+
+.primary-btn:hover::after,
+.secondary-btn:hover::after,
+.header-cta:hover::after,
+.price-card a:hover::after {
+  transform: translateX(120%) skewX(-18deg);
+}
+
+.primary-btn:hover,
+.secondary-btn:hover,
+.header-cta:hover,
+.price-card a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 60px rgba(35,244,255,.22);
+}
+
+.primary-btn:active,
+.secondary-btn:active,
+.header-cta:active,
+.price-card a:active {
+  transform: translateY(1px) scale(.985);
+}
+
+.future-console {
+  animation: consoleFloat 7s ease-in-out infinite alternate;
+}
+
+.future-console::before {
+  animation-duration: 9s;
+}
+
+.console-bar span:nth-child(1) { animation: consoleDot 2.2s ease-in-out infinite; }
+.console-bar span:nth-child(2) { animation: consoleDot 2.2s ease-in-out infinite .2s; }
+.console-bar span:nth-child(3) { animation: consoleDot 2.2s ease-in-out infinite .4s; }
+
+.scan-line {
+  background-size: 220% 100%;
+  animation: scanLineMove 2.8s linear infinite;
+}
+
+.holo-card,
+.future-tile,
+.showroom-card,
+.price-card,
+.faq-list details,
+.contact-card,
+.contact-form {
+  transition: transform var(--motion-medium) ease, border-color var(--motion-medium) ease, box-shadow var(--motion-medium) ease, background var(--motion-medium) ease;
+}
+
+.holo-card:hover,
+.future-tile:hover,
+.showroom-card:hover,
+.price-card:hover,
+.faq-list details:hover,
+.contact-card:hover,
+.contact-form:hover {
+  border-color: rgba(35,244,255,.58);
+  box-shadow: 0 28px 110px rgba(35,244,255,.13), 0 20px 90px rgba(0,0,0,.28);
+}
+
+.module-orbit span {
+  animation: modulePulse 4.4s ease-in-out infinite;
+}
+
+.module-orbit span:nth-child(2) { animation-delay: .35s; }
+.module-orbit span:nth-child(3) { animation-delay: .7s; }
+.module-orbit span:nth-child(4) { animation-delay: 1.05s; }
+
+.mockup-screen::after {
+  content: "";
+  position: absolute;
+  inset: -30% 0;
+  background: linear-gradient(180deg, transparent, rgba(255,255,255,.22), transparent);
+  transform: translateY(-70%);
+  animation: mockupScan 4.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.main-nav.open a {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: menuItemIn .42s ease forwards;
+}
+
+.main-nav.open a:nth-child(2) { animation-delay: .04s; }
+.main-nav.open a:nth-child(3) { animation-delay: .08s; }
+.main-nav.open a:nth-child(4) { animation-delay: .12s; }
+.main-nav.open a:nth-child(5) { animation-delay: .16s; }
+
+.faq-list details summary {
+  cursor: pointer;
+  transition: color var(--motion-fast) ease;
+}
+
+.faq-list details[open] summary {
+  color: #fff;
+}
+
+.faq-list details p {
+  animation: faqOpen .32s ease both;
+}
+
+@keyframes pageFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes headerDrop {
+  from { opacity: 0; transform: translateY(-18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gridDrift {
+  from { background-position: 0 0, 0 0, 0 0; }
+  to { background-position: 72px 144px, -72px 72px, 0 80px; }
+}
+
+@keyframes orbFloat {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(18px, -24px, 0) scale(1.08); }
+}
+
+@keyframes markPulse {
+  0%, 100% { opacity: .55; box-shadow: 0 0 26px rgba(35,244,255,.18); }
+  50% { opacity: 1; box-shadow: 0 0 50px rgba(35,244,255,.38); }
+}
+
+@keyframes heroGlow {
+  from { opacity: .34; transform: scale(.92); }
+  to { opacity: .86; transform: scale(1.08); }
+}
+
+@keyframes titleScan {
+  0%, 100% { transform: translateX(0) scaleX(.72); opacity: .34; }
+  48% { transform: translateX(54%) scaleX(1.05); opacity: 1; }
+}
+
+@keyframes consoleFloat {
+  from { transform: translateY(0); }
+  to { transform: translateY(-10px); }
+}
+
+@keyframes consoleDot {
+  0%, 100% { background: rgba(255,255,255,.28); box-shadow: none; }
+  50% { background: rgba(35,244,255,.95); box-shadow: 0 0 18px rgba(35,244,255,.65); }
+}
+
+@keyframes scanLineMove {
+  from { background-position: 0% 50%; }
+  to { background-position: 220% 50%; }
+}
+
+@keyframes modulePulse {
+  0%, 100% { border-color: rgba(125,249,255,.14); background: rgba(255,255,255,.055); }
+  50% { border-color: rgba(35,244,255,.46); background: rgba(35,244,255,.105); }
+}
+
+@keyframes mockupScan {
+  0%, 62%, 100% { transform: translateY(-72%); opacity: 0; }
+  74% { opacity: .68; }
+  92% { transform: translateY(72%); opacity: 0; }
+}
+
+@keyframes menuItemIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes faqOpen {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .future-tile:hover,
+  .showroom-card:hover,
+  .price-card:hover {
+    transform: translateY(-8px) rotateX(1deg) rotateY(-1deg);
+  }
+}
+
+@media (max-width: 760px) {
+  .future-hero::after,
+  .page-hero::after {
+    inset: auto 0 -10% 0;
+    height: 24%;
+    opacity: .45;
+  }
+
+  .future-hero h1::after,
+  .page-hero h1::after {
+    width: 180px;
+  }
+
+  .future-console {
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .001ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
