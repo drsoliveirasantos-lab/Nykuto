@@ -1,0 +1,19 @@
+/* Animation fallback loaded after animations.css.
+   Keeps content visible if an older script.js is still cached. */
+.reveal {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+html.animations-ready .reveal {
+  opacity: 0;
+  transform: translateY(22px) scale(.985);
+  filter: blur(8px);
+}
+
+html.animations-ready .reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
