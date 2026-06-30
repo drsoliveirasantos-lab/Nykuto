@@ -1,11 +1,23 @@
-const animationStylesheet = 'animations.css';
+const animationStylesheet = 'animations.css?v=anim2';
+const fallbackStylesheet = 'animation-fallback.css?v=anim2';
 
-if (!document.querySelector(`link[href="${animationStylesheet}"]`)) {
-  const animationLink = document.createElement('link');
-  animationLink.rel = 'stylesheet';
-  animationLink.href = animationStylesheet;
-  document.head.appendChild(animationLink);
+document.documentElement.classList.add('animations-ready');
+
+function ensureStylesheet(href) {
+  const hrefBase = href.split('?')[0];
+  const exists = Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
+    .some((link) => link.getAttribute('href')?.startsWith(hrefBase));
+
+  if (exists) return;
+
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = href;
+  document.head.appendChild(link);
 }
+
+ensureStylesheet(animationStylesheet);
+ensureStylesheet(fallbackStylesheet);
 
 const checkboxes = document.querySelectorAll('[data-price]');
 const estimate = document.getElementById('estimate');

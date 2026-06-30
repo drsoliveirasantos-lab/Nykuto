@@ -17,6 +17,7 @@ const staticFiles = [
   'mobile-fix.css',
   'futuristic.css',
   'animations.css',
+  'animation-fallback.css',
   'script.js'
 ];
 
