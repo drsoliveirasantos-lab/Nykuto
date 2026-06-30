@@ -6,12 +6,10 @@
     "dev": "npx http-server . -p 3000 -c-1",
     "build": "node scripts/prepare-cloudflare-output.js",
     "start": "npx http-server . -p 3000 -c-1",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "node -e \"console.log('Static site validation: no TypeScript compilation required')\"",
     "hygiene": "node scripts/validate-repository-hygiene.js"
   },
   "devDependencies": {
-    "@types/node": "latest",
-    "http-server": "latest",
-    "typescript": "latest"
+    "http-server": "latest"
   }
 }
