@@ -21,9 +21,6 @@ h1,
 h2,
 h3,
 .brand strong,
-.primary-btn,
-.secondary-btn,
-.header-cta,
 .price,
 .price-chip strong,
 .future-tile strong,
@@ -68,7 +65,20 @@ textarea {
 .secondary-btn,
 .header-cta,
 .price-card a {
-  font-weight: 850;
+  font-family: var(--font-tight);
+  font-size: clamp(15px, 1.3vw, 17px);
+  font-weight: 720;
+  letter-spacing: -0.025em;
+}
+
+.primary-btn {
+  color: rgba(7, 16, 28, .82) !important;
+  background: linear-gradient(135deg, #63eaf5, #8cf4f7) !important;
+}
+
+.secondary-btn,
+.header-cta {
+  color: rgba(255, 255, 255, .9) !important;
 }
 
 @media (max-width: 760px) {
@@ -146,8 +156,20 @@ textarea {
   .secondary-btn,
   .header-cta,
   .price-card a {
+    min-height: 54px !important;
+    padding: 15px 20px !important;
+    font-size: clamp(15px, 4.2vw, 17px) !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.025em !important;
     box-shadow: 0 10px 28px rgba(35, 244, 255, .12) !important;
     transition: transform 160ms ease, border-color 160ms ease, background 160ms ease !important;
+  }
+
+  .page-home .future-hero .primary-btn,
+  .page-home .future-hero .secondary-btn {
+    min-height: 56px !important;
+    font-size: clamp(15px, 4.2vw, 17px) !important;
+    font-weight: 700 !important;
   }
 
   .primary-btn::after,
