@@ -1,11 +1,17 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root {
   color-scheme: dark;
   --background: #070a12;
   --foreground: #f8fafc;
+}
+
+@theme {
+  --color-ink: #070a12;
+  --color-night: #0b1020;
+  --color-electric: #6d5dfb;
+  --color-cyan: #1ee7f2;
+  --shadow-glow: 0 0 60px rgba(109, 93, 251, 0.35);
 }
 
 * {
