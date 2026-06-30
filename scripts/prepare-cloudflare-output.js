@@ -19,6 +19,7 @@ const staticFiles = [
   'animations.css',
   'animation-fallback.css',
   'mobile-polish.css',
+  'performance-typography.css',
   'script.js'
 ];
 
