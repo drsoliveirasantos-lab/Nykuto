@@ -7,28 +7,50 @@
   <title>FAQ | Nykuto</title>
   <meta name="description" content="Questions fréquentes sur les sites vitrines Nykuto." />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="futuristic.css" />
+  <style>
+    .faq-page .page-hero h1 { max-width: 780px; }
+    .faq-page .faq-list details {
+      border: 1px solid rgba(125,249,255,.16);
+      background: linear-gradient(145deg, rgba(255,255,255,.075), rgba(255,255,255,.028));
+      box-shadow: 0 22px 90px rgba(0,0,0,.2);
+    }
+    @media (max-width: 760px) {
+      .faq-page { padding-top: 36px; }
+      .faq-page .page-hero h1 { font-size: clamp(42px, 12vw, 60px); line-height: .94; }
+      .faq-page .page-hero p { font-size: 18px; line-height: 1.45; }
+      .faq-page .faq-list { gap: 12px; }
+      .faq-page .faq-list summary { font-size: 18px; line-height: 1.25; }
+      .faq-page .faq-list p { font-size: 16px; line-height: 1.55; }
+    }
+  </style>
 </head>
-<body>
-  <div class="orb orb-a"></div><div class="orb orb-b"></div><div class="scan-grid"></div>
-  <header class="site-header">
-    <a class="brand" href="index.html"><span class="brand-mark">N</span><span><strong>Nykuto</strong><small>Digital showcase studio</small></span></a>
+<body class="future-mode">
+  <div class="orb orb-a"></div><div class="orb orb-b"></div><div class="scan-grid"></div><div class="tech-noise" aria-hidden="true"></div>
+  <header class="site-header future-header">
+    <a class="brand" href="index.html"><span class="brand-mark future-mark">N</span><span><strong>Nykuto</strong><small>Future showcase studio</small></span></a>
     <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav">Menu</button>
     <nav class="main-nav" id="main-nav"><a href="offres.html">Offres</a><a href="exemples.html">Démos</a><a href="process.html">Process</a><a class="active" href="faq.html">FAQ</a><a href="contact.html">Contact</a></nav>
-    <a class="header-cta" href="contact.html">Demander un devis</a>
+    <a class="header-cta" href="contact.html">Devis</a>
   </header>
 
-  <main class="page-shell narrow">
-    <section class="page-hero reveal"><p class="eyebrow">Questions fréquentes</p><h1>Réponses claires avant de lancer votre site.</h1><p>Le but est de vendre honnêtement : une vitrine propre, cadrée et utile, sans promesse impossible.</p></section>
+  <main class="page-shell narrow faq-page">
+    <section class="page-hero reveal showroom-hero">
+      <p class="eyebrow">Questions fréquentes</p>
+      <h1>Avant de lancer votre site.</h1>
+      <p>Des réponses courtes pour cadrer le projet.</p>
+    </section>
+
     <section class="faq-list reveal">
-      <details open><summary>Est-ce que 390 € suffit pour un vrai site ?</summary><p>Oui, si le projet est simple : une page, des sections limitées, des contenus fournis et un objectif clair.</p></details>
-      <details><summary>Est-ce que le site sera moderne sur téléphone ?</summary><p>Oui. La version mobile est prioritaire, car beaucoup de visiteurs consultent depuis leur téléphone.</p></details>
-      <details><summary>Est-ce que Nykuto garantit la première page Google ?</summary><p>Non. Nykuto peut structurer proprement le site et poser une optimisation de base, mais ne garantit pas le classement Google.</p></details>
-      <details><summary>Est-ce que vous faites une boutique en ligne ?</summary><p>Pas dans les offres standard. Une boutique en ligne demande un cadrage séparé.</p></details>
-      <details><summary>Est-ce que je peux demander des modifications ?</summary><p>Oui. Les corrections incluses dépendent de l’offre. Les modifications après livraison sont facturées ou incluses dans une maintenance.</p></details>
-      <details><summary>Est-ce que le domaine et l’hébergement sont inclus ?</summary><p>Ils peuvent être accompagnés, mais les coûts externes doivent être clarifiés avant le début du projet.</p></details>
+      <details open><summary>390 € suffit pour un vrai site ?</summary><p>Oui, si le projet reste simple : une page, peu de sections, contenus fournis et objectif clair.</p></details>
+      <details><summary>Le site sera moderne sur téléphone ?</summary><p>Oui. Le mobile est prioritaire, car beaucoup de visiteurs consultent depuis leur téléphone.</p></details>
+      <details><summary>Nykuto garantit la première page Google ?</summary><p>Non. Le SEO de base est prévu, mais aucun classement Google n’est garanti.</p></details>
+      <details><summary>Boutique en ligne incluse ?</summary><p>Non, pas dans les offres standard. L’e-commerce demande un cadrage séparé.</p></details>
+      <details><summary>Modifications possibles ?</summary><p>Oui. Les corrections incluses dépendent de l’offre. Après livraison, elles peuvent être facturées.</p></details>
+      <details><summary>Domaine et hébergement inclus ?</summary><p>Ils peuvent être accompagnés, mais les coûts externes sont clarifiés avant le lancement.</p></details>
     </section>
   </main>
-  <footer class="site-footer"><p><strong>Nykuto</strong><br />Un site simple. Une présence pro. Un prix accessible.</p><nav><a href="mentions-legales.html">Mentions légales</a><a href="confidentialite.html">Confidentialité</a><a href="cgv.html">CGV</a></nav></footer>
+  <footer class="site-footer future-footer"><p><strong>Nykuto</strong><br />Sites vitrines modernes et accessibles.</p><nav><a href="mentions-legales.html">Mentions légales</a><a href="confidentialite.html">Confidentialité</a><a href="cgv.html">CGV</a></nav></footer>
   <script src="script.js"></script>
 </body>
 </html>
