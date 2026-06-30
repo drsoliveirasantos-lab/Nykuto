@@ -1,0 +1,210 @@
+/* Mobile polish for the futuristic homepage.
+   Loaded after the main visual layers to reduce vertical mass on phones. */
+@media (max-width: 760px) {
+  body.page-home.future-mode::before {
+    opacity: .72;
+  }
+
+  .page-home .tech-noise {
+    opacity: .28;
+    background-size: 58px 58px, 58px 58px, 100% 8px;
+  }
+
+  .page-home .orb {
+    opacity: .44;
+    filter: blur(18px);
+  }
+
+  .page-home .future-header {
+    min-height: 82px;
+    padding: 12px 18px;
+    border-radius: 0 0 28px 28px;
+  }
+
+  .page-home .future-header .brand {
+    gap: 12px;
+  }
+
+  .page-home .future-header .brand-mark {
+    width: 50px;
+    height: 50px;
+    border-radius: 18px;
+    font-size: 22px;
+  }
+
+  .page-home .future-header .brand strong {
+    font-size: 24px;
+  }
+
+  .page-home .future-header .brand small {
+    font-size: 15px;
+  }
+
+  .page-home .menu-toggle {
+    min-height: 48px;
+    padding: 10px 18px;
+    font-size: 18px;
+  }
+
+  .page-home .future-hero {
+    width: min(100% - 28px, 1180px);
+    padding: 34px 0 18px;
+    gap: 18px;
+  }
+
+  .page-home .hero-copy {
+    display: grid;
+    gap: 16px;
+  }
+
+  .page-home .eyebrow {
+    font-size: 12px;
+    line-height: 1.5;
+    letter-spacing: .18em;
+  }
+
+  .page-home .future-hero h1 {
+    max-width: 95%;
+    font-size: clamp(40px, 11.2vw, 56px);
+    line-height: .9;
+    letter-spacing: -.09em;
+  }
+
+  .page-home .future-hero h1::after {
+    bottom: -.12em;
+    width: 150px;
+  }
+
+  .page-home .future-line {
+    max-width: 92%;
+    font-size: 18px !important;
+    line-height: 1.42 !important;
+  }
+
+  .page-home .price-chip {
+    width: fit-content;
+    gap: 10px;
+    padding: 10px 14px;
+    margin-top: 0;
+  }
+
+  .page-home .price-chip span {
+    font-size: 11px;
+    letter-spacing: .15em;
+  }
+
+  .page-home .price-chip strong {
+    font-size: 28px;
+  }
+
+  .page-home .future-hero .hero-actions {
+    gap: 12px;
+    margin-top: 6px;
+  }
+
+  .page-home .future-hero .primary-btn,
+  .page-home .future-hero .secondary-btn {
+    min-height: 58px;
+    border-radius: 28px;
+    font-size: 19px;
+  }
+
+  .page-home .future-console {
+    padding: 13px;
+    border-radius: 26px;
+    animation: none;
+  }
+
+  .page-home .future-console::after {
+    border-radius: 25px;
+  }
+
+  .page-home .console-bar {
+    margin-bottom: 12px;
+  }
+
+  .page-home .console-bar strong {
+    font-size: 11px;
+    letter-spacing: .12em;
+  }
+
+  .page-home .holo-screen {
+    gap: 10px;
+  }
+
+  .page-home .holo-card {
+    min-height: 84px;
+    padding: 16px;
+    border-radius: 22px;
+  }
+
+  .page-home .main-holo {
+    min-height: 150px;
+  }
+
+  .page-home .main-holo small {
+    font-size: 11px;
+    letter-spacing: .15em;
+  }
+
+  .page-home .main-holo strong {
+    max-width: 92%;
+    font-size: clamp(30px, 8vw, 38px);
+    line-height: .96;
+  }
+
+  .page-home .scan-line {
+    height: 6px;
+    margin-top: 22px;
+  }
+
+  .page-home .stat strong {
+    font-size: 40px;
+  }
+
+  .page-home .stat span {
+    margin-top: 6px;
+    font-size: 17px;
+  }
+
+  .page-home .module-orbit {
+    gap: 8px;
+  }
+
+  .page-home .module-orbit span {
+    min-height: 48px;
+    border-radius: 16px;
+    font-size: 15px;
+  }
+
+  .page-home .future-showcase {
+    width: min(100% - 28px, 1180px);
+    gap: 10px;
+    margin-top: 6px;
+    margin-bottom: 34px;
+  }
+
+  .page-home .future-tile {
+    min-height: 108px;
+    padding: 18px;
+    border-radius: 22px;
+  }
+
+  .page-home .future-tile span {
+    font-size: 13px;
+  }
+
+  .page-home .future-tile strong {
+    margin-top: 18px;
+    font-size: 24px;
+  }
+
+  .page-home .future-tile small {
+    margin-top: 4px;
+    font-size: 15px;
+  }
+
+  .page-home .future-footer {
+    padding-top: 28px;
+  }
+}
