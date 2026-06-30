@@ -3,40 +3,48 @@ const fs = require('fs');
 const path = require('path');
 
 const root = process.cwd();
-const source = path.join(root, 'out');
-const mirrors = [
-  path.join(root, '.vercel', 'output', 'static'),
-  path.join(root, 'dist'),
-  path.join(root, '.next')
+const staticFiles = [
+  'index.html',
+  'offres.html',
+  'exemples.html',
+  'process.html',
+  'faq.html',
+  'contact.html',
+  'mentions-legales.html',
+  'confidentialite.html',
+  'cgv.html',
+  'styles.css',
+  'script.js'
 ];
 
-function copyDirectory(from, to) {
-  fs.mkdirSync(to, { recursive: true });
+const outputDirs = [
+  path.join(root, 'out'),
+  path.join(root, 'dist'),
+  path.join(root, '.vercel', 'output', 'static')
+];
 
-  for (const entry of fs.readdirSync(from, { withFileTypes: true })) {
-    const sourcePath = path.join(from, entry.name);
-    const targetPath = path.join(to, entry.name);
+function cleanDirectory(dir) {
+  fs.rmSync(dir, { recursive: true, force: true });
+  fs.mkdirSync(dir, { recursive: true });
+}
 
-    if (entry.isDirectory()) {
-      copyDirectory(sourcePath, targetPath);
-    } else if (entry.isFile()) {
-      fs.copyFileSync(sourcePath, targetPath);
+function copyStaticFiles(targetDir) {
+  for (const file of staticFiles) {
+    const source = path.join(root, file);
+    const target = path.join(targetDir, file);
+
+    if (!fs.existsSync(source)) {
+      console.error(`Missing required static file: ${file}`);
+      process.exit(1);
     }
+
+    fs.mkdirSync(path.dirname(target), { recursive: true });
+    fs.copyFileSync(source, target);
   }
 }
 
-function ensureStaticExport() {
-  const indexPath = path.join(source, 'index.html');
-
-  if (!fs.existsSync(indexPath)) {
-    console.error('Cloudflare output preparation failed: out/index.html was not generated.');
-    process.exit(1);
-  }
-}
-
-ensureStaticExport();
-
-for (const target of mirrors) {
-  copyDirectory(source, target);
-  console.log(`Mirrored static export to ${path.relative(root, target)}`);
+for (const dir of outputDirs) {
+  cleanDirectory(dir);
+  copyStaticFiles(dir);
+  console.log(`Prepared Cloudflare static output: ${path.relative(root, dir)}`);
 }

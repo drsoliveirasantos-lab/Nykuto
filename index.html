@@ -3,157 +3,77 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#070a12" />
-  <title>Nykuto — Sites vitrines simples, modernes et abordables</title>
-  <meta name="description" content="Nykuto crée des sites vitrines simples, modernes et abordables pour indépendants, artisans, commerces et prestataires de services." />
+  <meta name="theme-color" content="#050816" />
+  <title>Nykuto — Studio de sites vitrines nouvelle génération</title>
+  <meta name="description" content="Nykuto crée des sites vitrines modernes, rapides et accessibles pour indépendants, artisans, commerces et prestataires de services." />
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body class="page-home">
+  <div class="orb orb-a"></div>
+  <div class="orb orb-b"></div>
+  <div class="scan-grid"></div>
+
   <header class="site-header">
     <a class="brand" href="index.html" aria-label="Accueil Nykuto">
       <span class="brand-mark">N</span>
-      <span><strong>Nykuto</strong><small>Sites vitrines accessibles</small></span>
+      <span><strong>Nykuto</strong><small>Digital showcase studio</small></span>
     </a>
-    <nav class="main-nav" aria-label="Navigation principale">
-      <a href="#offres">Offres</a>
-      <a href="#exemples">Exemples</a>
-      <a href="#process">Process</a>
-      <a href="#faq">FAQ</a>
-      <a href="#contact">Contact</a>
+    <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav">Menu</button>
+    <nav class="main-nav" id="main-nav" aria-label="Navigation principale">
+      <a href="offres.html">Offres</a>
+      <a href="exemples.html">Démos</a>
+      <a href="process.html">Process</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact</a>
     </nav>
-    <a class="header-cta" href="#contact">Demander un devis</a>
+    <a class="header-cta" href="contact.html">Demander un devis</a>
   </header>
 
   <main>
-    <section class="hero" id="top">
-      <div class="hero-copy">
-        <p class="eyebrow">Création de sites vitrines simples, modernes et abordables</p>
-        <h1>Votre site vitrine professionnel à partir de <span>390 €</span>.</h1>
-        <p class="hero-text">Nykuto aide les indépendants, artisans, commerces et prestataires de services à avoir une présence en ligne claire, crédible et facile à contacter.</p>
+    <section class="hero compact-hero" id="top">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">AI-assisted web design · Cloudflare-ready · Mobile-first</p>
+        <h1>Des sites vitrines modernes qui donnent confiance dès le premier regard.</h1>
+        <p class="hero-text">Nykuto crée des vitrines digitales rapides, élégantes et accessibles pour les professionnels qui veulent une présence en ligne claire, crédible et prête à convertir.</p>
         <div class="hero-actions">
-          <a class="primary-btn" href="#offres">Voir les offres</a>
-          <a class="secondary-btn" href="#estimateur">Estimer mon prix</a>
+          <a class="primary-btn" href="exemples.html">Voir les démos</a>
+          <a class="secondary-btn" href="offres.html">Voir les offres</a>
         </div>
-        <p class="microcopy">Un site simple. Une présence pro. Un prix accessible.</p>
-      </div>
-      <div class="hero-card" aria-label="Aperçu d’un site vitrine">
-        <div class="browser-bar"><span></span><span></span><span></span></div>
-        <div class="mock-site">
-          <p>Exemple de site client</p>
-          <h2>Votre activité, claire en 10 secondes.</h2>
-          <p>Services, tarifs, photos, zone d’intervention et contact rapide.</p>
-          <div class="mock-grid"><span>Services</span><span>Tarifs</span><span>Contact</span></div>
+        <div class="signal-row" aria-label="Points forts">
+          <span>Design premium</span>
+          <span>À partir de 390 €</span>
+          <span>Site statique rapide</span>
         </div>
       </div>
-    </section>
 
-    <section class="cards-section">
-      <article class="glass-card"><span>01</span><p>Instagram et WhatsApp ne remplacent pas toujours une vraie vitrine professionnelle.</p></article>
-      <article class="glass-card"><span>02</span><p>Vos clients doivent comprendre rapidement vos services, vos prix et comment vous contacter.</p></article>
-      <article class="glass-card"><span>03</span><p>Un site simple peut déjà améliorer votre crédibilité sans devenir un projet complexe.</p></article>
-    </section>
-
-    <section class="white-section">
-      <p class="section-kicker">La solution Nykuto</p>
-      <h2>Un site utile, pas une usine à gaz.</h2>
-      <p>Grâce aux outils modernes et à l’IA, Nykuto accélère la création de sites vitrines simples tout en gardant un rendu clair, professionnel et adapté aux vrais besoins des petits professionnels.</p>
-    </section>
-
-    <section class="section" id="offres">
-      <div class="section-heading">
-        <p class="section-kicker">Offres claires</p>
-        <h2>Des prix abordables, avec des limites propres.</h2>
-        <p>Nykuto ne vend pas du développement complexe à bas prix. L’offre est pensée pour les sites vitrines simples, rapides à comprendre et faciles à contacter.</p>
-      </div>
-      <div class="pricing-grid">
-        <article class="price-card">
-          <p class="badge">Pour commencer</p>
-          <h3>Starter</h3>
-          <p class="price">390 €</p>
-          <p>Un site vitrine one-page simple pour présenter votre activité et recevoir des contacts.</p>
-          <ul>
-            <li>1 page jusqu’à 5 sections</li>
-            <li>Design mobile et ordinateur</li>
-            <li>Services, tarifs, contact</li>
-            <li>Bouton WhatsApp, appel ou email</li>
-            <li>1 correction incluse</li>
-          </ul>
-          <a href="#contact">Demander l’offre Starter</a>
-        </article>
-        <article class="price-card recommended">
-          <p class="badge">Recommandé</p>
-          <h3>Pro</h3>
-          <p class="price">690 €</p>
-          <p>Un site plus complet pour structurer vos services, rassurer vos clients et présenter plus de contenu.</p>
-          <ul>
-            <li>3 à 5 pages simples</li>
-            <li>Structure visuelle plus complète</li>
-            <li>Formulaire simple</li>
-            <li>Google Maps si pertinent</li>
-            <li>2 corrections incluses</li>
-          </ul>
-          <a href="#contact">Demander l’offre Pro</a>
-        </article>
+      <div class="hero-lab reveal" aria-label="Interface de démonstration Nykuto">
+        <div class="lab-topline"><span></span><span></span><span></span><strong>Nykuto Design Engine</strong></div>
+        <div class="lab-grid">
+          <div class="lab-panel main-panel">
+            <p>Website preview</p>
+            <h2>Vitrine claire, moderne, prête à publier.</h2>
+            <div class="pulse-line"></div>
+            <div class="mini-layout"><span></span><span></span><span></span></div>
+          </div>
+          <div class="lab-panel metric"><strong>98</strong><span>Mobile UX target</span></div>
+          <div class="lab-panel metric"><strong>24h</strong><span>Première structure possible</span></div>
+          <div class="lab-panel stack-list"><span>SEO base</span><span>WhatsApp</span><span>Formulaire</span><span>Cloudflare</span></div>
+        </div>
       </div>
     </section>
 
-    <section class="section estimator" id="estimateur">
-      <div>
-        <p class="section-kicker">Estimateur simple</p>
-        <h2>Comprendre le budget avant de discuter.</h2>
-        <p>Cochez les options utiles. Ce n’est pas un devis final, mais une première idée du budget.</p>
-      </div>
-      <div class="estimator-box">
-        <label><input type="checkbox" data-price="300" data-base="690" /> Plusieurs pages</label>
-        <label><input type="checkbox" data-price="80" /> Galerie photos</label>
-        <label><input type="checkbox" data-price="120" /> Aide pour les textes</label>
-        <label><input type="checkbox" data-price="60" /> Bouton réservation externe</label>
-        <label><input type="checkbox" data-price="80" /> Formulaire détaillé</label>
-        <div class="estimate-result">Estimation : <strong id="estimate">à partir de 390 €</strong></div>
-      </div>
+    <section class="home-route-grid reveal" aria-label="Accès rapides">
+      <a href="offres.html"><span>01</span><strong>Offres claires</strong><small>Packs, options, limites et prix.</small></a>
+      <a href="exemples.html"><span>02</span><strong>Démos visuelles</strong><small>Showroom de styles possibles.</small></a>
+      <a href="process.html"><span>03</span><strong>Process simple</strong><small>Une méthode claire, sans jargon.</small></a>
+      <a href="contact.html"><span>04</span><strong>Devis rapide</strong><small>Expliquez votre projet en quelques lignes.</small></a>
     </section>
 
-    <section class="section" id="exemples">
-      <div class="section-heading">
-        <p class="section-kicker">Exemples</p>
-        <h2>Des modèles concrets pour des besoins réels.</h2>
-      </div>
-      <div class="example-grid">
-        <article><div class="preview"></div><h3>Artisan local</h3><p>Prestations, zone d’intervention, réalisations et demande de devis.</p></article>
-        <article><div class="preview"></div><h3>Beauté & bien-être</h3><p>Prestations, tarifs, photos, horaires et contact WhatsApp.</p></article>
-        <article><div class="preview"></div><h3>Coach ou indépendant</h3><p>Offre claire, crédibilité et prise de contact simple.</p></article>
-      </div>
-    </section>
-
-    <section class="white-section" id="process">
-      <p class="section-kicker">Process simple</p>
-      <h2>Vous n’avez pas besoin de comprendre la technique.</h2>
-      <div class="steps">
-        <p><strong>1.</strong> Vous expliquez votre activité.</p>
-        <p><strong>2.</strong> Vous envoyez textes, photos et informations.</p>
-        <p><strong>3.</strong> Nykuto crée une première version.</p>
-        <p><strong>4.</strong> Vous validez, puis le site est mis en ligne.</p>
-      </div>
-    </section>
-
-    <section class="section" id="faq">
-      <div class="section-heading">
-        <p class="section-kicker">FAQ</p>
-        <h2>Questions fréquentes</h2>
-      </div>
-      <details><summary>Est-ce que 390 € suffit pour un vrai site ?</summary><p>Oui, si le projet reste simple : une page, des sections limitées, des contenus fournis et un objectif clair.</p></details>
-      <details><summary>Est-ce que vous garantissez la première page Google ?</summary><p>Non. Nykuto propose une structure propre de base, mais ne promet pas de positionnement garanti.</p></details>
-      <details><summary>Est-ce que vous faites des boutiques en ligne ?</summary><p>Pas dans l’offre standard. Une boutique demande un cadrage séparé.</p></details>
-      <details><summary>Puis-je demander des modifications après livraison ?</summary><p>Oui, les modifications sont facturées selon leur complexité ou incluses dans une maintenance.</p></details>
-    </section>
-
-    <section class="contact-section" id="contact">
-      <div>
-        <p class="section-kicker">Contact</p>
-        <h2>Parlez-moi de votre activité.</h2>
-        <p>Expliquez ce que vous faites, ce que vous voulez montrer et comment vos clients doivent vous contacter.</p>
-        <a class="primary-btn" href="mailto:contact@nykuto.com">Envoyer un email</a>
-      </div>
+    <section class="short-proof reveal">
+      <p class="section-kicker">Pourquoi Nykuto</p>
+      <h2>Le site Nykuto doit montrer le niveau maximal attendu : esthétique, rapidité, clarté et sérieux.</h2>
+      <p>La page d’accueil reste volontairement courte. Les détails sont séparés sur des pages dédiées pour éviter le long scroll et donner une expérience plus premium.</p>
+      <a class="text-link" href="exemples.html">Explorer le showroom →</a>
     </section>
   </main>
 

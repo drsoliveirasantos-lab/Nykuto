@@ -3,24 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build && node scripts/prepare-cloudflare-output.js",
-    "start": "next start",
-    "typecheck": "tsc --noEmit",
+    "dev": "npx http-server . -p 3000 -c-1",
+    "build": "node scripts/prepare-cloudflare-output.js",
+    "start": "npx http-server . -p 3000 -c-1",
+    "typecheck": "node -e \"console.log('Static site validation: no TypeScript compilation required')\"",
     "hygiene": "node scripts/validate-repository-hygiene.js"
   },
-  "dependencies": {
-    "next": "16.2.9",
-    "react": "19.2.0",
-    "react-dom": "19.2.0"
-  },
   "devDependencies": {
-    "@tailwindcss/postcss": "latest",
-    "@types/node": "latest",
-    "@types/react": "latest",
-    "@types/react-dom": "latest",
-    "postcss": "latest",
-    "tailwindcss": "latest",
-    "typescript": "latest"
+    "http-server": "latest"
   }
 }
