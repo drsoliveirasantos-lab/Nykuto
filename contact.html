@@ -8,6 +8,23 @@
   <meta name="description" content="Contactez Nykuto pour demander un devis de site vitrine." />
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="futuristic.css" />
+  <style>
+    .contact-page .page-hero h1 { max-width: 760px; }
+    .contact-page .contact-layout { align-items: stretch; }
+    .contact-page .contact-form { display: grid; gap: 14px; }
+    .contact-page .contact-form label { display: grid; grid-template-columns: 1fr; gap: 8px; }
+    .contact-page .contact-form input,
+    .contact-page .contact-form textarea,
+    .contact-page .contact-form button { width: 100%; max-width: 100%; }
+    @media (max-width: 760px) {
+      .contact-page { padding-top: 36px; }
+      .contact-page .page-hero h1 { font-size: clamp(42px, 12vw, 60px); line-height: .94; }
+      .contact-page .page-hero p { font-size: 18px; line-height: 1.45; }
+      .contact-page .contact-layout { grid-template-columns: 1fr; gap: 18px; }
+      .contact-page .contact-card h2 { font-size: 36px; }
+      .contact-page .primary-btn { width: 100%; min-height: 60px; font-size: 18px; }
+    }
+  </style>
 </head>
 <body class="future-mode">
   <div class="orb orb-a"></div><div class="orb orb-b"></div><div class="scan-grid"></div><div class="tech-noise" aria-hidden="true"></div>
