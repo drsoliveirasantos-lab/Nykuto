@@ -1,0 +1,197 @@
+@media (max-width: 760px) {
+  .hero,
+  .home-route-grid,
+  .short-proof,
+  .page-shell,
+  .site-footer {
+    width: min(100% - 32px, 720px);
+  }
+
+  .site-header {
+    padding: 14px 16px;
+  }
+
+  .brand-mark {
+    width: 48px;
+    height: 48px;
+  }
+
+  .brand strong {
+    font-size: 19px;
+  }
+
+  .brand small {
+    font-size: 12px;
+  }
+
+  .hero {
+    gap: 22px;
+    padding: 30px 0 18px;
+  }
+
+  .eyebrow,
+  .section-kicker {
+    font-size: 10px;
+    line-height: 1.55;
+    letter-spacing: .16em;
+  }
+
+  h1,
+  .page-hero h1 {
+    font-size: clamp(34px, 9.4vw, 45px);
+    line-height: 1.03;
+    margin-bottom: 16px;
+  }
+
+  .hero-text,
+  .page-hero p,
+  .short-proof p,
+  .split-panel p,
+  .contact-card p,
+  .price-card p,
+  .price-card li,
+  .showcase-card p,
+  .timeline p,
+  .faq-list p,
+  details p {
+    font-size: 16px;
+    line-height: 1.58;
+  }
+
+  .hero-actions {
+    gap: 10px;
+    margin-top: 22px;
+  }
+
+  .primary-btn,
+  .secondary-btn,
+  .price-card a {
+    min-height: 52px;
+    padding: 14px 16px;
+    font-size: 17px;
+  }
+
+  .signal-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .signal-row span,
+  .tag-row span,
+  .module-grid span {
+    display: inline-flex;
+    width: auto;
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+
+  .hero-lab {
+    padding: 14px;
+    border-radius: 24px;
+  }
+
+  .lab-topline {
+    margin-bottom: 12px;
+  }
+
+  .lab-topline span {
+    width: 9px;
+    height: 9px;
+  }
+
+  .lab-topline strong {
+    font-size: 11px;
+  }
+
+  .lab-grid {
+    gap: 10px;
+  }
+
+  .lab-panel {
+    padding: 14px;
+    border-radius: 18px;
+  }
+
+  .main-panel p {
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+
+  .main-panel h2 {
+    font-size: clamp(25px, 7.4vw, 33px);
+  }
+
+  .pulse-line {
+    height: 5px;
+    margin: 18px 0;
+  }
+
+  .mini-layout {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 7px;
+  }
+
+  .mini-layout span {
+    height: 34px;
+    border-radius: 12px;
+  }
+
+  .metric {
+    min-height: 72px;
+  }
+
+  .metric strong {
+    min-width: 58px;
+    font-size: 34px;
+  }
+
+  .metric span {
+    font-size: 14px;
+  }
+
+  .stack-list {
+    gap: 7px;
+  }
+
+  .stack-list span {
+    padding: 9px 8px;
+    font-size: 12px;
+  }
+
+  .home-route-grid {
+    gap: 10px;
+    padding: 12px 0 30px;
+  }
+
+  .home-route-grid a {
+    grid-template-columns: 42px 1fr;
+    padding: 16px;
+    border-radius: 20px;
+  }
+
+  .home-route-grid a span {
+    width: 42px;
+    height: 42px;
+    border-radius: 15px;
+  }
+
+  .home-route-grid a strong {
+    font-size: 18px;
+  }
+
+  .home-route-grid a small {
+    font-size: 13px;
+  }
+
+  .short-proof {
+    padding: 22px;
+    margin-bottom: 40px;
+  }
+
+  .short-proof h2 {
+    font-size: clamp(28px, 8vw, 38px);
+    margin-bottom: 16px;
+  }
+}
