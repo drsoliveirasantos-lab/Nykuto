@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { site } from "@/data/site";
 
 export function Footer() {
@@ -9,9 +10,9 @@ export function Footer() {
           <p>{site.tagline}</p>
         </div>
         <div className="flex flex-wrap gap-5">
-          <a href="/mentions-legales" className="hover:text-white">Mentions légales</a>
-          <a href="/confidentialite" className="hover:text-white">Confidentialité</a>
-          <a href="/cgv" className="hover:text-white">CGV</a>
+          <Link href="/mentions-legales" className="hover:text-white">Mentions légales</Link>
+          <Link href="/confidentialite" className="hover:text-white">Confidentialité</Link>
+          <Link href="/cgv" className="hover:text-white">CGV</Link>
         </div>
       </div>
     </footer>
