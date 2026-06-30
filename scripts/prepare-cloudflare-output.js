@@ -14,6 +14,7 @@ const staticFiles = [
   'confidentialite.html',
   'cgv.html',
   'styles.css',
+  'mobile-fix.css',
   'script.js'
 ];
 
