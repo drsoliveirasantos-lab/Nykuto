@@ -1,5 +1,7 @@
 const checkboxes = document.querySelectorAll('[data-price]');
 const estimate = document.getElementById('estimate');
+const menuToggle = document.querySelector('.menu-toggle');
+const mainNav = document.querySelector('.main-nav');
 
 function updateEstimate() {
   let base = 390;
@@ -22,3 +24,19 @@ function updateEstimate() {
 }
 
 checkboxes.forEach((box) => box.addEventListener('change', updateEstimate));
+
+if (menuToggle && mainNav) {
+  menuToggle.addEventListener('click', () => {
+    const isOpen = mainNav.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+}
+
+document.querySelectorAll('a[href]').forEach((link) => {
+  link.addEventListener('click', () => {
+    if (mainNav && mainNav.classList.contains('open')) {
+      mainNav.classList.remove('open');
+      if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+});
