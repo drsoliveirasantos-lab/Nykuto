@@ -7,35 +7,42 @@
   <title>Contact | Nykuto</title>
   <meta name="description" content="Contactez Nykuto pour demander un devis de site vitrine." />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="futuristic.css" />
 </head>
-<body>
-  <div class="orb orb-a"></div><div class="orb orb-b"></div><div class="scan-grid"></div>
-  <header class="site-header">
-    <a class="brand" href="index.html"><span class="brand-mark">N</span><span><strong>Nykuto</strong><small>Digital showcase studio</small></span></a>
+<body class="future-mode">
+  <div class="orb orb-a"></div><div class="orb orb-b"></div><div class="scan-grid"></div><div class="tech-noise" aria-hidden="true"></div>
+  <header class="site-header future-header">
+    <a class="brand" href="index.html"><span class="brand-mark future-mark">N</span><span><strong>Nykuto</strong><small>Future showcase studio</small></span></a>
     <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav">Menu</button>
     <nav class="main-nav" id="main-nav"><a href="offres.html">Offres</a><a href="exemples.html">Démos</a><a href="process.html">Process</a><a href="faq.html">FAQ</a><a class="active" href="contact.html">Contact</a></nav>
     <a class="header-cta" href="mailto:contact@nykuto.com">Email</a>
   </header>
 
-  <main class="page-shell">
-    <section class="page-hero reveal"><p class="eyebrow">Demande de devis</p><h1>Parlez-moi de votre activité et du site que vous voulez.</h1><p>Le formulaire visuel ci-dessous sera connecté à une solution d’envoi ensuite. Pour l’instant, le contact principal reste l’email.</p></section>
+  <main class="page-shell contact-page">
+    <section class="page-hero reveal showroom-hero">
+      <p class="eyebrow">Demande de devis</p>
+      <h1>Décrivez votre projet.</h1>
+      <p>Une activité. Un besoin. Une réponse claire.</p>
+    </section>
+
     <section class="contact-layout reveal">
       <div class="contact-card">
         <p class="section-kicker">Contact direct</p>
         <h2>Envoyer un message</h2>
-        <p>Expliquez votre activité, votre ville, vos services, le nombre de pages souhaitées et si vous avez déjà des textes ou photos.</p>
+        <p>Indiquez votre activité, votre ville, le nombre de pages souhaitées et vos contenus disponibles.</p>
         <a class="primary-btn" href="mailto:contact@nykuto.com?subject=Demande%20de%20devis%20Nykuto">contact@nykuto.com</a>
       </div>
+
       <form class="contact-form" aria-label="Aperçu de formulaire Nykuto">
         <label>Nom<input disabled placeholder="Votre nom" /></label>
         <label>Contact<input disabled placeholder="Email ou WhatsApp" /></label>
-        <label>Activité<input disabled placeholder="Ex : coiffeur, artisan, coach" /></label>
-        <label>Besoin<textarea disabled placeholder="Décrivez votre projet"></textarea></label>
+        <label>Activité<input disabled placeholder="Ex : artisan, coach" /></label>
+        <label>Projet<textarea disabled placeholder="Décrivez votre projet"></textarea></label>
         <button type="button" disabled>Bientôt connecté</button>
       </form>
     </section>
   </main>
-  <footer class="site-footer"><p><strong>Nykuto</strong><br />Un site simple. Une présence pro. Un prix accessible.</p><nav><a href="mentions-legales.html">Mentions légales</a><a href="confidentialite.html">Confidentialité</a><a href="cgv.html">CGV</a></nav></footer>
+  <footer class="site-footer future-footer"><p><strong>Nykuto</strong><br />Sites vitrines modernes et accessibles.</p><nav><a href="mentions-legales.html">Mentions légales</a><a href="confidentialite.html">Confidentialité</a><a href="cgv.html">CGV</a></nav></footer>
   <script src="script.js"></script>
 </body>
 </html>
