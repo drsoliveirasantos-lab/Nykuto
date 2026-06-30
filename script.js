@@ -1,5 +1,6 @@
 const animationStylesheet = 'animations.css?v=anim2';
 const fallbackStylesheet = 'animation-fallback.css?v=anim2';
+const performanceTypographyStylesheet = 'performance-typography.css?v=pt1';
 
 document.documentElement.classList.add('animations-ready');
 
@@ -18,6 +19,7 @@ function ensureStylesheet(href) {
 
 ensureStylesheet(animationStylesheet);
 ensureStylesheet(fallbackStylesheet);
+ensureStylesheet(performanceTypographyStylesheet);
 
 const checkboxes = document.querySelectorAll('[data-price]');
 const estimate = document.getElementById('estimate');
