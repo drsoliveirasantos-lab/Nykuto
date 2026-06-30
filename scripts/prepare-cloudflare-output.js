@@ -15,6 +15,7 @@ const staticFiles = [
   'cgv.html',
   'styles.css',
   'mobile-fix.css',
+  'futuristic.css',
   'script.js'
 ];
 
