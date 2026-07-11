@@ -39,3 +39,5 @@ Before modifying this repository, read:
 3. `.github/copilot-instructions.md`
 4. `docs/site-architecture.md`
 5. `.github/pull_request_template.md` if present
+
+<!-- CI verification trigger: 2026-07-11 -->
