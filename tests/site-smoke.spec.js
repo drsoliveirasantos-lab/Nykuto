@@ -39,12 +39,20 @@ for (const [label, url] of pages) {
   });
 }
 
-test('la navigation principale mène aux pages commerciales', async ({ page }) => {
+test('la navigation principale mène aux pages commerciales', async ({ page }, testInfo) => {
   await page.goto('/index.html', { waitUntil: 'networkidle' });
 
+  if (testInfo.project.name.includes('mobile')) {
+    const toggle = page.locator('.menu-toggle');
+    await expect(toggle).toBeVisible();
+    await toggle.click();
+    await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    await expect(page.locator('#main-nav')).toBeVisible();
+  }
+
   for (const target of ['offres.html', 'exemples.html', 'process.html', 'faq.html', 'contact.html']) {
-    const link = page.locator(`a[href="${target}"]`).first();
-    await expect(link, `Lien ${target} absent de l’accueil`).toBeVisible();
+    const link = page.locator(`#main-nav a[href="${target}"]`).first();
+    await expect(link, `Lien ${target} absent de la navigation`).toBeVisible();
   }
 });
 
