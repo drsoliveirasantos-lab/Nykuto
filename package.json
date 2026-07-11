@@ -7,9 +7,15 @@
     "build": "node scripts/prepare-cloudflare-output.js",
     "start": "npx http-server . -p 3000 -c-1",
     "typecheck": "node -e \"console.log('Static site validation: no TypeScript compilation required')\"",
-    "hygiene": "node scripts/validate-repository-hygiene.js"
+    "hygiene": "node scripts/validate-repository-hygiene.js",
+    "validate:site": "node scripts/validate-site.js",
+    "validate": "npm run hygiene && npm run validate:site && npm run build",
+    "test:e2e": "playwright test",
+    "test:e2e:headed": "playwright test --headed",
+    "test": "npm run validate && npm run test:e2e"
   },
   "devDependencies": {
+    "@playwright/test": "latest",
     "http-server": "latest"
   }
 }
