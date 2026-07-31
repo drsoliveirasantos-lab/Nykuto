@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "npx http-server . -p 3000 -c-1",
+    "dev": "vite",
     "build": "node scripts/prepare-cloudflare-output.js",
-    "start": "npx http-server . -p 3000 -c-1",
+    "start": "vite --host 0.0.0.0",
     "typecheck": "node -e \"console.log('Static site validation: no TypeScript compilation required')\"",
     "hygiene": "node scripts/validate-repository-hygiene.js"
   },
   "devDependencies": {
-    "http-server": "latest"
+    "vite": "latest"
   }
 }

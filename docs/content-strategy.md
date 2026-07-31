@@ -1,105 +1,63 @@
 # Content strategy — Nykuto
 
-## Core idea
+## Strategic idea
 
-A professional website should no longer be reserved for large companies.
+Many small and mid-sized businesses face two related problems: their offer is difficult to understand online, and operational projects become fragmented across countries, suppliers and specialist roles.
 
-Many small professionals only need a clear, useful and well-presented showcase website: activity, services, prices, photos, opening hours and contact options.
+Nykuto brings structure to both situations through two service lines under one credible brand.
 
-Nykuto makes this accessible with modern tools, AI-assisted workflows and a clearly scoped offer.
+## Primary audiences
 
-## Target customers
+### Nykuto Digital
 
-Primary targets:
+- independent professionals and consultants;
+- artisans and local service businesses;
+- hospitality and personal-service businesses;
+- small companies needing a focused showcase website.
 
-- independent workers;
-- artisans;
-- small local businesses;
-- beauty professionals;
-- coaches;
-- home service providers;
-- restaurants and food businesses;
-- cleaners and personal service providers;
-- small entrepreneurs starting an activity.
+### Nykuto Business International
 
-## Customer problem
+- French or European companies working with Latin America;
+- Latin American companies coordinating a legitimate project with Europe;
+- businesses preparing an onboarding with a regulated service provider;
+- teams needing bilingual or trilingual administrative coordination;
+- organizations preparing a remote or on-site working mission.
 
-Many professionals already work well but lack a clear online base.
+## Conversion path
 
-Instagram, WhatsApp or a Google Business Profile can help, but they do not always present services, prices, photos and contact details in a structured and professional way.
+1. The homepage establishes the two service lines and the common method.
+2. Each expertise page explains outcomes, scope and boundaries.
+3. Scenarios demonstrate the type of work without inventing client proof.
+4. Method and about pages establish accountability.
+5. FAQ answers risk, payment and pricing objections.
+6. Contact prepares a structured email without collecting sensitive data on the website.
 
-## Nykuto solution
+## Core claims
 
-Nykuto creates simple showcase websites that help clients:
+- One directly involved point of coordination.
+- Clear proposal, responsibilities and deliverables.
+- Communication in French, Portuguese and Spanish when relevant.
+- Ability to connect digital, administrative and cross-border considerations.
+- Regulated activities remain with appropriately authorized providers.
 
-- look more credible;
-- present their services clearly;
-- centralize important information;
-- make contact easier;
-- share a professional link;
-- avoid paying for unnecessary complexity.
+## Payment-content rule
 
-## Main hero message
+Use wording such as:
 
-```txt
-Votre site vitrine professionnel à partir de 390 €.
+> Nykuto peut qualifier le besoin, préparer le dossier et coordonner l’onboarding avec un prestataire de paiement réglementé.
 
-Nykuto crée des sites simples, modernes et abordables pour indépendants, artisans, commerces et prestataires de services.
+Always pair it with:
 
-Une présence en ligne claire, crédible et facile à contacter.
-```
+> Le prestataire reste seul décisionnaire. Nykuto ne manipule aucune donnée de carte et ne garantit aucune acceptation.
 
-## Key conversion messages
+## Proof policy
 
-- Un site internet ne devrait plus être un luxe.
-- Pas besoin d’un gros budget pour avoir une présence sérieuse en ligne.
-- Votre client doit comprendre rapidement ce que vous faites et comment vous contacter.
-- Simple, propre, mobile et utile.
-- Prix clair. Offre cadrée. Résultat professionnel.
+Until permission and evidence exist, do not publish:
 
-## Objections to answer
+- client names or logos;
+- revenue, volume or conversion claims;
+- testimonials;
+- partner badges;
+- certifications.
 
-### Est-ce que 390 € suffit pour un vrai site ?
-
-Yes, if the project is simple and clearly scoped: one page, limited sections, provided content, simple contact path.
-
-### Est-ce que je serai premier sur Google ?
-
-No ranking guarantee. Nykuto can structure the site cleanly and include basic optimization, but does not guarantee Google placement.
-
-### Est-ce que je peux modifier le site après ?
-
-Yes, with post-delivery interventions or a light maintenance plan.
-
-### Est-ce que le site m’appartient ?
-
-This depends on the final commercial terms and must be clarified in CGV before selling.
-
-### Est-ce que le domaine et l’hébergement sont inclus ?
-
-This must be clearly specified. Recommended approach: domain and hosting are either client-paid or handled as an option.
-
-## Avoided wording
-
-Do not write:
-
-- agency web full service;
-- custom software;
-- guaranteed SEO;
-- all types of websites;
-- complex booking system;
-- full e-commerce;
-- first page Google.
-
-## Preferred wording
-
-Write:
-
-- site vitrine simple;
-- présence en ligne claire;
-- prix accessible;
-- outils modernes;
-- accompagné simplement;
-- contact facile;
-- adapté mobile;
-- offre cadrée.
+Use clearly labelled “scénario illustratif” content instead.
