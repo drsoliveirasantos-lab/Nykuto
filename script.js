@@ -1,53 +1,15 @@
-const animationStylesheet = 'animations.css?v=anim2';
-const fallbackStylesheet = 'animation-fallback.css?v=anim2';
-const performanceTypographyStylesheet = 'performance-typography.css?v=pt1';
-
-document.documentElement.classList.add('animations-ready');
-
-function ensureStylesheet(href) {
-  const hrefBase = href.split('?')[0];
-  const exists = Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
-    .some((link) => link.getAttribute('href')?.startsWith(hrefBase));
-
-  if (exists) return;
-
-  const link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.href = href;
-  document.head.appendChild(link);
-}
-
-ensureStylesheet(animationStylesheet);
-ensureStylesheet(fallbackStylesheet);
-ensureStylesheet(performanceTypographyStylesheet);
-
-const checkboxes = document.querySelectorAll('[data-price]');
-const estimate = document.getElementById('estimate');
 const menuToggle = document.querySelector('.menu-toggle');
 const mainNav = document.querySelector('.main-nav');
 const revealItems = document.querySelectorAll('.reveal');
+const checkboxes = document.querySelectorAll('[data-price]');
+const estimate = document.getElementById('estimate');
 
-function updateEstimate() {
-  let base = 390;
-  let total = 390;
-
-  checkboxes.forEach((box) => {
-    if (!box.checked) return;
-    const baseValue = Number(box.dataset.base || 0);
-    const price = Number(box.dataset.price || 0);
-
-    if (baseValue > base) {
-      total = total - base + baseValue;
-      base = baseValue;
-    } else {
-      total += price;
-    }
-  });
-
-  if (estimate) estimate.textContent = `à partir de ${total} €`;
+function closeMenu() {
+  if (!mainNav || !menuToggle) return;
+  mainNav.classList.remove('open');
+  menuToggle.setAttribute('aria-expanded', 'false');
+  document.body.classList.remove('menu-open');
 }
-
-checkboxes.forEach((box) => box.addEventListener('change', updateEstimate));
 
 if (menuToggle && mainNav) {
   menuToggle.addEventListener('click', () => {
@@ -55,28 +17,85 @@ if (menuToggle && mainNav) {
     menuToggle.setAttribute('aria-expanded', String(isOpen));
     document.body.classList.toggle('menu-open', isOpen);
   });
+
+  mainNav.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeMenu();
+  });
 }
 
-document.querySelectorAll('a[href]').forEach((link) => {
-  link.addEventListener('click', () => {
-    if (mainNav && mainNav.classList.contains('open')) {
-      mainNav.classList.remove('open');
-      document.body.classList.remove('menu-open');
-      if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+function updateEstimate() {
+  let base = 390;
+  let total = base;
+
+  checkboxes.forEach((box) => {
+    if (!box.checked) return;
+    const newBase = Number(box.dataset.base || 0);
+    const price = Number(box.dataset.price || 0);
+    if (newBase > base) {
+      total = total - base + newBase;
+      base = newBase;
+    } else {
+      total += price;
     }
   });
-});
+
+  if (estimate) estimate.textContent = `à partir de ${total.toLocaleString('fr-FR')} €`;
+}
+
+checkboxes.forEach((box) => box.addEventListener('change', updateEstimate));
 
 if ('IntersectionObserver' in window && revealItems.length) {
-  const revealObserver = new IntersectionObserver((entries) => {
+  const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
       entry.target.classList.add('is-visible');
-      revealObserver.unobserve(entry.target);
+      observer.unobserve(entry.target);
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-
-  revealItems.forEach((item) => revealObserver.observe(item));
+  }, { threshold: 0.1, rootMargin: '0px 0px -5% 0px' });
+  revealItems.forEach((item) => observer.observe(item));
 } else {
   revealItems.forEach((item) => item.classList.add('is-visible'));
+}
+
+document.querySelectorAll('[data-year]').forEach((node) => {
+  node.textContent = new Date().getFullYear();
+});
+
+const contactForm = document.querySelector('[data-contact-form]');
+if (contactForm) {
+  contactForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const form = new FormData(contactForm);
+    const fields = {
+      name: String(form.get('name') || '').trim(),
+      company: String(form.get('company') || '').trim(),
+      email: String(form.get('email') || '').trim(),
+      phone: String(form.get('phone') || '').trim(),
+      country: String(form.get('country') || '').trim(),
+      need: String(form.get('need') || '').trim(),
+      budget: String(form.get('budget') || '').trim(),
+      deadline: String(form.get('deadline') || '').trim(),
+      message: String(form.get('message') || '').trim()
+    };
+
+    const subject = encodeURIComponent(`Projet Nykuto — ${fields.company || fields.name}`);
+    const body = encodeURIComponent([
+      `Nom : ${fields.name}`,
+      `Entreprise : ${fields.company || 'Non précisée'}`,
+      `Email : ${fields.email}`,
+      `Téléphone / WhatsApp : ${fields.phone || 'Non précisé'}`,
+      `Pays : ${fields.country || 'Non précisé'}`,
+      `Besoin : ${fields.need || 'Non précisé'}`,
+      `Budget indicatif : ${fields.budget || 'Non précisé'}`,
+      `Échéance : ${fields.deadline || 'Non précisée'}`,
+      '',
+      'Message :',
+      fields.message
+    ].join('\n'));
+
+    const status = contactForm.querySelector('.form-status');
+    if (status) status.textContent = 'Votre messagerie va s’ouvrir avec le récapitulatif. Vérifiez-le avant l’envoi.';
+    window.location.href = `mailto:contact@nykuto.com?subject=${subject}&body=${body}`;
+  });
 }

@@ -1,94 +1,68 @@
 # Site architecture — Nykuto
 
-This repository follows the shared Nykuto site standard.
+## Current production model
 
-## Purpose
+Nykuto is a static multi-page website deployed through Cloudflare Pages.
 
-Nykuto.com is the commercial showcase site for affordable, modern, simple showcase website creation.
-
-The site must prove the quality Nykuto can deliver while keeping the offer realistic and focused.
-
-## Layers
-
-1. Editable application sources.
-2. Public brand and media assets.
-3. Commercial content and pricing data.
-4. Validation scripts.
-5. Documentation and repository governance.
-6. GitHub workflows and AI instructions.
-
-## Expected folders
+The authoritative production sources are:
 
 ```txt
-.github/     GitHub workflows, pull request template and AI instructions
-app/         Next.js app router pages when the application is added
-components/  Reusable UI sections and components
-data/        Pricing, FAQ, examples and structured content
-lib/         Shared helpers if needed
-public/      Public static assets, logo, favicons and mockups
-docs/        Project documentation
-scripts/     Validation and maintenance scripts
+index.html                     Homepage
+offres.html                    Nykuto Digital
+international.html             Nykuto Business International
+exemples.html                  Illustrative scenarios
+process.html                   Method
+a-propos.html                  Founder and company
+faq.html                       FAQ
+contact.html                   Mailto contact journey
+mentions-legales.html          Legal notice
+confidentialite.html           Privacy policy
+cgv.html                       B2B terms
+styles.css                     Shared design system
+script.js                      Shared interactions
+assets/                        Production images
+favicon.svg                    Brand icon
+robots.txt / sitemap.xml       Search discovery
+_headers                       Cloudflare response headers
+scripts/prepare-cloudflare-output.js
 ```
 
-A repository does not need all folders immediately, but when they exist their role must stay clear.
+## Generated outputs
 
-## Planned pages
+`npm run build` creates three equivalent static outputs:
 
-Initial commercial version:
+- `out/` — Cloudflare Pages production output;
+- `dist/` — generic static output;
+- `.vercel/output/static/` — compatibility output.
 
-```txt
-/                    Landing page
-/mentions-legales    Legal notice
-/confidentialite     Privacy policy
-/cgv                 Terms and conditions
-```
+Never edit these folders directly.
 
-Possible later pages:
+## Inactive scaffolding
 
-```txt
-/offres              Offers and pricing
-/exemples            Example showcase sites
-/contact             Lead capture form
-/process             Work process
-/faq                 Frequent questions
-```
+`app/`, `components/`, `data/`, Next.js configuration, Tailwind configuration and the legacy layered CSS files are currently inactive scaffolding. They remain in the repository to avoid destructive cleanup without approval. They are not used by the build.
 
-## Planned sections for the landing page
+Before a framework migration:
 
-1. Header and navigation.
-2. Hero with clear value proposition.
-3. Problem: websites are often too expensive or too complex.
-4. Solution: simple, useful and affordable showcase websites.
-5. Offers and pricing.
-6. Included features.
-7. Price estimator.
-8. Example website previews.
-9. Process in clear steps.
-10. FAQ.
-11. Contact / WhatsApp call to action.
-12. Footer and legal links.
+1. obtain user approval;
+2. update `SOURCE_OF_TRUTH.md`;
+3. document new build and deployment settings;
+4. migrate all production pages and metadata;
+5. verify parity before retiring static sources.
 
-## AI workflow
+## Page principles
 
-Before editing:
+- shared header and footer across commercial pages;
+- unique title, description and canonical URL;
+- Open Graph image on public sales pages;
+- no server-side contact collection in the current version;
+- no invented proof or unsupported claim;
+- responsive and keyboard-accessible interactions.
 
-1. Read `SOURCE_OF_TRUTH.md`.
-2. Read `AGENTS.md`.
-3. Read `.github/copilot-instructions.md`.
-4. Identify whether the target file is source, generated output, documentation, workflow, or asset.
-
-Before merging:
-
-1. Confirm the change is narrow.
-2. Confirm checks are green.
-3. Confirm the user approved the merge.
-
-## Hygiene
-
-Run:
+## Validation
 
 ```bash
-node scripts/validate-repository-hygiene.js
+npm run build
+npm run hygiene
 ```
 
-The validator blocks known dangerous stale files and reports suspicious temporary or backup-style paths for review.
+Before merging, inspect the production output, verify internal links, confirm legal publisher data and wait for user approval.

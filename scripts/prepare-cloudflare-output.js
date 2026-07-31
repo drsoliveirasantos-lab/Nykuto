@@ -6,22 +6,24 @@ const root = process.cwd();
 const staticFiles = [
   'index.html',
   'offres.html',
+  'international.html',
   'exemples.html',
   'process.html',
+  'a-propos.html',
   'faq.html',
   'contact.html',
   'mentions-legales.html',
   'confidentialite.html',
   'cgv.html',
   'styles.css',
-  'mobile-fix.css',
-  'futuristic.css',
-  'animations.css',
-  'animation-fallback.css',
-  'mobile-polish.css',
-  'performance-typography.css',
-  'script.js'
+  'script.js',
+  'favicon.svg',
+  'robots.txt',
+  'sitemap.xml',
+  '_headers'
 ];
+
+const staticDirectories = ['assets'];
 
 const outputDirs = [
   path.join(root, 'out'),
@@ -46,6 +48,18 @@ function copyStaticFiles(targetDir) {
 
     fs.mkdirSync(path.dirname(target), { recursive: true });
     fs.copyFileSync(source, target);
+  }
+
+  for (const directory of staticDirectories) {
+    const source = path.join(root, directory);
+    const target = path.join(targetDir, directory);
+
+    if (!fs.existsSync(source)) {
+      console.error(`Missing required static directory: ${directory}`);
+      process.exit(1);
+    }
+
+    fs.cpSync(source, target, { recursive: true });
   }
 }
 

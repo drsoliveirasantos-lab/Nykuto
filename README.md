@@ -1,41 +1,49 @@
 # Nykuto
 
-Nykuto is the commercial showcase website for affordable, simple, modern website creation services.
+Nykuto is the commercial website for two complementary service lines:
 
-## Positioning
+- **Nykuto Digital** — focused showcase websites and digital positioning;
+- **Nykuto Business International** — administrative organization and project coordination between France, Europe and Latin America.
 
-Nykuto helps independent professionals, artisans, small businesses, local services and creators get a clean online presence without the cost or complexity of a large agency project.
+The production site is a lightweight static website deployed on Cloudflare Pages.
 
-The core offer is focused on simple showcase websites: clear presentation, service sections, pricing, contact paths, responsive design, and basic technical quality.
+## Local development
 
-## Repository status
+```bash
+npm install
+npm run dev
+```
 
-This repository follows the shared Nykuto operating standard:
+The local server runs at `http://localhost:3000`.
 
-- clear source of truth;
-- documented architecture;
-- AI assistant instructions;
-- small branches and pull requests after the initial bootstrap;
-- repository hygiene validation.
+## Build and validation
 
-## First build objective
+```bash
+npm run build
+npm run hygiene
+```
 
-The first version of the site should include:
+The build copies the production sources to `out/`, `dist/` and `.vercel/output/static/`. These output folders are generated and must not be edited directly.
 
-- a premium landing page;
-- clear offers and pricing;
-- a simple price estimator;
-- example website sections;
-- contact and WhatsApp conversion paths;
-- legal pages;
-- clean documentation.
+## Production sources
 
-## Project standard
+- root `*.html` files — pages;
+- `styles.css` — shared design system;
+- `script.js` — navigation, reveal effects, estimator and mailto contact helper;
+- `assets/` — production imagery;
+- `favicon.svg`, `robots.txt`, `sitemap.xml`, `_headers` — platform and discovery files;
+- `scripts/prepare-cloudflare-output.js` — static build.
 
-Before modifying this repository, read:
+The existing `app/`, `components/` and `data/` folders, together with the old layered CSS files, are inactive scaffolding. They are not part of the current Cloudflare build and must not be treated as production until a documented migration or approved cleanup occurs.
+
+## Repository workflow
+
+Before modifying the repository, read in order:
 
 1. `SOURCE_OF_TRUTH.md`
 2. `AGENTS.md`
 3. `.github/copilot-instructions.md`
 4. `docs/site-architecture.md`
-5. `.github/pull_request_template.md` if present
+5. `.github/pull_request_template.md`
+
+Use a working branch, open a pull request and wait for user validation before merging to `main`.

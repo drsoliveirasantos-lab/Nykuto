@@ -1,81 +1,71 @@
 # Brand — Nykuto
 
-## Name
+## Brand architecture
 
-Nykuto
+**Nykuto** is the umbrella brand.
 
-## Brand role
+- **Nykuto Digital** — digital presence and showcase websites.
+- **Nykuto Business International** — administrative organization and cross-border coordination.
 
-Nykuto is the user's main digital identity for simple, useful and affordable website creation services.
+## Core message
 
-## Core positioning
+> Le digital et l’international, réunis pour faire avancer votre entreprise.
 
-Simple, modern and affordable showcase websites for professionals who want a clean online presence without a complex agency project.
+Supporting message:
 
-## Main slogan options
+> Sites vitrines, organisation administrative et accompagnement de projets entre la France, l’Europe et l’Amérique latine.
 
-- Un site simple. Une présence pro. Un prix accessible.
-- Votre site vitrine professionnel à partir de 390 €.
-- Un site clair pour mieux présenter votre activité.
-- Votre activité mérite une vraie vitrine en ligne.
+## Personality
 
-## Brand promise
+- precise, calm and credible;
+- modern without exaggerated futurism;
+- human and directly accountable;
+- internationally aware;
+- transparent about limits and dependencies.
 
-Nykuto helps small professionals present their activity, services, prices, photos, contact details and practical information on a clean website that looks serious and works well on mobile.
+Avoid inflated agency language, urgency theatre, fake scale or unsupported performance claims.
 
-## Tone
+## Voice
 
-- Clear.
-- Direct.
-- Reassuring.
-- Accessible.
-- Honest.
-- Modern without being pretentious.
+Use short, concrete sentences and professional French. Explain technical or regulated subjects in plain language. Lead with the client's decision or result, then state the method and limits.
 
-Avoid a fake large-agency tone. Nykuto should feel professional, human and practical.
+Preferred terms:
 
-## Visual direction
+- cadrer;
+- structurer;
+- coordonner;
+- périmètre;
+- livrable;
+- interlocuteur;
+- mission sur devis;
+- prestataire réglementé.
 
-Target feeling:
+## Premium tech visual system
 
-- premium but affordable;
-- modern but simple;
-- tech but human;
-- clear and trustworthy.
+The approved visual direction is **Premium tech**:
 
-Recommended visual language:
+- deep navy background `#07111F`;
+- dark surface `#0B1830`;
+- elevated surface `#11233E`;
+- main text `#EAF2FF`;
+- secondary text `#A8B6CC`;
+- cyan accent `#4DE3FF`;
+- violet accent `#7C5CFF`;
+- success accent `#1BC7A1`;
+- restrained glass surfaces, thin lines and controlled glow;
+- map and network imagery used to signal international coordination;
+- Manrope-style geometric headings and neutral sans-serif body text;
+- clear responsive hierarchy, visible focus states and reduced-motion support.
 
-- dark premium sections mixed with clean light sections;
-- blue, violet or cyan accent color;
-- rounded cards;
-- strong whitespace;
-- crisp typography;
-- light motion only when useful;
-- excellent mobile layout.
+## Mark
 
-## Logo and mascot
-
-The existing Nykuto identity uses a mascot/logo from the previous Nykuto ecosystem. It should be reused as the main identity when available.
-
-Important: if the existing logo feels too medical because of serpent/Asclepius symbolism, use it carefully for the commercial website so visitors understand that Nykuto.com sells showcase websites, not only medical education.
-
-Recommended asset structure:
-
-```txt
-public/brand/nykuto-logo.png
-public/brand/nykuto-symbol.png
-public/brand/favicon.png
-```
+The current production mark is a simple gradient “N” tile. Do not reintroduce unrelated medical symbolism. A future logo project may replace it without changing the two-division architecture.
 
 ## Brand boundaries
 
-Do not present Nykuto as a full software agency unless the scope changes later.
+Do not present Nykuto as:
 
-Nykuto should not promise:
-
-- guaranteed Google ranking;
-- complex custom software;
-- advanced e-commerce;
-- private portals;
-- complex booking systems;
-- high-risk back-end systems.
+- a bank or payment facilitator;
+- a licensed legal or accounting adviser;
+- a large multi-disciplinary agency;
+- a guaranteed route to payment acceptance or Google rankings.

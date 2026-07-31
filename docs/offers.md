@@ -1,115 +1,74 @@
 # Offers — Nykuto
 
-## Commercial principle
+## Nykuto Digital
 
-Nykuto sells simple, useful and affordable showcase websites.
+### Landing Essentielle — from 390 €
 
-The goal is not to sell complex custom development. The goal is to help small professionals get a clear, serious and contactable online presence.
+- one page and up to five sections;
+- responsive layout;
+- services, proof and contact path;
+- one correction round;
+- basic technical discovery metadata.
 
-## Main offer — Starter
+### Vitrine Impact — from 690 €
 
-### Starter — 390 €
+- three to five simple pages;
+- coherent visual direction;
+- services, about and contact pages;
+- form or external contact journey;
+- two correction rounds.
 
-For a simple one-page showcase website.
+### Digital Signature — quote-based
 
-Included:
+- custom information architecture;
+- deeper editorial help;
+- additional pages or modules;
+- simple third-party integrations;
+- optional maintenance plan.
 
-- one-page website;
-- up to 5 sections;
-- responsive design for mobile and desktop;
-- activity presentation;
-- services section;
-- price or offer section if provided by the client;
-- contact section;
-- WhatsApp, phone or email call-to-action;
-- simple contact form if technically configured;
-- one correction round after the first version;
-- publication assistance.
+The proposal must state hosting, domain, content responsibilities, correction limits, delivery method and licensing.
 
-Not included:
+## Nykuto Business International
 
-- logo creation;
-- full copywriting from zero;
-- professional photography;
-- advanced SEO;
-- e-commerce;
-- custom booking system;
-- client portal;
-- complex back-end;
-- ongoing maintenance after delivery.
+All international work is quote-based after qualification.
 
-## Recommended main sale — Pro
+### Diagnostic
 
-### Pro — 690 €
+- interview and context review;
+- risk and dependency map;
+- provider or stakeholder map;
+- prioritized action plan.
 
-For a more complete showcase website.
+### Coordination mission
 
-Included:
+- defined schedule and responsibilities;
+- administrative information organization;
+- coordination with selected providers;
+- progress reports and handover.
 
-- 3 to 5 simple pages;
-- stronger visual structure;
-- services page;
-- contact page;
-- simple legal pages if information is provided;
-- WhatsApp/contact buttons;
-- simple form;
-- Google Maps embed when relevant;
-- photo gallery section if assets are provided;
-- two correction rounds;
-- publication assistance.
+### On-site or training mission
 
-## Custom simple scope
+- written objectives and agenda;
+- preparation and training material;
+- travel time and expenses identified;
+- final report or operating guide.
 
-### Simple custom — quote-based
+## Payment-project boundary
 
-For needs that remain simple but require more pages, special sections, external tool integration or additional content work.
+Nykuto may analyse payment requirements, compare journeys, prepare KYC/KYB information and coordinate onboarding with a regulated PSP or acquirer.
 
-Allowed examples:
+Nykuto does not:
 
-- Calendly button/embed;
-- Tally/Jotform form embed;
-- additional page;
-- additional section;
-- gallery;
-- FAQ page;
-- simple multilingual static page if explicitly scoped.
+- act as a bank, acquirer, payment institution or payment facilitator;
+- receive money for clients;
+- capture, store or transmit card data;
+- guarantee MOTO, merchant acceptance, limits or settlement timing;
+- bypass provider compliance or security controls.
 
-## Post-delivery interventions
+## Pricing principle
 
-Suggested prices:
+Price reflects scope, risk, documentation, countries, languages, number of stakeholders, urgency and travel. A large fee is justified by explicit deliverables and responsibility, not by the size of the client alone.
 
-| Intervention | Suggested price |
-| --- | ---: |
-| Small text/image change | 25–39 € |
-| Add a simple section | 50–80 € |
-| Add a simple page | 90–150 € |
-| Calendly button/embed | 40–80 € |
-| Detailed external form | 50–100 € |
-| Simple photo gallery | 50–100 € |
-| Legal page formatting | 50 € |
-| Light monthly maintenance | 29 €/month |
-| Monthly maintenance with small changes | 59 €/month |
+## General boundary
 
-## Honest SEO wording
-
-Allowed:
-
-> Basic structure to help search engines understand your activity.
-
-Avoid:
-
-> First page on Google guaranteed.
-
-## Honest AI wording
-
-Allowed:
-
-> We use modern tools and AI to accelerate the creation of simple websites while keeping a clean, clear and professional result.
-
-Avoid:
-
-> Fully automated website made by AI.
-
-## Boundary rule
-
-If a client asks for advanced SEO, full e-commerce, payment workflows, custom booking, private accounts, CRM synchronization, back-end dashboards, or complex automations, the request must be treated as a separate quote or refused for the first version.
+Any advanced e-commerce, custom application, regulated opinion, complex automation or continuous operational outsourcing requires separate validation and specialist capacity.
