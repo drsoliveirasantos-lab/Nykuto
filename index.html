@@ -19,7 +19,7 @@
   <meta name="twitter:title" content="Nykuto — Digital & Business International" />
   <meta name="twitter:description" content="Sites vitrines, organisation administrative et accompagnement de projets internationaux." />
   <meta name="twitter:image" content="https://nykuto.com/assets/nykuto-og.png" />
-  <link rel="stylesheet" href="styles.css?v=20260801-2" />
+  <link rel="stylesheet" href="styles.css?v=20260801-3" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -50,9 +50,10 @@
     </a>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
     <nav class="main-nav" id="main-nav" aria-label="Navigation principale">
-      <a href="#expertises">Expertises</a>
-      <a href="#scenarios">Votre besoin</a>
-      <a href="#methode">Méthode</a>
+      <a href="offres.html">Digital</a>
+      <a href="international.html">International</a>
+      <a href="exemples.html">Scénarios</a>
+      <a href="process.html">Méthode</a>
       <a href="a-propos.html">À propos</a>
       <a href="faq.html">FAQ</a>
     </nav>
@@ -68,13 +69,9 @@
         <p class="lead">Un interlocuteur unique pour rendre votre activité plus crédible, structurer l’administratif et coordonner vos projets entre plusieurs marchés.</p>
         <div class="hero-actions">
           <a class="primary-btn" href="contact.html">Présenter mon projet <span aria-hidden="true">↗</span></a>
-          <a class="secondary-btn" href="#expertises">Explorer les expertises</a>
+          <a class="secondary-btn" href="offres.html">Découvrir Nykuto</a>
         </div>
-        <dl class="hero-proof" aria-label="Repères Nykuto">
-          <div><dt>03</dt><dd>langues de travail</dd></div>
-          <div><dt>02</dt><dd>continents connectés</dd></div>
-          <div><dt>01</dt><dd>pilotage centralisé</dd></div>
-        </dl>
+        <p class="home-signature">Digital · Coordination · Français, portugais et espagnol</p>
       </div>
 
       <aside class="project-console reveal" aria-label="Aperçu des expertises Nykuto">
@@ -91,163 +88,28 @@
           <span class="map-label map-label-latam">Amérique latine</span>
           <div class="console-signal" aria-hidden="true"><span></span><span></span><span></span></div>
         </div>
-        <div class="console-actions" aria-label="Ouvrir une expertise">
-          <button type="button" data-dialog-open="digital"><span>01</span> Digital <b aria-hidden="true">↗</b></button>
-          <button type="button" data-dialog-open="international"><span>02</span> International <b aria-hidden="true">↗</b></button>
-          <button type="button" data-dialog-open="operations"><span>03</span> Organisation <b aria-hidden="true">↗</b></button>
-        </div>
+        <nav class="console-actions" aria-label="Accéder aux pages principales">
+          <a href="offres.html"><span>01</span> Digital <b aria-hidden="true">↗</b></a>
+          <a href="international.html"><span>02</span> International <b aria-hidden="true">↗</b></a>
+          <a href="process.html"><span>03</span> Organisation <b aria-hidden="true">↗</b></a>
+        </nav>
       </aside>
     </section>
 
-    <section class="home-section shell" id="expertises">
-      <div class="compact-heading reveal">
-        <div><p class="section-kicker">Choisissez votre point d’entrée</p><h2>Des expertises à ouvrir.<br />Pas des pavés à parcourir.</h2></div>
-        <p>Sélectionnez une vignette pour comprendre le périmètre, les livrables et la suite possible. Les pages détaillées restent disponibles lorsque vous souhaitez approfondir.</p>
-      </div>
-
-      <div class="capability-bento">
-        <button class="capability-tile tile-digital reveal" type="button" data-dialog-open="digital" aria-haspopup="dialog" aria-controls="dialog-digital">
-          <span class="tile-topline"><span>01 / Digital</span><span class="tile-arrow" aria-hidden="true">↗</span></span>
-          <span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><rect x="3" y="5" width="26" height="21" rx="4"/><path d="M3 11h26M9 8h.1M13 8h.1M17 8h.1M8 16h7v6H8zM19 16h5M19 20h5"/></svg></span>
-          <span class="tile-content"><strong>Présence digitale</strong><span>Positionnement, site vitrine premium, parcours de contact et mise en ligne.</span></span>
-          <span class="tile-action">Ouvrir l’expertise</span>
-        </button>
-
-        <button class="capability-tile tile-international reveal" type="button" data-dialog-open="international" aria-haspopup="dialog" aria-controls="dialog-international">
-          <span class="tile-topline"><span>02 / International</span><span class="tile-arrow" aria-hidden="true">↗</span></span>
-          <span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="12"/><path d="M4 16h24M16 4c4 4 6 8 6 12s-2 8-6 12M16 4c-4 4-6 8-6 12s2 8 6 12"/></svg></span>
-          <span class="tile-content"><strong>Business international</strong><span>Coordination de projets et d’interlocuteurs entre la France, l’Europe et l’Amérique latine.</span></span>
-          <span class="tile-action">Ouvrir l’expertise</span>
-        </button>
-
-        <button class="capability-tile tile-operations reveal" type="button" data-dialog-open="operations" aria-haspopup="dialog" aria-controls="dialog-operations">
-          <span class="tile-topline"><span>03 / Organisation</span><span class="tile-arrow" aria-hidden="true">↗</span></span>
-          <span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M10 5h12M10 16h12M10 27h12"/><circle cx="5" cy="5" r="2"/><circle cx="5" cy="16" r="2"/><circle cx="5" cy="27" r="2"/><path d="m25 5 2 2 3-4M25 16l2 2 3-4M25 27l2 2 3-4"/></svg></span>
-          <span class="tile-content"><strong>Organisation administrative</strong><span>Processus, dossiers, documents et coordination opérationnelle.</span></span>
-          <span class="tile-action">Voir le périmètre</span>
-        </button>
-
-        <button class="capability-tile tile-payments reveal" type="button" data-dialog-open="payments" aria-haspopup="dialog" aria-controls="dialog-payments">
-          <span class="tile-topline"><span>04 / Écosystème paiement</span><span class="tile-arrow" aria-hidden="true">↗</span></span>
-          <span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><rect x="3" y="7" width="26" height="18" rx="4"/><path d="M3 13h26M8 20h6M23 18v4M21 20h4"/></svg></span>
-          <span class="tile-content"><strong>Cadrage & prestataires</strong><span>Analyse du besoin, comparaison de solutions et préparation de l’onboarding.</span></span>
-          <span class="tile-action">Comprendre notre rôle</span>
-        </button>
-
-        <a class="capability-tile tile-languages reveal" href="a-propos.html">
-          <span class="tile-topline"><span>Communication</span><span class="tile-arrow" aria-hidden="true">→</span></span>
-          <span class="language-stack" aria-hidden="true"><b>FR</b><b>PT</b><b>ES</b></span>
-          <span class="tile-content"><strong>Trois langues.<br />Un même suivi.</strong><span>Pour fluidifier les échanges entre vos interlocuteurs.</span></span>
-        </a>
-      </div>
-    </section>
-
-    <section class="home-section shell" id="scenarios">
-      <div class="compact-heading reveal">
-        <div><p class="section-kicker">Partir de votre situation</p><h2>Que devez-vous faire avancer maintenant&nbsp;?</h2></div>
-        <p>Choisissez le scénario le plus proche de votre besoin. Le contenu utile apparaît immédiatement, sans vous envoyer dans une longue lecture.</p>
-      </div>
-
-      <div class="project-studio reveal">
-        <div class="studio-tabs" role="tablist" aria-label="Scénarios de mission">
-          <button id="tab-presence" role="tab" type="button" aria-selected="true" aria-controls="panel-presence" data-project-tab="presence"><span>01</span> Renforcer ma présence</button>
-          <button id="tab-international" role="tab" type="button" aria-selected="false" aria-controls="panel-international" data-project-tab="international" tabindex="-1"><span>02</span> Coordonner à l’international</button>
-          <button id="tab-structure" role="tab" type="button" aria-selected="false" aria-controls="panel-structure" data-project-tab="structure" tabindex="-1"><span>03</span> Structurer mes opérations</button>
-          <button id="tab-payment" role="tab" type="button" aria-selected="false" aria-controls="panel-payment" data-project-tab="payment" tabindex="-1"><span>04</span> Cadrer une solution de paiement</button>
-        </div>
-
-        <div class="studio-panels">
-          <article id="panel-presence" class="studio-panel is-active" role="tabpanel" aria-labelledby="tab-presence" data-project-panel="presence">
-            <p class="panel-code">Nykuto Digital</p><h3>Rendre votre entreprise immédiatement lisible et crédible.</h3><p>Nous transformons votre positionnement en une présence digitale cohérente, pensée pour guider un prospect vers la bonne action.</p>
-            <div class="output-grid"><span><small>01</small> Architecture du message</span><span><small>02</small> Design responsive</span><span><small>03</small> Parcours de conversion</span></div>
-            <a class="text-btn" href="offres.html">Découvrir les offres digitales →</a>
-          </article>
-          <article id="panel-international" class="studio-panel" role="tabpanel" aria-labelledby="tab-international" data-project-panel="international" hidden>
-            <p class="panel-code">Business International</p><h3>Créer un point de coordination entre plusieurs marchés.</h3><p>Nous clarifions les acteurs, les informations à réunir et les étapes nécessaires pour faire avancer un projet transfrontalier.</p>
-            <div class="output-grid"><span><small>01</small> Cartographie des acteurs</span><span><small>02</small> Dossier de mission</span><span><small>03</small> Suivi multilingue</span></div>
-            <a class="text-btn" href="international.html">Voir l’accompagnement international →</a>
-          </article>
-          <article id="panel-structure" class="studio-panel" role="tabpanel" aria-labelledby="tab-structure" data-project-panel="structure" hidden>
-            <p class="panel-code">Organisation</p><h3>Passer d’informations dispersées à un système exploitable.</h3><p>Nous structurons les documents, responsabilités, échéances et points de contrôle afin que le projet soit suivi sans dépendre de conversations isolées.</p>
-            <div class="output-grid"><span><small>01</small> Diagnostic opérationnel</span><span><small>02</small> Procédures & modèles</span><span><small>03</small> Tableau de suivi</span></div>
-            <a class="text-btn" href="process.html">Comprendre notre méthode →</a>
-          </article>
-          <article id="panel-payment" class="studio-panel" role="tabpanel" aria-labelledby="tab-payment" data-project-panel="payment" hidden>
-            <p class="panel-code">Cadrage de solution</p><h3>Présenter un besoin solide aux prestataires habilités.</h3><p>Nous aidons à formaliser le cas d’usage, comparer les pistes et préparer les éléments administratifs. Les flux, décisions d’acceptation et données de carte restent exclusivement chez les banques, acquéreurs et PSP autorisés.</p>
-            <div class="output-grid"><span><small>01</small> Cahier des charges</span><span><small>02</small> Benchmark prestataires</span><span><small>03</small> Préparation KYC</span></div>
-            <a class="text-btn" href="international.html">Voir le cadre d’intervention →</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="home-section shell" id="methode">
-      <div class="method-console reveal">
-        <div class="method-console-copy"><p class="section-kicker">Méthode Nykuto</p><h2>Quatre décisions.<br />Un projet qui avance.</h2><p>Chaque mission garde une trace claire de ce qui a été compris, décidé, confié et livré.</p><a class="secondary-btn" href="process.html">Voir la méthode complète</a></div>
-        <ol class="method-rail">
-          <li><span>01</span><div><strong>Diagnostiquer</strong><small>Contexte, objectif, contraintes et risques.</small></div></li>
-          <li><span>02</span><div><strong>Cadrer</strong><small>Périmètre, responsabilités, budget et livrables.</small></div></li>
-          <li><span>03</span><div><strong>Coordonner</strong><small>Documents, échanges et prestataires concernés.</small></div></li>
-          <li><span>04</span><div><strong>Transmettre</strong><small>Solution exploitable, synthèse et prochaines étapes.</small></div></li>
-        </ol>
-        <div class="method-assurances" aria-label="Engagements de méthode"><span>Confidentialité</span><span>Périmètre écrit</span><span>FR · PT · ES</span></div>
-      </div>
-    </section>
-
-    <section class="premium-cta shell reveal">
-      <div><span class="cta-index">Projet / 01</span><p class="section-kicker">Votre prochain point de départ</p><h2>Expliquez le besoin.<br />Nous structurons la suite.</h2><p>Un premier échange sert à vérifier la faisabilité, le bon périmètre et les interlocuteurs nécessaires.</p></div>
-      <div class="premium-cta-actions"><a class="primary-btn" href="contact.html">Présenter mon projet <span aria-hidden="true">↗</span></a><a href="mailto:contact@nykuto.com">contact@nykuto.com</a></div>
-    </section>
   </main>
 
-  <dialog class="capability-dialog" id="dialog-digital" aria-labelledby="dialog-digital-title">
-    <div class="dialog-shell">
-      <div class="dialog-topbar"><span>01 / Nykuto Digital</span><button type="button" data-dialog-close aria-label="Fermer la fenêtre">×</button></div>
-      <div class="dialog-intro"><span class="dialog-icon" aria-hidden="true">D</span><div><p class="section-kicker">Présence digitale</p><h2 id="dialog-digital-title">Un site qui positionne avant même le premier échange.</h2><p>Nous réunissons message, design et parcours de contact dans une vitrine rapide, responsive et administrable.</p></div></div>
-      <div class="dialog-grid"><div><h3>Ce que nous structurons</h3><ul class="check-list"><li>Positionnement et hiérarchie du message</li><li>Arborescence et rédaction des pages clés</li><li>Direction visuelle premium et responsive</li><li>Formulaire, mesure et mise en ligne</li></ul></div><aside><span>Livrable central</span><strong>Une présence digitale prête à présenter votre entreprise.</strong><small>Le périmètre exact dépend des contenus, intégrations et objectifs validés.</small></aside></div>
-      <div class="dialog-actions"><a class="primary-btn" href="contact.html">Parler de mon site</a><a class="secondary-btn" href="offres.html">Voir les offres complètes</a></div>
+  <footer class="site-footer home-footer">
+    <div class="home-footer-main">
+      <div><strong>Nykuto</strong><span>Digital & Business International</span></div>
+      <nav aria-label="Navigation de bas de page">
+        <a href="contact.html">Contact</a>
+        <a href="mentions-legales.html">Mentions légales</a>
+        <a href="confidentialite.html">Confidentialité</a>
+        <a href="cgv.html">CGV</a>
+      </nav>
     </div>
-  </dialog>
-
-  <dialog class="capability-dialog" id="dialog-international" aria-labelledby="dialog-international-title">
-    <div class="dialog-shell">
-      <div class="dialog-topbar"><span>02 / Business International</span><button type="button" data-dialog-close aria-label="Fermer la fenêtre">×</button></div>
-      <div class="dialog-intro"><span class="dialog-icon" aria-hidden="true">I</span><div><p class="section-kicker">Coordination transfrontalière</p><h2 id="dialog-international-title">Un projet international lisible pour chaque interlocuteur.</h2><p>Nykuto crée le cadre de coordination entre votre entreprise, vos partenaires et les prestataires compétents sur chaque marché.</p></div></div>
-      <div class="dialog-grid"><div><h3>Ce que nous structurons</h3><ul class="check-list"><li>Diagnostic du besoin et des pays concernés</li><li>Cartographie des parties prenantes</li><li>Organisation documentaire et calendrier</li><li>Suivi des échanges en français, portugais ou espagnol</li></ul></div><aside><span>Notre rôle</span><strong>Coordonner, documenter et rendre les décisions actionnables.</strong><small>Les actes réglementés restent réalisés par les professionnels habilités.</small></aside></div>
-      <div class="dialog-actions"><a class="primary-btn" href="contact.html">Présenter la mission</a><a class="secondary-btn" href="international.html">Voir l’accompagnement</a></div>
-    </div>
-  </dialog>
-
-  <dialog class="capability-dialog" id="dialog-operations" aria-labelledby="dialog-operations-title">
-    <div class="dialog-shell">
-      <div class="dialog-topbar"><span>03 / Organisation</span><button type="button" data-dialog-close aria-label="Fermer la fenêtre">×</button></div>
-      <div class="dialog-intro"><span class="dialog-icon" aria-hidden="true">O</span><div><p class="section-kicker">Organisation administrative</p><h2 id="dialog-operations-title">Remplacer les informations dispersées par un système clair.</h2><p>Nous transformons les tâches, documents et responsabilités en un fonctionnement suivi et transmissible.</p></div></div>
-      <div class="dialog-grid"><div><h3>Ce que nous structurons</h3><ul class="check-list"><li>Diagnostic des pratiques actuelles</li><li>Classement et modèles documentaires</li><li>Procédures, échéances et responsabilités</li><li>Tableaux de suivi et compte rendu</li></ul></div><aside><span>Résultat recherché</span><strong>Une organisation que votre équipe peut réellement utiliser.</strong><small>La mission peut être ponctuelle ou accompagner un projet plus large.</small></aside></div>
-      <div class="dialog-actions"><a class="primary-btn" href="contact.html">Cadrer mon besoin</a><a class="secondary-btn" href="process.html">Voir la méthode</a></div>
-    </div>
-  </dialog>
-
-  <dialog class="capability-dialog" id="dialog-payments" aria-labelledby="dialog-payments-title">
-    <div class="dialog-shell">
-      <div class="dialog-topbar"><span>04 / Écosystème paiement</span><button type="button" data-dialog-close aria-label="Fermer la fenêtre">×</button></div>
-      <div class="dialog-intro"><span class="dialog-icon" aria-hidden="true">P</span><div><p class="section-kicker">Cadrage & prestataires</p><h2 id="dialog-payments-title">Transformer un besoin de paiement en dossier présentable.</h2><p>Nykuto aide l’entreprise à définir son cas d’usage, comparer des prestataires et préparer les éléments nécessaires à leur étude.</p></div></div>
-      <div class="dialog-grid"><div><h3>Ce que nous pouvons faire</h3><ul class="check-list"><li>Formaliser volumes, pays, devises et parcours client</li><li>Identifier des familles de PSP ou acquéreurs</li><li>Préparer les pièces administratives et le cahier des charges</li><li>Coordonner les échanges d’onboarding</li></ul></div><aside class="compliance-note"><span>Limite essentielle</span><strong>Nykuto n’est ni banque, ni acquéreur, ni prestataire de paiement.</strong><small>Nous ne saisissons, ne stockons et ne transmettons aucune donnée de carte. L’acceptation et le traitement relèvent exclusivement du prestataire habilité.</small></aside></div>
-      <div class="dialog-actions"><a class="primary-btn" href="contact.html">Présenter le cas d’usage</a><a class="secondary-btn" href="international.html">Voir le cadre d’intervention</a></div>
-    </div>
-  </dialog>
-
-  <footer class="site-footer">
-    <div class="footer-grid">
-      <div class="footer-intro">
-        <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">N</span><span><strong>Nykuto</strong><small>Digital & International</small></span></a>
-        <p>Création digitale, organisation administrative et coordination de projets entre la France, l’Europe et l’Amérique latine.</p>
-        <a class="text-btn" href="mailto:contact@nykuto.com">contact@nykuto.com</a>
-      </div>
-      <div><p class="footer-title">Expertises</p><nav class="footer-links"><a href="offres.html">Nykuto Digital</a><a href="international.html">Business International</a><a href="process.html">Notre méthode</a><a href="exemples.html">Scénarios</a></nav></div>
-      <div><p class="footer-title">Informations</p><nav class="footer-links"><a href="a-propos.html">À propos</a><a href="faq.html">Questions fréquentes</a><a href="contact.html">Contact</a><a href="mentions-legales.html">Mentions légales</a><a href="confidentialite.html">Confidentialité</a><a href="cgv.html">CGV</a></nav></div>
-    </div>
-    <div class="footer-bottom"><span>© <span data-year></span> Nykuto — Diego Oliveira Santos, entrepreneur individuel.</span><span>SIREN 900 602 566 · Bordeaux, France</span></div>
+    <div class="footer-bottom"><span>© <span data-year></span> Nykuto — Diego Oliveira Santos, EI.</span><span>SIREN 900 602 566 · Bordeaux, France</span></div>
   </footer>
-  <script src="script.js?v=20260801-2" defer></script>
+  <script src="script.js?v=20260801-3" defer></script>
 </body>
 </html>
