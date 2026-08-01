@@ -52,6 +52,8 @@ Before a framework migration:
 ## Page principles
 
 - shared header and footer across commercial pages;
+- homepage limited to the brand introduction and direct links to dedicated pages;
+- primary navigation uses separate HTML routes rather than reproducing full service content on the homepage;
 - unique title, description and canonical URL;
 - Open Graph image on public sales pages;
 - no server-side contact collection in the current version;

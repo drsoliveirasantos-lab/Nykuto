@@ -412,6 +412,19 @@ p { color: var(--muted); }
 
 .home-hero .lead { max-width: 650px; }
 
+.home-signature {
+  max-width: 650px;
+  margin: 32px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid rgba(168, 182, 204, 0.16);
+  color: var(--muted-2);
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
 .availability-pill {
   width: fit-content;
   margin-bottom: 38px;
@@ -574,7 +587,7 @@ p { color: var(--muted); }
   background: rgba(168, 182, 204, 0.14);
 }
 
-.console-actions button {
+.console-actions a {
   min-width: 0;
   padding: 18px 16px;
   display: grid;
@@ -591,9 +604,9 @@ p { color: var(--muted); }
   transition: background 180ms ease, color 180ms ease;
 }
 
-.console-actions button:hover { background: #0d2037; color: var(--cyan); }
-.console-actions button span { color: var(--muted-2); font-size: 9px; }
-.console-actions button b { color: var(--cyan); font-size: 13px; }
+.console-actions a:hover { background: #0d2037; color: var(--cyan); }
+.console-actions a span { color: var(--muted-2); font-size: 9px; }
+.console-actions a b { color: var(--cyan); font-size: 13px; }
 
 .home-section { padding-block: 96px; }
 
@@ -1454,6 +1467,48 @@ body.dialog-open { overflow: hidden; }
   font-size: 12px;
 }
 
+.home-footer {
+  padding-block: 28px 22px;
+}
+
+.home-footer-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 28px;
+}
+
+.home-footer-main > div {
+  display: grid;
+  gap: 3px;
+}
+
+.home-footer-main strong {
+  color: var(--text);
+  font-family: Manrope, Inter, sans-serif;
+  font-size: 18px;
+}
+
+.home-footer-main span {
+  color: var(--muted-2);
+  font-size: 11px;
+}
+
+.home-footer-main nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px 20px;
+}
+
+.home-footer-main a {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.home-footer-main a:hover { color: var(--cyan); }
+.home-footer .footer-bottom { margin-top: 22px; padding-top: 16px; }
+
 .reveal {
   opacity: 0;
   transform: translateY(22px);
@@ -1514,7 +1569,7 @@ body.dialog-open { overflow: hidden; }
   .main-nav a { padding: 16px; font-size: 18px; border: 1px solid var(--line); }
 
   .hero { min-height: auto; padding-top: 60px; }
-  .home-hero { padding-block: 52px 72px; }
+  .home-hero { padding-block: 52px 64px; }
   .home-hero h1 { font-size: clamp(48px, 11vw, 76px); }
   .compact-heading { grid-template-columns: 1fr; gap: 16px; }
   .project-studio { grid-template-columns: 1fr; }
@@ -1550,21 +1605,25 @@ body.dialog-open { overflow: hidden; }
   h1 { font-size: clamp(43px, 14vw, 62px); }
   h2 { font-size: clamp(34px, 10vw, 46px); }
   .hero { gap: 30px; padding-block: 46px 34px; }
-  .home-hero { gap: 34px; padding-block: 42px 56px; }
-  .home-hero h1 { font-size: clamp(46px, 14vw, 64px); }
-  .availability-pill { margin-bottom: 28px; font-size: 9px; }
+  .home-hero { gap: 26px; padding-block: 34px 42px; }
+  .home-hero h1 { font-size: clamp(42px, 13vw, 58px); }
+  .availability-pill { margin-bottom: 22px; font-size: 9px; }
+  .home-signature { margin-top: 22px; padding-top: 16px; font-size: 9px; }
   .hero-proof { gap: 7px; }
   .hero-proof dt { font-size: 20px; }
   .hero-proof dd { font-size: 9px; }
   .project-console { border-radius: 20px; }
   .console-header { min-height: 56px; padding-inline: 15px; }
   .console-header strong { font-size: 10px; }
-  .console-map, .console-map picture, .console-map img { min-height: 310px; }
+  .console-map, .console-map picture, .console-map img { min-height: 230px; }
   .map-label { font-size: 8px; }
   .map-label-eu { top: 23%; right: 7%; }
   .map-label-latam { right: 30%; bottom: 14%; }
-  .console-actions { grid-template-columns: 1fr; }
-  .console-actions button { padding: 14px 16px; }
+  .console-actions { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .console-actions a { padding: 13px 9px; gap: 5px; font-size: 9px; }
+  .console-actions a span { display: none; }
+  .home-footer-main { align-items: flex-start; flex-direction: column; gap: 18px; }
+  .home-footer-main nav { justify-content: flex-start; }
   .home-section { padding-block: 68px; }
   .compact-heading { margin-bottom: 30px; }
   .compact-heading > p { font-size: 15px; }
