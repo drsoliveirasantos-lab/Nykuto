@@ -27,10 +27,11 @@ Nykuto brings structure to both situations through two service lines under one c
 
 1. The homepage establishes the two service lines and the common method.
 2. Each expertise page explains outcomes, scope and boundaries.
-3. Scenarios demonstrate the type of work without inventing client proof.
-4. Method and about pages establish accountability.
-5. FAQ answers risk, payment and pricing objections.
-6. Contact prepares a structured email without collecting sensitive data on the website.
+3. The Digital Signature detail page explains positioning, architecture and delivery for a more tailored showcase website.
+4. Scenarios demonstrate the type of work without inventing client proof.
+5. Method and about pages establish accountability.
+6. FAQ answers risk, payment and pricing objections.
+7. Contact prepares a structured email without collecting sensitive data on the website.
 
 ## Core claims
 

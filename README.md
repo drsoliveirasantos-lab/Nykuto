@@ -28,6 +28,7 @@ The build copies the production sources to `out/`, `dist/` and `.vercel/output/s
 ## Production sources
 
 - root `*.html` files — pages;
+- `creation-site-internet.html` — detailed Digital Signature positioning and website-creation journey;
 - `styles.css` — shared design system;
 - `i18n.js` — accessible FR/EN/PT/ES selector, translations and language persistence;
 - `script.js` — navigation, reveal effects, localized estimator and mailto contact helper;
