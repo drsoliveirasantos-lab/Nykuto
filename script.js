@@ -3,6 +3,7 @@ const mainNav = document.querySelector('.main-nav');
 const revealItems = document.querySelectorAll('.reveal');
 const checkboxes = document.querySelectorAll('[data-price]');
 const estimate = document.getElementById('estimate');
+const translate = (source) => window.NykutoI18n?.t(source) || source;
 
 function closeMenu() {
   if (!mainNav || !menuToggle) return;
@@ -40,10 +41,15 @@ function updateEstimate() {
     }
   });
 
-  if (estimate) estimate.textContent = `à partir de ${total.toLocaleString('fr-FR')} €`;
+  if (estimate) {
+    estimate.textContent = window.NykutoI18n?.formatStartingAt(total)
+      || `à partir de ${total.toLocaleString('fr-FR')} €`;
+  }
 }
 
 checkboxes.forEach((box) => box.addEventListener('change', updateEstimate));
+if (estimate) updateEstimate();
+window.addEventListener('nykuto:languagechange', updateEstimate);
 
 if ('IntersectionObserver' in window && revealItems.length) {
   const observer = new IntersectionObserver((entries) => {
@@ -79,23 +85,23 @@ if (contactForm) {
       message: String(form.get('message') || '').trim()
     };
 
-    const subject = encodeURIComponent(`Projet Nykuto — ${fields.company || fields.name}`);
+    const subject = encodeURIComponent(`${translate('Projet Nykuto')} — ${fields.company || fields.name}`);
     const body = encodeURIComponent([
-      `Nom : ${fields.name}`,
-      `Entreprise : ${fields.company || 'Non précisée'}`,
-      `Email : ${fields.email}`,
-      `Téléphone / WhatsApp : ${fields.phone || 'Non précisé'}`,
-      `Pays : ${fields.country || 'Non précisé'}`,
-      `Besoin : ${fields.need || 'Non précisé'}`,
-      `Budget indicatif : ${fields.budget || 'Non précisé'}`,
-      `Échéance : ${fields.deadline || 'Non précisée'}`,
+      `${translate('Nom :')} ${fields.name}`,
+      `${translate('Entreprise :')} ${fields.company || translate('Non précisée')}`,
+      `${translate('Email :')} ${fields.email}`,
+      `${translate('Téléphone / WhatsApp :')} ${fields.phone || translate('Non précisé')}`,
+      `${translate('Pays :')} ${fields.country || translate('Non précisé')}`,
+      `${translate('Besoin :')} ${fields.need ? translate(fields.need) : translate('Non précisé')}`,
+      `${translate('Budget indicatif :')} ${fields.budget ? translate(fields.budget) : translate('Non précisé')}`,
+      `${translate('Échéance :')} ${fields.deadline || translate('Non précisée')}`,
       '',
-      'Message :',
+      translate('Message :'),
       fields.message
     ].join('\n'));
 
     const status = contactForm.querySelector('.form-status');
-    if (status) status.textContent = 'Votre messagerie va s’ouvrir avec le récapitulatif. Vérifiez-le avant l’envoi.';
+    if (status) status.textContent = translate('Votre messagerie va s’ouvrir avec le récapitulatif. Vérifiez-le avant l’envoi.');
     window.location.href = `mailto:contact@nykuto.com?subject=${subject}&body=${body}`;
   });
 }

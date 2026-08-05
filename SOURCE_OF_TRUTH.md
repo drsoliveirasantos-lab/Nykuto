@@ -43,7 +43,7 @@ Nykuto must never claim to:
 The current production source of truth is the static root site:
 
 - root HTML pages;
-- `styles.css` and `script.js`;
+- `styles.css`, `i18n.js` and `script.js`;
 - `assets/`, `favicon.svg`, `robots.txt`, `sitemap.xml` and `_headers`;
 - `scripts/prepare-cloudflare-output.js`;
 - documentation in `docs/`;
@@ -80,6 +80,13 @@ Do not promise guaranteed SEO rankings, complex custom platforms, merchant accep
 - Confidentiality claims must match actual practice.
 - Legal pages must contain confirmed publisher information before production publication.
 - Sensitive personal information must not be committed to a public repository without explicit owner confirmation.
+
+## Languages
+
+- French is the editorial source of truth in the production HTML files.
+- `i18n.js` provides the English, Brazilian Portuguese and Spanish interface and commercial-page translations.
+- The selected language is preserved in the URL and local browser storage so navigation remains consistent across pages.
+- Legal documents remain officially published in French. In another interface language, the site must display a clear notice that the French text is authoritative rather than presenting an unofficial translation as legally binding.
 
 ## Publication blockers and fiscal wording
 
