@@ -58,6 +58,7 @@ The existing `app/`, `components/` and `data/` folders and the old layered CSS f
 Allowed digital positioning:
 
 - one-page or small multi-page showcase websites;
+- website positioning, message hierarchy and page architecture when included in the quoted scope;
 - clear service presentation and contact paths;
 - responsive design and basic technical SEO structure;
 - simple external integrations such as Calendly or Tally when scoped.

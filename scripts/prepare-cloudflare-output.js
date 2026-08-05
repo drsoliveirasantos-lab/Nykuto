@@ -6,6 +6,7 @@ const root = process.cwd();
 const staticFiles = [
   'index.html',
   'offres.html',
+  'creation-site-internet.html',
   'international.html',
   'exemples.html',
   'process.html',

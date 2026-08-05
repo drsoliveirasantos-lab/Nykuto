@@ -20,11 +20,14 @@
 
 ### Digital Signature — quote-based
 
+- strategic framing and digital positioning when quoted;
 - custom information architecture;
 - deeper editorial help;
 - additional pages or modules;
 - simple third-party integrations;
 - optional maintenance plan.
+
+The detailed sales journey for this offer is published on `creation-site-internet.html`. It expands the existing Digital offer without replacing the entry-level packages.
 
 The proposal must state hosting, domain, content responsibilities, correction limits, delivery method and licensing.
 
