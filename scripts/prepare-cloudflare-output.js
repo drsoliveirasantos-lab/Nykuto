@@ -16,6 +16,7 @@ const staticFiles = [
   'confidentialite.html',
   'cgv.html',
   'styles.css',
+  'i18n.js',
   'script.js',
   'favicon.svg',
   'robots.txt',

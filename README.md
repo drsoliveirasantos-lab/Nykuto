@@ -29,7 +29,8 @@ The build copies the production sources to `out/`, `dist/` and `.vercel/output/s
 
 - root `*.html` files — pages;
 - `styles.css` — shared design system;
-- `script.js` — navigation, reveal effects, estimator and mailto contact helper;
+- `i18n.js` — accessible FR/EN/PT/ES selector, translations and language persistence;
+- `script.js` — navigation, reveal effects, localized estimator and mailto contact helper;
 - `assets/` — production imagery;
 - `favicon.svg`, `robots.txt`, `sitemap.xml`, `_headers` — platform and discovery files;
 - `scripts/prepare-cloudflare-output.js` — static build.

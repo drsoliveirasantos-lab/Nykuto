@@ -19,6 +19,7 @@ mentions-legales.html          Legal notice
 confidentialite.html           Privacy policy
 cgv.html                       B2B terms
 styles.css                     Shared design system
+i18n.js                        FR/EN/PT/ES translations and language state
 script.js                      Shared interactions
 assets/                        Production images
 favicon.svg                    Brand icon
@@ -59,6 +60,14 @@ Before a framework migration:
 - no server-side contact collection in the current version;
 - no invented proof or unsupported claim;
 - responsive and keyboard-accessible interactions.
+
+## Language architecture
+
+- The French HTML is the content source of truth.
+- `i18n.js` injects an accessible language selector into the shared header and translates text, labels, placeholders and page titles for English, Brazilian Portuguese and Spanish.
+- Language state is carried through `?lang=` on internal links and stored locally in the visitor's browser.
+- `script.js` reads the active language for dynamic estimator and contact-email text.
+- Legal-page body copy is intentionally excluded from client-side translation; a localized notice identifies French as the authoritative legal version.
 
 ## Validation
 
