@@ -26,7 +26,7 @@ if (menuToggle && mainNav) {
 }
 
 function updateEstimate() {
-  let base = 390;
+  let base = 1490;
   let total = base;
 
   checkboxes.forEach((box) => {

@@ -2,31 +2,32 @@
 
 ## Nykuto Digital
 
-### Landing Essentielle — from 390 €
+### Landing Premium — from 1,490 €
 
-- one page and up to five sections;
-- responsive layout;
-- services, proof and contact path;
+- one page and one primary conversion objective;
+- positioning and message architecture;
+- responsive visual direction;
+- contact path and basic technical SEO;
 - one correction round;
-- basic technical discovery metadata.
+- production handover and launch.
 
-### Vitrine Impact — from 690 €
+### Vitrine Business — from 2,490 €
 
-- three to five simple pages;
+- three to five essential pages;
 - coherent visual direction;
-- services, about and contact pages;
-- form or external contact journey;
+- structured commercial content;
+- optimised contact journey;
 - two correction rounds.
 
-### Digital Signature — quote-based
+### Signature Internationale — from 4,500 €
 
 - custom information architecture;
-- deeper editorial help;
-- additional pages or modules;
+- positioning and editorial support;
+- multilingual content according to the quote;
 - simple third-party integrations;
 - optional maintenance plan.
 
-The proposal must state hosting, domain, content responsibilities, correction limits, delivery method and licensing.
+Displayed amounts are indicative starting prices. The proposal must state hosting, domain, content responsibilities, languages, correction limits, delivery method, licensing, external costs and the applicable VAT treatment.
 
 ## Nykuto Business International
 
