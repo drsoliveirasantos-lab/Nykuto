@@ -519,6 +519,38 @@ p { color: var(--muted); }
 
 .home-hero .lead { max-width: 650px; }
 
+.home-price-teaser {
+  max-width: 650px;
+  margin-top: 22px;
+  padding: 14px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+  border: 1px solid rgba(77, 227, 255, 0.23);
+  border-radius: 13px;
+  background: linear-gradient(135deg, rgba(77, 227, 255, 0.075), rgba(124, 92, 255, 0.055));
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.16);
+  transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+
+.home-price-teaser:hover {
+  transform: translateY(-2px);
+  border-color: rgba(77, 227, 255, 0.5);
+  box-shadow: 0 22px 52px rgba(0, 0, 0, 0.24), 0 0 30px rgba(77, 227, 255, 0.07);
+}
+
+.home-price-teaser > span {
+  color: var(--cyan);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.home-price-teaser strong { color: var(--text); font-size: 15px; }
+.home-price-teaser b { margin-left: auto; color: var(--text); font-size: 12px; }
+
 .home-signature {
   max-width: 650px;
   margin: 32px 0 0;
@@ -1391,9 +1423,51 @@ body.dialog-open { overflow: hidden; }
 
 .price-card h2 { margin-top: 28px; font-size: 32px; }
 .price { margin-bottom: 16px; color: var(--text); font-size: 50px; font-weight: 900; letter-spacing: -0.06em; }
-.price small { color: var(--muted-2); font-size: 14px; letter-spacing: 0; }
+.price small { display: block; margin-bottom: 5px; color: var(--muted-2); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; }
+.price span { display: block; }
 .price-card .check-list { margin-block: 14px 28px; }
 .price-card .primary-btn, .price-card .secondary-btn { margin-top: auto; }
+
+.pricing-note {
+  margin: 22px 4px 0;
+  color: var(--muted-2);
+  font-size: 13px;
+}
+
+.pricing-resource {
+  margin-top: 30px;
+  padding: 28px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 22px;
+  align-items: center;
+  border: 1px solid rgba(77, 227, 255, 0.3);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(circle at 92% 12%, rgba(124, 92, 255, 0.16), transparent 15rem),
+    linear-gradient(145deg, rgba(17, 35, 62, 0.92), rgba(8, 20, 36, 0.9));
+  box-shadow: var(--shadow), 0 0 42px rgba(77, 227, 255, 0.06);
+}
+
+.resource-icon {
+  width: 62px;
+  height: 62px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(77, 227, 255, 0.35);
+  border-radius: 16px;
+  background: rgba(77, 227, 255, 0.08);
+  color: var(--cyan);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.pricing-resource h2 { margin: 4px 0 8px; font-size: clamp(24px, 3vw, 36px); }
+.pricing-resource p { max-width: 720px; margin-bottom: 0; }
+.resource-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; }
+.resource-actions .primary-btn,
+.resource-actions .secondary-btn { min-height: 48px; padding: 12px 16px; white-space: nowrap; }
 
 .estimator-box {
   display: grid;
@@ -1724,6 +1798,8 @@ body.dialog-open { overflow: hidden; }
   .method-grid { grid-template-columns: repeat(2, 1fr); }
   .cta-band { grid-template-columns: 1fr; padding: 36px; }
   .content-split, .contact-layout { grid-template-columns: 1fr; }
+  .pricing-resource { grid-template-columns: auto minmax(0, 1fr); }
+  .resource-actions { grid-column: 1 / -1; justify-content: flex-start; }
   .timeline article { grid-template-columns: 56px 1fr; }
   .timeline article p { grid-column: 2; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
@@ -1741,7 +1817,14 @@ body.dialog-open { overflow: hidden; }
   .home-hero { gap: 26px; padding-block: 34px 42px; }
   .home-hero h1 { font-size: clamp(42px, 13vw, 58px); }
   .availability-pill { margin-bottom: 22px; font-size: 9px; }
+  .home-price-teaser { padding: 13px 14px; gap: 7px 12px; }
+  .home-price-teaser > span { width: 100%; }
+  .home-price-teaser b { margin-left: 0; }
   .home-signature { margin-top: 22px; padding-top: 16px; font-size: 9px; }
+  .pricing-resource { padding: 22px; grid-template-columns: 1fr; }
+  .resource-actions { display: grid; grid-template-columns: 1fr; }
+  .resource-actions .primary-btn,
+  .resource-actions .secondary-btn { width: 100%; }
   .hero-proof { gap: 7px; }
   .hero-proof dt { font-size: 20px; }
   .hero-proof dd { font-size: 9px; }

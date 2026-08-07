@@ -96,7 +96,11 @@
     ['Organisation', 'Organisation', 'Organização', 'Organización'],
     ['Aperçu des expertises Nykuto', 'Overview of Nykuto expertise', 'Visão geral das especialidades da Nykuto', 'Resumen de las especialidades de Nykuto'],
     ['Réseau stylisé entre l’Europe et l’Amérique latine', 'Stylised network between Europe and Latin America', 'Rede estilizada entre a Europa e a América Latina', 'Red estilizada entre Europa y América Latina'],
-    ['Accéder aux pages principales', 'Open the main pages', 'Acessar as páginas principais', 'Acceder a las páginas principales']
+    ['Accéder aux pages principales', 'Open the main pages', 'Acessar as páginas principais', 'Acceder a las páginas principales'],
+    ['Découvrir les offres de création digitale à partir de 1 490 euros', 'Discover digital creation offers starting at €1,490', 'Conhecer as ofertas de criação digital a partir de 1.490 €', 'Descubrir las ofertas de creación digital desde 1.490 €'],
+    ['Création digitale premium', 'Premium digital creation', 'Criação digital premium', 'Creación digital premium'],
+    ['À partir de 1 490 €', 'Starting at €1,490', 'A partir de 1.490 €', 'Desde 1.490 €'],
+    ['Voir les offres', 'View offers', 'Ver ofertas', 'Ver ofertas']
   ];
 
   COPY.push(
@@ -122,48 +126,53 @@
     [`Responsive`, `Responsive`, `Responsivo`, `Responsive`],
     [`SEO technique de base`, `Core technical SEO`, `SEO técnico básico`, `SEO técnico básico`],
     [`Propriété des contenus`, `Content ownership`, `Propriedade dos conteúdos`, `Propiedad de los contenidos`],
-    [`Packs cadrés`, `Clearly scoped packages`, `Pacotes com escopo definido`, `Paquetes con alcance definido`],
-    [`Un point de départ clair, sans surprise.`, `A clear starting point, with no surprises.`, `Um ponto de partida claro, sem surpresas.`, `Un punto de partida claro, sin sorpresas.`],
-    [`Les prix indiqués correspondent à un périmètre standard. Chaque devis confirme les contenus, délais, corrections et options avant démarrage.`, `The prices shown cover a standard scope. Each quote confirms content, timing, revisions and options before work begins.`, `Os preços indicados correspondem a um escopo padrão. Cada orçamento confirma conteúdos, prazos, revisões e opções antes do início.`, `Los precios indicados corresponden a un alcance estándar. Cada presupuesto confirma contenidos, plazos, revisiones y opciones antes de empezar.`],
-    [`Essentiel`, `Essential`, `Essencial`, `Esencial`],
-    [`Landing page`, `Landing page`, `Landing page`, `Landing page`],
-    [`à partir de`, `from`, `a partir de`, `desde`],
-    [`Pour présenter une activité simple et faciliter une prise de contact.`, `For presenting a straightforward business and making contact easy.`, `Para apresentar uma atividade simples e facilitar o contato.`, `Para presentar una actividad sencilla y facilitar el contacto.`],
-    [`Une page, jusqu’à 5 sections`, `One page, up to 5 sections`, `Uma página, até 5 seções`, `Una página, hasta 5 secciones`],
-    [`Design responsive`, `Responsive design`, `Design responsivo`, `Diseño responsive`],
-    [`Services, preuves et contact`, `Services, proof and contact`, `Serviços, provas e contato`, `Servicios, pruebas y contacto`],
-    [`Bouton email ou lien externe`, `Email button or external link`, `Botão de e-mail ou link externo`, `Botón de correo o enlace externo`],
+    [`Investissements cadrés`, `Clearly scoped investments`, `Investimentos com escopo definido`, `Inversiones con alcance definido`],
+    [`Trois niveaux pour avancer avec un périmètre clair.`, `Three levels for moving forward with a clear scope.`, `Três níveis para avançar com um escopo claro.`, `Tres niveles para avanzar con un alcance claro.`],
+    [`Les montants indiqués correspondent à des configurations standards. Chaque devis confirme les pages, contenus, langues, délais et corrections avant démarrage.`, `The amounts shown cover standard configurations. Each quote confirms pages, content, languages, timing and revisions before work begins.`, `Os valores indicados correspondem a configurações padrão. Cada orçamento confirma páginas, conteúdos, idiomas, prazos e revisões antes do início.`, `Los importes indicados corresponden a configuraciones estándar. Cada presupuesto confirma páginas, contenidos, idiomas, plazos y revisiones antes de empezar.`],
+    [`Point d’entrée`, `Starting point`, `Ponto de entrada`, `Punto de entrada`],
+    [`Landing Premium`, `Premium Landing Page`, `Landing Premium`, `Landing Premium`],
+    [`À partir de`, `Starting at`, `A partir de`, `Desde`],
+    [`Pour transformer une offre précise en une page stratégique et crédible.`, `For turning a focused offer into a strategic and credible page.`, `Para transformar uma oferta clara em uma página estratégica e confiável.`, `Para transformar una oferta concreta en una página estratégica y creíble.`],
+    [`Une page et un objectif principal`, `One page and one primary objective`, `Uma página e um objetivo principal`, `Una página y un objetivo principal`],
+    [`Positionnement et structure des messages`, `Positioning and message structure`, `Posicionamento e estrutura das mensagens`, `Posicionamiento y estructura de los mensajes`],
+    [`Direction visuelle responsive`, `Responsive visual direction`, `Direção visual responsiva`, `Dirección visual responsive`],
+    [`Parcours de contact et SEO de base`, `Contact journey and core SEO`, `Jornada de contato e SEO básico`, `Recorrido de contacto y SEO básico`],
     [`Une série de corrections`, `One revision round`, `Uma rodada de revisões`, `Una ronda de revisiones`],
-    [`Choisir Essentiel`, `Choose Essential`, `Escolher Essencial`, `Elegir Esencial`],
+    [`Choisir Landing Premium`, `Choose Premium Landing Page`, `Escolher Landing Premium`, `Elegir Landing Premium`],
     [`Le plus choisi`, `Most popular`, `Mais escolhido`, `Más elegido`],
-    [`Vitrine Impact`, `Impact Website`, `Site Impacto`, `Web Impacto`],
-    [`Pour structurer une image plus complète sur plusieurs pages.`, `For building a fuller brand presence across several pages.`, `Para estruturar uma presença mais completa em várias páginas.`, `Para estructurar una presencia más completa en varias páginas.`],
-    [`3 à 5 pages simples`, `3 to 5 streamlined pages`, `3 a 5 páginas simples`, `De 3 a 5 páginas sencillas`],
+    [`Vitrine Business`, `Business Website`, `Site Business`, `Web Business`],
+    [`Pour installer une présence structurée sur plusieurs pages.`, `For establishing a structured presence across several pages.`, `Para estabelecer uma presença estruturada em várias páginas.`, `Para establecer una presencia estructurada en varias páginas.`],
+    [`3 à 5 pages essentielles`, `3 to 5 essential pages`, `3 a 5 páginas essenciais`, `De 3 a 5 páginas esenciales`],
     [`Direction visuelle cohérente`, `Consistent visual direction`, `Direção visual coerente`, `Dirección visual coherente`],
-    [`Pages services, à propos et contact`, `Services, about and contact pages`, `Páginas de serviços, sobre e contato`, `Páginas de servicios, nosotros y contacto`],
-    [`Formulaire ou lien de contact`, `Contact form or link`, `Formulário ou link de contato`, `Formulario o enlace de contacto`],
+    [`Structure commerciale et contenus organisés`, `Commercial structure and organised content`, `Estrutura comercial e conteúdos organizados`, `Estructura comercial y contenidos organizados`],
+    [`Parcours de contact optimisé`, `Optimised contact journey`, `Jornada de contato otimizada`, `Recorrido de contacto optimizado`],
     [`Deux séries de corrections`, `Two revision rounds`, `Duas rodadas de revisões`, `Dos rondas de revisiones`],
-    [`Choisir Impact`, `Choose Impact`, `Escolher Impacto`, `Elegir Impacto`],
-    [`Sur mesure`, `Bespoke`, `Sob medida`, `A medida`],
-    [`Digital Signature`, `Digital Signature`, `Digital Signature`, `Digital Signature`],
-    [`Devis`, `Quote`, `Orçamento`, `Presupuesto`],
-    [`Pour une vitrine plus ambitieuse ou un besoin de contenu approfondi.`, `For a more ambitious website or in-depth content requirements.`, `Para um site mais ambicioso ou uma necessidade de conteúdo aprofundado.`, `Para un sitio más ambicioso o necesidades de contenido en profundidad.`],
-    [`Architecture personnalisée`, `Custom architecture`, `Arquitetura personalizada`, `Arquitectura personalizada`],
-    [`Accompagnement éditorial`, `Editorial guidance`, `Acompanhamento editorial`, `Acompañamiento editorial`],
-    [`Pages et modules spécifiques`, `Custom pages and modules`, `Páginas e módulos específicos`, `Páginas y módulos específicos`],
+    [`Choisir Vitrine Business`, `Choose Business Website`, `Escolher Vitrine Business`, `Elegir Vitrine Business`],
+    [`Signature Internationale`, `International Signature`, `Signature Internationale`, `Signature Internationale`],
+    [`Pour présenter une activité auprès de plusieurs marchés ou plusieurs langues.`, `For presenting a business across several markets or languages.`, `Para apresentar uma atividade em vários mercados ou idiomas.`, `Para presentar una actividad en varios mercados o idiomas.`],
+    [`Architecture et expérience personnalisées`, `Custom architecture and experience`, `Arquitetura e experiência personalizadas`, `Arquitectura y experiencia personalizadas`],
+    [`Positionnement et accompagnement éditorial`, `Positioning and editorial guidance`, `Posicionamento e acompanhamento editorial`, `Posicionamiento y acompañamiento editorial`],
+    [`Contenus multilingues selon le devis`, `Multilingual content as quoted`, `Conteúdos multilíngues conforme o orçamento`, `Contenidos multilingües según presupuesto`],
     [`Intégrations externes simples`, `Simple third-party integrations`, `Integrações externas simples`, `Integraciones externas sencillas`],
     [`Plan de maintenance possible`, `Optional maintenance plan`, `Plano de manutenção opcional`, `Plan de mantenimiento opcional`],
-    [`Décrire le projet`, `Describe the project`, `Descrever o projeto`, `Describir el proyecto`],
+    [`Étudier le projet international`, `Assess the international project`, `Avaliar o projeto internacional`, `Estudiar el proyecto internacional`],
+    [`Investissements indicatifs. Le devis précise le périmètre, les frais externes éventuels et le traitement de TVA applicable.`, `Indicative investments. The quote specifies the scope, any external costs and the applicable VAT treatment.`, `Investimentos indicativos. O orçamento especifica o escopo, eventuais custos externos e o tratamento de IVA aplicável.`, `Inversiones indicativas. El presupuesto especifica el alcance, los posibles costes externos y el tratamiento de IVA aplicable.`],
+    [`Présentation tarifaire 2026`, `2026 pricing overview`, `Apresentação de preços 2026`, `Presentación de precios 2026`],
+    [`Gardez les offres Nykuto à portée de main.`, `Keep Nykuto offers close at hand.`, `Mantenha as ofertas Nykuto sempre à mão.`, `Tenga siempre a mano las ofertas de Nykuto.`],
+    [`Un résumé visuel des trois niveaux d’investissement, à consulter ou à partager avec votre équipe.`, `A visual overview of the three investment levels, ready to view or share with your team.`, `Um resumo visual dos três níveis de investimento, para consultar ou compartilhar com sua equipe.`, `Un resumen visual de los tres niveles de inversión, para consultar o compartir con su equipo.`],
+    [`Ouvrir le PDF`, `Open the PDF`, `Abrir o PDF`, `Abrir el PDF`],
+    [`Télécharger l’image`, `Download the image`, `Baixar a imagem`, `Descargar la imagen`],
     [`Estimation rapide`, `Quick estimate`, `Estimativa rápida`, `Estimación rápida`],
     [`Composez un périmètre indicatif.`, `Build an indicative scope.`, `Monte um escopo indicativo.`, `Configure un alcance indicativo.`],
     [`Cette estimation aide à préparer l’échange. Seul le devis signé engage le prix et les livrables.`, `This estimate helps prepare the discussion. Only a signed quote confirms the price and deliverables.`, `Esta estimativa ajuda a preparar a conversa. Somente o orçamento assinado confirma o preço e os entregáveis.`, `Esta estimación ayuda a preparar la conversación. Solo el presupuesto firmado confirma el precio y los entregables.`],
-    [`Passer à une vitrine multi-pages`, `Upgrade to a multi-page website`, `Passar para um site com várias páginas`, `Pasar a un sitio de varias páginas`],
+    [`Passer à une vitrine de 3 à 5 pages`, `Upgrade to a 3-to-5-page website`, `Passar para um site de 3 a 5 páginas`, `Pasar a un sitio de 3 a 5 páginas`],
     [`Galerie ou portfolio simple`, `Simple gallery or portfolio`, `Galeria ou portfólio simples`, `Galería o portafolio sencillo`],
     [`Aide à la structuration des textes`, `Help structuring your copy`, `Ajuda na estruturação dos textos`, `Ayuda para estructurar los textos`],
     [`Intégration Calendly, Tally ou équivalent`, `Calendly, Tally or equivalent integration`, `Integração com Calendly, Tally ou equivalente`, `Integración con Calendly, Tally o equivalente`],
     [`Formulaire détaillé`, `Detailed form`, `Formulário detalhado`, `Formulario detallado`],
+    [`Deuxième langue avec adaptation`, `Second language with adaptation`, `Segundo idioma com adaptação`, `Segundo idioma con adaptación`],
     [`Estimation :`, `Estimate:`, `Estimativa:`, `Estimación:`],
-    [`à partir de 390 €`, `from €390`, `a partir de 390 €`, `desde 390 €`],
+    [`à partir de 1 490 €`, `from €1,490`, `a partir de 1.490 €`, `desde 1.490 €`],
     [`Ce que nous construisons`, `What we build`, `O que construímos`, `Lo que construimos`],
     [`Une vitrine utile avant d’être décorative.`, `A business website designed to be useful before decorative.`, `Um site institucional útil antes de ser decorativo.`, `Un sitio corporativo útil antes que decorativo.`],
     [`Chaque bloc doit répondre à une question de votre visiteur et l’aider à décider de vous contacter.`, `Every section should answer a visitor’s question and help them decide to contact you.`, `Cada seção deve responder a uma pergunta do visitante e ajudá-lo a decidir entrar em contato.`, `Cada bloque debe responder a una pregunta del visitante y ayudarle a decidir si contactarle.`],
@@ -470,8 +479,8 @@
     [`Sites vitrines`, `Business websites`, `Sites institucionais`, `Sitios web corporativos`],
     [`À qui s’adressent les offres digitales ?`, `Who are the digital offers for?`, `Para quem são as ofertas digitais?`, `¿A quién se dirigen las ofertas digitales?`],
     [`Aux indépendants, TPE, services locaux et petites entreprises qui veulent présenter clairement leur activité et simplifier la prise de contact. Un besoin de plateforme complexe fait l’objet d’une étude séparée ou d’une orientation vers un autre prestataire.`, `They are for independent professionals, small businesses and local services that want to present their activity clearly and make contact easier. Complex platform requirements are assessed separately or referred to another provider.`, `Destinam-se a profissionais independentes, pequenas empresas e serviços locais que desejam apresentar claramente sua atividade e facilitar o contato. Necessidades de plataforma complexa são avaliadas separadamente ou encaminhadas a outro prestador.`, `Se dirigen a profesionales independientes, pequeñas empresas y servicios locales que desean presentar claramente su actividad y facilitar el contacto. Las necesidades de plataforma compleja se estudian por separado o se remiten a otro proveedor.`],
-    [`Les prix de 390 € et 690 € sont-ils définitifs ?`, `Are the €390 and €690 prices final?`, `Os preços de 390 € e 690 € são definitivos?`, `¿Son definitivos los precios de 390 € y 690 €?`],
-    [`Ce sont des prix de départ pour des périmètres standards. Le devis final dépend du nombre de pages, de l’état des contenus, des intégrations, des délais et des corrections prévues.`, `These are starting prices for standard scopes. The final quote depends on the number of pages, content readiness, integrations, deadlines and planned revisions.`, `São preços iniciais para escopos padrão. O orçamento final depende do número de páginas, do estado dos conteúdos, das integrações, dos prazos e das revisões previstas.`, `Son precios de partida para alcances estándar. El presupuesto final depende del número de páginas, el estado de los contenidos, las integraciones, los plazos y las revisiones previstas.`],
+    [`Les prix affichés sont-ils définitifs ?`, `Are the displayed prices final?`, `Os preços exibidos são definitivos?`, `¿Son definitivos los precios mostrados?`],
+    [`Ce sont des investissements de départ pour des configurations standards. Le devis final dépend du nombre de pages, de l’état des contenus, des langues, des intégrations, des délais et des corrections prévues.`, `These are starting investments for standard configurations. The final quote depends on the number of pages, content readiness, languages, integrations, deadlines and planned revisions.`, `São investimentos iniciais para configurações padrão. O orçamento final depende do número de páginas, do estado dos conteúdos, dos idiomas, das integrações, dos prazos e das revisões previstas.`, `Son inversiones iniciales para configuraciones estándar. El presupuesto final depende del número de páginas, el estado de los contenidos, los idiomas, las integraciones, los plazos y las revisiones previstas.`],
     [`Pouvez-vous garantir une première place sur Google ?`, `Can you guarantee first place on Google?`, `Vocês podem garantir o primeiro lugar no Google?`, `¿Pueden garantizar el primer puesto en Google?`],
     [`Non. Nykuto met en place une structure technique et éditoriale de base, mais aucun prestataire sérieux ne peut garantir un classement précis. Une stratégie SEO continue peut être chiffrée séparément avec les compétences adaptées.`, `No. Nykuto implements core technical and editorial foundations, but no serious provider can guarantee a specific ranking. An ongoing SEO strategy can be quoted separately with the appropriate expertise.`, `Não. A Nykuto implementa bases técnicas e editoriais, mas nenhum prestador sério pode garantir uma posição específica. Uma estratégia contínua de SEO pode ser orçada separadamente com as competências adequadas.`, `No. Nykuto implementa unas bases técnicas y editoriales, pero ningún proveedor serio puede garantizar una posición concreta. Una estrategia SEO continua puede presupuestarse por separado con las competencias adecuadas.`],
     [`Qui possède le site et les contenus ?`, `Who owns the website and content?`, `Quem é o proprietário do site e dos conteúdos?`, `¿Quién es propietario del sitio y los contenidos?`],
@@ -600,9 +609,15 @@
       if (!initialHref || /^(#|mailto:|tel:|https?:\/\/)/i.test(initialHref)) return;
 
       const url = new URL(initialHref, window.location.href);
+      const fileName = url.pathname.split('/').pop() || '';
+      const isPageNavigation = !fileName.includes('.') || /\.html$/i.test(fileName);
+      if (!isPageNavigation) {
+        link.setAttribute('href', initialHref);
+        return;
+      }
       if (language === 'fr') url.searchParams.delete('lang');
       else url.searchParams.set('lang', language);
-      link.setAttribute('href', `${url.pathname.split('/').pop() || 'index.html'}${url.search}${url.hash}`);
+      link.setAttribute('href', `${fileName || 'index.html'}${url.search}${url.hash}`);
     });
   }
 
