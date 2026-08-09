@@ -9,7 +9,7 @@ Le site possède déjà une base visuelle forte et une architecture multipage pe
 
 Les améliorations prioritaires sont donc :
 
-1. rendre la marque plus distinctive sans importer l'identité médicale de Med Nykuto ;
+1. rendre la marque plus distinctive et cohérente avec l'identité historique choisie par le fondateur ;
 2. afficher des preuves professionnelles courtes et vérifiables ;
 3. parler davantage de valeur, de livrables et de gouvernance que de restrictions ;
 4. réduire les frictions de contact ;
@@ -23,7 +23,7 @@ Les améliorations prioritaires sont donc :
 |---|---|---:|---|
 | Architecture | Multipage claire, sans retour à une longue page unique | Forte base | Architecture conservée |
 | Accueil | Positionnement lisible, mais preuves insuffisantes au-dessus de la ligne de flottaison | Haute | Ajout d'un rail compact SIREN, langues et périmètre écrit |
-| Identité | Monogramme « N » propre mais générique | Haute | Création d'un monogramme Nykuto distinctif à géométrie féline, sans symbole médical |
+| Identité | Monogramme « N » propre mais générique | Haute | Après une première piste abstraite, adoption validée de l'emblème historique chat, livre et sceptre, débarrassé de l'ancien nom « MedCursos » |
 | Argumentaire digital | Offres bien structurées, bloc final trop défensif | Haute | Reformulation en base évolutive et phases complémentaires |
 | Argumentaire international | Expertise visible, limites réglementaires trop dominantes | Haute | Présentation positive des rôles : Nykuto, prestataire habilité et client |
 | Crédibilité | Page À propos sous-exploitée malgré des diplômes vérifiables | Haute | Ajout du MSc 2 International Business Management et du titre RNCP niveau 7 |
@@ -41,8 +41,9 @@ Les améliorations prioritaires sont donc :
 
 - **Nykuto** reste la marque ombrelle.
 - **Nykuto Digital** et **Nykuto Business International** restent les deux expertises.
-- L'ancien logo Med Nykuto reste réservé à l'activité médicale d'origine.
-- La nouvelle marque commerciale reprend uniquement un indice félin discret ; le serpent, le livre et les codes médicaux sont exclus.
+- Le fondateur a explicitement retenu l'emblème historique de Med Nykuto comme signature de la marque ombrelle.
+- Le chat, le livre et le sceptre sont conservés ; l'ancien texte « MedCursos » est retiré.
+- Le nom commercial présenté au public reste **Nykuto** et l'interface conserve son système bleu nuit, cyan et violet.
 
 ## Points volontairement conservés
 
@@ -54,7 +55,7 @@ Les améliorations prioritaires sont donc :
 
 ## Prochaines améliorations possibles après validation
 
-1. créer un jeu officiel de logos PNG pour Square, factures et réseaux sociaux ;
+1. créer les déclinaisons documentaires du nouvel emblème pour Square, factures et réseaux sociaux ;
 2. ajouter des témoignages uniquement après autorisation écrite et preuve du client ;
 3. remplacer le formulaire `mailto:` par un formulaire serveur conforme, protégé contre le spam ;
 4. ajouter une page portfolio lorsque deux ou trois projets publiables sont disponibles ;

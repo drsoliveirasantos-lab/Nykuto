@@ -22,7 +22,9 @@ styles.css                     Shared design system
 i18n.js                        FR/EN/PT/ES translations and language state
 script.js                      Shared interactions
 assets/                        Production images
-favicon.svg                    Brand icon
+assets/nykuto-emblem.webp      Production brand emblem
+assets/nykuto-emblem-favicon.png  Browser icon
+favicon.svg                    Legacy fallback icon
 robots.txt / sitemap.xml       Search discovery
 _headers                       Cloudflare response headers
 scripts/prepare-cloudflare-output.js
