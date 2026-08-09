@@ -67,6 +67,23 @@ The production mark is Nykuto's original emblem: an elegant seated cat combining
 - never restore the former “MedCursos” wording on Nykuto commercial materials;
 - keep the surrounding interface in the established navy, cyan and violet system so the emblem remains a signature rather than a new global colour palette.
 
+## Origin story
+
+The name and emblem are rooted in the founder's real history rather than an invented brand narrative:
+
+- **Nykuto** was the name of Diego's first cat, an orange cat associated with his childhood;
+- the name later became Diego's long-standing gaming username and digital identity;
+- Diego retained the name when creating the business because it was already personal and recognisable;
+- the cat and restrained gold tones refer to Nykuto and his orange coat;
+- the single-serpent staff refers to Diego's medical journey;
+- the open book refers to his studies in international business and continued learning.
+
+The approved verbal signature for this story is:
+
+> Un nom d’enfance devenu une signature professionnelle.
+
+Keep this story human, factual and concise. Do not replace it with invented mythology or generic symbolic claims.
+
 ## Brand boundaries
 
 Do not present Nykuto as:
