@@ -59,7 +59,12 @@ The approved visual direction is **Premium tech**:
 
 ## Mark
 
-The current production mark is a simple gradient “N” tile. Do not reintroduce unrelated medical symbolism. A future logo project may replace it without changing the two-division architecture.
+The production mark is a custom gradient “N” monogram with a restrained feline geometry. It reconnects the commercial brand to Nykuto's original visual history without importing the snake, book or any other medical symbol from Med Nykuto.
+
+- use the standalone mark at small sizes;
+- pair it with the Nykuto wordmark in navigation and commercial documents;
+- preserve generous clear space and the cyan-to-violet gradient;
+- never reuse the Med Nykuto emblem for commercial consulting or digital services.
 
 ## Brand boundaries
 

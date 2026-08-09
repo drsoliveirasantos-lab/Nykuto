@@ -512,6 +512,74 @@
   );
 
   COPY.push(
+    // Premium audit additions
+    [`Repères de confiance`, `Trust signals`, `Indicadores de confiança`, `Indicadores de confianza`],
+    [`SIREN 900 602 566`, `SIREN 900 602 566`, `SIREN 900 602 566`, `SIREN 900 602 566`],
+    [`Entreprise identifiée`, `Registered business`, `Empresa identificada`, `Empresa identificada`],
+    [`FR · PT · ES`, `FR · PT · ES`, `FR · PT · ES`, `FR · PT · ES`],
+    [`Coordination multilingue`, `Multilingual coordination`, `Coordenação multilíngue`, `Coordinación multilingüe`],
+    [`Périmètre écrit`, `Written scope`, `Escopo por escrito`, `Alcance por escrito`],
+    [`Devis et livrables`, `Quote and deliverables`, `Orçamento e entregáveis`, `Presupuesto y entregables`],
+    [`Cadré`, `Scoped`, `Estruturado`, `Definido`],
+
+    [`Une base évolutive`, `A scalable foundation`, `Uma base evolutiva`, `Una base evolutiva`],
+    [`Commencer avec le bon périmètre, puis étendre si le projet évolue.`, `Start with the right scope, then expand as the project evolves.`, `Começar com o escopo certo e ampliar conforme o projeto evolui.`, `Empezar con el alcance adecuado y ampliarlo a medida que evoluciona el proyecto.`],
+    [`Le socle est défini au devis :`, `The foundation is defined in the quote:`, `A base é definida no orçamento:`, `La base se define en el presupuesto:`],
+    [`architecture, contenus, responsive, parcours de contact, SEO technique de base et intégrations externes simples.`, `architecture, content, responsive design, contact journey, core technical SEO and simple external integrations.`, `arquitetura, conteúdos, responsividade, jornada de contato, SEO técnico básico e integrações externas simples.`, `arquitectura, contenidos, diseño responsive, recorrido de contacto, SEO técnico básico e integraciones externas simples.`],
+    [`Les fonctions avancées — e-commerce, espace client, réservation sur mesure, automatisations ou back-end dédié — peuvent être étudiées comme une phase complémentaire avec les compétences adaptées.`, `Advanced features — e-commerce, client areas, custom booking, automations or a dedicated back end — can be assessed as an additional phase with the appropriate expertise.`, `Funcionalidades avançadas — e-commerce, área do cliente, reservas sob medida, automações ou back-end dedicado — podem ser avaliadas como uma fase complementar com as competências adequadas.`, `Las funciones avanzadas — comercio electrónico, área de cliente, reservas a medida, automatizaciones o back-end dedicado — pueden estudiarse como una fase complementaria con las competencias adecuadas.`],
+
+    [`Un parcours marchand préparé pour être compris et défendu.`, `A merchant journey prepared to be understood and supported.`, `Uma jornada comercial preparada para ser compreendida e defendida.`, `Un recorrido comercial preparado para ser comprendido y defendido.`],
+    [`Nykuto analyse le besoin d’encaissement, structure le dossier marchand et coordonne l’échange avec le prestataire de paiement réglementé retenu.`, `Nykuto analyses the collection requirement, structures the merchant application and coordinates discussions with the selected regulated payment provider.`, `A Nykuto analisa a necessidade de recebimento, estrutura o dossiê comercial e coordena o contato com o prestador de pagamento regulamentado escolhido.`, `Nykuto analiza la necesidad de cobro, estructura el expediente comercial y coordina el intercambio con el proveedor de pagos regulado elegido.`],
+    [`Les données de carte restent dans l’environnement sécurisé du prestataire. Celui-ci évalue le risque, décide de l’acceptation et fixe les conditions d’encaissement.`, `Card data remains within the provider's secure environment. The provider assesses risk, decides approval and sets collection terms.`, `Os dados do cartão permanecem no ambiente seguro do prestador. Ele avalia o risco, decide a aprovação e define as condições de recebimento.`, `Los datos de la tarjeta permanecen en el entorno seguro del proveedor. Este evalúa el riesgo, decide la aprobación y fija las condiciones de cobro.`],
+    [`Gouvernance de mission`, `Assignment governance`, `Governança da missão`, `Gobernanza de la misión`],
+    [`Un interlocuteur pour orchestrer les bonnes responsabilités.`, `One point of contact to orchestrate the right responsibilities.`, `Um interlocutor para coordenar as responsabilidades certas.`, `Un interlocutor para coordinar las responsabilidades adecuadas.`],
+    [`Nykuto maintient le fil du projet : informations, décisions, calendrier et échanges avec les spécialistes. Chaque partie intervient dans son champ de compétence.`, `Nykuto keeps the project connected: information, decisions, schedule and specialist discussions. Each party acts within its field of expertise.`, `A Nykuto mantém o fio condutor do projeto: informações, decisões, cronograma e contatos com especialistas. Cada parte atua em sua área de competência.`, `Nykuto mantiene el hilo del proyecto: información, decisiones, calendario e intercambios con especialistas. Cada parte actúa en su ámbito de competencia.`],
+    [`Nykuto`, `Nykuto`, `Nykuto`, `Nykuto`],
+    [`Cadrage, préparation du dossier, comparaison et coordination.`, `Scoping, application preparation, comparison and coordination.`, `Definição do escopo, preparação do dossiê, comparação e coordenação.`, `Definición del alcance, preparación del expediente, comparación y coordinación.`],
+    [`Prestataire habilité`, `Authorised provider`, `Prestador habilitado`, `Proveedor autorizado`],
+    [`Vérification, décision d’acceptation et conditions réglementées.`, `Verification, approval decision and regulated terms.`, `Verificação, decisão de aprovação e condições regulamentadas.`, `Verificación, decisión de aprobación y condiciones reguladas.`],
+    [`Client`, `Client`, `Cliente`, `Cliente`],
+    [`Informations exactes, choix final, validations et contrats.`, `Accurate information, final choice, approvals and contracts.`, `Informações corretas, escolha final, validações e contratos.`, `Información exacta, elección final, validaciones y contratos.`],
+
+    [`Entrepreneur individuel basé à Bordeaux, Diego développe Nykuto comme un point de coordination entre stratégie commerciale, outils digitaux, organisation administrative et contextes interculturels.`, `A sole proprietor based in Bordeaux, Diego is developing Nykuto as a coordination point between commercial strategy, digital tools, administrative organisation and intercultural contexts.`, `Empresário individual baseado em Bordeaux, Diego desenvolve a Nykuto como ponto de coordenação entre estratégia comercial, ferramentas digitais, organização administrativa e contextos interculturais.`, `Empresario individual con sede en Burdeos, Diego desarrolla Nykuto como punto de coordinación entre estrategia comercial, herramientas digitales, organización administrativa y contextos interculturales.`],
+    [`Une capacité à relier les expertises`, `The ability to connect expertise`, `Capacidade de conectar especialidades`, `Capacidad para conectar especialidades`],
+    [`Nykuto transforme un besoin dispersé en mission pilotable : faits structurés, responsabilités identifiées, spécialistes coordonnés et décisions rendues compréhensibles.`, `Nykuto turns a fragmented need into a manageable assignment: structured facts, identified responsibilities, coordinated specialists and understandable decisions.`, `A Nykuto transforma uma necessidade dispersa em uma missão gerenciável: fatos estruturados, responsabilidades identificadas, especialistas coordenados e decisões compreensíveis.`, `Nykuto convierte una necesidad dispersa en una misión gestionable: hechos estructurados, responsabilidades identificadas, especialistas coordinados y decisiones comprensibles.`],
+    [`Un périmètre validé avant la signature`, `A scope approved before signing`, `Um escopo validado antes da assinatura`, `Un alcance validado antes de la firma`],
+    [`Repères professionnels`, `Professional credentials`, `Referências profissionais`, `Credenciales profesionales`],
+    [`Une formation alignée avec les missions proposées.`, `Education aligned with the assignments offered.`, `Formação alinhada às missões propostas.`, `Formación alineada con las misiones propuestas.`],
+    [`Les intitulés présentés ci-dessous correspondent aux diplômes et certifications obtenus. Les justificatifs peuvent être vérifiés dans un cadre professionnel approprié.`, `The titles below correspond to qualifications and certifications obtained. Supporting documents can be verified in an appropriate professional setting.`, `Os títulos abaixo correspondem aos diplomas e certificações obtidos. Os comprovantes podem ser verificados em um contexto profissional adequado.`, `Los títulos que figuran a continuación corresponden a los diplomas y certificaciones obtenidos. Los justificantes pueden verificarse en un contexto profesional adecuado.`],
+    [`INSEEC MSc`, `INSEEC MSc`, `INSEEC MSc`, `INSEEC MSc`],
+    [`MSc 2 International Business Management`, `MSc 2 International Business Management`, `MSc 2 International Business Management`, `MSc 2 International Business Management`],
+    [`Stratégie, développement international et compréhension des environnements multiculturels.`, `Strategy, international development and understanding of multicultural environments.`, `Estratégia, desenvolvimento internacional e compreensão de ambientes multiculturais.`, `Estrategia, desarrollo internacional y comprensión de entornos multiculturales.`],
+    [`Certification professionnelle`, `Professional certification`, `Certificação profissional`, `Certificación profesional`],
+    [`Manager du Développement International`, `International Development Manager`, `Manager de Desenvolvimento Internacional`, `Manager de Desarrollo Internacional`],
+    [`Titre enregistré au RNCP, niveau 7, obtenu à Bordeaux.`, `Level 7 qualification registered with the RNCP and obtained in Bordeaux.`, `Título de nível 7 registrado no RNCP e obtido em Bordeaux.`, `Título de nivel 7 registrado en el RNCP y obtenido en Burdeos.`],
+    [`Langues de travail`, `Working languages`, `Idiomas de trabalho`, `Idiomas de trabajo`],
+    [`Français · Portugais · Espagnol`, `French · Portuguese · Spanish`, `Francês · Português · Espanhol`, `Francés · Portugués · Español`],
+    [`Coordination de missions et adaptation des échanges entre plusieurs marchés.`, `Assignment coordination and adaptation of communications across several markets.`, `Coordenação de missões e adaptação das comunicações entre vários mercados.`, `Coordinación de misiones y adaptación de las comunicaciones entre varios mercados.`],
+
+    [`Partagez le contexte essentiel pour recevoir une première orientation sur le format, le périmètre et les informations utiles à la mission.`, `Share the essential context to receive initial guidance on the format, scope and information needed for the assignment.`, `Compartilhe o contexto essencial para receber uma primeira orientação sobre o formato, o escopo e as informações necessárias para a missão.`, `Comparta el contexto esencial para recibir una primera orientación sobre el formato, el alcance y la información útil para la misión.`],
+    [`Indiquez l’activité, le pays, l’objectif, l’échéance et ce qui bloque aujourd’hui. Nykuto vous répond avec une première orientation et la prochaine étape recommandée.`, `State the activity, country, objective, deadline and current obstacle. Nykuto will respond with initial guidance and the recommended next step.`, `Informe a atividade, o país, o objetivo, o prazo e o bloqueio atual. A Nykuto responderá com uma primeira orientação e a próxima etapa recomendada.`, `Indique la actividad, el país, el objetivo, el plazo y el obstáculo actual. Nykuto responderá con una primera orientación y el siguiente paso recomendado.`],
+    [`Écrire par email`, `Write by email`, `Escrever por e-mail`, `Escribir por correo`],
+    [`Ouvrir WhatsApp`, `Open WhatsApp`, `Abrir WhatsApp`, `Abrir WhatsApp`],
+
+    [`Cas d’usage — Nykuto`, `Use cases — Nykuto`, `Casos de uso — Nykuto`, `Casos de uso — Nykuto`],
+    [`Cas d’usage`, `Use cases`, `Casos de uso`, `Casos de uso`],
+    [`Projetez une mission à travers des situations concrètes.`, `Picture an assignment through concrete situations.`, `Visualize uma missão por meio de situações concretas.`, `Visualice una misión mediante situaciones concretas.`],
+    [`Chaque cas présente un contexte, une intervention possible et les livrables associés. Votre mission sera ensuite construite sur vos faits, vos contraintes et vos objectifs.`, `Each case presents a context, a possible intervention and related deliverables. Your assignment will then be built around your facts, constraints and objectives.`, `Cada caso apresenta um contexto, uma intervenção possível e os entregáveis associados. Sua missão será então construída com base em seus fatos, restrições e objetivos.`, `Cada caso presenta un contexto, una intervención posible y los entregables asociados. Su misión se construirá después a partir de sus hechos, limitaciones y objetivos.`],
+    [`Cas d’usage · paiement transfrontalier`, `Use case · cross-border payments`, `Caso de uso · pagamentos internacionais`, `Caso de uso · pagos transfronterizos`],
+    [`Validation externe :`, `External approval:`, `Validação externa:`, `Validación externa:`],
+    [`le PSP analyse le dossier, décide de l’acceptation et sécurise les données de carte dans son propre environnement.`, `the PSP reviews the application, decides approval and secures card data within its own environment.`, `o PSP analisa o dossiê, decide a aprovação e protege os dados do cartão em seu próprio ambiente.`, `el PSP analiza el expediente, decide la aprobación y protege los datos de tarjeta en su propio entorno.`],
+    [`Cas d’usage · France ↔ Brésil`, `Use case · France ↔ Brazil`, `Caso de uso · França ↔ Brasil`, `Caso de uso · Francia ↔ Brasil`],
+    [`Expertises associées :`, `Associated expertise:`, `Especialidades associadas:`, `Especialidades asociadas:`],
+    [`les actes réglementés sont réalisés par les professionnels habilités mobilisés pour le projet.`, `regulated acts are carried out by the authorised professionals involved in the project.`, `os atos regulamentados são realizados pelos profissionais habilitados envolvidos no projeto.`, `los actos regulados son realizados por los profesionales autorizados que participan en el proyecto.`],
+
+    [`Chaque décision a un responsable identifié.`, `Every decision has an identified owner.`, `Cada decisão tem um responsável identificado.`, `Cada decisión tiene un responsable identificado.`],
+    [`Nykuto pilote les tâches listées au devis. Le client fournit les informations, valide les choix structurants et conserve la décision finale sur son activité.`, `Nykuto manages the tasks listed in the quote. The client supplies information, approves key choices and retains the final decision over their business.`, `A Nykuto gerencia as tarefas listadas no orçamento. O cliente fornece as informações, valida as escolhas estruturantes e mantém a decisão final sobre sua atividade.`, `Nykuto gestiona las tareas indicadas en el presupuesto. El cliente proporciona la información, valida las decisiones estructurantes y conserva la decisión final sobre su actividad.`],
+    [`Nykuto coordonne ces échanges dans le périmètre prévu.`, `Nykuto coordinates these discussions within the agreed scope.`, `A Nykuto coordena essas trocas dentro do escopo previsto.`, `Nykuto coordina estos intercambios dentro del alcance previsto.`]
+  );
+
+  COPY.push(
     // Legal page introductions. The full legal documents remain in French.
     [`Demander le diagnostic`, `Request the assessment`, `Solicitar o diagnóstico`, `Solicitar el diagnóstico`],
     [`Mentions légales — Nykuto`, `Legal notice — Nykuto`, `Aviso legal — Nykuto`, `Aviso legal — Nykuto`],
@@ -543,7 +611,8 @@
 
   function getCurrentPage() {
     const page = window.location.pathname.split('/').pop();
-    return page || 'index.html';
+    if (!page) return 'index.html';
+    return page.includes('.') ? page : `${page}.html`;
   }
 
   function translateTextNodes(language) {
