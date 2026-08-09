@@ -24,6 +24,7 @@ script.js                      Shared interactions
 assets/                        Production images
 assets/nykuto-emblem.webp      Production brand emblem
 assets/nykuto-emblem-favicon.png  Browser icon
+assets/nykuto-origin-story.webp   Founder-story photograph on About page
 favicon.svg                    Legacy fallback icon
 robots.txt / sitemap.xml       Search discovery
 _headers                       Cloudflare response headers
