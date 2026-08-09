@@ -237,8 +237,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
   flex: 0 0 46px;
   overflow: hidden;
   border-radius: 13px;
-  background: url("assets/nykuto-mark.svg") center / contain no-repeat;
-  box-shadow: 0 0 30px rgba(77, 227, 255, 0.13);
+  border: 1px solid rgba(229, 197, 129, 0.34);
+  background: #07090d url("assets/nykuto-emblem.webp") center / cover no-repeat;
+  box-shadow:
+    0 0 28px rgba(216, 180, 98, 0.15),
+    0 0 16px rgba(77, 227, 255, 0.06);
   color: transparent;
   font-size: 0;
 }

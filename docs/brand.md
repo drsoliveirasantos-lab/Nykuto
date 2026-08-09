@@ -59,12 +59,13 @@ The approved visual direction is **Premium tech**:
 
 ## Mark
 
-The production mark is a custom gradient “N” monogram with a restrained feline geometry. It reconnects the commercial brand to Nykuto's original visual history without importing the snake, book or any other medical symbol from Med Nykuto.
+The production mark is Nykuto's original emblem: an elegant seated cat combining an open book and a single-serpent staff. The symbol has been separated from the former “MedCursos” wordmark and is now paired with the Nykuto name.
 
 - use the standalone mark at small sizes;
 - pair it with the Nykuto wordmark in navigation and commercial documents;
-- preserve generous clear space and the cyan-to-violet gradient;
-- never reuse the Med Nykuto emblem for commercial consulting or digital services.
+- preserve the near-black background, ivory-and-gold linework and generous clear space;
+- never restore the former “MedCursos” wording on Nykuto commercial materials;
+- keep the surrounding interface in the established navy, cyan and violet system so the emblem remains a signature rather than a new global colour palette.
 
 ## Brand boundaries
 
