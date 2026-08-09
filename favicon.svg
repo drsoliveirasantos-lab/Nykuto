@@ -1,6 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Nykuto">
-  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#4de3ff"/><stop offset="1" stop-color="#7c5cff"/></linearGradient></defs>
-  <rect width="64" height="64" rx="15" fill="#07111f"/>
-  <rect x="2" y="2" width="60" height="60" rx="13" fill="none" stroke="url(#g)" stroke-width="2"/>
-  <path d="M18 46V18h7l14 18V18h7v28h-7L25 28v18z" fill="url(#g)"/>
+  <defs>
+    <linearGradient id="g" x1="10" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse"><stop stop-color="#4de3ff"/><stop offset=".52" stop-color="#58b9ff"/><stop offset="1" stop-color="#7c5cff"/></linearGradient>
+    <radialGradient id="s" cx="0" cy="0" r="1" gradientTransform="translate(19 13) rotate(48) scale(58)"><stop stop-color="#11233e"/><stop offset="1" stop-color="#07111f"/></radialGradient>
+  </defs>
+  <rect x="1" y="1" width="62" height="62" rx="16" fill="url(#s)" stroke="url(#g)" stroke-width="2"/>
+  <path d="M16 25v-5l8-7 8 7 8-7 8 7v5" fill="none" stroke="url(#g)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" opacity=".82"/>
+  <path d="M18 48V24h7l14 16V24h7v24h-7L25 32v16Z" fill="url(#g)"/>
+  <circle cx="49" cy="15" r="2" fill="#4de3ff"/>
 </svg>

@@ -5,6 +5,20 @@ const checkboxes = document.querySelectorAll('[data-price]');
 const estimate = document.getElementById('estimate');
 const translate = (source) => window.NykutoI18n?.t(source) || source;
 
+function normalizePagePath(pathname) {
+  const normalized = pathname.replace(/index\.html$/i, '').replace(/\.html$/i, '').replace(/\/$/, '');
+  return normalized || '/';
+}
+
+const currentPagePath = normalizePagePath(window.location.pathname);
+document.querySelectorAll('.main-nav a, .header-cta').forEach((link) => {
+  const target = new URL(link.href, window.location.href);
+  const isCurrent = normalizePagePath(target.pathname) === currentPagePath;
+  link.classList.toggle('active', isCurrent);
+  if (isCurrent) link.setAttribute('aria-current', 'page');
+  else link.removeAttribute('aria-current');
+});
+
 function closeMenu() {
   if (!mainNav || !menuToggle) return;
   mainNav.classList.remove('open');
