@@ -1,5 +1,7 @@
 (() => {
   const assetBase = 'assets/demo-imobiliaria/';
+  const ciudadDelEsteCenter = [-25.5135, -54.632];
+  const openStreetMapTiles = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
 
   const properties = [
     {
@@ -25,7 +27,7 @@
       distance: '1 km da Av. São José',
       immediate: true,
       zoneRadius: '1 km',
-      map: { x: 27, y: 45, size: 94 },
+      map: { lat: -25.5018, lng: -54.6567, radiusMeters: 1000 },
       media: Array.from({ length: 6 }, (_, index) => ({
         type: 'image',
         src: `${assetBase}local-studio-${String(index + 1).padStart(2, '0')}.webp`,
@@ -55,7 +57,7 @@
       distance: '1,7 km da UNINTER · 2 km da UNIDA',
       immediate: false,
       zoneRadius: '1,2 km',
-      map: { x: 48, y: 58, size: 108 },
+      map: { lat: -25.5275, lng: -54.638, radiusMeters: 1200 },
       media: [
         { type: 'video', src: `${assetBase}local-tour-apartamento-a.mp4`, poster: `${assetBase}local-tour-apartamento-a-poster.webp`, alt: 'Visita real neutralizada de um apartamento semimobiliado em Ciudad del Este' }
       ]
@@ -83,7 +85,7 @@
       distance: 'Próximo ao Lago da República',
       immediate: false,
       zoneRadius: '800 m',
-      map: { x: 68, y: 23, size: 82 },
+      map: { lat: -25.5164, lng: -54.621, radiusMeters: 800 },
       media: [
         { type: 'video', src: `${assetBase}local-tour-apartamento-b.mp4`, poster: `${assetBase}local-tour-apartamento-b-poster.webp`, alt: 'Visita real neutralizada de outro apartamento semimobiliado em Ciudad del Este' }
       ]
@@ -112,7 +114,7 @@
       distance: '2,6 km da UCP Lago · 2,8 km da UNIDA',
       immediate: true,
       zoneRadius: '1,5 km',
-      map: { x: 76, y: 66, size: 118 },
+      map: { lat: -25.5098, lng: -54.635, radiusMeters: 1500 },
       media: [
         { type: 'video', src: `${assetBase}local-tour-mobiliado.mp4`, poster: `${assetBase}local-tour-mobiliado-poster.webp`, alt: 'Visita real neutralizada de uma casa mobiliada em Ciudad del Este' }
       ]
@@ -141,7 +143,7 @@
       distance: '8 min da UCP Lago · 5 min da UNIDA',
       immediate: false,
       zoneRadius: '1 km',
-      map: { x: 59, y: 39, size: 96 },
+      map: { lat: -25.5105, lng: -54.6115, radiusMeters: 1000 },
       media: Array.from({ length: 11 }, (_, index) => ({
         type: 'image',
         src: `${assetBase}local-premium-${String(index + 1).padStart(2, '0')}.webp`,
@@ -170,8 +172,7 @@
   const propertyList = document.querySelector('[data-property-list]');
   const resultsSummary = document.querySelector('[data-results-summary]');
   const resultsLayout = document.querySelector('[data-results-layout]');
-  const mapPins = document.querySelector('[data-map-pins]');
-  const mapZones = document.querySelector('[data-map-zones]');
+  const mapCanvas = document.querySelector('[data-map-canvas]');
   const emptyState = document.querySelector('[data-empty-state]');
   const propertyDialog = document.querySelector('[data-property-dialog]');
   const propertyDialogContent = document.querySelector('[data-property-dialog-content]');
@@ -182,6 +183,8 @@
   const managerDialog = document.querySelector('[data-manager-dialog]');
   const managerList = document.querySelector('[data-manager-list]');
   const toastOutput = document.querySelector('[data-demo-toast-output]');
+  let realMap;
+  let realMapLayers;
 
   function readFavorites() {
     try {
@@ -287,7 +290,7 @@
           <p class="demo-listing-location">⌖ ${escapeHtml(property.location)}</p>
           <div class="demo-listing-specs">${specs.map((spec) => `<span>${escapeHtml(spec)}</span>`).join('')}</div>
           <div class="demo-listing-price">
-            <div><strong>${escapeHtml(formatMoney(property.rent, property.currency))}</strong><small>por mês · dado demonstrativo</small></div>
+            <div><strong>${escapeHtml(formatMoney(property.rent, property.currency))}</strong><small>por mês</small></div>
             <div class="demo-listing-actions">
               <button type="button" data-action="details" data-property-id="${escapeHtml(property.id)}">Detalhes</button>
               <button class="${isCompared ? 'active' : ''}" type="button" data-action="compare" data-property-id="${escapeHtml(property.id)}" aria-pressed="${isCompared}">${isCompared ? '✓ Comparar' : 'Comparar'}</button>
@@ -298,13 +301,78 @@
     `;
   }
 
+  function initializeRealMap() {
+    if (!mapCanvas) return;
+    if (!window.L) {
+      mapCanvas.innerHTML = '<div class="demo-map-unavailable"><p>O mapa real não pôde ser carregado. As zonas continuam disponíveis nas fichas dos imóveis.</p></div>';
+      mapCanvas.dataset.mapReady = 'false';
+      return;
+    }
+
+    mapCanvas.replaceChildren();
+    realMap = window.L.map(mapCanvas, {
+      zoomControl: true,
+      scrollWheelZoom: false,
+      minZoom: 12,
+      maxZoom: 17
+    }).setView(ciudadDelEsteCenter, 13);
+
+    window.L.tileLayer(openStreetMapTiles, {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(realMap);
+
+    window.L.control.scale({ imperial: false, position: 'bottomleft' }).addTo(realMap);
+    realMapLayers = window.L.featureGroup().addTo(realMap);
+    mapCanvas.dataset.mapReady = 'true';
+  }
+
   function renderMap(filteredProperties) {
-    mapZones.innerHTML = filteredProperties.map((property) => `
-      <span class="demo-map-zone" style="left:${property.map.x}%;top:${property.map.y}%;--zone-size:${property.map.size}px" aria-hidden="true"></span>
-    `).join('');
-    mapPins.innerHTML = filteredProperties.map((property) => `
-      <button class="demo-map-pin" type="button" style="left:${property.map.x}%;top:${property.map.y}%" data-property-id="${escapeHtml(property.id)}" data-currency="${property.currency}" aria-label="Abrir ${escapeHtml(property.title)}, ${escapeHtml(formatMoney(property.rent, property.currency))}">${escapeHtml(formatMapPrice(property))}</button>
-    `).join('');
+    if (!realMap || !realMapLayers || !window.L) return;
+    realMapLayers.clearLayers();
+
+    filteredProperties.forEach((property) => {
+      const coordinates = [property.map.lat, property.map.lng];
+      const area = window.L.circle(coordinates, {
+        radius: property.map.radiusMeters,
+        color: '#174f43',
+        weight: 1,
+        opacity: 0.54,
+        fillColor: '#40987d',
+        fillOpacity: 0.14,
+        interactive: false
+      });
+      const marker = window.L.marker(coordinates, {
+        keyboard: true,
+        title: `${property.title} · ${formatMoney(property.rent, property.currency)}`,
+        icon: window.L.divIcon({
+          className: 'demo-map-price-icon',
+          html: `<span data-currency="${escapeHtml(property.currency)}">${escapeHtml(formatMapPrice(property))}</span>`,
+          iconSize: [70, 34],
+          iconAnchor: [35, 17]
+        })
+      });
+
+      marker.on('click', () => openProperty(property.id));
+      marker.on('add', () => {
+        const element = marker.getElement();
+        if (!element) return;
+        element.setAttribute('role', 'button');
+        element.setAttribute('aria-label', `Abrir ${property.title}, ${formatMoney(property.rent, property.currency)}, zona aproximada de ${property.zoneRadius}`);
+      });
+      area.addTo(realMapLayers);
+      marker.addTo(realMapLayers);
+    });
+
+    window.setTimeout(() => {
+      realMap.invalidateSize({ animate: false });
+      if (!filteredProperties.length) {
+        realMap.setView(ciudadDelEsteCenter, 13, { animate: false });
+        return;
+      }
+      const bounds = realMapLayers.getBounds();
+      if (bounds.isValid()) realMap.fitBounds(bounds, { padding: [28, 28], maxZoom: 14, animate: false });
+    }, 0);
   }
 
   function renderManagerList() {
@@ -323,7 +391,7 @@
     const filtered = properties.filter(matchesFilters);
     propertyList.innerHTML = filtered.map(listingCard).join('');
     renderMap(filtered);
-    resultsSummary.textContent = `${filtered.length} ${filtered.length === 1 ? 'opção encontrada' : 'opções encontradas'} · dados demonstrativos`;
+    resultsSummary.textContent = `${filtered.length} ${filtered.length === 1 ? 'opção encontrada' : 'opções encontradas'}`;
     emptyState.hidden = filtered.length > 0;
     resultsLayout.hidden = filtered.length === 0;
     updateFilterControls();
@@ -433,7 +501,7 @@
           <div class="demo-detail-tags">${tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join('')}</div>
           <div class="demo-detail-zone"><i aria-hidden="true"></i><div><strong>Localização aproximada · raio ${escapeHtml(property.zoneRadius)}</strong><span>${escapeHtml(property.distance)}. Endereço exato não publicado.</span></div></div>
           <div class="demo-contact-simulation"><button type="button" data-simulate-whatsapp data-property-id="${escapeHtml(property.id)}">Simular contato pelo WhatsApp</button><button type="button" data-share-property data-property-id="${escapeHtml(property.id)}" aria-label="Compartilhar imóvel">↗</button></div>
-          <p class="demo-detail-concept-note">Protótipo Nykuto: mídias reais neutralizadas; preços, disponibilidade e dados da ficha são demonstrativos. Nenhuma mensagem, reserva ou pagamento real será enviado.</p>
+          <p class="demo-detail-concept-note">Mídias reais neutralizadas; preços, disponibilidade e dados da ficha são ilustrativos. Nenhuma reserva ou pagamento é realizado neste portal.</p>
         </section>
       </div>
     `;
@@ -563,7 +631,10 @@
         viewButton.classList.toggle('active', active);
         viewButton.setAttribute('aria-pressed', String(active));
       });
-      if (state.view === 'map') document.querySelector('#demo-mapa')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (state.view === 'map') {
+        document.querySelector('#demo-mapa')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        window.setTimeout(() => realMap?.invalidateSize({ animate: false }), 220);
+      }
     });
   });
 
@@ -576,13 +647,8 @@
     if (button.dataset.action === 'details') openProperty(propertyId);
   });
 
-  mapPins?.addEventListener('click', (event) => {
-    const button = event.target.closest('[data-property-id]');
-    if (button) openProperty(button.dataset.propertyId);
-  });
-
   document.querySelectorAll('[data-property-id]:not([data-action])').forEach((button) => {
-    if (!button.closest('[data-map-pins]')) button.addEventListener('click', () => openProperty(button.dataset.propertyId));
+    button.addEventListener('click', () => openProperty(button.dataset.propertyId));
   });
 
   propertyDialogContent?.addEventListener('click', (event) => {
@@ -613,7 +679,7 @@
   document.querySelector('[data-open-compare]')?.addEventListener('click', openComparison);
   document.querySelector('[data-clear-compare]')?.addEventListener('click', () => { compared.clear(); render(); });
   document.querySelectorAll('[data-open-manager]').forEach((button) => button.addEventListener('click', () => openDialog(managerDialog)));
-  document.querySelector('[data-map-info]')?.addEventListener('click', () => showToast('A agência escolhe apenas uma zona pública e um raio. O endereço exato não precisa ser armazenado nem exibido.'));
+  document.querySelector('[data-map-info]')?.addEventListener('click', () => showToast('O mapa e as ruas são reais. Cada círculo mostra apenas uma zona aproximada; o endereço exato não é exibido.'));
 
   document.querySelectorAll('.demo-dialog').forEach((dialog) => {
     dialog.addEventListener('click', (event) => {
@@ -635,6 +701,7 @@
     radiusOutput.textContent = meters >= 1000 ? `${(meters / 1000).toLocaleString('pt-BR', { maximumFractionDigits: 1 })} km` : `${meters} m`;
   });
 
+  initializeRealMap();
   renderManagerList();
   render();
 

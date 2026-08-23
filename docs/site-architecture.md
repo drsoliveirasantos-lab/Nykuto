@@ -7,7 +7,7 @@ Nykuto is a static multi-page website deployed through Cloudflare Pages.
 Two Cloudflare Pages projects consume the same `main` branch:
 
 - `nykuto` publishes the complete commercial site on `nykuto.com`;
-- `nykuto-demo` publishes the real-estate concept at the root of
+- `nykuto-demo` publishes the autonomous real-estate demonstration at the root of
   `demo.nykuto.com` by copying `demo-imobiliaria.html` to `index.html` during
   its build. Its production build command is
   `cp demo-imobiliaria.html index.html`, with `/` as the output directory.
@@ -22,7 +22,7 @@ index.html                     Homepage
 offres.html                    Nykuto Digital
 international.html             Nykuto Business International
 exemples.html                  Illustrative scenarios
-demo-imobiliaria.html          Interactive real-estate concept demo
+demo-imobiliaria.html          Autonomous interactive real-estate demo
 process.html                   Method
 a-propos.html                  Founder and company
 faq.html                       FAQ
@@ -78,14 +78,22 @@ Before a framework migration:
 - no invented proof or unsupported claim;
 - responsive and keyboard-accessible interactions.
 
-`demo-imobiliaria.html` is an independent, clearly labelled concept linked from
-the Nykuto commercial site and published canonically on `demo.nykuto.com`. It
-uses owner-supplied photos and videos of real Ciudad del Este properties that
-were neutralised before publication and stripped of embedded metadata. Property
-names, references, prices, availability and locations remain illustrative. The
-demo keeps a static inventory and a schematic map with approximate zones,
-without a paid mapping API, live client account, payment flow, booking flow or
-production property database.
+`demo-imobiliaria.html` is an autonomous property interface linked from the
+Nykuto commercial site and published canonically on `demo.nykuto.com`. The
+subdomain opens directly on the real-estate experience: it does not reproduce
+the commercial header, scenario introduction, browser mockup, sales CTA or
+commercial-site footer. A compact in-app footer keeps the illustrative nature
+of the inventory visible without interrupting the property journey.
+
+The demo uses owner-supplied photos and videos of real Ciudad del Este
+properties that were neutralised before publication and stripped of embedded
+metadata. Property names, references, prices, availability and locations remain
+illustrative. Its static inventory is displayed over a real interactive map of
+Ciudad del Este powered by Leaflet and OpenStreetMap tiles. Each listing exposes
+an intentionally approximate centre and a privacy radius in metres; no exact
+property address is stored or displayed. OpenStreetMap attribution remains
+visible in the map. The demo has no paid mapping API, live client account,
+payment flow, booking flow or production property database.
 
 ## Language architecture
 
