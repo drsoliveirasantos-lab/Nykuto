@@ -4,6 +4,17 @@
 
 Nykuto is a static multi-page website deployed through Cloudflare Pages.
 
+Two Cloudflare Pages projects consume the same `main` branch:
+
+- `nykuto` publishes the complete commercial site on `nykuto.com`;
+- `nykuto-demo` publishes the real-estate concept at the root of
+  `demo.nykuto.com` by copying `demo-imobiliaria.html` to `index.html` during
+  its build. Its production build command is
+  `cp demo-imobiliaria.html index.html`, with `/` as the output directory.
+
+Both projects stay connected to the GitHub repository, so a production update
+on `main` triggers their deployments independently.
+
 The authoritative production sources are:
 
 ```txt
@@ -67,8 +78,9 @@ Before a framework migration:
 - no invented proof or unsupported claim;
 - responsive and keyboard-accessible interactions.
 
-`demo-imobiliaria.html` is an independent, clearly labelled concept shown inside
-the Nykuto commercial site. It uses AI-generated generic media, a static illustrative
+`demo-imobiliaria.html` is an independent, clearly labelled concept linked from
+the Nykuto commercial site and published canonically on `demo.nykuto.com`. It
+uses AI-generated generic media, a static illustrative
 inventory and a schematic map with approximate zones, without a paid mapping API,
 live client account, payment flow, booking flow or production property database.
 
