@@ -3,8 +3,8 @@
 
   const properties = [
     {
-      id: 'BEL-1500',
-      title: 'Apartamento mobiliado · KM 7',
+      id: 'NYK-CDE-01',
+      title: 'Monoambiente mobiliado · KM 7',
       location: 'Zona aproximada da Av. São José · KM 7',
       type: 'Apartamento',
       status: 'Entrada imediata',
@@ -26,13 +26,14 @@
       immediate: true,
       zoneRadius: '1 km',
       map: { x: 27, y: 45, size: 94 },
-      media: [
-        { type: 'video', src: `${assetBase}visite-mobiliado.mp4`, poster: `${assetBase}classic-01.webp`, alt: 'Visita sintética de um apartamento mobiliado fictício' },
-        { type: 'image', src: `${assetBase}classic-04.webp`, alt: 'Imagem sintética da entrada de uma residência fictícia' }
-      ]
+      media: Array.from({ length: 6 }, (_, index) => ({
+        type: 'image',
+        src: `${assetBase}local-studio-${String(index + 1).padStart(2, '0')}.webp`,
+        alt: `Foto real neutralizada ${index + 1} de um monoambiente mobiliado em Ciudad del Este`
+      }))
     },
     {
-      id: 'BEL-3650',
+      id: 'NYK-CDE-02',
       title: 'Apartamento 2 quartos · Parque Linear',
       location: 'Região do Parque Linear · rota do ônibus',
       type: 'Apartamento',
@@ -56,11 +57,11 @@
       zoneRadius: '1,2 km',
       map: { x: 48, y: 58, size: 108 },
       media: [
-        { type: 'video', src: `${assetBase}visite-vazio.mp4`, poster: `${assetBase}classic-02.webp`, alt: 'Visita sintética de um apartamento vazio fictício com sacada' }
+        { type: 'video', src: `${assetBase}local-tour-apartamento-a.mp4`, poster: `${assetBase}local-tour-apartamento-a-poster.webp`, alt: 'Visita real neutralizada de um apartamento semimobiliado em Ciudad del Este' }
       ]
     },
     {
-      id: 'BEL-2500',
+      id: 'NYK-CDE-03',
       title: 'Apartamento 2 quartos · Lago',
       location: 'Zona aproximada do Lago da República',
       type: 'Apartamento',
@@ -84,12 +85,12 @@
       zoneRadius: '800 m',
       map: { x: 68, y: 23, size: 82 },
       media: [
-        { type: 'video', src: `${assetBase}visite-cozinha.mp4`, poster: `${assetBase}classic-03.webp`, alt: 'Visita sintética da cozinha de um apartamento fictício' }
+        { type: 'video', src: `${assetBase}local-tour-apartamento-b.mp4`, poster: `${assetBase}local-tour-apartamento-b-poster.webp`, alt: 'Visita real neutralizada de outro apartamento semimobiliado em Ciudad del Este' }
       ]
     },
     {
-      id: 'BEL-2200',
-      title: 'Monoambiente mobiliado · Temporada',
+      id: 'NYK-CDE-04',
+      title: 'Casa mobiliada · Temporada',
       location: 'Zona universitária · Ciudad del Este',
       type: 'Temporada',
       status: 'Até novembro',
@@ -99,7 +100,7 @@
       deposit: 0,
       fee: null,
       feeLabel: 'Taxa reduzida',
-      rooms: 0,
+      rooms: 1,
       bathrooms: 1,
       furnished: true,
       pet: false,
@@ -112,15 +113,13 @@
       immediate: true,
       zoneRadius: '1,5 km',
       map: { x: 76, y: 66, size: 118 },
-      media: Array.from({ length: 4 }, (_, index) => ({
-        type: 'image',
-        src: `${assetBase}studio-${String(index + 1).padStart(2, '0')}.webp`,
-        alt: `Imagem sintética ${index + 1} de um monoambiente mobiliado fictício`
-      }))
+      media: [
+        { type: 'video', src: `${assetBase}local-tour-mobiliado.mp4`, poster: `${assetBase}local-tour-mobiliado-poster.webp`, alt: 'Visita real neutralizada de uma casa mobiliada em Ciudad del Este' }
+      ]
     },
     {
-      id: 'BEL-ECOTOWER',
-      title: 'Palladio Ecotower · 2 quartos',
+      id: 'NYK-CDE-05',
+      title: 'Apartamento premium · Zona do Lago',
       location: 'Zona Lago da República · Ciudad del Este',
       type: 'Alto padrão',
       status: 'Destaque',
@@ -143,10 +142,10 @@
       immediate: false,
       zoneRadius: '1 km',
       map: { x: 59, y: 39, size: 96 },
-      media: Array.from({ length: 4 }, (_, index) => ({
+      media: Array.from({ length: 11 }, (_, index) => ({
         type: 'image',
-        src: `${assetBase}premium-${String(index + 1).padStart(2, '0')}.webp`,
-        alt: `Imagem sintética ${index + 1} de uma residência premium fictícia`
+        src: `${assetBase}local-premium-${String(index + 1).padStart(2, '0')}.webp`,
+        alt: `Foto real neutralizada ${index + 1} de um residencial premium em Ciudad del Este`
       }))
     }
   ];
@@ -434,7 +433,7 @@
           <div class="demo-detail-tags">${tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join('')}</div>
           <div class="demo-detail-zone"><i aria-hidden="true"></i><div><strong>Localização aproximada · raio ${escapeHtml(property.zoneRadius)}</strong><span>${escapeHtml(property.distance)}. Endereço exato não publicado.</span></div></div>
           <div class="demo-contact-simulation"><button type="button" data-simulate-whatsapp data-property-id="${escapeHtml(property.id)}">Simular contato pelo WhatsApp</button><button type="button" data-share-property data-property-id="${escapeHtml(property.id)}" aria-label="Compartilhar imóvel">↗</button></div>
-          <p class="demo-detail-concept-note">Protótipo Nykuto: mídias sintéticas; nenhuma mensagem, reserva ou pagamento real será enviado.</p>
+          <p class="demo-detail-concept-note">Protótipo Nykuto: mídias reais neutralizadas; preços, disponibilidade e dados da ficha são demonstrativos. Nenhuma mensagem, reserva ou pagamento real será enviado.</p>
         </section>
       </div>
     `;
