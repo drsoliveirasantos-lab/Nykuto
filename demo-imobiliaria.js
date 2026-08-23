@@ -143,7 +143,7 @@
       distance: '8 min da UCP Lago · 5 min da UNIDA',
       immediate: false,
       zoneRadius: '1 km',
-      map: { lat: -25.514, lng: -54.6177, radiusMeters: 1000 },
+      map: { lat: -25.5105, lng: -54.6115, radiusMeters: 1000 },
       media: Array.from({ length: 11 }, (_, index) => ({
         type: 'image',
         src: `${assetBase}local-premium-${String(index + 1).padStart(2, '0')}.webp`,
