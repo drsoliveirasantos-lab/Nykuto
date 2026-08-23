@@ -13,7 +13,7 @@
       rent: 1500000,
       deposit: 1500000,
       fee: 1500000,
-      rooms: 1,
+      rooms: 0,
       bathrooms: 1,
       furnished: true,
       pet: false,

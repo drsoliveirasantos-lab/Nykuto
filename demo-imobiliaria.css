@@ -10,6 +10,10 @@
   --demo-white: #ffffff;
 }
 
+.real-estate-demo-page [hidden] {
+  display: none !important;
+}
+
 .demo-intro {
   padding-block: 72px 34px;
 }
