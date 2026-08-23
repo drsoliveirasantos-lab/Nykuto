@@ -11,6 +11,7 @@ index.html                     Homepage
 offres.html                    Nykuto Digital
 international.html             Nykuto Business International
 exemples.html                  Illustrative scenarios
+demo-imobiliaria.html          Interactive real-estate concept demo
 process.html                   Method
 a-propos.html                  Founder and company
 faq.html                       FAQ
@@ -19,9 +20,12 @@ mentions-legales.html          Legal notice
 confidentialite.html           Privacy policy
 cgv.html                       B2B terms
 styles.css                     Shared design system
+demo-imobiliaria.css           Real-estate demo interface styles
 i18n.js                        FR/EN/PT/ES translations and language state
 script.js                      Shared interactions
+demo-imobiliaria.js            Static demo inventory, filters, map and dialogs
 assets/                        Production images
+assets/demo-imobiliaria/       Optimised illustrative real-estate demo media
 assets/nykuto-emblem.webp      Production brand emblem
 assets/nykuto-emblem-favicon.png  Browser icon
 favicon.svg                    Legacy fallback icon
@@ -62,6 +66,11 @@ Before a framework migration:
 - no server-side contact collection in the current version;
 - no invented proof or unsupported claim;
 - responsive and keyboard-accessible interactions.
+
+`demo-imobiliaria.html` is an independent, clearly labelled concept shown inside
+the Nykuto commercial site. It uses AI-generated generic media, a static illustrative
+inventory and a schematic map with approximate zones, without a paid mapping API,
+live client account, payment flow, booking flow or production property database.
 
 ## Language architecture
 

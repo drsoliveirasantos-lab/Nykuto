@@ -1333,6 +1333,64 @@ body.dialog-open { overflow: hidden; }
 .service-card p,
 .case-card p { margin-bottom: 0; }
 
+.case-card-demo {
+  grid-column: 1 / -1;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(340px, 1.1fr);
+  overflow: hidden;
+  border-color: rgba(77, 227, 255, 0.3);
+  background:
+    radial-gradient(circle at 12% 12%, rgba(77, 227, 255, 0.13), transparent 22rem),
+    linear-gradient(145deg, rgba(17, 35, 62, 0.94), rgba(8, 20, 36, 0.9));
+}
+
+.case-demo-copy {
+  padding: 38px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.case-demo-copy h3 { max-width: 520px; font-size: clamp(28px, 3vw, 42px); }
+.case-demo-copy p { max-width: 580px; }
+.case-demo-copy .secondary-btn { margin-top: 26px; }
+
+.case-demo-visual {
+  position: relative;
+  min-height: 330px;
+  overflow: hidden;
+  border-left: 1px solid var(--line);
+  background: #06101e;
+}
+
+.case-demo-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(6, 16, 30, 0.35), transparent 35%), linear-gradient(180deg, transparent 60%, rgba(6, 16, 30, 0.68));
+}
+
+.case-demo-visual img { width: 100%; height: 100%; object-fit: cover; transition: transform 280ms ease; }
+.case-demo-visual:hover img { transform: scale(1.025); }
+.case-demo-visual span {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  z-index: 1;
+  padding: 8px 11px;
+  border: 1px solid rgba(77, 227, 255, 0.38);
+  border-radius: 999px;
+  background: rgba(4, 10, 19, 0.78);
+  color: var(--cyan);
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  backdrop-filter: blur(12px);
+}
+
 .icon-box {
   width: 50px;
   height: 50px;
@@ -1914,6 +1972,8 @@ body.dialog-open { overflow: hidden; }
   .section { padding-block: 66px; }
   .section-heading { grid-template-columns: 1fr; gap: 14px; }
   .division-grid, .service-grid, .proof-grid, .case-grid { grid-template-columns: 1fr; }
+  .case-card-demo { grid-template-columns: 1fr; }
+  .case-demo-visual { min-height: 280px; border-top: 1px solid var(--line); border-left: 0; }
   .method-grid { grid-template-columns: repeat(2, 1fr); }
   .cta-band { grid-template-columns: 1fr; padding: 36px; }
   .content-split, .contact-layout { grid-template-columns: 1fr; }
@@ -2029,6 +2089,9 @@ body.dialog-open { overflow: hidden; }
   .cta-band { padding: 28px; }
   .page-hero { padding-block: 64px 42px; }
   .content-panel, .proof-card, .service-card, .case-card, .contact-card, .contact-form, .legal-content { padding: 24px; }
+  .case-card-demo { padding: 0; }
+  .case-demo-copy { padding: 28px 24px; }
+  .case-demo-visual { min-height: 230px; }
   .contact-form { grid-template-columns: 1fr; }
   .contact-form .full { grid-column: auto; }
   .contact-form .form-note, .contact-form button, .form-status { grid-column: auto; }
