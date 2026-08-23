@@ -200,9 +200,17 @@
         const item = document.createElement('div');
         item.className = 'manager-media-preview';
         const url = URL.createObjectURL(file);
-        item.innerHTML = `<img alt="Foto ${index + 1}" /><button type="button" data-remove-photo="${index}" aria-label="Remover foto ${index + 1}">×</button><span>${index === 0 ? 'Capa' : `Foto ${index + 1}`}</span>`;
-        item.querySelector('img').src = url;
-        item.querySelector('img').addEventListener('load', () => URL.revokeObjectURL(url), { once: true });
+        item.innerHTML = `<img alt="Prévia da foto ${index + 1}" /><button type="button" data-remove-photo="${index}" aria-label="Remover foto ${index + 1}">×</button><span>${index === 0 ? 'Capa' : `Foto ${index + 1}`}</span>`;
+        const image = item.querySelector('img');
+        image.src = url;
+        image.addEventListener('load', () => URL.revokeObjectURL(url), { once: true });
+        image.addEventListener('error', () => {
+          URL.revokeObjectURL(url);
+          item.classList.add('is-unavailable');
+          image.removeAttribute('src');
+          image.alt = '';
+          item.insertAdjacentHTML('afterbegin', '<strong class="manager-preview-error">Formato não visualizado</strong>');
+        }, { once: true });
         previewContainer.append(item);
       });
       if (selectedMedia.video) {
@@ -224,8 +232,9 @@
 
     photoInput.addEventListener('change', () => {
       const files = Array.from(photoInput.files || []);
-      const valid = files.filter((file) => file.type.startsWith('image/') && file.size <= 10 * 1024 * 1024);
-      if (files.length > 5 || valid.length !== files.length) showToast('Use até 5 fotos, com no máximo 10 MB cada.', 'error');
+      const allowedPhotoTypes = new Set(['image/jpeg', 'image/png', 'image/webp']);
+      const valid = files.filter((file) => allowedPhotoTypes.has(file.type) && file.size <= 10 * 1024 * 1024);
+      if (files.length > 5 || valid.length !== files.length) showToast('Use até 5 fotos em JPEG, PNG ou WebP, com no máximo 10 MB cada.', 'error');
       selectedMedia.photos = valid.slice(0, 5);
       renderMedia();
     });
