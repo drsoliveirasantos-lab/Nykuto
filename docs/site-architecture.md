@@ -95,6 +95,22 @@ property address is stored or displayed. OpenStreetMap attribution remains
 visible in the map. The demo has no paid mapping API, live client account,
 payment flow, booking flow or production property database.
 
+The public journey prioritises the property search before any commercial
+message. Property cards include an in-page media carousel, deliberate visual
+privacy masks over neutralised areas, favourites stored locally and a comparison
+flow. Cards and price markers are synchronised: selecting either highlights the
+corresponding approximate area, while map markers open a compact property
+preview before the full detail sheet. The detail sheet groups media, monthly and
+entry costs, approximate distances, privacy information and simulated contact
+actions. On small screens, filters use a bottom sheet and a fixed navigation bar
+provides direct access to listings, map, favourites and the owner journey.
+
+The owner and manager journeys remain visual demonstrations rather than a live
+platform. The owner section appears only after the property experience, and the
+private-area preview shows publication status, listing completeness and privacy
+radius controls using illustrative data. No authentication, client message,
+lead, payment or expiring account is created by these interfaces.
+
 ## Language architecture
 
 - The French HTML is the content source of truth.

@@ -2,6 +2,14 @@
   const assetBase = 'assets/demo-imobiliaria/';
   const ciudadDelEsteCenter = [-25.5135, -54.632];
   const openStreetMapTiles = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+  const studioPrivacyMasks = [
+    { left: 66, top: 36, width: 34, height: 28 },
+    { left: 58, top: 70, width: 35, height: 26 },
+    { left: 57, top: 4, width: 32, height: 31 },
+    { left: 61, top: 31, width: 34, height: 27 },
+    { left: 3, top: 15, width: 42, height: 32 },
+    { left: 40, top: 67, width: 33, height: 28 }
+  ];
 
   const properties = [
     {
@@ -28,10 +36,12 @@
       immediate: true,
       zoneRadius: '1 km',
       map: { lat: -25.5018, lng: -54.6567, radiusMeters: 1000 },
+      coverIndex: 5,
       media: Array.from({ length: 6 }, (_, index) => ({
         type: 'image',
         src: `${assetBase}local-studio-${String(index + 1).padStart(2, '0')}.webp`,
-        alt: `Foto real neutralizada ${index + 1} de um monoambiente mobiliado em Ciudad del Este`
+        alt: `Foto real neutralizada ${index + 1} de um monoambiente mobiliado em Ciudad del Este`,
+        privacyMask: studioPrivacyMasks[index]
       }))
     },
     {
@@ -59,7 +69,7 @@
       zoneRadius: '1,2 km',
       map: { lat: -25.5275, lng: -54.638, radiusMeters: 1200 },
       media: [
-        { type: 'video', src: `${assetBase}local-tour-apartamento-a.mp4`, poster: `${assetBase}local-tour-apartamento-a-poster.webp`, alt: 'Visita real neutralizada de um apartamento semimobiliado em Ciudad del Este' }
+        { type: 'video', src: `${assetBase}local-tour-apartamento-a.mp4`, poster: `${assetBase}local-tour-apartamento-a-poster.webp`, alt: 'Visita real neutralizada de um apartamento semimobiliado em Ciudad del Este', privacyMask: { left: 31, top: 64, width: 39, height: 23 } }
       ]
     },
     {
@@ -87,7 +97,7 @@
       zoneRadius: '800 m',
       map: { lat: -25.5164, lng: -54.621, radiusMeters: 800 },
       media: [
-        { type: 'video', src: `${assetBase}local-tour-apartamento-b.mp4`, poster: `${assetBase}local-tour-apartamento-b-poster.webp`, alt: 'Visita real neutralizada de outro apartamento semimobiliado em Ciudad del Este' }
+        { type: 'video', src: `${assetBase}local-tour-apartamento-b.mp4`, poster: `${assetBase}local-tour-apartamento-b-poster.webp`, alt: 'Visita real neutralizada de outro apartamento semimobiliado em Ciudad del Este', privacyMask: { left: 58, top: 82, width: 42, height: 18 } }
       ]
     },
     {
@@ -116,7 +126,7 @@
       zoneRadius: '1,5 km',
       map: { lat: -25.5098, lng: -54.635, radiusMeters: 1500 },
       media: [
-        { type: 'video', src: `${assetBase}local-tour-mobiliado.mp4`, poster: `${assetBase}local-tour-mobiliado-poster.webp`, alt: 'Visita real neutralizada de uma casa mobiliada em Ciudad del Este' }
+        { type: 'video', src: `${assetBase}local-tour-mobiliado.mp4`, poster: `${assetBase}local-tour-mobiliado-poster.webp`, alt: 'Visita real neutralizada de uma casa mobiliada em Ciudad del Este', privacyMask: { left: 47, top: 34, width: 38, height: 30 } }
       ]
     },
     {
@@ -144,6 +154,7 @@
       immediate: false,
       zoneRadius: '1 km',
       map: { lat: -25.5105, lng: -54.6115, radiusMeters: 1000 },
+      coverIndex: 7,
       media: Array.from({ length: 11 }, (_, index) => ({
         type: 'image',
         src: `${assetBase}local-premium-${String(index + 1).padStart(2, '0')}.webp`,
@@ -161,10 +172,14 @@
     furnished: false,
     included: false,
     immediate: false,
+    favoritesOnly: false,
     view: 'split'
   };
 
   const compared = new Set();
+  const cardMediaIndexes = new Map();
+  const mapMarkers = new Map();
+  const mapAreas = new Map();
   const favoriteStorageKey = 'nykuto-demo-imobiliaria-favorites';
   let favorites = readFavorites();
   let toastTimer;
@@ -181,10 +196,12 @@
   const compareDock = document.querySelector('[data-compare-dock]');
   const compareCount = document.querySelector('[data-compare-count]');
   const managerDialog = document.querySelector('[data-manager-dialog]');
+  const filterDialog = document.querySelector('[data-filter-dialog]');
   const managerList = document.querySelector('[data-manager-list]');
   const toastOutput = document.querySelector('[data-demo-toast-output]');
   let realMap;
   let realMapLayers;
+  let activeMapPropertyId = null;
 
   function readFavorites() {
     try {
@@ -234,8 +251,21 @@
   }
 
   function firstVisual(property) {
-    const media = property.media[0];
+    const media = property.media[property.coverIndex || 0];
     return media.type === 'video' ? media.poster : media.src;
+  }
+
+  function selectedCardMedia(property) {
+    const fallback = property.coverIndex || 0;
+    const selected = cardMediaIndexes.has(property.id) ? cardMediaIndexes.get(property.id) : fallback;
+    const index = Math.max(0, Math.min(property.media.length - 1, selected));
+    return { media: property.media[index], index };
+  }
+
+  function privacyMaskMarkup(media, context = 'detail') {
+    if (!media?.privacyMask) return '';
+    const { left, top, width, height } = media.privacyMask;
+    return `<span class="demo-media-privacy demo-media-privacy-${escapeHtml(context)}" style="--mask-left:${left}%;--mask-top:${top}%;--mask-width:${width}%;--mask-height:${height}%"><i aria-hidden="true">N</i><b>Identidade protegida</b></span>`;
   }
 
   function mediaLabel(property) {
@@ -247,6 +277,7 @@
   }
 
   function matchesFilters(property) {
+    if (state.favoritesOnly && !favorites.has(property.id)) return false;
     if (state.campus !== 'all' && !property.campuses.includes(state.campus)) return false;
     if (state.currency !== 'all' && property.currency !== state.currency) return false;
     if (state.rooms !== 'all') {
@@ -267,33 +298,43 @@
   function listingCard(property) {
     const isFavorite = favorites.has(property.id);
     const isCompared = compared.has(property.id);
+    const { media, index: mediaIndex } = selectedCardMedia(property);
+    const visual = media.type === 'video' ? media.poster : media.src;
     const specs = [
       roomLabel(property),
       `${property.bathrooms} ${property.bathrooms === 1 ? 'banheiro' : 'banheiros'}`,
       property.furnished ? 'Mobiliado' : 'Semimobiliado',
-      property.pet === true ? 'Aceita pet' : property.pet === false ? 'Sem pet' : 'Pet a confirmar',
-      property.garage ? 'Garagem' : 'Sem vaga para carro'
+      property.pet === true ? 'Aceita pet' : property.pet === false ? 'Sem pet' : 'Pet a confirmar'
     ];
 
     return `
       <article class="demo-listing-card" data-card-id="${escapeHtml(property.id)}">
         <div class="demo-listing-media">
-          <img src="${escapeHtml(firstVisual(property))}" alt="${escapeHtml(property.media[0].alt)}" width="720" height="560" loading="lazy" decoding="async" />
+          <button class="demo-listing-open-media" type="button" data-action="details" data-property-id="${escapeHtml(property.id)}" data-media-index="${mediaIndex}" aria-label="Abrir ${escapeHtml(property.title)}">
+            <img src="${escapeHtml(visual)}" alt="${escapeHtml(media.alt)}" width="720" height="560" loading="lazy" decoding="async" />
+            ${privacyMaskMarkup(media, 'card')}
+            ${media.type === 'video' ? '<span class="demo-card-play" aria-hidden="true">▶</span>' : ''}
+          </button>
           <span class="demo-listing-status">${escapeHtml(property.status)}</span>
           <span class="demo-listing-type">${escapeHtml(property.type)}</span>
           <button class="demo-favorite-button${isFavorite ? ' active' : ''}" type="button" data-action="favorite" data-property-id="${escapeHtml(property.id)}" aria-pressed="${isFavorite}" aria-label="${isFavorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}">${isFavorite ? '♥' : '♡'}</button>
-          <span class="demo-media-count">${escapeHtml(mediaLabel(property))}</span>
+          ${property.media.length > 1 ? `
+            <button class="demo-card-media-nav previous" type="button" data-action="media-previous" data-property-id="${escapeHtml(property.id)}" aria-label="Mídia anterior">‹</button>
+            <button class="demo-card-media-nav next" type="button" data-action="media-next" data-property-id="${escapeHtml(property.id)}" aria-label="Próxima mídia">›</button>
+          ` : ''}
+          <span class="demo-media-count">${property.media.length > 1 ? `${mediaIndex + 1} / ${property.media.length}` : escapeHtml(mediaLabel(property))}</span>
         </div>
         <div class="demo-listing-content">
           <div class="demo-listing-ref"><span>${escapeHtml(property.id)}</span><span>Zona ${escapeHtml(property.zoneRadius)}</span></div>
           <h3>${escapeHtml(property.title)}</h3>
           <p class="demo-listing-location">⌖ ${escapeHtml(property.location)}</p>
+          <p class="demo-listing-distance">${escapeHtml(property.distance)}</p>
           <div class="demo-listing-specs">${specs.map((spec) => `<span>${escapeHtml(spec)}</span>`).join('')}</div>
           <div class="demo-listing-price">
             <div><strong>${escapeHtml(formatMoney(property.rent, property.currency))}</strong><small>por mês</small></div>
             <div class="demo-listing-actions">
-              <button type="button" data-action="details" data-property-id="${escapeHtml(property.id)}">Detalhes</button>
-              <button class="${isCompared ? 'active' : ''}" type="button" data-action="compare" data-property-id="${escapeHtml(property.id)}" aria-pressed="${isCompared}">${isCompared ? '✓ Comparar' : 'Comparar'}</button>
+              <button type="button" data-action="details" data-property-id="${escapeHtml(property.id)}" data-media-index="${mediaIndex}">Ver imóvel</button>
+              <button class="${isCompared ? 'active' : ''}" type="button" data-action="compare" data-property-id="${escapeHtml(property.id)}" aria-pressed="${isCompared}" aria-label="${isCompared ? 'Remover da comparação' : 'Adicionar à comparação'}">${isCompared ? '✓' : '＋'}</button>
             </div>
           </div>
         </div>
@@ -327,9 +368,56 @@
     mapCanvas.dataset.mapReady = 'true';
   }
 
+  function mapPreview(property) {
+    const { media } = selectedCardMedia(property);
+    const preview = document.createElement('article');
+    preview.className = 'demo-map-preview';
+    preview.innerHTML = `
+      <figure><img src="${escapeHtml(media.type === 'video' ? media.poster : media.src)}" alt="" width="220" height="140" />${privacyMaskMarkup(media, 'popup')}</figure>
+      <div><span>${escapeHtml(property.status)}</span><strong>${escapeHtml(property.title)}</strong><small>${escapeHtml(property.distance)}</small><b>${escapeHtml(formatMoney(property.rent, property.currency))}<em>/mês</em></b><button type="button">Ver imóvel</button></div>
+    `;
+    preview.querySelector('button')?.addEventListener('click', () => openProperty(property.id));
+    return preview;
+  }
+
+  function styleMapSelection(propertyId) {
+    activeMapPropertyId = propertyId || null;
+    mapMarkers.forEach((marker, id) => {
+      marker.getElement()?.classList.toggle('is-active', id === activeMapPropertyId);
+    });
+    mapAreas.forEach((area, id) => {
+      const active = id === activeMapPropertyId;
+      area.setStyle({
+        weight: active ? 2 : 1,
+        opacity: active ? 0.78 : 0.18,
+        fillOpacity: active ? 0.17 : 0.035
+      });
+    });
+    document.querySelectorAll('[data-card-id]').forEach((card) => {
+      card.classList.toggle('is-map-active', card.dataset.cardId === activeMapPropertyId);
+    });
+  }
+
+  function focusPropertyOnMap(propertyId, { openPreview = false, scrollCard = false } = {}) {
+    const property = getProperty(propertyId);
+    const marker = mapMarkers.get(propertyId);
+    if (!property || !marker || !realMap) return;
+    styleMapSelection(propertyId);
+    if (openPreview) {
+      marker.openPopup();
+      realMap.panTo([property.map.lat, property.map.lng], { animate: true, duration: 0.35 });
+    }
+    if (scrollCard && state.view !== 'map') {
+      const card = document.querySelector(`[data-card-id="${CSS.escape(propertyId)}"]`);
+      card?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+
   function renderMap(filteredProperties) {
     if (!realMap || !realMapLayers || !window.L) return;
     realMapLayers.clearLayers();
+    mapMarkers.clear();
+    mapAreas.clear();
 
     filteredProperties.forEach((property) => {
       const coordinates = [property.map.lat, property.map.lng];
@@ -337,9 +425,9 @@
         radius: property.map.radiusMeters,
         color: '#174f43',
         weight: 1,
-        opacity: 0.54,
+        opacity: 0.18,
         fillColor: '#40987d',
-        fillOpacity: 0.14,
+        fillOpacity: 0.035,
         interactive: false
       });
       const marker = window.L.marker(coordinates, {
@@ -353,7 +441,11 @@
         })
       });
 
-      marker.on('click', () => openProperty(property.id));
+      marker.bindPopup(mapPreview(property), { closeButton: false, offset: [0, -12], maxWidth: 250, minWidth: 230 });
+      marker.on('click', () => focusPropertyOnMap(property.id, { openPreview: true, scrollCard: true }));
+      marker.on('mouseover', () => styleMapSelection(property.id));
+      marker.on('mouseout', () => { if (!marker.isPopupOpen()) styleMapSelection(null); });
+      marker.on('popupclose', () => styleMapSelection(null));
       marker.on('add', () => {
         const element = marker.getElement();
         if (!element) return;
@@ -362,6 +454,8 @@
       });
       area.addTo(realMapLayers);
       marker.addTo(realMapLayers);
+      mapAreas.set(property.id, area);
+      mapMarkers.set(property.id, marker);
     });
 
     window.setTimeout(() => {
@@ -372,6 +466,7 @@
       }
       const bounds = realMapLayers.getBounds();
       if (bounds.isValid()) realMap.fitBounds(bounds, { padding: [28, 28], maxZoom: 14, animate: false });
+      styleMapSelection(activeMapPropertyId && mapMarkers.has(activeMapPropertyId) ? activeMapPropertyId : null);
     }, 0);
   }
 
@@ -380,7 +475,7 @@
     managerList.innerHTML = properties.map((property, index) => `
       <article class="demo-manager-row">
         <img src="${escapeHtml(firstVisual(property))}" alt="" width="84" height="72" loading="lazy" />
-        <div><strong>${escapeHtml(property.title)}</strong><span>${escapeHtml(property.id)} · ${escapeHtml(formatMoney(property.rent, property.currency))}</span></div>
+        <div><strong>${escapeHtml(property.title)}</strong><span>${escapeHtml(property.id)} · ${escapeHtml(formatMoney(property.rent, property.currency))}</span><small>Ficha ${Math.min(100, 68 + property.media.length * 3)}% completa</small></div>
         <b>${index < 3 ? 'Publicado' : 'Verificar'}</b>
         <button type="button" data-demo-toast="Na versão ativa, este botão abre a edição do imóvel ${escapeHtml(property.id)}." aria-label="Editar ${escapeHtml(property.title)}">⋮</button>
       </article>
@@ -391,11 +486,20 @@
     const filtered = properties.filter(matchesFilters);
     propertyList.innerHTML = filtered.map(listingCard).join('');
     renderMap(filtered);
-    resultsSummary.textContent = `${filtered.length} ${filtered.length === 1 ? 'opção encontrada' : 'opções encontradas'}`;
+    resultsSummary.textContent = state.favoritesOnly
+      ? `${filtered.length} ${filtered.length === 1 ? 'favorito salvo' : 'favoritos salvos'}`
+      : `${filtered.length} ${filtered.length === 1 ? 'opção encontrada' : 'opções encontradas'}`;
+    const emptyTitle = emptyState?.querySelector('h3');
+    const emptyCopy = emptyState?.querySelector('p');
+    if (emptyTitle && emptyCopy) {
+      emptyTitle.textContent = state.favoritesOnly ? 'Você ainda não salvou nenhum imóvel' : 'Nenhum imóvel com estes filtros';
+      emptyCopy.textContent = state.favoritesOnly ? 'Toque no coração de um anúncio para encontrá-lo aqui.' : 'Remova um critério para visualizar outras opções.';
+    }
     emptyState.hidden = filtered.length > 0;
     resultsLayout.hidden = filtered.length === 0;
     updateFilterControls();
     updateCompareDock();
+    window.requestAnimationFrame(() => document.querySelectorAll('.demo-listing-card').forEach((card) => card.classList.add('is-visible')));
   }
 
   function updateFilterControls() {
@@ -420,10 +524,26 @@
       mainSearch.elements.campus.value = state.campus;
       mainSearch.elements.budget.value = state.budget;
     }
+    const activeFilterCount = [
+      state.campus !== 'all', state.budget !== 'all' || state.currency !== 'all', state.rooms !== 'all',
+      state.pet, state.furnished, state.included, state.immediate, state.favoritesOnly
+    ].filter(Boolean).length;
+    document.querySelectorAll('[data-filter-count]').forEach((badge) => {
+      badge.textContent = String(activeFilterCount);
+      badge.hidden = activeFilterCount === 0;
+    });
+    document.querySelectorAll('[data-clear-filters]').forEach((button) => {
+      if (button.closest('.demo-filter-dialog-actions')) return;
+      button.hidden = activeFilterCount === 0;
+    });
+    document.querySelectorAll('[data-show-favorites]').forEach((button) => {
+      button.classList.toggle('active', state.favoritesOnly);
+      button.setAttribute('aria-pressed', String(state.favoritesOnly));
+    });
   }
 
   function resetFilters() {
-    Object.assign(state, { campus: 'all', budget: 'all', rooms: 'all', currency: 'all', pet: false, furnished: false, included: false, immediate: false });
+    Object.assign(state, { campus: 'all', budget: 'all', rooms: 'all', currency: 'all', pet: false, furnished: false, included: false, immediate: false, favoritesOnly: false });
     render();
   }
 
@@ -432,6 +552,7 @@
     else favorites.add(propertyId);
     saveFavorites();
     render();
+    showToast(favorites.has(propertyId) ? 'Imóvel salvo nos favoritos.' : 'Imóvel removido dos favoritos.');
   }
 
   function toggleCompare(propertyId) {
@@ -454,13 +575,32 @@
   }
 
   function renderMainMedia(media) {
+    const privacyMask = privacyMaskMarkup(media, 'detail');
     if (media.type === 'video') {
-      return `<video controls playsinline preload="metadata" poster="${escapeHtml(media.poster)}" aria-label="${escapeHtml(media.alt)}"><source src="${escapeHtml(media.src)}" type="video/mp4" />Seu navegador não consegue reproduzir este vídeo.</video>`;
+      return `<video controls playsinline preload="metadata" poster="${escapeHtml(media.poster)}" aria-label="${escapeHtml(media.alt)}"><source src="${escapeHtml(media.src)}" type="video/mp4" />Seu navegador não consegue reproduzir este vídeo.</video>${privacyMask}<span class="demo-detail-media-kind">▶ Vídeo real</span>`;
     }
-    return `<img src="${escapeHtml(media.src)}" alt="${escapeHtml(media.alt)}" width="1200" height="900" />`;
+    return `<img src="${escapeHtml(media.src)}" alt="${escapeHtml(media.alt)}" width="1200" height="900" />${privacyMask}<span class="demo-detail-media-kind">Foto real</span>`;
   }
 
-  function propertyDetailsMarkup(property) {
+  function detailMainMediaMarkup(property, index) {
+    return `${renderMainMedia(property.media[index])}${property.media.length > 1 ? '<button class="demo-detail-media-nav previous" type="button" data-detail-media-direction="-1" aria-label="Mídia anterior">‹</button><button class="demo-detail-media-nav next" type="button" data-detail-media-direction="1" aria-label="Próxima mídia">›</button>' : ''}`;
+  }
+
+  function selectDetailMedia(index) {
+    const property = getProperty(propertyDialogContent?.dataset.propertyId);
+    const mainMedia = propertyDialogContent?.querySelector('[data-detail-main-media]');
+    if (!property || !mainMedia) return;
+    const normalizedIndex = (index + property.media.length) % property.media.length;
+    mainMedia.querySelector('video')?.pause();
+    mainMedia.innerHTML = detailMainMediaMarkup(property, normalizedIndex);
+    propertyDialogContent.dataset.mediaIndex = String(normalizedIndex);
+    propertyDialogContent.querySelectorAll('[data-gallery-index]').forEach((button) => {
+      button.classList.toggle('active', Number(button.dataset.galleryIndex) === normalizedIndex);
+    });
+    propertyDialogContent.querySelector(`[data-gallery-index="${normalizedIndex}"]`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }
+
+  function propertyDetailsMarkup(property, selectedIndex = 0) {
     const total = totalEntry(property);
     const includedLabel = property.included.join(' · ');
     const separateLabel = property.separate.length ? property.separate.join(' · ') : 'Nenhuma despesa adicional informada';
@@ -474,12 +614,15 @@
     return `
       <div class="demo-detail-layout">
         <section class="demo-detail-media">
-          <div class="demo-detail-main-media" data-detail-main-media>${renderMainMedia(property.media[0])}</div>
-          ${property.media.length > 1 ? `<div class="demo-detail-gallery" aria-label="Galeria do imóvel">${property.media.map((media, index) => `<button class="${index === 0 ? 'active' : ''}" type="button" data-gallery-index="${index}" aria-label="Mostrar mídia ${index + 1}"><img src="${escapeHtml(media.type === 'video' ? media.poster : media.src)}" alt="" width="140" height="108" loading="lazy" /></button>`).join('')}</div>` : ''}
+          <button class="demo-detail-close demo-detail-close-floating" type="button" data-close-dialog aria-label="Fechar detalhes">×</button>
+          <div class="demo-detail-main-media" data-detail-main-media>${detailMainMediaMarkup(property, selectedIndex)}</div>
+          <div class="demo-detail-gallery-bar"><span><strong>${property.media.length}</strong> ${property.media.length === 1 ? 'mídia' : 'mídias'} neutralizadas</span><small>Deslize para explorar</small></div>
+          ${property.media.length > 1 ? `<div class="demo-detail-gallery" aria-label="Galeria do imóvel">${property.media.map((media, index) => `<button class="${index === selectedIndex ? 'active' : ''}" type="button" data-gallery-index="${index}" aria-label="Mostrar mídia ${index + 1}"><img src="${escapeHtml(media.type === 'video' ? media.poster : media.src)}" alt="" width="140" height="108" loading="lazy" />${media.type === 'video' ? '<i aria-hidden="true">▶</i>' : ''}</button>`).join('')}</div>` : ''}
         </section>
         <section class="demo-detail-copy">
-          <header><div><span class="demo-detail-status">${escapeHtml(property.status)}</span><h2>${escapeHtml(property.title)}</h2><p class="demo-detail-location">⌖ ${escapeHtml(property.location)} · ${escapeHtml(property.id)}</p></div><button class="demo-detail-close" type="button" data-close-dialog aria-label="Fechar detalhes">×</button></header>
-          <div class="demo-detail-price"><span>Aluguel mensal</span><strong>${escapeHtml(formatMoney(property.rent, property.currency))}</strong><small>${escapeHtml(property.availability)} · informação demonstrativa</small></div>
+          <header><div><span class="demo-detail-status">${escapeHtml(property.status)}</span><h2>${escapeHtml(property.title)}</h2><p class="demo-detail-location">⌖ ${escapeHtml(property.location)} · ${escapeHtml(property.id)}</p></div><button class="demo-detail-favorite${favorites.has(property.id) ? ' active' : ''}" type="button" data-favorite-detail data-property-id="${escapeHtml(property.id)}" aria-pressed="${favorites.has(property.id)}" aria-label="Salvar imóvel">${favorites.has(property.id) ? '♥' : '♡'}</button></header>
+          <div class="demo-detail-price"><div><span>Aluguel mensal</span><strong>${escapeHtml(formatMoney(property.rent, property.currency))}</strong><small>${escapeHtml(property.availability)}</small></div><b>${escapeHtml(property.distance)}</b></div>
+          <div class="demo-detail-trust"><span>✓ Custos organizados</span><span>✓ Zona protegida</span><span>✓ Mídias reais</span></div>
           <div class="demo-detail-grid">
             <div><span>Configuração</span><strong>${escapeHtml(roomLabel(property))} · ${property.bathrooms} ${property.bathrooms === 1 ? 'banheiro' : 'banheiros'}</strong></div>
             <div><span>Faculdades</span><strong>${escapeHtml(property.campuses.join(' · '))}</strong></div>
@@ -499,19 +642,23 @@
             ${property.monthlyExtra ? `<small>${escapeHtml(property.monthlyExtra)}</small>` : ''}
           </div>
           <div class="demo-detail-tags">${tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join('')}</div>
-          <div class="demo-detail-zone"><i aria-hidden="true"></i><div><strong>Localização aproximada · raio ${escapeHtml(property.zoneRadius)}</strong><span>${escapeHtml(property.distance)}. Endereço exato não publicado.</span></div></div>
-          <div class="demo-contact-simulation"><button type="button" data-simulate-whatsapp data-property-id="${escapeHtml(property.id)}">Simular contato pelo WhatsApp</button><button type="button" data-share-property data-property-id="${escapeHtml(property.id)}" aria-label="Compartilhar imóvel">↗</button></div>
-          <p class="demo-detail-concept-note">Mídias reais neutralizadas; preços, disponibilidade e dados da ficha são ilustrativos. Nenhuma reserva ou pagamento é realizado neste portal.</p>
+          <div class="demo-detail-zone"><i aria-hidden="true"><b></b></i><div><strong>Zona aproximada · raio ${escapeHtml(property.zoneRadius)}</strong><span>${escapeHtml(property.distance)}. O endereço exato é enviado somente durante o atendimento.</span></div><button type="button" data-focus-map data-property-id="${escapeHtml(property.id)}">Ver no mapa</button></div>
+          <p class="demo-detail-concept-note">Mídias reais neutralizadas; preços, disponibilidade e dados da ficha são ilustrativos.</p>
+          <div class="demo-contact-simulation"><button type="button" data-simulate-whatsapp data-property-id="${escapeHtml(property.id)}"><span aria-hidden="true">◉</span> Solicitar informações</button><button type="button" data-schedule-visit data-property-id="${escapeHtml(property.id)}">Agendar visita</button><button type="button" data-share-property data-property-id="${escapeHtml(property.id)}" aria-label="Compartilhar imóvel">↗</button></div>
         </section>
       </div>
     `;
   }
 
-  function openProperty(propertyId) {
+  function openProperty(propertyId, mediaIndex) {
     const property = getProperty(propertyId);
     if (!property || !propertyDialog) return;
-    propertyDialogContent.innerHTML = propertyDetailsMarkup(property);
+    const preferredIndex = Number.isInteger(mediaIndex) ? mediaIndex : (property.coverIndex || 0);
+    const selectedIndex = Math.max(0, Math.min(property.media.length - 1, preferredIndex));
+    propertyDialogContent.innerHTML = propertyDetailsMarkup(property, selectedIndex);
     propertyDialogContent.dataset.propertyId = property.id;
+    propertyDialogContent.dataset.mediaIndex = String(selectedIndex);
+    window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}#imovel=${encodeURIComponent(property.id)}`);
     openDialog(propertyDialog);
   }
 
@@ -527,6 +674,9 @@
     if (playingVideo) playingVideo.pause();
     if (typeof dialog.close === 'function') dialog.close();
     else dialog.removeAttribute('open');
+    if (dialog === propertyDialog && window.location.hash.startsWith('#imovel=')) {
+      window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
+    }
   }
 
   function openComparison() {
@@ -553,15 +703,17 @@
     openDialog(compareDialog);
   }
 
-  async function simulateWhatsApp(propertyId) {
+  async function copyContactMessage(propertyId, intent = 'informações') {
     const property = getProperty(propertyId);
     if (!property) return;
-    const message = `Olá, tenho interesse no imóvel ${property.id}, ${property.title}, por ${formatMoney(property.rent, property.currency)}. Gostaria de confirmar a disponibilidade e agendar uma visita.`;
+    const message = intent === 'visita'
+      ? `Olá, gostaria de agendar uma visita ao imóvel ${property.id}, ${property.title}, anunciado por ${formatMoney(property.rent, property.currency)}.`
+      : `Olá, tenho interesse no imóvel ${property.id}, ${property.title}, por ${formatMoney(property.rent, property.currency)}. Gostaria de confirmar a disponibilidade e receber mais informações.`;
     try {
       await navigator.clipboard.writeText(message);
-      showToast('Simulação concluída: a mensagem preparada foi copiada. Nenhum WhatsApp foi aberto.');
+      showToast('Mensagem pronta copiada. Esta demonstração não abriu nenhum WhatsApp.');
     } catch (_) {
-      showToast(`Mensagem simulada: ${message}`);
+      showToast('A mensagem de demonstração está pronta para o atendimento.');
     }
   }
 
@@ -592,6 +744,18 @@
     toastTimer = window.setTimeout(() => { toastOutput.hidden = true; }, 4200);
   }
 
+  function setView(view, { scroll = false } = {}) {
+    state.view = view;
+    resultsLayout.classList.toggle('map-only', state.view === 'map');
+    document.querySelectorAll('[data-view]').forEach((viewButton) => {
+      const active = viewButton.dataset.view === state.view;
+      viewButton.classList.toggle('active', active);
+      viewButton.setAttribute('aria-pressed', String(active));
+    });
+    if (scroll) document.querySelector('#demo-mapa')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    window.setTimeout(() => realMap?.invalidateSize({ animate: false }), 220);
+  }
+
   document.querySelector('[data-main-search]')?.addEventListener('submit', (event) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -608,6 +772,11 @@
     control.addEventListener('change', () => {
       state[control.dataset.filter] = control.value;
       if (control.dataset.filter === 'currency' && control.value !== 'all') state.budget = control.value === 'USD' ? 'usd' : 'all';
+      if (control.dataset.filter === 'budget') {
+        if (control.value === 'usd') state.currency = 'USD';
+        else if (control.value !== 'all') state.currency = 'PYG';
+        else state.currency = 'all';
+      }
       render();
     });
   });
@@ -624,17 +793,7 @@
 
   document.querySelectorAll('[data-view]').forEach((button) => {
     button.addEventListener('click', () => {
-      state.view = button.dataset.view;
-      resultsLayout.classList.toggle('map-only', state.view === 'map');
-      document.querySelectorAll('[data-view]').forEach((viewButton) => {
-        const active = viewButton === button;
-        viewButton.classList.toggle('active', active);
-        viewButton.setAttribute('aria-pressed', String(active));
-      });
-      if (state.view === 'map') {
-        document.querySelector('#demo-mapa')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        window.setTimeout(() => realMap?.invalidateSize({ animate: false }), 220);
-      }
+      setView(button.dataset.view, { scroll: button.dataset.view === 'map' });
     });
   });
 
@@ -644,7 +803,36 @@
     const propertyId = button.dataset.propertyId;
     if (button.dataset.action === 'favorite') toggleFavorite(propertyId);
     if (button.dataset.action === 'compare') toggleCompare(propertyId);
-    if (button.dataset.action === 'details') openProperty(propertyId);
+    if (button.dataset.action === 'details') openProperty(propertyId, Number(button.dataset.mediaIndex));
+    if (button.dataset.action === 'media-previous' || button.dataset.action === 'media-next') {
+      const property = getProperty(propertyId);
+      if (!property) return;
+      const current = selectedCardMedia(property).index;
+      const direction = button.dataset.action === 'media-next' ? 1 : -1;
+      cardMediaIndexes.set(propertyId, (current + direction + property.media.length) % property.media.length);
+      render();
+      focusPropertyOnMap(propertyId);
+    }
+  });
+
+  propertyList?.addEventListener('pointerover', (event) => {
+    const card = event.target.closest('[data-card-id]');
+    if (card && !card.contains(event.relatedTarget)) focusPropertyOnMap(card.dataset.cardId);
+  });
+
+  propertyList?.addEventListener('pointerout', (event) => {
+    const card = event.target.closest('[data-card-id]');
+    if (card && !card.contains(event.relatedTarget)) styleMapSelection(null);
+  });
+
+  propertyList?.addEventListener('focusin', (event) => {
+    const card = event.target.closest('[data-card-id]');
+    if (card) focusPropertyOnMap(card.dataset.cardId);
+  });
+
+  propertyList?.addEventListener('focusout', (event) => {
+    const card = event.target.closest('[data-card-id]');
+    if (card && !card.contains(event.relatedTarget)) styleMapSelection(null);
   });
 
   document.querySelectorAll('[data-property-id]:not([data-action])').forEach((button) => {
@@ -653,32 +841,60 @@
 
   propertyDialogContent?.addEventListener('click', (event) => {
     const closeButton = event.target.closest('[data-close-dialog]');
-    if (closeButton) return closeDialog(propertyDialog);
+    if (closeButton) {
+      event.stopPropagation();
+      return closeDialog(propertyDialog);
+    }
 
     const galleryButton = event.target.closest('[data-gallery-index]');
     if (galleryButton) {
-      const property = getProperty(propertyDialogContent.dataset.propertyId);
-      const index = Number(galleryButton.dataset.galleryIndex);
-      const media = property?.media[index];
-      const mainMedia = propertyDialogContent.querySelector('[data-detail-main-media]');
-      if (media && mainMedia) {
-        const previousVideo = mainMedia.querySelector('video');
-        if (previousVideo) previousVideo.pause();
-        mainMedia.innerHTML = renderMainMedia(media);
-        propertyDialogContent.querySelectorAll('[data-gallery-index]').forEach((button) => button.classList.toggle('active', button === galleryButton));
-      }
+      selectDetailMedia(Number(galleryButton.dataset.galleryIndex));
+      return;
+    }
+
+    const detailDirection = event.target.closest('[data-detail-media-direction]');
+    if (detailDirection) {
+      selectDetailMedia(Number(propertyDialogContent.dataset.mediaIndex || 0) + Number(detailDirection.dataset.detailMediaDirection));
       return;
     }
 
     const whatsAppButton = event.target.closest('[data-simulate-whatsapp]');
-    if (whatsAppButton) return simulateWhatsApp(whatsAppButton.dataset.propertyId);
+    if (whatsAppButton) return copyContactMessage(whatsAppButton.dataset.propertyId);
+    const scheduleButton = event.target.closest('[data-schedule-visit]');
+    if (scheduleButton) return copyContactMessage(scheduleButton.dataset.propertyId, 'visita');
     const shareButton = event.target.closest('[data-share-property]');
-    if (shareButton) shareProperty(shareButton.dataset.propertyId);
+    if (shareButton) return shareProperty(shareButton.dataset.propertyId);
+    const favoriteButton = event.target.closest('[data-favorite-detail]');
+    if (favoriteButton) {
+      toggleFavorite(favoriteButton.dataset.propertyId);
+      const active = favorites.has(favoriteButton.dataset.propertyId);
+      favoriteButton.classList.toggle('active', active);
+      favoriteButton.setAttribute('aria-pressed', String(active));
+      favoriteButton.textContent = active ? '♥' : '♡';
+      return;
+    }
+    const mapButton = event.target.closest('[data-focus-map]');
+    if (mapButton) {
+      closeDialog(propertyDialog);
+      setView('map', { scroll: true });
+      window.setTimeout(() => focusPropertyOnMap(mapButton.dataset.propertyId, { openPreview: true }), 320);
+    }
   });
 
   document.querySelector('[data-open-compare]')?.addEventListener('click', openComparison);
   document.querySelector('[data-clear-compare]')?.addEventListener('click', () => { compared.clear(); render(); });
   document.querySelectorAll('[data-open-manager]').forEach((button) => button.addEventListener('click', () => openDialog(managerDialog)));
+  document.querySelectorAll('[data-open-filters]').forEach((button) => button.addEventListener('click', () => openDialog(filterDialog)));
+  document.querySelectorAll('[data-apply-filters]').forEach((button) => button.addEventListener('click', () => {
+    closeDialog(filterDialog);
+    document.querySelector('#demo-imoveis')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }));
+  document.querySelectorAll('[data-show-favorites]').forEach((button) => button.addEventListener('click', () => {
+    state.favoritesOnly = !state.favoritesOnly;
+    render();
+    document.querySelector('#demo-imoveis')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }));
+  document.querySelectorAll('[data-mobile-map]').forEach((button) => button.addEventListener('click', () => setView('map', { scroll: true })));
   document.querySelector('[data-map-info]')?.addEventListener('click', () => showToast('O mapa e as ruas são reais. Cada círculo mostra apenas uma zona aproximada; o endereço exato não é exibido.'));
 
   document.querySelectorAll('.demo-dialog').forEach((dialog) => {
