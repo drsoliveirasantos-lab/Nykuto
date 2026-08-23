@@ -23,6 +23,10 @@ offres.html                    Nykuto Digital
 international.html             Nykuto Business International
 exemples.html                  Illustrative scenarios
 demo-imobiliaria.html          Autonomous interactive real-estate demo
+imoveis/index.html             Complete searchable property catalogue
+mapa/index.html                Map-focused property search
+favoritos/index.html           Device-local saved-property selection
+anunciar/index.html            Owner and agency publishing journey
 process.html                   Method
 a-propos.html                  Founder and company
 faq.html                       FAQ
@@ -39,6 +43,7 @@ assets/                        Production images
 assets/demo-imobiliaria/       Optimised, neutralised real-estate demo media
 assets/nykuto-emblem.webp      Production brand emblem
 assets/nykuto-emblem-favicon.png  Browser icon
+imovel/*/index.html             Share pages with property-specific metadata
 favicon.svg                    Legacy fallback icon
 robots.txt / sitemap.xml       Search discovery
 _headers                       Cloudflare response headers
@@ -78,12 +83,16 @@ Before a framework migration:
 - no invented proof or unsupported claim;
 - responsive and keyboard-accessible interactions.
 
-`demo-imobiliaria.html` is an autonomous property interface linked from the
+`demo-imobiliaria.html` is the autonomous property homepage linked from the
 Nykuto commercial site and published canonically on `demo.nykuto.com`. The
 subdomain opens directly on the real-estate experience: it does not reproduce
 the commercial header, scenario introduction, browser mockup, sales CTA or
-commercial-site footer. A compact in-app footer keeps the illustrative nature
-of the inventory visible without interrupting the property journey.
+commercial-site footer. Main navigation uses dedicated static routes instead
+of scrolling every destination inside the homepage: `/imoveis/` for the full
+catalogue, `/mapa/` for map-first search, `/favoritos/` for the visitor's local
+selection and `/anunciar/` for the owner/agency offer. A compact in-app footer
+keeps the illustrative nature of the inventory visible without interrupting
+the property journey.
 
 The demo uses owner-supplied photos and videos of real Ciudad del Este
 properties that were neutralised before publication and stripped of embedded
@@ -101,9 +110,20 @@ privacy masks over neutralised areas, favourites stored locally and a comparison
 flow. Cards and price markers are synchronised: selecting either highlights the
 corresponding approximate area, while map markers open a compact property
 preview before the full detail sheet. The detail sheet groups media, monthly and
-entry costs, approximate distances, privacy information and simulated contact
-actions. On small screens, filters use a bottom sheet and a fixed navigation bar
-provides direct access to listings, map, favourites and the owner journey.
+entry costs, approximate distances and privacy information. Contact buttons open
+the approved Nykuto business WhatsApp with a structured, pre-filled enquiry; the
+site does not store or transmit the visitor's message itself. A persistent
+WhatsApp button uses locally saved favourites as the visitor's selection and can
+send either one property or a concise multi-property request. On small screens,
+filters use a bottom sheet and a fixed navigation bar provides direct access to
+listings, map, favourites and the owner journey.
+
+Each illustrative property also has a static `/imovel/<reference>/` share page
+with its own Open Graph title, description and neutralised cover image. These
+pages redirect human visitors to the matching detail sheet but remain readable
+by link-preview crawlers. The preview is best effort: no image or video is
+silently attached to the WhatsApp message, and the readable reference and URL
+remain in the pre-filled text.
 
 The owner and manager journeys remain visual demonstrations rather than a live
 platform. The owner section appears only after the property experience, and the

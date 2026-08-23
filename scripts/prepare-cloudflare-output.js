@@ -27,7 +27,7 @@ const staticFiles = [
   '_headers'
 ];
 
-const staticDirectories = ['assets'];
+const staticDirectories = ['assets', 'imovel', 'imoveis', 'mapa', 'favoritos', 'anunciar'];
 
 const outputDirs = [
   path.join(root, 'out'),
