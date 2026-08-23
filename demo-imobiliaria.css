@@ -672,18 +672,18 @@
 .demo-map-canvas .leaflet-control-attribution a { color: var(--demo-forest); }
 
 .demo-map-price-icon {
-  width: 0 !important;
-  height: 0 !important;
   border: 0 !important;
   background: transparent !important;
 }
 
 .demo-map-price-icon > span {
+  width: 100%;
+  height: 100%;
   min-height: 30px;
   padding: 5px 9px;
   display: inline-flex;
   align-items: center;
-  transform: translate(-50%, -50%);
+  justify-content: center;
   border: 2px solid white;
   border-radius: 9px;
   background: var(--demo-forest);
@@ -700,7 +700,7 @@
 
 .demo-map-price-icon:hover > span,
 .demo-map-price-icon:focus > span {
-  transform: translate(-50%, -50%) scale(1.08);
+  transform: scale(1.08);
   background: var(--demo-gold);
   color: #34280f;
 }

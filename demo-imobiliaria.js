@@ -348,8 +348,8 @@
         icon: window.L.divIcon({
           className: 'demo-map-price-icon',
           html: `<span data-currency="${escapeHtml(property.currency)}">${escapeHtml(formatMapPrice(property))}</span>`,
-          iconSize: [0, 0],
-          iconAnchor: [0, 0]
+          iconSize: [70, 34],
+          iconAnchor: [35, 17]
         })
       });
 
