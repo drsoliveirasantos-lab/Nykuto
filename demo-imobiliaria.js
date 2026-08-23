@@ -822,7 +822,7 @@
       window.NykutoWhatsApp.open(whatsappPhone, message);
       return;
     }
-    window.location.href = `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(message)}`;
+    window.location.href = `whatsapp://send?phone=${whatsappPhone}&text=${encodeURIComponent(message)}`;
   }
 
   function contactProperty(propertyId, intent = 'informações') {
