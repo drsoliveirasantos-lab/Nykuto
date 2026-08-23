@@ -52,7 +52,9 @@ export async function onRequestPost({ request, env }) {
 
   const username = String(body.username || '').trim().toLowerCase();
   const password = String(body.password || '');
-  if (!/^[a-z0-9._-]{3,80}$/.test(username) || password.length < 12 || password.length > 160) {
+  const validUsername = /^[a-z0-9._-]{3,80}$/.test(username)
+    || (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(username) && username.length <= 120);
+  if (!validUsername || password.length < 6 || password.length > 160) {
     return json({ ok: false, code: 'INVALID_CREDENTIALS', message: 'Usuário ou código incorretos.' }, 401);
   }
 

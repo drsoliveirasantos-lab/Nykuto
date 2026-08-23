@@ -41,7 +41,7 @@
       if (!response.ok) {
         if (payload.code === 'PASS_EXPIRED') showMessage('Seu passe expirou. Peça a renovação para recuperar o acesso.');
         else if (payload.code === 'TOO_MANY_ATTEMPTS') showMessage('Muitas tentativas. Aguarde alguns minutos antes de tentar novamente.');
-        else showMessage(payload.message || 'Não foi possível entrar. Confira o usuário e o código.');
+        else showMessage(payload.message || 'Não foi possível entrar. Confira o e-mail e o código.');
         return;
       }
       showMessage('Acesso confirmado. Abrindo sua gestão…', 'success');
