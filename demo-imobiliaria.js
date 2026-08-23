@@ -1,5 +1,5 @@
 (() => {
-  const assetBase = 'assets/demo-imobiliaria/';
+  const assetBase = '/assets/demo-imobiliaria/';
   const ciudadDelEsteCenter = [-25.5135, -54.632];
   const openStreetMapTiles = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
   const publicDemoOrigin = 'https://demo.nykuto.com';
