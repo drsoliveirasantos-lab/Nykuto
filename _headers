@@ -6,3 +6,11 @@
 
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
+
+/gestor/*
+  Cache-Control: no-store, private
+  X-Robots-Tag: noindex, nofollow
+
+/api/*
+  Cache-Control: no-store, private
+  X-Robots-Tag: noindex, nofollow

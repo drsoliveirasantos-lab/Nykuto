@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "include": ["/api/*", "/gestor/*"],
+  "exclude": [
+    "/gestor/gestor.css",
+    "/gestor/gestor.js",
+    "/gestor/login/login.js"
+  ]
+}

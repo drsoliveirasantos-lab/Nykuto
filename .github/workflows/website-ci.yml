@@ -28,5 +28,7 @@ jobs:
         run: npm run hygiene
       - name: Run TypeScript typecheck
         run: npm run typecheck
+      - name: Validate Cloudflare Pages Functions
+        run: npm run functions:check
       - name: Build website
         run: npm run build

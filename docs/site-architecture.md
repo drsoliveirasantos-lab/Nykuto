@@ -27,6 +27,13 @@ imoveis/index.html             Complete searchable property catalogue
 mapa/index.html                Map-focused property search
 favoritos/index.html           Device-local saved-property selection
 anunciar/index.html            Owner and agency publishing journey
+gestor/login/index.html        Private manager sign-in
+gestor/index.html              Authenticated manager dashboard
+gestor/imoveis/                Persistent listing management
+gestor/imoveis/novo/           Guided test-draft creation
+gestor/conta/                  Pass validity and account status
+functions/                     Cloudflare Pages authentication and APIs
+migrations/                    D1 schema for accounts, passes, sessions and listings
 process.html                   Method
 a-propos.html                  Founder and company
 faq.html                       FAQ
@@ -125,11 +132,22 @@ by link-preview crawlers. The preview is best effort: no image or video is
 silently attached to the WhatsApp message, and the readable reference and URL
 remain in the pre-filled text.
 
-The owner and manager journeys remain visual demonstrations rather than a live
-platform. The owner section appears only after the property experience, and the
-private-area preview shows publication status, listing completeness and privacy
-radius controls using illustrative data. No authentication, client message,
-lead, payment or expiring account is created by these interfaces.
+The owner journey remains public and illustrative, but the manager pilot is now
+a real protected environment on `/gestor/`. Cloudflare Pages Functions validate
+an opaque `HttpOnly`, `Secure`, `SameSite=Lax` session cookie and an active D1
+access pass on every protected page and manager API request. Only the SHA-256
+session-token digest is stored. The test credential uses a per-user random salt,
+210,000 PBKDF2-SHA-256 iterations and a server-side pepper. Unsafe requests also
+require a same-origin CSRF token. Credentials and the pepper are provisioned
+directly in Cloudflare and never committed to Git.
+
+The pilot D1 database stores one test manager, pass history, sessions, rate-limit
+state, audit events and a management projection of the five illustrative
+properties. Status and cover changes persist across devices and are exposed to
+the public catalogue through a read-only, privacy-limited endpoint. Exact
+addresses, private owner details, visitor messages, payments and leads are not
+stored. Newly created properties remain drafts in this pilot because new-media
+uploads require a future R2 activation and a dedicated moderation flow.
 
 ## Language architecture
 
@@ -144,6 +162,7 @@ lead, payment or expiring account is created by these interfaces.
 ```bash
 npm run build
 npm run hygiene
+npm run functions:check
 ```
 
 Before merging, inspect the production output, verify internal links, confirm legal publisher data and wait for user approval.

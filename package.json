@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "node scripts/prepare-cloudflare-output.js",
+    "functions:check": "node scripts/validate-pages-functions.js",
     "start": "vite --host 0.0.0.0",
     "typecheck": "node -e \"console.log('Static site validation: no TypeScript compilation required')\"",
     "hygiene": "node scripts/validate-repository-hygiene.js"

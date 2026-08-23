@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0c4439" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Novo imóvel — Assessoria Nykuto</title>
+  <link rel="icon" href="/assets/nykuto-emblem-favicon.png" type="image/png" />
+  <link rel="stylesheet" href="/gestor/gestor.css?v=20260823-2" />
+</head>
+<body class="manager-body" data-manager-page="new">
+  <div class="manager-app">
+    <header class="manager-header"><a class="manager-brand" href="/gestor/"><span aria-hidden="true">N</span><div><strong>Assessoria Nykuto</strong><small>Área da assessoria</small></div></a><div class="manager-header-actions"><a href="/" target="_blank" rel="noopener">Ver site</a><button type="button" data-logout>Sair</button></div></header>
+    <main class="manager-main">
+      <section class="manager-page-heading"><div><p>Publicação guiada</p><h1>Novo imóvel</h1><span>Crie um rascunho de teste em poucos campos.</span></div><a class="manager-back-link" href="/gestor/imoveis/">← Cancelar</a></section>
+      <section class="manager-editor-grid">
+        <form class="manager-editor" data-new-listing-form>
+          <div class="manager-form-section"><span class="manager-step">01</span><div><h2>Informações principais</h2><p>Você poderá completar outras características depois.</p></div></div>
+          <label><span>Título do imóvel</span><input name="title" type="text" maxlength="90" placeholder="Ex.: Apartamento 2 quartos · Lago" required /></label>
+          <label><span>Zona pública aproximada</span><input name="zoneLabel" type="text" maxlength="100" placeholder="Ex.: Zona do Lago da República" required /></label>
+          <div class="manager-form-row"><label><span>Moeda</span><select name="currency"><option value="PYG">Guaranis (Gs.)</option><option value="USD">Dólares (US$)</option></select></label><label><span>Aluguel mensal</span><input name="priceAmount" type="number" inputmode="numeric" min="0" max="100000000" step="1" placeholder="2500000" required /></label></div>
+          <fieldset><legend>Capa inicial</legend><div class="manager-cover-options"><label><input type="radio" name="coverUrl" value="/assets/demo-imobiliaria/local-premium-08.webp" checked /><img src="/assets/demo-imobiliaria/local-premium-08.webp" alt="Sala premium" /></label><label><input type="radio" name="coverUrl" value="/assets/demo-imobiliaria/local-studio-01.webp" /><img src="/assets/demo-imobiliaria/local-studio-01.webp" alt="Studio" /></label><label><input type="radio" name="coverUrl" value="/assets/demo-imobiliaria/local-tour-apartamento-a-poster.webp" /><img src="/assets/demo-imobiliaria/local-tour-apartamento-a-poster.webp" alt="Apartamento" /></label></div></fieldset>
+          <p class="manager-form-message" data-editor-message role="alert" hidden></p>
+          <button class="manager-primary-button" type="submit" data-create-submit>Salvar rascunho <span>→</span></button>
+        </form>
+        <aside class="manager-editor-preview"><p>Prévia</p><div><img data-new-preview-image src="/assets/demo-imobiliaria/local-premium-08.webp" alt="Prévia da capa escolhida" /><span>Rascunho</span></div><h2 data-new-preview-title>Novo imóvel</h2><p data-new-preview-zone>Zona aproximada</p><strong data-new-preview-price>Gs. 0</strong><small>O rascunho não aparece publicamente até ser revisado.</small></aside>
+      </section>
+    </main>
+    <nav class="manager-mobile-nav" aria-label="Navegação da gestão"><a href="/gestor/"><span>⌂</span>Painel</a><a href="/gestor/imoveis/"><span>▦</span>Imóveis</a><a href="/gestor/imoveis/novo/" aria-current="page"><span>＋</span>Novo</a><a href="/gestor/conta/"><span>◷</span>Conta</a></nav>
+  </div>
+  <div class="manager-toast" data-manager-toast role="status" aria-live="polite" hidden></div>
+  <script src="/gestor/gestor.js?v=20260823-2" defer></script>
+</body>
+</html>

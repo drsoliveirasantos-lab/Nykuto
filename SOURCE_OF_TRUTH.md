@@ -46,6 +46,9 @@ The current production source of truth is the static root site:
 - `styles.css`, `i18n.js` and `script.js`;
 - `assets/`, `favicon.svg`, `robots.txt`, `sitemap.xml` and `_headers`;
 - `scripts/prepare-cloudflare-output.js`;
+- `gestor/` for the private real-estate manager pilot interface;
+- `functions/` for the Cloudflare Pages authentication and manager API;
+- `migrations/` for the D1 manager schema;
 - documentation in `docs/`;
 - repository workflows and instructions in `.github/`.
 
@@ -80,6 +83,10 @@ Do not promise guaranteed SEO rankings, complex custom platforms, merchant accep
 - Confidentiality claims must match actual practice.
 - Legal pages must contain confirmed publisher information before production publication.
 - Sensitive personal information must not be committed to a public repository without explicit owner confirmation.
+
+The real-estate manager pilot stores no plaintext credential in Git. Account
+credentials, access periods and sessions are provisioned directly in Cloudflare;
+protected routes must enforce both the session and the active pass on the server.
 
 ## Languages
 

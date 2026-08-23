@@ -1,4 +1,4 @@
-(() => {
+(async () => {
   const assetBase = '/assets/demo-imobiliaria/';
   const ciudadDelEsteCenter = [-25.5135, -54.632];
   const openStreetMapTiles = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
@@ -14,7 +14,7 @@
     { left: 40, top: 67, width: 33, height: 28 }
   ];
 
-  const properties = [
+  let properties = [
     {
       id: 'NYK-CDE-01',
       title: 'Monoambiente mobiliado · KM 7',
@@ -165,6 +165,33 @@
       }))
     }
   ];
+
+  async function loadPublishedManagerState() {
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 1800);
+    try {
+      const response = await fetch('/api/public/listings', { cache: 'no-store', signal: controller.signal });
+      if (!response.ok) return;
+      const payload = await response.json();
+      if (!payload.ok || payload.catalogReady !== true || !Array.isArray(payload.listings)) return;
+      const remoteByReference = new Map(payload.listings.map((listing) => [listing.reference, listing]));
+      properties = properties.filter((property) => remoteByReference.has(property.id)).map((property) => {
+        const remote = remoteByReference.get(property.id);
+        const coverIndex = property.media.findIndex((media) => media.src === remote.coverUrl || media.poster === remote.coverUrl);
+        return {
+          ...property,
+          title: remote.title,
+          location: remote.zoneLabel,
+          rent: remote.priceAmount,
+          currency: remote.currency,
+          status: remote.statusLabel,
+          availability: remote.availabilityLabel,
+          ...(coverIndex >= 0 ? { coverIndex } : {})
+        };
+      });
+    } catch (_) { /* Static inventory remains the reliable fallback. */ }
+    finally { window.clearTimeout(timeout); }
+  }
 
   const state = {
     campus: 'all',
@@ -1083,6 +1110,8 @@
     radiusOutput.textContent = meters >= 1000 ? `${(meters / 1000).toLocaleString('pt-BR', { maximumFractionDigits: 1 })} km` : `${meters} m`;
   });
 
+  await loadPublishedManagerState();
+  favorites = readFavorites();
   initializeRealMap();
   renderManagerList();
   render();

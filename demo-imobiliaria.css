@@ -246,6 +246,7 @@
 }
 
 .demo-manager-button:hover { border-color: var(--demo-forest); }
+.demo-manager-login-cta { min-height: 42px; margin-top: 18px; padding: 9px 13px; display: inline-flex; align-items: center; gap: 8px; border-radius: 10px; background: var(--demo-forest); color: white; font-size: 9px; font-weight: 900; }
 
 .demo-property-hero {
   min-height: 510px;
@@ -970,8 +971,8 @@
   .demo-agency-mark { width: 40px; height: 40px; font-size: 23px; }
   .demo-agency-brand strong { font-size: 16px; }
   .demo-agency-brand small { font-size: 7px; }
-  .demo-manager-button { width: 42px; height: 42px; padding: 0; overflow: hidden; color: transparent; white-space: nowrap; }
-  .demo-manager-button span { color: var(--demo-forest); font-size: 15px; }
+  .demo-manager-button { width: 70px; height: 42px; padding: 0 9px; justify-content: center; overflow: visible; color: var(--demo-forest); font-size: 9px; white-space: nowrap; }
+  .demo-manager-button span { color: var(--demo-forest); font-size: 12px; }
   .demo-property-hero { padding: 36px 14px 42px; gap: 28px; }
   .demo-property-hero h2 { font-size: clamp(38px, 12vw, 52px); }
   .demo-property-hero-copy > p:not(.demo-property-kicker) { font-size: 14px; }
@@ -1399,6 +1400,7 @@
 .demo-owner-actions a { min-height: 44px; padding: 10px 14px; display: inline-flex; align-items: center; gap: 8px; border-radius: 10px; font-size: 9px; font-weight: 850; }
 .demo-owner-actions button { border: 0; background: #dfbd6c; color: #30240e; cursor: pointer; }
 .demo-owner-actions a { border: 1px solid rgba(255,255,255,.2); color: white; }
+.demo-owner-actions a:first-child { border-color: #dfbd6c; background: #dfbd6c; color: #30240e; }
 .demo-owner-benefits { display: grid; gap: 10px; }
 .demo-owner-benefits article { padding: 19px; display: grid; grid-template-columns: 42px 1fr; gap: 15px; border: 1px solid rgba(255,255,255,.11); border-radius: 16px; background: rgba(255,255,255,.055); backdrop-filter: blur(10px); }
 .demo-owner-benefits article > span { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 13px; background: rgba(223,189,108,.14); color: #dfbd6c; font-size: 10px; font-weight: 900; }
@@ -1674,8 +1676,8 @@
   .demo-agency-brand strong { font-size: 15px; }
   .demo-agency-brand small { font-size: 6px; }
   .demo-owner-link { display: none; }
-  .demo-manager-button { width: 40px; height: 40px; min-height: 40px; margin-left: 0; padding: 0; overflow: hidden; color: transparent; white-space: nowrap; }
-  .demo-manager-button span { color: var(--demo-forest); font-size: 15px; }
+  .demo-manager-button { width: 68px; height: 40px; min-height: 40px; margin-left: 0; padding: 0 8px; justify-content: center; overflow: visible; color: var(--demo-forest); font-size: 9px; white-space: nowrap; }
+  .demo-manager-button span { color: var(--demo-forest); font-size: 12px; }
   .demo-property-hero { min-height: 0; padding: 36px 14px 42px; gap: 30px; }
   .demo-property-hero h2 { font-size: clamp(43px, 12.5vw, 58px); }
   .demo-property-hero-copy > p:not(.demo-property-kicker) { font-size: 13px; line-height: 1.6; }
