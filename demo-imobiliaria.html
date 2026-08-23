@@ -24,26 +24,26 @@
   <meta name="twitter:image" content="https://demo.nykuto.com/assets/demo-imobiliaria/demo-imobiliaria-og.jpg" />
   <link rel="stylesheet" href="styles.css?v=20260823-1" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-  <link rel="stylesheet" href="demo-imobiliaria.css?v=20260823-5" />
+  <link rel="stylesheet" href="demo-imobiliaria.css?v=20260823-7" />
 </head>
-<body class="real-estate-demo-page">
+<body class="real-estate-demo-page" data-demo-page="home" data-whatsapp-phone="33768345608">
   <a class="skip-link" href="#demo-imoveis">Ir para os imóveis</a>
   <main id="conteudo">
     <section class="property-demo-shell" aria-labelledby="demo-app-title">
       <div class="property-demo-app">
         <header class="property-demo-header">
-          <a class="demo-agency-brand" href="#demo-imoveis" aria-label="Assessoria Nykuto, início do portal">
+          <a class="demo-agency-brand" href="/" aria-label="Assessoria Nykuto, início do portal">
             <span class="demo-agency-mark" aria-hidden="true">N</span>
             <span><strong>Assessoria Nykuto</strong><small>Imóveis · Ciudad del Este</small></span>
           </a>
           <nav class="demo-agency-nav" aria-label="Navegação principal">
-            <a href="#demo-inicio">Início</a>
-            <a href="#demo-imoveis">Imóveis</a>
-            <a href="#demo-mapa">Mapa</a>
-            <button type="button" data-show-favorites aria-pressed="false">Favoritos</button>
+            <a href="/" aria-current="page">Início</a>
+            <a href="/imoveis/">Imóveis</a>
+            <a href="/mapa/">Mapa</a>
+            <a href="/favoritos/">Favoritos</a>
           </nav>
           <div class="demo-header-actions">
-            <a class="demo-owner-link" href="#demo-anunciar">Anuncie seu imóvel</a>
+            <a class="demo-owner-link" href="/anunciar/">Anuncie seu imóvel</a>
             <button class="demo-manager-button" type="button" data-open-manager><span aria-hidden="true">⌘</span> Área da assessoria</button>
           </div>
         </header>
@@ -85,7 +85,7 @@
             <div class="demo-hero-proof" aria-label="Destaques da experiência">
               <span><strong>5</strong> imóveis selecionados</span>
               <span><strong>100%</strong> mídias neutralizadas</span>
-              <a href="#demo-mapa">Ver no mapa <span aria-hidden="true">↘</span></a>
+              <a href="/mapa/">Ver no mapa <span aria-hidden="true">↘</span></a>
             </div>
           </div>
           <aside class="demo-property-feature" aria-label="Imóvel em destaque">
@@ -149,7 +149,7 @@
             <span>Organize fotos, vídeos, valores e zonas protegidas em uma vitrine própria, sem depender de uma sequência de mensagens.</span>
             <div class="demo-owner-actions">
               <button type="button" data-open-manager>Conhecer a área da assessoria <span aria-hidden="true">↗</span></button>
-              <a href="#demo-imoveis">Ver a experiência pública</a>
+              <a href="/anunciar/">Ver como anunciar</a>
             </div>
           </div>
           <div class="demo-owner-benefits">
@@ -173,6 +173,15 @@
     <button class="demo-compare-clear" type="button" data-clear-compare aria-label="Limpar comparação">×</button>
   </div>
 
+  <button class="demo-whatsapp-fab" type="button" data-whatsapp-fab aria-label="Falar com a Assessoria Nykuto pelo WhatsApp">
+    <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+      <path d="M16 3.5A12.5 12.5 0 0 0 5.2 22.3L3.8 28l5.9-1.4A12.5 12.5 0 1 0 16 3.5Z" />
+      <path d="M12.1 9.8c.3-.7.6-.7 1-.7h.6c.2 0 .5.1.7.6l1.1 2.7c.1.4.1.7-.1 1l-.8 1c-.2.2-.3.5-.1.8.6 1.2 1.5 2.2 2.6 3 .9.6 1.7.9 2.1 1 .3.1.6 0 .8-.2l1.3-1.5c.3-.3.6-.4 1-.2l2.6 1.2c.4.2.6.3.7.5.1.2.1 1.4-.3 2.3-.4 1-2.2 1.9-3 2-1 .1-2.2.2-5.3-1.1-4.4-1.9-7.2-6.4-7.4-6.7-.2-.3-1.8-2.4-1.8-4.6 0-2.2 1.1-3.3 1.6-3.7.4-.5 1-.6 1.3-.6Z" />
+    </svg>
+    <span><small>WhatsApp</small><strong data-whatsapp-fab-label>Falar agora</strong></span>
+    <b data-whatsapp-fab-count hidden>0</b>
+  </button>
+
   <dialog class="demo-dialog demo-property-dialog" data-property-dialog lang="pt-BR">
     <div class="demo-dialog-shell" data-property-dialog-content></div>
   </dialog>
@@ -181,6 +190,15 @@
     <div class="demo-dialog-shell">
       <header class="demo-dialog-header"><div><span>Comparador</span><h2>Compare os imóveis selecionados</h2></div><button type="button" data-close-dialog aria-label="Fechar comparação">×</button></header>
       <div class="demo-compare-table-wrap" data-compare-table></div>
+    </div>
+  </dialog>
+
+  <dialog class="demo-dialog demo-whatsapp-dialog" data-whatsapp-dialog lang="pt-BR">
+    <div class="demo-dialog-shell">
+      <header class="demo-dialog-header"><div><span>Contato pelo WhatsApp</span><h2>Sobre qual imóvel você quer falar?</h2></div><button type="button" data-close-dialog aria-label="Fechar seleção">×</button></header>
+      <p class="demo-whatsapp-selection-summary" data-whatsapp-selection-summary></p>
+      <div class="demo-whatsapp-selection-list" data-whatsapp-selection-list></div>
+      <footer class="demo-whatsapp-selection-actions"><button type="button" data-close-dialog>Continuar escolhendo</button><button type="button" data-whatsapp-send-all>Enviar todos</button></footer>
     </div>
   </dialog>
 
@@ -219,15 +237,15 @@
   </dialog>
 
   <nav class="demo-mobile-nav" aria-label="Navegação móvel">
-    <a href="#demo-imoveis"><span aria-hidden="true">⌂</span> Imóveis</a>
-    <button type="button" data-mobile-map><span aria-hidden="true">⌖</span> Mapa</button>
-    <button type="button" data-show-favorites aria-pressed="false"><span aria-hidden="true">♡</span> Favoritos</button>
-    <a href="#demo-anunciar"><span aria-hidden="true">＋</span> Anunciar</a>
+    <a href="/imoveis/"><span aria-hidden="true">⌂</span> Imóveis</a>
+    <a href="/mapa/"><span aria-hidden="true">⌖</span> Mapa</a>
+    <a href="/favoritos/"><span aria-hidden="true">♡</span> Favoritos</a>
+    <a href="/anunciar/"><span aria-hidden="true">＋</span> Anunciar</a>
   </nav>
 
   <div class="demo-toast" data-demo-toast-output role="status" aria-live="polite" hidden></div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
-  <script src="demo-imobiliaria.js?v=20260823-5" defer></script>
+  <script src="demo-imobiliaria.js?v=20260823-7" defer></script>
 </body>
 </html>

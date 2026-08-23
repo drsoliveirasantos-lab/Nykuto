@@ -2,6 +2,9 @@
   const assetBase = 'assets/demo-imobiliaria/';
   const ciudadDelEsteCenter = [-25.5135, -54.632];
   const openStreetMapTiles = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+  const publicDemoOrigin = 'https://demo.nykuto.com';
+  const whatsappPhone = document.body.dataset.whatsappPhone || '33768345608';
+  const pageMode = document.body.dataset.demoPage || 'home';
   const studioPrivacyMasks = [
     { left: 66, top: 36, width: 34, height: 28 },
     { left: 58, top: 70, width: 35, height: 26 },
@@ -172,9 +175,17 @@
     furnished: false,
     included: false,
     immediate: false,
-    favoritesOnly: false,
-    view: 'split'
+    favoritesOnly: pageMode === 'favorites',
+    view: pageMode === 'map' ? 'map' : 'split'
   };
+
+  const initialParams = new URLSearchParams(window.location.search);
+  ['campus', 'budget', 'rooms', 'currency'].forEach((key) => {
+    if (initialParams.has(key)) state[key] = initialParams.get(key);
+  });
+  ['pet', 'furnished', 'included', 'immediate'].forEach((key) => {
+    if (initialParams.get(key) === '1') state[key] = true;
+  });
 
   const compared = new Set();
   const cardMediaIndexes = new Map();
@@ -195,6 +206,13 @@
   const compareTable = document.querySelector('[data-compare-table]');
   const compareDock = document.querySelector('[data-compare-dock]');
   const compareCount = document.querySelector('[data-compare-count]');
+  const whatsappFab = document.querySelector('[data-whatsapp-fab]');
+  const whatsappFabCount = document.querySelector('[data-whatsapp-fab-count]');
+  const whatsappFabLabel = document.querySelector('[data-whatsapp-fab-label]');
+  const whatsappDialog = document.querySelector('[data-whatsapp-dialog]');
+  const whatsappSelectionList = document.querySelector('[data-whatsapp-selection-list]');
+  const whatsappSelectionSummary = document.querySelector('[data-whatsapp-selection-summary]');
+  const whatsappSendAll = document.querySelector('[data-whatsapp-send-all]');
   const managerDialog = document.querySelector('[data-manager-dialog]');
   const filterDialog = document.querySelector('[data-filter-dialog]');
   const managerList = document.querySelector('[data-manager-list]');
@@ -206,7 +224,8 @@
   function readFavorites() {
     try {
       const saved = JSON.parse(window.localStorage.getItem(favoriteStorageKey) || '[]');
-      return new Set(Array.isArray(saved) ? saved : []);
+      const validIds = new Set(properties.map((property) => property.id));
+      return new Set(Array.isArray(saved) ? saved.filter((propertyId) => validIds.has(propertyId)) : []);
     } catch (_) {
       return new Set();
     }
@@ -237,6 +256,24 @@
   function totalEntry(property) {
     if (property.fee === null || property.fee === undefined) return null;
     return property.rent + (property.deposit || 0) + property.fee;
+  }
+
+  function propertyPermalink(property) {
+    return `${publicDemoOrigin}/imovel/${property.id.toLowerCase()}/`;
+  }
+
+  function guaranteeLabel(property) {
+    if (property.deposit === 0) return 'Sem garantia';
+    return formatMoney(property.deposit, property.currency);
+  }
+
+  function feeLabel(property) {
+    return property.feeLabel || formatMoney(property.fee, property.currency);
+  }
+
+  function entryCostLabel(property) {
+    const total = totalEntry(property);
+    return total === null ? 'A confirmar' : formatMoney(total, property.currency);
   }
 
   function roomLabel(property) {
@@ -308,7 +345,7 @@
     ];
 
     return `
-      <article class="demo-listing-card" data-card-id="${escapeHtml(property.id)}">
+      <article class="demo-listing-card${isFavorite ? ' is-favorite' : ''}" data-card-id="${escapeHtml(property.id)}">
         <div class="demo-listing-media">
           <button class="demo-listing-open-media" type="button" data-action="details" data-property-id="${escapeHtml(property.id)}" data-media-index="${mediaIndex}" aria-label="Abrir ${escapeHtml(property.title)}">
             <img src="${escapeHtml(visual)}" alt="${escapeHtml(media.alt)}" width="720" height="560" loading="lazy" decoding="async" />
@@ -497,8 +534,10 @@
     }
     emptyState.hidden = filtered.length > 0;
     resultsLayout.hidden = filtered.length === 0;
+    resultsLayout.classList.toggle('map-only', state.view === 'map');
     updateFilterControls();
     updateCompareDock();
+    updateWhatsAppFab();
     window.requestAnimationFrame(() => document.querySelectorAll('.demo-listing-card').forEach((card) => card.classList.add('is-visible')));
   }
 
@@ -552,7 +591,7 @@
     else favorites.add(propertyId);
     saveFavorites();
     render();
-    showToast(favorites.has(propertyId) ? 'Imóvel salvo nos favoritos.' : 'Imóvel removido dos favoritos.');
+    showToast(favorites.has(propertyId) ? 'Imóvel salvo. Toque no WhatsApp para enviar.' : 'Imóvel removido dos favoritos.');
   }
 
   function toggleCompare(propertyId) {
@@ -568,6 +607,27 @@
     const count = compared.size;
     compareDock.hidden = count === 0;
     compareCount.textContent = `${count} ${count === 1 ? 'imóvel selecionado' : 'imóveis selecionados'}`;
+    document.body.classList.toggle('has-compare-selection', count > 0);
+  }
+
+  function selectedFavoriteProperties() {
+    return properties.filter((property) => favorites.has(property.id));
+  }
+
+  function updateWhatsAppFab() {
+    if (!whatsappFab || !whatsappFabCount || !whatsappFabLabel) return;
+    const count = favorites.size;
+    whatsappFab.classList.toggle('has-selection', count > 0);
+    whatsappFabCount.hidden = count === 0;
+    whatsappFabCount.textContent = String(count);
+    whatsappFabLabel.textContent = count === 0
+      ? 'Falar agora'
+      : count === 1
+        ? 'Enviar 1 favorito'
+        : `Enviar ${count} favoritos`;
+    whatsappFab.setAttribute('aria-label', count === 0
+      ? 'Falar com a Assessoria Nykuto pelo WhatsApp'
+      : `Consultar ${count} ${count === 1 ? 'imóvel favorito' : 'imóveis favoritos'} pelo WhatsApp`);
   }
 
   function getProperty(propertyId) {
@@ -601,7 +661,6 @@
   }
 
   function propertyDetailsMarkup(property, selectedIndex = 0) {
-    const total = totalEntry(property);
     const includedLabel = property.included.join(' · ');
     const separateLabel = property.separate.length ? property.separate.join(' · ') : 'Nenhuma despesa adicional informada';
     const tags = [
@@ -620,7 +679,7 @@
           ${property.media.length > 1 ? `<div class="demo-detail-gallery" aria-label="Galeria do imóvel">${property.media.map((media, index) => `<button class="${index === selectedIndex ? 'active' : ''}" type="button" data-gallery-index="${index}" aria-label="Mostrar mídia ${index + 1}"><img src="${escapeHtml(media.type === 'video' ? media.poster : media.src)}" alt="" width="140" height="108" loading="lazy" />${media.type === 'video' ? '<i aria-hidden="true">▶</i>' : ''}</button>`).join('')}</div>` : ''}
         </section>
         <section class="demo-detail-copy">
-          <header><div><span class="demo-detail-status">${escapeHtml(property.status)}</span><h2>${escapeHtml(property.title)}</h2><p class="demo-detail-location">⌖ ${escapeHtml(property.location)} · ${escapeHtml(property.id)}</p></div><button class="demo-detail-favorite${favorites.has(property.id) ? ' active' : ''}" type="button" data-favorite-detail data-property-id="${escapeHtml(property.id)}" aria-pressed="${favorites.has(property.id)}" aria-label="Salvar imóvel">${favorites.has(property.id) ? '♥' : '♡'}</button></header>
+          <header><div><span class="demo-detail-status">${escapeHtml(property.status)}</span><h2>${escapeHtml(property.title)}</h2><p class="demo-detail-location">⌖ ${escapeHtml(property.location)} · ${escapeHtml(property.id)}</p></div><button class="demo-detail-favorite${favorites.has(property.id) ? ' active' : ''}" type="button" data-favorite-detail data-property-id="${escapeHtml(property.id)}" aria-pressed="${favorites.has(property.id)}" aria-label="${favorites.has(property.id) ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}">${favorites.has(property.id) ? '♥' : '♡'}</button></header>
           <div class="demo-detail-price"><div><span>Aluguel mensal</span><strong>${escapeHtml(formatMoney(property.rent, property.currency))}</strong><small>${escapeHtml(property.availability)}</small></div><b>${escapeHtml(property.distance)}</b></div>
           <div class="demo-detail-trust"><span>✓ Custos organizados</span><span>✓ Zona protegida</span><span>✓ Mídias reais</span></div>
           <div class="demo-detail-grid">
@@ -635,16 +694,16 @@
             <strong>Custo de entrada</strong>
             <dl>
               <div><dt>Primeiro aluguel</dt><dd>${escapeHtml(formatMoney(property.rent, property.currency))}</dd></div>
-              <div><dt>Garantia</dt><dd>${escapeHtml(formatMoney(property.deposit, property.currency))}</dd></div>
-              <div><dt>Taxa imobiliária</dt><dd>${escapeHtml(property.feeLabel || formatMoney(property.fee, property.currency))}</dd></div>
-              <div class="total"><dt>Total calculável</dt><dd>${total === null ? 'A confirmar' : escapeHtml(formatMoney(total, property.currency))}</dd></div>
+              <div><dt>Garantia</dt><dd>${escapeHtml(guaranteeLabel(property))}</dd></div>
+              <div><dt>Taxa imobiliária</dt><dd>${escapeHtml(feeLabel(property))}</dd></div>
+              <div class="total"><dt>Total calculável</dt><dd>${escapeHtml(entryCostLabel(property))}</dd></div>
             </dl>
             ${property.monthlyExtra ? `<small>${escapeHtml(property.monthlyExtra)}</small>` : ''}
           </div>
           <div class="demo-detail-tags">${tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join('')}</div>
           <div class="demo-detail-zone"><i aria-hidden="true"><b></b></i><div><strong>Zona aproximada · raio ${escapeHtml(property.zoneRadius)}</strong><span>${escapeHtml(property.distance)}. O endereço exato é enviado somente durante o atendimento.</span></div><button type="button" data-focus-map data-property-id="${escapeHtml(property.id)}">Ver no mapa</button></div>
           <p class="demo-detail-concept-note">Mídias reais neutralizadas; preços, disponibilidade e dados da ficha são ilustrativos.</p>
-          <div class="demo-contact-simulation"><button type="button" data-simulate-whatsapp data-property-id="${escapeHtml(property.id)}"><span aria-hidden="true">◉</span> Solicitar informações</button><button type="button" data-schedule-visit data-property-id="${escapeHtml(property.id)}">Agendar visita</button><button type="button" data-share-property data-property-id="${escapeHtml(property.id)}" aria-label="Compartilhar imóvel">↗</button></div>
+          <div class="demo-contact-simulation"><button type="button" data-whatsapp-property data-property-id="${escapeHtml(property.id)}"><span aria-hidden="true">◉</span> Consultar no WhatsApp</button><button type="button" data-schedule-visit data-property-id="${escapeHtml(property.id)}">Agendar visita</button><button type="button" data-share-property data-property-id="${escapeHtml(property.id)}" aria-label="Compartilhar imóvel">↗</button></div>
         </section>
       </div>
     `;
@@ -703,27 +762,110 @@
     openDialog(compareDialog);
   }
 
-  async function copyContactMessage(propertyId, intent = 'informações') {
+  function propertyContactMessage(property, intent = 'informações') {
+    const included = property.included.length ? property.included.join(', ') : 'Nenhuma informada';
+    const separate = property.separate.length ? property.separate.join(', ') : 'Nenhuma informada';
+    const lines = [
+      'Olá! Tenho interesse neste imóvel da Assessoria Nykuto:',
+      '',
+      `🏠 ${property.title}`,
+      `🔖 Referência: ${property.id}`,
+      `📍 ${property.location} (localização aproximada)`,
+      `🛏 ${roomLabel(property)} · 🚿 ${property.bathrooms} ${property.bathrooms === 1 ? 'banheiro' : 'banheiros'}`,
+      `🪑 Mobiliado: ${yesNoUnknown(property.furnished)} · 🐾 Pet: ${yesNoUnknown(property.pet)} · 🚗 Garagem: ${property.garage ? 'Sim' : 'Não'}`,
+      `💰 Aluguel: ${formatMoney(property.rent, property.currency)}`,
+      `🔐 Garantia: ${guaranteeLabel(property)}`,
+      `🧾 Taxa de assessoria: ${feeLabel(property)}`,
+      `💳 Custo total de entrada: ${entryCostLabel(property)}`,
+      `✅ Despesas inclusas: ${included}`,
+      `➕ Despesas à parte: ${separate}`,
+      `📅 Disponibilidade: ${property.availability}`,
+      property.monthlyExtra ? `ℹ️ ${property.monthlyExtra}` : '',
+      `🔗 ${propertyPermalink(property)}`,
+      '',
+      intent === 'visita'
+        ? 'Este imóvel ainda está disponível? Gostaria de agendar uma visita.'
+        : 'Este imóvel ainda está disponível? Gostaria de receber mais informações e, se possível, agendar uma visita.'
+    ];
+    return lines.filter((line, index) => line || index === 1 || index === lines.length - 2).join('\n');
+  }
+
+  function multiplePropertiesContactMessage(selected) {
+    const propertyBlocks = selected.map((property, index) => [
+      `${index + 1}. ${property.id} — ${property.title}`,
+      `📍 ${property.location}`,
+      `💰 Aluguel: ${formatMoney(property.rent, property.currency)} · Garantia: ${guaranteeLabel(property)} · Taxa: ${feeLabel(property)}`,
+      `💳 Entrada: ${entryCostLabel(property)}`,
+      `✅ Inclusos: ${property.included.length ? property.included.join(', ') : 'Nenhum informado'}`,
+      `🔗 ${propertyPermalink(property)}`
+    ].join('\n')).join('\n\n');
+
+    return [
+      `Olá! Salvei ${selected.length} imóveis no site da Assessoria Nykuto e gostaria de verificar a disponibilidade:`,
+      '',
+      propertyBlocks,
+      '',
+      'Esses imóveis ainda estão disponíveis? Poderia me orientar sobre as melhores opções, o custo total de entrada e o agendamento de visitas?'
+    ].join('\n');
+  }
+
+  function genericContactMessage() {
+    return [
+      'Olá! Estou procurando um imóvel em Ciudad del Este.',
+      '',
+      'Poderia me ajudar a encontrar uma opção de acordo com meu orçamento e minhas preferências?'
+    ].join('\n');
+  }
+
+  function openWhatsApp(message) {
+    const url = `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+  }
+
+  function contactProperty(propertyId, intent = 'informações') {
     const property = getProperty(propertyId);
     if (!property) return;
-    const message = intent === 'visita'
-      ? `Olá, gostaria de agendar uma visita ao imóvel ${property.id}, ${property.title}, anunciado por ${formatMoney(property.rent, property.currency)}.`
-      : `Olá, tenho interesse no imóvel ${property.id}, ${property.title}, por ${formatMoney(property.rent, property.currency)}. Gostaria de confirmar a disponibilidade e receber mais informações.`;
-    try {
-      await navigator.clipboard.writeText(message);
-      showToast('Mensagem pronta copiada. Esta demonstração não abriu nenhum WhatsApp.');
-    } catch (_) {
-      showToast('A mensagem de demonstração está pronta para o atendimento.');
+    openWhatsApp(propertyContactMessage(property, intent));
+  }
+
+  function renderWhatsAppSelection() {
+    const selected = selectedFavoriteProperties();
+    if (!selected.length || !whatsappSelectionList || !whatsappSelectionSummary || !whatsappSendAll) return;
+    whatsappSelectionSummary.textContent = selected.length === 1
+      ? 'Seu imóvel favorito está pronto para ser enviado.'
+      : `Você salvou ${selected.length} imóveis. Escolha um deles ou envie todos em uma única mensagem.`;
+    whatsappSelectionList.innerHTML = selected.map((property) => `
+      <article class="demo-whatsapp-choice">
+        <img src="${escapeHtml(firstVisual(property))}" alt="" width="112" height="88" loading="lazy" />
+        <div><span>${escapeHtml(property.id)}</span><strong>${escapeHtml(property.title)}</strong><small>${escapeHtml(formatMoney(property.rent, property.currency))} · ${escapeHtml(property.availability)}</small></div>
+        <button type="button" data-whatsapp-property="${escapeHtml(property.id)}">Consultar este</button>
+      </article>
+    `).join('');
+    whatsappSendAll.textContent = `Enviar os ${selected.length} imóveis`;
+    whatsappSendAll.hidden = selected.length < 2;
+  }
+
+  function handleWhatsAppFab() {
+    const selected = selectedFavoriteProperties();
+    if (!selected.length) {
+      openWhatsApp(genericContactMessage());
+      return;
     }
+    if (selected.length === 1) {
+      openWhatsApp(propertyContactMessage(selected[0]));
+      return;
+    }
+    renderWhatsAppSelection();
+    openDialog(whatsappDialog);
   }
 
   async function shareProperty(propertyId) {
     const property = getProperty(propertyId);
     if (!property) return;
     const shareData = {
-      title: `${property.title} · demonstração`,
-      text: `${property.title} — ${formatMoney(property.rent, property.currency)}. Conteúdo demonstrativo Nykuto.`,
-      url: `${window.location.origin}${window.location.pathname}#imovel=${property.id}`
+      title: `${property.title} · Assessoria Nykuto`,
+      text: `${property.title} — ${formatMoney(property.rent, property.currency)}. Confira a ficha e consulte a disponibilidade.`,
+      url: propertyPermalink(property)
     };
     try {
       if (navigator.share) await navigator.share(shareData);
@@ -759,6 +901,13 @@
   document.querySelector('[data-main-search]')?.addEventListener('submit', (event) => {
     event.preventDefault();
     const form = event.currentTarget;
+    if (pageMode === 'home') {
+      const params = new URLSearchParams();
+      if (form.elements.campus.value !== 'all') params.set('campus', form.elements.campus.value);
+      if (form.elements.budget.value !== 'all') params.set('budget', form.elements.budget.value);
+      window.location.href = `/imoveis/${params.size ? `?${params.toString()}` : ''}`;
+      return;
+    }
     state.campus = form.elements.campus.value;
     state.budget = form.elements.budget.value;
     if (state.budget === 'usd') state.currency = 'USD';
@@ -858,10 +1007,10 @@
       return;
     }
 
-    const whatsAppButton = event.target.closest('[data-simulate-whatsapp]');
-    if (whatsAppButton) return copyContactMessage(whatsAppButton.dataset.propertyId);
+    const whatsAppButton = event.target.closest('[data-whatsapp-property]');
+    if (whatsAppButton) return contactProperty(whatsAppButton.dataset.propertyId);
     const scheduleButton = event.target.closest('[data-schedule-visit]');
-    if (scheduleButton) return copyContactMessage(scheduleButton.dataset.propertyId, 'visita');
+    if (scheduleButton) return contactProperty(scheduleButton.dataset.propertyId, 'visita');
     const shareButton = event.target.closest('[data-share-property]');
     if (shareButton) return shareProperty(shareButton.dataset.propertyId);
     const favoriteButton = event.target.closest('[data-favorite-detail]');
@@ -870,6 +1019,7 @@
       const active = favorites.has(favoriteButton.dataset.propertyId);
       favoriteButton.classList.toggle('active', active);
       favoriteButton.setAttribute('aria-pressed', String(active));
+      favoriteButton.setAttribute('aria-label', active ? 'Remover dos favoritos' : 'Adicionar aos favoritos');
       favoriteButton.textContent = active ? '♥' : '♡';
       return;
     }
@@ -883,6 +1033,19 @@
 
   document.querySelector('[data-open-compare]')?.addEventListener('click', openComparison);
   document.querySelector('[data-clear-compare]')?.addEventListener('click', () => { compared.clear(); render(); });
+  whatsappFab?.addEventListener('click', handleWhatsAppFab);
+  whatsappSelectionList?.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-whatsapp-property]');
+    if (!button) return;
+    closeDialog(whatsappDialog);
+    contactProperty(button.dataset.whatsappProperty);
+  });
+  whatsappSendAll?.addEventListener('click', () => {
+    const selected = selectedFavoriteProperties();
+    if (!selected.length) return;
+    closeDialog(whatsappDialog);
+    openWhatsApp(multiplePropertiesContactMessage(selected));
+  });
   document.querySelectorAll('[data-open-manager]').forEach((button) => button.addEventListener('click', () => openDialog(managerDialog)));
   document.querySelectorAll('[data-open-filters]').forEach((button) => button.addEventListener('click', () => openDialog(filterDialog)));
   document.querySelectorAll('[data-apply-filters]').forEach((button) => button.addEventListener('click', () => {
