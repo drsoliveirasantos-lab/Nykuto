@@ -818,8 +818,11 @@
   }
 
   function openWhatsApp(message) {
-    const url = `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank', 'noopener,noreferrer');
+    if (window.NykutoWhatsApp?.open) {
+      window.NykutoWhatsApp.open(whatsappPhone, message);
+      return;
+    }
+    window.location.href = `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(message)}`;
   }
 
   function contactProperty(propertyId, intent = 'informações') {
