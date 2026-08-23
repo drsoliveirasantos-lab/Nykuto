@@ -51,7 +51,11 @@ export async function onRequestPatch({ request, env, params }) {
     UPDATE listings SET ${columns.join(', ')}
     WHERE id = ? AND owner_user_id = ? AND version = ?
     RETURNING id, reference, title, zone_label, price_amount, currency, publication_status,
-              availability_label, cover_url, version, created_at, updated_at
+              availability_label, cover_url, property_type, bedrooms, bathrooms, floor_label,
+              furnished, pets_policy, children_policy, parking_type, availability_date,
+              guarantee_amount, agency_fee_amount, water_included, electricity_included,
+              internet_included, trash_included, condominium_included, location_notes,
+              utility_notes, description, version, created_at, updated_at
   `).bind(...values).first();
   if (!updated) return json({ ok: false, code: 'VERSION_CONFLICT', message: 'Este imóvel foi alterado em outra sessão. Atualize a página.' }, 409);
   try {

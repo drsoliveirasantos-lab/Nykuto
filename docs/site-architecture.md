@@ -147,8 +147,14 @@ state, audit events and a management projection of the five illustrative
 properties. Status and cover changes persist across devices and are exposed to
 the public catalogue through a read-only, privacy-limited endpoint. Exact
 addresses, private owner details, visitor messages, payments and leads are not
-stored. Newly created properties remain drafts in this pilot because new-media
-uploads require a future R2 activation and a dedicated moderation flow.
+stored. Newly created properties remain drafts in this pilot. The guided editor
+stores the complete rental offer: property type, rooms, availability, currency,
+rent, guarantee, agency fee, rules, parking, included utilities and public
+location notes. Its mobile media picker enforces a product limit of five photos
+and one optional video (10 MB per photo and 100 MB for the video), shows local
+thumbnails and keeps demo covers secondary. Binary persistence remains visibly
+disabled until R2 is activated on the Cloudflare account; the interface never
+claims that a locally selected file was uploaded.
 
 ## Language architecture
 

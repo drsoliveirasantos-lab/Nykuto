@@ -1,5 +1,5 @@
 import { requireActiveAccess, requireMutationAccess } from '../../../_lib/auth.js';
-import { ALLOWED_COVERS, CURRENCIES, cleanPrice, cleanText, serializeListing } from '../../../_lib/listings.js';
+import { ALLOWED_COVERS, CURRENCIES, PARKING_TYPES, POLICIES, PROPERTY_TYPES, cleanCount, cleanDate, cleanFlag, cleanOptionalText, cleanPrice, cleanText, serializeListing } from '../../../_lib/listings.js';
 import { json, nowSeconds, readJson } from '../../../_lib/security.js';
 
 export async function onRequestGet({ request, env }) {
@@ -7,7 +7,11 @@ export async function onRequestGet({ request, env }) {
   if (resolved.response) return resolved.response;
   const result = await env.DB.prepare(`
     SELECT id, reference, title, zone_label, price_amount, currency, publication_status,
-           availability_label, cover_url, version, created_at, updated_at
+           availability_label, cover_url, property_type, bedrooms, bathrooms, floor_label,
+           furnished, pets_policy, children_policy, parking_type, availability_date,
+           guarantee_amount, agency_fee_amount, water_included, electricity_included,
+           internet_included, trash_included, condominium_included, location_notes,
+           utility_notes, description, version, created_at, updated_at
     FROM listings
     WHERE owner_user_id = ?
     ORDER BY CASE publication_status WHEN 'published' THEN 1 WHEN 'reserved' THEN 2 WHEN 'draft' THEN 3 WHEN 'rented' THEN 4 ELSE 5 END,
@@ -27,8 +31,21 @@ export async function onRequestPost({ request, env }) {
   const priceAmount = cleanPrice(body.priceAmount);
   const currency = CURRENCIES.has(body.currency) ? body.currency : null;
   const coverUrl = ALLOWED_COVERS.has(body.coverUrl) ? body.coverUrl : '/assets/demo-imobiliaria/local-premium-08.webp';
-  if (!title || !zoneLabel || priceAmount === null || !currency) {
-    return json({ ok: false, code: 'VALIDATION_ERROR', message: 'Preencha título, zona, moeda e valor corretamente.' }, 422);
+  const propertyType = PROPERTY_TYPES.has(body.propertyType) ? body.propertyType : null;
+  const bedrooms = cleanCount(body.bedrooms, 12);
+  const bathrooms = cleanCount(body.bathrooms, 12);
+  const floorLabel = cleanOptionalText(body.floorLabel, 40);
+  const petsPolicy = POLICIES.has(body.petsPolicy) ? body.petsPolicy : null;
+  const childrenPolicy = POLICIES.has(body.childrenPolicy) ? body.childrenPolicy : null;
+  const parkingType = PARKING_TYPES.has(body.parkingType) ? body.parkingType : null;
+  const availabilityDate = cleanDate(body.availabilityDate);
+  const guaranteeAmount = cleanPrice(body.guaranteeAmount);
+  const agencyFeeAmount = cleanPrice(body.agencyFeeAmount);
+  const locationNotes = cleanOptionalText(body.locationNotes, 280);
+  const utilityNotes = cleanOptionalText(body.utilityNotes, 280);
+  const description = cleanOptionalText(body.description, 1200);
+  if (!title || !zoneLabel || priceAmount === null || !currency || !propertyType || bedrooms === null || bathrooms === null || !petsPolicy || !childrenPolicy || !parkingType || availabilityDate === null || guaranteeAmount === null || agencyFeeAmount === null || floorLabel === null || locationNotes === null || utilityNotes === null || description === null) {
+    return json({ ok: false, code: 'VALIDATION_ERROR', message: 'Revise os campos destacados e os valores informados.' }, 422);
   }
 
   const now = nowSeconds();
@@ -36,11 +53,24 @@ export async function onRequestPost({ request, env }) {
   const inserted = await env.DB.prepare(`
     INSERT INTO listings (
       owner_user_id, reference, title, zone_label, price_amount, currency,
-      publication_status, availability_label, cover_url, sort_order, version, created_at, updated_at
-    ) VALUES (?, ?, ?, ?, ?, ?, 'draft', 'A revisar', ?, 999, 1, ?, ?)
+      publication_status, availability_label, cover_url, property_type, bedrooms, bathrooms,
+      floor_label, furnished, pets_policy, children_policy, parking_type, availability_date,
+      guarantee_amount, agency_fee_amount, water_included, electricity_included, internet_included,
+      trash_included, condominium_included, location_notes, utility_notes, description,
+      sort_order, version, created_at, updated_at
+    ) VALUES (?, ?, ?, ?, ?, ?, 'draft', 'A revisar', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 999, 1, ?, ?)
     RETURNING id, reference, title, zone_label, price_amount, currency, publication_status,
-              availability_label, cover_url, version, created_at, updated_at
-  `).bind(resolved.access.user.id, reference, title, zoneLabel, priceAmount, currency, coverUrl, now, now).first();
+              availability_label, cover_url, property_type, bedrooms, bathrooms, floor_label,
+              furnished, pets_policy, children_policy, parking_type, availability_date,
+              guarantee_amount, agency_fee_amount, water_included, electricity_included,
+              internet_included, trash_included, condominium_included, location_notes,
+              utility_notes, description, version, created_at, updated_at
+  `).bind(resolved.access.user.id, reference, title, zoneLabel, priceAmount, currency, coverUrl,
+    propertyType, bedrooms, bathrooms, floorLabel, cleanFlag(body.furnished), petsPolicy,
+    childrenPolicy, parkingType, availabilityDate, guaranteeAmount, agencyFeeAmount,
+    cleanFlag(body.waterIncluded), cleanFlag(body.electricityIncluded), cleanFlag(body.internetIncluded),
+    cleanFlag(body.trashIncluded), cleanFlag(body.condominiumIncluded), locationNotes, utilityNotes,
+    description, now, now).first();
   try {
     await env.DB.prepare("INSERT INTO audit_log (user_id, action, entity_type, entity_id, created_at) VALUES (?, 'create', 'listing', ?, ?)")
       .bind(resolved.access.user.id, String(inserted.id), now).run();

@@ -15,7 +15,7 @@
 * { box-sizing: border-box; }
 html { min-width: 320px; background: #f4f7f5; }
 body { margin: 0; }
-button, input, select { font: inherit; }
+button, input, select, textarea { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
 a { color: inherit; text-decoration: none; }
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); }
@@ -85,12 +85,44 @@ a { color: inherit; text-decoration: none; }
 .manager-step { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 13px; background: var(--manager-mint); color: var(--manager-forest); font-size: 9px; font-weight: 900; }
 .manager-form-section h2 { margin: 0; font-size: 18px; }
 .manager-form-section p { margin: 4px 0 0; color: var(--manager-muted); font-size: 8px; }
-.manager-editor > label, .manager-form-row label { margin-top: 13px; display: grid; gap: 6px; }
+.manager-form-card { padding: 18px; border: 1px solid var(--manager-line); border-radius: 15px; background: #fbfdfc; }
+.manager-form-card + .manager-form-card { margin-top: 12px; }
+.manager-editor > label, .manager-form-card > label, .manager-form-row label, .manager-money-grid label { margin-top: 11px; display: grid; gap: 6px; }
 .manager-editor label > span, .manager-editor legend { color: #536c64; font-size: 9px; font-weight: 800; }
-.manager-editor input, .manager-editor select { width: 100%; min-height: 48px; padding: 11px 13px; border: 1px solid var(--manager-line); border-radius: 11px; outline: 0; background: #fbfdfc; color: var(--manager-ink); font-size: 16px; }
-.manager-editor input:focus, .manager-editor select:focus { border-color: var(--manager-forest-2); box-shadow: 0 0 0 3px rgba(23,93,77,.1); }
+.manager-editor input, .manager-editor select, .manager-editor textarea { width: 100%; min-height: 46px; padding: 10px 12px; border: 1px solid var(--manager-line); border-radius: 10px; outline: 0; background: white; color: var(--manager-ink); font-size: 16px; }
+.manager-editor textarea { min-height: 72px; resize: vertical; line-height: 1.45; }
+.manager-editor input:focus, .manager-editor select:focus, .manager-editor textarea:focus { border-color: var(--manager-forest-2); box-shadow: 0 0 0 3px rgba(23,93,77,.1); }
 .manager-form-row { display: grid; grid-template-columns: .8fr 1.2fr; gap: 10px; }
-.manager-editor fieldset { margin: 19px 0 0; padding: 0; border: 0; }
+.manager-form-row-3 { grid-template-columns: 1.35fr .7fr .7fr; }
+.manager-money-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+.manager-editor fieldset { margin: 14px 0 0; padding: 0; border: 0; }
+.manager-form-card .manager-form-section { margin-bottom: 8px; }
+.manager-currency-field { max-width: 330px; }
+.manager-entry-total { margin-top: 13px; padding: 12px; display: grid; grid-template-columns: 1fr auto; gap: 3px 12px; align-items: end; border-radius: 11px; background: var(--manager-mint); }
+.manager-entry-total span { color: var(--manager-muted); font-size: 9px; font-weight: 800; }
+.manager-entry-total strong { grid-row: 1 / 3; grid-column: 2; font-size: 17px; }
+.manager-entry-total small { color: var(--manager-muted); font-size: 8px; }
+.manager-chip-checks { margin-top: 7px; display: flex; flex-wrap: wrap; gap: 7px; }
+.manager-chip-checks label { position: relative; margin: 0; cursor: pointer; }
+.manager-chip-checks input { position: absolute; opacity: 0; pointer-events: none; }
+.manager-chip-checks span { min-height: 38px; padding: 8px 12px; display: inline-flex; align-items: center; border: 1px solid var(--manager-line); border-radius: 999px; background: white; color: var(--manager-muted); }
+.manager-chip-checks input:checked + span { border-color: var(--manager-forest); background: var(--manager-forest); color: white; }
+.manager-upload-actions { margin-top: 11px; display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; }
+.manager-upload-button { min-height: 100px; padding: 12px; display: grid; grid-template-columns: 34px 1fr; grid-template-rows: auto auto; gap: 2px 9px; align-content: center; border: 1px dashed #aac6ba; border-radius: 12px; background: #f4faf7; cursor: pointer; }
+.manager-upload-button input { position: absolute; width: 1px; height: 1px; min-height: 0; opacity: 0; }
+.manager-upload-button > span { width: 34px; height: 34px; grid-row: 1 / 3; display: grid; place-items: center; border-radius: 10px; background: white; color: var(--manager-forest); font-size: 17px; }
+.manager-upload-button strong { align-self: end; font-size: 10px; }
+.manager-upload-button small { color: var(--manager-muted); font-size: 7px; line-height: 1.35; }
+.manager-media-summary { margin-top: 8px; display: flex; gap: 7px; }
+.manager-media-summary span { padding: 5px 8px; border-radius: 999px; background: var(--manager-mint); color: var(--manager-forest); font-size: 8px; font-weight: 850; }
+.manager-media-previews { margin-top: 9px; display: grid; grid-template-columns: repeat(5,1fr); gap: 6px; }
+.manager-media-preview { position: relative; aspect-ratio: 1; overflow: hidden; border-radius: 9px; background: #dfe9e4; }
+.manager-media-preview img, .manager-media-preview video { width: 100%; height: 100%; object-fit: cover; }
+.manager-media-preview button { position: absolute; inset: 4px 4px auto auto; width: 24px; height: 24px; border: 0; border-radius: 50%; background: rgba(8,49,41,.84); color: white; cursor: pointer; }
+.manager-media-preview span { position: absolute; inset: auto 4px 4px; padding: 3px 5px; border-radius: 5px; background: rgba(8,49,41,.84); color: white; font-size: 7px; }
+.manager-storage-note { margin: 9px 0 0; padding: 9px 10px; border-radius: 9px; background: #fff6dd; color: #725719; font-size: 8px; line-height: 1.45; }
+.manager-demo-media { margin-top: 10px; }
+.manager-demo-media summary { color: var(--manager-muted); cursor: pointer; font-size: 9px; font-weight: 800; }
 .manager-cover-options { margin-top: 8px; display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
 .manager-cover-options label { position: relative; display: block; cursor: pointer; }
 .manager-cover-options input { position: absolute; inset: 6px auto auto 6px; z-index: 1; width: 18px; min-height: 18px; accent-color: var(--manager-forest); }
@@ -106,6 +138,8 @@ a { color: inherit; text-decoration: none; }
 .manager-editor-preview h2 { margin: 15px 0 0; font-size: 21px; }
 .manager-editor-preview > p:not(:first-child) { margin: 6px 0 0; color: var(--manager-muted); font-size: 9px; }
 .manager-editor-preview > strong { display: block; margin-top: 13px; font-size: 21px; }
+.manager-preview-facts { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 5px; }
+.manager-preview-facts span { padding: 5px 7px; border-radius: 999px; background: var(--manager-mint); color: var(--manager-forest); font-size: 7px; font-weight: 800; }
 .manager-editor-preview > small { display: block; margin-top: 14px; padding-top: 13px; border-top: 1px solid var(--manager-line); color: var(--manager-muted); font-size: 8px; line-height: 1.5; }
 .manager-account-grid { margin-top: 28px; display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
 .manager-account-card { padding: 25px; border: 1px solid var(--manager-line); border-radius: 19px; background: white; box-shadow: 0 18px 45px rgba(27,62,53,.06); }
@@ -208,6 +242,21 @@ a { color: inherit; text-decoration: none; }
   .manager-filter-tabs button { min-height: 44px; font-size: 12px; }
   .manager-editor, .manager-editor-preview { padding: 15px; border-radius: 15px; }
   .manager-form-row { grid-template-columns: 1fr 1.25fr; }
+  .manager-form-row-3 { grid-template-columns: 1.25fr .75fr .75fr; }
+  .manager-money-grid { grid-template-columns: 1fr; }
+  .manager-form-card { padding: 12px; border-radius: 13px; }
+  .manager-form-card + .manager-form-card { margin-top: 8px; }
+  .manager-form-card .manager-form-section { grid-template-columns: 36px 1fr; gap: 9px; }
+  .manager-form-card .manager-step { width: 36px; height: 36px; }
+  .manager-form-card .manager-form-section h2 { font-size: 16px; }
+  .manager-form-card .manager-form-section p { font-size: 11px; }
+  .manager-upload-actions { grid-template-columns: 1fr 1fr; }
+  .manager-upload-button { min-height: 82px; padding: 9px; grid-template-columns: 29px 1fr; gap: 1px 7px; }
+  .manager-upload-button > span { width: 29px; height: 29px; }
+  .manager-upload-button strong { font-size: 12px; }
+  .manager-upload-button small, .manager-storage-note { font-size: 10px; }
+  .manager-media-previews { grid-template-columns: repeat(3,1fr); }
+  .manager-chip-checks span { min-height: 36px; padding: 7px 10px; font-size: 12px; }
   .manager-cover-options img { height: 78px; }
   .manager-editor-preview img { height: 210px; }
   .manager-account-card { padding: 18px; border-radius: 15px; }

@@ -13,18 +13,61 @@
   <div class="manager-app">
     <header class="manager-header"><a class="manager-brand" href="/gestor/"><span aria-hidden="true">N</span><div><strong>Assessoria Nykuto</strong><small>Área da assessoria</small></div></a><div class="manager-header-actions"><a href="/" target="_blank" rel="noopener">Ver site</a><button type="button" data-logout>Sair</button></div></header>
     <main class="manager-main">
-      <section class="manager-page-heading"><div><p>Publicação guiada</p><h1>Novo imóvel</h1><span>Crie um rascunho de teste em poucos campos.</span></div><a class="manager-back-link" href="/gestor/imoveis/">← Cancelar</a></section>
+      <section class="manager-page-heading"><div><p>Publicação guiada</p><h1>Novo imóvel</h1><span>Cadastre uma oferta completa, clara e pronta para compartilhar.</span></div><a class="manager-back-link" href="/gestor/imoveis/">← Cancelar</a></section>
       <section class="manager-editor-grid">
         <form class="manager-editor" data-new-listing-form>
-          <div class="manager-form-section"><span class="manager-step">01</span><div><h2>Informações principais</h2><p>Você poderá completar outras características depois.</p></div></div>
-          <label><span>Título do imóvel</span><input name="title" type="text" maxlength="90" placeholder="Ex.: Apartamento 2 quartos · Lago" required /></label>
-          <label><span>Zona pública aproximada</span><input name="zoneLabel" type="text" maxlength="100" placeholder="Ex.: Zona do Lago da República" required /></label>
-          <div class="manager-form-row"><label><span>Moeda</span><select name="currency"><option value="PYG">Guaranis (Gs.)</option><option value="USD">Dólares (US$)</option></select></label><label><span>Aluguel mensal</span><input name="priceAmount" type="number" inputmode="numeric" min="0" max="100000000" step="1" placeholder="2500000" required /></label></div>
-          <fieldset><legend>Capa inicial</legend><div class="manager-cover-options"><label><input type="radio" name="coverUrl" value="/assets/demo-imobiliaria/local-premium-08.webp" checked /><img src="/assets/demo-imobiliaria/local-premium-08.webp" alt="Sala premium" /></label><label><input type="radio" name="coverUrl" value="/assets/demo-imobiliaria/local-studio-01.webp" /><img src="/assets/demo-imobiliaria/local-studio-01.webp" alt="Studio" /></label><label><input type="radio" name="coverUrl" value="/assets/demo-imobiliaria/local-tour-apartamento-a-poster.webp" /><img src="/assets/demo-imobiliaria/local-tour-apartamento-a-poster.webp" alt="Apartamento" /></label></div></fieldset>
+          <section class="manager-form-card">
+            <div class="manager-form-section"><span class="manager-step">01</span><div><h2>O imóvel</h2><p>Tipo, ambientes e localização pública.</p></div></div>
+            <label><span>Título do anúncio</span><input name="title" type="text" maxlength="90" placeholder="Apartamento 2 quartos · Lago da República" required /></label>
+            <div class="manager-form-row manager-form-row-3">
+              <label><span>Tipo</span><select name="propertyType"><option value="apartment">Apartamento</option><option value="studio">Monoambiente</option><option value="kitnet">Kitnet</option><option value="house">Casa</option><option value="room">Quarto</option></select></label>
+              <label><span>Quartos</span><input name="bedrooms" type="number" inputmode="numeric" min="0" max="12" value="2" required /></label>
+              <label><span>Banheiros</span><input name="bathrooms" type="number" inputmode="numeric" min="0" max="12" value="1" required /></label>
+            </div>
+            <div class="manager-form-row"><label><span>Andar</span><input name="floorLabel" type="text" maxlength="40" placeholder="1º piso" /></label><label><span>Disponível a partir de</span><input name="availabilityDate" type="date" /></label></div>
+            <label><span>Zona pública aproximada</span><input name="zoneLabel" type="text" maxlength="100" placeholder="Lago da República" required /></label>
+            <label><span>Pontos de referência</span><textarea name="locationNotes" maxlength="280" rows="2" placeholder="Próximo ao Lago da República · Região tranquila"></textarea></label>
+          </section>
+
+          <section class="manager-form-card">
+            <div class="manager-form-section"><span class="manager-step">02</span><div><h2>Valores</h2><p>A moeda escolhida vale para todos os valores.</p></div></div>
+            <label class="manager-currency-field"><span>Moeda do anúncio</span><select name="currency"><option value="PYG">Guarani paraguaio — Gs.</option><option value="BRL">Real brasileiro — R$</option><option value="USD">Dólar americano — US$</option></select></label>
+            <div class="manager-money-grid">
+              <label><span>Aluguel mensal</span><input name="priceAmount" type="number" inputmode="numeric" min="0" max="100000000" step="1" placeholder="2500000" required /></label>
+              <label><span>Garantia</span><input name="guaranteeAmount" type="number" inputmode="numeric" min="0" max="100000000" step="1" value="0" required /></label>
+              <label><span>Taxa imobiliária</span><input name="agencyFeeAmount" type="number" inputmode="numeric" min="0" max="100000000" step="1" value="0" required /></label>
+            </div>
+            <div class="manager-entry-total"><span>Custo inicial estimado</span><strong data-new-entry-total>Gs. 0</strong><small>Aluguel + garantia + taxa imobiliária</small></div>
+          </section>
+
+          <section class="manager-form-card">
+            <div class="manager-form-section"><span class="manager-step">03</span><div><h2>Regras e despesas</h2><p>Toque nas opções que fazem parte da oferta.</p></div></div>
+            <div class="manager-form-row manager-form-row-3">
+              <label><span>Pet</span><select name="petsPolicy"><option value="no">Não aceita</option><option value="yes">Aceita</option><option value="consult">Sob consulta</option></select></label>
+              <label><span>Crianças</span><select name="childrenPolicy"><option value="consult">Sob consulta</option><option value="yes">Aceita</option><option value="no">Não aceita</option></select></label>
+              <label><span>Estacionamento</span><select name="parkingType"><option value="none">Não possui</option><option value="moto">Moto</option><option value="car">Carro</option><option value="both">Carro e moto</option></select></label>
+            </div>
+            <fieldset><legend>Características</legend><div class="manager-chip-checks"><label><input type="checkbox" name="furnished" /><span>Mobiliado</span></label></div></fieldset>
+            <fieldset><legend>Incluído no aluguel</legend><div class="manager-chip-checks"><label><input type="checkbox" name="waterIncluded" /><span>Água</span></label><label><input type="checkbox" name="trashIncluded" /><span>Lixo</span></label><label><input type="checkbox" name="internetIncluded" /><span>Internet</span></label><label><input type="checkbox" name="electricityIncluded" /><span>Energia</span></label><label><input type="checkbox" name="condominiumIncluded" /><span>Condomínio</span></label></div></fieldset>
+            <label><span>Observações sobre despesas</span><textarea name="utilityNotes" maxlength="280" rows="2" placeholder="Energia conforme o consumo"></textarea></label>
+            <label><span>Descrição complementar</span><textarea name="description" maxlength="1200" rows="3" placeholder="Informações adicionais importantes para o interessado"></textarea></label>
+          </section>
+
+          <section class="manager-form-card">
+            <div class="manager-form-section"><span class="manager-step">04</span><div><h2>Fotos e vídeo</h2><p>Até 5 fotos e 1 vídeo opcional.</p></div></div>
+            <div class="manager-upload-actions">
+              <label class="manager-upload-button"><input type="file" name="photos" accept="image/jpeg,image/png,image/webp,image/heic,image/heif" multiple /><span>＋</span><strong>Adicionar fotos</strong><small>Galeria ou câmera · 10 MB cada</small></label>
+              <label class="manager-upload-button"><input type="file" name="video" accept="video/mp4,video/quicktime,video/webm" /><span>▶</span><strong>Adicionar vídeo</strong><small>Opcional · máximo 100 MB</small></label>
+            </div>
+            <div class="manager-media-summary"><span data-photo-count>0/5 fotos</span><span data-video-count>Sem vídeo</span></div>
+            <div class="manager-media-previews" data-media-previews hidden></div>
+            <p class="manager-storage-note" data-storage-note>Os arquivos ficam apenas na prévia até o armazenamento gratuito R2 ser ativado no Cloudflare.</p>
+            <details class="manager-demo-media"><summary>Usar uma imagem de demonstração</summary><div class="manager-cover-options"><label><input type="radio" name="coverUrl" value="/assets/demo-imobiliaria/local-premium-08.webp" checked /><img src="/assets/demo-imobiliaria/local-premium-08.webp" alt="Sala premium" /></label><label><input type="radio" name="coverUrl" value="/assets/demo-imobiliaria/local-studio-01.webp" /><img src="/assets/demo-imobiliaria/local-studio-01.webp" alt="Studio" /></label><label><input type="radio" name="coverUrl" value="/assets/demo-imobiliaria/local-tour-apartamento-a-poster.webp" /><img src="/assets/demo-imobiliaria/local-tour-apartamento-a-poster.webp" alt="Apartamento" /></label></div></details>
+          </section>
           <p class="manager-form-message" data-editor-message role="alert" hidden></p>
           <button class="manager-primary-button" type="submit" data-create-submit>Salvar rascunho <span>→</span></button>
         </form>
-        <aside class="manager-editor-preview"><p>Prévia</p><div><img data-new-preview-image src="/assets/demo-imobiliaria/local-premium-08.webp" alt="Prévia da capa escolhida" /><span>Rascunho</span></div><h2 data-new-preview-title>Novo imóvel</h2><p data-new-preview-zone>Zona aproximada</p><strong data-new-preview-price>Gs. 0</strong><small>O rascunho não aparece publicamente até ser revisado.</small></aside>
+        <aside class="manager-editor-preview"><p>Prévia do anúncio</p><div><img data-new-preview-image src="/assets/demo-imobiliaria/local-premium-08.webp" alt="Prévia da capa escolhida" /><span>Rascunho</span></div><h2 data-new-preview-title>Novo imóvel</h2><p data-new-preview-zone>Zona aproximada</p><div class="manager-preview-facts"><span data-new-preview-rooms>2 quartos</span><span data-new-preview-baths>1 banheiro</span><span data-new-preview-date>Disponibilidade a consultar</span></div><strong data-new-preview-price>Gs. 0</strong><small>O rascunho não aparece publicamente até ser revisado.</small></aside>
       </section>
     </main>
     <nav class="manager-mobile-nav" aria-label="Navegação da gestão"><a href="/gestor/"><span>⌂</span>Painel</a><a href="/gestor/imoveis/"><span>▦</span>Imóveis</a><a href="/gestor/imoveis/novo/" aria-current="page"><span>＋</span>Novo</a><a href="/gestor/conta/"><span>◷</span>Conta</a></nav>
