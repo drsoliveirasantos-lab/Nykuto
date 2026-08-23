@@ -24,7 +24,7 @@
   <meta name="twitter:image" content="https://demo.nykuto.com/assets/demo-imobiliaria/demo-imobiliaria-og.jpg" />
   <link rel="stylesheet" href="styles.css?v=20260823-1" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-  <link rel="stylesheet" href="demo-imobiliaria.css?v=20260823-4" />
+  <link rel="stylesheet" href="demo-imobiliaria.css?v=20260823-5" />
 </head>
 <body class="real-estate-demo-page">
   <a class="skip-link" href="#demo-imoveis">Ir para os imóveis</a>
@@ -40,16 +40,19 @@
             <a href="#demo-inicio">Início</a>
             <a href="#demo-imoveis">Imóveis</a>
             <a href="#demo-mapa">Mapa</a>
-            <a href="#demo-como-funciona">Como funciona</a>
+            <button type="button" data-show-favorites aria-pressed="false">Favoritos</button>
           </nav>
-          <button class="demo-manager-button" type="button" data-open-manager><span aria-hidden="true">⌘</span> Prévia gestor</button>
+          <div class="demo-header-actions">
+            <a class="demo-owner-link" href="#demo-anunciar">Anuncie seu imóvel</a>
+            <button class="demo-manager-button" type="button" data-open-manager><span aria-hidden="true">⌘</span> Área da assessoria</button>
+          </div>
         </header>
 
         <section class="demo-property-hero" id="demo-inicio">
           <div class="demo-property-hero-copy">
-            <p class="demo-property-kicker"><span></span> Imóveis selecionados em Ciudad del Este</p>
-            <h2 id="demo-app-title">Encontre um lugar que combina com a sua rotina.</h2>
-            <p>Busque por faculdade, orçamento e preferências sem precisar percorrer dezenas de mensagens.</p>
+            <p class="demo-property-kicker"><span></span> Seleção local · Ciudad del Este</p>
+            <h2 id="demo-app-title">Seu próximo lar começa com uma busca mais simples.</h2>
+            <p>Fotos e vídeos reais, custos organizados e zonas aproximadas para você encontrar um imóvel sem percorrer dezenas de mensagens.</p>
             <form class="demo-main-search" data-main-search>
               <label>
                 <span>Onde você estuda?</span>
@@ -71,7 +74,7 @@
                   <option value="usd">Imóveis em USD</option>
                 </select>
               </label>
-              <button type="submit"><span aria-hidden="true">⌕</span> Buscar imóveis</button>
+              <button type="submit"><span aria-hidden="true">⌕</span> Explorar imóveis</button>
             </form>
             <div class="demo-quick-filters" aria-label="Filtros rápidos">
               <button type="button" data-quick-filter="furnished">Mobiliado</button>
@@ -79,9 +82,19 @@
               <button type="button" data-quick-filter="included">Despesas inclusas</button>
               <button type="button" data-quick-filter="immediate">Entrada imediata</button>
             </div>
+            <div class="demo-hero-proof" aria-label="Destaques da experiência">
+              <span><strong>5</strong> imóveis selecionados</span>
+              <span><strong>100%</strong> mídias neutralizadas</span>
+              <a href="#demo-mapa">Ver no mapa <span aria-hidden="true">↘</span></a>
+            </div>
           </div>
           <aside class="demo-property-feature" aria-label="Imóvel em destaque">
-            <img src="assets/demo-imobiliaria/local-premium-08.webp" alt="Sala de convivência real neutralizada em um residencial de Ciudad del Este" width="620" height="620" fetchpriority="high" />
+            <div class="demo-feature-mosaic">
+              <img class="demo-feature-main" src="assets/demo-imobiliaria/local-premium-08.webp" alt="Sala de convivência real neutralizada em um residencial de Ciudad del Este" width="620" height="720" fetchpriority="high" />
+              <img src="assets/demo-imobiliaria/local-premium-09.webp" alt="Área de lazer real neutralizada em Ciudad del Este" width="360" height="260" />
+              <img src="assets/demo-imobiliaria/local-premium-03.webp" alt="Cozinha real neutralizada em um residencial de Ciudad del Este" width="360" height="260" />
+            </div>
+            <span class="demo-feature-privacy"><i aria-hidden="true"></i> Endereço protegido</span>
             <div class="demo-feature-overlay">
               <div><span>Destaque</span><strong>Residencial premium</strong><small>2 quartos · mobiliado · área de lazer</small></div>
               <button type="button" data-property-id="NYK-CDE-05">Ver detalhes <span aria-hidden="true">↗</span></button>
@@ -98,13 +111,12 @@
             </div>
           </div>
 
-          <div class="demo-filter-bar" aria-label="Filtros dos imóveis">
+          <div class="demo-filter-bar" aria-label="Filtros rápidos dos imóveis">
             <label><span>Quartos</span><select data-filter="rooms"><option value="all">Todos</option><option value="0">Monoambiente</option><option value="1">1 quarto</option><option value="2">2+ quartos</option></select></label>
-            <label><span>Faculdade</span><select data-filter="campus"><option value="all">Todas</option><option value="UCP">UCP</option><option value="UPE">UPE</option><option value="UNIDA">UNIDA</option><option value="UNINTER">UNINTER</option></select></label>
-            <label><span>Moeda</span><select data-filter="currency"><option value="all">Gs. e USD</option><option value="PYG">Guaranis</option><option value="USD">Dólares</option></select></label>
             <button type="button" data-filter-toggle="pet" aria-pressed="false">Pet</button>
             <button type="button" data-filter-toggle="furnished" aria-pressed="false">Mobiliado</button>
-            <button class="demo-clear-filters" type="button" data-clear-filters>Limpar</button>
+            <button class="demo-more-filters" type="button" data-open-filters>Todos os filtros <span data-filter-count hidden>0</span></button>
+            <button class="demo-clear-filters" type="button" data-clear-filters hidden>Limpar</button>
           </div>
 
           <div class="demo-results-layout" data-results-layout>
@@ -128,6 +140,23 @@
             <li><span>02</span><strong>Compare com transparência</strong><p>Aluguel, garantia, taxa e despesas aparecem separadamente.</p></li>
             <li><span>03</span><strong>Fale sobre o imóvel certo</strong><p>A referência e as preferências chegam prontas no WhatsApp.</p></li>
           </ol>
+        </section>
+
+        <section class="demo-owner-section" id="demo-anunciar" aria-labelledby="demo-owner-title">
+          <div class="demo-owner-copy">
+            <p>Para assessorias e proprietários</p>
+            <h2 id="demo-owner-title">Seus imóveis podem causar uma primeira impressão melhor.</h2>
+            <span>Organize fotos, vídeos, valores e zonas protegidas em uma vitrine própria, sem depender de uma sequência de mensagens.</span>
+            <div class="demo-owner-actions">
+              <button type="button" data-open-manager>Conhecer a área da assessoria <span aria-hidden="true">↗</span></button>
+              <a href="#demo-imoveis">Ver a experiência pública</a>
+            </div>
+          </div>
+          <div class="demo-owner-benefits">
+            <article><span aria-hidden="true">01</span><div><strong>Apresente melhor</strong><p>Capas, galerias, vídeos e informações com o mesmo padrão visual.</p></div></article>
+            <article><span aria-hidden="true">02</span><div><strong>Proteja o endereço</strong><p>Mostre somente a zona e ajuste o raio de privacidade no mapa.</p></div></article>
+            <article><span aria-hidden="true">03</span><div><strong>Atualize com autonomia</strong><p>Publique, pause ou revise cada imóvel em um painel organizado.</p></div></article>
+          </div>
         </section>
         <footer class="demo-app-footer">
           <span><strong>Assessoria Nykuto</strong> · Imóveis em Ciudad del Este</span>
@@ -157,24 +186,48 @@
 
   <dialog class="demo-dialog demo-manager-dialog" data-manager-dialog lang="pt-BR">
     <div class="demo-dialog-shell">
-      <header class="demo-dialog-header"><div><span>Prévia visual · sem conta ativa</span><h2>Painel do gestor</h2></div><button type="button" data-close-dialog aria-label="Fechar painel">×</button></header>
-      <div class="demo-manager-access"><div><span>Acesso demonstrativo</span><strong>30 dias após a ativação</strong></div><p>Na versão contratada, a data é controlada pelo administrador Nykuto e renovada após a confirmação do pagamento.</p></div>
+      <header class="demo-dialog-header"><div><span>Demonstração do ambiente privado</span><h2>Área da assessoria</h2></div><button type="button" data-close-dialog aria-label="Fechar painel">×</button></header>
+      <div class="demo-manager-access"><div><span>Período de acesso</span><strong>30 dias após a ativação</strong></div><p>A vigência é controlada pela Nykuto e renovada após a confirmação do pagamento.</p><span class="demo-manager-access-badge">Demonstração</span></div>
       <div class="demo-manager-layout">
-        <aside class="demo-manager-sidebar"><strong>Assessoria Nykuto · Gestão</strong><button class="active" type="button">Visão geral</button><button type="button">Imóveis</button><button type="button">Mensagens</button><button type="button">Configurações</button></aside>
+        <aside class="demo-manager-sidebar"><strong>Assessoria Nykuto · Gestão</strong><button class="active" type="button">Visão geral</button><button type="button">Imóveis</button><button type="button">Solicitações</button><button type="button">Configurações</button></aside>
         <section class="demo-manager-content">
-          <div class="demo-manager-heading"><div><span>Estoque de imóveis</span><h3>Seus imóveis</h3></div><button type="button" data-demo-toast="Na versão ativa, este botão abre o formulário de publicação.">+ Novo imóvel</button></div>
-          <div class="demo-manager-stats"><div><span>Publicados</span><strong>5</strong></div><div><span>Reservados</span><strong>0</strong></div><div><span>Precisam verificar</span><strong>2</strong></div></div>
+          <div class="demo-manager-heading"><div><span>Visão geral</span><h3>Seus imóveis</h3></div><button type="button" data-demo-toast="Na versão ativa, este botão abre a publicação guiada do imóvel.">+ Publicar imóvel</button></div>
+          <div class="demo-manager-stats"><div><span>Publicados</span><strong>5</strong><small>visíveis no site</small></div><div><span>A revisar</span><strong>2</strong><small>dados incompletos</small></div><div><span>Rascunhos</span><strong>1</strong><small>não publicado</small></div></div>
+          <div class="demo-manager-quality"><div><span>Qualidade da vitrine</span><strong>Complete fotos, custos e zonas antes de publicar.</strong></div><b>82%</b></div>
           <div class="demo-manager-list" data-manager-list></div>
           <div class="demo-manager-form-preview"><div><span>Publicação guiada</span><strong>Fotos → características → valores → zona → prévia</strong></div><label>Raio de privacidade <input type="range" min="300" max="5000" value="1000" step="100" data-radius-preview /><output data-radius-output>1 km</output></label></div>
         </section>
       </div>
-      <p class="demo-manager-note">Données entièrement simulées : aucun compte, message ou indicateur client réel n’est affiché.</p>
+      <p class="demo-manager-note">Dados inteiramente demonstrativos: nenhum cliente, mensagem ou indicador real é exibido.</p>
     </div>
   </dialog>
+
+  <dialog class="demo-dialog demo-filter-dialog" data-filter-dialog lang="pt-BR">
+    <div class="demo-dialog-shell">
+      <header class="demo-dialog-header"><div><span>Refine sua busca</span><h2>Todos os filtros</h2></div><button type="button" data-close-dialog aria-label="Fechar filtros">×</button></header>
+      <div class="demo-advanced-filters">
+        <label><span>Faculdade</span><select data-filter="campus"><option value="all">Todas as regiões</option><option value="UCP">UCP</option><option value="UPE">UPE</option><option value="UNIDA">UNIDA</option><option value="UNINTER">UNINTER</option></select></label>
+        <label><span>Moeda</span><select data-filter="currency"><option value="all">Guaranis e dólares</option><option value="PYG">Guaranis</option><option value="USD">Dólares</option></select></label>
+        <label><span>Orçamento</span><select data-filter="budget"><option value="all">Qualquer valor</option><option value="1500000">Até Gs. 1,5 mi</option><option value="2500000">Até Gs. 2,5 mi</option><option value="4000000">Até Gs. 4 mi</option><option value="usd">Imóveis em USD</option></select></label>
+        <div class="demo-advanced-toggles">
+          <button type="button" data-filter-toggle="included" aria-pressed="false">Despesas inclusas</button>
+          <button type="button" data-filter-toggle="immediate" aria-pressed="false">Entrada imediata</button>
+        </div>
+      </div>
+      <footer class="demo-filter-dialog-actions"><button type="button" data-clear-filters>Limpar filtros</button><button type="button" data-apply-filters>Ver imóveis</button></footer>
+    </div>
+  </dialog>
+
+  <nav class="demo-mobile-nav" aria-label="Navegação móvel">
+    <a href="#demo-imoveis"><span aria-hidden="true">⌂</span> Imóveis</a>
+    <button type="button" data-mobile-map><span aria-hidden="true">⌖</span> Mapa</button>
+    <button type="button" data-show-favorites aria-pressed="false"><span aria-hidden="true">♡</span> Favoritos</button>
+    <a href="#demo-anunciar"><span aria-hidden="true">＋</span> Anunciar</a>
+  </nav>
 
   <div class="demo-toast" data-demo-toast-output role="status" aria-live="polite" hidden></div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
-  <script src="demo-imobiliaria.js?v=20260823-4" defer></script>
+  <script src="demo-imobiliaria.js?v=20260823-5" defer></script>
 </body>
 </html>
