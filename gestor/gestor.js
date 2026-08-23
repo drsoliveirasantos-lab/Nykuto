@@ -16,6 +16,7 @@
 
   function formatMoney(amount, currency) {
     if (currency === 'USD') return `US$ ${Number(amount).toLocaleString('pt-BR')}`;
+    if (currency === 'BRL') return `R$ ${Number(amount).toLocaleString('pt-BR')}`;
     return `Gs. ${Number(amount).toLocaleString('pt-BR')}`;
   }
 
@@ -178,12 +179,91 @@
   function prepareNewListingForm() {
     const form = document.querySelector('[data-new-listing-form]');
     if (!form) return;
+    const selectedMedia = { photos: [], video: null };
+    const photoInput = form.elements.photos;
+    const videoInput = form.elements.video;
+    const previewContainer = document.querySelector('[data-media-previews]');
+    const previewImage = document.querySelector('[data-new-preview-image]');
+    let previewCoverUrl = '';
+
+    const clearPreviewCover = () => {
+      if (previewCoverUrl) URL.revokeObjectURL(previewCoverUrl);
+      previewCoverUrl = '';
+    };
+
+    const renderMedia = () => {
+      document.querySelector('[data-photo-count]').textContent = `${selectedMedia.photos.length}/5 fotos`;
+      document.querySelector('[data-video-count]').textContent = selectedMedia.video ? '1 vídeo' : 'Sem vídeo';
+      previewContainer.hidden = !selectedMedia.photos.length && !selectedMedia.video;
+      previewContainer.innerHTML = '';
+      selectedMedia.photos.forEach((file, index) => {
+        const item = document.createElement('div');
+        item.className = 'manager-media-preview';
+        const url = URL.createObjectURL(file);
+        item.innerHTML = `<img alt="Foto ${index + 1}" /><button type="button" data-remove-photo="${index}" aria-label="Remover foto ${index + 1}">×</button><span>${index === 0 ? 'Capa' : `Foto ${index + 1}`}</span>`;
+        item.querySelector('img').src = url;
+        item.querySelector('img').addEventListener('load', () => URL.revokeObjectURL(url), { once: true });
+        previewContainer.append(item);
+      });
+      if (selectedMedia.video) {
+        const item = document.createElement('div');
+        item.className = 'manager-media-preview';
+        const url = URL.createObjectURL(selectedMedia.video);
+        item.innerHTML = '<video muted playsinline preload="metadata"></video><button type="button" data-remove-video aria-label="Remover vídeo">×</button><span>Vídeo</span>';
+        item.querySelector('video').src = url;
+        previewContainer.append(item);
+      }
+      clearPreviewCover();
+      if (selectedMedia.photos[0]) {
+        previewCoverUrl = URL.createObjectURL(selectedMedia.photos[0]);
+        previewImage.src = previewCoverUrl;
+      } else {
+        previewImage.src = form.elements.coverUrl.value;
+      }
+    };
+
+    photoInput.addEventListener('change', () => {
+      const files = Array.from(photoInput.files || []);
+      const valid = files.filter((file) => file.type.startsWith('image/') && file.size <= 10 * 1024 * 1024);
+      if (files.length > 5 || valid.length !== files.length) showToast('Use até 5 fotos, com no máximo 10 MB cada.', 'error');
+      selectedMedia.photos = valid.slice(0, 5);
+      renderMedia();
+    });
+    videoInput.addEventListener('change', () => {
+      const file = videoInput.files?.[0] || null;
+      if (file && (!file.type.startsWith('video/') || file.size > 100 * 1024 * 1024)) {
+        selectedMedia.video = null;
+        videoInput.value = '';
+        showToast('O vídeo deve ter no máximo 100 MB.', 'error');
+      } else selectedMedia.video = file;
+      renderMedia();
+    });
+    previewContainer.addEventListener('click', (event) => {
+      const photoButton = event.target.closest('[data-remove-photo]');
+      if (photoButton) selectedMedia.photos.splice(Number(photoButton.dataset.removePhoto), 1);
+      if (event.target.closest('[data-remove-video]')) {
+        selectedMedia.video = null;
+        videoInput.value = '';
+      }
+      renderMedia();
+    });
+
     const updatePreview = () => {
       const currency = form.elements.currency.value;
+      const bedrooms = Number(form.elements.bedrooms.value || 0);
+      const bathrooms = Number(form.elements.bathrooms.value || 0);
+      const availabilityDate = form.elements.availabilityDate.value;
+      const entryTotal = Number(form.elements.priceAmount.value || 0) + Number(form.elements.guaranteeAmount.value || 0) + Number(form.elements.agencyFeeAmount.value || 0);
       document.querySelector('[data-new-preview-title]').textContent = form.elements.title.value || 'Novo imóvel';
       document.querySelector('[data-new-preview-zone]').textContent = form.elements.zoneLabel.value || 'Zona aproximada';
       document.querySelector('[data-new-preview-price]').textContent = formatMoney(Number(form.elements.priceAmount.value || 0), currency);
-      document.querySelector('[data-new-preview-image]').src = form.elements.coverUrl.value;
+      document.querySelector('[data-new-entry-total]').textContent = formatMoney(entryTotal, currency);
+      document.querySelector('[data-new-preview-rooms]').textContent = `${bedrooms} ${bedrooms === 1 ? 'quarto' : 'quartos'}`;
+      document.querySelector('[data-new-preview-baths]').textContent = `${bathrooms} ${bathrooms === 1 ? 'banheiro' : 'banheiros'}`;
+      document.querySelector('[data-new-preview-date]').textContent = availabilityDate
+        ? `Disponível em ${new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${availabilityDate}T00:00:00Z`))}`
+        : 'Disponibilidade a consultar';
+      if (!selectedMedia.photos.length) previewImage.src = form.elements.coverUrl.value;
     };
     form.addEventListener('input', updatePreview);
     form.addEventListener('change', updatePreview);
@@ -203,7 +283,26 @@
             zoneLabel: form.elements.zoneLabel.value,
             priceAmount: Number(form.elements.priceAmount.value),
             currency: form.elements.currency.value,
-            coverUrl: form.elements.coverUrl.value
+            coverUrl: form.elements.coverUrl.value,
+            propertyType: form.elements.propertyType.value,
+            bedrooms: Number(form.elements.bedrooms.value),
+            bathrooms: Number(form.elements.bathrooms.value),
+            floorLabel: form.elements.floorLabel.value,
+            availabilityDate: form.elements.availabilityDate.value,
+            locationNotes: form.elements.locationNotes.value,
+            guaranteeAmount: Number(form.elements.guaranteeAmount.value),
+            agencyFeeAmount: Number(form.elements.agencyFeeAmount.value),
+            petsPolicy: form.elements.petsPolicy.value,
+            childrenPolicy: form.elements.childrenPolicy.value,
+            parkingType: form.elements.parkingType.value,
+            furnished: form.elements.furnished.checked,
+            waterIncluded: form.elements.waterIncluded.checked,
+            electricityIncluded: form.elements.electricityIncluded.checked,
+            internetIncluded: form.elements.internetIncluded.checked,
+            trashIncluded: form.elements.trashIncluded.checked,
+            condominiumIncluded: form.elements.condominiumIncluded.checked,
+            utilityNotes: form.elements.utilityNotes.value,
+            description: form.elements.description.value
           }
         });
         window.location.assign('/gestor/imoveis/?criado=1');

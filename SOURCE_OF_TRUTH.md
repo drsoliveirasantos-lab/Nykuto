@@ -87,6 +87,9 @@ Do not promise guaranteed SEO rankings, complex custom platforms, merchant accep
 The real-estate manager pilot stores no plaintext credential in Git. Account
 credentials, access periods and sessions are provisioned directly in Cloudflare;
 protected routes must enforce both the session and the active pass on the server.
+Listing drafts store structured rental details in D1. Manager media limits are
+five photos and one optional video per property. Files must not be presented as
+persisted until the R2 bucket and binding are active.
 
 ## Languages
 
