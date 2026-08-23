@@ -1,74 +1,42 @@
 <!doctype html>
-<html lang="fr">
+<html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#07111f" />
-  <title>Démo portail immobilier — Nykuto</title>
-  <meta name="description" content="Démonstration interactive d’un portail immobilier mobile avec annonces, filtres, carte par zones et aperçu gestionnaire." />
+  <meta name="theme-color" content="#174f43" />
+  <title>Imóveis em Ciudad del Este — Assessoria Nykuto</title>
+  <meta name="description" content="Encontre imóveis em Ciudad del Este com filtros, fotos, vídeos, preços e localização aproximada em um mapa real." />
   <link rel="canonical" href="https://demo.nykuto.com/" />
   <link rel="icon" href="assets/nykuto-emblem-favicon.png" type="image/png" />
   <meta property="og:type" content="website" />
-  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:locale" content="pt_BR" />
   <meta property="og:site_name" content="Nykuto" />
-  <meta property="og:title" content="Démo portail immobilier — Nykuto" />
-  <meta property="og:description" content="Explorez une vitrine immobilière mobile avec recherche, carte confidentielle et parcours WhatsApp simulé." />
+  <meta property="og:title" content="Imóveis em Ciudad del Este — Assessoria Nykuto" />
+  <meta property="og:description" content="Imóveis com fotos, vídeos, filtros e zonas aproximadas em um mapa real de Ciudad del Este." />
   <meta property="og:url" content="https://demo.nykuto.com/" />
   <meta property="og:image" content="https://demo.nykuto.com/assets/demo-imobiliaria/demo-imobiliaria-og.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Aperçu d’un portail immobilier conçu par Nykuto" />
+  <meta property="og:image:alt" content="Prévia de um portal imobiliário criado pela Nykuto" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Démo portail immobilier — Nykuto" />
-  <meta name="twitter:description" content="Une démonstration interactive conçue pour les professionnels de l’immobilier." />
+  <meta name="twitter:title" content="Imóveis em Ciudad del Este — Assessoria Nykuto" />
+  <meta name="twitter:description" content="Busque imóveis por orçamento, faculdade e preferências em Ciudad del Este." />
   <meta name="twitter:image" content="https://demo.nykuto.com/assets/demo-imobiliaria/demo-imobiliaria-og.jpg" />
   <link rel="stylesheet" href="styles.css?v=20260823-1" />
-  <link rel="stylesheet" href="demo-imobiliaria.css?v=20260823-3" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="demo-imobiliaria.css?v=20260823-4" />
 </head>
 <body class="real-estate-demo-page">
-  <a class="skip-link" href="#contenu">Aller au contenu</a>
-  <header class="site-header">
-    <a class="brand" href="https://nykuto.com/" aria-label="Nykuto, accueil"><span class="brand-mark" aria-hidden="true">N</span><span><strong>Nykuto</strong><small>Digital & International</small></span></a>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
-    <nav class="main-nav" id="main-nav" aria-label="Navigation principale"><a href="https://nykuto.com/offres">Digital</a><a href="https://nykuto.com/international">International</a><a class="active" href="https://nykuto.com/exemples">Scénarios</a><a href="https://nykuto.com/process">Méthode</a><a href="https://nykuto.com/a-propos">À propos</a><a href="https://nykuto.com/faq">FAQ</a></nav>
-    <a class="header-cta" href="https://nykuto.com/contact">Parler du projet</a>
-  </header>
-
-  <main class="page-main" id="contenu">
-    <section class="demo-intro shell reveal">
-      <a class="demo-back-link" href="https://nykuto.com/exemples"><span aria-hidden="true">←</span> Retour aux scénarios</a>
-      <div class="demo-intro-grid">
-        <div>
-          <p class="eyebrow">Démonstration interactive · immobilier</p>
-          <h1>Une annonce WhatsApp transformée en expérience de recherche.</h1>
-          <p class="lead">Cette vitrine montre comment une agence peut présenter ses biens, protéger leur localisation, filtrer les demandes et guider chaque visiteur vers un contact qualifié.</p>
-        </div>
-        <aside class="demo-scope-card" aria-label="Périmètre de la démonstration">
-          <span>Prototype fonctionnel</span>
-          <strong>Mobile · Liste · Carte · Médias</strong>
-          <p>L’interface client ci-dessous est volontairement présentée en portugais brésilien, langue principale du cas illustré à Ciudad del Este.</p>
-        </aside>
-      </div>
-      <div class="demo-disclaimer" role="note">
-        <strong>Concept indépendant</strong>
-        <p>Cette démonstration Nykuto n’est pas le site officiel d’une agence. Les photos et vidéos proviennent de logements réels à Ciudad del Este et ont été neutralisées pour cette présentation. Les noms, références, prix, disponibilités, distances, zones et interactions restent illustratifs ; aucun paiement ni réservation n’est proposé ici.</p>
-      </div>
-    </section>
-
-    <section class="property-demo-shell shell reveal" aria-labelledby="demo-app-title" lang="pt-BR">
-      <div class="property-demo-browser" aria-hidden="true">
-        <span></span><span></span><span></span>
-        <p>demo.nykuto.com</p>
-        <b>Prévia</b>
-      </div>
-
+  <a class="skip-link" href="#demo-imoveis">Ir para os imóveis</a>
+  <main id="conteudo">
+    <section class="property-demo-shell" aria-labelledby="demo-app-title">
       <div class="property-demo-app">
         <header class="property-demo-header">
-          <a class="demo-agency-brand" href="#demo-imoveis" aria-label="Assessoria Nykuto, início da demonstração">
+          <a class="demo-agency-brand" href="#demo-imoveis" aria-label="Assessoria Nykuto, início do portal">
             <span class="demo-agency-mark" aria-hidden="true">N</span>
             <span><strong>Assessoria Nykuto</strong><small>Imóveis · Ciudad del Este</small></span>
           </a>
-          <nav class="demo-agency-nav" aria-label="Navegação da demonstração">
+          <nav class="demo-agency-nav" aria-label="Navegação principal">
             <a href="#demo-inicio">Início</a>
             <a href="#demo-imoveis">Imóveis</a>
             <a href="#demo-mapa">Mapa</a>
@@ -115,7 +83,7 @@
           <aside class="demo-property-feature" aria-label="Imóvel em destaque">
             <img src="assets/demo-imobiliaria/local-premium-08.webp" alt="Sala de convivência real neutralizada em um residencial de Ciudad del Este" width="620" height="620" fetchpriority="high" />
             <div class="demo-feature-overlay">
-              <div><span>Destaque demonstrativo</span><strong>Residencial premium</strong><small>2 quartos · mobiliado · área de lazer</small></div>
+              <div><span>Destaque</span><strong>Residencial premium</strong><small>2 quartos · mobiliado · área de lazer</small></div>
               <button type="button" data-property-id="NYK-CDE-05">Ver detalhes <span aria-hidden="true">↗</span></button>
             </div>
           </aside>
@@ -123,7 +91,7 @@
 
         <section class="demo-inventory" id="demo-imoveis">
           <div class="demo-inventory-heading">
-            <div><p>Seleção demonstrativa</p><h2>Imóveis encontrados</h2><span data-results-summary aria-live="polite">5 opções para comparar</span></div>
+            <div><p>Seleção atual</p><h2>Imóveis encontrados</h2><span data-results-summary aria-live="polite">5 opções para comparar</span></div>
             <div class="demo-view-switch" role="group" aria-label="Modo de visualização">
               <button class="active" type="button" data-view="split" aria-pressed="true"><span aria-hidden="true">▦</span> Lista</button>
               <button type="button" data-view="map" aria-pressed="false"><span aria-hidden="true">⌖</span> Mapa</button>
@@ -142,30 +110,15 @@
           <div class="demo-results-layout" data-results-layout>
             <div class="demo-property-list" data-property-list></div>
 
-            <aside class="demo-map-panel" id="demo-mapa" aria-label="Mapa aproximado dos imóveis">
-              <div class="demo-map-toolbar"><div><strong>Ciudad del Este</strong><span>Zonas aproximadas</span></div><button type="button" data-map-info aria-label="Explicar a privacidade do mapa">?</button></div>
-              <div class="demo-map-canvas" data-map-canvas>
-                <svg viewBox="0 0 800 680" aria-hidden="true" preserveAspectRatio="none">
-                  <rect width="800" height="680" fill="#edf2eb" />
-                  <path d="M-20 110 C145 95 210 145 390 120 S640 65 835 100" class="demo-map-road demo-map-road-major" />
-                  <path d="M70 -20 C100 170 160 235 250 350 S430 565 520 720" class="demo-map-road demo-map-road-major" />
-                  <path d="M260 -20 C280 110 355 210 470 250 S690 330 835 410" class="demo-map-road" />
-                  <path d="M-20 300 C180 315 280 265 450 330 S650 520 835 500" class="demo-map-road" />
-                  <path d="M-20 535 C190 485 295 545 400 585 S630 650 835 600" class="demo-map-road" />
-                  <path d="M630 -20 C590 125 610 250 680 360 S750 520 720 720" class="demo-map-road" />
-                  <path d="M520 30 C575 75 565 135 515 155 S450 110 475 68 Z" class="demo-map-water" />
-                </svg>
-                <span class="demo-map-landmark landmark-ucp">UCP Lago</span>
-                <span class="demo-map-landmark landmark-upe">UPE</span>
-                <span class="demo-map-landmark landmark-unida">UNIDA</span>
-                <span class="demo-map-landmark landmark-lago">Lago da República</span>
-                <div data-map-zones></div>
-                <div data-map-pins></div>
+            <aside class="demo-map-panel" id="demo-mapa" aria-label="Mapa real de Ciudad del Este com zonas aproximadas dos imóveis">
+              <div class="demo-map-toolbar"><div><strong>Ciudad del Este</strong><span>Mapa real · zonas aproximadas</span></div><button type="button" data-map-info aria-label="Explicar a privacidade do mapa">?</button></div>
+              <div class="demo-map-canvas" data-map-canvas aria-label="Ruas reais de Ciudad del Este e áreas aproximadas dos imóveis">
+                <div class="demo-map-loading"><span>Carregando o mapa de Ciudad del Este…</span></div>
               </div>
-              <div class="demo-map-legend"><span><i></i> Área aproximada</span><small>O endereço exato não é exibido.</small></div>
+              <div class="demo-map-legend"><span><i></i> Área de privacidade</span><small>O endereço exato não é exibido.</small></div>
             </aside>
           </div>
-          <div class="demo-empty-state" data-empty-state hidden><span aria-hidden="true">⌕</span><h3>Nenhum imóvel com estes filtros</h3><p>Remova um critério para visualizar outras opções da demonstração.</p><button type="button" data-clear-filters>Ver todos</button></div>
+          <div class="demo-empty-state" data-empty-state hidden><span aria-hidden="true">⌕</span><h3>Nenhum imóvel com estes filtros</h3><p>Remova um critério para visualizar outras opções.</p><button type="button" data-clear-filters>Ver todos</button></div>
         </section>
 
         <section class="demo-how-it-works" id="demo-como-funciona">
@@ -176,12 +129,12 @@
             <li><span>03</span><strong>Fale sobre o imóvel certo</strong><p>A referência e as preferências chegam prontas no WhatsApp.</p></li>
           </ol>
         </section>
+        <footer class="demo-app-footer">
+          <span><strong>Assessoria Nykuto</strong> · Imóveis em Ciudad del Este</span>
+          <span>Mídias neutralizadas · valores e zonas ilustrativos</span>
+          <a href="https://nykuto.com/contact">Criado por Nykuto <span aria-hidden="true">↗</span></a>
+        </footer>
       </div>
-    </section>
-
-    <section class="demo-commercial-cta shell reveal">
-      <div><p class="section-kicker">Nykuto Digital</p><h2>Votre activité pourrait disposer de sa propre expérience.</h2><p>Identité visuelle, contenus, annonces et parcours de contact seraient cadrés avec vos données et vos règles réelles.</p></div>
-      <a class="primary-btn" href="https://nykuto.com/contact">Demander une démonstration adaptée <span aria-hidden="true">↗</span></a>
     </section>
   </main>
 
@@ -197,7 +150,7 @@
 
   <dialog class="demo-dialog demo-compare-dialog" data-compare-dialog lang="pt-BR">
     <div class="demo-dialog-shell">
-      <header class="demo-dialog-header"><div><span>Comparador demonstrativo</span><h2>Compare os imóveis selecionados</h2></div><button type="button" data-close-dialog aria-label="Fechar comparação">×</button></header>
+      <header class="demo-dialog-header"><div><span>Comparador</span><h2>Compare os imóveis selecionados</h2></div><button type="button" data-close-dialog aria-label="Fechar comparação">×</button></header>
       <div class="demo-compare-table-wrap" data-compare-table></div>
     </div>
   </dialog>
@@ -209,7 +162,7 @@
       <div class="demo-manager-layout">
         <aside class="demo-manager-sidebar"><strong>Assessoria Nykuto · Gestão</strong><button class="active" type="button">Visão geral</button><button type="button">Imóveis</button><button type="button">Mensagens</button><button type="button">Configurações</button></aside>
         <section class="demo-manager-content">
-          <div class="demo-manager-heading"><div><span>Estoque demonstrativo</span><h3>Seus imóveis</h3></div><button type="button" data-demo-toast="Na versão ativa, este botão abre o formulário de publicação.">+ Novo imóvel</button></div>
+          <div class="demo-manager-heading"><div><span>Estoque de imóveis</span><h3>Seus imóveis</h3></div><button type="button" data-demo-toast="Na versão ativa, este botão abre o formulário de publicação.">+ Novo imóvel</button></div>
           <div class="demo-manager-stats"><div><span>Publicados</span><strong>5</strong></div><div><span>Reservados</span><strong>0</strong></div><div><span>Precisam verificar</span><strong>2</strong></div></div>
           <div class="demo-manager-list" data-manager-list></div>
           <div class="demo-manager-form-preview"><div><span>Publicação guiada</span><strong>Fotos → características → valores → zona → prévia</strong></div><label>Raio de privacidade <input type="range" min="300" max="5000" value="1000" step="100" data-radius-preview /><output data-radius-output>1 km</output></label></div>
@@ -221,12 +174,7 @@
 
   <div class="demo-toast" data-demo-toast-output role="status" aria-live="polite" hidden></div>
 
-  <footer class="site-footer">
-    <div class="footer-grid"><div class="footer-intro"><a class="brand" href="https://nykuto.com/"><span class="brand-mark" aria-hidden="true">N</span><span><strong>Nykuto</strong><small>Digital & International</small></span></a><p>Création digitale, organisation administrative et coordination de projets internationaux.</p><a class="text-btn" href="mailto:contact@nykuto.com">contact@nykuto.com</a></div><div><p class="footer-title">Expertises</p><nav class="footer-links"><a href="https://nykuto.com/offres">Nykuto Digital</a><a href="https://nykuto.com/international">Business International</a><a href="https://nykuto.com/process">Notre méthode</a><a href="https://nykuto.com/exemples">Scénarios</a></nav></div><div><p class="footer-title">Informations</p><nav class="footer-links"><a href="https://nykuto.com/a-propos">À propos</a><a href="https://nykuto.com/faq">FAQ</a><a href="https://nykuto.com/contact">Contact</a><a href="https://nykuto.com/mentions-legales">Mentions légales</a><a href="https://nykuto.com/confidentialite">Confidentialité</a><a href="https://nykuto.com/cgv">CGV</a></nav></div></div>
-    <div class="footer-bottom"><span>© <span data-year></span> Nykuto — Diego Oliveira Santos, entrepreneur individuel.</span><span>SIREN 900 602 566 · Bordeaux, France</span></div>
-  </footer>
-  <script src="i18n.js?v=20260823-2" defer></script>
-  <script src="script.js?v=20260823-1" defer></script>
-  <script src="demo-imobiliaria.js?v=20260823-3" defer></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
+  <script src="demo-imobiliaria.js?v=20260823-4" defer></script>
 </body>
 </html>

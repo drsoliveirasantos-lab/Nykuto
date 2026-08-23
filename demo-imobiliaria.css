@@ -8,6 +8,16 @@
   --demo-gold: #d5a84e;
   --demo-line: #dce5df;
   --demo-white: #ffffff;
+  color-scheme: light;
+  background: var(--demo-sand);
+}
+
+.real-estate-demo-page::before {
+  display: none;
+}
+
+.real-estate-demo-page main {
+  min-height: 100svh;
 }
 
 .real-estate-demo-page [hidden] {
@@ -99,12 +109,14 @@
 .demo-disclaimer p { margin: 0; color: var(--muted); font-size: 13px; }
 
 .property-demo-shell {
-  margin-top: 18px;
+  width: 100%;
+  min-height: 100svh;
+  margin: 0;
   overflow: hidden;
-  border: 1px solid rgba(168, 182, 204, 0.26);
-  border-radius: 28px;
+  border: 0;
+  border-radius: 0;
   background: #e7ece8;
-  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.45), 0 0 70px rgba(77, 227, 255, 0.08);
+  box-shadow: none;
 }
 
 .property-demo-browser {
@@ -167,6 +179,9 @@
 }
 
 .property-demo-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
   min-height: 82px;
   padding: 14px clamp(20px, 3.2vw, 46px);
   display: flex;
@@ -597,66 +612,101 @@
 
 .demo-map-canvas {
   position: relative;
+  z-index: 0;
   min-height: 530px;
   overflow: hidden;
-  background: #edf2eb;
+  isolation: isolate;
+  background: #dfe7df;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-.demo-map-canvas > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-.demo-map-road { fill: none; stroke: #fff; stroke-width: 12; stroke-linecap: round; filter: drop-shadow(0 1px 0 #ccd6ce); }
-.demo-map-road-major { stroke-width: 21; }
-.demo-map-water { fill: #b9dcd7; stroke: #9bc9c1; stroke-width: 3; }
-
-.demo-map-landmark {
+.demo-map-loading,
+.demo-map-unavailable {
   position: absolute;
-  z-index: 1;
-  padding: 3px 5px;
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.78);
-  color: #667a74;
-  font-size: 7px;
-  font-weight: 850;
-  pointer-events: none;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 30px;
+  background: linear-gradient(145deg, #e7eee7, #dce7df);
+  color: var(--demo-muted);
+  font-size: 10px;
+  font-weight: 800;
+  text-align: center;
 }
 
-.landmark-ucp { top: 17%; left: 53%; }
-.landmark-upe { top: 44%; left: 19%; }
-.landmark-unida { top: 65%; left: 62%; }
-.landmark-lago { top: 8%; left: 63%; }
+.demo-map-canvas.leaflet-container {
+  cursor: grab;
+  background: #dfe7df;
+}
 
-.demo-map-zone {
-  position: absolute;
-  z-index: 2;
-  width: var(--zone-size, 90px);
-  height: var(--zone-size, 90px);
+.demo-map-canvas.leaflet-grab,
+.demo-map-canvas.leaflet-grabbing {
+  cursor: grabbing;
+}
+
+.demo-map-canvas .leaflet-tile-pane {
+  filter: saturate(0.82) contrast(0.96) brightness(1.035);
+}
+
+.demo-map-canvas .leaflet-control-zoom {
+  overflow: hidden;
+  border: 1px solid rgba(23, 79, 67, 0.18);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(15, 55, 46, 0.15);
+}
+
+.demo-map-canvas .leaflet-control-zoom a {
+  color: var(--demo-forest);
+  font-family: inherit;
+  font-weight: 800;
+}
+
+.demo-map-canvas .leaflet-control-attribution,
+.demo-map-canvas .leaflet-control-scale-line {
+  border-color: rgba(23, 79, 67, 0.25);
+  background: rgba(255, 255, 255, 0.86);
+  color: #5f706a;
+  font-size: 8px;
+}
+
+.demo-map-canvas .leaflet-control-attribution a { color: var(--demo-forest); }
+
+.demo-map-price-icon {
+  width: 0 !important;
+  height: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+
+.demo-map-price-icon > span {
+  min-height: 30px;
+  padding: 5px 9px;
+  display: inline-flex;
+  align-items: center;
   transform: translate(-50%, -50%);
-  border: 1px solid rgba(23, 79, 67, 0.42);
-  border-radius: 50%;
-  background: rgba(64, 152, 125, 0.14);
-  box-shadow: inset 0 0 18px rgba(23, 79, 67, 0.08);
-  pointer-events: none;
-}
-
-.demo-map-pin {
-  position: absolute;
-  z-index: 3;
-  transform: translate(-50%, -50%);
-  min-height: 29px;
-  padding: 5px 8px;
   border: 2px solid white;
   border-radius: 9px;
   background: var(--demo-forest);
-  box-shadow: 0 7px 18px rgba(15, 55, 46, 0.28);
+  box-shadow: 0 7px 18px rgba(15, 55, 46, 0.3);
   color: white;
-  cursor: pointer;
   font-size: 8px;
   font-weight: 900;
+  line-height: 1;
   white-space: nowrap;
+  transition: transform 160ms ease, background 160ms ease, color 160ms ease;
 }
 
-.demo-map-pin:hover,
-.demo-map-pin:focus-visible { z-index: 5; transform: translate(-50%, -50%) scale(1.08); background: var(--demo-gold); color: #34280f; }
-.demo-map-pin[data-currency="USD"] { background: #8a6328; }
+.demo-map-price-icon > span[data-currency="USD"] { background: #8a6328; }
+
+.demo-map-price-icon:hover > span,
+.demo-map-price-icon:focus > span {
+  transform: translate(-50%, -50%) scale(1.08);
+  background: var(--demo-gold);
+  color: #34280f;
+}
+
+.demo-map-price-icon:focus-visible { outline: none; }
+.demo-map-price-icon:focus-visible > span { outline: 3px solid #fff; outline-offset: 2px; }
 
 .demo-map-legend { min-height: 45px; border-top: 1px solid var(--demo-line); color: var(--demo-muted); font-size: 8px; }
 .demo-map-legend span { display: flex; align-items: center; gap: 6px; font-weight: 750; }
@@ -699,6 +749,23 @@
 .demo-how-it-works li > span { color: #ddbd6d; font-size: 9px; font-weight: 900; }
 .demo-how-it-works li strong { display: block; margin-top: 20px; color: white; font-size: 13px; }
 .demo-how-it-works li p { margin: 6px 0 0; color: rgba(255, 255, 255, 0.62); font-size: 9px; }
+
+.demo-app-footer {
+  min-height: 62px;
+  padding: 16px clamp(18px, 4vw, 60px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: #092f29;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 9px;
+}
+
+.demo-app-footer strong { color: white; }
+.demo-app-footer a { color: #e2c370; font-weight: 850; }
+.demo-app-footer a:hover { color: white; }
 
 .demo-commercial-cta {
   margin-block: 82px;
@@ -943,6 +1010,7 @@
   .demo-how-it-works li > span { grid-row: span 2; padding-top: 2px; }
   .demo-how-it-works li strong { margin: 0; }
   .demo-how-it-works li p { grid-column: 2; }
+  .demo-app-footer { align-items: flex-start; flex-direction: column; gap: 5px; }
   .demo-commercial-cta { margin-block: 62px; padding: 30px 24px; }
   .demo-commercial-cta .primary-btn { width: 100%; }
   .demo-compare-dock { grid-template-columns: 1fr auto auto; bottom: 10px; }
