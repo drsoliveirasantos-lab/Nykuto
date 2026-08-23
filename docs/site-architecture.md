@@ -36,7 +36,7 @@ i18n.js                        FR/EN/PT/ES translations and language state
 script.js                      Shared interactions
 demo-imobiliaria.js            Static demo inventory, filters, map and dialogs
 assets/                        Production images
-assets/demo-imobiliaria/       Optimised illustrative real-estate demo media
+assets/demo-imobiliaria/       Optimised, neutralised real-estate demo media
 assets/nykuto-emblem.webp      Production brand emblem
 assets/nykuto-emblem-favicon.png  Browser icon
 favicon.svg                    Legacy fallback icon
@@ -80,9 +80,12 @@ Before a framework migration:
 
 `demo-imobiliaria.html` is an independent, clearly labelled concept linked from
 the Nykuto commercial site and published canonically on `demo.nykuto.com`. It
-uses AI-generated generic media, a static illustrative
-inventory and a schematic map with approximate zones, without a paid mapping API,
-live client account, payment flow, booking flow or production property database.
+uses owner-supplied photos and videos of real Ciudad del Este properties that
+were neutralised before publication and stripped of embedded metadata. Property
+names, references, prices, availability and locations remain illustrative. The
+demo keeps a static inventory and a schematic map with approximate zones,
+without a paid mapping API, live client account, payment flow, booking flow or
+production property database.
 
 ## Language architecture
 
