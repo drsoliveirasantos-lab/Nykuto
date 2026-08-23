@@ -26,6 +26,7 @@ export async function getAccessState(request, env) {
       u.username,
       u.display_name,
       u.role,
+      u.last_login_at,
       u.status AS user_status
     FROM sessions s
     JOIN users u ON u.id = s.user_id
@@ -69,7 +70,8 @@ export async function getAccessState(request, env) {
       id: session.user_id,
       username: session.username,
       displayName: session.display_name,
-      role: session.role
+      role: session.role,
+      lastLoginAt: session.last_login_at ? Number(session.last_login_at) : null
     },
     pass: {
       id: pass.id,

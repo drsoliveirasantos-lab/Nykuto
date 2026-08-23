@@ -11,7 +11,7 @@ export async function onRequestGet({ request, env }) {
            furnished, pets_policy, children_policy, parking_type, availability_date,
            guarantee_amount, agency_fee_amount, water_included, electricity_included,
            internet_included, trash_included, condominium_included, location_notes,
-           utility_notes, description, version, created_at, updated_at
+           utility_notes, description, published_at, verified_at, version, created_at, updated_at
     FROM listings
     WHERE owner_user_id = ?
     ORDER BY CASE publication_status WHEN 'published' THEN 1 WHEN 'reserved' THEN 2 WHEN 'draft' THEN 3 WHEN 'rented' THEN 4 ELSE 5 END,
@@ -64,7 +64,7 @@ export async function onRequestPost({ request, env }) {
               furnished, pets_policy, children_policy, parking_type, availability_date,
               guarantee_amount, agency_fee_amount, water_included, electricity_included,
               internet_included, trash_included, condominium_included, location_notes,
-              utility_notes, description, version, created_at, updated_at
+              utility_notes, description, published_at, verified_at, version, created_at, updated_at
   `).bind(resolved.access.user.id, reference, title, zoneLabel, priceAmount, currency, coverUrl,
     propertyType, bedrooms, bathrooms, floorLabel, cleanFlag(body.furnished), petsPolicy,
     childrenPolicy, parkingType, availabilityDate, guaranteeAmount, agencyFeeAmount,
