@@ -53,7 +53,7 @@ export async function onRequestPost({ request, env }) {
   const username = String(body.username || '').trim().toLowerCase();
   const password = String(body.password || '');
   if (!/^[a-z0-9._-]{3,80}$/.test(username) || password.length < 12 || password.length > 160) {
-    return json({ ok: false, code: 'INVALID_CREDENTIALS', message: 'Usuário ou senha incorretos.' }, 401);
+    return json({ ok: false, code: 'INVALID_CREDENTIALS', message: 'Usuário ou código incorretos.' }, 401);
   }
 
   const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
@@ -66,23 +66,22 @@ export async function onRequestPost({ request, env }) {
   }
 
   const user = await env.DB.prepare(`
-    SELECT id, username, display_name, role, credential_digest, credential_salt, credential_iterations, status
+    SELECT id, username, display_name, role, credential_digest, credential_salt, status
     FROM users
     WHERE username = ?
     LIMIT 1
   `).bind(username).first();
-  const fallbackSalt = 'AAAAAAAAAAAAAAAAAAAAAA';
+  const fallbackSalt = 'invalid-access-salt';
   const candidateDigest = await credentialDigest(
     username,
     password,
     env.AUTH_PEPPER,
-    user?.credential_salt || fallbackSalt,
-    Number(user?.credential_iterations || 210000)
+    user?.credential_salt || fallbackSalt
   );
   const validCredential = Boolean(user && constantTimeEqual(candidateDigest, user.credential_digest));
   if (!validCredential || user.status !== 'active') {
     await registerFailure(env, attemptKey, now);
-    return json({ ok: false, code: 'INVALID_CREDENTIALS', message: 'Usuário ou senha incorretos.' }, 401);
+    return json({ ok: false, code: 'INVALID_CREDENTIALS', message: 'Usuário ou código incorretos.' }, 401);
   }
 
   const pass = await env.DB.prepare(`

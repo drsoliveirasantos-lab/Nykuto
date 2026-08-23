@@ -21,7 +21,7 @@
     const visible = password.type === 'text';
     password.type = visible ? 'password' : 'text';
     event.currentTarget.textContent = visible ? 'Ver' : 'Ocultar';
-    event.currentTarget.setAttribute('aria-label', visible ? 'Mostrar senha' : 'Ocultar senha');
+    event.currentTarget.setAttribute('aria-label', visible ? 'Mostrar código' : 'Ocultar código');
   });
 
   form?.addEventListener('submit', async (event) => {
@@ -41,7 +41,7 @@
       if (!response.ok) {
         if (payload.code === 'PASS_EXPIRED') showMessage('Seu passe expirou. Peça a renovação para recuperar o acesso.');
         else if (payload.code === 'TOO_MANY_ATTEMPTS') showMessage('Muitas tentativas. Aguarde alguns minutos antes de tentar novamente.');
-        else showMessage(payload.message || 'Não foi possível entrar. Confira o usuário e a senha.');
+        else showMessage(payload.message || 'Não foi possível entrar. Confira o usuário e o código.');
         return;
       }
       showMessage('Acesso confirmado. Abrindo sua gestão…', 'success');

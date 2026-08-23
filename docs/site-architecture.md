@@ -136,10 +136,11 @@ The owner journey remains public and illustrative, but the manager pilot is now
 a real protected environment on `/gestor/`. Cloudflare Pages Functions validate
 an opaque `HttpOnly`, `Secure`, `SameSite=Lax` session cookie and an active D1
 access pass on every protected page and manager API request. Only the SHA-256
-session-token digest is stored. The test credential uses a per-user random salt,
-210,000 PBKDF2-SHA-256 iterations and a server-side pepper. Unsafe requests also
-require a same-origin CSRF token. Credentials and the pepper are provisioned
-directly in Cloudflare and never committed to Git.
+session-token digest is stored. The temporary pass uses a randomly generated,
+high-entropy access code verified by HMAC-SHA-256 with a per-user salt and a
+server-side pepper. Unsafe requests also require a same-origin CSRF token.
+Credentials and the pepper are provisioned directly in Cloudflare and never
+committed to Git.
 
 The pilot D1 database stores one test manager, pass history, sessions, rate-limit
 state, audit events and a management projection of the five illustrative

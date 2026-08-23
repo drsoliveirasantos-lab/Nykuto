@@ -5,7 +5,6 @@ CREATE TABLE IF NOT EXISTS users (
   role TEXT NOT NULL CHECK (role IN ('manager', 'admin')),
   credential_digest TEXT NOT NULL,
   credential_salt TEXT NOT NULL,
-  credential_iterations INTEGER NOT NULL CHECK (credential_iterations BETWEEN 100000 AND 1000000),
   status TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'suspended')),
   created_at INTEGER NOT NULL,
   updated_at INTEGER NOT NULL,
