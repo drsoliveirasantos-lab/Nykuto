@@ -13,6 +13,16 @@ export async function onRequestPatch({ request, env, params }) {
   const expectedVersion = Number(body.version);
   if (!Number.isSafeInteger(expectedVersion) || expectedVersion < 1) return json({ ok: false, code: 'VERSION_REQUIRED', message: 'Atualize a página e tente novamente.' }, 409);
 
+  const now = nowSeconds();
+  if (body.verifyAvailable === true && body.publicationStatus !== 'published' && body.publicationStatus !== 'reserved') {
+    const current = await env.DB.prepare('SELECT publication_status FROM listings WHERE id = ? AND owner_user_id = ? AND version = ?')
+      .bind(id, resolved.access.user.id, expectedVersion).first();
+    if (!current) return json({ ok: false, code: 'VERSION_CONFLICT', message: 'Este imóvel foi alterado em outra sessão. Atualize a página.' }, 409);
+    if (current.publication_status !== 'published' && current.publication_status !== 'reserved') {
+      return json({ ok: false, code: 'NOT_PUBLIC', message: 'Publique o imóvel antes de confirmar a disponibilidade.' }, 422);
+    }
+  }
+
   const columns = [];
   const values = [];
   if (Object.hasOwn(body, 'title')) {
@@ -37,6 +47,13 @@ export async function onRequestPatch({ request, env, params }) {
   if (Object.hasOwn(body, 'publicationStatus')) {
     if (!LISTING_STATUSES.has(body.publicationStatus)) return json({ ok: false, code: 'VALIDATION_ERROR', message: 'Status inválido.' }, 422);
     columns.push('publication_status = ?'); values.push(body.publicationStatus);
+    if (body.publicationStatus === 'published' || body.publicationStatus === 'reserved') {
+      columns.push('published_at = COALESCE(published_at, ?)', 'verified_at = ?');
+      values.push(now, now);
+    }
+  }
+  if (body.verifyAvailable === true) {
+    columns.push('verified_at = ?'); values.push(now);
   }
   if (Object.hasOwn(body, 'coverUrl')) {
     if (!ALLOWED_COVERS.has(body.coverUrl)) return json({ ok: false, code: 'VALIDATION_ERROR', message: 'Capa inválida.' }, 422);
@@ -44,7 +61,6 @@ export async function onRequestPatch({ request, env, params }) {
   }
   if (!columns.length) return json({ ok: false, code: 'NO_CHANGES', message: 'Nenhuma alteração recebida.' }, 422);
 
-  const now = nowSeconds();
   columns.push('version = version + 1', 'updated_at = ?');
   values.push(now, id, resolved.access.user.id, expectedVersion);
   const updated = await env.DB.prepare(`
@@ -55,7 +71,7 @@ export async function onRequestPatch({ request, env, params }) {
               furnished, pets_policy, children_policy, parking_type, availability_date,
               guarantee_amount, agency_fee_amount, water_included, electricity_included,
               internet_included, trash_included, condominium_included, location_notes,
-              utility_notes, description, version, created_at, updated_at
+              utility_notes, description, published_at, verified_at, version, created_at, updated_at
   `).bind(...values).first();
   if (!updated) return json({ ok: false, code: 'VERSION_CONFLICT', message: 'Este imóvel foi alterado em outra sessão. Atualize a página.' }, 409);
   try {

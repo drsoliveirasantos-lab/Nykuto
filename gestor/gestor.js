@@ -32,6 +32,19 @@
     return Math.max(0, Math.ceil((Number(expiresAt) * 1000 - Date.now()) / 86400000));
   }
 
+  function ageInDays(timestamp) {
+    if (!timestamp) return Infinity;
+    return Math.max(0, Math.floor((Date.now() - Number(timestamp) * 1000) / 86400000));
+  }
+
+  function verificationLabel(timestamp) {
+    const days = ageInDays(timestamp);
+    if (!Number.isFinite(days)) return 'Ainda não verificado';
+    if (days === 0) return 'Verificado hoje';
+    if (days === 1) return 'Verificado ontem';
+    return `Verificado há ${days} dias`;
+  }
+
   function showToast(text, type = 'success') {
     const toast = document.querySelector('[data-manager-toast]');
     if (!toast) return;
@@ -82,19 +95,23 @@
     state.csrfToken = payload.csrfToken;
     document.querySelectorAll('[data-manager-name]').forEach((element) => { element.textContent = payload.user.displayName.split(' ')[0]; });
     const days = remainingDays(payload.pass.expiresAt);
-    document.querySelectorAll('[data-pass-summary]').forEach((element) => { element.textContent = `Válido até ${formatDate(payload.pass.expiresAt)} · ${days} ${days === 1 ? 'dia restante' : 'dias restantes'}`; });
+    document.querySelectorAll('[data-pass-summary]').forEach((element) => {
+      const lastLogin = payload.user.lastLoginAt ? ` · último acesso ${formatDate(payload.user.lastLoginAt, true)}` : '';
+      element.textContent = `Válido até ${formatDate(payload.pass.expiresAt)} · ${days} ${days === 1 ? 'dia restante' : 'dias restantes'}${lastLogin}`;
+    });
   }
 
   function statsMarkup(listings) {
     const totals = {
       published: listings.filter((item) => item.publicationStatus === 'published').length,
       reserved: listings.filter((item) => item.publicationStatus === 'reserved').length,
-      draft: listings.filter((item) => item.publicationStatus === 'draft').length
+      draft: listings.filter((item) => item.publicationStatus === 'draft').length,
+      review: listings.filter((item) => ['published', 'reserved'].includes(item.publicationStatus) && ageInDays(item.verifiedAt) >= 14).length
     };
     return [
       ['Publicados', totals.published, 'visíveis no site', 'is-green'],
-      ['Reservados', totals.reserved, 'ainda consultáveis', 'is-gold'],
-      ['Rascunhos', totals.draft, 'aguardando revisão', 'is-gray']
+      ['A revisar', totals.review, '14 dias sem confirmar', 'is-gold'],
+      ['Rascunhos', totals.draft, 'aguardando publicação', 'is-gray']
     ].map(([label, value, detail, className]) => `<article class="${className}"><span>${label}</span><strong>${value}</strong><small>${detail}</small></article>`).join('');
   }
 
@@ -107,9 +124,9 @@
   function listingMarkup(listing, compact = false) {
     return `<article class="manager-property${compact ? ' is-compact' : ''}" data-listing-id="${listing.id}">
       <img src="${escapeHtml(listing.coverUrl)}" alt="" width="120" height="92" loading="lazy" />
-      <div class="manager-property-copy"><span>${escapeHtml(listing.reference)}</span><strong>${escapeHtml(listing.title)}</strong><small>${escapeHtml(listing.zoneLabel)} · ${escapeHtml(formatMoney(listing.priceAmount, listing.currency))}</small></div>
+      <div class="manager-property-copy"><span>${escapeHtml(listing.reference)}</span><strong>${escapeHtml(listing.title)}</strong><small>${escapeHtml(listing.zoneLabel)} · ${escapeHtml(formatMoney(listing.priceAmount, listing.currency))}</small><small class="manager-verification${ageInDays(listing.verifiedAt) >= 14 ? ' needs-review' : ''}">${escapeHtml(verificationLabel(listing.verifiedAt))}</small></div>
       <label class="manager-status-select"><span class="sr-only">Status de ${escapeHtml(listing.reference)}</span><select data-status-id="${listing.id}" data-version="${listing.version}">${statusOptions(listing.publicationStatus)}</select></label>
-      ${compact ? '<a href="/gestor/imoveis/" aria-label="Abrir imóveis">→</a>' : `<button class="manager-cover-button" type="button" data-cover-id="${listing.id}" data-version="${listing.version}" aria-label="Trocar capa de ${escapeHtml(listing.reference)}">Trocar capa</button>`}
+      ${compact ? '<a href="/gestor/imoveis/" aria-label="Abrir imóveis">→</a>' : `<div class="manager-property-actions">${['published', 'reserved'].includes(listing.publicationStatus) ? `<button class="manager-verify-button" type="button" data-verify-id="${listing.id}" data-version="${listing.version}">✓ Ainda disponível</button>` : ''}<button class="manager-cover-button" type="button" data-cover-id="${listing.id}" data-version="${listing.version}" aria-label="Trocar capa de ${escapeHtml(listing.reference)}">Trocar capa</button></div>`}
     </article>`;
   }
 
@@ -140,7 +157,7 @@
       renderListings();
       const stats = document.querySelector('[data-manager-stats]');
       if (stats) stats.innerHTML = statsMarkup(state.listings);
-      showToast(changes.coverUrl ? 'Nova capa salva.' : 'Status atualizado e salvo.');
+      showToast(changes.verifyAvailable ? 'Disponibilidade confirmada hoje.' : changes.coverUrl ? 'Nova capa salva.' : 'Status atualizado e salvo.');
     } catch (error) {
       showToast(error.message, 'error');
       if (error.code === 'VERSION_CONFLICT') await loadListings();
@@ -164,6 +181,8 @@
       const nextIndex = (coverChoices.indexOf(listing.coverUrl) + 1) % coverChoices.length;
       updateListing(listing.id, { coverUrl: coverChoices[nextIndex] }, coverButton.dataset.version, coverButton);
     }
+    const verifyButton = event.target.closest('[data-verify-id]');
+    if (verifyButton) updateListing(verifyButton.dataset.verifyId, { verifyAvailable: true }, verifyButton.dataset.version, verifyButton);
     const filter = event.target.closest('[data-listing-filter]');
     if (filter) {
       state.filter = filter.dataset.listingFilter;
@@ -179,9 +198,8 @@
   function prepareNewListingForm() {
     const form = document.querySelector('[data-new-listing-form]');
     if (!form) return;
-    const selectedMedia = { photos: [], video: null };
+    const selectedMedia = { photos: [] };
     const photoInput = form.elements.photos;
-    const videoInput = form.elements.video;
     const previewContainer = document.querySelector('[data-media-previews]');
     const previewImage = document.querySelector('[data-new-preview-image]');
     let previewCoverUrl = '';
@@ -193,8 +211,7 @@
 
     const renderMedia = () => {
       document.querySelector('[data-photo-count]').textContent = `${selectedMedia.photos.length}/5 fotos`;
-      document.querySelector('[data-video-count]').textContent = selectedMedia.video ? '1 vídeo' : 'Sem vídeo';
-      previewContainer.hidden = !selectedMedia.photos.length && !selectedMedia.video;
+      previewContainer.hidden = !selectedMedia.photos.length;
       previewContainer.innerHTML = '';
       selectedMedia.photos.forEach((file, index) => {
         const item = document.createElement('div');
@@ -213,14 +230,6 @@
         }, { once: true });
         previewContainer.append(item);
       });
-      if (selectedMedia.video) {
-        const item = document.createElement('div');
-        item.className = 'manager-media-preview';
-        const url = URL.createObjectURL(selectedMedia.video);
-        item.innerHTML = '<video muted playsinline preload="metadata"></video><button type="button" data-remove-video aria-label="Remover vídeo">×</button><span>Vídeo</span>';
-        item.querySelector('video').src = url;
-        previewContainer.append(item);
-      }
       clearPreviewCover();
       if (selectedMedia.photos[0]) {
         previewCoverUrl = URL.createObjectURL(selectedMedia.photos[0]);
@@ -238,22 +247,9 @@
       selectedMedia.photos = valid.slice(0, 5);
       renderMedia();
     });
-    videoInput.addEventListener('change', () => {
-      const file = videoInput.files?.[0] || null;
-      if (file && (!file.type.startsWith('video/') || file.size > 100 * 1024 * 1024)) {
-        selectedMedia.video = null;
-        videoInput.value = '';
-        showToast('O vídeo deve ter no máximo 100 MB.', 'error');
-      } else selectedMedia.video = file;
-      renderMedia();
-    });
     previewContainer.addEventListener('click', (event) => {
       const photoButton = event.target.closest('[data-remove-photo]');
       if (photoButton) selectedMedia.photos.splice(Number(photoButton.dataset.removePhoto), 1);
-      if (event.target.closest('[data-remove-video]')) {
-        selectedMedia.video = null;
-        videoInput.value = '';
-      }
       renderMedia();
     });
 
@@ -336,6 +332,8 @@
     document.querySelector('[data-pass-start]').textContent = formatDate(pass.startsAt);
     document.querySelector('[data-pass-end]').textContent = formatDate(pass.expiresAt, true);
     document.querySelector('[data-pass-days]').textContent = `${days} ${days === 1 ? 'dia' : 'dias'}`;
+    const lastLogin = document.querySelector('[data-account-last-login]');
+    if (lastLogin) lastLogin.textContent = user.lastLoginAt ? formatDate(user.lastLoginAt, true) : 'Primeiro acesso';
     document.querySelector('[data-pass-progress]').style.width = `${remainingPercent}%`;
   }
 

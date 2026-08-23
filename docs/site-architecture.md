@@ -151,10 +151,17 @@ stored. Newly created properties remain drafts in this pilot. The guided editor
 stores the complete rental offer: property type, rooms, availability, currency,
 rent, guarantee, agency fee, rules, parking, included utilities and public
 location notes. Its mobile media picker enforces a product limit of five photos
-and one optional video (10 MB per photo and 100 MB for the video), shows local
-thumbnails and keeps demo covers secondary. Binary persistence remains visibly
+(10 MB per photo), shows local thumbnails and keeps demo covers secondary.
+Video upload is intentionally
+disabled during the no-revenue pilot. Binary persistence remains visibly
 disabled until R2 is activated on the Cloudflare account; the interface never
 claims that a locally selected file was uploaded.
+
+The manager API records first publication and explicit availability verification
+timestamps. A listing becomes due for review after 14 days. The public API hides
+it after 30 days without a property confirmation or after 30 days without a
+manager login; the row remains recoverable in D1. Logging in never changes the
+property verification timestamp by itself.
 
 ## Language architecture
 

@@ -186,6 +186,8 @@
           currency: remote.currency,
           status: remote.statusLabel,
           availability: remote.availabilityLabel,
+          publishedAt: remote.publishedAt,
+          verifiedAt: remote.verifiedAt,
           ...(coverIndex >= 0 ? { coverIndex } : {})
         };
       });
@@ -271,7 +273,16 @@
   function formatMoney(amount, currency) {
     if (amount === null || amount === undefined) return 'A consultar';
     if (currency === 'USD') return `US$ ${Number(amount).toLocaleString('pt-BR')}`;
+    if (currency === 'BRL') return `R$ ${Number(amount).toLocaleString('pt-BR')}`;
     return `Gs. ${Number(amount).toLocaleString('pt-BR')}`;
+  }
+
+  function relativeDateLabel(prefix, timestamp) {
+    if (!timestamp) return '';
+    const days = Math.max(0, Math.floor((Date.now() - Number(timestamp) * 1000) / 86400000));
+    if (days === 0) return `${prefix} hoje`;
+    if (days === 1) return `${prefix} ontem`;
+    return `${prefix} há ${days} dias`;
   }
 
   function formatMapPrice(property) {
@@ -393,6 +404,7 @@
           <h3>${escapeHtml(property.title)}</h3>
           <p class="demo-listing-location">⌖ ${escapeHtml(property.location)}</p>
           <p class="demo-listing-distance">${escapeHtml(property.distance)}</p>
+          ${property.verifiedAt ? `<div class="demo-listing-freshness"><span>✓ ${escapeHtml(relativeDateLabel('Verificado', property.verifiedAt))}</span>${property.publishedAt ? `<small>${escapeHtml(relativeDateLabel('Publicado', property.publishedAt))}</small>` : ''}</div>` : ''}
           <div class="demo-listing-specs">${specs.map((spec) => `<span>${escapeHtml(spec)}</span>`).join('')}</div>
           <div class="demo-listing-price">
             <div><strong>${escapeHtml(formatMoney(property.rent, property.currency))}</strong><small>por mês</small></div>
@@ -708,6 +720,7 @@
         <section class="demo-detail-copy">
           <header><div><span class="demo-detail-status">${escapeHtml(property.status)}</span><h2>${escapeHtml(property.title)}</h2><p class="demo-detail-location">⌖ ${escapeHtml(property.location)} · ${escapeHtml(property.id)}</p></div><button class="demo-detail-favorite${favorites.has(property.id) ? ' active' : ''}" type="button" data-favorite-detail data-property-id="${escapeHtml(property.id)}" aria-pressed="${favorites.has(property.id)}" aria-label="${favorites.has(property.id) ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}">${favorites.has(property.id) ? '♥' : '♡'}</button></header>
           <div class="demo-detail-price"><div><span>Aluguel mensal</span><strong>${escapeHtml(formatMoney(property.rent, property.currency))}</strong><small>${escapeHtml(property.availability)}</small></div><b>${escapeHtml(property.distance)}</b></div>
+          ${property.verifiedAt ? `<p class="demo-detail-freshness">✓ ${escapeHtml(relativeDateLabel('Disponibilidade verificada', property.verifiedAt))}${property.publishedAt ? ` · ${escapeHtml(relativeDateLabel('publicado', property.publishedAt).toLowerCase())}` : ''}</p>` : ''}
           <div class="demo-detail-trust"><span>✓ Custos organizados</span><span>✓ Zona protegida</span><span>✓ Mídias reais</span></div>
           <div class="demo-detail-grid">
             <div><span>Configuração</span><strong>${escapeHtml(roomLabel(property))} · ${property.bathrooms} ${property.bathrooms === 1 ? 'banheiro' : 'banheiros'}</strong></div>

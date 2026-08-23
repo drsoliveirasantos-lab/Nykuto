@@ -84,6 +84,8 @@ export function serializeListing(row) {
     locationNotes: row.location_notes || '',
     utilityNotes: row.utility_notes || '',
     description: row.description || '',
+    publishedAt: row.published_at ? Number(row.published_at) : null,
+    verifiedAt: row.verified_at ? Number(row.verified_at) : null,
     version: Number(row.version),
     createdAt: Number(row.created_at),
     updatedAt: Number(row.updated_at)
