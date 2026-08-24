@@ -31,7 +31,7 @@ gestor/login/index.html        Private manager sign-in
 gestor/index.html              Authenticated manager dashboard
 gestor/imoveis/                Persistent listing management
 gestor/imoveis/novo/           Guided test-draft creation
-gestor/conta/                  Pass validity and account status
+gestor/conta/                  Professional WhatsApp profile, pass and account status
 functions/                     Cloudflare Pages authentication and APIs
 migrations/                    D1 schema for accounts, passes, sessions and listings
 process.html                   Method
@@ -118,10 +118,13 @@ flow. Cards and price markers are synchronised: selecting either highlights the
 corresponding approximate area, while map markers open a compact property
 preview before the full detail sheet. The detail sheet groups media, monthly and
 entry costs, approximate distances and privacy information. Contact buttons open
-the approved Nykuto business WhatsApp with a structured, pre-filled enquiry; the
-site does not store or transmit the visitor's message itself. A persistent
-WhatsApp button uses locally saved favourites as the visitor's selection and can
-send either one property or a concise multi-property request. On small screens,
+the WhatsApp number verified on the listing owner's profile with a structured,
+pre-filled enquiry; the site does not store or transmit the visitor's message
+itself. Nykuto's own number remains the destination for platform sales and pass
+renewals. A persistent WhatsApp button uses locally saved favourites as the
+visitor's selection and can send either one property or a concise multi-property
+request when the selected properties share a contact. Different owners remain
+separate so no enquiry is sent to the wrong manager. On small screens,
 filters use a bottom sheet and a fixed navigation bar provides direct access to
 listings, map, favourites and the owner journey.
 
@@ -162,6 +165,17 @@ timestamps. A listing becomes due for review after 14 days. The public API hides
 it after 30 days without a property confirmation or after 30 days without a
 manager login; the row remains recoverable in D1. Logging in never changes the
 property verification timestamp by itself.
+
+The manager account page also stores the agency name and one WhatsApp contact in
+normalized E.164 form. Common country codes are presented as mobile-friendly
+choices and the server validates the full 8–15 digit international number. A
+change invalidates the previous confirmation. The free pilot uses manual
+verification: the manager sends a generated account code to Nykuto from the
+same WhatsApp number, then Nykuto confirms it administratively. Publication,
+reservation and availability confirmation are blocked until that verification
+timestamp exists. The public API joins listings to their owner profile and
+returns only verified contact routing; drafts and private account fields remain
+private.
 
 ## Language architecture
 

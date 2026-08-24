@@ -25,8 +25,15 @@ export async function getAccessState(request, env) {
       s.revoked_at,
       u.username,
       u.display_name,
+      u.agency_name,
       u.role,
       u.last_login_at,
+      u.whatsapp_country_code,
+      u.whatsapp_national_number,
+      u.whatsapp_e164,
+      u.whatsapp_verified_at,
+      u.whatsapp_verification_code,
+      u.whatsapp_verification_requested_at,
       u.status AS user_status
     FROM sessions s
     JOIN users u ON u.id = s.user_id
@@ -70,8 +77,15 @@ export async function getAccessState(request, env) {
       id: session.user_id,
       username: session.username,
       displayName: session.display_name,
+      agencyName: session.agency_name || '',
       role: session.role,
-      lastLoginAt: session.last_login_at ? Number(session.last_login_at) : null
+      lastLoginAt: session.last_login_at ? Number(session.last_login_at) : null,
+      whatsappCountryCode: session.whatsapp_country_code || '',
+      whatsappNationalNumber: session.whatsapp_national_number || '',
+      whatsappE164: session.whatsapp_e164 || '',
+      whatsappVerifiedAt: session.whatsapp_verified_at ? Number(session.whatsapp_verified_at) : null,
+      whatsappVerificationCode: session.whatsapp_verification_code || '',
+      whatsappVerificationRequestedAt: session.whatsapp_verification_requested_at ? Number(session.whatsapp_verification_requested_at) : null
     },
     pass: {
       id: pass.id,

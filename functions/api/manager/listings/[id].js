@@ -14,6 +14,17 @@ export async function onRequestPatch({ request, env, params }) {
   if (!Number.isSafeInteger(expectedVersion) || expectedVersion < 1) return json({ ok: false, code: 'VERSION_REQUIRED', message: 'Atualize a página e tente novamente.' }, 409);
 
   const now = nowSeconds();
+  const requiresVerifiedContact = body.verifyAvailable === true || body.publicationStatus === 'published' || body.publicationStatus === 'reserved';
+  if (requiresVerifiedContact) {
+    const profile = await env.DB.prepare('SELECT whatsapp_e164, whatsapp_verified_at FROM users WHERE id = ? LIMIT 1')
+      .bind(resolved.access.user.id).first();
+    if (!profile?.whatsapp_e164) {
+      return json({ ok: false, code: 'WHATSAPP_REQUIRED', message: 'Complete seu perfil com o número de WhatsApp antes de publicar.' }, 422);
+    }
+    if (!profile.whatsapp_verified_at) {
+      return json({ ok: false, code: 'WHATSAPP_NOT_VERIFIED', message: 'Confirme seu WhatsApp no perfil antes de publicar.' }, 422);
+    }
+  }
   if (body.verifyAvailable === true && body.publicationStatus !== 'published' && body.publicationStatus !== 'reserved') {
     const current = await env.DB.prepare('SELECT publication_status FROM listings WHERE id = ? AND owner_user_id = ? AND version = ?')
       .bind(id, resolved.access.user.id, expectedVersion).first();

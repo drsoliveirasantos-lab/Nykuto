@@ -5,24 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#0c4439" />
   <meta name="robots" content="noindex, nofollow" />
-  <title>Conta e passe — Assessoria Nykuto</title>
+  <title>Perfil profissional — Assessoria Nykuto</title>
   <link rel="icon" href="/assets/nykuto-emblem-favicon.png" type="image/png" />
-  <link rel="stylesheet" href="/gestor/gestor.css?v=20260823-5" />
+  <link rel="stylesheet" href="/gestor/gestor.css?v=20260824-1" />
 </head>
 <body class="manager-body" data-manager-page="account">
   <div class="manager-app">
     <header class="manager-header"><a class="manager-brand" href="/gestor/"><span aria-hidden="true">N</span><div><strong>Assessoria Nykuto</strong><small>Área da assessoria</small></div></a><div class="manager-header-actions"><a href="/" target="_blank" rel="noopener">Ver site</a><button type="button" data-logout>Sair</button></div></header>
     <main class="manager-main">
-      <section class="manager-page-heading"><div><p>Conta e acesso</p><h1>Meu passe</h1><span>Consulte sua validade e o estado do acesso.</span></div></section>
+      <section class="manager-page-heading"><div><p>Conta e contato</p><h1>Meu perfil</h1><span>Defina o WhatsApp que receberá as consultas dos seus imóveis.</span></div></section>
       <section class="manager-account-grid">
         <article class="manager-account-card manager-pass-card"><div class="manager-account-icon">✓</div><p>Acesso atual</p><h2>Pass Nykuto · Teste</h2><strong data-account-status>Ativo</strong><div class="manager-pass-progress"><i data-pass-progress></i></div><dl><div><dt>Início</dt><dd data-pass-start>—</dd></div><div><dt>Válido até</dt><dd data-pass-end>—</dd></div><div><dt>Tempo restante</dt><dd data-pass-days>—</dd></div></dl></article>
-        <article class="manager-account-card"><div class="manager-account-icon">N</div><p>Perfil</p><h2 data-account-name>Diego</h2><dl><div><dt>E-mail</dt><dd data-account-username>—</dd></div><div><dt>Função</dt><dd>Gestor</dd></div><div><dt>Último acesso</dt><dd data-account-last-login>—</dd></div><div><dt>Dados</dt><dd>Cloudflare D1</dd></div></dl><button class="manager-secondary-button" type="button" data-logout>Sair deste aparelho</button></article>
+        <article class="manager-account-card"><div class="manager-account-icon">N</div><p>Conta</p><h2 data-account-name>Gestor</h2><dl><div><dt>E-mail</dt><dd data-account-username>—</dd></div><div><dt>Função</dt><dd>Gestor</dd></div><div><dt>Último acesso</dt><dd data-account-last-login>—</dd></div><div><dt>Dados</dt><dd>Cloudflare D1</dd></div></dl><button class="manager-secondary-button" type="button" data-logout>Sair deste aparelho</button></article>
+      </section>
+      <section class="manager-profile-panel" aria-labelledby="manager-profile-title">
+        <header><div><p>Contato das ofertas</p><h2 id="manager-profile-title">WhatsApp profissional</h2><span>Este número será usado automaticamente em todos os imóveis publicados por esta conta.</span></div><strong class="manager-profile-status" data-profile-status>Carregando…</strong></header>
+        <form class="manager-profile-form" data-manager-profile-form>
+          <label class="manager-profile-agency"><span>Nome da assessoria ou proprietário</span><input name="agencyName" type="text" autocomplete="organization" minlength="2" maxlength="80" placeholder="Ex.: Assessoria Nykuto" required /></label>
+          <div class="manager-profile-phone-row">
+            <label><span>País e código</span><select name="whatsappCountryCode" required><option value="595">🇵🇾 Paraguay · +595</option><option value="55">🇧🇷 Brasil · +55</option><option value="33">🇫🇷 France · +33</option><option value="54">🇦🇷 Argentina · +54</option><option value="34">🇪🇸 España · +34</option><option value="351">🇵🇹 Portugal · +351</option><option value="1">🇺🇸/🇨🇦 +1</option><option value="other">Outro código</option></select></label>
+            <label class="manager-custom-code" data-custom-country-code hidden><span>Outro código</span><div class="manager-phone-prefix"><b>+</b><input name="customCountryCode" type="text" inputmode="numeric" maxlength="3" placeholder="598" /></div></label>
+            <label class="manager-profile-number"><span>Número WhatsApp</span><input name="whatsappNationalNumber" type="tel" inputmode="tel" autocomplete="tel-national" maxlength="24" placeholder="981 123 456" required /></label>
+          </div>
+          <div class="manager-phone-preview"><div><span>Número internacional</span><strong data-profile-phone-preview>+—</strong><small data-profile-phone-help>Selecione o país e digite o número sem o código internacional.</small></div><i aria-hidden="true">✓</i></div>
+          <p class="manager-profile-message" data-profile-message role="status" hidden></p>
+          <div class="manager-profile-actions"><button class="manager-primary-button" type="submit">Salvar perfil <span>→</span></button><button class="manager-secondary-button" type="button" data-test-whatsapp disabled>Testar no WhatsApp</button><button class="manager-verification-button" type="button" data-request-whatsapp-verification disabled>Solicitar confirmação</button></div>
+        </form>
+        <aside class="manager-profile-explainer"><div><b>1</b><span><strong>Salve o número</strong><small>O site normaliza o indicativo e o telefone.</small></span></div><div><b>2</b><span><strong>Teste no aplicativo</strong><small>Confirme que a conversa abre no destino correto.</small></span></div><div><b>3</b><span><strong>Confirme com a Nykuto</strong><small>A publicação é liberada após a validação gratuita.</small></span></div></aside>
       </section>
       <section class="manager-renew-card"><div><p>Renovação manual</p><h2>Quer prolongar o acesso?</h2><span>Nesta fase, a Nykuto confirma o pagamento e adiciona o novo período ao seu passe.</span></div><a href="whatsapp://send?phone=33768345608&amp;text=Ol%C3%A1%21%20Gostaria%20de%20renovar%20meu%20passe%20da%20%C3%A1rea%20de%20gest%C3%A3o%20Nykuto.">Solicitar renovação</a></section>
     </main>
-    <nav class="manager-mobile-nav" aria-label="Navegação da gestão"><a href="/gestor/"><span>⌂</span>Painel</a><a href="/gestor/imoveis/"><span>▦</span>Imóveis</a><a href="/gestor/imoveis/novo/"><span>＋</span>Novo</a><a href="/gestor/conta/" aria-current="page"><span>◷</span>Conta</a></nav>
+    <nav class="manager-mobile-nav" aria-label="Navegação da gestão"><a href="/gestor/"><span>⌂</span>Painel</a><a href="/gestor/imoveis/"><span>▦</span>Imóveis</a><a href="/gestor/imoveis/novo/"><span>＋</span>Novo</a><a href="/gestor/conta/" aria-current="page"><span>◷</span>Perfil</a></nav>
   </div>
   <div class="manager-toast" data-manager-toast role="status" aria-live="polite" hidden></div>
-  <script src="/gestor/gestor.js?v=20260823-5" defer></script>
+  <script src="/whatsapp-launcher.js?v=20260823-2" defer></script>
+  <script src="/gestor/gestor.js?v=20260824-1" defer></script>
 </body>
 </html>

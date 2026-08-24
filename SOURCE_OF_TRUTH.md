@@ -97,6 +97,14 @@ must be explicitly confirmed at least every 30 days or they are hidden from the
 public API without being deleted. The manager starts seeing them as needing
 review after 14 days.
 
+Each manager profile owns one professional WhatsApp number stored in normalized
+international E.164 form. Drafts may exist without a confirmed contact, but a
+listing cannot be published, reserved or availability-verified until that
+number has been manually confirmed. Changing the number removes the previous
+confirmation. Public property enquiries use the verified number of the listing
+owner; Nykuto's own business number remains reserved for sales, pass renewal and
+manual profile confirmation.
+
 ## Languages
 
 - French is the editorial source of truth in the production HTML files.
