@@ -52,7 +52,7 @@ export function statusLabel(status) {
 }
 
 export function serializeListing(row) {
-  return {
+  const listing = {
     id: Number(row.id),
     reference: row.reference,
     title: row.title,
@@ -90,4 +90,12 @@ export function serializeListing(row) {
     createdAt: Number(row.created_at),
     updatedAt: Number(row.updated_at)
   };
+  if (row.whatsapp_e164) {
+    listing.contact = {
+      agencyName: row.agency_name || 'Assessoria responsável',
+      whatsapp: row.whatsapp_e164,
+      verifiedAt: row.whatsapp_verified_at ? Number(row.whatsapp_verified_at) : null
+    };
+  }
+  return listing;
 }

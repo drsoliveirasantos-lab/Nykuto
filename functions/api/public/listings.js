@@ -7,15 +7,21 @@ export async function onRequestGet({ env }) {
   const [result, catalog] = await env.DB.batch([env.DB.prepare(`
     SELECT l.id, l.reference, l.title, l.zone_label, l.price_amount, l.currency,
            l.publication_status, l.availability_label, l.cover_url, l.published_at,
-           l.verified_at, l.version, l.created_at, l.updated_at
+           l.verified_at, l.property_type, l.bedrooms, l.bathrooms, l.floor_label,
+           l.furnished, l.pets_policy, l.children_policy, l.parking_type, l.availability_date,
+           l.guarantee_amount, l.agency_fee_amount, l.water_included, l.electricity_included,
+           l.internet_included, l.trash_included, l.condominium_included, l.location_notes,
+           l.utility_notes, l.description, l.version, l.created_at, l.updated_at,
+           u.agency_name, u.whatsapp_e164, u.whatsapp_verified_at
     FROM listings l
     JOIN users u ON u.id = l.owner_user_id
     WHERE l.publication_status IN ('published', 'reserved')
-      AND l.reference LIKE 'NYK-CDE-%'
       AND l.verified_at >= ?
       AND u.last_login_at >= ?
+      AND u.whatsapp_e164 IS NOT NULL
+      AND u.whatsapp_verified_at IS NOT NULL
     ORDER BY l.sort_order ASC
-  `).bind(freshnessCutoff, freshnessCutoff), env.DB.prepare("SELECT COUNT(*) AS total FROM listings WHERE reference LIKE 'NYK-CDE-%'")]);
+  `).bind(freshnessCutoff, freshnessCutoff), env.DB.prepare('SELECT COUNT(*) AS total FROM listings')]);
   const total = Number(catalog.results?.[0]?.total || 0);
   return json({ ok: true, catalogReady: total >= 5, listings: (result.results || []).map(serializeListing) });
 }

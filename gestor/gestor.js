@@ -93,6 +93,10 @@
     }
     state.session = payload;
     state.csrfToken = payload.csrfToken;
+    if (page !== 'account' && !payload.user.whatsappE164) {
+      window.location.replace('/gestor/conta/?perfil=obrigatorio');
+      throw new Error('PROFILE_REQUIRED');
+    }
     document.querySelectorAll('[data-manager-name]').forEach((element) => { element.textContent = payload.user.displayName.split(' ')[0]; });
     const days = remainingDays(payload.pass.expiresAt);
     document.querySelectorAll('[data-pass-summary]').forEach((element) => {
@@ -337,6 +341,146 @@
     document.querySelector('[data-pass-progress]').style.width = `${remainingPercent}%`;
   }
 
+  function compactPhone(value) {
+    return String(value || '').replace(/\D/g, '').replace(/^0+/, '');
+  }
+
+  function selectedCountryCode(form) {
+    return form.elements.whatsappCountryCode.value === 'other'
+      ? compactPhone(form.elements.customCountryCode.value)
+      : form.elements.whatsappCountryCode.value;
+  }
+
+  function profilePhone(form) {
+    const countryCode = selectedCountryCode(form);
+    const nationalNumber = compactPhone(form.elements.whatsappNationalNumber.value);
+    const e164 = `${countryCode}${nationalNumber}`;
+    return /^[1-9]\d{7,14}$/.test(e164) ? { countryCode, nationalNumber, e164 } : null;
+  }
+
+  function openWhatsapp(phone, message) {
+    if (window.NykutoWhatsApp?.open) {
+      window.NykutoWhatsApp.open(phone, message);
+      return;
+    }
+    window.location.href = `whatsapp://send?phone=${phone}&text=${encodeURIComponent(message)}`;
+  }
+
+  function prepareProfileForm() {
+    if (page !== 'account') return;
+    const form = document.querySelector('[data-manager-profile-form]');
+    if (!form) return;
+    const user = state.session.user;
+    const status = document.querySelector('[data-profile-status]');
+    const preview = document.querySelector('[data-profile-phone-preview]');
+    const help = document.querySelector('[data-profile-phone-help]');
+    const message = document.querySelector('[data-profile-message]');
+    const customCode = document.querySelector('[data-custom-country-code]');
+    const testButton = document.querySelector('[data-test-whatsapp]');
+    const verificationButton = document.querySelector('[data-request-whatsapp-verification]');
+    const commonCodes = [...form.elements.whatsappCountryCode.options].map((option) => option.value);
+
+    form.elements.agencyName.value = user.agencyName || '';
+    if (user.whatsappCountryCode && commonCodes.includes(user.whatsappCountryCode)) {
+      form.elements.whatsappCountryCode.value = user.whatsappCountryCode;
+    } else if (user.whatsappCountryCode) {
+      form.elements.whatsappCountryCode.value = 'other';
+      form.elements.customCountryCode.value = user.whatsappCountryCode;
+    }
+    form.elements.whatsappNationalNumber.value = user.whatsappNationalNumber || '';
+
+    const renderProfileState = () => {
+      const phone = profilePhone(form);
+      const other = form.elements.whatsappCountryCode.value === 'other';
+      const savedPhone = Boolean(phone && phone.e164 === user.whatsappE164);
+      customCode.hidden = !other;
+      form.elements.customCountryCode.required = other;
+      preview.textContent = phone ? `+${phone.e164}` : '+—';
+      testButton.disabled = !phone;
+      verificationButton.disabled = !savedPhone || Boolean(user.whatsappVerifiedAt);
+      if (phone && !savedPhone) {
+        status.textContent = 'Alterações não salvas';
+        status.className = 'manager-profile-status is-missing';
+        help.textContent = 'Salve o novo número. A confirmação anterior será removida por segurança.';
+      } else if (user.whatsappVerifiedAt) {
+        status.textContent = `Verificado em ${formatDate(user.whatsappVerifiedAt)}`;
+        status.className = 'manager-profile-status is-verified';
+        help.textContent = 'As consultas dos seus imóveis são enviadas para este número.';
+      } else if (user.whatsappE164) {
+        status.textContent = user.whatsappVerificationRequestedAt ? 'Confirmação solicitada' : 'Aguardando confirmação';
+        status.className = 'manager-profile-status';
+        help.textContent = 'Teste o destino e solicite a confirmação gratuita para poder publicar.';
+      } else {
+        status.textContent = 'Perfil incompleto';
+        status.className = 'manager-profile-status is-missing';
+        help.textContent = 'Salve um WhatsApp válido para vincular suas futuras ofertas.';
+      }
+    };
+
+    const showProfileMessage = (text, type = 'success') => {
+      message.textContent = text;
+      message.dataset.type = type;
+      message.hidden = false;
+    };
+
+    form.addEventListener('input', renderProfileState);
+    form.addEventListener('change', renderProfileState);
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const phone = profilePhone(form);
+      if (!phone) return showProfileMessage('Confira o indicativo e o número informado.', 'error');
+      const submit = form.querySelector('[type="submit"]');
+      submit.disabled = true;
+      try {
+        const payload = await api('/api/manager/profile', {
+          method: 'PATCH',
+          body: {
+            agencyName: form.elements.agencyName.value,
+            whatsappCountryCode: phone.countryCode,
+            whatsappNationalNumber: phone.nationalNumber
+          }
+        });
+        Object.assign(user, payload.profile);
+        form.elements.whatsappNationalNumber.value = payload.profile.whatsappNationalNumber;
+        showProfileMessage(payload.profile.whatsappVerifiedAt ? 'Perfil salvo. O WhatsApp continua verificado.' : 'Perfil salvo. Agora teste o número e solicite a confirmação.');
+        renderProfileState();
+      } catch (error) {
+        showProfileMessage(error.message, 'error');
+      } finally { submit.disabled = false; }
+    });
+
+    testButton.addEventListener('click', () => {
+      const phone = profilePhone(form);
+      if (!phone) return showProfileMessage('Salve ou corrija o número antes do teste.', 'error');
+      openWhatsapp(phone.e164, 'Teste de contato do perfil Nykuto. Se esta conversa abriu no número correto, o link está funcionando.');
+    });
+
+    verificationButton.addEventListener('click', async () => {
+      verificationButton.disabled = true;
+      try {
+        const payload = await api('/api/manager/profile/verification', { method: 'POST', body: {} });
+        if (payload.alreadyVerified) {
+          user.whatsappVerifiedAt = payload.verifiedAt;
+          showProfileMessage('Este número já está verificado.');
+          renderProfileState();
+          return;
+        }
+        user.whatsappVerificationRequestedAt = payload.requestedAt;
+        showProfileMessage('WhatsApp aberto. Envie a mensagem pronta para solicitar a confirmação.');
+        renderProfileState();
+        openWhatsapp(payload.supportPhone, payload.message);
+      } catch (error) {
+        showProfileMessage(error.message, 'error');
+        verificationButton.disabled = false;
+      }
+    });
+
+    if (new URLSearchParams(window.location.search).get('perfil') === 'obrigatorio') {
+      showProfileMessage('Complete seu WhatsApp profissional antes de continuar. Você poderá criar rascunhos após salvar o perfil.');
+    }
+    renderProfileState();
+  }
+
   async function logout() {
     try { await api('/api/auth/logout', { method: 'POST' }); } catch (_) { /* The cookie is cleared by the login redirect too. */ }
     window.location.replace('/gestor/login/');
@@ -347,6 +491,7 @@
     try {
       await loadSession();
       renderAccount();
+      prepareProfileForm();
       prepareNewListingForm();
       if (page === 'dashboard' || page === 'listings') await loadListings();
       if (new URLSearchParams(window.location.search).get('criado') === '1') showToast('Rascunho criado e salvo.');

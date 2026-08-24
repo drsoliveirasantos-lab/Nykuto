@@ -3,7 +3,7 @@
   const ciudadDelEsteCenter = [-25.5135, -54.632];
   const openStreetMapTiles = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
   const publicDemoOrigin = 'https://demo.nykuto.com';
-  const whatsappPhone = document.body.dataset.whatsappPhone || '33768345608';
+  const nykutoWhatsappPhone = document.body.dataset.whatsappPhone || '33768345608';
   const pageMode = document.body.dataset.demoPage || 'home';
   const studioPrivacyMasks = [
     { left: 66, top: 36, width: 34, height: 28 },
@@ -166,6 +166,75 @@
     }
   ];
 
+  function policyValue(value) {
+    if (value === 'yes') return true;
+    if (value === 'no') return false;
+    return null;
+  }
+
+  function publicPropertyType(value) {
+    return ({ apartment: 'Apartamento', studio: 'Monoambiente', house: 'Casa', kitnet: 'Kitnet', room: 'Quarto' })[value] || 'Imóvel';
+  }
+
+  function deterministicMap(reference) {
+    let hash = 0;
+    for (const character of String(reference || '')) hash = ((hash << 5) - hash + character.charCodeAt(0)) | 0;
+    const latitudeOffset = ((Math.abs(hash) % 1700) / 100000) - .0085;
+    const longitudeOffset = ((Math.abs(hash >> 8) % 1900) / 100000) - .0095;
+    return { lat: ciudadDelEsteCenter[0] + latitudeOffset, lng: ciudadDelEsteCenter[1] + longitudeOffset, radiusMeters: 1800 };
+  }
+
+  function dynamicProperty(remote) {
+    const included = [
+      remote.included?.water ? 'Água' : '',
+      remote.included?.electricity ? 'Energia' : '',
+      remote.included?.internet ? 'Internet' : '',
+      remote.included?.trash ? 'Coleta de lixo' : '',
+      remote.included?.condominium ? 'Condomínio' : ''
+    ].filter(Boolean);
+    const separate = [
+      remote.included?.water ? '' : 'Água à parte',
+      remote.included?.electricity ? '' : 'Energia conforme consumo',
+      remote.included?.internet ? '' : 'Internet à parte',
+      remote.included?.trash ? '' : 'Coleta de lixo à parte',
+      remote.included?.condominium ? '' : 'Condomínio a confirmar',
+      remote.utilityNotes || ''
+    ].filter(Boolean);
+    const availabilityDate = remote.availabilityDate ? new Date(`${remote.availabilityDate}T00:00:00`) : null;
+    return {
+      id: remote.reference,
+      title: remote.title,
+      location: remote.locationNotes || remote.zoneLabel,
+      type: publicPropertyType(remote.propertyType),
+      status: remote.statusLabel,
+      availability: remote.availabilityLabel || (remote.availabilityDate ? `Disponível a partir de ${new Intl.DateTimeFormat('pt-BR').format(availabilityDate)}` : 'Disponibilidade a confirmar'),
+      currency: remote.currency,
+      rent: remote.priceAmount,
+      deposit: remote.guaranteeAmount,
+      fee: remote.agencyFeeAmount,
+      rooms: remote.bedrooms,
+      bathrooms: remote.bathrooms,
+      furnished: remote.furnished,
+      pet: policyValue(remote.petsPolicy),
+      kids: policyValue(remote.childrenPolicy),
+      garage: remote.parkingType && remote.parkingType !== 'none',
+      included,
+      separate,
+      campuses: [],
+      distance: remote.zoneLabel,
+      immediate: !availabilityDate || availabilityDate.getTime() <= Date.now(),
+      zoneRadius: '1,8 km',
+      map: deterministicMap(remote.reference),
+      media: [{ type: 'image', src: remote.coverUrl, alt: `Imagem de apresentação do imóvel ${remote.reference}` }],
+      description: remote.description || '',
+      publishedAt: remote.publishedAt,
+      verifiedAt: remote.verifiedAt,
+      agencyName: remote.contact?.agencyName || 'Assessoria responsável',
+      whatsappPhone: remote.contact?.whatsapp || nykutoWhatsappPhone,
+      whatsappVerifiedAt: remote.contact?.verifiedAt || null
+    };
+  }
+
   async function loadPublishedManagerState() {
     const controller = new AbortController();
     const timeout = window.setTimeout(() => controller.abort(), 1800);
@@ -175,7 +244,8 @@
       const payload = await response.json();
       if (!payload.ok || payload.catalogReady !== true || !Array.isArray(payload.listings)) return;
       const remoteByReference = new Map(payload.listings.map((listing) => [listing.reference, listing]));
-      properties = properties.filter((property) => remoteByReference.has(property.id)).map((property) => {
+      const staticReferences = new Set(properties.map((property) => property.id));
+      const hydrated = properties.filter((property) => remoteByReference.has(property.id)).map((property) => {
         const remote = remoteByReference.get(property.id);
         const coverIndex = property.media.findIndex((media) => media.src === remote.coverUrl || media.poster === remote.coverUrl);
         return {
@@ -188,9 +258,14 @@
           availability: remote.availabilityLabel,
           publishedAt: remote.publishedAt,
           verifiedAt: remote.verifiedAt,
+          agencyName: remote.contact?.agencyName || 'Assessoria Nykuto',
+          whatsappPhone: remote.contact?.whatsapp || nykutoWhatsappPhone,
+          whatsappVerifiedAt: remote.contact?.verifiedAt || null,
           ...(coverIndex >= 0 ? { coverIndex } : {})
         };
       });
+      const added = payload.listings.filter((listing) => !staticReferences.has(listing.reference)).map(dynamicProperty);
+      properties = [...hydrated, ...added];
     } catch (_) { /* Static inventory remains the reliable fallback. */ }
     finally { window.clearTimeout(timeout); }
   }
@@ -287,6 +362,7 @@
 
   function formatMapPrice(property) {
     if (property.currency === 'USD') return `US$ ${property.rent.toLocaleString('pt-BR')}`;
+    if (property.currency === 'BRL') return `R$ ${property.rent.toLocaleString('pt-BR')}`;
     const millions = property.rent / 1000000;
     return `Gs. ${millions.toLocaleString('pt-BR', { maximumFractionDigits: 2 })} mi`;
   }
@@ -297,7 +373,9 @@
   }
 
   function propertyPermalink(property) {
-    return `${publicDemoOrigin}/imovel/${property.id.toLowerCase()}/`;
+    return property.id.startsWith('NYK-CDE-')
+      ? `${publicDemoOrigin}/imovel/${property.id.toLowerCase()}/`
+      : `${publicDemoOrigin}/imoveis/#imovel=${encodeURIComponent(property.id)}`;
   }
 
   function guaranteeLabel(property) {
@@ -404,7 +482,7 @@
           <h3>${escapeHtml(property.title)}</h3>
           <p class="demo-listing-location">⌖ ${escapeHtml(property.location)}</p>
           <p class="demo-listing-distance">${escapeHtml(property.distance)}</p>
-          ${property.verifiedAt ? `<div class="demo-listing-freshness"><span>✓ ${escapeHtml(relativeDateLabel('Verificado', property.verifiedAt))}</span>${property.publishedAt ? `<small>${escapeHtml(relativeDateLabel('Publicado', property.publishedAt))}</small>` : ''}</div>` : ''}
+          ${property.verifiedAt ? `<div class="demo-listing-freshness"><span>✓ ${escapeHtml(relativeDateLabel('Verificado', property.verifiedAt))}</span>${property.publishedAt ? `<small>${escapeHtml(relativeDateLabel('Publicado', property.publishedAt))}</small>` : ''}${property.whatsappVerifiedAt ? `<small>◉ WhatsApp verificado · ${escapeHtml(property.agencyName)}</small>` : ''}</div>` : ''}
           <div class="demo-listing-specs">${specs.map((spec) => `<span>${escapeHtml(spec)}</span>`).join('')}</div>
           <div class="demo-listing-price">
             <div><strong>${escapeHtml(formatMoney(property.rent, property.currency))}</strong><small>por mês</small></div>
@@ -721,10 +799,10 @@
           <header><div><span class="demo-detail-status">${escapeHtml(property.status)}</span><h2>${escapeHtml(property.title)}</h2><p class="demo-detail-location">⌖ ${escapeHtml(property.location)} · ${escapeHtml(property.id)}</p></div><button class="demo-detail-favorite${favorites.has(property.id) ? ' active' : ''}" type="button" data-favorite-detail data-property-id="${escapeHtml(property.id)}" aria-pressed="${favorites.has(property.id)}" aria-label="${favorites.has(property.id) ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}">${favorites.has(property.id) ? '♥' : '♡'}</button></header>
           <div class="demo-detail-price"><div><span>Aluguel mensal</span><strong>${escapeHtml(formatMoney(property.rent, property.currency))}</strong><small>${escapeHtml(property.availability)}</small></div><b>${escapeHtml(property.distance)}</b></div>
           ${property.verifiedAt ? `<p class="demo-detail-freshness">✓ ${escapeHtml(relativeDateLabel('Disponibilidade verificada', property.verifiedAt))}${property.publishedAt ? ` · ${escapeHtml(relativeDateLabel('publicado', property.publishedAt).toLowerCase())}` : ''}</p>` : ''}
-          <div class="demo-detail-trust"><span>✓ Custos organizados</span><span>✓ Zona protegida</span><span>✓ Mídias reais</span></div>
+          <div class="demo-detail-trust"><span>✓ Custos organizados</span><span>✓ Zona protegida</span><span>${property.whatsappVerifiedAt ? `✓ WhatsApp verificado · ${escapeHtml(property.agencyName)}` : '✓ Contato identificado'}</span></div>
           <div class="demo-detail-grid">
             <div><span>Configuração</span><strong>${escapeHtml(roomLabel(property))} · ${property.bathrooms} ${property.bathrooms === 1 ? 'banheiro' : 'banheiros'}</strong></div>
-            <div><span>Faculdades</span><strong>${escapeHtml(property.campuses.join(' · '))}</strong></div>
+            <div><span>Faculdades</span><strong>${escapeHtml(property.campuses.length ? property.campuses.join(' · ') : 'Não informado')}</strong></div>
             <div><span>Pet</span><strong>${escapeHtml(yesNoUnknown(property.pet))}</strong></div>
             <div><span>Crianças</span><strong>${escapeHtml(yesNoUnknown(property.kids))}</strong></div>
             <div><span>Incluso</span><strong>${escapeHtml(includedLabel)}</strong></div>
@@ -857,26 +935,30 @@
     ].join('\n');
   }
 
-  function openWhatsApp(message) {
+  function openWhatsApp(message, phone = nykutoWhatsappPhone) {
     if (window.NykutoWhatsApp?.open) {
-      window.NykutoWhatsApp.open(whatsappPhone, message);
+      window.NykutoWhatsApp.open(phone, message);
       return;
     }
-    window.location.href = `whatsapp://send?phone=${whatsappPhone}&text=${encodeURIComponent(message)}`;
+    window.location.href = `whatsapp://send?phone=${phone}&text=${encodeURIComponent(message)}`;
   }
 
   function contactProperty(propertyId, intent = 'informações') {
     const property = getProperty(propertyId);
     if (!property) return;
-    openWhatsApp(propertyContactMessage(property, intent));
+    openWhatsApp(propertyContactMessage(property, intent), property.whatsappPhone || nykutoWhatsappPhone);
   }
 
   function renderWhatsAppSelection() {
     const selected = selectedFavoriteProperties();
     if (!selected.length || !whatsappSelectionList || !whatsappSelectionSummary || !whatsappSendAll) return;
+    const contactNumbers = new Set(selected.map((property) => property.whatsappPhone || nykutoWhatsappPhone));
+    const sameContact = contactNumbers.size === 1;
     whatsappSelectionSummary.textContent = selected.length === 1
       ? 'Seu imóvel favorito está pronto para ser enviado.'
-      : `Você salvou ${selected.length} imóveis. Escolha um deles ou envie todos em uma única mensagem.`;
+      : sameContact
+        ? `Você salvou ${selected.length} imóveis da mesma assessoria. Escolha um deles ou envie todos em uma única mensagem.`
+        : `Você salvou ${selected.length} imóveis de contatos diferentes. Envie cada consulta ao responsável indicado.`;
     whatsappSelectionList.innerHTML = selected.map((property) => `
       <article class="demo-whatsapp-choice">
         <img src="${escapeHtml(firstVisual(property))}" alt="" width="112" height="88" loading="lazy" />
@@ -885,17 +967,17 @@
       </article>
     `).join('');
     whatsappSendAll.textContent = `Enviar os ${selected.length} imóveis`;
-    whatsappSendAll.hidden = selected.length < 2;
+    whatsappSendAll.hidden = selected.length < 2 || !sameContact;
   }
 
   function handleWhatsAppFab() {
     const selected = selectedFavoriteProperties();
     if (!selected.length) {
-      openWhatsApp(genericContactMessage());
+      openWhatsApp(genericContactMessage(), nykutoWhatsappPhone);
       return;
     }
     if (selected.length === 1) {
-      openWhatsApp(propertyContactMessage(selected[0]));
+      openWhatsApp(propertyContactMessage(selected[0]), selected[0].whatsappPhone || nykutoWhatsappPhone);
       return;
     }
     renderWhatsAppSelection();
@@ -1087,7 +1169,9 @@
     const selected = selectedFavoriteProperties();
     if (!selected.length) return;
     closeDialog(whatsappDialog);
-    openWhatsApp(multiplePropertiesContactMessage(selected));
+    const phone = selected[0].whatsappPhone || nykutoWhatsappPhone;
+    if (selected.some((property) => (property.whatsappPhone || nykutoWhatsappPhone) !== phone)) return;
+    openWhatsApp(multiplePropertiesContactMessage(selected), phone);
   });
   document.querySelectorAll('[data-open-manager]').forEach((button) => button.addEventListener('click', () => openDialog(managerDialog)));
   document.querySelectorAll('[data-open-filters]').forEach((button) => button.addEventListener('click', () => openDialog(filterDialog)));
