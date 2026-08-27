@@ -23,6 +23,13 @@ Nykuto brings structure to both situations through two service lines under one c
 - teams needing bilingual or trilingual administrative coordination;
 - organizations preparing a remote or on-site working mission.
 
+### Nykuto Local pilot
+
+- students and residents looking for housing or practical help in Ciudad del Este;
+- people buying, selling or moving items locally;
+- frete, moving and local-service providers recruiting direct enquiries;
+- people publishing permitted purchase or pickup needs between CDE and Foz.
+
 ## Conversion path
 
 1. The homepage establishes the two service lines and the common method.
@@ -31,6 +38,14 @@ Nykuto brings structure to both situations through two service lines under one c
 4. Method and about pages establish accountability.
 5. FAQ answers risk, payment and pricing objections.
 6. Contact prepares a structured email without collecting sensitive data on the website.
+
+The separate Nykuto Local path is operational rather than commercial:
+
+1. The first viewport exposes the available categories and a `Preciso de…` action.
+2. Real estate remains a complete, immediately browsable catalogue.
+3. New categories begin as free, manually reviewed WhatsApp intake; submission does not guarantee publication.
+4. Empty categories, invented providers and unsupported popularity claims are never displayed.
+5. The site does not book, collect payment or intermediate the transaction.
 
 ## Core claims
 

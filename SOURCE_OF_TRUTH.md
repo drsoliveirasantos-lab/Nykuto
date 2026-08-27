@@ -13,6 +13,12 @@ The umbrella message is:
 
 > Le digital et l’international, réunis pour faire avancer votre entreprise.
 
+`Nykuto Local` is a progressive audience-acquisition pilot for Ciudad del Este
+and Foz do Iguaçu. It is not a third regulated business line or a full
+transaction platform. Its first release keeps the existing property catalogue
+active and opens free, manually reviewed WhatsApp intake for local marketplace,
+frete, service and permitted Foz purchase or pickup requests.
+
 ## Positioning rules
 
 Nykuto is a consultancy and coordination business. It is not a bank, payment institution, acquirer, law firm or accounting firm.
@@ -44,6 +50,8 @@ The current production source of truth is the static root site:
 
 - root HTML pages;
 - `styles.css`, `i18n.js` and `script.js`;
+- `demo-imobiliaria.html`, `demo-imobiliaria.css`, `demo-imobiliaria.js` and
+  `nykuto-local.js` for the autonomous local portal;
 - `assets/`, `favicon.svg`, `robots.txt`, `sitemap.xml` and `_headers`;
 - `scripts/prepare-cloudflare-output.js`;
 - `gestor/` for the private real-estate manager pilot interface;
@@ -102,8 +110,19 @@ international E.164 form. Drafts may exist without a confirmed contact, but a
 listing cannot be published, reserved or availability-verified until that
 number has been manually confirmed. Changing the number removes the previous
 confirmation. Public property enquiries use the verified number of the listing
-owner; Nykuto's own business number remains reserved for sales, pass renewal and
-manual profile confirmation.
+owner; Nykuto's own business number remains reserved for sales, pass renewal,
+manual profile confirmation and explicit Nykuto Local launch intake. Once a
+non-property offer is published with a verified provider contact, its enquiry
+must route directly to that provider instead of making Nykuto an undisclosed
+transaction intermediary.
+
+The Nykuto Local request composer stores nothing in the site or D1. It prepares
+a structured WhatsApp message only after the visitor submits it. Non-property
+categories must be presented as registration or request intake until genuine,
+reviewed offers exist. Submission never guarantees publication; never invent
+listings, providers, volumes or popularity.
+Foz-related copy must exclude prohibited goods and remind users that applicable
+fiscal and customs rules remain their responsibility.
 
 ## Languages
 
