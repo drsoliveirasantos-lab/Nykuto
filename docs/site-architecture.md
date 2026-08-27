@@ -7,7 +7,7 @@ Nykuto is a static multi-page website deployed through Cloudflare Pages.
 Two Cloudflare Pages projects consume the same `main` branch:
 
 - `nykuto` publishes the complete commercial site on `nykuto.com`;
-- `nykuto-demo` publishes the autonomous real-estate demonstration at the root of
+- `nykuto-demo` publishes the autonomous Nykuto Local experience at the root of
   `demo.nykuto.com` by copying `demo-imobiliaria.html` to `index.html` during
   its build. Its production build command is
   `cp demo-imobiliaria.html index.html`, with `/` as the output directory.
@@ -22,7 +22,7 @@ index.html                     Homepage
 offres.html                    Nykuto Digital
 international.html             Nykuto Business International
 exemples.html                  Illustrative scenarios
-demo-imobiliaria.html          Autonomous interactive real-estate demo
+demo-imobiliaria.html          Autonomous Nykuto Local homepage
 imoveis/index.html             Complete searchable property catalogue
 mapa/index.html                Map-focused property search
 favoritos/index.html           Device-local saved-property selection
@@ -46,6 +46,7 @@ demo-imobiliaria.css           Real-estate demo interface styles
 i18n.js                        FR/EN/PT/ES translations and language state
 script.js                      Shared interactions
 demo-imobiliaria.js            Static demo inventory, filters, map and dialogs
+nykuto-local.js                Local request composer and WhatsApp handoff
 assets/                        Production images
 assets/demo-imobiliaria/       Optimised, neutralised real-estate demo media
 assets/nykuto-emblem.webp      Production brand emblem
@@ -90,16 +91,28 @@ Before a framework migration:
 - no invented proof or unsupported claim;
 - responsive and keyboard-accessible interactions.
 
-`demo-imobiliaria.html` is the autonomous property homepage linked from the
+`demo-imobiliaria.html` is the autonomous Nykuto Local homepage linked from the
 Nykuto commercial site and published canonically on `demo.nykuto.com`. The
-subdomain opens directly on the real-estate experience: it does not reproduce
-the commercial header, scenario introduction, browser mockup, sales CTA or
-commercial-site footer. Main navigation uses dedicated static routes instead
-of scrolling every destination inside the homepage: `/imoveis/` for the full
-catalogue, `/mapa/` for map-first search, `/favoritos/` for the visitor's local
-selection and `/anunciar/` for the owner/agency offer. A compact in-app footer
-keeps the illustrative nature of the inventory visible without interrupting
-the property journey.
+subdomain now opens on a progressive CDE–Foz marketplace gateway: the first
+viewport exposes real estate, buying/selling, fretes, local services, Foz
+requests and a `Preciso de…` composer. Real estate remains the only complete
+catalogue in the first release. The other categories are explicitly labelled as
+free registration or request intake while genuine supply is recruited, so the
+portal never shows empty catalogues or invented offers.
+
+`nykuto-local.js` controls one client-side request dialog. It collects category,
+need, origin, optional destination, timing, optional budget and details, then
+prepares a structured WhatsApp message to Nykuto for manual review. It does not
+send or persist anything before the visitor confirms the WhatsApp action. Foz
+requests display a permitted-goods and customs reminder. This launch intake is
+not a booking, payment, logistics or transaction flow.
+
+The property experience remains on dedicated static routes: `/imoveis/` for the
+full catalogue, `/mapa/` for map-first search, `/favoritos/` for the visitor's
+local selection and `/anunciar/` for both launch registration choices and the
+existing owner/agency offer. The property manager, Functions and D1 schema stay
+property-specific. A compact in-app footer keeps the illustrative nature of the
+inventory visible without interrupting the journey.
 
 The demo uses owner-supplied photos and videos of real Ciudad del Este
 properties that were neutralised before publication and stripped of embedded
@@ -111,8 +124,8 @@ property address is stored or displayed. OpenStreetMap attribution remains
 visible in the map. The demo has no paid mapping API, live client account,
 payment flow, booking flow or production property database.
 
-The public journey prioritises the property search before any commercial
-message. Property cards include an in-page media carousel, deliberate visual
+Within the real-estate routes, the public journey prioritises property search
+before any commercial message. Property cards include an in-page media carousel, deliberate visual
 privacy masks over neutralised areas, favourites stored locally and a comparison
 flow. Cards and price markers are synchronised: selecting either highlights the
 corresponding approximate area, while map markers open a compact property
@@ -120,13 +133,14 @@ preview before the full detail sheet. The detail sheet groups media, monthly and
 entry costs, approximate distances and privacy information. Contact buttons open
 the WhatsApp number verified on the listing owner's profile with a structured,
 pre-filled enquiry; the site does not store or transmit the visitor's message
-itself. Nykuto's own number remains the destination for platform sales and pass
-renewals. A persistent WhatsApp button uses locally saved favourites as the
+itself. Nykuto's own number remains the destination for platform sales, pass
+renewals and explicit Nykuto Local launch intake. A persistent WhatsApp button uses locally saved favourites as the
 visitor's selection and can send either one property or a concise multi-property
 request when the selected properties share a contact. Different owners remain
-separate so no enquiry is sent to the wrong manager. On small screens,
-filters use a bottom sheet and a fixed navigation bar provides direct access to
-listings, map, favourites and the owner journey.
+separate so no enquiry is sent to the wrong manager. On small screens, filters
+use a bottom sheet. The local homepage uses a fixed four-action bar for
+exploration, properties, `Preciso de…` and publication; property routes keep
+their listing, map, favourites and owner navigation.
 
 Each illustrative property also has a static `/imovel/<reference>/` share page
 with its own Open Graph title, description and neutralised cover image. These

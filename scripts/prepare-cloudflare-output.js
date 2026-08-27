@@ -21,6 +21,7 @@ const staticFiles = [
   'i18n.js',
   'script.js',
   'demo-imobiliaria.js',
+  'nykuto-local.js',
   'whatsapp-launcher.js',
   'favicon.svg',
   'robots.txt',

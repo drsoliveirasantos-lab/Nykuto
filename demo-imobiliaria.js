@@ -743,7 +743,7 @@
         ? 'Enviar 1 favorito'
         : `Enviar ${count} favoritos`;
     whatsappFab.setAttribute('aria-label', count === 0
-      ? 'Falar com a Assessoria Nykuto pelo WhatsApp'
+      ? 'Falar pelo WhatsApp'
       : `Consultar ${count} ${count === 1 ? 'imóvel favorito' : 'imóveis favoritos'} pelo WhatsApp`);
   }
 
@@ -928,6 +928,13 @@
   }
 
   function genericContactMessage() {
+    if (pageMode === 'home') {
+      return [
+        'Olá! Conheci o Nykuto Local e gostaria de orientação.',
+        '',
+        'Quero encontrar ou publicar algo em Ciudad del Este / Foz do Iguaçu.'
+      ].join('\n');
+    }
     return [
       'Olá! Estou procurando um imóvel em Ciudad del Este.',
       '',
