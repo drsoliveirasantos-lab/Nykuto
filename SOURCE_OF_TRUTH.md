@@ -119,7 +119,8 @@ transaction intermediary.
 The Nykuto Local request composer stores nothing in the site or D1. It prepares
 a structured WhatsApp message only after the visitor submits it. Non-property
 categories must be presented as registration or request intake until genuine,
-reviewed offers exist; never invent listings, providers, volumes or popularity.
+reviewed offers exist. Submission never guarantees publication; never invent
+listings, providers, volumes or popularity.
 Foz-related copy must exclude prohibited goods and remind users that applicable
 fiscal and customs rules remain their responsibility.
 

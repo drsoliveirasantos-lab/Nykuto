@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#174f43" />
   <title>Nykuto Local — Imóveis, fretes e serviços em CDE e Foz</title>
-  <meta name="description" content="Encontre imóveis e publique pedidos de frete, serviços, produtos e compras em Foz. Cadastro gratuito no lançamento e contato pelo WhatsApp." />
+  <meta name="description" content="Explore imóveis e cadastre pedidos de frete, serviços, produtos e compras em Foz. Pré-inscrição gratuita no lançamento e contato pelo WhatsApp." />
   <link rel="canonical" href="https://demo.nykuto.com/" />
   <link rel="icon" href="/assets/nykuto-emblem-favicon.png" type="image/png" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="pt_BR" />
   <meta property="og:site_name" content="Nykuto" />
   <meta property="og:title" content="Nykuto Local — CDE e Foz pelo WhatsApp" />
-  <meta property="og:description" content="Imóveis disponíveis agora e cadastros gratuitos para marketplace, fretes, serviços e compras em Foz." />
+  <meta property="og:description" content="Vitrine imobiliária demonstrativa e pré-inscrições gratuitas para marketplace, fretes, serviços e compras em Foz." />
   <meta property="og:url" content="https://demo.nykuto.com/" />
   <meta property="og:image" content="https://demo.nykuto.com/assets/demo-imobiliaria/demo-imobiliaria-og.jpg" />
   <meta property="og:image:width" content="1200" />
@@ -20,14 +20,14 @@
   <meta property="og:image:alt" content="Prévia da experiência local criada pela Nykuto" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Nykuto Local — CDE e Foz pelo WhatsApp" />
-  <meta name="twitter:description" content="Encontre imóveis ou publique gratuitamente o que precisa em CDE e Foz." />
+  <meta name="twitter:description" content="Explore imóveis ou cadastre gratuitamente o que precisa em CDE e Foz." />
   <meta name="twitter:image" content="https://demo.nykuto.com/assets/demo-imobiliaria/demo-imobiliaria-og.jpg" />
   <link rel="stylesheet" href="styles.css?v=20260823-1" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-  <link rel="stylesheet" href="demo-imobiliaria.css?v=20260827-1" />
+  <link rel="stylesheet" href="demo-imobiliaria.css?v=20260827-2" />
 </head>
 <body class="real-estate-demo-page" data-demo-page="home" data-whatsapp-phone="33768345608">
-  <a class="skip-link" href="#demo-inicio">Ir para o conteúdo principal</a>
+  <a class="skip-link" href="#categorias-locais">Ir para as categorias</a>
   <main id="conteudo">
     <section class="property-demo-shell" aria-labelledby="demo-app-title">
       <div class="property-demo-app">
@@ -43,7 +43,7 @@
             <a href="/favoritos/">Favoritos</a>
           </nav>
           <div class="demo-header-actions">
-            <a class="demo-owner-link" href="/anunciar/">Publicar grátis</a>
+            <a class="demo-owner-link" href="/anunciar/">Cadastrar grátis</a>
             <a class="demo-manager-button" href="/gestor/login/" aria-label="Entrar na área da assessoria"><span aria-hidden="true">▣</span> Entrar</a>
           </div>
         </header>
@@ -52,10 +52,10 @@
           <div class="nykuto-local-copy">
             <p class="demo-property-kicker"><span></span> Marketplace local · CDE ↔ Foz</p>
             <h1 id="demo-app-title">Encontre o que precisa. Resolva pelo WhatsApp.</h1>
-            <p>Imóveis para consultar agora e um caminho simples para publicar pedidos de compra, venda, frete, serviço ou retirada em Foz.</p>
+            <p>Uma vitrine imobiliária demonstrativa para explorar e um caminho simples para cadastrar pedidos de compra, venda, frete, serviço ou retirada em Foz.</p>
             <div class="nykuto-local-actions">
-              <button type="button" data-open-request>Publicar o que preciso <span aria-hidden="true">↗</span></button>
-              <a href="/imoveis/">Ver imóveis disponíveis</a>
+              <button type="button" data-open-request>Cadastrar o que preciso <span aria-hidden="true">↗</span></button>
+              <a href="/imoveis/">Explorar vitrine imobiliária</a>
             </div>
             <div class="nykuto-local-trust" aria-label="Como funciona no lançamento">
               <span><b>01</b> Cadastro gratuito</span>
@@ -63,28 +63,28 @@
               <span><b>03</b> Conversa no WhatsApp</span>
             </div>
           </div>
-          <aside class="nykuto-local-chooser" aria-label="Categorias do Nykuto Local">
+          <aside class="nykuto-local-chooser" id="categorias-locais" aria-label="Categorias do Nykuto Local">
             <header><span>Comece por aqui</span><strong>O que você precisa hoje?</strong><small>As novas áreas entram por cadastro gratuito enquanto o catálogo cresce.</small></header>
             <div class="nykuto-local-category-grid">
-              <a href="/imoveis/"><span aria-hidden="true">⌂</span><div><strong>Imóveis</strong><small>5 opções para comparar</small></div><b>Disponível</b></a>
+              <a href="/imoveis/"><span aria-hidden="true">⌂</span><div><strong>Imóveis</strong><small>5 opções demonstrativas</small></div><b>Vitrine navegável</b></a>
               <button type="button" data-open-request data-request-category="Compra e venda"><span aria-hidden="true">▣</span><div><strong>Comprar ou vender</strong><small>Móveis, eletrônicos e mais</small></div><b>Cadastro aberto</b></button>
               <button type="button" data-open-request data-request-category="Frete ou mudança"><span aria-hidden="true">▤</span><div><strong>Fretes e mudanças</strong><small>CDE, Foz e região</small></div><b>Cadastro aberto</b></button>
               <button type="button" data-open-request data-request-category="Serviço local"><span aria-hidden="true">◇</span><div><strong>Serviços locais</strong><small>Instalação, limpeza, reparo</small></div><b>Cadastro aberto</b></button>
               <button type="button" data-open-request data-request-category="Compra ou retirada em Foz"><span aria-hidden="true">↔</span><div><strong>Compras em Foz</strong><small>Compra, retirada ou entrega</small></div><b>Cadastro aberto</b></button>
-              <button class="nykuto-local-need-card" type="button" data-open-request><span aria-hidden="true">＋</span><div><strong>Preciso de…</strong><small>Descreva uma necessidade diferente</small></div><b>Publicar</b></button>
+              <button class="nykuto-local-need-card" type="button" data-open-request><span aria-hidden="true">＋</span><div><strong>Preciso de…</strong><small>Descreva uma necessidade diferente</small></div><b>Cadastrar</b></button>
             </div>
           </aside>
         </section>
 
         <section class="nykuto-local-launch-note" aria-label="Situação atual das categorias">
           <div><span aria-hidden="true">●</span><strong>O catálogo começa pelo que já existe.</strong></div>
-          <p>Os imóveis permanecem completos. Marketplace, fretes, serviços e Foz abrem primeiro para pedidos e cadastros reais — sem preencher a página com anúncios inventados.</p>
+          <p>A vitrine imobiliária demonstrativa permanece completa. Marketplace, fretes, serviços e Foz abrem primeiro para pedidos e cadastros reais — sem preencher a página com anúncios inventados.</p>
           <a href="/anunciar/">Tenho algo para anunciar <span aria-hidden="true">→</span></a>
         </section>
 
         <section class="demo-inventory" id="demo-imoveis">
           <div class="demo-inventory-heading">
-            <div><p>Disponível agora</p><h2>Imóveis em Ciudad del Este</h2><span data-results-summary aria-live="polite">5 opções para comparar</span></div>
+            <div><p>Demonstração navegável</p><h2>Vitrine imobiliária em Ciudad del Este</h2><span data-results-summary aria-live="polite">5 opções demonstrativas</span></div>
             <div class="demo-view-switch" role="group" aria-label="Modo de visualização">
               <button class="active" type="button" data-view="split" aria-pressed="true"><span aria-hidden="true">▦</span> Lista</button>
               <button type="button" data-view="map" aria-pressed="false"><span aria-hidden="true">⌖</span> Mapa</button>
@@ -117,7 +117,7 @@
           <div><p>Simples desde o início</p><h2>Do pedido ao WhatsApp em três passos.</h2></div>
           <ol>
             <li><span>01</span><strong>Conte o que precisa</strong><p>Escolha a categoria, o local e quando precisa resolver.</p></li>
-            <li><span>02</span><strong>Nykuto organiza o pedido</strong><p>O cadastro é revisado antes de entrar na seleção local.</p></li>
+            <li><span>02</span><strong>Nykuto avalia o cadastro</strong><p>A pré-inscrição é revisada para a fase de lançamento, sem garantia de publicação.</p></li>
             <li><span>03</span><strong>Combine pelo WhatsApp</strong><p>O contato continua direto, sem uma nova caixa de mensagens.</p></li>
           </ol>
         </section>
@@ -126,9 +126,9 @@
           <div class="demo-owner-copy">
             <p>Para quem vende ou presta serviços</p>
             <h2 id="demo-owner-title">Traga a oferta. A Nykuto organiza o caminho até o WhatsApp.</h2>
-            <span>Cadastre gratuitamente no lançamento um produto, frete, serviço, necessidade em Foz ou imóvel. As áreas novas entram de forma progressiva, com revisão antes da publicação.</span>
+            <span>Cadastre gratuitamente no lançamento um produto, frete, serviço, necessidade em Foz ou imóvel. As áreas novas entram de forma progressiva; o envio é uma pré-inscrição e não garante publicação.</span>
             <div class="demo-owner-actions">
-              <a href="/anunciar/">Publicar grátis <span aria-hidden="true">↗</span></a>
+              <a href="/anunciar/">Cadastrar grátis <span aria-hidden="true">↗</span></a>
               <a href="/gestor/login/">Gestão de imóveis</a>
             </div>
           </div>
@@ -140,7 +140,7 @@
         </section>
         <footer class="demo-app-footer">
           <span><strong>Nykuto Local</strong> · CDE ↔ Foz</span>
-          <span>Novas categorias em lançamento · <a href="https://nykuto.com/confidentialite">Privacidade</a></span>
+          <span>Dados imobiliários ilustrativos · <a href="https://nykuto.com/confidentialite">Privacidade</a></span>
           <a href="https://nykuto.com/contact">Criado por Nykuto <span aria-hidden="true">↗</span></a>
         </footer>
       </div>
@@ -168,7 +168,7 @@
         <div><span>Cadastro gratuito no lançamento</span><h2 id="request-dialog-title">O que você precisa?</h2></div>
         <button type="button" data-close-request aria-label="Fechar pedido">×</button>
       </header>
-      <p class="nykuto-request-intro">Preencha o essencial. O pedido abre pronto no WhatsApp para revisão antes da publicação.</p>
+      <p class="nykuto-request-intro">Preencha o essencial. O pedido abre pronto no WhatsApp para avaliação na fase de lançamento.</p>
       <div class="nykuto-request-grid">
         <label><span>Categoria</span><select name="category" required><option value="">Selecione</option><option>Compra e venda</option><option>Frete ou mudança</option><option>Serviço local</option><option>Compra ou retirada em Foz</option><option>Imóvel</option><option>Outro pedido</option></select></label>
         <label class="nykuto-request-wide"><span>O que você precisa?</span><input name="need" type="text" maxlength="120" placeholder="Ex.: preciso de um frete para amanhã" required /></label>
@@ -178,7 +178,7 @@
         <label><span>Orçamento <small>(opcional)</small></span><input name="budget" type="text" maxlength="40" placeholder="R$, Gs. ou a combinar" /></label>
         <label class="nykuto-request-wide"><span>Detalhes úteis <small>(opcional)</small></span><textarea name="details" maxlength="360" rows="3" placeholder="Tamanho, quantidade, horário ou outra informação importante"></textarea></label>
       </div>
-      <p class="nykuto-request-customs" data-foz-notice hidden><strong>Compras em Foz:</strong> publique somente produtos permitidos e respeite as regras fiscais e aduaneiras aplicáveis.</p>
+      <p class="nykuto-request-customs" data-foz-notice role="status" aria-live="polite" hidden><strong>Compras em Foz:</strong> cadastre somente produtos permitidos e respeite as regras fiscais e aduaneiras aplicáveis.</p>
       <p class="nykuto-request-privacy">Nada é armazenado por este formulário. Você confere a mensagem antes de enviá-la pelo WhatsApp.</p>
       <footer class="nykuto-request-actions"><button type="button" data-close-request>Agora não</button><button type="submit">Continuar no WhatsApp <span aria-hidden="true">↗</span></button></footer>
     </form>
@@ -249,7 +249,7 @@
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
   <script src="whatsapp-launcher.js?v=20260823-2" defer></script>
-  <script src="demo-imobiliaria.js?v=20260824-1" defer></script>
-  <script src="nykuto-local.js?v=20260827-1" defer></script>
+  <script src="demo-imobiliaria.js?v=20260827-2" defer></script>
+  <script src="nykuto-local.js?v=20260827-2" defer></script>
 </body>
 </html>

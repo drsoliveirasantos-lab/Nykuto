@@ -642,7 +642,7 @@
     renderMap(filtered);
     resultsSummary.textContent = state.favoritesOnly
       ? `${filtered.length} ${filtered.length === 1 ? 'favorito salvo' : 'favoritos salvos'}`
-      : `${filtered.length} ${filtered.length === 1 ? 'opção encontrada' : 'opções encontradas'}`;
+      : `${filtered.length} ${filtered.length === 1 ? 'opção demonstrativa' : 'opções demonstrativas'}`;
     const emptyTitle = emptyState?.querySelector('h3');
     const emptyCopy = emptyState?.querySelector('p');
     if (emptyTitle && emptyCopy) {

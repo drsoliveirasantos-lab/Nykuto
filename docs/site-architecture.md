@@ -139,7 +139,7 @@ visitor's selection and can send either one property or a concise multi-property
 request when the selected properties share a contact. Different owners remain
 separate so no enquiry is sent to the wrong manager. On small screens, filters
 use a bottom sheet. The local homepage uses a fixed four-action bar for
-exploration, properties, `Preciso de…` and publication; property routes keep
+exploration, properties, `Preciso de…` and registration; property routes keep
 their listing, map, favourites and owner navigation.
 
 Each illustrative property also has a static `/imovel/<reference>/` share page

@@ -52,7 +52,7 @@
     const details = String(data.get('details') || '').trim();
 
     const lines = [
-      'Olá! Quero publicar um pedido gratuito no Nykuto Local.',
+      'Olá! Quero cadastrar um pedido gratuito no Nykuto Local.',
       '',
       `Categoria: ${category}`,
       `Preciso de: ${need}`,
@@ -62,7 +62,7 @@
       budget ? `Orçamento: ${budget}` : '',
       details ? `Detalhes: ${details}` : '',
       '',
-      'Pode revisar meu pedido e me orientar para a publicação?'
+      'Pode avaliar meu cadastro para a fase de lançamento? Entendo que o envio não garante publicação.'
     ].filter(Boolean);
 
     if (category === 'Compra ou retirada em Foz') {

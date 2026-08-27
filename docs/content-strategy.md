@@ -43,7 +43,7 @@ The separate Nykuto Local path is operational rather than commercial:
 
 1. The first viewport exposes the available categories and a `Preciso de…` action.
 2. Real estate remains a complete, immediately browsable catalogue.
-3. New categories begin as free, manually reviewed WhatsApp intake.
+3. New categories begin as free, manually reviewed WhatsApp intake; submission does not guarantee publication.
 4. Empty categories, invented providers and unsupported popularity claims are never displayed.
 5. The site does not book, collect payment or intermediate the transaction.
 
