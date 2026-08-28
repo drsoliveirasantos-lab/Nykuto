@@ -5,6 +5,7 @@ import {
   LOCAL_LISTING_KINDS,
   LOCAL_PRICE_MODES,
   LOCAL_SUBCATEGORIES,
+  LOCAL_ZONE_RADII,
   MAX_MEDIA_BYTES,
   MAX_MEDIA_COUNT,
   MAX_TOTAL_MEDIA_BYTES,
@@ -231,12 +232,13 @@ function validateListing(value) {
   const logistics = cleanStringList(value?.logistics);
   let fees = cleanFeeList(value?.fees);
   let zoneLabel = cleanLocalText(value?.zoneLabel, 2, 100);
-  const zoneLat = cleanCoordinate(value?.zoneLatitude, -25.9, -24.8);
-  const zoneLng = cleanCoordinate(value?.zoneLongitude, -55.1, -54.2);
+  const zoneRadiusMeters = LOCAL_ZONE_RADII.has(Number(value?.zoneRadiusMeters)) ? Number(value.zoneRadiusMeters) : null;
+  const zoneLat = cleanCoordinate(value?.zoneLatitude, -25.9, -24.8, 4);
+  const zoneLng = cleanCoordinate(value?.zoneLongitude, -55.1, -54.2, 4);
   const sourceUrl = cleanSourceUrl(value?.sourceUrl);
   const sourceOwnerConsent = value?.sourceOwnerConsent === true;
 
-  if (!kind || !category || !subcategory || !LOCAL_SUBCATEGORIES[category]?.has(subcategory) || !title || description === null || !priceMode || (needsPrice && (priceAmount === null || !currency)) || !condition || !availability || !zoneLabel || zoneLat === null || zoneLng === null || sourceUrl === null) return null;
+  if (!kind || !category || !subcategory || !LOCAL_SUBCATEGORIES[category]?.has(subcategory) || !title || description === null || !priceMode || (needsPrice && (priceAmount === null || !currency)) || !condition || !availability || !zoneLabel || zoneLat === null || zoneLng === null || !zoneRadiusMeters || sourceUrl === null) return null;
   if (sourceUrl && !sourceOwnerConsent) return null;
   let rideSearchValues = [];
   if (category === LOCAL_RIDE_CATEGORY) {
@@ -246,9 +248,14 @@ function validateListing(value) {
     const ride = validateRideDetails(value?.fees, { kind, subcategory, availability, zoneLabel });
     if (!ride) return null;
     fees = ride.fees;
+    const destinationLatitude = cleanCoordinate(value?.rideDestinationLatitude, -25.9, -24.8, 4);
+    const destinationLongitude = cleanCoordinate(value?.rideDestinationLongitude, -55.1, -54.2, 4);
+    if (destinationLatitude === null || destinationLongitude === null) return null;
+    fees.push({ label: 'Coordenadas do destino', value: `${destinationLatitude},${destinationLongitude}` });
     rideSearchValues = ride.searchValues;
     title = ride.publicTitle;
   }
+  fees.push({ label: 'Raio público', value: String(zoneRadiusMeters) });
   if (containsBlockedContent(submittedTitle, title, description, subcategory, condition, availability, zoneLabel, ...logistics, ...fees.map((fee) => `${fee.label} ${fee.value}`))) return { blocked: true };
   return {
     kind,
