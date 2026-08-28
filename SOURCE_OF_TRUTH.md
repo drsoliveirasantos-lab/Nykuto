@@ -123,14 +123,18 @@ until an OTP mechanism exists, instead of making Nykuto an undisclosed
 transaction intermediary.
 
 The Nykuto Local catalogue reads genuine public offers and requests from the
-separate `LOCAL_DB` D1 database. The public `Anunciar` wizard publishes directly
-after server validation and Turnstile. It may collect category, subtype, title,
-description, price or contribution, condition, costs, logistics, an address
-reference, seller name, optional email, seller WhatsApp and up to five images.
-Images are re-encoded in the browser to remove embedded metadata and limited to
-300 KB each. Until account-level R2 is enabled, the pilot may use the explicit
-D1 media fallback with a 1.25 MB total per publication; `LOCAL_MEDIA` becomes
-the preferred private storage binding as soon as R2 is available.
+separate `LOCAL_DB` D1 database. Except for shared rides, public `Anunciar` is a
+direct single-page form: category and subtype, title, optional description,
+price or contribution, up to five images, an approximate public zone and the
+author's name and WhatsApp. Category-specific operational values that are not
+part of this essential form use neutral public defaults such as `A combinar` or
+`Sob consulta`; the interface must not infer a product's state, a vehicle type
+or an availability claim. Publication remains direct after server validation
+and Turnstile. Images are re-encoded in the browser to
+remove embedded metadata and limited to 300 KB each. Until account-level R2 is
+enabled, the pilot may use the explicit D1 media fallback with a 1.25 MB total
+per publication; `LOCAL_MEDIA` becomes the preferred private storage binding as
+soon as R2 is available.
 
 The publisher profile is a real, passwordless, cookie-backed session on the
 current device. It lets the author update contact data, pause, republish, mark
@@ -139,11 +143,12 @@ as active until the owner's OAuth applications and recovery flow are configured.
 The public WhatsApp number is user-supplied and must be described as unverified
 until an OTP or WhatsApp Business verification mechanism exists.
 
-`Preciso de…` opens the same autonomous wizard with `listing_kind=request`; it
-never sends a request to Nykuto's WhatsApp. External listings are never scraped
-or copied automatically. A publisher may provide a source URL only after
-confirming that they are the author or have express permission to reuse the text
-and images. The public page keeps a safe original-source link.
+`Preciso de…` opens the same direct single-page form with
+`listing_kind=request`; it never sends a request to Nykuto's WhatsApp. External
+listings are never scraped
+or copied automatically. The direct form does not expose source-link
+republication. Any future managed import must require the author or rights
+holder's express permission and keep a safe original-source link.
 
 `Carona compartilhada` has a dedicated route-first journey while reusing the
 same listing model. The public catalogue can search approximate origin,

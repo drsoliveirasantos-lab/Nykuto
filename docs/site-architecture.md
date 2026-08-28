@@ -27,7 +27,7 @@ imoveis/index.html             Complete searchable property catalogue
 mapa/index.html                Map-focused property search
 favoritos/index.html           Device-local saved-property selection
 anunciar/index.html            Autonomous listing/request publication journey
-anunciar/anunciar.js           Wizard, image optimisation and API publication
+anunciar/anunciar.js           Direct form, carpool flow, images and API publication
 anuncio/index.html             Public local-listing detail shell
 anuncio/anuncio.js             Gallery, zone/route map, WhatsApp and reporting
 conta/index.html               Lightweight publisher profile and listing controls
@@ -105,8 +105,8 @@ product and service categories, subcategories and the separate `Anunciar`
 action are visible before the real-estate demonstration. `Comprar` never links
 to the seller form. Product and service cards come from the public local API;
 clearly labelled illustrative cards appear only when a live category is empty.
-`Preciso de…` opens the same autonomous wizard in request mode and never routes
-the user to Nykuto's WhatsApp.
+`Preciso de…` opens the same direct single-page form in request mode and never
+routes the user to Nykuto's WhatsApp.
 
 `nykuto-local.js` loads offers from `GET /api/local/listings`, handles category,
 subcategory and text search, and links every genuine card to `/anuncio/?id=`.
@@ -116,10 +116,13 @@ delivery, booking or dispute handling.
 
 The property experience remains on dedicated static routes: `/imoveis/` for the
 full catalogue, `/mapa/` for map-first search, `/favoritos/` for the visitor's
-local selection and `/anunciar/` for an immediate five-stage publication flow.
-The wizard collects category, subtype, title, photos, price or contribution,
-condition, category-specific costs, logistics, an approximate area and the
-author's direct contact. After client-side image re-encoding, the server validates
+local selection and `/anunciar/` for direct publication. Except for shared
+rides, `/anunciar/` is a single page limited to the essential public inputs:
+category and subtype, title, optional description, price or contribution,
+photos, an approximate area and the author's name and WhatsApp. Hidden
+category-specific operational values use neutral defaults (`A combinar` or
+`Sob consulta`) so the interface never invents a condition, vehicle type or
+availability claim. After client-side image re-encoding, the server validates
 Turnstile and publishes atomically to a separate `LOCAL_DB` D1 database.
 
 The preferred image store is the private `LOCAL_MEDIA` R2 binding. Because R2

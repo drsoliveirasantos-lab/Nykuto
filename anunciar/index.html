@@ -10,7 +10,7 @@
   <link rel="icon" href="/assets/nykuto-emblem-favicon.png" type="image/png" />
   <link rel="stylesheet" href="/styles.css?v=20260823-1" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-  <link rel="stylesheet" href="/demo-imobiliaria.css?v=20260828-4" />
+  <link rel="stylesheet" href="/demo-imobiliaria.css?v=20260828-5" />
 </head>
 <body class="real-estate-demo-page" data-demo-page="announce" data-whatsapp-phone="33768345608">
   <a class="skip-link" href="#anuncio-etapa-1">Ir para o cadastro</a>
@@ -77,21 +77,22 @@
                 <label class="nykuto-field nykuto-field-wide"><span>Título do anúncio</span><input name="title" type="text" maxlength="80" autocomplete="off" placeholder="Ex.: Sofá 3 lugares em ótimo estado" required /></label>
                 <label class="nykuto-field nykuto-field-wide"><span>Descrição <small>(opcional)</small></span><textarea name="description" maxlength="500" rows="4" placeholder="Tamanho, marca, detalhes, disponibilidade…"></textarea></label>
 
-                <div class="nykuto-field nykuto-field-wide">
-                  <span>Fotos <small>(até 5)</small></span>
-                  <label class="nykuto-photo-picker">
-                    <input name="photos" type="file" accept="image/jpeg,image/png,image/webp" multiple />
-                    <span aria-hidden="true">＋</span><strong>Adicionar fotos</strong><small>JPG, PNG ou WebP · até 10 MB cada</small>
-                  </label>
-                  <div class="nykuto-photo-preview" data-photo-preview aria-live="polite"></div>
-                  <p class="nykuto-field-help" data-photo-help role="status" aria-live="polite">As fotos serão otimizadas antes da publicação.</p>
-                </div>
-
                 <label class="nykuto-field"><span>Moeda</span><select name="currency"><option value="R$">R$</option><option value="Gs.">Gs.</option><option value="US$">US$</option></select></label>
                 <label class="nykuto-field"><span data-price-label>Preço</span><input name="price" type="text" inputmode="decimal" maxlength="20" placeholder="0,00" aria-label="Preço, somente números" /></label>
-                <label class="nykuto-field"><span data-price-mode-label>Forma do preço</span><select name="priceMode"><option value="">Selecione</option><option>Preço fixo</option><option>Negociável</option><option>Sob consulta</option><option>Grátis</option></select></label>
+                <label class="nykuto-field" data-price-mode-field><span data-price-mode-label>Forma do preço</span><select name="priceMode"><option value="">Selecione</option><option>Preço fixo</option><option>Negociável</option><option>Sob consulta</option><option>Grátis</option></select></label>
                 <label class="nykuto-field" data-condition-field><span data-condition-label>Estado</span><select name="condition" data-condition-select></select></label>
-                <label class="nykuto-field nykuto-field-wide"><span>Link de outro anúncio <small>(opcional)</small></span><input name="sourceUrl" type="url" maxlength="500" inputmode="url" placeholder="Ex.: seu anúncio no Facebook Marketplace" /></label>
+
+                <div class="nykuto-field nykuto-field-wide">
+                  <span>Importar imagens <small>(até 5)</small></span>
+                  <label class="nykuto-photo-picker">
+                    <input name="photos" type="file" accept="image/jpeg,image/png,image/webp" multiple />
+                    <span aria-hidden="true">＋</span><strong>Adicionar imagens</strong><small>JPG, PNG ou WebP · até 10 MB cada</small>
+                  </label>
+                  <div class="nykuto-photo-preview" data-photo-preview aria-live="polite"></div>
+                  <p class="nykuto-field-help" data-photo-help role="status" aria-live="polite">As imagens serão otimizadas antes da publicação.</p>
+                </div>
+
+                <label class="nykuto-field nykuto-field-wide" data-source-url-field><span>Link de outro anúncio <small>(opcional)</small></span><input name="sourceUrl" type="url" maxlength="500" inputmode="url" placeholder="Ex.: seu anúncio no Facebook Marketplace" /></label>
                 <label class="nykuto-profile-memory nykuto-field-wide" data-source-consent hidden><input type="checkbox" name="sourceOwnerConsent" /><span>Sou o autor deste anúncio e autorizo a republicação dos dados e fotos que eu enviar.</span></label>
               </div>
             </section>
@@ -180,6 +181,6 @@
   <nav class="demo-mobile-nav" aria-label="Navegação móvel"><a href="/"><span aria-hidden="true">⌕</span> Comprar</a><a href="/imoveis/"><span aria-hidden="true">⌂</span> Imóveis</a><a class="nykuto-mobile-announce" href="/anunciar/" aria-current="page"><span aria-hidden="true">＋</span> Anunciar</a><a href="/conta/"><span aria-hidden="true">◎</span> Perfil</a></nav>
   <div class="demo-toast" data-demo-toast-output role="status" aria-live="polite" hidden></div>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
-  <script src="/anunciar/anunciar.js?v=20260828-4" defer></script>
+  <script src="/anunciar/anunciar.js?v=20260828-5" defer></script>
 </body>
 </html>

@@ -15,6 +15,8 @@
   const conditionField = form.querySelector('[data-condition-field]');
   const conditionLabel = form.querySelector('[data-condition-label]');
   const conditionSelect = form.querySelector('[data-condition-select]');
+  const priceModeField = form.querySelector('[data-price-mode-field]');
+  const sourceUrlField = form.querySelector('[data-source-url-field]');
   const logisticsOptions = form.querySelector('[data-logistics-options]');
   const extraCosts = form.querySelector('[data-extra-costs]');
   const customsNotice = form.querySelector('[data-listing-foz-notice]');
@@ -51,6 +53,7 @@
   const initialParams = new URLSearchParams(window.location.search);
   const requestModeFromUrl = initialParams.get('tipo') === 'pedido';
   const carpoolMode = initialParams.get('categoria') === 'Carona compartilhada';
+  const directPublishMode = !carpoolMode;
   const wizardSequence = carpoolMode ? [2, 4, 5] : [1, 2, 3, 4, 5];
 
   const subcategories = {
@@ -221,6 +224,15 @@
     return digits.length > 0 && Number(digits) > 0;
   }
 
+  function syncDirectDefaults() {
+    if (!directPublishMode) return;
+    const price = getValue('price');
+    form.elements.priceMode.value = price ? 'Preço fixo' : 'Sob consulta';
+    if (![...conditionSelect.options].some((option) => option.value === 'A combinar')) conditionSelect.append(new Option('A combinar', 'A combinar'));
+    conditionSelect.value = 'A combinar';
+    form.elements.availability.value = 'Sob consulta';
+  }
+
   function loadLegacyProfile() {
     try {
       const saved = JSON.parse(window.localStorage.getItem(profileStorageKey) || 'null');
@@ -308,6 +320,11 @@
 
   function sourceConsentVisibility() {
     if (!sourceConsent) return;
+    if (directPublishMode) {
+      sourceConsent.hidden = true;
+      form.elements.sourceOwnerConsent.checked = false;
+      return;
+    }
     const visible = Boolean(getValue('sourceUrl'));
     sourceConsent.hidden = !visible;
     if (!visible) form.elements.sourceOwnerConsent.checked = false;
@@ -431,6 +448,8 @@
 
   function renderSubcategories() {
     const category = getCategory();
+    const subcategoryStep = steps.find((step) => Number(step.dataset.wizardStep) === 2);
+    if (directPublishMode && subcategoryStep) subcategoryStep.hidden = !category;
     if (renderedCategory === category && subcategoryGrid.querySelector('input[name="subcategory"]')) return;
     renderedCategory = category;
     subcategoryGrid.replaceChildren();
@@ -533,13 +552,13 @@
     const config = fieldConfig[category] || fieldConfig.Outro;
     const isCarona = category === 'Carona compartilhada';
     if (genericDetails) genericDetails.hidden = isCarona;
-    if (genericLogistics) genericLogistics.hidden = isCarona;
+    if (genericLogistics) genericLogistics.hidden = isCarona || directPublishMode;
     if (carpoolRouteFields) carpoolRouteFields.hidden = !isCarona;
-    if (emailField) emailField.hidden = isCarona;
+    if (emailField) emailField.hidden = isCarona || directPublishMode;
     conditionLabel.textContent = config.conditionLabel;
     renderSelectOptions(conditionSelect, config.conditions);
     renderSelectOptions(form.elements.availability, config.availability || ['Disponível agora', 'Hoje', 'Esta semana', 'Data flexível', 'Sob consulta']);
-    conditionField.hidden = !config.conditions.length;
+    conditionField.hidden = directPublishMode || !config.conditions.length;
     logisticsOptions.replaceChildren();
     const legend = document.createElement('legend');
     legend.textContent = category === 'Imóvel' ? 'Condições da oferta' : isCarona ? 'Encontro, bagagem e trajeto' : 'Entrega ou atendimento';
@@ -574,6 +593,7 @@
       syncCarpoolDefaults();
       updateRideDateVisibility();
     }
+    syncDirectDefaults();
   }
 
   function updateRideDateVisibility() {
@@ -651,6 +671,11 @@
       if (carpoolMode) return '';
       if (getValue('title').length < 4) return 'Escreva um título com pelo menos 4 caracteres.';
       if (listingKind() === 'offer' && ['Produto', 'Imóvel'].includes(getCategory()) && selectedFiles.length === 0) return 'Adicione pelo menos uma foto para este tipo de anúncio.';
+      if (directPublishMode) {
+        syncDirectDefaults();
+        if (getValue('price') && !hasValidPrice(getValue('price'))) return 'Informe um preço válido, somente com números e separadores, ou deixe o preço em branco.';
+        return '';
+      }
       if (!getValue('priceMode')) return 'Escolha como o preço será apresentado.';
       if (['Preço fixo', 'Negociável'].includes(getValue('priceMode')) && !hasValidPrice(getValue('price'))) return 'Informe um preço válido, somente com números e separadores, ou escolha “Sob consulta”.';
       if (!getValue('condition')) return 'Escolha o estado ou a modalidade do anúncio.';
@@ -675,8 +700,8 @@
         syncCarpoolDefaults();
         return '';
       }
-      if (!getValue('availability')) return 'Escolha quando a oferta estará disponível.';
-      if (getCategory() === 'Produto' && form.querySelectorAll('input[name="logistics"]:checked').length === 0) return 'Escolha pelo menos uma opção de retirada, entrega ou envio.';
+      if (!directPublishMode && !getValue('availability')) return 'Escolha quando a oferta estará disponível.';
+      if (!directPublishMode && getCategory() === 'Produto' && form.querySelectorAll('input[name="logistics"]:checked').length === 0) return 'Escolha pelo menos uma opção de retirada, entrega ou envio.';
     }
     if (step === 5) {
       if (getValue('firstName').length < 2) return 'Informe seu nome.';
@@ -688,6 +713,32 @@
       if (!turnstileToken) return 'Conclua a verificação de segurança antes de publicar.';
     }
     return '';
+  }
+
+  function focusDirectSection(step) {
+    if (!directPublishMode) return;
+    const section = steps.find((entry) => Number(entry.dataset.wizardStep) === step);
+    if (!section) return;
+    let control = section.querySelector('input:not([type="hidden"]), textarea, select, button');
+    if (step === 3) {
+      if (getValue('title').length < 4) control = form.elements.title;
+      else if (listingKind() === 'offer' && ['Produto', 'Imóvel'].includes(getCategory()) && selectedFiles.length === 0) control = photoInput;
+      else if (getValue('price') && !hasValidPrice(getValue('price'))) control = form.elements.price;
+    }
+    if (step === 4) control = form.elements.address;
+    if (step === 5) {
+      if (getValue('firstName').length < 2) control = form.elements.firstName;
+      else if (getValue('lastName').length < 2) control = form.elements.lastName;
+      else if (!normalizedWhatsapp(getValue('whatsapp'))) control = form.elements.whatsapp;
+      else if (!form.elements.publicContact.checked) control = form.elements.publicContact;
+      else if (!form.elements.confirm.checked) control = form.elements.confirm;
+      else if (!turnstileToken) {
+        turnstileContainer.tabIndex = -1;
+        control = turnstileContainer;
+      }
+    }
+    section.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    window.setTimeout(() => control?.focus({ preventScroll: true }), 220);
   }
 
   function initMap() {
@@ -960,7 +1011,7 @@
 
   function publishButtonLabel() {
     if (carpoolMode) return 'Publicar carona';
-    return requestModeFromUrl ? 'Publicar pedido' : 'Publicar agora';
+    return requestModeFromUrl ? 'Publicar pedido' : 'Publicar anúncio';
   }
 
   function listingPayload() {
@@ -1111,8 +1162,8 @@
   }
 
   form.addEventListener('click', (event) => {
-    if (event.target.closest('.nykuto-category-choices label')) advanceFromChoice(event, 1);
-    if (event.target.closest('[data-subcategory-grid] label')) advanceFromChoice(event, 2);
+    if (!directPublishMode && event.target.closest('.nykuto-category-choices label')) advanceFromChoice(event, 1);
+    if (!directPublishMode && event.target.closest('[data-subcategory-grid] label')) advanceFromChoice(event, 2);
     const removeButton = event.target.closest('[data-remove-photo]');
     if (removeButton) {
       selectedFiles.splice(Number(removeButton.dataset.removePhoto), 1);
@@ -1151,6 +1202,7 @@
     if (event.target.name !== 'confirm') form.elements.confirm.checked = false;
     if (event.target.name === 'address') clearResolvedLocation();
     if (event.target.name === 'sourceUrl') sourceConsentVisibility();
+    if (directPublishMode && event.target.name === 'price') syncDirectDefaults();
     if (carpoolMode && ['rideDestination', 'rideDate', 'rideTime', 'rideSeats', 'rideContribution', 'rideCurrency'].includes(event.target.name)) syncCarpoolDefaults();
     if (currentStep === 5 && ['firstName', 'lastName', 'whatsapp', 'rideDestination', 'rideDate', 'rideTime', 'rideSeats', 'rideContribution', 'rideCurrency'].includes(event.target.name)) renderPreview();
   });
@@ -1171,12 +1223,18 @@
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
-    if (currentStep !== 5) return setError('Use “Continuar” para revisar todas as etapas antes do envio.');
+    if (!directPublishMode && currentStep !== 5) return setError('Use “Continuar” para revisar todas as etapas antes do envio.');
+    syncDirectDefaults();
     for (const step of wizardSequence) {
       const error = validateStep(step);
       if (error) {
-        if (step < 5) setStep(step);
-        setError(error);
+        if (directPublishMode) {
+          setError(error);
+          focusDirectSection(step);
+        } else {
+          if (step < 5) setStep(step);
+          setError(error);
+        }
         return;
       }
     }
@@ -1216,6 +1274,70 @@
       // Cancelling the native share sheet does not change the published listing.
     }
   });
+
+  function showDirectPublishForm() {
+    if (!directPublishMode) return;
+    steps.forEach((step) => {
+      const number = Number(step.dataset.wizardStep);
+      const visible = number !== 2 || Boolean(getCategory());
+      step.hidden = !visible;
+      step.classList.toggle('is-active', visible);
+    });
+    backButton.hidden = true;
+    nextButton.hidden = true;
+    submitButton.hidden = false;
+    syncDirectDefaults();
+    initMap();
+  }
+
+  function configureDirectPublishForm() {
+    if (!directPublishMode) return;
+    wizard.classList.add('is-direct');
+    document.title = requestModeFromUrl ? 'Publicar um pedido — Nykuto Local' : 'Publicar um anúncio — Nykuto Local';
+    const pageTitle = document.querySelector('#page-title');
+    const eyebrow = document.querySelector('.nykuto-wizard-header p');
+    const wizardSubtitle = document.querySelector('.nykuto-wizard-header > div > span');
+    const headerBadge = document.querySelector('.nykuto-wizard-header > b');
+    const progress = document.querySelector('.nykuto-wizard-progress');
+    const headings = new Map([
+      [1, ['Categoria', requestModeFromUrl ? 'O que você procura?' : 'O que você quer anunciar?', 'Escolha uma categoria.']],
+      [2, ['Tipo', 'Escolha o tipo', 'Isso ajuda as pessoas a encontrar seu anúncio.']],
+      [3, ['Anúncio', 'Mostre o essencial', 'Título, descrição, preço e imagens.']],
+      [4, ['Zona', 'Onde está disponível?', 'Informe somente a zona aproximada. Seu endereço exato não será publicado.']],
+      [5, ['Contato', 'Como falar com você?', 'Os interessados entrarão em contato diretamente pelo WhatsApp.']]
+    ]);
+    if (pageTitle) pageTitle.textContent = requestModeFromUrl ? 'Publique o que você precisa' : 'Publique seu anúncio';
+    if (eyebrow) eyebrow.textContent = 'Publicação simples e gratuita';
+    if (wizardSubtitle) wizardSubtitle.textContent = 'Preencha o essencial e publique em uma única página.';
+    if (headerBadge) headerBadge.textContent = 'Direto';
+    progress?.setAttribute('hidden', '');
+    headings.forEach((config, number) => {
+      const heading = steps.find((entry) => Number(entry.dataset.wizardStep) === number)?.querySelector('.nykuto-step-heading');
+      if (!heading) return;
+      heading.querySelector(':scope > span').textContent = config[0];
+      heading.querySelector('h2').textContent = config[1];
+      heading.querySelector('p').textContent = config[2];
+    });
+    if (priceModeField) priceModeField.hidden = true;
+    if (conditionField) conditionField.hidden = true;
+    if (sourceUrlField) sourceUrlField.hidden = true;
+    if (sourceConsent) sourceConsent.hidden = true;
+    if (genericLogistics) genericLogistics.hidden = true;
+    if (emailField) emailField.hidden = true;
+    if (preview) preview.hidden = true;
+    if (reviewNote) reviewNote.hidden = true;
+    if (contactNote) contactNote.hidden = true;
+    if (geocodeNote) geocodeNote.hidden = true;
+    form.elements.sourceUrl.value = '';
+    form.elements.sourceOwnerConsent.checked = false;
+    submitButton.innerHTML = `${publishButtonLabel()} <span aria-hidden="true">→</span>`;
+    const contactTitle = form.querySelector('#contact-panel-title');
+    const contactEyebrow = form.querySelector('.nykuto-contact-panel > header span');
+    if (contactTitle) contactTitle.textContent = 'Seu contato';
+    if (contactEyebrow) contactEyebrow.textContent = 'WhatsApp direto';
+    form.querySelector('.nykuto-wizard-actions')?.prepend(errorBox);
+  }
+
   function configureCarpoolWizard() {
     if (!carpoolMode) return;
     wizard.classList.add('is-carona');
@@ -1263,22 +1385,11 @@
     }
   }
 
-  if (requestModeFromUrl && !carpoolMode) {
-    document.title = 'Publicar um pedido — Nykuto Local';
-    const pageTitle = document.querySelector('#page-title');
-    const wizardSubtitle = document.querySelector('.nykuto-wizard-header > div > span');
-    const categoryTitle = document.querySelector('#wizard-category-title');
-    const categoryCopy = categoryTitle?.closest('.nykuto-step-heading')?.querySelector('p');
-    if (pageTitle) pageTitle.textContent = 'O que você precisa?';
-    if (wizardSubtitle) wizardSubtitle.textContent = 'Publique seu pedido. As pessoas da região poderão falar diretamente com você.';
-    if (categoryTitle) categoryTitle.textContent = 'Escolha a categoria do pedido';
-    if (categoryCopy) categoryCopy.textContent = 'Toque no que você está procurando.';
-    submitButton.innerHTML = 'Publicar pedido <span aria-hidden="true">→</span>';
-  }
   configureCarpoolWizard();
+  configureDirectPublishForm();
   loadLegacyProfile();
   loadOnlineProfile();
-  loadTurnstileConfig().then(() => { if (currentStep === 5) ensureTurnstile(); });
+  loadTurnstileConfig().then(() => { if (directPublishMode || currentStep === 5) ensureTurnstile(); });
   sourceConsentVisibility();
   const presetCategory = initialParams.get('categoria');
   const presetInput = presetCategory
@@ -1287,9 +1398,11 @@
   if (presetInput) {
     presetInput.checked = true;
     renderSubcategories();
-    setStep(2, { focus: false });
+    if (directPublishMode) showDirectPublishForm();
+    else setStep(2, { focus: false });
   } else {
     updateConditionalFields();
-    setStep(1, { focus: false });
+    if (directPublishMode) showDirectPublishForm();
+    else setStep(1, { focus: false });
   }
 })();
