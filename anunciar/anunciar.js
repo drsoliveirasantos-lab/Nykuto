@@ -36,8 +36,22 @@
   const successView = document.querySelector('[data-success-view]');
   const successShare = document.querySelector('[data-success-share]');
   const sourceConsent = form.querySelector('[data-source-consent]');
+  const wizard = document.querySelector('[data-listing-wizard]');
+  const genericDetails = form.querySelector('[data-generic-details]');
+  const genericLogistics = form.querySelector('[data-generic-logistics]');
+  const carpoolRouteFields = form.querySelector('[data-carona-route-fields]');
+  const rideDateField = form.querySelector('[data-ride-date-field]');
+  const rideSeatsLabel = form.querySelector('[data-ride-seats-label]');
+  const emailField = form.querySelector('[data-email-field]');
+  const geocodeNote = form.querySelector('[data-geocode-note]');
+  const contactNote = form.querySelector('[data-contact-note]');
+  const confirmCopy = form.querySelector('[data-confirm-copy]');
+  const reviewNote = form.querySelector('[data-review-note]');
   const profileStorageKey = 'nykuto-local-profile-v1';
-  const requestModeFromUrl = new URLSearchParams(window.location.search).get('tipo') === 'pedido';
+  const initialParams = new URLSearchParams(window.location.search);
+  const requestModeFromUrl = initialParams.get('tipo') === 'pedido';
+  const carpoolMode = initialParams.get('categoria') === 'Carona compartilhada';
+  const wizardSequence = carpoolMode ? [2, 4, 5] : [1, 2, 3, 4, 5];
 
   const subcategories = {
     Produto: ['Móveis e decoração', 'Eletrodomésticos', 'Eletrônicos e informática', 'Celular e acessórios', 'Moda e acessórios', 'Veículos e peças', 'Outro produto'],
@@ -87,20 +101,11 @@
       ]
     },
     'Carona compartilhada': {
-      conditionLabel: 'Organização do trajeto',
-      conditions: ['Horário confirmado', 'Horário aproximado', 'A combinar'],
-      availability: ['Viagem única', 'Dias úteis', 'Toda semana', 'Todos os dias', 'A combinar'],
-      logistics: ['Ponto de encontro seguro', 'Aceita parada intermediária', 'Trajeto CDE ↔ Foz'],
-      extras: [
-        { name: 'rideOrigin', label: 'Ponto de partida', placeholder: 'Bairro ou ponto de encontro', required: true },
-        { name: 'rideDestination', label: 'Destino', placeholder: 'Bairro, faculdade ou ponto de encontro', required: true },
-        { name: 'rideDate', label: 'Data da primeira viagem', type: 'date', min: 'today', required: true },
-        { name: 'rideTime', label: 'Horário de saída', type: 'time', required: true },
-        { name: 'rideRecurringDays', label: 'Dias recorrentes', type: 'checkboxes', options: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'], recurringOnly: true },
-        { name: 'rideSeats', label: 'Lugares / pessoas', type: 'number', min: 1, max: 8, placeholder: 'Ex.: 2', required: true },
-        { name: 'rideDetour', label: 'Desvio máximo', type: 'select', options: ['Somente no caminho', 'Até 5 minutos', 'Até 10 minutos', 'Até 15 minutos', 'A combinar'], required: true },
-        { name: 'rideLuggage', label: 'Bagagem', type: 'select', options: ['Sem bagagem', 'Mochila ou bolsa', 'Mala pequena', 'Mala média', 'A combinar'] }
-      ]
+      conditionLabel: 'Horário',
+      conditions: ['Horário confirmado'],
+      availability: ['Uma vez', 'Dias úteis', 'Toda semana', 'Todos os dias'],
+      logistics: [],
+      extras: []
     },
     'Compra ou retirada em Foz': {
       conditionLabel: 'Modalidade',
@@ -120,7 +125,7 @@
     }
   };
 
-  let currentStep = 1;
+  let currentStep = wizardSequence[0];
   let selectedFiles = [];
   let photoUrls = [];
   let listingMap;
@@ -139,6 +144,69 @@
   const getValue = (name) => String(form.elements[name]?.value || '').trim();
   const getCategory = () => getValue('category');
   const getSubcategory = () => getValue('subcategory');
+
+  function sequenceIndex(step = currentStep) {
+    return wizardSequence.indexOf(step);
+  }
+
+  function nextWizardStep(step = currentStep) {
+    return wizardSequence[Math.min(wizardSequence.length - 1, sequenceIndex(step) + 1)];
+  }
+
+  function previousWizardStep(step = currentStep) {
+    return wizardSequence[Math.max(0, sequenceIndex(step) - 1)];
+  }
+
+  function isCarpoolRequest() {
+    return /^Procuro\b/i.test(getSubcategory());
+  }
+
+  function resolvedCarpoolSubcategory() {
+    const action = isCarpoolRequest() ? 'Procuro' : 'Ofereço';
+    const frequency = getValue('rideFrequency');
+    return `${action} carona ${frequency && frequency !== 'once' ? 'recorrente' : 'ocasional'}`;
+  }
+
+  function rideFrequencyLabel() {
+    return ({ once: 'Uma vez', weekdays: 'Dias úteis', weekly: 'Toda semana', daily: 'Todos os dias' })[getValue('rideFrequency')] || '';
+  }
+
+  function publicRidePlace(value) {
+    const protectedPrefixes = new Set(['área', 'area', 'km', 'ruta', 'rota']);
+    const streetNameConnectors = new Set(['de', 'da', 'do', 'das', 'dos']);
+    const normalizedWord = (word) => String(word || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('pt-BR');
+    const cleaned = String(value || '').normalize('NFKC').trim().replace(/\s+/g, ' ')
+      .replace(/\b(?:(?:casa|apartamento|apto|número|numero)\b|ap\.|n[º°]|n[o]?\.)\s*[:.#-]?\s*[^\s,]+/gi, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+    return cleaned.split(',').map((segment) => {
+      const words = segment.trim().split(/\s+/).filter(Boolean);
+      const addressNumberIndex = words.findIndex((word, index) => {
+        if (!/^\d{1,6}(?:[a-z]|[-/][a-z0-9]+)?$/i.test(word)) return false;
+        if (protectedPrefixes.has(normalizedWord(words[index - 1]))) return false;
+        if (streetNameConnectors.has(normalizedWord(words[index + 1]))) return false;
+        return true;
+      });
+      const publicWords = addressNumberIndex >= 0 ? words.slice(0, addressNumberIndex) : words;
+      if (['n', 'no', 'num', 'numero', 'ap', 'apto', 'casa'].includes(normalizedWord(publicWords[publicWords.length - 1]))) publicWords.pop();
+      return publicWords.join(' ');
+    }).filter(Boolean).join(', ').trim();
+  }
+
+  function syncCarpoolDefaults() {
+    if (!carpoolMode) return;
+    const origin = publicRidePlace(getValue('locationLabel')) || 'Origem';
+    const destination = publicRidePlace(getValue('rideDestination')) || 'Destino';
+    const time = getValue('rideTime');
+    const contribution = getValue('rideContribution');
+    const requestPrefix = isCarpoolRequest() ? 'Procuro carona' : 'Carona';
+    form.elements.title.value = `${requestPrefix}: ${origin} → ${destination}${time ? ` · ${time}` : ''}`.slice(0, 80);
+    form.elements.priceMode.value = contribution ? 'Preço fixo' : 'Sob consulta';
+    form.elements.price.value = contribution;
+    form.elements.currency.value = getValue('rideCurrency') || 'R$';
+    form.elements.condition.value = 'Horário confirmado';
+    form.elements.availability.value = rideFrequencyLabel() || 'Uma vez';
+  }
 
   function normalizedWhatsapp(value) {
     const digits = String(value || '').replace(/\D/g, '');
@@ -287,7 +355,8 @@
   }
 
   function setStep(nextStep, { focus = true } = {}) {
-    currentStep = Math.max(1, Math.min(5, nextStep));
+    currentStep = wizardSequence.includes(nextStep) ? nextStep : wizardSequence[0];
+    const currentIndex = sequenceIndex(currentStep);
     steps.forEach((step) => {
       const active = Number(step.dataset.wizardStep) === currentStep;
       step.hidden = !active;
@@ -295,18 +364,23 @@
     });
     progressItems.forEach((item) => {
       const number = Number(item.dataset.wizardProgress);
+      const itemIndex = wizardSequence.indexOf(number);
       item.classList.toggle('is-current', number === currentStep);
-      item.classList.toggle('is-complete', number < currentStep);
+      item.classList.toggle('is-complete', itemIndex >= 0 && itemIndex < currentIndex);
       if (number === currentStep) item.setAttribute('aria-current', 'step');
       else item.removeAttribute('aria-current');
     });
-    backButton.hidden = currentStep === 1;
-    nextButton.hidden = currentStep === 5;
-    submitButton.hidden = currentStep !== 5;
+    backButton.hidden = currentIndex === 0;
+    nextButton.hidden = currentIndex === wizardSequence.length - 1;
+    submitButton.hidden = currentIndex !== wizardSequence.length - 1;
     setError();
 
-    if (currentStep === 4) initMap();
+    if (currentStep === 4) {
+      syncCarpoolDefaults();
+      initMap();
+    }
     if (currentStep === 5) {
+      syncCarpoolDefaults();
       renderPreview();
       ensureTurnstile();
     }
@@ -335,6 +409,26 @@
     return label;
   }
 
+  function createCarpoolChoice(value, title, copy) {
+    const label = document.createElement('label');
+    const input = document.createElement('input');
+    const body = document.createElement('div');
+    const strong = document.createElement('strong');
+    const small = document.createElement('small');
+    const arrow = document.createElement('span');
+    input.type = 'radio';
+    input.name = 'subcategory';
+    input.value = value;
+    input.checked = requestModeFromUrl ? /^Procuro\b/i.test(value) : false;
+    strong.textContent = title;
+    small.textContent = copy;
+    arrow.textContent = '→';
+    arrow.setAttribute('aria-hidden', 'true');
+    body.append(strong, small);
+    label.append(input, body, arrow);
+    return label;
+  }
+
   function renderSubcategories() {
     const category = getCategory();
     if (renderedCategory === category && subcategoryGrid.querySelector('input[name="subcategory"]')) return;
@@ -344,9 +438,15 @@
     legend.className = 'sr-only';
     legend.textContent = 'Tipo de anúncio';
     subcategoryGrid.append(legend);
-    let choices = [...(subcategories[category] || subcategories.Outro)];
-    if (requestModeFromUrl && category === 'Carona compartilhada') choices = choices.filter((value) => /^Procuro\b/i.test(value));
-    choices.forEach((value) => subcategoryGrid.append(createChoice('subcategory', value)));
+    if (carpoolMode && category === 'Carona compartilhada') {
+      subcategoryGrid.append(
+        createCarpoolChoice('Ofereço carona ocasional', 'Vou dirigir', 'Tenho lugares disponíveis'),
+        createCarpoolChoice('Procuro carona ocasional', 'Preciso de carona', 'Procuro alguém que faça este trajeto')
+      );
+    } else {
+      const choices = [...(subcategories[category] || subcategories.Outro)];
+      choices.forEach((value) => subcategoryGrid.append(createChoice('subcategory', value)));
+    }
     updateConditionalFields();
   }
 
@@ -432,6 +532,10 @@
     const category = getCategory() || 'Outro';
     const config = fieldConfig[category] || fieldConfig.Outro;
     const isCarona = category === 'Carona compartilhada';
+    if (genericDetails) genericDetails.hidden = isCarona;
+    if (genericLogistics) genericLogistics.hidden = isCarona;
+    if (carpoolRouteFields) carpoolRouteFields.hidden = !isCarona;
+    if (emailField) emailField.hidden = isCarona;
     conditionLabel.textContent = config.conditionLabel;
     renderSelectOptions(conditionSelect, config.conditions);
     renderSelectOptions(form.elements.availability, config.availability || ['Disponível agora', 'Hoje', 'Esta semana', 'Data flexível', 'Sob consulta']);
@@ -440,12 +544,7 @@
     const legend = document.createElement('legend');
     legend.textContent = category === 'Imóvel' ? 'Condições da oferta' : isCarona ? 'Encontro, bagagem e trajeto' : 'Entrega ou atendimento';
     logisticsOptions.append(legend, ...config.logistics.map(createCheckbox));
-    const extraFields = config.extras
-      .filter((field) => !field.recurringOnly || /recorrente/i.test(getSubcategory()))
-      .map((field) => field.name === 'rideSeats'
-        ? { ...field, label: listingKind() === 'request' ? 'Número de passageiros' : 'Lugares disponíveis' }
-        : field);
-    renderExtraFields(extraFields);
+    renderExtraFields(config.extras);
     customsNotice.hidden = category !== 'Compra ou retirada em Foz';
     caronaNotice.hidden = !isCarona;
     priceLabel.textContent = isCarona ? 'Ajuda de custo por pessoa' : 'Preço';
@@ -458,12 +557,30 @@
     if (!selectedFiles.length) photoHelp.textContent = isCarona
       ? 'A foto do veículo é opcional. Não envie documentos, placas legíveis ou dados pessoais.'
       : 'As fotos serão otimizadas antes da publicação.';
-    locationHeading.textContent = isCarona ? 'Qual é o ponto inicial?' : 'Onde está disponível?';
+    locationHeading.textContent = isCarona ? 'Qual é o trajeto?' : 'Onde está disponível?';
     locationCopy.textContent = isCarona
-      ? 'Marque uma zona aproximada de partida. Origem, destino e horário descrevem o trajeto sem expor seu endereço exato.'
+      ? 'Informe a origem, o destino e quando você vai. O mapa confirma apenas uma zona aproximada.'
       : 'Busque um endereço ou toque no mapa. O anúncio mostrará apenas uma área aproximada de 5 km.';
-    addressLabel.textContent = isCarona ? 'Ponto inicial aproximado' : 'Endereço ou bairro';
+    addressLabel.textContent = isCarona ? 'De onde você sai?' : 'Endereço ou bairro';
     availabilityLabel.textContent = isCarona ? 'Frequência' : 'Disponibilidade';
+    if (isCarona) {
+      form.elements.address.placeholder = 'Bairro, faculdade ou ponto conhecido';
+      form.elements.condition.value = 'Horário confirmado';
+      if (rideSeatsLabel) rideSeatsLabel.textContent = isCarpoolRequest() ? 'Quantas pessoas?' : 'Lugares disponíveis';
+      if (geocodeNote) geocodeNote.textContent = 'A busca usa o OpenStreetMap somente quando você toca em “Localizar”. O endereço exato não é publicado.';
+      if (contactNote) contactNote.innerHTML = '<strong>Contato direto:</strong> a pessoa interessada falará com você pelo WhatsApp informado.';
+      if (confirmCopy) confirmCopy.textContent = 'Confirmo que os dados do trajeto estão corretos.';
+      if (reviewNote) reviewNote.innerHTML = '<strong>Pronto para publicar</strong><p>Seu trajeto ficará visível e o contato seguirá diretamente pelo WhatsApp.</p>';
+      syncCarpoolDefaults();
+      updateRideDateVisibility();
+    }
+  }
+
+  function updateRideDateVisibility() {
+    if (!rideDateField) return;
+    const recurring = ['weekdays', 'weekly', 'daily'].includes(getValue('rideFrequency'));
+    rideDateField.hidden = recurring;
+    if (recurring) form.elements.rideDate.value = '';
   }
 
   function clearPhotoUrls() {
@@ -529,8 +646,9 @@
 
   function validateStep(step) {
     if (step === 1 && !getCategory()) return 'Escolha uma categoria para continuar.';
-    if (step === 2 && !getSubcategory()) return 'Escolha o tipo do anúncio.';
+    if (step === 2 && !getSubcategory()) return carpoolMode ? 'Escolha se você vai dirigir ou se precisa de carona.' : 'Escolha o tipo do anúncio.';
     if (step === 3) {
+      if (carpoolMode) return '';
       if (getValue('title').length < 4) return 'Escreva um título com pelo menos 4 caracteres.';
       if (listingKind() === 'offer' && ['Produto', 'Imóvel'].includes(getCategory()) && selectedFiles.length === 0) return 'Adicione pelo menos uma foto para este tipo de anúncio.';
       if (!getValue('priceMode')) return 'Escolha como o preço será apresentado.';
@@ -541,19 +659,24 @@
     }
     if (step === 4) {
       if (!getValue('latitude') || !getValue('longitude')) return 'Localize o endereço ou toque no mapa para definir a zona aproximada.';
-      if (!getValue('availability')) return 'Escolha quando a oferta estará disponível.';
-      if (getCategory() === 'Produto' && form.querySelectorAll('input[name="logistics"]:checked').length === 0) return 'Escolha pelo menos uma opção de retirada, entrega ou envio.';
-      if (getCategory() === 'Carona compartilhada') {
-        const missing = [...extraCosts.querySelectorAll('[data-extra-required]')].find((wrapper) => !extraFieldValue(wrapper));
-        if (missing) return `Preencha “${missing.querySelector('span, legend')?.textContent || 'dados do trajeto'}”.`;
-        const seats = Number(extraCosts.querySelector('[name="rideSeats"]')?.value);
+      if (carpoolMode) {
+        if (publicRidePlace(getValue('rideDestination')).length < 2) return 'Informe uma zona ou um ponto público de destino, sem endereço exato.';
+        if (!getValue('rideFrequency')) return 'Escolha a frequência da carona.';
+        if (getValue('rideFrequency') === 'once' && !getValue('rideDate')) return 'Escolha a data da viagem.';
+        if (!/^\d{2}:\d{2}$/.test(getValue('rideTime'))) return 'Informe o horário de saída.';
+        const seats = Number(getValue('rideSeats'));
         if (!Number.isInteger(seats) || seats < 1 || seats > 8) return 'Informe entre 1 e 8 lugares ou pessoas.';
-        const rideDate = extraCosts.querySelector('[name="rideDate"]')?.value;
+        const contribution = getValue('rideContribution');
+        if (contribution && (!/^\d+$/.test(contribution) || Number(contribution) < 1)) return 'Use um valor inteiro positivo ou deixe a contribuição em branco.';
+        const rideDate = getValue('rideDate');
         const today = new Date();
         today.setHours(0, 0, 0, 0);
         if (rideDate && new Date(`${rideDate}T00:00:00`).getTime() < today.getTime()) return 'Escolha uma data de viagem de hoje em diante.';
-        if (/recorrente/i.test(getSubcategory()) && !extraCosts.querySelector('[name="rideRecurringDays"]:checked')) return 'Escolha pelo menos um dia para a carona recorrente.';
+        syncCarpoolDefaults();
+        return '';
       }
+      if (!getValue('availability')) return 'Escolha quando a oferta estará disponível.';
+      if (getCategory() === 'Produto' && form.querySelectorAll('input[name="logistics"]:checked').length === 0) return 'Escolha pelo menos uma opção de retirada, entrega ou envio.';
     }
     if (step === 5) {
       if (getValue('firstName').length < 2) return 'Informe seu nome.';
@@ -590,6 +713,7 @@
     form.elements.latitude.value = coordinates[0].toFixed(6);
     form.elements.longitude.value = coordinates[1].toFixed(6);
     form.elements.locationLabel.value = label;
+    syncCarpoolDefaults();
     if (manual) form.elements.address.value = '';
     if (!listingMap) initMap();
     if (!listingMap || !window.L) {
@@ -716,12 +840,27 @@
   }
 
   function priceText() {
+    if (carpoolMode) {
+      const contribution = getValue('rideContribution');
+      return contribution ? `Contribuição ${getValue('rideCurrency') || 'R$'} ${contribution} por pessoa` : 'Contribuição a combinar';
+    }
     const mode = getValue('priceMode');
     if (mode === 'Grátis' || mode === 'Sob consulta') return mode;
     return `${getValue('currency')} ${getValue('price')} · ${mode}`;
   }
 
   function dynamicExtraValues() {
+    if (carpoolMode) {
+      const values = [
+        { label: 'Ponto de partida', value: publicRidePlace(getValue('locationLabel')) },
+        { label: 'Destino', value: publicRidePlace(getValue('rideDestination')) },
+        { label: 'Data da viagem', value: getValue('rideDate') },
+        { label: 'Horário de saída', value: getValue('rideTime') },
+        { label: 'Frequência', value: rideFrequencyLabel() },
+        { label: isCarpoolRequest() ? 'Número de passageiros' : 'Lugares disponíveis', value: getValue('rideSeats') }
+      ];
+      return values.filter((item) => item.value);
+    }
     if (!extraCosts) return [];
     return [...extraCosts.querySelectorAll('[data-extra-field]')]
       .map((wrapper) => ({
@@ -740,32 +879,49 @@
   }
 
   function renderPreview() {
+    syncCarpoolDefaults();
     preview.replaceChildren();
     const card = document.createElement('article');
     const media = document.createElement('div');
     const body = document.createElement('div');
     media.className = 'nykuto-preview-media';
     body.className = 'nykuto-preview-body';
-    if (photoUrls[0]) {
-      const image = document.createElement('img');
-      image.src = photoUrls[0];
-      image.alt = 'Foto principal selecionada';
-      image.addEventListener('error', () => {
-        image.remove();
-        appendText(media, 'span', getCategory().slice(0, 1), 'nykuto-preview-placeholder');
-      }, { once: true });
-      media.append(image);
-    } else appendText(media, 'span', getCategory().slice(0, 1), 'nykuto-preview-placeholder');
-    appendText(media, 'b', `${selectedFiles.length} foto${selectedFiles.length === 1 ? '' : 's'}`);
-    appendText(body, 'small', `${getCategory()} · ${getSubcategory()}`);
-    appendText(body, 'h3', getValue('title'));
+    if (!carpoolMode) {
+      if (photoUrls[0]) {
+        const image = document.createElement('img');
+        image.src = photoUrls[0];
+        image.alt = 'Foto principal selecionada';
+        image.addEventListener('error', () => {
+          image.remove();
+          appendText(media, 'span', getCategory().slice(0, 1), 'nykuto-preview-placeholder');
+        }, { once: true });
+        media.append(image);
+      } else appendText(media, 'span', getCategory().slice(0, 1), 'nykuto-preview-placeholder');
+      appendText(media, 'b', `${selectedFiles.length} foto${selectedFiles.length === 1 ? '' : 's'}`);
+    } else {
+      card.classList.add('is-carona');
+      const route = document.createElement('div');
+      route.className = 'nykuto-preview-route';
+      const origin = document.createElement('div');
+      const destination = document.createElement('div');
+      appendText(origin, 'span', getValue('rideTime') || 'Saída');
+      appendText(origin, 'strong', getValue('locationLabel') || 'Origem');
+      appendText(destination, 'span', rideFrequencyLabel() || 'Trajeto');
+      appendText(destination, 'strong', publicRidePlace(getValue('rideDestination')) || 'Destino');
+      route.append(origin, destination);
+      body.append(route);
+    }
+    appendText(body, 'small', `${getCategory()} · ${carpoolMode ? resolvedCarpoolSubcategory() : getSubcategory()}`);
+    if (!carpoolMode) appendText(body, 'h3', getValue('title'));
     appendText(body, 'strong', priceText());
-    const chips = document.createElement('div');
-    chips.className = 'nykuto-preview-chips';
-    [getValue('condition'), `${getValue('locationLabel')} · raio 5 km`, ...checkedLogistics()].filter(Boolean).forEach((value) => appendText(chips, 'span', value));
-    body.append(chips);
+    if (!carpoolMode) {
+      const chips = document.createElement('div');
+      chips.className = 'nykuto-preview-chips';
+      [getValue('condition'), `${getValue('locationLabel')} · raio 5 km`, ...checkedLogistics()].filter(Boolean).forEach((value) => appendText(chips, 'span', value));
+      body.append(chips);
+    }
     if (getValue('description')) appendText(body, 'p', getValue('description'));
-    const extras = dynamicExtraValues();
+    const extras = dynamicExtraValues().filter((item) => !carpoolMode || ['Data da viagem', 'Lugares disponíveis', 'Número de passageiros'].includes(item.label));
     if (extras.length) {
       const dl = document.createElement('dl');
       extras.forEach((item) => {
@@ -780,7 +936,8 @@
     appendText(seller, 'strong', `${getValue('firstName')} ${getValue('lastName')}`.trim() || 'Preencha seu nome');
     appendText(seller, 'small', normalizedWhatsapp(getValue('whatsapp')) || 'Preencha o WhatsApp');
     body.append(seller);
-    card.append(media, body);
+    if (carpoolMode) card.append(body);
+    else card.append(media, body);
     preview.append(card);
   }
 
@@ -796,19 +953,25 @@
   }
 
   function listingKind() {
+    if (getCategory() === 'Carona compartilhada') return /^Procuro\b/i.test(getSubcategory()) ? 'request' : 'offer';
     if (requestModeFromUrl) return 'request';
-    if (getCategory() === 'Carona compartilhada' && /^Procuro\b/i.test(getSubcategory())) return 'request';
     return 'offer';
   }
 
+  function publishButtonLabel() {
+    if (carpoolMode) return 'Publicar carona';
+    return requestModeFromUrl ? 'Publicar pedido' : 'Publicar agora';
+  }
+
   function listingPayload() {
+    syncCarpoolDefaults();
     const priceModes = { 'Preço fixo': 'fixed', Negociável: 'negotiable', 'Sob consulta': 'quote', Grátis: 'free' };
     const currencies = { 'R$': 'BRL', 'Gs.': 'PYG', 'US$': 'USD' };
     const priceMode = priceModes[getValue('priceMode')];
     return {
       kind: listingKind(),
       category: getCategory(),
-      subcategory: getSubcategory(),
+      subcategory: carpoolMode ? resolvedCarpoolSubcategory() : getSubcategory(),
       title: getValue('title'),
       description: getValue('description'),
       priceAmount: ['fixed', 'negotiable'].includes(priceMode) ? numericPrice(getValue('price')) : null,
@@ -901,7 +1064,7 @@
       photos = await optimizedPhotos();
     } catch (_) {
       submitButton.disabled = false;
-      submitButton.innerHTML = `${requestModeFromUrl ? 'Publicar pedido' : 'Publicar agora'} <span aria-hidden="true">→</span>`;
+      submitButton.innerHTML = `${publishButtonLabel()} <span aria-hidden="true">→</span>`;
       setError('Não foi possível otimizar uma das fotos. Escolha outra imagem JPG, PNG ou WebP.');
       resetTurnstile();
       return;
@@ -935,7 +1098,7 @@
       resetTurnstile();
     } finally {
       submitButton.disabled = false;
-      submitButton.innerHTML = `${requestModeFromUrl ? 'Publicar pedido' : 'Publicar agora'} <span aria-hidden="true">→</span>`;
+      submitButton.innerHTML = `${publishButtonLabel()} <span aria-hidden="true">→</span>`;
     }
   }
 
@@ -943,7 +1106,7 @@
     if (currentStep !== expectedStep || event.detail === 0) return;
     window.setTimeout(() => {
       const error = validateStep(expectedStep);
-      if (!error) setStep(expectedStep + 1);
+      if (!error) setStep(nextWizardStep(expectedStep));
     }, 120);
   }
 
@@ -961,8 +1124,20 @@
 
   form.addEventListener('change', (event) => {
     if (event.target.name !== 'confirm') form.elements.confirm.checked = false;
-    if (event.target.name === 'category') renderSubcategories();
+    if (event.target.name === 'category') {
+      if (event.target.value === 'Carona compartilhada' && !carpoolMode) {
+        const params = new URLSearchParams({ categoria: 'Carona compartilhada' });
+        if (requestModeFromUrl) params.set('tipo', 'pedido');
+        window.location.href = `/anunciar/?${params.toString()}`;
+        return;
+      }
+      renderSubcategories();
+    }
     if (event.target.name === 'subcategory' && getCategory() === 'Carona compartilhada') updateConditionalFields();
+    if (event.target.name === 'rideFrequency') {
+      updateRideDateVisibility();
+      syncCarpoolDefaults();
+    }
     if (event.target.name === 'priceMode') {
       const noAmount = ['Grátis', 'Sob consulta'].includes(event.target.value);
       form.elements.price.disabled = noAmount;
@@ -976,7 +1151,8 @@
     if (event.target.name !== 'confirm') form.elements.confirm.checked = false;
     if (event.target.name === 'address') clearResolvedLocation();
     if (event.target.name === 'sourceUrl') sourceConsentVisibility();
-    if (currentStep === 5 && ['firstName', 'lastName', 'whatsapp'].includes(event.target.name)) renderPreview();
+    if (carpoolMode && ['rideDestination', 'rideDate', 'rideTime', 'rideSeats', 'rideContribution', 'rideCurrency'].includes(event.target.name)) syncCarpoolDefaults();
+    if (currentStep === 5 && ['firstName', 'lastName', 'whatsapp', 'rideDestination', 'rideDate', 'rideTime', 'rideSeats', 'rideContribution', 'rideCurrency'].includes(event.target.name)) renderPreview();
   });
   addressSearchButton.addEventListener('click', searchAddress);
   form.elements.address.addEventListener('keydown', (event) => {
@@ -989,14 +1165,14 @@
   nextButton.addEventListener('click', () => {
     const error = validateStep(currentStep);
     if (error) return setError(error);
-    setStep(currentStep + 1);
+    setStep(nextWizardStep());
   });
-  backButton.addEventListener('click', () => setStep(currentStep - 1));
+  backButton.addEventListener('click', () => setStep(previousWizardStep()));
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     if (currentStep !== 5) return setError('Use “Continuar” para revisar todas as etapas antes do envio.');
-    for (let step = 1; step <= 5; step += 1) {
+    for (const step of wizardSequence) {
       const error = validateStep(step);
       if (error) {
         if (step < 5) setStep(step);
@@ -1040,7 +1216,54 @@
       // Cancelling the native share sheet does not change the published listing.
     }
   });
-  if (requestModeFromUrl) {
+  function configureCarpoolWizard() {
+    if (!carpoolMode) return;
+    wizard.classList.add('is-carona');
+    document.title = 'Publicar uma carona — Nykuto Local';
+    const pageTitle = document.querySelector('#page-title');
+    const eyebrow = document.querySelector('.nykuto-wizard-header p');
+    const wizardSubtitle = document.querySelector('.nykuto-wizard-header > div > span');
+    const headerBadge = document.querySelector('.nykuto-wizard-header > b');
+    const progress = document.querySelector('.nykuto-wizard-progress');
+    const headings = new Map([
+      [2, ['1 de 3', 'Você quer oferecer ou procurar uma carona?', 'Escolha o que você precisa hoje.']],
+      [4, ['2 de 3', 'Qual é o trajeto?', 'Informe origem, destino e horário. O ponto exato fica para o WhatsApp.']],
+      [5, ['3 de 3', 'Como falar com você?', 'Revise o trajeto e informe o WhatsApp para contato direto.']]
+    ]);
+    if (pageTitle) pageTitle.textContent = 'Publique uma carona';
+    if (eyebrow) eyebrow.textContent = 'Carona compartilhada em CDE e Foz';
+    if (wizardSubtitle) wizardSubtitle.textContent = 'Origem, destino, horário e WhatsApp. Só isso.';
+    if (headerBadge) headerBadge.textContent = '3 etapas';
+    const skipLink = document.querySelector('.skip-link');
+    if (skipLink) skipLink.href = '#wizard-subcategory-title';
+    progress?.classList.add('is-carona');
+    progressItems.forEach((item) => {
+      const step = Number(item.dataset.wizardProgress);
+      const config = headings.get(step);
+      item.hidden = !config;
+      if (!config) return;
+      const position = wizardSequence.indexOf(step) + 1;
+      item.querySelector('span').textContent = String(position);
+      item.querySelector('small').textContent = ({ 2: 'Intenção', 4: 'Trajeto', 5: 'Contato' })[step];
+      const heading = steps.find((entry) => Number(entry.dataset.wizardStep) === step)?.querySelector('.nykuto-step-heading');
+      if (heading) {
+        heading.querySelector(':scope > span').textContent = config[0];
+        heading.querySelector('h2').textContent = config[1];
+        heading.querySelector('p').textContent = config[2];
+      }
+    });
+    const today = new Date();
+    form.elements.rideDate.min = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+    submitButton.innerHTML = 'Publicar carona <span aria-hidden="true">→</span>';
+    if (successPanel) {
+      const title = successPanel.querySelector('h2');
+      const note = successPanel.querySelector('small');
+      if (title) title.textContent = 'Sua carona já está no Nykuto Local.';
+      if (note) note.innerHTML = 'As pessoas interessadas poderão abrir o anúncio e falar com você pelo WhatsApp.';
+    }
+  }
+
+  if (requestModeFromUrl && !carpoolMode) {
     document.title = 'Publicar um pedido — Nykuto Local';
     const pageTitle = document.querySelector('#page-title');
     const wizardSubtitle = document.querySelector('.nykuto-wizard-header > div > span');
@@ -1052,11 +1275,12 @@
     if (categoryCopy) categoryCopy.textContent = 'Toque no que você está procurando.';
     submitButton.innerHTML = 'Publicar pedido <span aria-hidden="true">→</span>';
   }
+  configureCarpoolWizard();
   loadLegacyProfile();
   loadOnlineProfile();
   loadTurnstileConfig().then(() => { if (currentStep === 5) ensureTurnstile(); });
   sourceConsentVisibility();
-  const presetCategory = new URLSearchParams(window.location.search).get('categoria');
+  const presetCategory = initialParams.get('categoria');
   const presetInput = presetCategory
     ? [...form.elements.category].find((input) => input.value === presetCategory)
     : null;

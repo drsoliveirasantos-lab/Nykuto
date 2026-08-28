@@ -36,6 +36,30 @@ export function cleanLocalOptionalText(value, maximum) {
   return cleaned.length <= maximum ? cleaned : null;
 }
 
+export function cleanPublicRidePlace(value) {
+  let cleaned = cleanLocalText(value, 2, 80);
+  if (!cleaned) return null;
+  const protectedPrefixes = new Set(['area', 'km', 'ruta', 'rota']);
+  const streetNameConnectors = new Set(['de', 'da', 'do', 'das', 'dos']);
+  cleaned = cleaned
+    .replace(/\b(?:(?:casa|apartamento|apto|número|numero)\b|ap\.|n[º°]|n[o]?\.)\s*[:.#-]?\s*[^\s,]+/gi, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  cleaned = cleaned.split(',').map((segment) => {
+    const words = segment.trim().split(/\s+/).filter(Boolean);
+    const addressNumberIndex = words.findIndex((word, index) => {
+      if (!/^\d{1,6}(?:[a-z]|[-/][a-z0-9]+)?$/i.test(word)) return false;
+      if (protectedPrefixes.has(normalizeSearchText(words[index - 1]))) return false;
+      if (streetNameConnectors.has(normalizeSearchText(words[index + 1]))) return false;
+      return true;
+    });
+    const publicWords = addressNumberIndex >= 0 ? words.slice(0, addressNumberIndex) : words;
+    if (['n', 'no', 'num', 'numero', 'ap', 'apto', 'casa'].includes(normalizeSearchText(publicWords[publicWords.length - 1]))) publicWords.pop();
+    return publicWords.join(' ');
+  }).filter(Boolean).join(', ').trim();
+  return cleanLocalText(cleaned, 2, 80);
+}
+
 export function normalizeLocalWhatsapp(value) {
   const digits = String(value || '').replace(/\D/g, '').replace(/^00/, '');
   if (!/^[1-9]\d{7,14}$/.test(digits) || /^(\d)\1+$/.test(digits)) return null;
@@ -124,13 +148,36 @@ export function publicSellerName(firstName, lastName) {
 }
 
 export function serializeLocalListing(row, { ownerView = false, media = null } = {}) {
+  let fees = parseJsonArray(row.fees_json);
+  let zoneLabel = row.zone_label;
+  let title = row.title;
+  if (row.category === 'Carona compartilhada') {
+    fees = fees.flatMap((fee) => {
+      const label = String(fee?.label || '');
+      const normalized = normalizeSearchText(label);
+      if (normalized.includes('encontro')) return [];
+      if (normalized.includes('partida') || normalized === 'origem' || normalized.includes('ponto inicial') || normalized.includes('destino') || normalized.includes('chegada')) {
+        const value = cleanPublicRidePlace(fee?.value);
+        return value ? [{ label, value }] : [];
+      }
+      return fee?.value ? [{ label, value: String(fee.value) }] : [];
+    });
+    zoneLabel = cleanPublicRidePlace(row.zone_label) || 'Região de CDE/Foz';
+    const feeValue = (patterns) => String(fees.find((fee) => patterns.some((pattern) => normalizeSearchText(fee.label).includes(pattern)))?.value || '');
+    const origin = feeValue(['ponto de partida', 'origem']) || zoneLabel;
+    const destination = feeValue(['destino', 'chegada']);
+    const time = feeValue(['horario', 'hora']);
+    title = destination
+      ? `${row.listing_kind === 'request' ? 'Procuro carona' : 'Carona'}: ${origin} → ${destination}${time ? ` · ${time}` : ''}`.slice(0, 90)
+      : 'Carona compartilhada';
+  }
   const listing = {
     id: row.id,
     kind: row.listing_kind,
     category: row.category,
     marketSection: row.market_section,
     subcategory: row.subcategory,
-    title: row.title,
+    title,
     description: row.description || '',
     priceAmount: row.price_amount === null || row.price_amount === undefined ? null : Number(row.price_amount),
     currency: row.currency || '',
@@ -138,9 +185,9 @@ export function serializeLocalListing(row, { ownerView = false, media = null } =
     condition: row.condition_label,
     availability: row.availability_label,
     logistics: parseJsonArray(row.logistics_json),
-    fees: parseJsonArray(row.fees_json),
+    fees,
     zone: {
-      label: row.zone_label,
+      label: zoneLabel,
       latitude: Number(row.zone_lat),
       longitude: Number(row.zone_lng),
       radiusMeters: Number(row.zone_radius_m || 5000)

@@ -10,7 +10,7 @@
   <link rel="icon" href="/assets/nykuto-emblem-favicon.png" type="image/png" />
   <link rel="stylesheet" href="/styles.css?v=20260823-1" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-  <link rel="stylesheet" href="/demo-imobiliaria.css?v=20260828-1" />
+  <link rel="stylesheet" href="/demo-imobiliaria.css?v=20260828-4" />
   <style>
     .nykuto-listing-detail-page {
       min-height: calc(100svh - 56px);
@@ -64,6 +64,7 @@
     }
 
     .nykuto-listing-detail-gallery { min-width: 0; overflow: visible; }
+    .nykuto-listing-detail-gallery[hidden] { display: none !important; }
     .nykuto-listing-detail-main-media { position: relative; }
     .nykuto-listing-detail-main-media > img { display: block; }
     .nykuto-listing-detail-media-empty {
@@ -126,13 +127,54 @@
     .nykuto-listing-detail-description { margin: 0; color: #415650; font-size: 11px; line-height: 1.7; white-space: pre-line; overflow-wrap: anywhere; }
     .nykuto-listing-detail-chips { margin-top: 0; }
 
+    .nykuto-listing-detail-shell.demo-detail-layout.is-ride-without-media {
+      width: min(780px, 100%);
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .nykuto-listing-detail-shell.is-shared-ride .nykuto-listing-detail-content { padding: clamp(20px, 4vw, 38px); }
+    .nykuto-listing-detail-shell.is-shared-ride .nykuto-listing-detail-title { max-width: 720px; }
+    .nykuto-listing-detail-shell.is-shared-ride .nykuto-listing-detail-price { margin-top: 14px; }
+    .nykuto-listing-detail-shell.is-shared-ride .nykuto-listing-detail-facts { margin-top: 12px; }
+
     .nykuto-listing-detail-route { padding: 14px; border: 1px solid rgba(213, 168, 78, .5); border-radius: 13px; background: #fffaf0; }
     .nykuto-listing-detail-route > h2 { color: #5d4518; }
     .nykuto-listing-detail-route-grid { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
     .nykuto-listing-detail-route-grid > div { padding: 10px; border: 1px solid rgba(213, 168, 78, .28); border-radius: 9px; background: rgba(255, 255, 255, .78); }
+    .nykuto-listing-detail-route-grid > div[data-route-kind="origin"],
+    .nykuto-listing-detail-route-grid > div[data-route-kind="destination"] {
+      position: relative;
+      grid-column: 1 / -1;
+      padding: 10px 10px 10px 38px;
+      border: 0;
+      background: transparent;
+    }
+    .nykuto-listing-detail-route-grid > div[data-route-kind="origin"]::before,
+    .nykuto-listing-detail-route-grid > div[data-route-kind="destination"]::before {
+      content: "";
+      position: absolute;
+      left: 13px;
+      top: 17px;
+      width: 10px;
+      height: 10px;
+      border: 3px solid var(--demo-forest);
+      border-radius: 50%;
+      background: #fff;
+    }
+    .nykuto-listing-detail-route-grid > div[data-route-kind="origin"]::after {
+      content: "";
+      position: absolute;
+      left: 19px;
+      top: 30px;
+      bottom: -13px;
+      width: 2px;
+      background: rgba(23, 79, 67, .32);
+    }
+    .nykuto-listing-detail-route-grid > div[data-route-kind="destination"]::before { border-radius: 2px; background: var(--demo-forest); }
     .nykuto-listing-detail-route-grid dt { color: #876823; font-size: 8px; font-weight: 850; text-transform: uppercase; }
-    .nykuto-listing-detail-route-grid dd { margin: 4px 0 0; color: var(--demo-ink); font-size: 10px; font-weight: 800; overflow-wrap: anywhere; }
-    .nykuto-listing-detail-route-action { width: 100%; min-height: 43px; margin-top: 9px; border: 0; border-radius: 10px; background: var(--demo-forest); color: #fff; cursor: pointer; font-size: 9px; font-weight: 900; }
+    .nykuto-listing-detail-route-grid dd { margin: 4px 0 0; color: var(--demo-ink); font-size: 11px; font-weight: 800; overflow-wrap: anywhere; }
+    .nykuto-listing-detail-route-grid > div[data-route-kind="origin"] dd,
+    .nykuto-listing-detail-route-grid > div[data-route-kind="destination"] dd { font-size: 14px; }
+    .nykuto-listing-detail-route-action { width: 100%; min-height: 43px; margin-top: 9px; border: 0; border-radius: 10px; background: var(--demo-forest); color: #fff; cursor: pointer; font-size: 10px; font-weight: 900; }
     .nykuto-listing-detail-route-action:disabled { cursor: wait; opacity: .62; }
     .nykuto-listing-detail-route-status { min-height: 15px; margin: 7px 0 0; color: #6f5b2c; font-size: 8px; line-height: 1.5; }
 
@@ -253,7 +295,7 @@
           </div>
 
           <article class="nykuto-listing-detail-shell demo-detail-layout" data-listing-content hidden>
-            <section class="nykuto-listing-detail-gallery demo-detail-media" aria-label="Fotos do anúncio">
+            <section class="nykuto-listing-detail-gallery demo-detail-media" data-listing-gallery aria-label="Fotos do anúncio">
               <div class="nykuto-listing-detail-main-media demo-detail-main-media" data-listing-main-media tabindex="0"></div>
               <div class="demo-detail-gallery-bar"><span><strong data-listing-media-count>0</strong> fotos</span><small>Toque para ampliar</small></div>
               <div class="nykuto-listing-detail-thumbnails demo-detail-gallery" data-listing-thumbnails aria-label="Escolher foto"></div>
@@ -265,6 +307,13 @@
                 <h1 class="nykuto-listing-detail-title" id="listing-page-title" data-listing-title>Anúncio</h1>
                 <p class="nykuto-listing-detail-location" data-listing-location></p>
               </header>
+
+              <section class="nykuto-listing-detail-section nykuto-listing-detail-route" data-route-section hidden>
+                <h2>Trajeto da carona</h2>
+                <dl class="nykuto-listing-detail-route-grid" data-route-facts></dl>
+                <button class="nykuto-listing-detail-route-action" type="button" data-show-route>Mostrar rota aproximada</button>
+                <p class="nykuto-listing-detail-route-status" data-route-status aria-live="polite">A rota só será consultada depois do seu toque.</p>
+              </section>
 
               <div class="nykuto-listing-detail-price demo-detail-price">
                 <div><span data-listing-price-label>Preço</span><strong data-listing-price></strong><small data-listing-price-note></small></div>
@@ -282,15 +331,8 @@
                 <p class="nykuto-listing-detail-description" data-listing-description></p>
               </section>
 
-              <section class="nykuto-listing-detail-section nykuto-listing-detail-route" data-route-section hidden>
-                <h2>Trajeto da carona</h2>
-                <dl class="nykuto-listing-detail-route-grid" data-route-facts></dl>
-                <button class="nykuto-listing-detail-route-action" type="button" data-show-route>Ver rota aproximada</button>
-                <p class="nykuto-listing-detail-route-status" data-route-status aria-live="polite">O destino e a rota só serão consultados no OpenStreetMap/OSRM depois do seu toque.</p>
-              </section>
-
               <section class="nykuto-listing-detail-section" data-logistics-section hidden>
-                <h2>Entrega ou atendimento</h2>
+                <h2 data-logistics-title>Entrega ou atendimento</h2>
                 <div class="nykuto-listing-detail-chips demo-detail-tags" data-listing-logistics></div>
               </section>
 
@@ -307,15 +349,15 @@
 
               <div class="nykuto-listing-detail-seller">
                 <span data-seller-initial aria-hidden="true">N</span>
-                <div><small>Anunciante · WhatsApp informado pelo usuário, ainda não verificado</small><strong data-listing-seller></strong></div>
+                <div><small data-listing-seller-role>Anunciante · WhatsApp informado pelo usuário, ainda não verificado</small><strong data-listing-seller></strong></div>
               </div>
 
               <div class="nykuto-listing-detail-actions">
-                <a class="nykuto-listing-detail-whatsapp" data-listing-whatsapp target="_blank" rel="noopener noreferrer"><span aria-hidden="true">◉</span> Falar no WhatsApp</a>
+                <a class="nykuto-listing-detail-whatsapp" data-listing-whatsapp target="_blank" rel="noopener noreferrer"><span aria-hidden="true">◉</span><span data-listing-whatsapp-label>Falar no WhatsApp</span></a>
                 <a class="nykuto-listing-detail-source" data-listing-source target="_blank" rel="noopener noreferrer nofollow" hidden>Ver anúncio original <span aria-hidden="true">↗</span></a>
                 <button class="nykuto-listing-detail-report-open" type="button" data-open-report>Denunciar este anúncio</button>
               </div>
-              <p class="nykuto-listing-detail-commission">A conversa e a negociação acontecem diretamente com o anunciante. A Nykuto não recebe o pagamento nem cobra comissão.</p>
+              <p class="nykuto-listing-detail-commission" data-listing-contact-note>A conversa e a negociação acontecem diretamente com o anunciante. A Nykuto não recebe o pagamento nem cobra comissão.</p>
             </section>
           </article>
         </section>
@@ -366,6 +408,6 @@
 
   <noscript><p>O JavaScript é necessário para carregar este anúncio. <a href="/">Voltar ao Nykuto Local</a>.</p></noscript>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
-  <script src="/anuncio/anuncio.js?v=20260828-1" defer></script>
+  <script src="/anuncio/anuncio.js?v=20260828-4" defer></script>
 </body>
 </html>

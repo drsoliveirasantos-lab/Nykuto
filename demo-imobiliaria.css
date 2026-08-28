@@ -3791,3 +3791,405 @@
   .nykuto-market-real-listing .nykuto-market-example-visual img { transition: none; }
   .nykuto-market-real-listing:hover .nykuto-market-example-visual img { transform: none; }
 }
+
+/* Nykuto Local — carona search, route cards and publishing flow */
+:is([data-ride-search], .nykuto-ride-search) {
+  position: relative;
+  margin-top: 14px;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 44px;
+  gap: 8px;
+  border: 1px solid rgba(23, 79, 67, .15);
+  border-radius: 15px;
+  background: #f4f8f5;
+}
+
+:is([data-ride-search], .nykuto-ride-search) label {
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+}
+
+:is([data-ride-search], .nykuto-ride-search) label:first-of-type {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+:is([data-ride-search], .nykuto-ride-search) label:nth-of-type(2) {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+:is([data-ride-search], .nykuto-ride-search) label:nth-of-type(3),
+:is([data-ride-search], .nykuto-ride-search) .nykuto-ride-search-submit {
+  grid-column: 1 / -1;
+}
+
+:is([data-ride-search], .nykuto-ride-search) label > span {
+  color: var(--demo-ink);
+  font-size: 10px;
+  font-weight: 850;
+}
+
+:is([data-ride-search], .nykuto-ride-search) input {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 11px;
+  border: 1px solid var(--demo-line);
+  border-radius: 11px;
+  background: #fff;
+  color: var(--demo-ink);
+  font: inherit;
+  font-size: 16px;
+}
+
+:is([data-ride-search], .nykuto-ride-search) input::placeholder { color: #71817c; }
+:is([data-ride-search], .nykuto-ride-search) input:focus { border-color: var(--demo-forest); }
+
+.nykuto-ride-swap {
+  width: 44px;
+  height: 44px;
+  align-self: center;
+  grid-column: 2;
+  grid-row: 1 / 3;
+  border: 1px solid rgba(23, 79, 67, .2);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--demo-forest);
+  cursor: pointer;
+  font: inherit;
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.nykuto-ride-search-submit {
+  min-height: 48px;
+  padding: 11px 15px;
+  border: 1px solid var(--demo-forest);
+  border-radius: 11px;
+  background: var(--demo-forest);
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.nykuto-market-subcategories > .nykuto-ride-request-link {
+  min-height: 32px;
+  padding: 7px 10px;
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  border: 1px solid #dfbd6c;
+  border-radius: 999px;
+  background: #fff8e6;
+  color: #624b20;
+  font-size: 8px;
+  font-weight: 900;
+}
+
+.nykuto-ride-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(23, 79, 67, .16);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 10px 26px rgba(25, 62, 52, .07);
+}
+
+.nykuto-ride-card > a {
+  min-height: 100%;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.nykuto-ride-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.nykuto-ride-card-head small {
+  color: #856522;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+.nykuto-ride-card-head span {
+  min-height: 26px;
+  padding: 5px 8px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  background: #e7f2ec;
+  color: var(--demo-forest);
+  font-size: 8px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.nykuto-ride-route,
+.nykuto-preview-route {
+  position: relative;
+  padding: 3px 0 3px 29px;
+  display: grid;
+  gap: 14px;
+}
+
+.nykuto-ride-route::before,
+.nykuto-preview-route::before {
+  content: '';
+  position: absolute;
+  top: 13px;
+  bottom: 13px;
+  left: 8px;
+  width: 2px;
+  border-radius: 999px;
+  background: #cbd9d2;
+}
+
+.nykuto-ride-route > div,
+.nykuto-preview-route > div {
+  position: relative;
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.nykuto-ride-route > div::before,
+.nykuto-preview-route > div::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: -27px;
+  width: 11px;
+  height: 11px;
+  border: 3px solid var(--demo-forest);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 3px #fff;
+}
+
+.nykuto-ride-route > div:last-child::before,
+.nykuto-preview-route > div:last-child::before {
+  border-color: #dfbd6c;
+  background: #dfbd6c;
+}
+
+.nykuto-ride-route :where(small, span),
+.nykuto-preview-route :where(small, span) {
+  color: var(--demo-muted);
+  font-size: 8px;
+  line-height: 1.3;
+}
+
+.nykuto-ride-route :where(strong, b),
+.nykuto-preview-route :where(strong, b) {
+  color: var(--demo-ink);
+  font-size: 13px;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.nykuto-ride-card-meta {
+  padding-top: 11px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  border-top: 1px solid var(--demo-line);
+}
+
+.nykuto-ride-card-meta span {
+  min-height: 26px;
+  padding: 5px 7px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  background: #f0f5f2;
+  color: #50635d;
+  font-size: 8px;
+  font-weight: 780;
+}
+
+.nykuto-ride-card-meta strong {
+  margin-left: auto;
+  color: var(--demo-forest);
+  font-size: 10px;
+}
+
+.nykuto-ride-card > a > b {
+  min-height: 42px;
+  margin-top: auto;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: var(--demo-forest);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 900;
+  text-align: center;
+}
+
+.nykuto-ride-empty {
+  min-height: 210px;
+  padding: 24px 18px;
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 8px;
+  grid-column: 1 / -1;
+  border: 1px dashed rgba(23, 79, 67, .3);
+  border-radius: 16px;
+  background: linear-gradient(145deg, #f4f9f6, #fffaf0);
+  color: var(--demo-ink);
+}
+
+.nykuto-ride-empty :where(h3, strong) { margin: 0; color: var(--demo-ink); font-size: 18px; }
+.nykuto-ride-empty p { max-width: 560px; margin: 0; color: var(--demo-muted); font-size: 11px; line-height: 1.55; }
+
+.nykuto-ride-actions {
+  width: 100%;
+  margin-top: 8px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.nykuto-ride-actions :where(a, button) {
+  min-height: 48px;
+  padding: 10px 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--demo-forest);
+  border-radius: 11px;
+  background: var(--demo-forest);
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 900;
+  text-align: center;
+}
+
+.nykuto-ride-actions > :nth-child(2) {
+  border-color: #dfbd6c;
+  background: #dfbd6c;
+  color: #30240e;
+}
+
+.nykuto-listing-wizard.is-carona { width: min(800px, calc(100% - 24px)); }
+.nykuto-listing-wizard.is-carona .nykuto-wizard-header { background: linear-gradient(140deg, #eff7f2, #fff8e8); }
+.nykuto-wizard-progress.is-carona { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.nykuto-listing-wizard.is-carona .nykuto-subcategory-choices { grid-template-columns: 1fr; }
+
+.nykuto-listing-wizard.is-carona .nykuto-subcategory-choices label {
+  min-height: 86px;
+  padding: 14px;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.nykuto-listing-wizard.is-carona .nykuto-subcategory-choices label > div { min-width: 0; }
+.nykuto-listing-wizard.is-carona .nykuto-subcategory-choices label > div strong { display: block; color: var(--demo-ink); font-size: 14px; }
+.nykuto-listing-wizard.is-carona .nykuto-subcategory-choices label > div small { margin-top: 4px; display: block; font-size: 10px; }
+.nykuto-listing-wizard.is-carona .nykuto-subcategory-choices label > span { color: var(--demo-forest); font-size: 20px; }
+
+.nykuto-listing-wizard.is-carona .nykuto-location-search {
+  padding: 12px;
+  border: 1px solid rgba(23, 79, 67, .16);
+  border-radius: 14px 14px 0 0;
+  background: #f5f9f6;
+}
+
+.nykuto-carona-route-fields {
+  margin: 0;
+  padding: 0 12px 12px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  border: 1px solid rgba(23, 79, 67, .16);
+  border-top: 0;
+  border-radius: 0 0 14px 14px;
+  background: #f5f9f6;
+}
+
+.nykuto-listing-wizard.is-carona .nykuto-listing-map { min-height: 220px; }
+
+.nykuto-listing-preview article.is-carona {
+  max-width: 680px;
+  margin-inline: auto;
+  display: block;
+  border-color: rgba(23, 79, 67, .18);
+  background: linear-gradient(145deg, #fff, #f6faf7);
+}
+
+.nykuto-listing-preview article.is-carona .nykuto-preview-body { padding: 18px; }
+.nykuto-listing-preview article.is-carona .nykuto-preview-route { margin-bottom: 16px; padding-block: 5px; }
+.nykuto-listing-preview article.is-carona .nykuto-preview-body > small { display: block; }
+
+@media (max-width: 720px) {
+  [data-demo-page="home"] .nykuto-market-examples:has(.nykuto-ride-card),
+  [data-demo-page="home"] .nykuto-market-examples:has(.nykuto-ride-empty) {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .nykuto-market-subcategories > .nykuto-ride-request-link {
+    min-height: 44px;
+    padding: 9px 12px;
+    font-size: 10px;
+  }
+
+  .nykuto-listing-wizard.is-carona {
+    width: 100%;
+    min-height: calc(100svh - 56px - 76px);
+  }
+
+  .nykuto-wizard-progress.is-carona .is-current small { white-space: nowrap; }
+  .nykuto-listing-wizard.is-carona .nykuto-location-search { grid-template-columns: minmax(0, 1fr) auto; }
+  .nykuto-listing-preview article.is-carona .nykuto-preview-body { padding: 16px; }
+  .nykuto-preview-route :where(strong, b) { font-size: 15px; }
+}
+
+@media (min-width: 721px) {
+  :is([data-ride-search], .nykuto-ride-search) {
+    padding: 13px;
+    grid-template-columns: minmax(0, 1fr) 42px minmax(0, 1fr) minmax(135px, .55fr) auto;
+    align-items: end;
+  }
+
+  :is([data-ride-search], .nykuto-ride-search) label:first-of-type,
+  :is([data-ride-search], .nykuto-ride-search) label:nth-of-type(2),
+  :is([data-ride-search], .nykuto-ride-search) label:nth-of-type(3),
+  :is([data-ride-search], .nykuto-ride-search) .nykuto-ride-search-submit,
+  :is([data-ride-search], .nykuto-ride-search) .nykuto-ride-swap {
+    grid-row: 1;
+  }
+
+  :is([data-ride-search], .nykuto-ride-search) label:first-of-type { grid-column: 1; }
+  :is([data-ride-search], .nykuto-ride-search) .nykuto-ride-swap { grid-column: 2; }
+  :is([data-ride-search], .nykuto-ride-search) label:nth-of-type(2) { grid-column: 3; }
+  :is([data-ride-search], .nykuto-ride-search) label:nth-of-type(3) { grid-column: 4; }
+  :is([data-ride-search], .nykuto-ride-search) .nykuto-ride-search-submit { grid-column: 5; }
+
+  :is([data-ride-search], .nykuto-ride-search) input { font-size: 11px; }
+  .nykuto-ride-search-submit { min-width: 118px; }
+  .nykuto-ride-actions { width: auto; grid-template-columns: repeat(2, minmax(0, auto)); }
+  .nykuto-listing-wizard.is-carona .nykuto-subcategory-choices { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .nykuto-carona-route-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

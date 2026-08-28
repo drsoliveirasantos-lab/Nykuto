@@ -145,12 +145,16 @@ or copied automatically. A publisher may provide a source URL only after
 confirming that they are the author or have express permission to reuse the text
 and images. The public page keeps a safe original-source link.
 
-`Carona compartilhada` supports offers and requests, recurring or occasional
-routes, an approximate departure zone, destination, time, days, seats and a cost
-contribution. It is sharing a journey and expenses, not a guaranteed transport
-service. Users remain responsible for licences, insurance, safety and local
-rules. Foz-related copy must also remind users that fiscal, customs and
-transport rules remain their responsibility.
+`Carona compartilhada` has a dedicated route-first journey while reusing the
+same listing model. The public catalogue can search approximate origin,
+destination and date, and it separates available rides from ride requests.
+Publication is intentionally limited to three screens: offer or request, route
+and schedule, then WhatsApp contact and confirmation. Recurring and occasional
+trips are supported with an approximate departure zone, destination, time,
+seats and an optional per-person contribution. The only hand-off is a prefilled
+WhatsApp conversation; Nykuto does not book a seat, confirm a passenger or
+process payment. It is sharing a journey and expenses, not a guaranteed
+transport service.
 
 Address lookup is an explicit, user-triggered convenience for the CDE–Foz pilot,
 not autocomplete. It may query the public OpenStreetMap Nominatim endpoint only

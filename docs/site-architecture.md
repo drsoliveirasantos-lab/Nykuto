@@ -138,12 +138,16 @@ shown until owner-controlled applications and account recovery are configured;
 Instagram is not a launch authentication method. The user-supplied WhatsApp is
 public but explicitly labelled unverified until OTP is added.
 
-`Carona compartilhada` uses the same listing model for offers and requests. Its
-structured fees store the public departure/destination labels, schedule, days,
-places and detour. Only the rounded departure zone is stored as coordinates.
-The detail page geocodes the destination and requests an OSRM path only after a
-visitor explicitly taps “Ver rota aproximada”; the map remains a planning aid,
-not navigation or a transport guarantee.
+`Carona compartilhada` uses the same listing model for offers and requests but
+has a dedicated three-screen publisher: intention, route/schedule and WhatsApp
+contact. Structured fees store the public departure/destination labels,
+frequency, date when applicable, time and seats;
+the normal price fields hold an optional per-person contribution. Route-first
+catalogue cards and the carona search read these fields directly. Only the
+rounded departure zone is stored as coordinates. The detail page geocodes the
+destination and requests an OSRM path only after a visitor explicitly taps the
+route button; the map remains a planning aid, not navigation, booking or a
+payment flow.
 
 The demo uses owner-supplied photos and videos of real Ciudad del Este
 properties that were neutralised before publication and stripped of embedded

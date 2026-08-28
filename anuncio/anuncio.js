@@ -15,17 +15,23 @@
   const priceLabel = document.querySelector('[data-listing-price-label]');
   const priceNote = document.querySelector('[data-listing-price-note]');
   const kindElement = document.querySelector('[data-listing-kind]');
+  const trustElement = document.querySelector('.nykuto-listing-detail-trust');
   const factsElement = document.querySelector('[data-listing-facts]');
   const descriptionSection = document.querySelector('[data-description-section]');
   const descriptionElement = document.querySelector('[data-listing-description]');
   const logisticsSection = document.querySelector('[data-logistics-section]');
   const logisticsElement = document.querySelector('[data-listing-logistics]');
+  const logisticsTitle = document.querySelector('[data-logistics-title]');
   const feesSection = document.querySelector('[data-fees-section]');
   const feesElement = document.querySelector('[data-listing-fees]');
   const sellerElement = document.querySelector('[data-listing-seller]');
   const sellerInitial = document.querySelector('[data-seller-initial]');
+  const sellerRole = document.querySelector('[data-listing-seller-role]');
   const whatsappLink = document.querySelector('[data-listing-whatsapp]');
+  const whatsappLabel = document.querySelector('[data-listing-whatsapp-label]');
+  const contactNote = document.querySelector('[data-listing-contact-note]');
   const sourceLink = document.querySelector('[data-listing-source]');
+  const gallery = document.querySelector('[data-listing-gallery]');
   const mainMedia = document.querySelector('[data-listing-main-media]');
   const thumbnails = document.querySelector('[data-listing-thumbnails]');
   const mediaCount = document.querySelector('[data-listing-media-count]');
@@ -130,6 +136,12 @@
 
   function pricePresentation(item) {
     const amount = formatAmount(item.priceAmount, item.currency);
+    if (isSharedRide(item)) {
+      if (item.priceMode === 'free') return { value: 'Sem contribuição', note: '' };
+      if (item.priceMode === 'quote') return { value: 'A combinar', note: 'Combine diretamente pelo WhatsApp' };
+      if (item.priceMode === 'negotiable') return { value: amount || 'A combinar', note: amount ? 'por pessoa · valor a combinar' : 'Combine diretamente pelo WhatsApp' };
+      return { value: amount || 'A combinar', note: amount ? 'por pessoa' : 'Combine diretamente pelo WhatsApp' };
+    }
     if (item.priceMode === 'free') return { value: 'Grátis', note: '' };
     if (item.priceMode === 'quote') return { value: 'Sob consulta', note: '' };
     if (item.priceMode === 'negotiable') return { value: amount || 'A combinar', note: 'Preço negociável' };
@@ -140,6 +152,13 @@
     const value = Number(timestamp);
     if (!Number.isFinite(value) || value <= 0) return '';
     return new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).format(new Date(value * 1000));
+  }
+
+  function formatRideDate(value) {
+    const raw = cleanText(value);
+    const isoDate = /^(\d{4})-(\d{2})-(\d{2})$/.exec(raw);
+    if (isoDate) return `${isoDate[3]}/${isoDate[2]}/${isoDate[1]}`;
+    return raw;
   }
 
   function addFact(label, value) {
@@ -154,6 +173,18 @@
     factsElement.append(wrapper);
   }
 
+  function renderTrust(ride) {
+    if (!trustElement) return;
+    const labels = ride
+      ? ['✓ Contato pelo WhatsApp', '✓ Trajeto aproximado', '✓ Combinação direta']
+      : ['✓ Contato direto', '✓ Zona aproximada', '✓ Sem comissão Nykuto'];
+    trustElement.replaceChildren(...labels.map((label) => {
+      const span = document.createElement('span');
+      span.textContent = label;
+      return span;
+    }));
+  }
+
   function normalizedWhatsapp(value) {
     const digits = cleanText(value).replace(/\D/g, '');
     return /^[1-9]\d{7,14}$/.test(digits) && !/^(\d)\1+$/.test(digits) ? digits : '';
@@ -161,6 +192,19 @@
 
   function sellerMessage(item) {
     const url = publicPageUrl(item.id);
+    if (isSharedRide(item)) {
+      const details = sharedRideDetails(item);
+      const request = item.kind === 'request';
+      const lines = [request
+        ? 'Olá! Vi que você procura carona no Nykuto Local. Posso oferecer uma carona.'
+        : 'Olá! Vi sua carona no Nykuto Local e gostaria de pedir uma vaga.'];
+      if (details.origin || details.destination) lines.push(`Trajeto: ${details.origin || 'origem a combinar'} → ${details.destination || 'destino a combinar'}`);
+      if (details.date) lines.push(`Data: ${details.date}`);
+      if (details.time) lines.push(`Horário: ${details.time}`);
+      if (details.seats) lines.push(`${request ? 'Passageiros' : 'Vagas'}: ${details.seats}`);
+      lines.push('', url);
+      return lines.join('\n');
+    }
     return [
       `Olá! Tenho interesse no seu anúncio “${cleanText(item.title)}” no Nykuto Local.`,
       '',
@@ -173,11 +217,18 @@
     const sellerName = cleanText(seller.name) || 'Anunciante local';
     sellerElement.textContent = sellerName;
     sellerInitial.textContent = sellerName.slice(0, 1).toLocaleUpperCase('pt-BR') || 'N';
+    const ride = isSharedRide(item);
+    if (sellerRole) sellerRole.textContent = ride
+      ? `${item.kind === 'request' ? 'Passageiro' : 'Motorista'} · WhatsApp informado pelo usuário`
+      : 'Anunciante · WhatsApp informado pelo usuário, ainda não verificado';
+    if (whatsappLabel) whatsappLabel.textContent = ride
+      ? (item.kind === 'request' ? 'Oferecer carona no WhatsApp' : 'Pedir uma vaga no WhatsApp')
+      : 'Falar no WhatsApp';
     const phone = normalizedWhatsapp(seller.whatsapp);
     if (!phone) {
       whatsappLink.removeAttribute('href');
       whatsappLink.setAttribute('aria-disabled', 'true');
-      whatsappLink.lastChild.textContent = ' WhatsApp indisponível';
+      if (whatsappLabel) whatsappLabel.textContent = 'WhatsApp indisponível';
       return;
     }
     whatsappLink.href = `https://wa.me/${phone}?text=${encodeURIComponent(sellerMessage(item))}`;
@@ -246,8 +297,16 @@
 
   function renderMedia(item) {
     const media = mediaItems(item);
+    const hideEmptyRideGallery = isSharedRide(item) && media.length === 0;
+    if (gallery) gallery.hidden = hideEmptyRideGallery;
+    content.classList.toggle('is-ride-without-media', hideEmptyRideGallery);
     thumbnails.replaceChildren();
     mediaCount.textContent = String(media.length);
+    if (hideEmptyRideGallery) {
+      mainMedia.replaceChildren();
+      selectedMediaIndex = 0;
+      return;
+    }
     if (media.length > 1) {
       media.forEach((entry, index) => {
         const button = document.createElement('button');
@@ -272,6 +331,7 @@
     const values = Array.isArray(item.logistics) ? item.logistics.map(cleanText).filter(Boolean) : [];
     logisticsElement.replaceChildren();
     logisticsSection.hidden = values.length === 0;
+    if (logisticsTitle) logisticsTitle.textContent = isSharedRide(item) ? 'Detalhes da carona' : 'Entrega ou atendimento';
     values.forEach((value) => {
       const chip = document.createElement('span');
       chip.textContent = value;
@@ -294,9 +354,53 @@
     const normalized = normalizedText(label);
     if (normalized.includes('ponto de partida') || normalized === 'partida' || normalized === 'origem') return 'origin';
     if (normalized.includes('destino') || normalized.includes('chegada')) return 'destination';
-    if (normalized === 'data' || normalized.includes('dia da viagem')) return 'date';
+    if (normalized.includes('dia') && normalized.includes('recorr')) return 'days';
+    if (normalized.includes('data') || normalized.includes('dia da viagem')) return 'date';
     if (normalized.includes('horario') || normalized.includes('hora')) return 'time';
+    if (normalized.includes('lugar') || normalized.includes('vaga') || normalized.includes('passageir') || normalized.includes('pessoa')) return 'seats';
     return 'other';
+  }
+
+  function sharedRideDetails(item) {
+    const details = {
+      origin: approximatePlaceLabel(item.zone?.label),
+      destination: '',
+      destinationQuery: '',
+      date: '',
+      time: '',
+      seats: '',
+      days: ''
+    };
+    const fees = Array.isArray(item.fees) ? item.fees : [];
+    fees.forEach((fee) => {
+      const label = cleanText(fee?.label);
+      const value = cleanText(fee?.value);
+      if (!label || !value) return;
+      const kind = routeFieldKind(label);
+      if (kind === 'origin') details.origin = approximatePlaceLabel(value);
+      if (kind === 'destination') {
+        details.destination = approximatePlaceLabel(value);
+        details.destinationQuery = value;
+      }
+      if (kind === 'date') details.date = formatRideDate(value);
+      if (kind === 'time') details.time = value;
+      if (kind === 'seats') details.seats = value;
+      if (kind === 'days') details.days = value;
+    });
+    return details;
+  }
+
+  function addRouteFact(kind, label, value) {
+    const cleaned = cleanText(value);
+    if (!cleaned) return;
+    const wrapper = document.createElement('div');
+    const term = document.createElement('dt');
+    const description = document.createElement('dd');
+    wrapper.dataset.routeKind = kind;
+    term.textContent = label;
+    description.textContent = cleaned;
+    wrapper.append(term, description);
+    routeFacts.append(wrapper);
   }
 
   function renderSharedRide(item) {
@@ -312,36 +416,21 @@
 
     mapTitle.textContent = 'Trajeto aproximado';
     mapElement.setAttribute('aria-label', 'Mapa do trajeto aproximado da carona compartilhada');
-    const values = Array.isArray(item.fees)
-      ? item.fees.filter((fee) => cleanText(fee?.label) && cleanText(fee?.value))
-      : [];
-    values.forEach((fee) => {
-      const kind = routeFieldKind(fee.label);
-      const wrapper = document.createElement('div');
-      const term = document.createElement('dt');
-      const description = document.createElement('dd');
-      term.textContent = cleanText(fee.label);
-      description.textContent = ['origin', 'destination'].includes(kind) ? approximatePlaceLabel(fee.value) : cleanText(fee.value);
-      if (kind === 'destination') routeDestination = cleanText(fee.value);
-      wrapper.append(term, description);
-      routeFacts.append(wrapper);
-    });
-
-    if (!values.length) {
-      const wrapper = document.createElement('div');
-      const term = document.createElement('dt');
-      const description = document.createElement('dd');
-      term.textContent = 'Trajeto';
-      description.textContent = 'Detalhes a combinar com o motorista';
-      wrapper.append(term, description);
-      routeFacts.append(wrapper);
-    }
+    const details = sharedRideDetails(item);
+    routeDestination = details.destinationQuery;
+    addRouteFact('origin', 'Saída', details.origin || 'Origem a combinar');
+    addRouteFact('destination', 'Destino', details.destination || 'Destino a combinar');
+    addRouteFact('date', 'Data', details.date);
+    addRouteFact('time', 'Horário', details.time);
+    addRouteFact('seats', item.kind === 'request' ? 'Passageiros' : 'Lugares', details.seats);
+    addRouteFact('frequency', 'Frequência', details.days || cleanText(item.availability));
     showRouteButton.hidden = !routeDestination;
     showRouteButton.disabled = false;
-    showRouteButton.textContent = 'Ver rota aproximada';
+    showRouteButton.textContent = 'Mostrar rota aproximada';
     routeStatus.textContent = routeDestination
-      ? 'O destino e a rota só serão consultados no OpenStreetMap/OSRM depois do seu toque.'
-      : 'O destino não foi informado de forma suficiente para desenhar a rota.';
+      ? 'Toque para consultar uma rota aproximada. Nenhum endereço exato será exibido.'
+      : 'O destino não permite mostrar a rota. Combine o trajeto pelo WhatsApp.';
+    mapNote.textContent = 'A partida aparece como zona aproximada. O destino só será consultado se você tocar em “Mostrar rota aproximada”.';
   }
 
   function renderFees(item) {
@@ -414,8 +503,8 @@
     lastRouteLookupAt = Date.now();
     routeLookupPending = true;
     showRouteButton.disabled = true;
-    showRouteButton.textContent = 'Localizando destino…';
-    routeStatus.textContent = 'Consultando o destino no OpenStreetMap. Nenhum endereço exato será marcado no mapa.';
+    showRouteButton.textContent = 'Carregando trajeto…';
+    routeStatus.textContent = 'Carregando uma rota aproximada, sem exibir endereços exatos.';
     try {
       const params = new URLSearchParams({
         q: routeDestination,
@@ -472,14 +561,14 @@
       listingMap.fitBounds(routeLayer.getBounds(), { padding: [24, 24] });
       showRouteButton.textContent = 'Rota aproximada exibida';
       routeStatus.textContent = roadRoute
-        ? 'Trajeto viário aproximado entre zonas arredondadas; confirme o ponto exato em privado antes da viagem.'
-        : 'Ligação aproximada entre as duas zonas; confirme o caminho e o ponto exato em privado.';
+        ? 'Rota aproximada. Combine o ponto exato pelo WhatsApp.'
+        : 'Ligação aproximada entre as zonas. Combine o caminho pelo WhatsApp.';
     } catch (error) {
       showRouteButton.disabled = false;
-      showRouteButton.textContent = 'Tentar localizar novamente';
+      showRouteButton.textContent = 'Tentar mostrar novamente';
       routeStatus.textContent = error.message === 'ROUTE_NOT_FOUND'
-        ? 'O destino não foi encontrado na região de CDE/Foz. Combine o ponto diretamente com o motorista.'
-        : 'Não foi possível consultar o destino agora. Você ainda pode combinar o trajeto pelo WhatsApp.';
+        ? 'Destino não encontrado. Combine o trajeto pelo WhatsApp.'
+        : 'Não foi possível mostrar a rota agora. Combine pelo WhatsApp.';
     } finally {
       routeLookupPending = false;
     }
@@ -487,6 +576,7 @@
 
   function renderListing(item, ownerView) {
     listing = item;
+    const ride = isSharedRide(item);
     const price = pricePresentation(item);
     const canonicalUrl = publicPageUrl(item.id);
     const zoneLabel = cleanText(item.zone?.label) || 'Zona aproximada';
@@ -496,22 +586,29 @@
     document.querySelector('meta[name="description"]')?.setAttribute('content', cleanText(item.description).slice(0, 155) || `${price.value} · ${zoneLabel} · contato direto pelo WhatsApp.`);
     canonical.href = canonicalUrl;
     titleElement.textContent = cleanText(item.title) || 'Anúncio sem título';
-    categoryElement.textContent = [cleanText(item.category), cleanText(item.subcategory)].filter(Boolean).join(' · ') || 'Anúncio local';
+    content.classList.toggle('is-shared-ride', ride);
+    categoryElement.textContent = ride ? 'Carona compartilhada' : ([cleanText(item.category), cleanText(item.subcategory)].filter(Boolean).join(' · ') || 'Anúncio local');
     statusElement.textContent = ownerView ? `Seu anúncio · ${statusLabels[item.status] || cleanText(item.status)}` : (statusLabels[item.status] || 'Publicado');
     openReportButton.hidden = ownerView || item.status !== 'published';
-    locationElement.textContent = `⌖ ${zoneLabel} · zona aproximada de 5 km`;
+    locationElement.textContent = ride ? `⌖ Saída em ${zoneLabel} · zona aproximada` : `⌖ ${zoneLabel} · zona aproximada de 5 km`;
     priceElement.textContent = price.value;
-    priceLabel.textContent = item.kind === 'request' ? 'Orçamento' : 'Preço anunciado';
+    priceLabel.textContent = ride ? 'Contribuição por pessoa' : (item.kind === 'request' ? 'Orçamento' : 'Preço anunciado');
     priceNote.textContent = price.note;
-    kindElement.textContent = kindLabels[item.kind] || 'Anúncio local';
+    kindElement.textContent = ride ? (item.kind === 'request' ? 'Passageiro' : 'Motorista') : (kindLabels[item.kind] || 'Anúncio local');
+    renderTrust(ride);
 
     factsElement.replaceChildren();
-    addFact('Categoria', cleanText(item.category));
-    addFact('Tipo', cleanText(item.subcategory));
-    addFact('Estado', cleanText(item.condition));
-    addFact('Disponibilidade', cleanText(item.availability));
-    addFact('Forma do preço', priceModeLabels[item.priceMode] || cleanText(item.priceMode));
-    addFact('Publicado em', publishedAt);
+    if (ride) {
+      addFact('Frequência', cleanText(item.availability));
+      addFact('Publicado em', publishedAt);
+    } else {
+      addFact('Categoria', cleanText(item.category));
+      addFact('Tipo', cleanText(item.subcategory));
+      addFact('Estado', cleanText(item.condition));
+      addFact('Disponibilidade', cleanText(item.availability));
+      addFact('Forma do preço', priceModeLabels[item.priceMode] || cleanText(item.priceMode));
+      addFact('Publicado em', publishedAt);
+    }
 
     const description = cleanText(item.description);
     descriptionSection.hidden = !description;
@@ -522,6 +619,9 @@
     renderSeller(item);
     renderSource(item);
     renderMedia(item);
+    if (contactNote) contactNote.textContent = ride
+      ? 'Combine o ponto exato, a contribuição e os demais detalhes diretamente pelo WhatsApp.'
+      : 'A conversa e a negociação acontecem diretamente com o anunciante. A Nykuto não recebe o pagamento nem cobra comissão.';
 
     loadingState.hidden = true;
     errorState.hidden = true;

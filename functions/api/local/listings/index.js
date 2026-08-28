@@ -14,6 +14,7 @@ import {
   cleanFeeList,
   cleanLocalOptionalText,
   cleanLocalText,
+  cleanPublicRidePlace,
   cleanPriceAmount,
   cleanSourceUrl,
   cleanStringList,
@@ -30,6 +31,180 @@ import { constantTimeEqual, isSameOrigin, json, nowSeconds } from '../../../_lib
 import { verifyTurnstile } from '../../../_lib/turnstile.js';
 
 const LISTING_LIFETIME_SECONDS = 45 * 24 * 60 * 60;
+const LOCAL_RIDE_CATEGORY = 'Carona compartilhada';
+
+const RIDE_FEE_LABELS = {
+  origin: 'Ponto de partida',
+  destination: 'Destino',
+  frequency: 'Frequência',
+  date: 'Data da viagem',
+  time: 'Horário de saída',
+  seatsOffer: 'Lugares disponíveis',
+  seatsRequest: 'Número de passageiros',
+  meetingPoint: 'Ponto de encontro',
+  recurringDays: 'Dias recorrentes',
+  detour: 'Desvio máximo',
+  luggage: 'Bagagem'
+};
+
+const RIDE_FEE_ALIASES = new Map([
+  ['ponto de partida', 'origin'],
+  ['local de partida', 'origin'],
+  ['ponto inicial', 'origin'],
+  ['partida', 'origin'],
+  ['origem', 'origin'],
+  ['destino', 'destination'],
+  ['destino final', 'destination'],
+  ['ponto de chegada', 'destination'],
+  ['chegada', 'destination'],
+  ['frequencia', 'frequency'],
+  ['recorrencia', 'frequency'],
+  ['periodicidade', 'frequency'],
+  ['disponibilidade', 'frequency'],
+  ['data', 'date'],
+  ['data da viagem', 'date'],
+  ['data da primeira viagem', 'date'],
+  ['dia da viagem', 'date'],
+  ['primeira viagem', 'date'],
+  ['horario', 'time'],
+  ['horario de saida', 'time'],
+  ['horario da viagem', 'time'],
+  ['hora', 'time'],
+  ['hora de saida', 'time'],
+  ['lugares', 'seats'],
+  ['lugares disponiveis', 'seats'],
+  ['lugares / pessoas', 'seats'],
+  ['numero de lugares', 'seats'],
+  ['numero de passageiros', 'seats'],
+  ['passageiros', 'seats'],
+  ['pessoas', 'seats'],
+  ['vagas', 'seats'],
+  ['vagas disponiveis', 'seats'],
+  ['ponto de encontro', 'meetingPoint'],
+  ['encontro', 'meetingPoint'],
+  ['dias recorrentes', 'recurringDays'],
+  ['dias da semana', 'recurringDays'],
+  ['dias', 'recurringDays'],
+  ['desvio maximo', 'detour'],
+  ['desvio', 'detour'],
+  ['bagagem', 'luggage']
+]);
+
+const RIDE_FREQUENCY_ALIASES = new Map([
+  ['once', 'once'],
+  ['uma vez', 'once'],
+  ['viagem unica', 'once'],
+  ['ocasional', 'once'],
+  ['unica', 'once'],
+  ['unico', 'once'],
+  ['weekdays', 'weekdays'],
+  ['dias uteis', 'weekdays'],
+  ['segunda a sexta', 'weekdays'],
+  ['seg a sex', 'weekdays'],
+  ['weekly', 'weekly'],
+  ['toda semana', 'weekly'],
+  ['semanal', 'weekly'],
+  ['daily', 'daily'],
+  ['todos os dias', 'daily'],
+  ['diaria', 'daily'],
+  ['diario', 'daily'],
+  ['diariamente', 'daily'],
+  ['recorrente', 'recurring'],
+  ['a combinar', 'flexible'],
+  ['flexivel', 'flexible']
+]);
+
+function canonicalRideFeeKey(label) {
+  return RIDE_FEE_ALIASES.get(normalizeSearchText(label)) || '';
+}
+
+function canonicalRideFrequency(value) {
+  return RIDE_FREQUENCY_ALIASES.get(normalizeSearchText(value)) || '';
+}
+
+function rideFrequenciesAgree(first, second) {
+  if (first === second) return true;
+  const recurring = new Set(['weekdays', 'weekly', 'daily', 'recurring']);
+  return recurring.has(first) && recurring.has(second) && (first === 'recurring' || second === 'recurring');
+}
+
+function isValidRideDate(value) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
+  if (!match) return false;
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+  const timestamp = Date.UTC(year, month - 1, day);
+  const parsed = new Date(timestamp);
+  if (parsed.getUTCFullYear() !== year || parsed.getUTCMonth() !== month - 1 || parsed.getUTCDate() !== day) return false;
+  const todayParts = Object.fromEntries(new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/Asuncion',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  }).formatToParts(new Date()).map((part) => [part.type, part.value]));
+  const today = `${todayParts.year}-${todayParts.month}-${todayParts.day}`;
+  return value >= today;
+}
+
+function isValidRideTime(value) {
+  const match = /^(\d{2}):(\d{2})$/.exec(value);
+  return Boolean(match && Number(match[1]) <= 23 && Number(match[2]) <= 59);
+}
+
+function canonicalRideFeeLabel(key, kind) {
+  if (key === 'seats') return kind === 'request' ? RIDE_FEE_LABELS.seatsRequest : RIDE_FEE_LABELS.seatsOffer;
+  return RIDE_FEE_LABELS[key];
+}
+
+function validateRideDetails(rawFees, { kind, subcategory, availability, zoneLabel }) {
+  if (!Array.isArray(rawFees) || rawFees.length > 8) return null;
+  const fees = cleanFeeList(rawFees);
+  if (fees.length !== rawFees.length) return null;
+
+  const fields = new Map();
+  const canonicalFees = [];
+  for (const fee of fees) {
+    const key = canonicalRideFeeKey(fee.label);
+    if (!key || fields.has(key)) return null;
+    if (key === 'meetingPoint') {
+      fields.set(key, '');
+      continue;
+    }
+    const placeValue = key === 'origin' ? zoneLabel : fee.value;
+    const publicValue = ['origin', 'destination'].includes(key) ? cleanPublicRidePlace(placeValue) : fee.value;
+    if (!publicValue) return null;
+    fields.set(key, publicValue);
+    canonicalFees.push({ label: canonicalRideFeeLabel(key, kind), value: publicValue });
+  }
+
+  const normalizedSubcategory = normalizeSearchText(subcategory);
+  const expectedKind = normalizedSubcategory.startsWith('procuro ') ? 'request' : normalizedSubcategory.startsWith('ofereco ') ? 'offer' : '';
+  const recurringSubcategory = normalizedSubcategory.includes('recorrente');
+  const occasionalSubcategory = normalizedSubcategory.includes('ocasional');
+  if (!expectedKind || kind !== expectedKind || (!recurringSubcategory && !occasionalSubcategory)) return null;
+
+  const origin = fields.get('origin') || '';
+  const destination = fields.get('destination') || '';
+  const time = fields.get('time') || '';
+  const seats = Number(fields.get('seats'));
+  const date = fields.get('date') || '';
+  if (!origin || !destination || !isValidRideTime(time) || !Number.isInteger(seats) || seats < 1 || seats > 8) return null;
+  if (occasionalSubcategory && !isValidRideDate(date)) return null;
+  if (date && !isValidRideDate(date)) return null;
+
+  const availabilityFrequency = canonicalRideFrequency(availability);
+  const feeFrequency = fields.has('frequency') ? canonicalRideFrequency(fields.get('frequency')) : availabilityFrequency;
+  if (!availabilityFrequency || !feeFrequency || !rideFrequenciesAgree(availabilityFrequency, feeFrequency)) return null;
+  if (occasionalSubcategory && !['once', 'flexible'].includes(feeFrequency)) return null;
+  if (recurringSubcategory && !['weekdays', 'weekly', 'daily', 'recurring', 'flexible'].includes(feeFrequency)) return null;
+
+  return {
+    fees: canonicalFees,
+    searchValues: [origin, destination, fields.get('frequency') || '', availability, date, time],
+    publicTitle: `${kind === 'request' ? 'Procuro carona' : 'Carona'}: ${origin} → ${destination} · ${time}`.slice(0, 90)
+  };
+}
 
 function validateProfile(value) {
   const firstName = cleanLocalText(value?.firstName, 2, 50);
@@ -41,10 +216,11 @@ function validateProfile(value) {
 }
 
 function validateListing(value) {
-  const kind = LOCAL_LISTING_KINDS.has(value?.kind) ? value.kind : 'offer';
+  const kind = LOCAL_LISTING_KINDS.has(value?.kind) ? value.kind : null;
   const category = LOCAL_CATEGORIES.has(value?.category) ? value.category : null;
   const subcategory = cleanLocalText(value?.subcategory, 2, 80);
-  const title = cleanLocalText(value?.title, 4, 90);
+  let title = cleanLocalText(value?.title, 4, 90);
+  const submittedTitle = title;
   const description = cleanLocalOptionalText(value?.description, 1200);
   const priceMode = LOCAL_PRICE_MODES.has(value?.priceMode) ? value.priceMode : null;
   const needsPrice = priceMode === 'fixed' || priceMode === 'negotiable';
@@ -53,16 +229,27 @@ function validateListing(value) {
   const condition = cleanLocalText(value?.condition, 2, 80);
   const availability = cleanLocalText(value?.availability, 2, 80);
   const logistics = cleanStringList(value?.logistics);
-  const fees = cleanFeeList(value?.fees);
-  const zoneLabel = cleanLocalText(value?.zoneLabel, 2, 100);
+  let fees = cleanFeeList(value?.fees);
+  let zoneLabel = cleanLocalText(value?.zoneLabel, 2, 100);
   const zoneLat = cleanCoordinate(value?.zoneLatitude, -25.9, -24.8);
   const zoneLng = cleanCoordinate(value?.zoneLongitude, -55.1, -54.2);
   const sourceUrl = cleanSourceUrl(value?.sourceUrl);
   const sourceOwnerConsent = value?.sourceOwnerConsent === true;
 
-  if (!category || !subcategory || !LOCAL_SUBCATEGORIES[category]?.has(subcategory) || !title || description === null || !priceMode || (needsPrice && (priceAmount === null || !currency)) || !condition || !availability || !zoneLabel || zoneLat === null || zoneLng === null || sourceUrl === null) return null;
+  if (!kind || !category || !subcategory || !LOCAL_SUBCATEGORIES[category]?.has(subcategory) || !title || description === null || !priceMode || (needsPrice && (priceAmount === null || !currency)) || !condition || !availability || !zoneLabel || zoneLat === null || zoneLng === null || sourceUrl === null) return null;
   if (sourceUrl && !sourceOwnerConsent) return null;
-  if (containsBlockedContent(title, description, subcategory, condition, availability, zoneLabel, ...logistics, ...fees.map((fee) => `${fee.label} ${fee.value}`))) return { blocked: true };
+  let rideSearchValues = [];
+  if (category === LOCAL_RIDE_CATEGORY) {
+    zoneLabel = cleanPublicRidePlace(zoneLabel);
+    if (!zoneLabel) return null;
+    if (needsPrice && (!Number.isSafeInteger(priceAmount) || priceAmount <= 0)) return null;
+    const ride = validateRideDetails(value?.fees, { kind, subcategory, availability, zoneLabel });
+    if (!ride) return null;
+    fees = ride.fees;
+    rideSearchValues = ride.searchValues;
+    title = ride.publicTitle;
+  }
+  if (containsBlockedContent(submittedTitle, title, description, subcategory, condition, availability, zoneLabel, ...logistics, ...fees.map((fee) => `${fee.label} ${fee.value}`))) return { blocked: true };
   return {
     kind,
     category,
@@ -70,7 +257,7 @@ function validateListing(value) {
     subcategory,
     title,
     description,
-    searchText: normalizeSearchText(`${title} ${description} ${category} ${subcategory} ${zoneLabel}`),
+    searchText: normalizeSearchText(`${title} ${description} ${category} ${subcategory} ${zoneLabel} ${rideSearchValues.join(' ')}`),
     priceAmount,
     currency,
     priceMode,
@@ -122,6 +309,8 @@ export async function onRequestGet({ request, env }) {
   // SQLite/D1 limits LIKE patterns to 50 bytes. Keep enough room for the two `%`
   // wildcards and stay safely below the limit for UTF-8 input.
   const query = normalizeSearchText(url.searchParams.get('q')).slice(0, 40);
+  const rideOrigin = normalizeSearchText(url.searchParams.get('origin')).slice(0, 40);
+  const rideDestination = normalizeSearchText(url.searchParams.get('destination')).slice(0, 40);
   const category = url.searchParams.get('category') || '';
   const section = url.searchParams.get('section') || '';
   const subcategory = cleanLocalOptionalText(url.searchParams.get('subcategory'), 80) || '';
@@ -138,6 +327,8 @@ export async function onRequestGet({ request, env }) {
   ];
   const values = [now, kind];
   if (query) { conditions.push('instr(l.search_text, ?) > 0'); values.push(query); }
+  if (rideOrigin) { conditions.push('instr(l.search_text, ?) > 0'); values.push(rideOrigin); }
+  if (rideDestination) { conditions.push('instr(l.search_text, ?) > 0'); values.push(rideDestination); }
   if (LOCAL_CATEGORIES.has(category)) { conditions.push('l.category = ?'); values.push(category); }
   if (section) { conditions.push('l.market_section = ?'); values.push(section.slice(0, 30)); }
   if (subcategory) { conditions.push('l.subcategory = ?'); values.push(subcategory); }

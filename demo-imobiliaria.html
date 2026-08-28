@@ -24,7 +24,7 @@
   <meta name="twitter:image" content="https://demo.nykuto.com/assets/demo-imobiliaria/demo-imobiliaria-og.jpg" />
   <link rel="stylesheet" href="styles.css?v=20260823-1" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-  <link rel="stylesheet" href="demo-imobiliaria.css?v=20260828-1" />
+  <link rel="stylesheet" href="demo-imobiliaria.css?v=20260828-4" />
 </head>
 <body class="real-estate-demo-page" data-demo-page="home" data-whatsapp-phone="33768345608">
   <a class="skip-link" href="#categorias-locais">Ir para as categorias</a>
@@ -59,14 +59,14 @@
           </header>
 
           <form class="nykuto-market-search" data-market-search role="search">
-            <label for="market-search"><span aria-hidden="true">⌕</span><span class="sr-only">Buscar produtos e serviços</span><input id="market-search" name="query" type="search" autocomplete="off" placeholder="Buscar cama, celular, relógio, frete…" /></label>
+            <label for="market-search"><span aria-hidden="true">⌕</span><span class="sr-only">Buscar produtos, serviços e caronas</span><input id="market-search" name="query" type="search" autocomplete="off" placeholder="Buscar cama, celular, frete ou carona…" /></label>
             <button type="submit">Buscar</button>
           </form>
 
           <div class="nykuto-market-promise" aria-label="Funcionamento do Nykuto Local">
             <span>◎ Zona aproximada</span>
             <span>◉ Contato direto</span>
-            <strong>Nykuto não recebe pagamentos nem cobra comissão.</strong>
+            <strong>Converse e combine direto pelo WhatsApp.</strong>
           </div>
 
           <section class="nykuto-buy-browser" id="categorias-locais" aria-labelledby="market-category-title">
@@ -90,6 +90,13 @@
               <div><p>Anúncios locais</p><h2 data-market-title>Casa e móveis</h2></div>
               <a data-market-announce href="/anunciar/?categoria=Produto">Anunciar nesta categoria <span aria-hidden="true">→</span></a>
             </header>
+            <form class="nykuto-ride-search" data-ride-search hidden>
+              <label><span>De onde?</span><input name="origin" type="search" maxlength="80" autocomplete="off" placeholder="Bairro, faculdade ou ponto conhecido" /></label>
+              <button class="nykuto-ride-swap" type="button" data-ride-swap aria-label="Trocar origem e destino">⇄</button>
+              <label><span>Para onde?</span><input name="destination" type="search" maxlength="80" autocomplete="off" placeholder="Bairro, faculdade ou ponto conhecido" /></label>
+              <label><span>Quando?</span><input name="date" type="date" /></label>
+              <button class="nykuto-ride-search-submit" type="submit">Buscar carona</button>
+            </form>
             <div class="nykuto-market-subcategories" data-market-subcategories></div>
             <div class="nykuto-market-examples" data-market-examples></div>
             <p class="nykuto-market-demo-note" data-market-note role="status" aria-live="polite">Carregando anúncios publicados…</p>
@@ -222,6 +229,6 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
   <script src="whatsapp-launcher.js?v=20260823-2" defer></script>
   <script src="demo-imobiliaria.js?v=20260828-1" defer></script>
-  <script src="nykuto-local.js?v=20260828-2" defer></script>
+  <script src="nykuto-local.js?v=20260828-4" defer></script>
 </body>
 </html>
