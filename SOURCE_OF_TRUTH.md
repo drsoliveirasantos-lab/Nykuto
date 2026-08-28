@@ -53,8 +53,9 @@ The current production source of truth is the static root site:
 - `styles.css`, `i18n.js` and `script.js`;
 - `demo-imobiliaria.html`, `demo-imobiliaria.css`, `demo-imobiliaria.js` and
   `nykuto-local.js` for the autonomous local portal;
-- `anunciar/index.html` and `anunciar/anunciar.js` for autonomous listing and
-  request publication;
+- `anunciar/index.html`, `anunciar/anunciar.js` and
+  `anunciar/openfreemap-basemap.js` for autonomous listing and request
+  publication;
 - `anuncio/` for the public listing page and direct author contact;
 - `conta/` for the lightweight online publisher profile and listing controls;
 - `regras/` for community, safety and external-import rules;
