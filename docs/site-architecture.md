@@ -26,8 +26,13 @@ demo-imobiliaria.html          Autonomous Nykuto Local homepage
 imoveis/index.html             Complete searchable property catalogue
 mapa/index.html                Map-focused property search
 favoritos/index.html           Device-local saved-property selection
-anunciar/index.html            Owner and agency publishing journey
-anunciar/anunciar.js           Client-side listing wizard and WhatsApp summary
+anunciar/index.html            Autonomous listing/request publication journey
+anunciar/anunciar.js           Direct form, carpool flow, images and API publication
+anuncio/index.html             Public local-listing detail shell
+anuncio/anuncio.js             Gallery, zone/route map, WhatsApp and reporting
+conta/index.html               Lightweight publisher profile and listing controls
+conta/conta.js                 Online profile/session and own-listing management
+regras/index.html              Community, safety and import rules
 gestor/login/index.html        Private manager sign-in
 gestor/index.html              Authenticated manager dashboard
 gestor/imoveis/                Persistent listing management
@@ -47,7 +52,7 @@ demo-imobiliaria.css           Real-estate demo interface styles
 i18n.js                        FR/EN/PT/ES translations and language state
 script.js                      Shared interactions
 demo-imobiliaria.js            Static demo inventory, filters, map and dialogs
-nykuto-local.js                Local request composer and WhatsApp handoff
+nykuto-local.js                Live local catalogue, filters and request routing
 assets/                        Production images
 assets/demo-imobiliaria/       Optimised, neutralised real-estate demo media
 assets/nykuto-emblem.webp      Production brand emblem
@@ -88,46 +93,64 @@ Before a framework migration:
 - primary navigation uses separate HTML routes rather than reproducing full service content on the homepage;
 - unique title, description and canonical URL;
 - Open Graph image on public sales pages;
-- no server-side contact collection in the current version;
+- only the publisher data required for public contact and account control is
+  stored server-side; visitor messages and transactions are never collected;
 - no invented proof or unsupported claim;
 - responsive and keyboard-accessible interactions.
 
 `demo-imobiliaria.html` is the autonomous Nykuto Local homepage linked from the
 Nykuto commercial site and published canonically on `demo.nykuto.com`. The
-subdomain opens on a compact, mobile-first CDE–Foz marketplace gateway: the
-first viewport exposes real estate, buying/selling, fretes, local services, Foz
-requests, a direct `Anunciar` action and a `Preciso de…` composer without a
-marketing hero hiding the controls. Real estate remains the only complete
-catalogue in the first release. The other categories are explicitly labelled as
-free registration or request intake while genuine supply is recruited, so the
-portal never shows empty catalogues or invented offers.
+subdomain opens directly on a compact, mobile-first buying surface. Search,
+product and service categories, subcategories and the separate `Anunciar`
+action are visible before the real-estate demonstration. `Comprar` never links
+to the seller form. Product and service cards come from the public local API;
+clearly labelled illustrative cards appear only when a live category is empty.
+`Preciso de…` opens the same direct single-page form in request mode and never
+routes the user to Nykuto's WhatsApp.
 
-`nykuto-local.js` controls one client-side request dialog. It collects category,
-need, origin, optional destination, timing, optional budget and details, then
-prepares a structured WhatsApp message to Nykuto for manual review. It does not
-send or persist anything before the visitor confirms the WhatsApp action. Foz
-requests display a permitted-goods and customs reminder. This launch intake is
-not a booking, payment, logistics or transaction flow.
+`nykuto-local.js` loads offers from `GET /api/local/listings`, handles category,
+subcategory and text search, and links every genuine card to `/anuncio/?id=`.
+That detail page loads the public record, images and approximate zone, then
+opens WhatsApp directly to the listing author. Nykuto is not part of payment,
+delivery, booking or dispute handling.
 
 The property experience remains on dedicated static routes: `/imoveis/` for the
 full catalogue, `/mapa/` for map-first search, `/favoritos/` for the visitor's
-local selection and `/anunciar/` for an immediate five-stage listing intake.
-That wizard collects category, subtype, title, local photo previews, price,
-condition, category-specific costs, logistics and an approximate area before
-showing a summary and preparing a WhatsApp message. The property manager,
-Functions and D1 schema stay property-specific. A compact in-app footer keeps
-the illustrative nature of the inventory visible without interrupting the
-journey.
+local selection and `/anunciar/` for direct publication. Except for shared
+rides, `/anunciar/` is a single page limited to the essential public inputs:
+category and subtype, title, optional description, price or contribution,
+photos, an approximate area and the author's name and WhatsApp. Hidden
+category-specific operational values use neutral defaults (`A combinar` or
+`Sob consulta`) so the interface never invents a condition, vehicle type or
+availability claim. After client-side image re-encoding, the server validates
+Turnstile and publishes atomically to a separate `LOCAL_DB` D1 database.
 
-The public wizard persists nothing. Selected photos use temporary `blob:` URLs
-for on-device preview and are never described as uploaded; WhatsApp deep links
-carry text only, so the user must attach the selected photos in the conversation.
-The location step reuses Leaflet and shows a fixed 5 km privacy circle. A manual
-map tap always works. An explicit address-search button may send a bounded
-CDE–Foz query to OpenStreetMap Nominatim, at no more than one request per second,
-with in-memory caching and visible attribution; there is no autocomplete or
-background geocoding. The exact search and coordinates remain private intake
-references and are not displayed in a public listing or stored by the site.
+The preferred image store is the private `LOCAL_MEDIA` R2 binding. Because R2
+is not yet enabled at account level, the pilot has an explicit constrained D1
+fallback: five images maximum, 300 KB each and 1.25 MB total. Exact typed
+addresses are never sent to the publication API. Coordinates are rounded by the
+server to two decimals and exposed only with a 5 km privacy circle. Address
+search remains an explicit, rate-limited Nominatim action with manual map tap as
+fallback.
+
+`/conta/` is a real lightweight online profile. A secure `HttpOnly`, `Secure`,
+`SameSite=Lax` cookie keeps a passwordless 180-day device session; unsafe
+requests require same-origin and CSRF. The author can update their contact,
+pause, republish, conclude and delete listings. Google/Facebook OAuth is not
+shown until owner-controlled applications and account recovery are configured;
+Instagram is not a launch authentication method. The user-supplied WhatsApp is
+public but explicitly labelled unverified until OTP is added.
+
+`Carona compartilhada` uses the same listing model for offers and requests but
+has a dedicated three-screen publisher: intention, route/schedule and WhatsApp
+contact. Structured fees store the public departure/destination labels,
+frequency, date when applicable, time and seats;
+the normal price fields hold an optional per-person contribution. Route-first
+catalogue cards and the carona search read these fields directly. Only the
+rounded departure zone is stored as coordinates. The detail page geocodes the
+destination and requests an OSRM path only after a visitor explicitly taps the
+route button; the map remains a planning aid, not navigation, booking or a
+payment flow.
 
 The demo uses owner-supplied photos and videos of real Ciudad del Este
 properties that were neutralised before publication and stripped of embedded
@@ -149,12 +172,12 @@ entry costs, approximate distances and privacy information. Contact buttons open
 the WhatsApp number verified on the listing owner's profile with a structured,
 pre-filled enquiry; the site does not store or transmit the visitor's message
 itself. Nykuto's own number remains the destination for platform sales, pass
-renewals and explicit Nykuto Local launch intake. A persistent WhatsApp button uses locally saved favourites as the
+renewals and manager support. A persistent WhatsApp button uses locally saved favourites as the
 visitor's selection and can send either one property or a concise multi-property
 request when the selected properties share a contact. Different owners remain
 separate so no enquiry is sent to the wrong manager. On small screens, filters
 use a bottom sheet. The local homepage uses a fixed four-action bar for
-exploration, properties, `Preciso de…` and registration; property routes keep
+buying, properties, publication and profile; property routes keep
 their listing, map, favourites and owner navigation.
 
 Each illustrative property also has a static `/imovel/<reference>/` share page

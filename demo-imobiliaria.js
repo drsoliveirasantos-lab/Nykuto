@@ -734,16 +734,17 @@
   function updateWhatsAppFab() {
     if (!whatsappFab || !whatsappFabCount || !whatsappFabLabel) return;
     const count = favorites.size;
+    whatsappFab.hidden = document.body.dataset.demoPage === 'home' && count === 0;
     whatsappFab.classList.toggle('has-selection', count > 0);
     whatsappFabCount.hidden = count === 0;
     whatsappFabCount.textContent = String(count);
     whatsappFabLabel.textContent = count === 0
-      ? 'Falar agora'
+      ? 'Consultar imóvel'
       : count === 1
         ? 'Enviar 1 favorito'
         : `Enviar ${count} favoritos`;
     whatsappFab.setAttribute('aria-label', count === 0
-      ? 'Falar pelo WhatsApp'
+      ? 'Consultar um imóvel pelo WhatsApp'
       : `Consultar ${count} ${count === 1 ? 'imóvel favorito' : 'imóveis favoritos'} pelo WhatsApp`);
   }
 

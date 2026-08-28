@@ -14,10 +14,11 @@ The umbrella message is:
 > Le digital et l’international, réunis pour faire avancer votre entreprise.
 
 `Nykuto Local` is a progressive audience-acquisition pilot for Ciudad del Este
-and Foz do Iguaçu. It is not a third regulated business line or a full
-transaction platform. Its first release keeps the existing property catalogue
-active and opens free, manually reviewed WhatsApp intake for local marketplace,
-frete, service and permitted Foz purchase or pickup requests.
+and Foz do Iguaçu. It is a free local publication and discovery platform, not a
+payment, booking or transaction intermediary. People publish products,
+properties, freight, local services, permitted Foz requests and shared rides;
+interested visitors contact the author directly on that author's WhatsApp. The
+existing illustrative property catalogue remains available for demos.
 
 ## Positioning rules
 
@@ -52,13 +53,16 @@ The current production source of truth is the static root site:
 - `styles.css`, `i18n.js` and `script.js`;
 - `demo-imobiliaria.html`, `demo-imobiliaria.css`, `demo-imobiliaria.js` and
   `nykuto-local.js` for the autonomous local portal;
-- `anunciar/index.html` and `anunciar/anunciar.js` for the public, client-side
-  listing pre-registration wizard;
+- `anunciar/index.html` and `anunciar/anunciar.js` for autonomous listing and
+  request publication;
+- `anuncio/` for the public listing page and direct author contact;
+- `conta/` for the lightweight online publisher profile and listing controls;
+- `regras/` for community, safety and external-import rules;
 - `assets/`, `favicon.svg`, `robots.txt`, `sitemap.xml` and `_headers`;
 - `scripts/prepare-cloudflare-output.js`;
 - `gestor/` for the private real-estate manager pilot interface;
-- `functions/` for the Cloudflare Pages authentication and manager API;
-- `migrations/` for the D1 manager schema;
+- `functions/` for Cloudflare Pages authentication, manager and local APIs;
+- `migrations/` for the manager and local D1 schemas;
 - documentation in `docs/`;
 - repository workflows and instructions in `.github/`.
 
@@ -113,33 +117,59 @@ listing cannot be published, reserved or availability-verified until that
 number has been manually confirmed. Changing the number removes the previous
 confirmation. Public property enquiries use the verified number of the listing
 owner; Nykuto's own business number remains reserved for sales, pass renewal,
-manual profile confirmation and explicit Nykuto Local launch intake. Once a
-non-property offer is published with a verified provider contact, its enquiry
-must route directly to that provider instead of making Nykuto an undisclosed
+manual profile confirmation and manager support. Every non-property enquiry
+must route directly to the publishing user's WhatsApp, labelled as unverified
+until an OTP mechanism exists, instead of making Nykuto an undisclosed
 transaction intermediary.
 
-The Nykuto Local request composer stores nothing in the site or D1. It prepares
-a structured WhatsApp message only after the visitor submits it. Non-property
-categories must be presented as registration or request intake until genuine,
-reviewed offers exist. Submission never guarantees publication; never invent
-listings, providers, volumes or popularity.
-Foz-related copy must exclude prohibited goods and remind users that applicable
-fiscal and customs rules remain their responsibility.
+The Nykuto Local catalogue reads genuine public offers and requests from the
+separate `LOCAL_DB` D1 database. Except for shared rides, public `Anunciar` is a
+direct single-page form: category and subtype, title, optional description,
+price or contribution, up to five images, an approximate public zone and the
+author's name and WhatsApp. Category-specific operational values that are not
+part of this essential form use neutral public defaults such as `A combinar` or
+`Sob consulta`; the interface must not infer a product's state, a vehicle type
+or an availability claim. Publication remains direct after server validation
+and Turnstile. Images are re-encoded in the browser to
+remove embedded metadata and limited to 300 KB each. Until account-level R2 is
+enabled, the pilot may use the explicit D1 media fallback with a 1.25 MB total
+per publication; `LOCAL_MEDIA` becomes the preferred private storage binding as
+soon as R2 is available.
 
-The public `Anunciar` wizard follows the same no-storage launch rule. It may
-collect category, subtype, title, description, price, condition, costs,
-logistics, an address reference and up to five local photo previews, but it
-must not claim that the record or files were uploaded. A WhatsApp deep link
-cannot attach those files; the visitor is told to attach them in the resulting
-conversation. The public preview shows only an approximate 5 km area.
+The publisher profile is a real, passwordless, cookie-backed session on the
+current device. It lets the author update contact data, pause, republish, mark
+complete or delete publications. Google and Facebook sign-in must not be shown
+as active until the owner's OAuth applications and recovery flow are configured.
+The public WhatsApp number is user-supplied and must be described as unverified
+until an OTP or WhatsApp Business verification mechanism exists.
+
+`Preciso de…` opens the same direct single-page form with
+`listing_kind=request`; it never sends a request to Nykuto's WhatsApp. External
+listings are never scraped
+or copied automatically. The direct form does not expose source-link
+republication. Any future managed import must require the author or rights
+holder's express permission and keep a safe original-source link.
+
+`Carona compartilhada` has a dedicated route-first journey while reusing the
+same listing model. The public catalogue can search approximate origin,
+destination and date, and it separates available rides from ride requests.
+Publication is intentionally limited to three screens: offer or request, route
+and schedule, then WhatsApp contact and confirmation. Recurring and occasional
+trips are supported with an approximate departure zone, destination, time,
+seats and an optional per-person contribution. The only hand-off is a prefilled
+WhatsApp conversation; Nykuto does not book a seat, confirm a passenger or
+process payment. It is sharing a journey and expenses, not a guaranteed
+transport service.
 
 Address lookup is an explicit, user-triggered convenience for the CDE–Foz pilot,
 not autocomplete. It may query the public OpenStreetMap Nominatim endpoint only
 with visible attribution, an in-memory result cache, a maximum rate of one
 request per second and a bounded regional query. The interface must disclose
 that the entered search is sent to this third-party service and must retain a
-manual map-placement fallback. No geocoding result or exact address is persisted
-by the site.
+manual map-placement fallback. The exact typed address is not persisted. Only a
+public label and coordinates rounded by the server to roughly one kilometre are
+stored, then rendered as an approximate 5 km zone. Shared-ride destination
+lookup and route drawing are also explicit and approximate.
 
 ## Languages
 

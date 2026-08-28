@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#174f43" />
+  <title>Anúncio — Nykuto Local</title>
+  <meta name="description" content="Consulte uma oferta local e fale diretamente com o anunciante pelo WhatsApp." />
+  <link rel="canonical" data-listing-canonical href="https://demo.nykuto.com/anuncio/" />
+  <link rel="icon" href="/assets/nykuto-emblem-favicon.png" type="image/png" />
+  <link rel="stylesheet" href="/styles.css?v=20260823-1" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="/demo-imobiliaria.css?v=20260828-4" />
+  <style>
+    .nykuto-listing-detail-page {
+      min-height: calc(100svh - 56px);
+      padding: clamp(12px, 3vw, 34px);
+      background: #e7ece8;
+    }
+
+    .nykuto-listing-detail-state {
+      width: min(620px, 100%);
+      min-height: 240px;
+      margin: clamp(36px, 10vh, 100px) auto;
+      padding: 32px;
+      display: grid;
+      place-items: center;
+      align-content: center;
+      gap: 10px;
+      border: 1px solid var(--demo-line);
+      border-radius: 20px;
+      background: #fff;
+      box-shadow: 0 22px 60px rgba(18, 59, 50, .1);
+      text-align: center;
+    }
+
+    .nykuto-listing-detail-state > span {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #e6f2eb;
+      color: var(--demo-forest);
+      font-size: 22px;
+      font-weight: 900;
+    }
+
+    .nykuto-listing-detail-state h1 { margin: 0; color: var(--demo-ink); font-size: 26px; }
+    .nykuto-listing-detail-state p { max-width: 470px; margin: 0; color: var(--demo-muted); font-size: 12px; line-height: 1.55; }
+    .nykuto-listing-detail-state a { margin-top: 8px; padding: 11px 15px; border-radius: 10px; background: var(--demo-forest); color: #fff; font-size: 10px; font-weight: 900; }
+    .nykuto-listing-detail-state[aria-busy="true"] > span { animation: nykuto-listing-spin 1s linear infinite; }
+    @keyframes nykuto-listing-spin { to { transform: rotate(360deg); } }
+
+    .nykuto-listing-detail-shell {
+      width: min(1180px, 100%);
+      max-height: none;
+      margin: 0 auto;
+      overflow: hidden;
+      border: 1px solid rgba(23, 79, 67, .12);
+      border-radius: 24px;
+      background: #fff;
+      box-shadow: 0 26px 75px rgba(20, 57, 49, .12);
+    }
+
+    .nykuto-listing-detail-gallery { min-width: 0; overflow: visible; }
+    .nykuto-listing-detail-gallery[hidden] { display: none !important; }
+    .nykuto-listing-detail-main-media { position: relative; }
+    .nykuto-listing-detail-main-media > img { display: block; }
+    .nykuto-listing-detail-media-empty {
+      width: 100%;
+      min-height: 480px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(145deg, #173f36, #0d2923);
+      color: #dfbd6c;
+      font-size: clamp(64px, 12vw, 124px);
+      font-weight: 900;
+    }
+
+    .nykuto-listing-detail-media-nav {
+      position: absolute;
+      z-index: 5;
+      top: 50%;
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, .64);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .92);
+      color: var(--demo-forest);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, .18);
+      cursor: pointer;
+      transform: translateY(-50%);
+      font-size: 24px;
+    }
+
+    .nykuto-listing-detail-media-nav[data-media-previous] { left: 12px; }
+    .nykuto-listing-detail-media-nav[data-media-next] { right: 12px; }
+    .nykuto-listing-detail-thumbnails:empty { display: none; }
+    .nykuto-listing-detail-thumbnails button { position: relative; }
+    .nykuto-listing-detail-thumbnails button:focus-visible,
+    .nykuto-listing-detail-media-nav:focus-visible { outline: 3px solid #dfbd6c; outline-offset: 2px; }
+
+    .nykuto-listing-detail-content { min-width: 0; overflow: visible; }
+    .nykuto-listing-detail-content > header { display: block; }
+    .nykuto-listing-detail-eyebrow { display: flex; flex-wrap: wrap; gap: 6px; }
+    .nykuto-listing-detail-eyebrow span {
+      padding: 5px 8px;
+      border-radius: 999px;
+      background: var(--demo-mint);
+      color: var(--demo-forest);
+      font-size: 8px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .nykuto-listing-detail-title { margin: 10px 0 5px; color: var(--demo-ink); font-size: clamp(29px, 4vw, 42px); line-height: 1.06; letter-spacing: -.045em; }
+    .nykuto-listing-detail-location { margin: 0; color: var(--demo-muted); font-size: 11px; }
+    .nykuto-listing-detail-price { margin-top: 19px; }
+    .nykuto-listing-detail-price strong { overflow-wrap: anywhere; }
+    .nykuto-listing-detail-trust { margin-top: 10px; }
+
+    .nykuto-listing-detail-section { margin-top: 18px; }
+    .nykuto-listing-detail-section > h2 { margin: 0 0 8px; font-size: 13px; }
+    .nykuto-listing-detail-description { margin: 0; color: #415650; font-size: 11px; line-height: 1.7; white-space: pre-line; overflow-wrap: anywhere; }
+    .nykuto-listing-detail-chips { margin-top: 0; }
+
+    .nykuto-listing-detail-shell.demo-detail-layout.is-ride-without-media {
+      width: min(780px, 100%);
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .nykuto-listing-detail-shell.is-shared-ride .nykuto-listing-detail-content { padding: clamp(20px, 4vw, 38px); }
+    .nykuto-listing-detail-shell.is-shared-ride .nykuto-listing-detail-title { max-width: 720px; }
+    .nykuto-listing-detail-shell.is-shared-ride .nykuto-listing-detail-price { margin-top: 14px; }
+    .nykuto-listing-detail-shell.is-shared-ride .nykuto-listing-detail-facts { margin-top: 12px; }
+
+    .nykuto-listing-detail-route { padding: 14px; border: 1px solid rgba(213, 168, 78, .5); border-radius: 13px; background: #fffaf0; }
+    .nykuto-listing-detail-route > h2 { color: #5d4518; }
+    .nykuto-listing-detail-route-grid { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+    .nykuto-listing-detail-route-grid > div { padding: 10px; border: 1px solid rgba(213, 168, 78, .28); border-radius: 9px; background: rgba(255, 255, 255, .78); }
+    .nykuto-listing-detail-route-grid > div[data-route-kind="origin"],
+    .nykuto-listing-detail-route-grid > div[data-route-kind="destination"] {
+      position: relative;
+      grid-column: 1 / -1;
+      padding: 10px 10px 10px 38px;
+      border: 0;
+      background: transparent;
+    }
+    .nykuto-listing-detail-route-grid > div[data-route-kind="origin"]::before,
+    .nykuto-listing-detail-route-grid > div[data-route-kind="destination"]::before {
+      content: "";
+      position: absolute;
+      left: 13px;
+      top: 17px;
+      width: 10px;
+      height: 10px;
+      border: 3px solid var(--demo-forest);
+      border-radius: 50%;
+      background: #fff;
+    }
+    .nykuto-listing-detail-route-grid > div[data-route-kind="origin"]::after {
+      content: "";
+      position: absolute;
+      left: 19px;
+      top: 30px;
+      bottom: -13px;
+      width: 2px;
+      background: rgba(23, 79, 67, .32);
+    }
+    .nykuto-listing-detail-route-grid > div[data-route-kind="destination"]::before { border-radius: 2px; background: var(--demo-forest); }
+    .nykuto-listing-detail-route-grid dt { color: #876823; font-size: 8px; font-weight: 850; text-transform: uppercase; }
+    .nykuto-listing-detail-route-grid dd { margin: 4px 0 0; color: var(--demo-ink); font-size: 11px; font-weight: 800; overflow-wrap: anywhere; }
+    .nykuto-listing-detail-route-grid > div[data-route-kind="origin"] dd,
+    .nykuto-listing-detail-route-grid > div[data-route-kind="destination"] dd { font-size: 14px; }
+    .nykuto-listing-detail-route-action { width: 100%; min-height: 43px; margin-top: 9px; border: 0; border-radius: 10px; background: var(--demo-forest); color: #fff; cursor: pointer; font-size: 10px; font-weight: 900; }
+    .nykuto-listing-detail-route-action:disabled { cursor: wait; opacity: .62; }
+    .nykuto-listing-detail-route-status { min-height: 15px; margin: 7px 0 0; color: #6f5b2c; font-size: 8px; line-height: 1.5; }
+
+    .nykuto-listing-detail-fees { margin: 0; display: grid; gap: 6px; }
+    .nykuto-listing-detail-fees > div { padding: 9px 11px; display: flex; justify-content: space-between; gap: 16px; border: 1px solid var(--demo-line); border-radius: 9px; background: #fafcfb; }
+    .nykuto-listing-detail-fees dt { color: var(--demo-muted); font-size: 9px; }
+    .nykuto-listing-detail-fees dd { margin: 0; color: var(--demo-ink); font-size: 9px; font-weight: 850; text-align: right; }
+
+    .nykuto-listing-detail-map { height: 250px; margin-top: 9px; overflow: hidden; border: 1px solid var(--demo-line); border-radius: 12px; background: #dfe8e2; }
+    .nykuto-listing-detail-map .leaflet-control-attribution { font-size: 8px; }
+    .nykuto-listing-detail-map-note { margin-top: 8px; padding: 10px 12px; border-radius: 10px; background: #eff6f1; color: #4c625b; font-size: 9px; line-height: 1.55; }
+    .nykuto-listing-detail-map-note strong { color: var(--demo-forest); }
+
+    .nykuto-listing-detail-seller { margin-top: 18px; padding: 14px; display: grid; grid-template-columns: 42px minmax(0, 1fr); gap: 10px; align-items: center; border: 1px solid var(--demo-line); border-radius: 12px; background: #f8fbf9; }
+    .nykuto-listing-detail-seller > span { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; background: var(--demo-forest); color: #dfbd6c; font-size: 17px; font-weight: 900; }
+    .nykuto-listing-detail-seller small,
+    .nykuto-listing-detail-seller strong { display: block; }
+    .nykuto-listing-detail-seller small { color: var(--demo-muted); font-size: 8px; }
+    .nykuto-listing-detail-seller strong { margin-top: 2px; color: var(--demo-ink); font-size: 12px; }
+
+    .nykuto-listing-detail-actions { margin-top: 13px; display: grid; gap: 8px; }
+    .nykuto-listing-detail-whatsapp,
+    .nykuto-listing-detail-source,
+    .nykuto-listing-detail-report-open {
+      min-height: 47px;
+      padding: 10px 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 11px;
+      font-size: 10px;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .nykuto-listing-detail-whatsapp { background: #168b59; color: #fff; box-shadow: 0 12px 26px rgba(22, 139, 89, .2); }
+    .nykuto-listing-detail-source { border: 1px solid #d7b45f; background: #fffaf0; color: #6b4b13; }
+    .nykuto-listing-detail-report-open { min-height: 40px; border: 0; background: transparent; color: var(--demo-muted); cursor: pointer; font-size: 9px; }
+    .nykuto-listing-detail-whatsapp:focus-visible,
+    .nykuto-listing-detail-source:focus-visible,
+    .nykuto-listing-detail-report-open:focus-visible { outline: 3px solid var(--demo-forest); outline-offset: 2px; }
+    .nykuto-listing-detail-whatsapp[aria-disabled="true"] { pointer-events: none; opacity: .55; }
+    .nykuto-listing-detail-commission { margin: 9px 0 0; color: var(--demo-muted); font-size: 8px; line-height: 1.55; text-align: center; }
+
+    .nykuto-report-dialog { width: min(520px, calc(100% - 20px)); border: 0; border-radius: 18px; background: #fff; color: var(--demo-ink); }
+    .nykuto-report-shell { padding-bottom: 18px; }
+    .nykuto-report-form { padding: 18px; display: grid; gap: 14px; }
+    .nykuto-report-field { display: grid; gap: 7px; color: var(--demo-ink); font-size: 10px; font-weight: 850; }
+    .nykuto-report-field select { width: 100%; min-height: 48px; padding: 10px 12px; border: 1px solid var(--demo-line); border-radius: 10px; background: #fff; color: var(--demo-ink); font: inherit; }
+    .nykuto-report-turnstile { min-height: 65px; overflow-x: auto; }
+    .nykuto-report-status { min-height: 18px; margin: 0; color: var(--demo-muted); font-size: 9px; line-height: 1.5; }
+    .nykuto-report-status.is-error { color: #9a3026; font-weight: 750; }
+    .nykuto-report-status.is-success { color: #137553; font-weight: 800; }
+    .nykuto-report-actions { display: flex; gap: 8px; justify-content: flex-end; }
+    .nykuto-report-actions button { min-height: 44px; padding: 9px 14px; border-radius: 10px; cursor: pointer; font-size: 9px; font-weight: 900; }
+    .nykuto-report-actions button:first-child { border: 1px solid var(--demo-line); background: #fff; color: var(--demo-ink); }
+    .nykuto-report-actions button[type="submit"] { border: 1px solid var(--demo-forest); background: var(--demo-forest); color: #fff; }
+    .nykuto-report-actions button:disabled { cursor: wait; opacity: .6; }
+
+    @media (max-width: 900px) {
+      .nykuto-listing-detail-shell { grid-template-columns: 1fr; }
+      .nykuto-listing-detail-main-media,
+      .nykuto-listing-detail-main-media img,
+      .nykuto-listing-detail-media-empty { min-height: 420px; }
+    }
+
+    @media (max-width: 720px) {
+      .nykuto-listing-detail-page { padding: 8px 8px calc(84px + env(safe-area-inset-bottom)); }
+      .nykuto-listing-detail-shell { border-radius: 17px; }
+      .nykuto-listing-detail-gallery { padding: 8px; }
+      .nykuto-listing-detail-main-media,
+      .nykuto-listing-detail-main-media img,
+      .nykuto-listing-detail-media-empty { min-height: 315px; max-height: 54svh; }
+      .nykuto-listing-detail-content { padding: 19px 15px 22px; }
+      .nykuto-listing-detail-title { font-size: 30px; }
+      .nykuto-listing-detail-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .nykuto-listing-detail-map { height: 220px; }
+      .nykuto-listing-detail-whatsapp { position: sticky; z-index: 10; bottom: calc(68px + env(safe-area-inset-bottom)); }
+      .nykuto-report-form { padding: 15px; }
+      .nykuto-report-actions button { flex: 1; }
+    }
+  </style>
+</head>
+<body class="real-estate-demo-page" data-demo-page="listing-detail">
+  <a class="skip-link" href="#anuncio-conteudo">Ir para o anúncio</a>
+  <main id="conteudo">
+    <section class="property-demo-shell" aria-label="Ficha pública do anúncio">
+      <div class="property-demo-app">
+        <header class="property-demo-header">
+          <a class="demo-agency-brand" href="/" aria-label="Nykuto Local, página inicial">
+            <span class="demo-agency-mark" aria-hidden="true">N</span>
+            <span><strong>Nykuto Local</strong><small>CDE ↔ Foz · direto no WhatsApp</small></span>
+          </a>
+          <nav class="demo-agency-nav" aria-label="Navegação principal">
+            <a href="/">Comprar</a>
+            <a href="/imoveis/">Imóveis</a>
+            <a href="/anunciar/">Anunciar</a>
+          </nav>
+          <div class="demo-header-actions">
+            <a class="demo-owner-link" href="/anunciar/">＋ Anunciar</a>
+            <a class="demo-manager-button" href="/conta/" aria-label="Abrir meu perfil"><span aria-hidden="true">◎</span> Perfil</a>
+          </div>
+        </header>
+
+        <section class="nykuto-listing-detail-page" id="anuncio-conteudo">
+          <div class="nykuto-listing-detail-state" data-listing-loading aria-busy="true" aria-live="polite">
+            <span aria-hidden="true">◌</span>
+            <h1>Carregando anúncio…</h1>
+            <p>Estamos buscando os dados publicados pelo anunciante.</p>
+          </div>
+
+          <div class="nykuto-listing-detail-state" data-listing-error hidden role="alert">
+            <span aria-hidden="true">!</span>
+            <h1 data-listing-error-title>Anúncio indisponível</h1>
+            <p data-listing-error-message>Não foi possível abrir este anúncio.</p>
+            <a href="/">Voltar para comprar</a>
+          </div>
+
+          <article class="nykuto-listing-detail-shell demo-detail-layout" data-listing-content hidden>
+            <section class="nykuto-listing-detail-gallery demo-detail-media" data-listing-gallery aria-label="Fotos do anúncio">
+              <div class="nykuto-listing-detail-main-media demo-detail-main-media" data-listing-main-media tabindex="0"></div>
+              <div class="demo-detail-gallery-bar"><span><strong data-listing-media-count>0</strong> fotos</span><small>Toque para ampliar</small></div>
+              <div class="nykuto-listing-detail-thumbnails demo-detail-gallery" data-listing-thumbnails aria-label="Escolher foto"></div>
+            </section>
+
+            <section class="nykuto-listing-detail-content demo-detail-copy">
+              <header>
+                <div class="nykuto-listing-detail-eyebrow"><span data-listing-category></span><span data-listing-status></span></div>
+                <h1 class="nykuto-listing-detail-title" id="listing-page-title" data-listing-title>Anúncio</h1>
+                <p class="nykuto-listing-detail-location" data-listing-location></p>
+              </header>
+
+              <section class="nykuto-listing-detail-section nykuto-listing-detail-route" data-route-section hidden>
+                <h2>Trajeto da carona</h2>
+                <dl class="nykuto-listing-detail-route-grid" data-route-facts></dl>
+                <button class="nykuto-listing-detail-route-action" type="button" data-show-route>Mostrar rota aproximada</button>
+                <p class="nykuto-listing-detail-route-status" data-route-status aria-live="polite">A rota só será consultada depois do seu toque.</p>
+              </section>
+
+              <div class="nykuto-listing-detail-price demo-detail-price">
+                <div><span data-listing-price-label>Preço</span><strong data-listing-price></strong><small data-listing-price-note></small></div>
+                <b data-listing-kind></b>
+              </div>
+
+              <div class="nykuto-listing-detail-trust demo-detail-trust">
+                <span>✓ Contato direto</span><span>✓ Zona aproximada</span><span>✓ Sem comissão Nykuto</span>
+              </div>
+
+              <div class="nykuto-listing-detail-facts demo-detail-grid" data-listing-facts></div>
+
+              <section class="nykuto-listing-detail-section" data-description-section hidden>
+                <h2>Descrição</h2>
+                <p class="nykuto-listing-detail-description" data-listing-description></p>
+              </section>
+
+              <section class="nykuto-listing-detail-section" data-logistics-section hidden>
+                <h2 data-logistics-title>Entrega ou atendimento</h2>
+                <div class="nykuto-listing-detail-chips demo-detail-tags" data-listing-logistics></div>
+              </section>
+
+              <section class="nykuto-listing-detail-section" data-fees-section hidden>
+                <h2>Taxas e custos informados</h2>
+                <dl class="nykuto-listing-detail-fees" data-listing-fees></dl>
+              </section>
+
+              <section class="nykuto-listing-detail-section" aria-labelledby="listing-zone-title">
+                <h2 id="listing-zone-title" data-listing-map-title>Zona aproximada</h2>
+                <div class="nykuto-listing-detail-map" data-listing-map aria-label="Mapa da zona aproximada do anúncio"></div>
+                <p class="nykuto-listing-detail-map-note" data-listing-map-note><strong>Privacidade:</strong> o mapa mostra uma zona de aproximadamente 5 km, nunca o endereço exato.</p>
+              </section>
+
+              <div class="nykuto-listing-detail-seller">
+                <span data-seller-initial aria-hidden="true">N</span>
+                <div><small data-listing-seller-role>Anunciante · WhatsApp informado pelo usuário, ainda não verificado</small><strong data-listing-seller></strong></div>
+              </div>
+
+              <div class="nykuto-listing-detail-actions">
+                <a class="nykuto-listing-detail-whatsapp" data-listing-whatsapp target="_blank" rel="noopener noreferrer"><span aria-hidden="true">◉</span><span data-listing-whatsapp-label>Falar no WhatsApp</span></a>
+                <a class="nykuto-listing-detail-source" data-listing-source target="_blank" rel="noopener noreferrer nofollow" hidden>Ver anúncio original <span aria-hidden="true">↗</span></a>
+                <button class="nykuto-listing-detail-report-open" type="button" data-open-report>Denunciar este anúncio</button>
+              </div>
+              <p class="nykuto-listing-detail-commission" data-listing-contact-note>A conversa e a negociação acontecem diretamente com o anunciante. A Nykuto não recebe o pagamento nem cobra comissão.</p>
+            </section>
+          </article>
+        </section>
+
+        <footer class="demo-app-footer">
+          <span><strong>Nykuto Local</strong> · CDE ↔ Foz</span>
+          <span>Contato direto · nenhuma comissão</span>
+          <a href="/anunciar/">Anunciar grátis <span aria-hidden="true">↗</span></a>
+        </footer>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="nykuto-report-dialog demo-dialog" data-report-dialog aria-labelledby="report-title">
+    <div class="nykuto-report-shell demo-dialog-shell">
+      <header class="demo-dialog-header">
+        <div><span>Ajude a proteger a comunidade</span><h2 id="report-title">Denunciar anúncio</h2></div>
+        <button type="button" data-close-report aria-label="Fechar denúncia">×</button>
+      </header>
+      <form class="nykuto-report-form" data-report-form novalidate>
+        <label class="nykuto-report-field"><span>Por que você está denunciando este anúncio?</span>
+          <select name="reason" required>
+            <option value="">Escolha um motivo</option>
+            <option value="fraud">Suspeita de fraude ou golpe</option>
+            <option value="prohibited">Produto ou serviço proibido</option>
+            <option value="duplicate">Anúncio duplicado</option>
+            <option value="unavailable">Produto ou serviço indisponível</option>
+            <option value="wrong_contact">WhatsApp incorreto ou sem autorização</option>
+            <option value="other">Outro problema</option>
+          </select>
+        </label>
+        <div class="nykuto-report-turnstile" data-report-turnstile aria-label="Verificação de segurança"></div>
+        <p class="nykuto-report-status" data-report-status aria-live="polite">A verificação de segurança será carregada aqui.</p>
+        <div class="nykuto-report-actions">
+          <button type="button" data-close-report>Cancelar</button>
+          <button type="submit" data-report-submit>Enviar denúncia</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <nav class="demo-mobile-nav" aria-label="Navegação móvel">
+    <a href="/"><span aria-hidden="true">⌕</span> Comprar</a>
+    <a href="/imoveis/"><span aria-hidden="true">⌂</span> Imóveis</a>
+    <a class="nykuto-mobile-announce" href="/anunciar/"><span aria-hidden="true">＋</span> Anunciar</a>
+    <a href="/conta/"><span aria-hidden="true">◎</span> Perfil</a>
+  </nav>
+
+  <noscript><p>O JavaScript é necessário para carregar este anúncio. <a href="/">Voltar ao Nykuto Local</a>.</p></noscript>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
+  <script src="/anuncio/anuncio.js?v=20260828-4" defer></script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#174f43" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Meu perfil — Nykuto Local</title>
+  <meta name="description" content="Gerencie seu perfil, seus anúncios e o WhatsApp de contato no Nykuto Local." />
+  <link rel="icon" href="/assets/nykuto-emblem-favicon.png" type="image/png" />
+  <link rel="stylesheet" href="/styles.css?v=20260823-1" />
+  <link rel="stylesheet" href="/demo-imobiliaria.css?v=20260828-1" />
+</head>
+<body class="real-estate-demo-page" data-demo-page="account">
+  <a class="skip-link" href="#profile-form">Ir para o perfil</a>
+  <main id="conteudo">
+    <section class="property-demo-shell" aria-labelledby="profile-title">
+      <div class="property-demo-app">
+        <header class="property-demo-header">
+          <a class="demo-agency-brand" href="/" aria-label="Nykuto Local, página inicial">
+            <span class="demo-agency-mark" aria-hidden="true">N</span>
+            <span><strong>Nykuto Local</strong><small>CDE ↔ Foz · direto no WhatsApp</small></span>
+          </a>
+          <nav class="demo-agency-nav" aria-label="Navegação principal">
+            <a href="/">Comprar</a>
+            <a href="/imoveis/">Imóveis</a>
+            <a href="/anunciar/">Anunciar</a>
+          </nav>
+          <div class="demo-header-actions">
+            <a class="demo-owner-link" href="/anunciar/">＋ Anunciar</a>
+            <a class="demo-manager-button" href="/conta/" aria-current="page"><span aria-hidden="true">◎</span> Perfil</a>
+          </div>
+        </header>
+
+        <section class="nykuto-profile-page">
+          <div class="nykuto-profile-layout">
+            <section class="nykuto-profile-intro">
+              <p>Meu espaço</p>
+              <h1 id="profile-title">Seus anúncios, no seu controle.</h1>
+              <span>Crie um perfil simples, publique e depois pause, conclua ou exclua cada anúncio sem passar pela Nykuto.</span>
+              <div class="nykuto-profile-benefits" aria-label="Benefícios do perfil rápido">
+                <div><span aria-hidden="true">01</span><p><strong>Menos campos</strong><small>Seus dados voltam no próximo anúncio.</small></p></div>
+                <div><span aria-hidden="true">02</span><p><strong>Contato direto</strong><small>O interessado fala com o seu WhatsApp.</small></p></div>
+                <div><span aria-hidden="true">03</span><p><strong>Sem comissão</strong><small>A negociação acontece entre vocês.</small></p></div>
+              </div>
+            </section>
+
+            <section class="nykuto-profile-card" aria-labelledby="profile-form-title">
+              <header><div><span>Dados do anunciante</span><h2 id="profile-form-title">Meu perfil</h2></div><b data-profile-badge>Carregando</b></header>
+              <form id="profile-form" data-profile-form novalidate>
+                <div class="nykuto-profile-form">
+                  <label><span>Nome</span><input name="firstName" type="text" maxlength="50" autocomplete="given-name" required /></label>
+                  <label><span>Sobrenome</span><input name="lastName" type="text" maxlength="60" autocomplete="family-name" required /></label>
+                  <label class="nykuto-profile-wide"><span>E-mail (opcional)</span><input name="email" type="email" maxlength="120" autocomplete="email" inputmode="email" /></label>
+                  <label class="nykuto-profile-wide"><span>Número de WhatsApp</span><input name="whatsapp" type="tel" maxlength="20" autocomplete="tel" inputmode="tel" placeholder="Ex.: +595 981 123 456" required /></label>
+                </div>
+                <label class="nykuto-profile-consent"><input name="publicContact" type="checkbox" required /><span>Entendo que este WhatsApp poderá aparecer nos meus anúncios para que os interessados falem comigo diretamente.</span></label>
+                <div class="nykuto-turnstile" data-profile-turnstile><p data-profile-turnstile-status>Carregando a verificação de segurança…</p></div>
+                <div class="nykuto-profile-actions">
+                  <button type="submit" data-profile-save>Salvar perfil</button>
+                  <a href="/anunciar/" data-profile-announce>Anunciar agora</a>
+                  <button type="button" class="nykuto-profile-logout" data-profile-logout hidden>Sair</button>
+                </div>
+                <p class="nykuto-profile-status" data-profile-status role="status" aria-live="polite">Carregando seu perfil…</p>
+                <div class="nykuto-profile-online-note"><strong>Perfil sem senha</strong>A sessão fica protegida neste aparelho. Google e Facebook poderão ser adicionados depois para recuperar o mesmo perfil em outro aparelho.</div>
+              </form>
+
+              <section class="nykuto-my-listings" data-my-listings hidden aria-labelledby="my-listings-title">
+                <header><div><span>Publicações</span><h2 id="my-listings-title">Meus anúncios</h2></div><a href="/anunciar/">＋ Novo</a></header>
+                <div data-my-listings-grid></div>
+              </section>
+              <div class="nykuto-profile-danger" data-profile-danger hidden><button type="button" data-delete-profile>Excluir perfil e anúncios</button><small>Esta ação apaga definitivamente suas publicações e fotos.</small></div>
+            </section>
+          </div>
+        </section>
+
+        <footer class="demo-app-footer"><span><strong>Nykuto Local</strong> · CDE ↔ Foz</span><span>Perfil e anúncios privados por padrão · <a href="/regras/">Regras e privacidade</a></span><a href="/gestor/login/">Gestão de imóveis <span aria-hidden="true">↗</span></a></footer>
+      </div>
+    </section>
+  </main>
+
+  <nav class="demo-mobile-nav" aria-label="Navegação móvel"><a href="/"><span aria-hidden="true">⌕</span> Comprar</a><a href="/imoveis/"><span aria-hidden="true">⌂</span> Imóveis</a><a class="nykuto-mobile-announce" href="/anunciar/"><span aria-hidden="true">＋</span> Anunciar</a><a href="/conta/" aria-current="page"><span aria-hidden="true">◎</span> Perfil</a></nav>
+  <script src="/conta/conta.js?v=20260828-2" defer></script>
+</body>
+</html>
