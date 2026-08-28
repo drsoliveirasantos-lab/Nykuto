@@ -4,7 +4,44 @@
   const OPENFREEMAP_STYLE = 'https://tiles.openfreemap.org/styles/liberty';
   const DEFAULT_OSM_HOST = 'tile.openstreetmap.org';
 
+  function isIOSDevice() {
+    const ua = navigator.userAgent || '';
+    return /iPhone|iPad|iPod/i.test(ua)
+      || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  }
+
+  function installLargePhotoDecodeGuard() {
+    const nativeCreateImageBitmap = window.createImageBitmap;
+    if (typeof nativeCreateImageBitmap !== 'function' || nativeCreateImageBitmap.__nykutoPhotoGuard) return;
+
+    async function guardedCreateImageBitmap(source, ...args) {
+      const isLargePhoto = args.length === 0
+        && source instanceof Blob
+        && /^image\//i.test(source.type || '')
+        && source.size >= 2 * 1024 * 1024;
+
+      if (!isLargePhoto) return nativeCreateImageBitmap.call(window, source, ...args);
+
+      try {
+        return await nativeCreateImageBitmap.call(window, source, {
+          resizeWidth: 2048,
+          resizeQuality: 'high',
+          imageOrientation: 'from-image'
+        });
+      } catch (_) {
+        return nativeCreateImageBitmap.call(window, source);
+      }
+    }
+
+    Object.defineProperty(guardedCreateImageBitmap, '__nykutoPhotoGuard', { value: true });
+    window.createImageBitmap = guardedCreateImageBitmap;
+  }
+
   function vectorMapsSupported(L) {
+    // Mobile Safari shares a tight graphics-memory budget between WebGL and
+    // large camera photos. Keeping the publisher on the raster fallback on iOS
+    // avoids photo-decoding failures while preserving every map interaction.
+    if (isIOSDevice()) return false;
     if (!window.maplibregl || typeof L.maplibreGL !== 'function') return false;
     if (typeof window.maplibregl.supported === 'function') {
       try {
@@ -76,5 +113,6 @@
     L.tileLayer = nykutoTileLayer;
   }
 
+  installLargePhotoDecodeGuard();
   installOpenFreeMapBasemap();
 })();
