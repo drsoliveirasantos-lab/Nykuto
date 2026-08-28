@@ -159,6 +159,7 @@
   let turnstileSiteKey = '';
   let turnstileToken = '';
   let turnstileWidgetId = null;
+  let turnstileAvailability = 'loading';
   let publishedUrl = '';
   const geocodeCache = new Map();
 
@@ -298,7 +299,11 @@
       if (!response.ok || !payload.ready || !payload.turnstileSiteKey) throw new Error('UNAVAILABLE');
       turnstileSiteKey = payload.turnstileSiteKey;
     } catch (_) {
-      if (turnstileStatus) turnstileStatus.textContent = 'A publicação está temporariamente indisponível. Tente novamente em alguns instantes.';
+      turnstileAvailability = 'unavailable';
+      if (turnstileStatus) {
+        turnstileStatus.hidden = false;
+        turnstileStatus.textContent = 'A publicação está temporariamente indisponível. Tente novamente em alguns instantes.';
+      }
     }
   }
 
@@ -321,16 +326,32 @@
     if (!turnstileContainer || !turnstileSiteKey || turnstileWidgetId !== null) return;
     try {
       await loadTurnstileScript();
-      turnstileStatus?.remove();
       turnstileWidgetId = window.turnstile.render(turnstileContainer, {
         sitekey: turnstileSiteKey,
         theme: 'light',
-        callback: (token) => { turnstileToken = token; },
+        callback: (token) => {
+          turnstileToken = token;
+          turnstileAvailability = 'ready';
+          if (turnstileStatus) turnstileStatus.hidden = true;
+        },
         'expired-callback': () => { turnstileToken = ''; },
-        'error-callback': () => { turnstileToken = ''; }
+        'error-callback': () => {
+          turnstileToken = '';
+          turnstileAvailability = 'unavailable';
+          if (turnstileStatus) {
+            turnstileStatus.hidden = false;
+            turnstileStatus.textContent = 'Não foi possível carregar a verificação de segurança.';
+          }
+        }
       });
+      turnstileAvailability = 'ready';
+      if (turnstileStatus) turnstileStatus.hidden = true;
     } catch (_) {
-      if (turnstileStatus) turnstileStatus.textContent = 'Não foi possível carregar a verificação de segurança.';
+      turnstileAvailability = 'unavailable';
+      if (turnstileStatus) {
+        turnstileStatus.hidden = false;
+        turnstileStatus.textContent = 'Não foi possível carregar a verificação de segurança.';
+      }
     }
   }
 
@@ -779,6 +800,8 @@
       if (!normalizedWhatsapp(getValue('whatsapp'))) return 'Informe o WhatsApp com código do país e entre 8 e 15 dígitos.';
       if (!form.elements.publicContact.checked) return 'Autorize o contato direto pelo WhatsApp para publicar.';
       if (!form.elements.confirm.checked) return 'Confirme as informações antes de continuar.';
+      if (turnstileAvailability === 'loading') return 'Aguarde o carregamento da verificação de segurança.';
+      if (turnstileAvailability === 'unavailable') return 'A publicação está temporariamente indisponível. Tente novamente em alguns instantes.';
       if (!turnstileToken) return 'Conclua a verificação de segurança antes de publicar.';
     }
     return '';
@@ -805,6 +828,11 @@
         turnstileContainer.tabIndex = -1;
         control = turnstileContainer;
       }
+    }
+    if (control === turnstileContainer) {
+      turnstileContainer.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      window.setTimeout(() => control.focus({ preventScroll: true }), 220);
+      return;
     }
     section.scrollIntoView({ block: 'start', behavior: 'smooth' });
     window.setTimeout(() => control?.focus({ preventScroll: true }), 220);
@@ -1667,7 +1695,6 @@
     const contactEyebrow = form.querySelector('.nykuto-contact-panel > header span');
     if (contactTitle) contactTitle.textContent = 'Seu contato';
     if (contactEyebrow) contactEyebrow.textContent = 'WhatsApp direto';
-    form.querySelector('.nykuto-wizard-actions')?.prepend(errorBox);
   }
 
   function configureCarpoolWizard() {

@@ -2475,7 +2475,7 @@
 .nykuto-listing-wizard.is-direct .nykuto-location-status { min-height: 0; margin: 5px 1px 0; }
 .nykuto-listing-wizard.is-direct .nykuto-listing-map { min-height: 210px; }
 .nykuto-listing-wizard.is-direct .nykuto-map-note { margin-top: 7px; }
-.nykuto-listing-wizard.is-direct .nykuto-contact-panel { padding: 0; border: 0; background: transparent; }
+.nykuto-listing-wizard.is-direct .nykuto-contact-panel { margin-bottom: 0; padding: 0; border: 0; background: transparent; }
 .nykuto-listing-wizard.is-direct .nykuto-contact-panel > header { display: none; }
 .nykuto-listing-wizard.is-direct .nykuto-contact-panel .nykuto-form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .nykuto-listing-wizard.is-direct .nykuto-contact-panel label:has(input[name="whatsapp"]) { grid-column: 1 / -1; }
@@ -2493,7 +2493,7 @@
   border-radius: 0 0 24px 24px;
   box-shadow: 0 -10px 28px rgba(27,58,50,.1);
 }
-.nykuto-listing-wizard.is-direct .nykuto-wizard-error { margin: 0; }
+.nykuto-listing-wizard.is-direct .nykuto-wizard-error { grid-column: 1 / -1; margin: 0 10px 8px; }
 .nykuto-listing-wizard.is-direct .nykuto-wizard-submit { width: 100%; min-height: 52px; font-size: 11px; }
 
 .nykuto-zone-controls {
@@ -2647,6 +2647,11 @@
   .nykuto-listing-wizard.is-direct .nykuto-category-choices label { min-height: 75px; padding: 9px; }
   .nykuto-listing-wizard.is-direct .nykuto-subcategory-choices { grid-template-columns: 1fr; }
   .nykuto-listing-wizard.is-direct .nykuto-listing-map { min-height: 200px; }
+  .nykuto-listing-wizard.is-direct .nykuto-map-note { padding: 6px 8px; gap: 6px; align-items: center; }
+  .nykuto-listing-wizard.is-direct .nykuto-map-note > span { font-size: 14px; }
+  .nykuto-listing-wizard.is-direct .nykuto-map-note p,
+  .nykuto-listing-wizard.is-direct .nykuto-map-note strong { font-size: 9px; line-height: 1.3; }
+  .nykuto-listing-wizard.is-direct .nykuto-map-note strong { display: inline; margin-right: 4px; }
   .nykuto-zone-controls { grid-template-columns: minmax(0, 1fr) auto; }
   .nykuto-route-destination-search { grid-template-columns: minmax(0, 1fr) auto; }
   .nykuto-listing-wizard.is-direct .nykuto-wizard-actions {
@@ -2654,9 +2659,10 @@
     left: 0;
     right: 0;
     bottom: 0;
-    padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
+    padding: 6px 10px calc(6px + env(safe-area-inset-bottom));
     border-radius: 0;
   }
+  .nykuto-listing-wizard.is-direct .nykuto-wizard-submit { min-height: 48px; }
   .nykuto-listing-shortcuts { width: calc(100% - 24px); margin: 18px auto 28px; grid-template-columns: 1fr; gap: 7px; }
   .nykuto-listing-shortcuts a { min-height: 67px; }
   .nykuto-listing-shortcuts strong { font-size: 11px; }
@@ -2666,7 +2672,7 @@
 }
 
 @media (max-width: 680px) {
-  .nykuto-wizard-form { padding-bottom: calc(145px + env(safe-area-inset-bottom)); }
+  .nykuto-wizard-form { padding-bottom: calc(132px + env(safe-area-inset-bottom)); }
   .nykuto-wizard-actions { bottom: calc(66px + env(safe-area-inset-bottom)); padding-bottom: 8px; }
   .nykuto-listing-wizard.is-direct .nykuto-wizard-actions { bottom: calc(66px + env(safe-area-inset-bottom)); padding-bottom: 8px; }
   .demo-mobile-nav a,
