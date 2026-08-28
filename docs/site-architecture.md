@@ -128,10 +128,11 @@ Turnstile and publishes atomically to a separate `LOCAL_DB` D1 database.
 The preferred image store is the private `LOCAL_MEDIA` R2 binding. Because R2
 is not yet enabled at account level, the pilot has an explicit constrained D1
 fallback: five images maximum, 300 KB each and 1.25 MB total. Exact typed
-addresses are never sent to the publication API. Coordinates are rounded by the
-server to two decimals and exposed only with a 5 km privacy circle. Address
-search remains an explicit, rate-limited Nominatim action with manual map tap as
-fallback.
+addresses are never sent to the publication API. The author chooses a public
+radius of about 50 m, 200 m, 500 m, 1 km, 2 km, 3 km or 5 km; coordinates are
+rounded to four decimals so that small selected radii remain coherent. The UI
+warns authors to use a safe public point for 50 or 200 m. Address search remains
+an explicit, rate-limited Nominatim action with manual map tap as fallback.
 
 `/conta/` is a real lightweight online profile. A secure `HttpOnly`, `Secure`,
 `SameSite=Lax` cookie keeps a passwordless 180-day device session; unsafe
@@ -146,11 +147,11 @@ has a dedicated three-screen publisher: intention, route/schedule and WhatsApp
 contact. Structured fees store the public departure/destination labels,
 frequency, date when applicable, time and seats;
 the normal price fields hold an optional per-person contribution. Route-first
-catalogue cards and the carona search read these fields directly. Only the
-rounded departure zone is stored as coordinates. The detail page geocodes the
-destination and requests an OSRM path only after a visitor explicitly taps the
-route button; the map remains a planning aid, not navigation, booking or a
-payment flow.
+catalogue cards and the carona search read these fields directly. Publication
+also stores validated destination coordinates after the author explicitly asks
+to trace the route. The detail page can therefore request and display the
+approximate OSRM road path directly, while still presenting it only as a place
+to arrange a safe pickup along the route—not navigation, booking or payment.
 
 The demo uses owner-supplied photos and videos of real Ciudad del Este
 properties that were neutralised before publication and stripped of embedded

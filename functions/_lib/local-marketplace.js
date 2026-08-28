@@ -14,6 +14,7 @@ export const LOCAL_PRICE_MODES = new Set(['fixed', 'negotiable', 'quote', 'free'
 export const LOCAL_CURRENCIES = new Set(['BRL', 'PYG', 'USD']);
 export const LOCAL_STATUSES = new Set(['published', 'paused', 'sold', 'hidden', 'deleted', 'expired']);
 export const LOCAL_LISTING_KINDS = new Set(['offer', 'request']);
+export const LOCAL_ZONE_RADII = new Set([50, 200, 500, 1000, 2000, 3000, 5000]);
 export const PUBLIC_STATUSES = new Set(['published']);
 export const MAX_MEDIA_COUNT = 5;
 // Keep the D1 compatibility fallback within conservative Worker CPU/storage
@@ -78,10 +79,11 @@ export function cleanPriceAmount(value) {
   return Number.isSafeInteger(number) && number >= 0 && number <= 100000000000 ? number : null;
 }
 
-export function cleanCoordinate(value, minimum, maximum) {
+export function cleanCoordinate(value, minimum, maximum, precision = 2) {
   const number = Number(value);
   if (!Number.isFinite(number) || number < minimum || number > maximum) return null;
-  return Math.round(number * 100) / 100;
+  const factor = 10 ** Math.max(0, Math.min(6, Math.trunc(precision)));
+  return Math.round(number * factor) / factor;
 }
 
 export function cleanStringList(value, maximumItems = 8, maximumLength = 80) {
@@ -149,6 +151,12 @@ export function publicSellerName(firstName, lastName) {
 
 export function serializeLocalListing(row, { ownerView = false, media = null } = {}) {
   let fees = parseJsonArray(row.fees_json);
+  const radiusFee = fees.find((fee) => normalizeSearchText(fee?.label) === 'raio publico');
+  const storedRadius = Number(radiusFee?.value);
+  const radiusMeters = LOCAL_ZONE_RADII.has(storedRadius) ? storedRadius : Number(row.zone_radius_m || 5000);
+  const routeCoordinatesFee = fees.find((fee) => normalizeSearchText(fee?.label) === 'coordenadas do destino');
+  const [destinationLatitude, destinationLongitude] = String(routeCoordinatesFee?.value || '').split(',').map(Number);
+  fees = fees.filter((fee) => !['raio publico', 'coordenadas do destino'].includes(normalizeSearchText(fee?.label)));
   let zoneLabel = row.zone_label;
   let title = row.title;
   if (row.category === 'Carona compartilhada') {
@@ -190,7 +198,7 @@ export function serializeLocalListing(row, { ownerView = false, media = null } =
       label: zoneLabel,
       latitude: Number(row.zone_lat),
       longitude: Number(row.zone_lng),
-      radiusMeters: Number(row.zone_radius_m || 5000)
+      radiusMeters
     },
     sourceUrl: row.source_url || '',
     status: row.status,
@@ -203,6 +211,9 @@ export function serializeLocalListing(row, { ownerView = false, media = null } =
       whatsapp: row.whatsapp_e164
     }
   };
+  if (row.category === 'Carona compartilhada' && Number.isFinite(destinationLatitude) && Number.isFinite(destinationLongitude)) {
+    listing.route = { destinationLatitude, destinationLongitude };
+  }
   const resolvedMedia = media || (row.cover_media_id ? [{ id: row.cover_media_id, mimeType: row.cover_mime_type }] : []);
   listing.media = resolvedMedia.map((item) => ({ id: item.id, mimeType: item.mimeType || item.mime_type, url: `/media/${encodeURIComponent(item.id)}` }));
   return listing;

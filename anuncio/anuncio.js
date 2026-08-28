@@ -70,6 +70,7 @@
   let listingMap = null;
   let routeLayer = null;
   let routeDestination = '';
+  let routeDestinationCoordinates = null;
   let routeLookupPending = false;
   let lastRouteLookupAt = 0;
   let turnstileWidgetId = null;
@@ -161,6 +162,14 @@
     return raw;
   }
 
+  function publicRadiusLabel(value) {
+    const radius = Number(value);
+    if (radius === 50) return 'ponto preciso (~50 m)';
+    if (radius > 0 && radius < 1000) return `raio de ${radius} m`;
+    if (radius >= 1000) return `raio de ${radius / 1000} km`;
+    return 'zona aproximada';
+  }
+
   function addFact(label, value) {
     const cleaned = cleanText(value);
     if (!cleaned) return;
@@ -176,7 +185,7 @@
   function renderTrust(ride) {
     if (!trustElement) return;
     const labels = ride
-      ? ['✓ Contato pelo WhatsApp', '✓ Trajeto aproximado', '✓ Combinação direta']
+      ? ['✓ Contato pelo WhatsApp', '✓ Trajeto sugerido', '✓ Combinação direta']
       : ['✓ Contato direto', '✓ Zona aproximada', '✓ Sem comissão Nykuto'];
     trustElement.replaceChildren(...labels.map((label) => {
       const span = document.createElement('span');
@@ -202,6 +211,7 @@
       if (details.date) lines.push(`Data: ${details.date}`);
       if (details.time) lines.push(`Horário: ${details.time}`);
       if (details.seats) lines.push(`${request ? 'Passageiros' : 'Vagas'}: ${details.seats}`);
+      if (!request) lines.push('Podemos combinar um ponto seguro de embarque ao longo da rota?');
       lines.push('', url);
       return lines.join('\n');
     }
@@ -366,6 +376,8 @@
       origin: approximatePlaceLabel(item.zone?.label),
       destination: '',
       destinationQuery: '',
+      destinationLatitude: Number(item.route?.destinationLatitude),
+      destinationLongitude: Number(item.route?.destinationLongitude),
       date: '',
       time: '',
       seats: '',
@@ -409,6 +421,7 @@
     routeSection.hidden = !ride;
     routeFacts.replaceChildren();
     routeDestination = '';
+    routeDestinationCoordinates = null;
     if (!ride) {
       mapTitle.textContent = 'Zona aproximada';
       return;
@@ -418,19 +431,22 @@
     mapElement.setAttribute('aria-label', 'Mapa do trajeto aproximado da carona compartilhada');
     const details = sharedRideDetails(item);
     routeDestination = details.destinationQuery;
+    if (Number.isFinite(details.destinationLatitude) && Number.isFinite(details.destinationLongitude)) {
+      routeDestinationCoordinates = [details.destinationLatitude, details.destinationLongitude];
+    }
     addRouteFact('origin', 'Saída', details.origin || 'Origem a combinar');
     addRouteFact('destination', 'Destino', details.destination || 'Destino a combinar');
     addRouteFact('date', 'Data', details.date);
     addRouteFact('time', 'Horário', details.time);
     addRouteFact('seats', item.kind === 'request' ? 'Passageiros' : 'Lugares', details.seats);
     addRouteFact('frequency', 'Frequência', details.days || cleanText(item.availability));
-    showRouteButton.hidden = !routeDestination;
+    showRouteButton.hidden = !routeDestination && !routeDestinationCoordinates;
     showRouteButton.disabled = false;
     showRouteButton.textContent = 'Mostrar rota aproximada';
-    routeStatus.textContent = routeDestination
-      ? 'Toque para consultar uma rota aproximada. Nenhum endereço exato será exibido.'
+    routeStatus.textContent = routeDestination || routeDestinationCoordinates
+      ? 'A rota sugerida mostra onde o motorista pode combinar embarques seguros ao longo do caminho.'
       : 'O destino não permite mostrar a rota. Combine o trajeto pelo WhatsApp.';
-    mapNote.textContent = 'A partida aparece como zona aproximada. O destino só será consultado se você tocar em “Mostrar rota aproximada”.';
+    mapNote.textContent = 'O ponto de saída usa a precisão escolhida pelo autor. Combine pelo WhatsApp um embarque seguro ao longo do trajeto.';
   }
 
   function renderFees(item) {
@@ -469,8 +485,8 @@
       mapNote.textContent = 'O mapa não pôde ser carregado. Somente a zona aproximada indicada na ficha é pública.';
       return;
     }
-    const radiusMeters = 5000;
-    listingMap = window.L.map(mapElement, { zoomControl: true, scrollWheelZoom: false, attributionControl: true }).setView([latitude, longitude], 11);
+    const radiusMeters = [50, 200, 500, 1000, 2000, 3000, 5000].includes(Number(item.zone?.radiusMeters)) ? Number(item.zone.radiusMeters) : 5000;
+    listingMap = window.L.map(mapElement, { zoomControl: true, scrollWheelZoom: false, attributionControl: true }).setView([latitude, longitude], radiusMeters <= 500 ? 15 : 11);
     window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -487,7 +503,7 @@
   }
 
   async function showApproximateRoute() {
-    if (!listing || !isSharedRide(listing) || !routeDestination || routeLookupPending) return;
+    if (!listing || !isSharedRide(listing) || (!routeDestination && !routeDestinationCoordinates) || routeLookupPending) return;
     if (!listingMap || !window.L) {
       routeStatus.textContent = 'O mapa não está disponível para desenhar este trajeto.';
       return;
@@ -504,28 +520,29 @@
     routeLookupPending = true;
     showRouteButton.disabled = true;
     showRouteButton.textContent = 'Carregando trajeto…';
-    routeStatus.textContent = 'Carregando uma rota aproximada, sem exibir endereços exatos.';
+    routeStatus.textContent = 'Carregando o trajeto sugerido pelo motorista…';
     try {
-      const params = new URLSearchParams({
-        q: routeDestination,
-        format: 'jsonv2',
-        addressdetails: '0',
-        limit: '1',
-        countrycodes: 'py,br',
-        viewbox: '-55.0,-24.9,-54.3,-25.8',
-        bounded: '1',
-        'accept-language': 'pt-BR'
-      });
-      const response = await fetch(`https://nominatim.openstreetmap.org/search?${params.toString()}`, { headers: { Accept: 'application/json' } });
-      if (!response.ok) throw new Error('ROUTE_LOOKUP_FAILED');
-      const payload = await response.json();
-      const result = Array.isArray(payload) ? payload[0] : null;
-      const rawLatitude = Number(result?.lat);
-      const rawLongitude = Number(result?.lon);
-      if (!Number.isFinite(rawLatitude) || !Number.isFinite(rawLongitude)) throw new Error('ROUTE_NOT_FOUND');
-
-      const destinationLatitude = Math.round(rawLatitude * 100) / 100;
-      const destinationLongitude = Math.round(rawLongitude * 100) / 100;
+      let destinationLatitude = Number(routeDestinationCoordinates?.[0]);
+      let destinationLongitude = Number(routeDestinationCoordinates?.[1]);
+      if (!Number.isFinite(destinationLatitude) || !Number.isFinite(destinationLongitude)) {
+        const params = new URLSearchParams({
+          q: routeDestination,
+          format: 'jsonv2',
+          addressdetails: '0',
+          limit: '1',
+          countrycodes: 'py,br',
+          viewbox: '-55.0,-24.9,-54.3,-25.8',
+          bounded: '1',
+          'accept-language': 'pt-BR'
+        });
+        const response = await fetch(`https://nominatim.openstreetmap.org/search?${params.toString()}`, { headers: { Accept: 'application/json' } });
+        if (!response.ok) throw new Error('ROUTE_LOOKUP_FAILED');
+        const payload = await response.json();
+        const result = Array.isArray(payload) ? payload[0] : null;
+        destinationLatitude = Math.round(Number(result?.lat) * 10000) / 10000;
+        destinationLongitude = Math.round(Number(result?.lon) * 10000) / 10000;
+        if (!Number.isFinite(destinationLatitude) || !Number.isFinite(destinationLongitude)) throw new Error('ROUTE_NOT_FOUND');
+      }
       let routeCoordinates = [
         [originLatitude, originLongitude],
         [destinationLatitude, destinationLongitude]
@@ -551,7 +568,7 @@
         dashArray: roadRoute ? undefined : '9 8'
       });
       const destinationZone = window.L.circle([destinationLatitude, destinationLongitude], {
-        radius: 1800,
+        radius: Math.max(200, Math.min(1800, Number(listing.zone?.radiusMeters) || 500)),
         color: '#b78728',
         fillColor: '#dfbd6c',
         fillOpacity: .17,
@@ -561,8 +578,8 @@
       listingMap.fitBounds(routeLayer.getBounds(), { padding: [24, 24] });
       showRouteButton.textContent = 'Rota aproximada exibida';
       routeStatus.textContent = roadRoute
-        ? 'Rota aproximada. Combine o ponto exato pelo WhatsApp.'
-        : 'Ligação aproximada entre as zonas. Combine o caminho pelo WhatsApp.';
+        ? 'Trajeto sugerido. Combine pelo WhatsApp um ponto seguro de embarque ao longo da rota.'
+        : 'Ligação aproximada entre saída e destino. Confirme o caminho pelo WhatsApp.';
     } catch (error) {
       showRouteButton.disabled = false;
       showRouteButton.textContent = 'Tentar mostrar novamente';
@@ -590,7 +607,9 @@
     categoryElement.textContent = ride ? 'Carona compartilhada' : ([cleanText(item.category), cleanText(item.subcategory)].filter(Boolean).join(' · ') || 'Anúncio local');
     statusElement.textContent = ownerView ? `Seu anúncio · ${statusLabels[item.status] || cleanText(item.status)}` : (statusLabels[item.status] || 'Publicado');
     openReportButton.hidden = ownerView || item.status !== 'published';
-    locationElement.textContent = ride ? `⌖ Saída em ${zoneLabel} · zona aproximada` : `⌖ ${zoneLabel} · zona aproximada de 5 km`;
+    locationElement.textContent = ride
+      ? `⌖ Saída em ${zoneLabel} · ${publicRadiusLabel(item.zone?.radiusMeters)}`
+      : `⌖ ${zoneLabel} · ${publicRadiusLabel(item.zone?.radiusMeters)}`;
     priceElement.textContent = price.value;
     priceLabel.textContent = ride ? 'Contribuição por pessoa' : (item.kind === 'request' ? 'Orçamento' : 'Preço anunciado');
     priceNote.textContent = price.note;
@@ -627,6 +646,7 @@
     errorState.hidden = true;
     content.hidden = false;
     renderMap(item);
+    if (ride && (routeDestination || routeDestinationCoordinates)) window.setTimeout(showApproximateRoute, 120);
   }
 
   function setReportStatus(message, type = '') {

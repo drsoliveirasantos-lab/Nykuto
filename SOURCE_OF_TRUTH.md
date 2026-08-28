@@ -166,10 +166,19 @@ not autocomplete. It may query the public OpenStreetMap Nominatim endpoint only
 with visible attribution, an in-memory result cache, a maximum rate of one
 request per second and a bounded regional query. The interface must disclose
 that the entered search is sent to this third-party service and must retain a
-manual map-placement fallback. The exact typed address is not persisted. Only a
-public label and coordinates rounded by the server to roughly one kilometre are
-stored, then rendered as an approximate 5 km zone. Shared-ride destination
-lookup and route drawing are also explicit and approximate.
+manual map-placement fallback. The exact typed address is not persisted. The
+author chooses the public precision: about 50 m, 200 m, 500 m, 1 km, 2 km, 3 km
+or 5 km. Coordinates are rounded to four decimals so the selected circle is
+technically coherent; choosing 50 or 200 m must carry a visible warning to use
+a safe public point rather than a private home.
+
+Shared-ride publication requires an approximate departure point, destination
+and departure time. After the author explicitly asks to trace the journey, the
+publisher geocodes the destination and requests an approximate road route. The
+validated destination coordinates are stored with the listing so the public
+detail can render the suggested route without repeating address lookup. The
+route is a planning aid for arranging a safe pickup along the way through
+WhatsApp, not a guaranteed itinerary or booking mechanism.
 
 ## Languages
 

@@ -9,6 +9,8 @@
   const submitButton = form.querySelector('[data-wizard-submit]');
   const errorBox = form.querySelector('[data-wizard-error]');
   const subcategoryGrid = form.querySelector('[data-subcategory-grid]');
+  const directSubcategoryField = form.querySelector('[data-direct-subcategory-field]');
+  const directSubcategorySelect = form.elements.directSubcategory;
   const photoInput = form.elements.photos;
   const photoPreview = form.querySelector('[data-photo-preview]');
   const photoHelp = form.querySelector('[data-photo-help]');
@@ -32,6 +34,11 @@
   const locationStatus = form.querySelector('[data-location-status]');
   const locationResults = form.querySelector('[data-location-results]');
   const mapElement = form.querySelector('[data-listing-map]');
+  const mapPanel = form.querySelector('[data-map-panel]');
+  const mapToggleButton = form.querySelector('[data-map-toggle]');
+  const mapPrivacyCopy = form.querySelector('[data-map-privacy-copy]');
+  const rideDestinationSearchButton = form.querySelector('[data-ride-destination-search]');
+  const rideRouteStatus = form.querySelector('[data-ride-route-status]');
   const turnstileContainer = form.querySelector('[data-turnstile-container]');
   const turnstileStatus = form.querySelector('[data-turnstile-status]');
   const successPanel = document.querySelector('[data-listing-success]');
@@ -134,6 +141,8 @@
   let listingMap;
   let locationMarker;
   let privacyCircle;
+  let rideRouteLayer;
+  let rideRoutePending = false;
   let lastGeocodeAt = 0;
   let geocodePending = false;
   let renderedCategory = '';
@@ -146,7 +155,18 @@
 
   const getValue = (name) => String(form.elements[name]?.value || '').trim();
   const getCategory = () => getValue('category');
-  const getSubcategory = () => getValue('subcategory');
+  const getSubcategory = () => directPublishMode ? getValue('directSubcategory') : getValue('subcategory');
+
+  function zoneRadiusMeters() {
+    const value = Number(getValue('zoneRadiusMeters'));
+    return [50, 200, 500, 1000, 2000, 3000, 5000].includes(value) ? value : 500;
+  }
+
+  function radiusLabel(value = zoneRadiusMeters()) {
+    if (value === 50) return 'ponto preciso (~50 m)';
+    if (value < 1000) return `raio de ${value} m`;
+    return `raio de ${value / 1000} km`;
+  }
 
   function sequenceIndex(step = currentStep) {
     return wizardSequence.indexOf(step);
@@ -450,6 +470,17 @@
     const category = getCategory();
     const subcategoryStep = steps.find((step) => Number(step.dataset.wizardStep) === 2);
     if (directPublishMode && subcategoryStep) subcategoryStep.hidden = !category;
+    if (directPublishMode) {
+      subcategoryGrid.hidden = true;
+      directSubcategoryField.hidden = !category;
+      if (renderedCategory === category && directSubcategorySelect.options.length > 1) return;
+      renderedCategory = category;
+      renderSelectOptions(directSubcategorySelect, [...(subcategories[category] || subcategories.Outro)]);
+      updateConditionalFields();
+      return;
+    }
+    directSubcategoryField.hidden = true;
+    subcategoryGrid.hidden = false;
     if (renderedCategory === category && subcategoryGrid.querySelector('input[name="subcategory"]')) return;
     renderedCategory = category;
     subcategoryGrid.replaceChildren();
@@ -578,8 +609,8 @@
       : 'As fotos serão otimizadas antes da publicação.';
     locationHeading.textContent = isCarona ? 'Qual é o trajeto?' : 'Onde está disponível?';
     locationCopy.textContent = isCarona
-      ? 'Informe a origem, o destino e quando você vai. O mapa confirma apenas uma zona aproximada.'
-      : 'Busque um endereço ou toque no mapa. O anúncio mostrará apenas uma área aproximada de 5 km.';
+      ? 'Informe a saída, o destino e a hora. Depois trace a rota que será mostrada no anúncio.'
+      : 'Localize a zona e escolha a precisão que aparecerá no anúncio.';
     addressLabel.textContent = isCarona ? 'De onde você sai?' : 'Endereço ou bairro';
     availabilityLabel.textContent = isCarona ? 'Frequência' : 'Disponibilidade';
     if (isCarona) {
@@ -686,6 +717,7 @@
       if (!getValue('latitude') || !getValue('longitude')) return 'Localize o endereço ou toque no mapa para definir a zona aproximada.';
       if (carpoolMode) {
         if (publicRidePlace(getValue('rideDestination')).length < 2) return 'Informe uma zona ou um ponto público de destino, sem endereço exato.';
+        if (!getValue('rideDestinationLatitude') || !getValue('rideDestinationLongitude')) return 'Toque em “Traçar rota” para confirmar o caminho entre a saída e o destino.';
         if (!getValue('rideFrequency')) return 'Escolha a frequência da carona.';
         if (getValue('rideFrequency') === 'once' && !getValue('rideDate')) return 'Escolha a data da viagem.';
         if (!/^\d{2}:\d{2}$/.test(getValue('rideTime'))) return 'Informe o horário de saída.';
@@ -742,6 +774,7 @@
   }
 
   function initMap() {
+    if (directPublishMode && mapPanel?.hidden) return;
     if (listingMap || !window.L || !mapElement) {
       if (listingMap) setTimeout(() => listingMap.invalidateSize(), 80);
       return;
@@ -754,12 +787,19 @@
     listingMap.on('click', (event) => {
       setLocation(event.latlng.lat, event.latlng.lng, 'Zona escolhida no mapa', true);
     });
+    const storedCoordinates = [Number(getValue('latitude')), Number(getValue('longitude'))];
+    if (storedCoordinates.every(Number.isFinite) && getValue('latitude') && getValue('longitude')) {
+      setLocation(storedCoordinates[0], storedCoordinates[1], getValue('locationLabel') || 'Zona escolhida');
+    }
     setTimeout(() => listingMap.invalidateSize(), 100);
   }
 
   function setLocation(lat, lng, label, manual = false) {
     const coordinates = [Number(lat), Number(lng)];
     if (!coordinates.every(Number.isFinite)) return;
+    const previousCoordinates = [Number(getValue('latitude')), Number(getValue('longitude'))];
+    if (carpoolMode && previousCoordinates.every(Number.isFinite) && getValue('latitude') && getValue('longitude')
+      && (Math.abs(previousCoordinates[0] - coordinates[0]) > .00001 || Math.abs(previousCoordinates[1] - coordinates[1]) > .00001)) clearRideRoute();
     form.elements.confirm.checked = false;
     form.elements.latitude.value = coordinates[0].toFixed(6);
     form.elements.longitude.value = coordinates[1].toFixed(6);
@@ -768,7 +808,9 @@
     if (manual) form.elements.address.value = '';
     if (!listingMap) initMap();
     if (!listingMap || !window.L) {
-      locationStatus.textContent = 'Zona definida. O mapa não pôde ser exibido, mas a referência foi mantida.';
+      locationStatus.textContent = directPublishMode && mapPanel?.hidden
+        ? `Zona definida · ${radiusLabel()} no anúncio. Use “Ajustar no mapa” se quiser mover o ponto.`
+        : 'Zona definida. O mapa não pôde ser exibido, mas a referência foi mantida.';
       locationResults.hidden = true;
       return;
     }
@@ -776,20 +818,24 @@
     else locationMarker.setLatLng(coordinates);
     if (!privacyCircle) {
       privacyCircle = window.L.circle(coordinates, {
-        radius: 5000,
+        radius: zoneRadiusMeters(),
         color: '#174f43',
         fillColor: '#5ba388',
         fillOpacity: 0.18,
         weight: 2
       }).addTo(listingMap);
-    } else privacyCircle.setLatLng(coordinates);
+    } else {
+      privacyCircle.setLatLng(coordinates);
+      privacyCircle.setRadius(zoneRadiusMeters());
+    }
     listingMap.fitBounds(privacyCircle.getBounds(), { padding: [18, 18] });
-    locationStatus.textContent = `${manual ? 'Ponto definido' : 'Endereço localizado'} · área pública aproximada de 5 km.`;
+    locationStatus.textContent = `${manual ? 'Ponto definido' : 'Endereço localizado'} · ${radiusLabel()} no anúncio.`;
     locationResults.hidden = true;
   }
 
   function clearResolvedLocation() {
     if (!getValue('latitude') && !getValue('longitude')) return;
+    if (carpoolMode) clearRideRoute();
     form.elements.latitude.value = '';
     form.elements.longitude.value = '';
     form.elements.locationLabel.value = '';
@@ -832,8 +878,10 @@
     const firstResult = results[0];
     form.elements.address.value = firstResult.display_name;
     setLocation(firstResult.lat, firstResult.lon, publicLocationFromResult(firstResult));
-    locationResults.hidden = false;
-    locationStatus.textContent = 'O primeiro resultado já aparece no mapa. Escolha outro abaixo se necessário.';
+    locationResults.hidden = directPublishMode;
+    locationStatus.textContent = directPublishMode
+      ? `Zona localizada · ${radiusLabel()} no anúncio. Use “Ajustar no mapa” se quiser mover o ponto.`
+      : 'O primeiro resultado já aparece no mapa. Escolha outro abaixo se necessário.';
   }
 
   async function searchAddress() {
@@ -883,6 +931,124 @@
       addressSearchButton.disabled = false;
       addressSearchButton.textContent = 'Localizar';
       geocodePending = false;
+    }
+  }
+
+  function clearRideRoute() {
+    form.elements.rideDestinationLatitude.value = '';
+    form.elements.rideDestinationLongitude.value = '';
+    if (listingMap && rideRouteLayer) listingMap.removeLayer(rideRouteLayer);
+    rideRouteLayer = null;
+    if (rideRouteStatus && carpoolMode) rideRouteStatus.textContent = 'Toque em “Traçar rota” para atualizar o caminho sugerido.';
+  }
+
+  function updateRadiusPresentation() {
+    if (privacyCircle) {
+      privacyCircle.setRadius(zoneRadiusMeters());
+      listingMap?.fitBounds(privacyCircle.getBounds(), { padding: [18, 18] });
+    }
+    if (getValue('latitude') && getValue('longitude')) locationStatus.textContent = `Zona definida · ${radiusLabel()} no anúncio.`;
+    if (mapPrivacyCopy) mapPrivacyCopy.innerHTML = zoneRadiusMeters() <= 200
+      ? `<strong>Localização bem precisa</strong> Escolha um ponto público e seguro: o anúncio mostrará ${radiusLabel()}.`
+      : `<strong>Precisão escolhida por você</strong> O anúncio mostrará ${radiusLabel()}; o endereço digitado não será publicado.`;
+  }
+
+  function toggleMapPanel() {
+    if (!directPublishMode || !mapPanel) return;
+    mapPanel.hidden = !mapPanel.hidden;
+    mapToggleButton.setAttribute('aria-expanded', String(!mapPanel.hidden));
+    mapToggleButton.textContent = mapPanel.hidden ? 'Ajustar no mapa' : 'Ocultar mapa';
+    if (!mapPanel.hidden) {
+      initMap();
+      window.setTimeout(() => listingMap?.invalidateSize(), 80);
+    }
+  }
+
+  async function drawRideRoute(destinationLatitude, destinationLongitude) {
+    if (!listingMap || !window.L) initMap();
+    const originLatitude = Number(getValue('latitude'));
+    const originLongitude = Number(getValue('longitude'));
+    if (![originLatitude, originLongitude, destinationLatitude, destinationLongitude].every(Number.isFinite)) throw new Error('ROUTE_LOCATION_MISSING');
+    if (!listingMap || !window.L) return false;
+    let routeCoordinates = [[originLatitude, originLongitude], [destinationLatitude, destinationLongitude]];
+    let roadRoute = false;
+    try {
+      const routeUrl = `https://router.project-osrm.org/route/v1/driving/${originLongitude},${originLatitude};${destinationLongitude},${destinationLatitude}?overview=simplified&geometries=geojson`;
+      const response = await fetch(routeUrl, { headers: { Accept: 'application/json' } });
+      const payload = response.ok ? await response.json() : null;
+      const coordinates = payload?.routes?.[0]?.geometry?.coordinates;
+      if (Array.isArray(coordinates) && coordinates.length > 1) {
+        routeCoordinates = coordinates.map(([longitude, latitude]) => [latitude, longitude]);
+        roadRoute = true;
+      }
+    } catch (_) {
+      // A straight connection remains visible when the public router is busy.
+    }
+    if (rideRouteLayer) listingMap.removeLayer(rideRouteLayer);
+    const line = window.L.polyline(routeCoordinates, { color: '#b78728', weight: 5, opacity: .86, dashArray: roadRoute ? undefined : '9 8' });
+    const destinationMarker = window.L.circleMarker([destinationLatitude, destinationLongitude], {
+      radius: 8, color: '#8d641b', fillColor: '#dfbd6c', fillOpacity: 1, weight: 3
+    });
+    rideRouteLayer = window.L.featureGroup([line, destinationMarker]).addTo(listingMap);
+    listingMap.fitBounds(rideRouteLayer.getBounds(), { padding: [28, 28] });
+    return roadRoute;
+  }
+
+  async function searchRideDestination() {
+    if (!carpoolMode || rideRoutePending) return;
+    if (!getValue('latitude') || !getValue('longitude')) {
+      setError('Localize primeiro o ponto de saída da carona.');
+      form.elements.address.focus();
+      return;
+    }
+    const query = getValue('rideDestination');
+    if (query.length < 3) {
+      setError('Informe o bairro, faculdade ou ponto conhecido de destino.');
+      form.elements.rideDestination.focus();
+      return;
+    }
+    setError();
+    rideRoutePending = true;
+    rideDestinationSearchButton.disabled = true;
+    rideDestinationSearchButton.textContent = 'Traçando…';
+    rideRouteStatus.textContent = 'Localizando o destino e calculando a rota sugerida…';
+    const elapsed = Date.now() - lastGeocodeAt;
+    if (elapsed < 1000) await new Promise((resolve) => setTimeout(resolve, 1000 - elapsed));
+    lastGeocodeAt = Date.now();
+    try {
+      const params = new URLSearchParams({
+        q: query,
+        format: 'jsonv2',
+        addressdetails: '0',
+        limit: '1',
+        countrycodes: 'py,br',
+        viewbox: '-55.0,-24.9,-54.3,-25.8',
+        bounded: '1',
+        'accept-language': 'pt-BR'
+      });
+      const response = await fetch(`https://nominatim.openstreetmap.org/search?${params.toString()}`, { headers: { Accept: 'application/json' } });
+      if (!response.ok) throw new Error('ROUTE_LOOKUP_FAILED');
+      const payload = await response.json();
+      const result = Array.isArray(payload) ? payload[0] : null;
+      const latitude = Number(result?.lat);
+      const longitude = Number(result?.lon);
+      if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) throw new Error('ROUTE_NOT_FOUND');
+      form.elements.rideDestinationLatitude.value = latitude.toFixed(6);
+      form.elements.rideDestinationLongitude.value = longitude.toFixed(6);
+      const roadRoute = await drawRideRoute(latitude, longitude);
+      rideRouteStatus.textContent = roadRoute
+        ? 'Rota sugerida pronta. O motorista pode combinar um embarque seguro ao longo deste trajeto pelo WhatsApp.'
+        : 'Ligação aproximada pronta. Confirme o caminho e o ponto de embarque pelo WhatsApp.';
+      syncCarpoolDefaults();
+    } catch (error) {
+      clearRideRoute();
+      rideRouteStatus.textContent = error.message === 'ROUTE_NOT_FOUND'
+        ? 'Destino não encontrado. Tente um bairro ou ponto conhecido próximo.'
+        : 'Não foi possível traçar a rota agora. Tente novamente.';
+    } finally {
+      rideDestinationSearchButton.disabled = false;
+      rideDestinationSearchButton.textContent = 'Traçar rota';
+      rideRoutePending = false;
     }
   }
 
@@ -968,7 +1134,7 @@
     if (!carpoolMode) {
       const chips = document.createElement('div');
       chips.className = 'nykuto-preview-chips';
-      [getValue('condition'), `${getValue('locationLabel')} · raio 5 km`, ...checkedLogistics()].filter(Boolean).forEach((value) => appendText(chips, 'span', value));
+      [getValue('condition'), `${getValue('locationLabel')} · ${radiusLabel()}`, ...checkedLogistics()].filter(Boolean).forEach((value) => appendText(chips, 'span', value));
       body.append(chips);
     }
     if (getValue('description')) appendText(body, 'p', getValue('description'));
@@ -1035,6 +1201,9 @@
       zoneLabel: getValue('locationLabel'),
       zoneLatitude: Number(getValue('latitude')),
       zoneLongitude: Number(getValue('longitude')),
+      zoneRadiusMeters: zoneRadiusMeters(),
+      rideDestinationLatitude: carpoolMode ? Number(getValue('rideDestinationLatitude')) : null,
+      rideDestinationLongitude: carpoolMode ? Number(getValue('rideDestinationLongitude')) : null,
       sourceUrl: getValue('sourceUrl'),
       sourceOwnerConsent: form.elements.sourceOwnerConsent.checked
     };
@@ -1189,6 +1358,7 @@
       updateRideDateVisibility();
       syncCarpoolDefaults();
     }
+    if (event.target.name === 'zoneRadiusMeters') updateRadiusPresentation();
     if (event.target.name === 'priceMode') {
       const noAmount = ['Grátis', 'Sob consulta'].includes(event.target.value);
       form.elements.price.disabled = noAmount;
@@ -1203,10 +1373,13 @@
     if (event.target.name === 'address') clearResolvedLocation();
     if (event.target.name === 'sourceUrl') sourceConsentVisibility();
     if (directPublishMode && event.target.name === 'price') syncDirectDefaults();
+    if (carpoolMode && event.target.name === 'rideDestination') clearRideRoute();
     if (carpoolMode && ['rideDestination', 'rideDate', 'rideTime', 'rideSeats', 'rideContribution', 'rideCurrency'].includes(event.target.name)) syncCarpoolDefaults();
     if (currentStep === 5 && ['firstName', 'lastName', 'whatsapp', 'rideDestination', 'rideDate', 'rideTime', 'rideSeats', 'rideContribution', 'rideCurrency'].includes(event.target.name)) renderPreview();
   });
   addressSearchButton.addEventListener('click', searchAddress);
+  mapToggleButton?.addEventListener('click', toggleMapPanel);
+  rideDestinationSearchButton?.addEventListener('click', searchRideDestination);
   form.elements.address.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
@@ -1287,7 +1460,7 @@
     nextButton.hidden = true;
     submitButton.hidden = false;
     syncDirectDefaults();
-    initMap();
+    updateRadiusPresentation();
   }
 
   function configureDirectPublishForm() {
@@ -1328,6 +1501,8 @@
     if (reviewNote) reviewNote.hidden = true;
     if (contactNote) contactNote.hidden = true;
     if (geocodeNote) geocodeNote.hidden = true;
+    if (mapPanel) mapPanel.hidden = true;
+    if (mapToggleButton) mapToggleButton.hidden = false;
     form.elements.sourceUrl.value = '';
     form.elements.sourceOwnerConsent.checked = false;
     submitButton.innerHTML = `${publishButtonLabel()} <span aria-hidden="true">→</span>`;
@@ -1356,6 +1531,8 @@
     if (eyebrow) eyebrow.textContent = 'Carona compartilhada em CDE e Foz';
     if (wizardSubtitle) wizardSubtitle.textContent = 'Origem, destino, horário e WhatsApp. Só isso.';
     if (headerBadge) headerBadge.textContent = '3 etapas';
+    if (mapPanel) mapPanel.hidden = false;
+    if (mapToggleButton) mapToggleButton.hidden = true;
     const skipLink = document.querySelector('.skip-link');
     if (skipLink) skipLink.href = '#wizard-subcategory-title';
     progress?.classList.add('is-carona');
@@ -1392,11 +1569,9 @@
   loadTurnstileConfig().then(() => { if (directPublishMode || currentStep === 5) ensureTurnstile(); });
   sourceConsentVisibility();
   const presetCategory = initialParams.get('categoria');
-  const presetInput = presetCategory
-    ? [...form.elements.category].find((input) => input.value === presetCategory)
-    : null;
-  if (presetInput) {
-    presetInput.checked = true;
+  const hasPresetCategory = Boolean(presetCategory && subcategories[presetCategory]);
+  if (hasPresetCategory) {
+    form.elements.category.value = presetCategory;
     renderSubcategories();
     if (directPublishMode) showDirectPublishForm();
     else setStep(2, { focus: false });
