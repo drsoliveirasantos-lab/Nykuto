@@ -28,6 +28,7 @@ mapa/index.html                Map-focused property search
 favoritos/index.html           Device-local saved-property selection
 anunciar/index.html            Autonomous listing/request publication journey
 anunciar/anunciar.js           Direct form, carpool flow, images and API publication
+anunciar/openfreemap-basemap.js  Vector publisher map with raster fallback
 anuncio/index.html             Public local-listing detail shell
 anuncio/anuncio.js             Gallery, zone/route map, WhatsApp and reporting
 conta/index.html               Lightweight publisher profile and listing controls
@@ -133,6 +134,14 @@ radius of about 50 m, 200 m, 500 m, 1 km, 2 km, 3 km or 5 km; coordinates are
 rounded to four decimals so that small selected radii remain coherent. The UI
 warns authors to use a safe public point for 50 or 200 m. Address search remains
 an explicit, rate-limited Nominatim action with manual map tap as fallback.
+
+The publisher preserves the existing Leaflet markers, radius circle and OSRM
+route while rendering the base map with the OpenFreeMap `liberty` vector style
+through MapLibre GL. It requires no user API key. If vector rendering is not
+supported or the style cannot load, `anunciar/openfreemap-basemap.js` restores
+the standard OpenStreetMap raster layer automatically, so location selection
+and route publication remain usable. Provider and OpenStreetMap attribution
+must remain visible in either mode.
 
 `/conta/` is a real lightweight online profile. A secure `HttpOnly`, `Secure`,
 `SameSite=Lax` cookie keeps a passwordless 180-day device session; unsafe
