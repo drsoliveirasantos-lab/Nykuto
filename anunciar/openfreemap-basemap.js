@@ -19,9 +19,7 @@
         && source instanceof Blob
         && /^image\//i.test(source.type || '')
         && source.size >= 2 * 1024 * 1024;
-
       if (!isLargePhoto) return nativeCreateImageBitmap.call(window, source, ...args);
-
       try {
         return await nativeCreateImageBitmap.call(window, source, {
           resizeWidth: 2048,
@@ -41,43 +39,27 @@
     if (isIOSDevice()) return false;
     if (!window.maplibregl || typeof L.maplibreGL !== 'function') return false;
     if (typeof window.maplibregl.supported === 'function') {
-      try {
-        return window.maplibregl.supported();
-      } catch (_) {
-        return false;
-      }
+      try { return window.maplibregl.supported(); } catch (_) { return false; }
     }
-    try {
-      return Boolean(document.createElement('canvas').getContext('webgl2'));
-    } catch (_) {
-      return false;
-    }
+    try { return Boolean(document.createElement('canvas').getContext('webgl2')); } catch (_) { return false; }
   }
 
   function installOpenFreeMapBasemap() {
     const L = window.L;
     if (!L || typeof L.tileLayer !== 'function' || L.tileLayer.__nykutoOpenFreeMap) return;
-
     const originalTileLayer = L.tileLayer;
 
     function nykutoTileLayer(url, options = {}) {
       const isDefaultPublisherMap = typeof url === 'string' && url.includes(DEFAULT_OSM_HOST);
-      if (!isDefaultPublisherMap || !vectorMapsSupported(L)) {
-        return originalTileLayer.call(L, url, options);
-      }
-
+      if (!isDefaultPublisherMap || !vectorMapsSupported(L)) return originalTileLayer.call(L, url, options);
       let vectorLayer;
-      try {
-        vectorLayer = L.maplibreGL({ style: OPENFREEMAP_STYLE });
-      } catch (_) {
-        return originalTileLayer.call(L, url, options);
-      }
+      try { vectorLayer = L.maplibreGL({ style: OPENFREEMAP_STYLE }); }
+      catch (_) { return originalTileLayer.call(L, url, options); }
 
       vectorLayer.once('add', (event) => {
         const leafletMap = event.target?._map;
         const vectorMap = vectorLayer.getMaplibreMap?.();
         if (!leafletMap || !vectorMap) return;
-
         let settled = false;
         let fallbackTimer = 0;
         const useRasterFallback = () => {
@@ -87,21 +69,14 @@
           try {
             if (leafletMap.hasLayer(vectorLayer)) leafletMap.removeLayer(vectorLayer);
             originalTileLayer.call(L, url, options).addTo(leafletMap);
-          } catch (_) {
-            // The publisher remains usable even when neither remote map layer loads.
-          }
+          } catch (_) {}
         };
-
         fallbackTimer = window.setTimeout(useRasterFallback, 8000);
-        vectorMap.once('load', () => {
-          settled = true;
-          window.clearTimeout(fallbackTimer);
-        });
+        vectorMap.once('load', () => { settled = true; window.clearTimeout(fallbackTimer); });
         vectorMap.once('error', () => {
           if (typeof vectorMap.isStyleLoaded !== 'function' || !vectorMap.isStyleLoaded()) useRasterFallback();
         });
       });
-
       return vectorLayer;
     }
 
@@ -111,15 +86,24 @@
   }
 
   function loadLiveFeedback() {
-    if (document.querySelector('script[data-nykuto-live-feedback]')) return;
+    if (window.__nykutoLiveFeedbackLoading || document.querySelector('script[data-nykuto-live-feedback]')) return;
+    window.__nykutoLiveFeedbackLoading = true;
     const script = document.createElement('script');
-    script.src = '/anunciar/live-feedback.js?v=20260828-1';
-    script.defer = true;
+    script.src = `/anunciar/live-feedback.js?v=20260828-2-${Date.now()}`;
+    script.async = false;
     script.dataset.nykutoLiveFeedback = 'true';
-    document.head.append(script);
+    script.addEventListener('load', () => {
+      document.documentElement.dataset.nykutoLiveFeedback = 'loaded';
+    }, { once: true });
+    script.addEventListener('error', () => {
+      window.__nykutoLiveFeedbackLoading = false;
+      document.documentElement.dataset.nykutoLiveFeedback = 'error';
+    }, { once: true });
+    document.body.append(script);
   }
 
   installLargePhotoDecodeGuard();
   installOpenFreeMapBasemap();
-  loadLiveFeedback();
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', loadLiveFeedback, { once: true });
+  else loadLiveFeedback();
 })();
