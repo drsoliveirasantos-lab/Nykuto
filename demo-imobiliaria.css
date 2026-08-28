@@ -4215,23 +4215,66 @@
 .nykuto-listing-wizard.is-carona .nykuto-location-search {
   padding: 12px;
   border: 1px solid rgba(23, 79, 67, .16);
-  border-radius: 14px 14px 0 0;
+  border-radius: 14px;
   background: #f5f9f6;
 }
 
-.nykuto-carona-route-fields {
-  margin: 0;
-  padding: 0 12px 12px;
+.nykuto-carona-destination {
+  margin-top: 8px;
+  padding: 12px;
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 10px;
+  gap: 8px;
   border: 1px solid rgba(23, 79, 67, .16);
-  border-top: 0;
-  border-radius: 0 0 14px 14px;
+  border-radius: 14px;
   background: #f5f9f6;
 }
 
-.nykuto-listing-wizard.is-carona .nykuto-listing-map { min-height: 220px; }
+.nykuto-campus-select { max-width: 330px; }
+.nykuto-campus-select select { min-height: 42px; }
+
+.nykuto-listing-wizard.is-carona .nykuto-zone-controls { max-width: 230px; grid-template-columns: 1fr; }
+.nykuto-listing-wizard.is-carona .nykuto-zone-controls .nykuto-map-toggle { display: none; }
+.nykuto-listing-wizard.is-carona .nykuto-zone-controls select { min-height: 42px; }
+
+.nykuto-listing-wizard.is-carona [data-map-panel] {
+  margin-top: 8px;
+  padding: 8px;
+  border: 1px solid rgba(23, 79, 67, .16);
+  border-radius: 14px;
+  background: #f5f9f6;
+}
+
+.nykuto-map-point-selector { margin-bottom: 7px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.nykuto-map-point-selector > span { color: var(--demo-muted); font-size: 8px; font-weight: 800; }
+.nykuto-map-point-selector > div { display: grid; grid-template-columns: repeat(2, auto); gap: 5px; }
+.nykuto-map-point-selector button {
+  min-height: 40px;
+  padding: 5px 10px;
+  border: 1px solid rgba(23, 79, 67, .22);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--demo-forest);
+  cursor: pointer;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 900;
+}
+.nykuto-map-point-selector button.is-active { border-color: var(--demo-forest); background: var(--demo-forest); color: #fff; }
+.nykuto-listing-map[data-map-point="destination"] { cursor: crosshair; }
+
+.nykuto-listing-wizard.is-carona .nykuto-listing-map { min-height: 200px; }
+.nykuto-listing-wizard.is-carona .nykuto-map-note { margin-top: 6px; padding: 8px 9px; }
+
+.nykuto-carona-schedule-fields {
+  margin-top: 10px;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+  border: 1px solid rgba(23, 79, 67, .16);
+  border-radius: 14px;
+  background: #fff;
+}
 
 .nykuto-listing-preview article.is-carona {
   max-width: 680px;
@@ -4297,5 +4340,5 @@
   .nykuto-ride-search-submit { min-width: 118px; }
   .nykuto-ride-actions { width: auto; grid-template-columns: repeat(2, minmax(0, auto)); }
   .nykuto-listing-wizard.is-carona .nykuto-subcategory-choices { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .nykuto-carona-route-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .nykuto-carona-schedule-fields { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }

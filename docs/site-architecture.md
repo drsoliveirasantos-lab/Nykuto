@@ -148,10 +148,16 @@ contact. Structured fees store the public departure/destination labels,
 frequency, date when applicable, time and seats;
 the normal price fields hold an optional per-person contribution. Route-first
 catalogue cards and the carona search read these fields directly. Publication
-also stores validated destination coordinates after the author explicitly asks
-to trace the route. The detail page can therefore request and display the
+also stores validated destination coordinates after the author confirms both
+points through lookup, a frequent-place selector or direct map placement. The
+detail page can therefore request and display the
 approximate OSRM road path directly, while still presenting it only as a place
 to arrange a safe pickup along the route—not navigation, booking or payment.
+The publisher keeps a compact map visible on the route screen because local
+street names are not always practical. Separate `Saída` and `Destino` map modes
+support direct point placement, while a compact selector for UCP Lago, UCP
+Plaza City and UCP Hospital prefills common destinations and remains manually
+adjustable.
 
 The demo uses owner-supplied photos and videos of real Ciudad del Este
 properties that were neutralised before publication and stripped of embedded

@@ -10,7 +10,7 @@
   <link rel="icon" href="/assets/nykuto-emblem-favicon.png" type="image/png" />
   <link rel="stylesheet" href="/styles.css?v=20260823-1" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-  <link rel="stylesheet" href="/demo-imobiliaria.css?v=20260828-6" />
+  <link rel="stylesheet" href="/demo-imobiliaria.css?v=20260828-7" />
 </head>
 <body class="real-estate-demo-page" data-demo-page="announce" data-whatsapp-phone="33768345608">
   <a class="skip-link" href="#anuncio-etapa-1">Ir para o cadastro</a>
@@ -95,30 +95,40 @@
                 <label class="nykuto-field"><span data-address-label>Endereço ou bairro</span><input name="address" type="search" maxlength="140" autocomplete="street-address" placeholder="Ex.: Área 1, Ciudad del Este" /></label>
                 <button type="button" data-address-search>Localizar</button>
               </div>
-              <div class="nykuto-zone-controls">
-                <label class="nykuto-field"><span>Precisão mostrada no anúncio</span><select name="zoneRadiusMeters"><option value="50">Ponto preciso (~50 m)</option><option value="200">Raio de 200 m</option><option value="500" selected>Raio de 500 m</option><option value="1000">Raio de 1 km</option><option value="2000">Raio de 2 km</option><option value="3000">Raio de 3 km</option><option value="5000">Raio de 5 km</option></select></label>
-                <button type="button" class="nykuto-map-toggle" data-map-toggle aria-expanded="false">Ajustar no mapa</button>
-              </div>
-              <div class="nykuto-carona-route-fields" data-carona-route-fields hidden>
-                <div class="nykuto-route-destination-search nykuto-field-wide">
-                  <label class="nykuto-field"><span>Para onde você vai?</span><input name="rideDestination" type="text" maxlength="80" autocomplete="off" placeholder="Bairro, faculdade ou ponto conhecido" /></label>
-                  <button type="button" data-ride-destination-search>Traçar rota</button>
+              <div class="nykuto-carona-destination" data-carona-destination hidden>
+                <div class="nykuto-route-destination-search">
+                  <label class="nykuto-field"><span>Para onde você vai?</span><input name="rideDestination" type="text" maxlength="80" autocomplete="off" placeholder="Faculdade, bairro ou ponto conhecido" /></label>
+                  <button type="button" data-ride-destination-search>Localizar</button>
                 </div>
-                <label class="nykuto-field"><span>Frequência</span><select name="rideFrequency"><option value="">Selecione</option><option value="once">Uma vez</option><option value="weekdays">Dias úteis</option><option value="weekly">Toda semana</option><option value="daily">Todos os dias</option></select></label>
-                <label class="nykuto-field" data-ride-date-field><span>Data</span><input name="rideDate" type="date" /></label>
-                <label class="nykuto-field"><span>Horário</span><input name="rideTime" type="time" /></label>
-                <label class="nykuto-field"><span data-ride-seats-label>Lugares disponíveis</span><input name="rideSeats" type="number" min="1" max="8" inputmode="numeric" placeholder="Ex.: 2" /></label>
-                <label class="nykuto-field"><span>Contribuição por pessoa <small>(opcional)</small></span><input name="rideContribution" type="number" min="1" max="100000000" step="1" inputmode="numeric" placeholder="Ex.: 5" /></label>
-                <label class="nykuto-field"><span>Moeda</span><select name="rideCurrency"><option value="R$">R$</option><option value="Gs.">Gs.</option><option value="US$">US$</option></select></label>
+                <label class="nykuto-field nykuto-campus-select"><span>Destino frequente <small>(opcional)</small></span><select data-campus-destination-select><option value="">Outro destino ou ponto no mapa</option><option value="UCP Lago" data-latitude="-25.519490" data-longitude="-54.619432">UCP Lago</option><option value="UCP Plaza City" data-latitude="-25.497347" data-longitude="-54.678903">UCP Plaza City</option><option value="UCP Hospital Universitário" data-latitude="-25.505413" data-longitude="-54.678766">UCP Hospital Universitário</option></select></label>
                 <input name="rideDestinationLatitude" type="hidden" />
                 <input name="rideDestinationLongitude" type="hidden" />
-                <p class="nykuto-route-publish-status nykuto-field-wide" data-ride-route-status role="status" aria-live="polite">Localize a saída e toque em “Traçar rota” para mostrar o caminho sugerido.</p>
+                <p class="nykuto-route-publish-status" data-ride-route-status role="status" aria-live="polite">Escolha um destino frequente ou marque o ponto diretamente no mapa.</p>
+              </div>
+              <div class="nykuto-zone-controls">
+                <label class="nykuto-field"><span data-radius-label>Precisão mostrada no anúncio</span><select name="zoneRadiusMeters"><option value="50">Ponto preciso (~50 m)</option><option value="200">Raio de 200 m</option><option value="500" selected>Raio de 500 m</option><option value="1000">Raio de 1 km</option><option value="2000">Raio de 2 km</option><option value="3000">Raio de 3 km</option><option value="5000">Raio de 5 km</option></select></label>
+                <button type="button" class="nykuto-map-toggle" data-map-toggle aria-expanded="false">Ajustar no mapa</button>
               </div>
               <p class="nykuto-location-status" data-location-status role="status" aria-live="polite">Digite uma referência ou toque diretamente no mapa.</p>
               <div class="nykuto-location-results" data-location-results hidden></div>
               <div data-map-panel hidden>
-                <div class="nykuto-listing-map" data-listing-map aria-label="Mapa para escolher a zona aproximada do anúncio"></div>
+                <div class="nykuto-map-point-selector" data-map-point-selector hidden>
+                  <span>Toque no mapa para marcar:</span>
+                  <div role="group" aria-label="Ponto que será marcado no mapa">
+                    <button type="button" class="is-active" data-map-point="origin" aria-pressed="true">Saída</button>
+                    <button type="button" data-map-point="destination" aria-pressed="false">Destino</button>
+                  </div>
+                </div>
+                <div class="nykuto-listing-map" data-listing-map aria-label="Mapa para ajustar a localização aproximada do anúncio"></div>
                 <div class="nykuto-map-note"><span aria-hidden="true">◎</span><p data-map-privacy-copy><strong>Precisão escolhida por você</strong> Use um ponto público se selecionar 50 ou 200 metros. O endereço digitado não será publicado.</p></div>
+              </div>
+              <div class="nykuto-carona-schedule-fields" data-carona-schedule-fields hidden>
+                <label class="nykuto-field"><span>Frequência</span><select name="rideFrequency"><option value="">Selecione</option><option value="once">Uma vez</option><option value="weekdays">Dias úteis</option><option value="weekly">Toda semana</option><option value="daily">Todos os dias</option></select></label>
+                <label class="nykuto-field" data-ride-date-field><span>Data</span><input name="rideDate" type="date" /></label>
+                <label class="nykuto-field"><span>Horário de saída</span><input name="rideTime" type="time" /></label>
+                <label class="nykuto-field"><span data-ride-seats-label>Lugares disponíveis</span><input name="rideSeats" type="number" min="1" max="8" inputmode="numeric" placeholder="Ex.: 2" /></label>
+                <label class="nykuto-field"><span>Contribuição por pessoa <small>(opcional)</small></span><input name="rideContribution" type="number" min="1" max="100000000" step="1" inputmode="numeric" placeholder="Ex.: 5" /></label>
+                <label class="nykuto-field"><span>Moeda</span><select name="rideCurrency"><option value="R$">R$</option><option value="Gs.">Gs.</option><option value="US$">US$</option></select></label>
               </div>
               <input name="latitude" type="hidden" />
               <input name="longitude" type="hidden" />
@@ -185,6 +195,6 @@
   <nav class="demo-mobile-nav" aria-label="Navegação móvel"><a href="/"><span aria-hidden="true">⌕</span> Comprar</a><a href="/imoveis/"><span aria-hidden="true">⌂</span> Imóveis</a><a class="nykuto-mobile-announce" href="/anunciar/" aria-current="page"><span aria-hidden="true">＋</span> Anunciar</a><a href="/conta/"><span aria-hidden="true">◎</span> Perfil</a></nav>
   <div class="demo-toast" data-demo-toast-output role="status" aria-live="polite" hidden></div>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
-  <script src="/anunciar/anunciar.js?v=20260828-6" defer></script>
+  <script src="/anunciar/anunciar.js?v=20260828-7" defer></script>
 </body>
 </html>

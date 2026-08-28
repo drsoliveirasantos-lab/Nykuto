@@ -37,8 +37,12 @@
   const mapPanel = form.querySelector('[data-map-panel]');
   const mapToggleButton = form.querySelector('[data-map-toggle]');
   const mapPrivacyCopy = form.querySelector('[data-map-privacy-copy]');
+  const mapPointSelector = form.querySelector('[data-map-point-selector]');
+  const mapPointButtons = [...form.querySelectorAll('[data-map-point]')];
+  const radiusLabelElement = form.querySelector('[data-radius-label]');
   const rideDestinationSearchButton = form.querySelector('[data-ride-destination-search]');
   const rideRouteStatus = form.querySelector('[data-ride-route-status]');
+  const campusDestinationSelect = form.querySelector('[data-campus-destination-select]');
   const turnstileContainer = form.querySelector('[data-turnstile-container]');
   const turnstileStatus = form.querySelector('[data-turnstile-status]');
   const successPanel = document.querySelector('[data-listing-success]');
@@ -48,7 +52,8 @@
   const wizard = document.querySelector('[data-listing-wizard]');
   const genericDetails = form.querySelector('[data-generic-details]');
   const genericLogistics = form.querySelector('[data-generic-logistics]');
-  const carpoolRouteFields = form.querySelector('[data-carona-route-fields]');
+  const carpoolDestination = form.querySelector('[data-carona-destination]');
+  const carpoolScheduleFields = form.querySelector('[data-carona-schedule-fields]');
   const rideDateField = form.querySelector('[data-ride-date-field]');
   const rideSeatsLabel = form.querySelector('[data-ride-seats-label]');
   const emailField = form.querySelector('[data-email-field]');
@@ -142,6 +147,10 @@
   let locationMarker;
   let privacyCircle;
   let rideRouteLayer;
+  let rideDestinationMarker;
+  let activeMapPoint = 'origin';
+  let rideRouteRequestId = 0;
+  let rideDestinationRequestId = 0;
   let rideRoutePending = false;
   let lastGeocodeAt = 0;
   let geocodePending = false;
@@ -164,7 +173,7 @@
 
   function radiusLabel(value = zoneRadiusMeters()) {
     if (value === 50) return 'ponto preciso (~50 m)';
-    if (value < 1000) return `raio de ${value} m`;
+    if (value < 1000 || carpoolMode) return `raio de ${value.toLocaleString('pt-BR')} m`;
     return `raio de ${value / 1000} km`;
   }
 
@@ -584,8 +593,36 @@
     const isCarona = category === 'Carona compartilhada';
     if (genericDetails) genericDetails.hidden = isCarona;
     if (genericLogistics) genericLogistics.hidden = isCarona || directPublishMode;
-    if (carpoolRouteFields) carpoolRouteFields.hidden = !isCarona;
+    if (carpoolDestination) carpoolDestination.hidden = !isCarona;
+    if (carpoolScheduleFields) carpoolScheduleFields.hidden = !isCarona;
+    if (mapPointSelector) mapPointSelector.hidden = !isCarona;
     if (emailField) emailField.hidden = isCarona || directPublishMode;
+    if (radiusLabelElement) radiusLabelElement.textContent = isCarona ? 'Raio da saída' : 'Precisão mostrada no anúncio';
+    if (mapElement) mapElement.setAttribute('aria-label', isCarona
+      ? 'Mapa para marcar a saída e o destino da carona'
+      : 'Mapa para ajustar a localização aproximada do anúncio');
+    const carpoolRadiusLabels = {
+      50: 'Ponto preciso (~50 m)',
+      200: 'Raio de 200 m',
+      500: 'Raio de 500 m',
+      1000: 'Raio de 1.000 m',
+      2000: 'Raio de 2.000 m',
+      3000: 'Raio de 3.000 m',
+      5000: 'Raio de 5.000 m'
+    };
+    const standardRadiusLabels = {
+      50: 'Ponto preciso (~50 m)',
+      200: 'Raio de 200 m',
+      500: 'Raio de 500 m',
+      1000: 'Raio de 1 km',
+      2000: 'Raio de 2 km',
+      3000: 'Raio de 3 km',
+      5000: 'Raio de 5 km'
+    };
+    [...form.elements.zoneRadiusMeters.options].forEach((option) => {
+      const labels = isCarona ? carpoolRadiusLabels : standardRadiusLabels;
+      option.textContent = labels[Number(option.value)] || option.textContent;
+    });
     conditionLabel.textContent = config.conditionLabel;
     renderSelectOptions(conditionSelect, config.conditions);
     renderSelectOptions(form.elements.availability, config.availability || ['Disponível agora', 'Hoje', 'Esta semana', 'Data flexível', 'Sob consulta']);
@@ -609,7 +646,7 @@
       : 'As fotos serão otimizadas antes da publicação.';
     locationHeading.textContent = isCarona ? 'Qual é o trajeto?' : 'Onde está disponível?';
     locationCopy.textContent = isCarona
-      ? 'Informe a saída, o destino e a hora. Depois trace a rota que será mostrada no anúncio.'
+      ? 'Informe a saída, o destino e a hora. A rota aparece assim que os dois pontos forem marcados.'
       : 'Localize a zona e escolha a precisão que aparecerá no anúncio.';
     addressLabel.textContent = isCarona ? 'De onde você sai?' : 'Endereço ou bairro';
     availabilityLabel.textContent = isCarona ? 'Frequência' : 'Disponibilidade';
@@ -717,7 +754,7 @@
       if (!getValue('latitude') || !getValue('longitude')) return 'Localize o endereço ou toque no mapa para definir a zona aproximada.';
       if (carpoolMode) {
         if (publicRidePlace(getValue('rideDestination')).length < 2) return 'Informe uma zona ou um ponto público de destino, sem endereço exato.';
-        if (!getValue('rideDestinationLatitude') || !getValue('rideDestinationLongitude')) return 'Toque em “Traçar rota” para confirmar o caminho entre a saída e o destino.';
+        if (!getValue('rideDestinationLatitude') || !getValue('rideDestinationLongitude')) return 'Escolha um destino frequente, localize o destino ou marque-o diretamente no mapa.';
         if (!getValue('rideFrequency')) return 'Escolha a frequência da carona.';
         if (getValue('rideFrequency') === 'once' && !getValue('rideDate')) return 'Escolha a data da viagem.';
         if (!/^\d{2}:\d{2}$/.test(getValue('rideTime'))) return 'Informe o horário de saída.';
@@ -773,6 +810,28 @@
     window.setTimeout(() => control?.focus({ preventScroll: true }), 220);
   }
 
+  function storedRideDestinationCoordinates() {
+    const latitude = Number(getValue('rideDestinationLatitude'));
+    const longitude = Number(getValue('rideDestinationLongitude'));
+    return getValue('rideDestinationLatitude') && getValue('rideDestinationLongitude')
+      && Number.isFinite(latitude) && Number.isFinite(longitude)
+      ? [latitude, longitude]
+      : null;
+  }
+
+  function setMapPointMode(mode) {
+    if (!carpoolMode || !['origin', 'destination'].includes(mode)) return;
+    activeMapPoint = mode;
+    mapPointButtons.forEach((button) => {
+      const active = button.dataset.mapPoint === mode;
+      button.classList.toggle('is-active', active);
+      button.setAttribute('aria-pressed', String(active));
+    });
+    if (mapElement) mapElement.dataset.mapPoint = mode;
+    if (mode === 'origin') locationStatus.textContent = 'Toque no mapa para marcar de onde você sai.';
+    else if (rideRouteStatus) rideRouteStatus.textContent = 'Toque no mapa para marcar para onde você vai.';
+  }
+
   function initMap() {
     if (directPublishMode && mapPanel?.hidden) return;
     if (listingMap || !window.L || !mapElement) {
@@ -785,7 +844,11 @@
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(listingMap);
     listingMap.on('click', (event) => {
-      setLocation(event.latlng.lat, event.latlng.lng, 'Zona escolhida no mapa', true);
+      if (carpoolMode && activeMapPoint === 'destination') {
+        void setRideDestination(event.latlng.lat, event.latlng.lng, getValue('rideDestination') || 'Destino escolhido no mapa', { manual: true });
+        return;
+      }
+      setLocation(event.latlng.lat, event.latlng.lng, carpoolMode ? 'Saída escolhida no mapa' : 'Zona escolhida no mapa', true);
     });
     const storedCoordinates = [Number(getValue('latitude')), Number(getValue('longitude'))];
     if (storedCoordinates.every(Number.isFinite) && getValue('latitude') && getValue('longitude')) {
@@ -799,7 +862,7 @@
     if (!coordinates.every(Number.isFinite)) return;
     const previousCoordinates = [Number(getValue('latitude')), Number(getValue('longitude'))];
     if (carpoolMode && previousCoordinates.every(Number.isFinite) && getValue('latitude') && getValue('longitude')
-      && (Math.abs(previousCoordinates[0] - coordinates[0]) > .00001 || Math.abs(previousCoordinates[1] - coordinates[1]) > .00001)) clearRideRoute();
+      && (Math.abs(previousCoordinates[0] - coordinates[0]) > .00001 || Math.abs(previousCoordinates[1] - coordinates[1]) > .00001)) clearRideRoute({ clearDestination: false });
     form.elements.confirm.checked = false;
     form.elements.latitude.value = coordinates[0].toFixed(6);
     form.elements.longitude.value = coordinates[1].toFixed(6);
@@ -811,6 +874,9 @@
       locationStatus.textContent = directPublishMode && mapPanel?.hidden
         ? `Zona definida · ${radiusLabel()} no anúncio. Use “Ajustar no mapa” se quiser mover o ponto.`
         : 'Zona definida. O mapa não pôde ser exibido, mas a referência foi mantida.';
+      if (carpoolMode && storedRideDestinationCoordinates() && rideRouteStatus) {
+        rideRouteStatus.textContent = 'Saída e destino salvos. O mapa não conseguiu mostrar a rota agora.';
+      }
       locationResults.hidden = true;
       return;
     }
@@ -831,11 +897,16 @@
     listingMap.fitBounds(privacyCircle.getBounds(), { padding: [18, 18] });
     locationStatus.textContent = `${manual ? 'Ponto definido' : 'Endereço localizado'} · ${radiusLabel()} no anúncio.`;
     locationResults.hidden = true;
+    if (carpoolMode) {
+      const destination = storedRideDestinationCoordinates();
+      if (destination) void refreshRideRoute(destination[0], destination[1]);
+      else setMapPointMode('destination');
+    }
   }
 
   function clearResolvedLocation() {
     if (!getValue('latitude') && !getValue('longitude')) return;
-    if (carpoolMode) clearRideRoute();
+    if (carpoolMode) clearRideRoute({ clearDestination: false });
     form.elements.latitude.value = '';
     form.elements.longitude.value = '';
     form.elements.locationLabel.value = '';
@@ -845,6 +916,7 @@
     privacyCircle = null;
     locationResults.hidden = true;
     locationStatus.textContent = 'Endereço alterado. Toque em “Localizar” para atualizar a zona aproximada.';
+    if (carpoolMode) setMapPointMode('origin');
   }
 
   function publicLocationFromResult(result) {
@@ -934,23 +1006,35 @@
     }
   }
 
-  function clearRideRoute() {
-    form.elements.rideDestinationLatitude.value = '';
-    form.elements.rideDestinationLongitude.value = '';
+  function clearRideRoute({ clearDestination = true } = {}) {
+    rideRouteRequestId += 1;
     if (listingMap && rideRouteLayer) listingMap.removeLayer(rideRouteLayer);
     rideRouteLayer = null;
-    if (rideRouteStatus && carpoolMode) rideRouteStatus.textContent = 'Toque em “Traçar rota” para atualizar o caminho sugerido.';
+    if (clearDestination) {
+      rideDestinationRequestId += 1;
+      form.elements.rideDestinationLatitude.value = '';
+      form.elements.rideDestinationLongitude.value = '';
+      if (listingMap && rideDestinationMarker) listingMap.removeLayer(rideDestinationMarker);
+      rideDestinationMarker = null;
+      if (campusDestinationSelect) campusDestinationSelect.value = '';
+    }
+    if (rideRouteStatus && carpoolMode) rideRouteStatus.textContent = clearDestination
+      ? 'Escolha um destino frequente ou marque o ponto diretamente no mapa.'
+      : 'Saída alterada. O trajeto será atualizado com o destino já marcado.';
   }
 
   function updateRadiusPresentation() {
     if (privacyCircle) {
       privacyCircle.setRadius(zoneRadiusMeters());
-      listingMap?.fitBounds(privacyCircle.getBounds(), { padding: [18, 18] });
+      const visibleBounds = carpoolMode && rideRouteLayer ? rideRouteLayer.getBounds() : privacyCircle.getBounds();
+      listingMap?.fitBounds(visibleBounds, { padding: carpoolMode && rideRouteLayer ? [28, 28] : [18, 18] });
     }
     if (getValue('latitude') && getValue('longitude')) locationStatus.textContent = `Zona definida · ${radiusLabel()} no anúncio.`;
-    if (mapPrivacyCopy) mapPrivacyCopy.innerHTML = zoneRadiusMeters() <= 200
-      ? `<strong>Localização bem precisa</strong> Escolha um ponto público e seguro: o anúncio mostrará ${radiusLabel()}.`
-      : `<strong>Precisão escolhida por você</strong> O anúncio mostrará ${radiusLabel()}; o endereço digitado não será publicado.`;
+    if (mapPrivacyCopy) mapPrivacyCopy.innerHTML = carpoolMode
+      ? `<strong>Raio da saída</strong> O anúncio mostrará ${radiusLabel()} ao redor do ponto marcado. Use sempre um local público e seguro.`
+      : zoneRadiusMeters() <= 200
+        ? `<strong>Localização bem precisa</strong> Escolha um ponto público e seguro: o anúncio mostrará ${radiusLabel()}.`
+        : `<strong>Precisão escolhida por você</strong> O anúncio mostrará ${radiusLabel()}; o endereço digitado não será publicado.`;
   }
 
   function toggleMapPanel() {
@@ -964,7 +1048,21 @@
     }
   }
 
-  async function drawRideRoute(destinationLatitude, destinationLongitude) {
+  function showRideDestinationMarker(destinationLatitude, destinationLongitude) {
+    if (!listingMap || !window.L) return;
+    const coordinates = [destinationLatitude, destinationLongitude];
+    if (!rideDestinationMarker) {
+      rideDestinationMarker = window.L.circleMarker(coordinates, {
+        radius: 8,
+        color: '#8d641b',
+        fillColor: '#dfbd6c',
+        fillOpacity: 1,
+        weight: 3
+      }).addTo(listingMap);
+    } else rideDestinationMarker.setLatLng(coordinates);
+  }
+
+  async function drawRideRoute(destinationLatitude, destinationLongitude, requestId) {
     if (!listingMap || !window.L) initMap();
     const originLatitude = Number(getValue('latitude'));
     const originLongitude = Number(getValue('longitude'));
@@ -984,23 +1082,64 @@
     } catch (_) {
       // A straight connection remains visible when the public router is busy.
     }
+    if (requestId !== rideRouteRequestId) return null;
     if (rideRouteLayer) listingMap.removeLayer(rideRouteLayer);
-    const line = window.L.polyline(routeCoordinates, { color: '#b78728', weight: 5, opacity: .86, dashArray: roadRoute ? undefined : '9 8' });
-    const destinationMarker = window.L.circleMarker([destinationLatitude, destinationLongitude], {
-      radius: 8, color: '#8d641b', fillColor: '#dfbd6c', fillOpacity: 1, weight: 3
-    });
-    rideRouteLayer = window.L.featureGroup([line, destinationMarker]).addTo(listingMap);
+    rideRouteLayer = window.L.polyline(routeCoordinates, { color: '#b78728', weight: 5, opacity: .86, dashArray: roadRoute ? undefined : '9 8' }).addTo(listingMap);
+    showRideDestinationMarker(destinationLatitude, destinationLongitude);
     listingMap.fitBounds(rideRouteLayer.getBounds(), { padding: [28, 28] });
     return roadRoute;
   }
 
+  async function refreshRideRoute(destinationLatitude, destinationLongitude) {
+    const requestId = ++rideRouteRequestId;
+    if (!getValue('latitude') || !getValue('longitude')) {
+      showRideDestinationMarker(destinationLatitude, destinationLongitude);
+      listingMap?.setView([destinationLatitude, destinationLongitude], 15);
+      if (rideRouteStatus) rideRouteStatus.textContent = 'Destino marcado. Agora marque de onde você sai.';
+      setMapPointMode('origin');
+      return false;
+    }
+    if (!listingMap || !window.L) {
+      if (rideRouteStatus) rideRouteStatus.textContent = 'Saída e destino salvos. O mapa não conseguiu mostrar a rota agora.';
+      return false;
+    }
+    try {
+      const roadRoute = await drawRideRoute(destinationLatitude, destinationLongitude, requestId);
+      if (roadRoute === null || requestId !== rideRouteRequestId) return false;
+      if (rideRouteStatus) rideRouteStatus.textContent = roadRoute
+        ? 'Rota sugerida pronta. Você ainda pode ajustar a saída ou o destino tocando no mapa.'
+        : 'Ligação aproximada pronta. Confirme o caminho e o ponto de embarque pelo WhatsApp.';
+      return roadRoute;
+    } catch (_) {
+      if (rideRouteStatus) rideRouteStatus.textContent = 'Os pontos foram salvos, mas não foi possível mostrar a rota agora.';
+      return false;
+    }
+  }
+
+  async function setRideDestination(lat, lng, label, { manual = false, requestId = null } = {}) {
+    const destinationRequestId = requestId ?? ++rideDestinationRequestId;
+    if (destinationRequestId !== rideDestinationRequestId) return;
+    const coordinates = [Number(lat), Number(lng)];
+    if (!coordinates.every(Number.isFinite)) return;
+    const publicLabel = publicRidePlace(label) || 'Destino escolhido no mapa';
+    form.elements.confirm.checked = false;
+    form.elements.rideDestination.value = publicLabel;
+    form.elements.rideDestinationLatitude.value = coordinates[0].toFixed(6);
+    form.elements.rideDestinationLongitude.value = coordinates[1].toFixed(6);
+    if (campusDestinationSelect) {
+      const matchingOption = [...campusDestinationSelect.options].find((option) => option.value === publicLabel);
+      campusDestinationSelect.value = matchingOption ? publicLabel : '';
+    }
+    if (!listingMap) initMap();
+    showRideDestinationMarker(coordinates[0], coordinates[1]);
+    await refreshRideRoute(coordinates[0], coordinates[1]);
+    if (destinationRequestId !== rideDestinationRequestId) return;
+    if (manual && rideRouteStatus && getValue('latitude') && listingMap && window.L) rideRouteStatus.textContent = 'Destino ajustado no mapa. A rota sugerida foi atualizada.';
+    syncCarpoolDefaults();
+  }
+
   async function searchRideDestination() {
     if (!carpoolMode || rideRoutePending) return;
-    if (!getValue('latitude') || !getValue('longitude')) {
-      setError('Localize primeiro o ponto de saída da carona.');
-      form.elements.address.focus();
-      return;
-    }
     const query = getValue('rideDestination');
     if (query.length < 3) {
       setError('Informe o bairro, faculdade ou ponto conhecido de destino.');
@@ -1008,10 +1147,11 @@
       return;
     }
     setError();
+    const requestId = ++rideDestinationRequestId;
     rideRoutePending = true;
     rideDestinationSearchButton.disabled = true;
-    rideDestinationSearchButton.textContent = 'Traçando…';
-    rideRouteStatus.textContent = 'Localizando o destino e calculando a rota sugerida…';
+    rideDestinationSearchButton.textContent = 'Localizando…';
+    rideRouteStatus.textContent = 'Localizando o destino no mapa…';
     const elapsed = Date.now() - lastGeocodeAt;
     if (elapsed < 1000) await new Promise((resolve) => setTimeout(resolve, 1000 - elapsed));
     lastGeocodeAt = Date.now();
@@ -1033,21 +1173,17 @@
       const latitude = Number(result?.lat);
       const longitude = Number(result?.lon);
       if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) throw new Error('ROUTE_NOT_FOUND');
-      form.elements.rideDestinationLatitude.value = latitude.toFixed(6);
-      form.elements.rideDestinationLongitude.value = longitude.toFixed(6);
-      const roadRoute = await drawRideRoute(latitude, longitude);
-      rideRouteStatus.textContent = roadRoute
-        ? 'Rota sugerida pronta. O motorista pode combinar um embarque seguro ao longo deste trajeto pelo WhatsApp.'
-        : 'Ligação aproximada pronta. Confirme o caminho e o ponto de embarque pelo WhatsApp.';
-      syncCarpoolDefaults();
+      if (requestId !== rideDestinationRequestId) return;
+      await setRideDestination(latitude, longitude, query, { requestId });
     } catch (error) {
+      if (requestId !== rideDestinationRequestId) return;
       clearRideRoute();
       rideRouteStatus.textContent = error.message === 'ROUTE_NOT_FOUND'
         ? 'Destino não encontrado. Tente um bairro ou ponto conhecido próximo.'
         : 'Não foi possível traçar a rota agora. Tente novamente.';
     } finally {
       rideDestinationSearchButton.disabled = false;
-      rideDestinationSearchButton.textContent = 'Traçar rota';
+      rideDestinationSearchButton.textContent = 'Localizar';
       rideRoutePending = false;
     }
   }
@@ -1373,17 +1509,38 @@
     if (event.target.name === 'address') clearResolvedLocation();
     if (event.target.name === 'sourceUrl') sourceConsentVisibility();
     if (directPublishMode && event.target.name === 'price') syncDirectDefaults();
-    if (carpoolMode && event.target.name === 'rideDestination') clearRideRoute();
+    if (carpoolMode && event.target.name === 'rideDestination') {
+      clearRideRoute();
+      setMapPointMode('destination');
+    }
     if (carpoolMode && ['rideDestination', 'rideDate', 'rideTime', 'rideSeats', 'rideContribution', 'rideCurrency'].includes(event.target.name)) syncCarpoolDefaults();
     if (currentStep === 5 && ['firstName', 'lastName', 'whatsapp', 'rideDestination', 'rideDate', 'rideTime', 'rideSeats', 'rideContribution', 'rideCurrency'].includes(event.target.name)) renderPreview();
   });
   addressSearchButton.addEventListener('click', searchAddress);
   mapToggleButton?.addEventListener('click', toggleMapPanel);
   rideDestinationSearchButton?.addEventListener('click', searchRideDestination);
+  mapPointButtons.forEach((button) => button.addEventListener('click', () => setMapPointMode(button.dataset.mapPoint)));
+  campusDestinationSelect?.addEventListener('change', () => {
+    const option = campusDestinationSelect.selectedOptions[0];
+    if (!option?.value) {
+      form.elements.rideDestination.value = '';
+      clearRideRoute();
+      setMapPointMode('destination');
+      syncCarpoolDefaults();
+      return;
+    }
+    void setRideDestination(option.dataset.latitude, option.dataset.longitude, option.value);
+  });
   form.elements.address.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
       searchAddress();
+    }
+  });
+  form.elements.rideDestination?.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      searchRideDestination();
     }
   });
 

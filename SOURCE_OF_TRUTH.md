@@ -173,12 +173,17 @@ technically coherent; choosing 50 or 200 m must carry a visible warning to use
 a safe public point rather than a private home.
 
 Shared-ride publication requires an approximate departure point, destination
-and departure time. After the author explicitly asks to trace the journey, the
-publisher geocodes the destination and requests an approximate road route. The
+and departure time. After the author confirms both points through lookup, a
+frequent-place selector or direct map placement, the publisher requests an
+approximate road route. The
 validated destination coordinates are stored with the listing so the public
 detail can render the suggested route without repeating address lookup. The
 route is a planning aid for arranging a safe pickup along the way through
 WhatsApp, not a guaranteed itinerary or booking mechanism.
+Because street addresses are often difficult to identify locally, the route
+screen keeps a compact map visible and lets the author mark either departure or
+destination directly. Frequent UCP destinations may be offered in a compact
+selector; selecting one must remain adjustable on the map before publication.
 
 ## Languages
 
