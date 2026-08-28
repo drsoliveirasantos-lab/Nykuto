@@ -38,9 +38,6 @@
   }
 
   function vectorMapsSupported(L) {
-    // Mobile Safari shares a tight graphics-memory budget between WebGL and
-    // large camera photos. Keeping the publisher on the raster fallback on iOS
-    // avoids photo-decoding failures while preserving every map interaction.
     if (isIOSDevice()) return false;
     if (!window.maplibregl || typeof L.maplibreGL !== 'function') return false;
     if (typeof window.maplibregl.supported === 'function') {
@@ -113,6 +110,16 @@
     L.tileLayer = nykutoTileLayer;
   }
 
+  function loadLiveFeedback() {
+    if (document.querySelector('script[data-nykuto-live-feedback]')) return;
+    const script = document.createElement('script');
+    script.src = '/anunciar/live-feedback.js?v=20260828-1';
+    script.defer = true;
+    script.dataset.nykutoLiveFeedback = 'true';
+    document.head.append(script);
+  }
+
   installLargePhotoDecodeGuard();
   installOpenFreeMapBasemap();
+  loadLiveFeedback();
 })();
