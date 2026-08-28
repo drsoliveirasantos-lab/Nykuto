@@ -18,19 +18,33 @@
   const logisticsOptions = form.querySelector('[data-logistics-options]');
   const extraCosts = form.querySelector('[data-extra-costs]');
   const customsNotice = form.querySelector('[data-listing-foz-notice]');
+  const caronaNotice = form.querySelector('[data-listing-carona-notice]');
+  const priceLabel = form.querySelector('[data-price-label]');
+  const priceModeLabel = form.querySelector('[data-price-mode-label]');
+  const locationHeading = form.querySelector('[data-location-heading]');
+  const locationCopy = form.querySelector('[data-location-copy]');
+  const addressLabel = form.querySelector('[data-address-label]');
+  const availabilityLabel = form.querySelector('[data-availability-label]');
   const preview = form.querySelector('[data-listing-preview]');
   const addressSearchButton = form.querySelector('[data-address-search]');
   const locationStatus = form.querySelector('[data-location-status]');
   const locationResults = form.querySelector('[data-location-results]');
   const mapElement = form.querySelector('[data-listing-map]');
-  const phone = document.body.dataset.whatsappPhone || '33768345608';
+  const turnstileContainer = form.querySelector('[data-turnstile-container]');
+  const turnstileStatus = form.querySelector('[data-turnstile-status]');
+  const successPanel = document.querySelector('[data-listing-success]');
+  const successView = document.querySelector('[data-success-view]');
+  const successShare = document.querySelector('[data-success-share]');
+  const sourceConsent = form.querySelector('[data-source-consent]');
   const profileStorageKey = 'nykuto-local-profile-v1';
+  const requestModeFromUrl = new URLSearchParams(window.location.search).get('tipo') === 'pedido';
 
   const subcategories = {
     Produto: ['Móveis e decoração', 'Eletrodomésticos', 'Eletrônicos e informática', 'Celular e acessórios', 'Moda e acessórios', 'Veículos e peças', 'Outro produto'],
     Imóvel: ['Apartamento para alugar', 'Casa para alugar', 'Quarto ou kitnet', 'Imóvel para vender', 'Terreno', 'Comercial'],
     'Frete ou mudança': ['Pequeno frete', 'Mudança completa', 'Entrega ou retirada', 'Rota CDE ↔ Foz', 'Motorista com veículo', 'Outro transporte'],
     'Serviço local': ['Montagem e instalação', 'Manutenção e reparo', 'Limpeza', 'Elétrica ou hidráulica', 'Climatização', 'Aulas ou atendimento', 'Outro serviço'],
+    'Carona compartilhada': ['Ofereço carona recorrente', 'Ofereço carona ocasional', 'Procuro carona recorrente', 'Procuro carona ocasional'],
     'Compra ou retirada em Foz': ['Comprar em Foz', 'Retirar uma compra', 'Entregar CDE ↔ Foz', 'Documento permitido', 'Outro pedido permitido'],
     Outro: ['Evento ou aluguel', 'Oportunidade local', 'Doação', 'Outro anúncio']
   };
@@ -72,6 +86,22 @@
         { name: 'materials', label: 'Materiais / custos extras', placeholder: 'Inclusos ou cobrados à parte' }
       ]
     },
+    'Carona compartilhada': {
+      conditionLabel: 'Organização do trajeto',
+      conditions: ['Horário confirmado', 'Horário aproximado', 'A combinar'],
+      availability: ['Viagem única', 'Dias úteis', 'Toda semana', 'Todos os dias', 'A combinar'],
+      logistics: ['Ponto de encontro seguro', 'Aceita parada intermediária', 'Trajeto CDE ↔ Foz'],
+      extras: [
+        { name: 'rideOrigin', label: 'Ponto de partida', placeholder: 'Bairro ou ponto de encontro', required: true },
+        { name: 'rideDestination', label: 'Destino', placeholder: 'Bairro, faculdade ou ponto de encontro', required: true },
+        { name: 'rideDate', label: 'Data da primeira viagem', type: 'date', min: 'today', required: true },
+        { name: 'rideTime', label: 'Horário de saída', type: 'time', required: true },
+        { name: 'rideRecurringDays', label: 'Dias recorrentes', type: 'checkboxes', options: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'], recurringOnly: true },
+        { name: 'rideSeats', label: 'Lugares / pessoas', type: 'number', min: 1, max: 8, placeholder: 'Ex.: 2', required: true },
+        { name: 'rideDetour', label: 'Desvio máximo', type: 'select', options: ['Somente no caminho', 'Até 5 minutos', 'Até 10 minutos', 'Até 15 minutos', 'A combinar'], required: true },
+        { name: 'rideLuggage', label: 'Bagagem', type: 'select', options: ['Sem bagagem', 'Mochila ou bolsa', 'Mala pequena', 'Mala média', 'A combinar'] }
+      ]
+    },
     'Compra ou retirada em Foz': {
       conditionLabel: 'Modalidade',
       conditions: ['Compra', 'Retirada', 'Entrega', 'A combinar'],
@@ -99,6 +129,11 @@
   let lastGeocodeAt = 0;
   let geocodePending = false;
   let renderedCategory = '';
+  let csrfToken = '';
+  let turnstileSiteKey = '';
+  let turnstileToken = '';
+  let turnstileWidgetId = null;
+  let publishedUrl = '';
   const geocodeCache = new Map();
 
   const getValue = (name) => String(form.elements[name]?.value || '').trim();
@@ -118,7 +153,7 @@
     return digits.length > 0 && Number(digits) > 0;
   }
 
-  function loadSavedProfile() {
+  function loadLegacyProfile() {
     try {
       const saved = JSON.parse(window.localStorage.getItem(profileStorageKey) || 'null');
       if (!saved || typeof saved !== 'object') return;
@@ -130,17 +165,115 @@
     }
   }
 
+  async function loadOnlineProfile() {
+    try {
+      const response = await fetch('/api/local/profile', { headers: { Accept: 'application/json' } });
+      const payload = await response.json();
+      if (!response.ok || !payload.authenticated || !payload.profile) return;
+      ['firstName', 'lastName', 'email'].forEach((name) => {
+        form.elements[name].value = payload.profile[name] || '';
+      });
+      form.elements.whatsapp.value = payload.profile.whatsapp || '';
+      form.elements.publicContact.checked = true;
+      csrfToken = payload.csrfToken || '';
+      try { window.localStorage.removeItem(profileStorageKey); } catch (_) { /* Legacy cleanup is optional. */ }
+    } catch (_) {
+      // The form remains usable and creates the profile during publication.
+    }
+  }
+
+  async function loadTurnstileConfig() {
+    try {
+      const response = await fetch('/api/local/config', { headers: { Accept: 'application/json' } });
+      const payload = await response.json();
+      if (!response.ok || !payload.ready || !payload.turnstileSiteKey) throw new Error('UNAVAILABLE');
+      turnstileSiteKey = payload.turnstileSiteKey;
+    } catch (_) {
+      if (turnstileStatus) turnstileStatus.textContent = 'A publicação está temporariamente indisponível. Tente novamente em alguns instantes.';
+    }
+  }
+
+  function loadTurnstileScript() {
+    if (window.turnstile) return Promise.resolve();
+    if (loadTurnstileScript.promise) return loadTurnstileScript.promise;
+    loadTurnstileScript.promise = new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+      script.async = true;
+      script.defer = true;
+      script.addEventListener('load', resolve, { once: true });
+      script.addEventListener('error', reject, { once: true });
+      document.head.append(script);
+    });
+    return loadTurnstileScript.promise;
+  }
+
+  async function ensureTurnstile() {
+    if (!turnstileContainer || !turnstileSiteKey || turnstileWidgetId !== null) return;
+    try {
+      await loadTurnstileScript();
+      turnstileStatus?.remove();
+      turnstileWidgetId = window.turnstile.render(turnstileContainer, {
+        sitekey: turnstileSiteKey,
+        theme: 'light',
+        callback: (token) => { turnstileToken = token; },
+        'expired-callback': () => { turnstileToken = ''; },
+        'error-callback': () => { turnstileToken = ''; }
+      });
+    } catch (_) {
+      if (turnstileStatus) turnstileStatus.textContent = 'Não foi possível carregar a verificação de segurança.';
+    }
+  }
+
+  function resetTurnstile() {
+    turnstileToken = '';
+    if (window.turnstile && turnstileWidgetId !== null) window.turnstile.reset(turnstileWidgetId);
+  }
+
+  function clearLegacyProfile() {
+    try {
+      window.localStorage.removeItem(profileStorageKey);
+    } catch (_) {
+      // Legacy browser storage cleanup is optional.
+    }
+  }
+
+  function sourceConsentVisibility() {
+    if (!sourceConsent) return;
+    const visible = Boolean(getValue('sourceUrl'));
+    sourceConsent.hidden = !visible;
+    if (!visible) form.elements.sourceOwnerConsent.checked = false;
+  }
+
+  function prepareOnlineProfile() {
+    return {
+      firstName: getValue('firstName'),
+      lastName: getValue('lastName'),
+      email: getValue('email'),
+      whatsapp: normalizedWhatsapp(getValue('whatsapp')),
+      contactConsent: form.elements.publicContact.checked
+    };
+  }
+
+  function profileForPreview() {
+    return {
+      name: `${getValue('firstName')} ${getValue('lastName')}`.trim(),
+      whatsapp: normalizedWhatsapp(getValue('whatsapp'))
+    };
+  }
+
   function persistProfile() {
     try {
-      if (!form.elements.rememberProfile?.checked) {
-        window.localStorage.removeItem(profileStorageKey);
+      if (csrfToken) {
+        clearLegacyProfile();
         return;
       }
       window.localStorage.setItem(profileStorageKey, JSON.stringify({
         firstName: getValue('firstName'),
         lastName: getValue('lastName'),
         email: getValue('email'),
-        whatsapp: normalizedWhatsapp(getValue('whatsapp'))
+        whatsapp: normalizedWhatsapp(getValue('whatsapp')),
+        publicContact: form.elements.publicContact.checked
       }));
     } catch (_error) {
       // Saving the convenience profile is optional and never blocks submission.
@@ -173,7 +306,10 @@
     setError();
 
     if (currentStep === 4) initMap();
-    if (currentStep === 5) renderPreview();
+    if (currentStep === 5) {
+      renderPreview();
+      ensureTurnstile();
+    }
     if (focus) {
       const heading = steps.find((step) => Number(step.dataset.wizardStep) === currentStep)?.querySelector('h2');
       if (heading) {
@@ -208,7 +344,9 @@
     legend.className = 'sr-only';
     legend.textContent = 'Tipo de anúncio';
     subcategoryGrid.append(legend);
-    (subcategories[category] || subcategories.Outro).forEach((value) => subcategoryGrid.append(createChoice('subcategory', value)));
+    let choices = [...(subcategories[category] || subcategories.Outro)];
+    if (requestModeFromUrl && category === 'Carona compartilhada') choices = choices.filter((value) => /^Procuro\b/i.test(value));
+    choices.forEach((value) => subcategoryGrid.append(createChoice('subcategory', value)));
     updateConditionalFields();
   }
 
@@ -244,32 +382,88 @@
     if (!extraCosts) return;
     extraCosts.replaceChildren();
     fields.forEach((field) => {
-      const label = document.createElement('label');
-      label.className = 'nykuto-field';
+      const wrapper = document.createElement(field.type === 'checkboxes' ? 'fieldset' : 'label');
+      wrapper.className = `nykuto-field${field.type === 'checkboxes' ? ' nykuto-field-wide nykuto-check-options' : ''}`;
+      wrapper.dataset.extraField = field.name;
+      if (field.required) wrapper.dataset.extraRequired = 'true';
       const span = document.createElement('span');
-      const input = document.createElement('input');
       span.textContent = field.label;
-      input.type = 'text';
-      input.name = field.name;
-      input.maxLength = 80;
-      input.placeholder = field.placeholder;
-      label.append(span, input);
-      extraCosts.append(label);
+      if (field.type === 'checkboxes') {
+        const legend = document.createElement('legend');
+        legend.textContent = field.label;
+        wrapper.append(legend);
+        field.options.forEach((option) => {
+          const optionLabel = document.createElement('label');
+          const input = document.createElement('input');
+          const optionText = document.createElement('span');
+          input.type = 'checkbox';
+          input.name = field.name;
+          input.value = option;
+          optionText.textContent = option;
+          optionLabel.append(input, optionText);
+          wrapper.append(optionLabel);
+        });
+      } else if (field.type === 'select') {
+        const select = document.createElement('select');
+        select.name = field.name;
+        select.append(new Option('Selecione', ''));
+        field.options.forEach((option) => select.append(new Option(option, option)));
+        wrapper.append(span, select);
+      } else {
+        const input = document.createElement('input');
+        input.type = field.type || 'text';
+        input.name = field.name;
+        if (field.type !== 'number') input.maxLength = 80;
+        input.placeholder = field.placeholder || '';
+        if (field.min === 'today') {
+          const today = new Date();
+          input.min = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+        }
+        else if (field.min !== undefined) input.min = String(field.min);
+        if (field.max !== undefined) input.max = String(field.max);
+        if (field.type === 'number') input.inputMode = 'numeric';
+        wrapper.append(span, input);
+      }
+      extraCosts.append(wrapper);
     });
   }
 
   function updateConditionalFields() {
     const category = getCategory() || 'Outro';
     const config = fieldConfig[category] || fieldConfig.Outro;
+    const isCarona = category === 'Carona compartilhada';
     conditionLabel.textContent = config.conditionLabel;
     renderSelectOptions(conditionSelect, config.conditions);
+    renderSelectOptions(form.elements.availability, config.availability || ['Disponível agora', 'Hoje', 'Esta semana', 'Data flexível', 'Sob consulta']);
     conditionField.hidden = !config.conditions.length;
     logisticsOptions.replaceChildren();
     const legend = document.createElement('legend');
-    legend.textContent = category === 'Imóvel' ? 'Condições da oferta' : 'Entrega ou atendimento';
+    legend.textContent = category === 'Imóvel' ? 'Condições da oferta' : isCarona ? 'Encontro, bagagem e trajeto' : 'Entrega ou atendimento';
     logisticsOptions.append(legend, ...config.logistics.map(createCheckbox));
-    renderExtraFields(config.extras);
+    const extraFields = config.extras
+      .filter((field) => !field.recurringOnly || /recorrente/i.test(getSubcategory()))
+      .map((field) => field.name === 'rideSeats'
+        ? { ...field, label: listingKind() === 'request' ? 'Número de passageiros' : 'Lugares disponíveis' }
+        : field);
+    renderExtraFields(extraFields);
     customsNotice.hidden = category !== 'Compra ou retirada em Foz';
+    caronaNotice.hidden = !isCarona;
+    priceLabel.textContent = isCarona ? 'Ajuda de custo por pessoa' : 'Preço';
+    priceModeLabel.textContent = isCarona ? 'Como dividir os custos' : 'Forma do preço';
+    form.elements.price.placeholder = isCarona ? 'Ex.: 5,00' : '0,00';
+    form.elements.price.setAttribute('aria-label', isCarona ? 'Ajuda de custo por pessoa, somente números' : 'Preço, somente números');
+    form.elements.title.placeholder = isCarona
+      ? listingKind() === 'request' ? 'Ex.: Procuro carona até a faculdade às 6h50' : 'Ex.: Carona diária até a faculdade às 6h50'
+      : 'Ex.: Sofá 3 lugares em ótimo estado';
+    if (!selectedFiles.length) photoHelp.textContent = isCarona
+      ? 'A foto do veículo é opcional. Não envie documentos, placas legíveis ou dados pessoais.'
+      : 'As fotos serão otimizadas antes da publicação.';
+    locationHeading.textContent = isCarona ? 'Qual é o ponto inicial?' : 'Onde está disponível?';
+    locationCopy.textContent = isCarona
+      ? 'Marque uma zona aproximada de partida. Origem, destino e horário descrevem o trajeto sem expor seu endereço exato.'
+      : 'Busque um endereço ou toque no mapa. O anúncio mostrará apenas uma área aproximada de 5 km.';
+    addressLabel.textContent = isCarona ? 'Ponto inicial aproximado' : 'Endereço ou bairro';
+    availabilityLabel.textContent = isCarona ? 'Frequência' : 'Disponibilidade';
   }
 
   function clearPhotoUrls() {
@@ -292,7 +486,7 @@
         image.remove();
         const fallback = document.createElement('span');
         fallback.className = 'nykuto-photo-fallback';
-        fallback.textContent = /\.hei[cf]$/i.test(file.name) ? 'HEIC' : 'Foto';
+        fallback.textContent = 'Foto';
         figure.prepend(fallback);
       }, { once: true });
       button.type = 'button';
@@ -303,19 +497,21 @@
       photoPreview.append(figure);
     });
     photoHelp.textContent = selectedFiles.length
-      ? `${selectedFiles.length} foto${selectedFiles.length > 1 ? 's' : ''} pronta${selectedFiles.length > 1 ? 's' : ''}. Você deverá anexá-la${selectedFiles.length > 1 ? 's' : ''} na conversa do WhatsApp.`
-      : 'As fotos ficam somente no seu aparelho até você compartilhar.';
+      ? `${selectedFiles.length} foto${selectedFiles.length > 1 ? 's' : ''} pronta${selectedFiles.length > 1 ? 's' : ''} para otimização e publicação.`
+      : getCategory() === 'Carona compartilhada'
+        ? 'A foto do veículo é opcional. Não envie documentos, placas legíveis ou dados pessoais.'
+        : 'As fotos serão otimizadas antes da publicação.';
   }
 
   function handlePhotos() {
     const incoming = [...(photoInput.files || [])];
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif'];
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
     const invalid = incoming.find((file) => {
-      const allowedExtension = /\.(?:jpe?g|png|webp|heic|heif)$/i.test(file.name);
+      const allowedExtension = /\.(?:jpe?g|png|webp)$/i.test(file.name);
       return (!allowedTypes.includes(file.type) && !allowedExtension) || file.size > 10 * 1024 * 1024;
     });
     if (invalid) {
-      setError('Use somente fotos JPG, PNG, WebP ou HEIC com até 10 MB cada.');
+      setError('Use somente fotos JPG, PNG ou WebP com até 10 MB cada.');
       photoInput.value = '';
       return;
     }
@@ -325,20 +521,39 @@
     renderPhotos();
   }
 
+  function extraFieldValue(wrapper) {
+    const checked = [...wrapper.querySelectorAll('input[type="checkbox"]:checked')].map((input) => input.value);
+    if (wrapper.querySelector('input[type="checkbox"]')) return checked.join(', ');
+    return String(wrapper.querySelector('input, select')?.value || '').trim();
+  }
+
   function validateStep(step) {
     if (step === 1 && !getCategory()) return 'Escolha uma categoria para continuar.';
     if (step === 2 && !getSubcategory()) return 'Escolha o tipo do anúncio.';
     if (step === 3) {
       if (getValue('title').length < 4) return 'Escreva um título com pelo menos 4 caracteres.';
-      if (['Produto', 'Imóvel'].includes(getCategory()) && selectedFiles.length === 0) return 'Adicione pelo menos uma foto para este tipo de anúncio.';
+      if (listingKind() === 'offer' && ['Produto', 'Imóvel'].includes(getCategory()) && selectedFiles.length === 0) return 'Adicione pelo menos uma foto para este tipo de anúncio.';
       if (!getValue('priceMode')) return 'Escolha como o preço será apresentado.';
       if (['Preço fixo', 'Negociável'].includes(getValue('priceMode')) && !hasValidPrice(getValue('price'))) return 'Informe um preço válido, somente com números e separadores, ou escolha “Sob consulta”.';
       if (!getValue('condition')) return 'Escolha o estado ou a modalidade do anúncio.';
+      if (getValue('sourceUrl') && !form.elements.sourceUrl.checkValidity()) return 'Confira o link do anúncio original.';
+      if (getValue('sourceUrl') && !form.elements.sourceOwnerConsent.checked) return 'Confirme que você é o autor antes de republicar um anúncio existente.';
     }
     if (step === 4) {
       if (!getValue('latitude') || !getValue('longitude')) return 'Localize o endereço ou toque no mapa para definir a zona aproximada.';
       if (!getValue('availability')) return 'Escolha quando a oferta estará disponível.';
       if (getCategory() === 'Produto' && form.querySelectorAll('input[name="logistics"]:checked').length === 0) return 'Escolha pelo menos uma opção de retirada, entrega ou envio.';
+      if (getCategory() === 'Carona compartilhada') {
+        const missing = [...extraCosts.querySelectorAll('[data-extra-required]')].find((wrapper) => !extraFieldValue(wrapper));
+        if (missing) return `Preencha “${missing.querySelector('span, legend')?.textContent || 'dados do trajeto'}”.`;
+        const seats = Number(extraCosts.querySelector('[name="rideSeats"]')?.value);
+        if (!Number.isInteger(seats) || seats < 1 || seats > 8) return 'Informe entre 1 e 8 lugares ou pessoas.';
+        const rideDate = extraCosts.querySelector('[name="rideDate"]')?.value;
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        if (rideDate && new Date(`${rideDate}T00:00:00`).getTime() < today.getTime()) return 'Escolha uma data de viagem de hoje em diante.';
+        if (/recorrente/i.test(getSubcategory()) && !extraCosts.querySelector('[name="rideRecurringDays"]:checked')) return 'Escolha pelo menos um dia para a carona recorrente.';
+      }
     }
     if (step === 5) {
       if (getValue('firstName').length < 2) return 'Informe seu nome.';
@@ -347,6 +562,7 @@
       if (!normalizedWhatsapp(getValue('whatsapp'))) return 'Informe o WhatsApp com código do país e entre 8 e 15 dígitos.';
       if (!form.elements.publicContact.checked) return 'Autorize o contato direto pelo WhatsApp para publicar.';
       if (!form.elements.confirm.checked) return 'Confirme as informações antes de continuar.';
+      if (!turnstileToken) return 'Conclua a verificação de segurança antes de publicar.';
     }
     return '';
   }
@@ -507,8 +723,11 @@
 
   function dynamicExtraValues() {
     if (!extraCosts) return [];
-    return [...extraCosts.querySelectorAll('input')]
-      .map((input) => ({ label: input.closest('label')?.querySelector('span')?.textContent || input.name, value: input.value.trim() }))
+    return [...extraCosts.querySelectorAll('[data-extra-field]')]
+      .map((wrapper) => ({
+        label: wrapper.querySelector('span, legend')?.textContent || wrapper.dataset.extraField,
+        value: extraFieldValue(wrapper)
+      }))
       .filter((item) => item.value);
   }
 
@@ -533,7 +752,7 @@
       image.alt = 'Foto principal selecionada';
       image.addEventListener('error', () => {
         image.remove();
-        appendText(media, 'span', /\.hei[cf]$/i.test(selectedFiles[0]?.name || '') ? 'HEIC' : getCategory().slice(0, 1), 'nykuto-preview-placeholder');
+        appendText(media, 'span', getCategory().slice(0, 1), 'nykuto-preview-placeholder');
       }, { once: true });
       media.append(image);
     } else appendText(media, 'span', getCategory().slice(0, 1), 'nykuto-preview-placeholder');
@@ -565,37 +784,159 @@
     preview.append(card);
   }
 
-  function composeMessage() {
-    const logistics = checkedLogistics();
-    const extras = dynamicExtraValues();
-    const lines = [
-      'Olá! Quero pré-cadastrar um anúncio no Nykuto Local.',
-      '',
-      `Categoria: ${getCategory()}`,
-      `Tipo: ${getSubcategory()}`,
-      `Título: ${getValue('title')}`,
-      getValue('description') ? `Descrição: ${getValue('description')}` : '',
-      `Preço: ${priceText()}`,
-      `Estado / modalidade: ${getValue('condition')}`,
-      `Disponibilidade: ${getValue('availability')}`,
-      logistics.length ? `Entrega / atendimento: ${logistics.join(', ')}` : '',
-      ...extras.map((item) => `${item.label}: ${item.value}`),
-      '',
-      `Referência privada do endereço: ${getValue('address') || getValue('locationLabel')}`,
-      `Zona pública desejada: ${getValue('locationLabel')} · raio aproximado de 5 km`,
-      `Ponto de referência: https://www.openstreetmap.org/?mlat=${getValue('latitude')}&mlon=${getValue('longitude')}#map=15/${getValue('latitude')}/${getValue('longitude')}`,
-      selectedFiles.length ? `Fotos selecionadas: ${selectedFiles.length} — vou anexá-las nesta conversa.` : 'Fotos selecionadas: nenhuma.',
-      '',
-      'Contato que deverá aparecer no anúncio:',
-      `Nome: ${getValue('firstName')} ${getValue('lastName')}`,
-      `WhatsApp: ${normalizedWhatsapp(getValue('whatsapp'))}`,
-      getValue('email') ? `E-mail: ${getValue('email')}` : '',
-      'Autorizo que o WhatsApp informado seja usado para o contato direto dos interessados.',
-      '',
-      'Entendo que este envio é uma pré-inscrição para avaliação e não garante publicação.'
-    ];
-    if (getCategory() === 'Compra ou retirada em Foz') lines.push('Confirmo que o pedido envolve somente atividades e produtos permitidos e respeitará as regras fiscais e aduaneiras aplicáveis.');
-    return lines.filter((line, index, array) => line || (index > 0 && array[index - 1])).join('\n').trim();
+  function numericPrice(value) {
+    const raw = String(value || '').replace(/\s/g, '');
+    const lastSeparator = Math.max(raw.lastIndexOf(','), raw.lastIndexOf('.'));
+    const decimalDigits = lastSeparator >= 0 ? raw.length - lastSeparator - 1 : 0;
+    const normalized = lastSeparator >= 0 && decimalDigits > 0 && decimalDigits <= 2
+      ? `${raw.slice(0, lastSeparator).replace(/\D/g, '')}.${raw.slice(lastSeparator + 1).replace(/\D/g, '')}`
+      : raw.replace(/\D/g, '');
+    const number = Number(normalized);
+    return Number.isFinite(number) ? Math.round(number) : null;
+  }
+
+  function listingKind() {
+    if (requestModeFromUrl) return 'request';
+    if (getCategory() === 'Carona compartilhada' && /^Procuro\b/i.test(getSubcategory())) return 'request';
+    return 'offer';
+  }
+
+  function listingPayload() {
+    const priceModes = { 'Preço fixo': 'fixed', Negociável: 'negotiable', 'Sob consulta': 'quote', Grátis: 'free' };
+    const currencies = { 'R$': 'BRL', 'Gs.': 'PYG', 'US$': 'USD' };
+    const priceMode = priceModes[getValue('priceMode')];
+    return {
+      kind: listingKind(),
+      category: getCategory(),
+      subcategory: getSubcategory(),
+      title: getValue('title'),
+      description: getValue('description'),
+      priceAmount: ['fixed', 'negotiable'].includes(priceMode) ? numericPrice(getValue('price')) : null,
+      currency: currencies[getValue('currency')] || '',
+      priceMode,
+      condition: getValue('condition'),
+      availability: getValue('availability'),
+      logistics: checkedLogistics(),
+      fees: dynamicExtraValues(),
+      zoneLabel: getValue('locationLabel'),
+      zoneLatitude: Number(getValue('latitude')),
+      zoneLongitude: Number(getValue('longitude')),
+      sourceUrl: getValue('sourceUrl'),
+      sourceOwnerConsent: form.elements.sourceOwnerConsent.checked
+    };
+  }
+
+  async function loadImage(file) {
+    if ('createImageBitmap' in window) {
+      try {
+        const bitmap = await createImageBitmap(file);
+        return { image: bitmap, width: bitmap.width, height: bitmap.height, cleanup: () => bitmap.close() };
+      } catch (_) {
+        // The regular image decoder below supports a few formats that createImageBitmap may reject.
+      }
+    }
+    const url = URL.createObjectURL(file);
+    const image = new Image();
+    image.decoding = 'async';
+    await new Promise((resolve, reject) => {
+      image.addEventListener('load', resolve, { once: true });
+      image.addEventListener('error', reject, { once: true });
+      image.src = url;
+    });
+    return { image, width: image.naturalWidth, height: image.naturalHeight, cleanup: () => URL.revokeObjectURL(url) };
+  }
+
+  function canvasBlob(canvas, type, quality) {
+    return new Promise((resolve) => canvas.toBlob(resolve, type, quality));
+  }
+
+  async function optimizePhoto(file, index) {
+    const source = await loadImage(file);
+    try {
+      let maxDimension = 1400;
+      let quality = 0.8;
+      let blob = null;
+      for (let attempt = 0; attempt < 5; attempt += 1) {
+        const scale = Math.min(1, maxDimension / Math.max(source.width, source.height));
+        const width = Math.max(1, Math.round(source.width * scale));
+        const height = Math.max(1, Math.round(source.height * scale));
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const context = canvas.getContext('2d', { alpha: false });
+        context.fillStyle = '#ffffff';
+        context.fillRect(0, 0, width, height);
+        context.drawImage(source.image, 0, 0, width, height);
+        blob = await canvasBlob(canvas, 'image/webp', quality) || await canvasBlob(canvas, 'image/jpeg', quality);
+        if (blob && blob.size <= 300000) break;
+        maxDimension = Math.round(maxDimension * 0.82);
+        quality = Math.max(0.56, quality - 0.06);
+      }
+      if (!blob || blob.size > 300000) throw new Error('PHOTO_TOO_LARGE');
+      const extension = blob.type === 'image/webp' ? 'webp' : 'jpg';
+      return new File([blob], `nykuto-${index + 1}.${extension}`, { type: blob.type });
+    } finally {
+      source.cleanup();
+    }
+  }
+
+  async function optimizedPhotos() {
+    const photos = [];
+    for (let index = 0; index < selectedFiles.length; index += 1) {
+      photoHelp.textContent = `Otimizando foto ${index + 1} de ${selectedFiles.length}…`;
+      photos.push(await optimizePhoto(selectedFiles[index], index));
+    }
+    const total = photos.reduce((sum, photo) => sum + photo.size, 0);
+    if (total > 1250000) throw new Error('PHOTOS_TOO_LARGE');
+    photoHelp.textContent = `${photos.length} foto${photos.length === 1 ? '' : 's'} otimizada${photos.length === 1 ? '' : 's'} e pronta${photos.length === 1 ? '' : 's'} para publicação.`;
+    return photos;
+  }
+
+  async function publishListing() {
+    persistProfile();
+    submitButton.disabled = true;
+    submitButton.textContent = selectedFiles.length ? 'Otimizando fotos…' : 'Publicando…';
+    let photos;
+    try {
+      photos = await optimizedPhotos();
+    } catch (_) {
+      submitButton.disabled = false;
+      submitButton.innerHTML = `${requestModeFromUrl ? 'Publicar pedido' : 'Publicar agora'} <span aria-hidden="true">→</span>`;
+      setError('Não foi possível otimizar uma das fotos. Escolha outra imagem JPG, PNG ou WebP.');
+      resetTurnstile();
+      return;
+    }
+    submitButton.textContent = 'Publicando…';
+    const body = new FormData();
+    body.set('payload', JSON.stringify({
+      profile: prepareOnlineProfile(),
+      listing: listingPayload(),
+      turnstileToken
+    }));
+    photos.forEach((photo) => body.append('photos', photo, photo.name));
+    const headers = { Accept: 'application/json' };
+    if (csrfToken) headers['X-CSRF-Token'] = csrfToken;
+    try {
+      const response = await fetch('/api/local/listings', { method: 'POST', headers, body });
+      const payload = await response.json();
+      if (!response.ok || !payload.listing) throw new Error(payload.message || 'Não foi possível publicar agora.');
+      csrfToken = payload.csrfToken || csrfToken;
+      clearLegacyProfile();
+      publishedUrl = `${window.location.origin}/anuncio/?id=${encodeURIComponent(payload.listing.id)}`;
+      if (successView) successView.href = publishedUrl;
+      form.hidden = true;
+      document.querySelector('.nykuto-wizard-progress')?.setAttribute('hidden', '');
+      document.querySelector('.nykuto-wizard-header')?.classList.add('is-complete');
+      successPanel.hidden = false;
+      successPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      clearPhotoUrls();
+    } catch (error) {
+      setError(error.message || 'Não foi possível publicar agora. Tente novamente.');
+      resetTurnstile();
+    } finally {
+      submitButton.disabled = false;
+      submitButton.innerHTML = `${requestModeFromUrl ? 'Publicar pedido' : 'Publicar agora'} <span aria-hidden="true">→</span>`;
+    }
   }
 
   function advanceFromChoice(event, expectedStep) {
@@ -621,17 +962,20 @@
   form.addEventListener('change', (event) => {
     if (event.target.name !== 'confirm') form.elements.confirm.checked = false;
     if (event.target.name === 'category') renderSubcategories();
+    if (event.target.name === 'subcategory' && getCategory() === 'Carona compartilhada') updateConditionalFields();
     if (event.target.name === 'priceMode') {
       const noAmount = ['Grátis', 'Sob consulta'].includes(event.target.value);
       form.elements.price.disabled = noAmount;
       if (noAmount) form.elements.price.value = '';
     }
+    if (event.target.name === 'sourceOwnerConsent') form.elements.confirm.checked = false;
   });
 
   photoInput.addEventListener('change', handlePhotos);
   form.addEventListener('input', (event) => {
     if (event.target.name !== 'confirm') form.elements.confirm.checked = false;
     if (event.target.name === 'address') clearResolvedLocation();
+    if (event.target.name === 'sourceUrl') sourceConsentVisibility();
     if (currentStep === 5 && ['firstName', 'lastName', 'whatsapp'].includes(event.target.name)) renderPreview();
   });
   addressSearchButton.addEventListener('click', searchAddress);
@@ -649,7 +993,7 @@
   });
   backButton.addEventListener('click', () => setStep(currentStep - 1));
 
-  form.addEventListener('submit', (event) => {
+  form.addEventListener('submit', async (event) => {
     event.preventDefault();
     if (currentStep !== 5) return setError('Use “Continuar” para revisar todas as etapas antes do envio.');
     for (let step = 1; step <= 5; step += 1) {
@@ -660,10 +1004,7 @@
         return;
       }
     }
-    persistProfile();
-    const message = composeMessage();
-    if (window.NykutoWhatsApp?.open) window.NykutoWhatsApp.open(phone, message);
-    else window.location.href = `whatsapp://send?phone=${phone}&text=${encodeURIComponent(message)}`;
+    await publishListing();
   });
 
   const statusButton = document.querySelector('[data-manager-action="status"]');
@@ -686,7 +1027,35 @@
   });
 
   window.addEventListener('beforeunload', clearPhotoUrls);
-  loadSavedProfile();
+  successShare?.addEventListener('click', async () => {
+    if (!publishedUrl) return;
+    const shareData = { title: getValue('title') || 'Anúncio no Nykuto Local', text: 'Veja este anúncio no Nykuto Local.', url: publishedUrl };
+    try {
+      if (navigator.share) await navigator.share(shareData);
+      else {
+        await navigator.clipboard.writeText(publishedUrl);
+        successShare.textContent = 'Link copiado';
+      }
+    } catch (_) {
+      // Cancelling the native share sheet does not change the published listing.
+    }
+  });
+  if (requestModeFromUrl) {
+    document.title = 'Publicar um pedido — Nykuto Local';
+    const pageTitle = document.querySelector('#page-title');
+    const wizardSubtitle = document.querySelector('.nykuto-wizard-header > div > span');
+    const categoryTitle = document.querySelector('#wizard-category-title');
+    const categoryCopy = categoryTitle?.closest('.nykuto-step-heading')?.querySelector('p');
+    if (pageTitle) pageTitle.textContent = 'O que você precisa?';
+    if (wizardSubtitle) wizardSubtitle.textContent = 'Publique seu pedido. As pessoas da região poderão falar diretamente com você.';
+    if (categoryTitle) categoryTitle.textContent = 'Escolha a categoria do pedido';
+    if (categoryCopy) categoryCopy.textContent = 'Toque no que você está procurando.';
+    submitButton.innerHTML = 'Publicar pedido <span aria-hidden="true">→</span>';
+  }
+  loadLegacyProfile();
+  loadOnlineProfile();
+  loadTurnstileConfig().then(() => { if (currentStep === 5) ensureTurnstile(); });
+  sourceConsentVisibility();
   const presetCategory = new URLSearchParams(window.location.search).get('categoria');
   const presetInput = presetCategory
     ? [...form.elements.category].find((input) => input.value === presetCategory)

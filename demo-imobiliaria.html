@@ -77,7 +77,9 @@
               <button type="button" data-market-category="electronics" aria-pressed="false"><span aria-hidden="true">▣</span><strong>Eletrônicos</strong></button>
               <button type="button" data-market-category="fashion" aria-pressed="false"><span aria-hidden="true">◴</span><strong>Moda</strong></button>
               <button type="button" data-market-category="vehicles" aria-pressed="false"><span aria-hidden="true">◇</span><strong>Veículos</strong></button>
+              <button type="button" data-market-category="freight" aria-pressed="false"><span aria-hidden="true">▤</span><strong>Fretes</strong></button>
               <button type="button" data-market-category="services" aria-pressed="false"><span aria-hidden="true">✦</span><strong>Serviços</strong></button>
+              <button type="button" data-market-category="rides" aria-pressed="false"><span aria-hidden="true">⇢</span><strong>Caronas</strong></button>
               <button type="button" data-market-category="foz" aria-pressed="false"><span aria-hidden="true">↔</span><strong>Foz</strong></button>
               <a href="/imoveis/"><span aria-hidden="true">⌂</span><strong>Imóveis</strong></a>
             </div>
@@ -85,12 +87,12 @@
 
           <section class="nykuto-market-preview" data-market-preview aria-live="polite">
             <header>
-              <div><p>Exemplo de vitrine</p><h2 data-market-title>Casa e móveis</h2></div>
+              <div><p>Anúncios locais</p><h2 data-market-title>Casa e móveis</h2></div>
               <a data-market-announce href="/anunciar/?categoria=Produto">Anunciar nesta categoria <span aria-hidden="true">→</span></a>
             </header>
             <div class="nykuto-market-subcategories" data-market-subcategories></div>
             <div class="nykuto-market-examples" data-market-examples></div>
-            <p class="nykuto-market-demo-note">Os cartões desta área mostram como o futuro catálogo será organizado. Os imóveis abaixo continuam sendo a demonstração navegável ativa.</p>
+            <p class="nykuto-market-demo-note" data-market-note role="status" aria-live="polite">Carregando anúncios publicados…</p>
           </section>
 
           <div class="nykuto-market-secondary-actions">
@@ -153,28 +155,6 @@
     <span><small>WhatsApp</small><strong data-whatsapp-fab-label>Falar agora</strong></span>
     <b data-whatsapp-fab-count hidden>0</b>
   </button>
-
-  <dialog class="demo-dialog nykuto-request-dialog" data-request-dialog lang="pt-BR" aria-labelledby="request-dialog-title">
-    <form class="demo-dialog-shell nykuto-request-shell" data-request-form>
-      <header class="demo-dialog-header">
-        <div><span>Cadastro gratuito no lançamento</span><h2 id="request-dialog-title">O que você precisa?</h2></div>
-        <button type="button" data-close-request aria-label="Fechar pedido">×</button>
-      </header>
-      <p class="nykuto-request-intro">Preencha o essencial. O pedido abre pronto no WhatsApp para avaliação na fase de lançamento.</p>
-      <div class="nykuto-request-grid">
-        <label><span>Categoria</span><select name="category" required><option value="">Selecione</option><option>Produto</option><option>Frete ou mudança</option><option>Serviço local</option><option>Compra ou retirada em Foz</option><option>Imóvel</option><option>Outro pedido</option></select></label>
-        <label class="nykuto-request-wide"><span>O que você precisa?</span><input name="need" type="text" maxlength="120" placeholder="Ex.: preciso de um frete para amanhã" required /></label>
-        <label><span>Local ou origem</span><input name="origin" type="text" maxlength="80" placeholder="Ex.: Área 1, CDE" required /></label>
-        <label><span>Destino <small>(se houver)</small></span><input name="destination" type="text" maxlength="80" placeholder="Ex.: Vila A, Foz" /></label>
-        <label><span>Quando?</span><select name="when" required><option value="">Selecione</option><option>Hoje</option><option>Amanhã</option><option>Esta semana</option><option>Data flexível</option></select></label>
-        <label><span>Orçamento <small>(opcional)</small></span><input name="budget" type="text" maxlength="40" placeholder="R$, Gs. ou a combinar" /></label>
-        <label class="nykuto-request-wide"><span>Detalhes úteis <small>(opcional)</small></span><textarea name="details" maxlength="360" rows="3" placeholder="Tamanho, quantidade, horário ou outra informação importante"></textarea></label>
-      </div>
-      <p class="nykuto-request-customs" data-foz-notice role="status" aria-live="polite" hidden><strong>Compras em Foz:</strong> cadastre somente produtos permitidos e respeite as regras fiscais e aduaneiras aplicáveis.</p>
-      <p class="nykuto-request-privacy">Nada é armazenado por este formulário. Você confere a mensagem antes de enviá-la pelo WhatsApp.</p>
-      <footer class="nykuto-request-actions"><button type="button" data-close-request>Agora não</button><button type="submit">Continuar no WhatsApp <span aria-hidden="true">↗</span></button></footer>
-    </form>
-  </dialog>
 
   <dialog class="demo-dialog demo-property-dialog" data-property-dialog lang="pt-BR">
     <div class="demo-dialog-shell" data-property-dialog-content></div>
@@ -242,6 +222,6 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
   <script src="whatsapp-launcher.js?v=20260823-2" defer></script>
   <script src="demo-imobiliaria.js?v=20260828-1" defer></script>
-  <script src="nykuto-local.js?v=20260828-1" defer></script>
+  <script src="nykuto-local.js?v=20260828-2" defer></script>
 </body>
 </html>

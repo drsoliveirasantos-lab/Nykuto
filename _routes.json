@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "include": ["/api/*", "/gestor/*"],
+  "include": ["/api/*", "/gestor/*", "/media/*"],
   "exclude": [
     "/gestor/gestor.css",
     "/gestor/gestor.js",

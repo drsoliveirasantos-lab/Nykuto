@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#174f43" />
   <meta name="robots" content="noindex,nofollow" />
   <title>Meu perfil — Nykuto Local</title>
-  <meta name="description" content="Salve seus dados de contato neste aparelho para preencher anúncios do Nykuto Local com mais rapidez." />
+  <meta name="description" content="Gerencie seu perfil, seus anúncios e o WhatsApp de contato no Nykuto Local." />
   <link rel="icon" href="/assets/nykuto-emblem-favicon.png" type="image/png" />
   <link rel="stylesheet" href="/styles.css?v=20260823-1" />
   <link rel="stylesheet" href="/demo-imobiliaria.css?v=20260828-1" />
@@ -35,9 +35,9 @@
         <section class="nykuto-profile-page">
           <div class="nykuto-profile-layout">
             <section class="nykuto-profile-intro">
-              <p>Perfil rápido</p>
-              <h1 id="profile-title">Anuncie sem criar uma senha.</h1>
-              <span>Salve nome e WhatsApp uma vez. O próximo anúncio será preenchido automaticamente neste aparelho.</span>
+              <p>Meu espaço</p>
+              <h1 id="profile-title">Seus anúncios, no seu controle.</h1>
+              <span>Crie um perfil simples, publique e depois pause, conclua ou exclua cada anúncio sem passar pela Nykuto.</span>
               <div class="nykuto-profile-benefits" aria-label="Benefícios do perfil rápido">
                 <div><span aria-hidden="true">01</span><p><strong>Menos campos</strong><small>Seus dados voltam no próximo anúncio.</small></p></div>
                 <div><span aria-hidden="true">02</span><p><strong>Contato direto</strong><small>O interessado fala com o seu WhatsApp.</small></p></div>
@@ -46,7 +46,7 @@
             </section>
 
             <section class="nykuto-profile-card" aria-labelledby="profile-form-title">
-              <header><div><span>Dados do anunciante</span><h2 id="profile-form-title">Meu perfil</h2></div><b>Somente neste aparelho</b></header>
+              <header><div><span>Dados do anunciante</span><h2 id="profile-form-title">Meu perfil</h2></div><b data-profile-badge>Carregando</b></header>
               <form id="profile-form" data-profile-form novalidate>
                 <div class="nykuto-profile-form">
                   <label><span>Nome</span><input name="firstName" type="text" maxlength="50" autocomplete="given-name" required /></label>
@@ -55,23 +55,31 @@
                   <label class="nykuto-profile-wide"><span>Número de WhatsApp</span><input name="whatsapp" type="tel" maxlength="20" autocomplete="tel" inputmode="tel" placeholder="Ex.: +595 981 123 456" required /></label>
                 </div>
                 <label class="nykuto-profile-consent"><input name="publicContact" type="checkbox" required /><span>Entendo que este WhatsApp poderá aparecer nos meus anúncios para que os interessados falem comigo diretamente.</span></label>
+                <div class="nykuto-turnstile" data-profile-turnstile><p data-profile-turnstile-status>Carregando a verificação de segurança…</p></div>
                 <div class="nykuto-profile-actions">
-                  <button type="submit">Salvar perfil</button>
+                  <button type="submit" data-profile-save>Salvar perfil</button>
                   <a href="/anunciar/" data-profile-announce>Anunciar agora</a>
+                  <button type="button" class="nykuto-profile-logout" data-profile-logout hidden>Sair</button>
                 </div>
-                <p class="nykuto-profile-status" data-profile-status role="status" aria-live="polite">Nenhuma conta online é criada nesta demonstração.</p>
-                <div class="nykuto-profile-online-note"><strong>Google e Facebook depois</strong>A conexão social exige uma conta online real, armazenamento seguro dos anúncios e verificação do WhatsApp. Por isso, nenhum botão de login fictício aparece agora.</div>
+                <p class="nykuto-profile-status" data-profile-status role="status" aria-live="polite">Carregando seu perfil…</p>
+                <div class="nykuto-profile-online-note"><strong>Perfil sem senha</strong>A sessão fica protegida neste aparelho. Google e Facebook poderão ser adicionados depois para recuperar o mesmo perfil em outro aparelho.</div>
               </form>
+
+              <section class="nykuto-my-listings" data-my-listings hidden aria-labelledby="my-listings-title">
+                <header><div><span>Publicações</span><h2 id="my-listings-title">Meus anúncios</h2></div><a href="/anunciar/">＋ Novo</a></header>
+                <div data-my-listings-grid></div>
+              </section>
+              <div class="nykuto-profile-danger" data-profile-danger hidden><button type="button" data-delete-profile>Excluir perfil e anúncios</button><small>Esta ação apaga definitivamente suas publicações e fotos.</small></div>
             </section>
           </div>
         </section>
 
-        <footer class="demo-app-footer"><span><strong>Nykuto Local</strong> · CDE ↔ Foz</span><span>Perfil salvo localmente · <a href="https://nykuto.com/confidentialite">Privacidade</a></span><a href="/gestor/login/">Gestão de imóveis <span aria-hidden="true">↗</span></a></footer>
+        <footer class="demo-app-footer"><span><strong>Nykuto Local</strong> · CDE ↔ Foz</span><span>Perfil e anúncios privados por padrão · <a href="/regras/">Regras e privacidade</a></span><a href="/gestor/login/">Gestão de imóveis <span aria-hidden="true">↗</span></a></footer>
       </div>
     </section>
   </main>
 
   <nav class="demo-mobile-nav" aria-label="Navegação móvel"><a href="/"><span aria-hidden="true">⌕</span> Comprar</a><a href="/imoveis/"><span aria-hidden="true">⌂</span> Imóveis</a><a class="nykuto-mobile-announce" href="/anunciar/"><span aria-hidden="true">＋</span> Anunciar</a><a href="/conta/" aria-current="page"><span aria-hidden="true">◎</span> Perfil</a></nav>
-  <script src="/conta/conta.js?v=20260828-1" defer></script>
+  <script src="/conta/conta.js?v=20260828-2" defer></script>
 </body>
 </html>
