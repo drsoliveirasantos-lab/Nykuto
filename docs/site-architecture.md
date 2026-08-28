@@ -27,6 +27,7 @@ imoveis/index.html             Complete searchable property catalogue
 mapa/index.html                Map-focused property search
 favoritos/index.html           Device-local saved-property selection
 anunciar/index.html            Owner and agency publishing journey
+anunciar/anunciar.js           Client-side listing wizard and WhatsApp summary
 gestor/login/index.html        Private manager sign-in
 gestor/index.html              Authenticated manager dashboard
 gestor/imoveis/                Persistent listing management
@@ -93,9 +94,10 @@ Before a framework migration:
 
 `demo-imobiliaria.html` is the autonomous Nykuto Local homepage linked from the
 Nykuto commercial site and published canonically on `demo.nykuto.com`. The
-subdomain now opens on a progressive CDE–Foz marketplace gateway: the first
-viewport exposes real estate, buying/selling, fretes, local services, Foz
-requests and a `Preciso de…` composer. Real estate remains the only complete
+subdomain opens on a compact, mobile-first CDE–Foz marketplace gateway: the
+first viewport exposes real estate, buying/selling, fretes, local services, Foz
+requests, a direct `Anunciar` action and a `Preciso de…` composer without a
+marketing hero hiding the controls. Real estate remains the only complete
 catalogue in the first release. The other categories are explicitly labelled as
 free registration or request intake while genuine supply is recruited, so the
 portal never shows empty catalogues or invented offers.
@@ -109,10 +111,23 @@ not a booking, payment, logistics or transaction flow.
 
 The property experience remains on dedicated static routes: `/imoveis/` for the
 full catalogue, `/mapa/` for map-first search, `/favoritos/` for the visitor's
-local selection and `/anunciar/` for both launch registration choices and the
-existing owner/agency offer. The property manager, Functions and D1 schema stay
-property-specific. A compact in-app footer keeps the illustrative nature of the
-inventory visible without interrupting the journey.
+local selection and `/anunciar/` for an immediate five-stage listing intake.
+That wizard collects category, subtype, title, local photo previews, price,
+condition, category-specific costs, logistics and an approximate area before
+showing a summary and preparing a WhatsApp message. The property manager,
+Functions and D1 schema stay property-specific. A compact in-app footer keeps
+the illustrative nature of the inventory visible without interrupting the
+journey.
+
+The public wizard persists nothing. Selected photos use temporary `blob:` URLs
+for on-device preview and are never described as uploaded; WhatsApp deep links
+carry text only, so the user must attach the selected photos in the conversation.
+The location step reuses Leaflet and shows a fixed 5 km privacy circle. A manual
+map tap always works. An explicit address-search button may send a bounded
+CDE–Foz query to OpenStreetMap Nominatim, at no more than one request per second,
+with in-memory caching and visible attribution; there is no autocomplete or
+background geocoding. The exact search and coordinates remain private intake
+references and are not displayed in a public listing or stored by the site.
 
 The demo uses owner-supplied photos and videos of real Ciudad del Este
 properties that were neutralised before publication and stripped of embedded

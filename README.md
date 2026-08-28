@@ -33,6 +33,7 @@ The build copies the production sources to `out/`, `dist/` and `.vercel/output/s
 - `script.js` — navigation, reveal effects, localized estimator and mailto contact helper;
 - `demo-imobiliaria.html`, `demo-imobiliaria.css` and `demo-imobiliaria.js` — local portal and property catalogue;
 - `nykuto-local.js` — progressive local-category request composer and WhatsApp handoff;
+- `anunciar/anunciar.js` — mobile-first listing wizard, local photo previews, approximate map zone and structured WhatsApp handoff;
 - `assets/` — production imagery;
 - `favicon.svg`, `robots.txt`, `sitemap.xml`, `_headers` — platform and discovery files;
 - `scripts/prepare-cloudflare-output.js` — static build.

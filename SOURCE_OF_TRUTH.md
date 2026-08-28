@@ -52,6 +52,8 @@ The current production source of truth is the static root site:
 - `styles.css`, `i18n.js` and `script.js`;
 - `demo-imobiliaria.html`, `demo-imobiliaria.css`, `demo-imobiliaria.js` and
   `nykuto-local.js` for the autonomous local portal;
+- `anunciar/index.html` and `anunciar/anunciar.js` for the public, client-side
+  listing pre-registration wizard;
 - `assets/`, `favicon.svg`, `robots.txt`, `sitemap.xml` and `_headers`;
 - `scripts/prepare-cloudflare-output.js`;
 - `gestor/` for the private real-estate manager pilot interface;
@@ -123,6 +125,21 @@ reviewed offers exist. Submission never guarantees publication; never invent
 listings, providers, volumes or popularity.
 Foz-related copy must exclude prohibited goods and remind users that applicable
 fiscal and customs rules remain their responsibility.
+
+The public `Anunciar` wizard follows the same no-storage launch rule. It may
+collect category, subtype, title, description, price, condition, costs,
+logistics, an address reference and up to five local photo previews, but it
+must not claim that the record or files were uploaded. A WhatsApp deep link
+cannot attach those files; the visitor is told to attach them in the resulting
+conversation. The public preview shows only an approximate 5 km area.
+
+Address lookup is an explicit, user-triggered convenience for the CDE–Foz pilot,
+not autocomplete. It may query the public OpenStreetMap Nominatim endpoint only
+with visible attribution, an in-memory result cache, a maximum rate of one
+request per second and a bounded regional query. The interface must disclose
+that the entered search is sent to this third-party service and must retain a
+manual map-placement fallback. No geocoding result or exact address is persisted
+by the site.
 
 ## Languages
 
