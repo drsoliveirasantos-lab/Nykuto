@@ -54,6 +54,8 @@ The current production source of truth is the static root site:
   `nykuto-local.js` for the autonomous local portal;
 - `anunciar/index.html` and `anunciar/anunciar.js` for the public, client-side
   listing pre-registration wizard;
+- `conta/` for the device-local quick profile that prefills seller contact
+  fields without claiming to create an online account;
 - `assets/`, `favicon.svg`, `robots.txt`, `sitemap.xml` and `_headers`;
 - `scripts/prepare-cloudflare-output.js`;
 - `gestor/` for the private real-estate manager pilot interface;
@@ -126,12 +128,15 @@ listings, providers, volumes or popularity.
 Foz-related copy must exclude prohibited goods and remind users that applicable
 fiscal and customs rules remain their responsibility.
 
-The public `Anunciar` wizard follows the same no-storage launch rule. It may
-collect category, subtype, title, description, price, condition, costs,
-logistics, an address reference and up to five local photo previews, but it
-must not claim that the record or files were uploaded. A WhatsApp deep link
-cannot attach those files; the visitor is told to attach them in the resulting
-conversation. The public preview shows only an approximate 5 km area.
+The public `Anunciar` wizard follows the same server no-storage launch rule. It
+may collect category, subtype, title, description, price, condition, costs,
+logistics, an address reference, seller name, optional email, seller WhatsApp
+and up to five local photo previews, but it must not claim that the record,
+profile or files were uploaded. A WhatsApp deep link cannot attach those files;
+the visitor is told to attach them in the resulting conversation. The public
+preview shows only an approximate 5 km area. With explicit opt-in, the quick
+seller profile may be stored only in that browser to prefill later forms. It is
+not authentication and must be described as device-local.
 
 Address lookup is an explicit, user-triggered convenience for the CDE–Foz pilot,
 not autocomplete. It may query the public OpenStreetMap Nominatim endpoint only

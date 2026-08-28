@@ -24,6 +24,7 @@
   const locationResults = form.querySelector('[data-location-results]');
   const mapElement = form.querySelector('[data-listing-map]');
   const phone = document.body.dataset.whatsappPhone || '33768345608';
+  const profileStorageKey = 'nykuto-local-profile-v1';
 
   const subcategories = {
     Produto: ['Móveis e decoração', 'Eletrodomésticos', 'Eletrônicos e informática', 'Celular e acessórios', 'Moda e acessórios', 'Veículos e peças', 'Outro produto'],
@@ -97,11 +98,54 @@
   let privacyCircle;
   let lastGeocodeAt = 0;
   let geocodePending = false;
+  let renderedCategory = '';
   const geocodeCache = new Map();
 
   const getValue = (name) => String(form.elements[name]?.value || '').trim();
   const getCategory = () => getValue('category');
   const getSubcategory = () => getValue('subcategory');
+
+  function normalizedWhatsapp(value) {
+    const digits = String(value || '').replace(/\D/g, '');
+    const repeatedDigit = /^(\d)\1+$/.test(digits);
+    return /^[1-9]\d{7,14}$/.test(digits) && !repeatedDigit ? `+${digits}` : '';
+  }
+
+  function hasValidPrice(value) {
+    const raw = String(value || '').trim();
+    if (!/^[\d\s.,]+$/.test(raw)) return false;
+    const digits = raw.replace(/\D/g, '');
+    return digits.length > 0 && Number(digits) > 0;
+  }
+
+  function loadSavedProfile() {
+    try {
+      const saved = JSON.parse(window.localStorage.getItem(profileStorageKey) || 'null');
+      if (!saved || typeof saved !== 'object') return;
+      ['firstName', 'lastName', 'email', 'whatsapp'].forEach((name) => {
+        if (form.elements[name] && typeof saved[name] === 'string') form.elements[name].value = saved[name];
+      });
+    } catch (_error) {
+      // The form remains fully usable when browser storage is blocked.
+    }
+  }
+
+  function persistProfile() {
+    try {
+      if (!form.elements.rememberProfile?.checked) {
+        window.localStorage.removeItem(profileStorageKey);
+        return;
+      }
+      window.localStorage.setItem(profileStorageKey, JSON.stringify({
+        firstName: getValue('firstName'),
+        lastName: getValue('lastName'),
+        email: getValue('email'),
+        whatsapp: normalizedWhatsapp(getValue('whatsapp'))
+      }));
+    } catch (_error) {
+      // Saving the convenience profile is optional and never blocks submission.
+    }
+  }
 
   function setError(message = '') {
     errorBox.textContent = message;
@@ -157,6 +201,8 @@
 
   function renderSubcategories() {
     const category = getCategory();
+    if (renderedCategory === category && subcategoryGrid.querySelector('input[name="subcategory"]')) return;
+    renderedCategory = category;
     subcategoryGrid.replaceChildren();
     const legend = document.createElement('legend');
     legend.className = 'sr-only';
@@ -286,7 +332,7 @@
       if (getValue('title').length < 4) return 'Escreva um título com pelo menos 4 caracteres.';
       if (['Produto', 'Imóvel'].includes(getCategory()) && selectedFiles.length === 0) return 'Adicione pelo menos uma foto para este tipo de anúncio.';
       if (!getValue('priceMode')) return 'Escolha como o preço será apresentado.';
-      if (['Preço fixo', 'Negociável'].includes(getValue('priceMode')) && !getValue('price')) return 'Informe o preço ou escolha “Sob consulta”.';
+      if (['Preço fixo', 'Negociável'].includes(getValue('priceMode')) && !hasValidPrice(getValue('price'))) return 'Informe um preço válido, somente com números e separadores, ou escolha “Sob consulta”.';
       if (!getValue('condition')) return 'Escolha o estado ou a modalidade do anúncio.';
     }
     if (step === 4) {
@@ -294,7 +340,14 @@
       if (!getValue('availability')) return 'Escolha quando a oferta estará disponível.';
       if (getCategory() === 'Produto' && form.querySelectorAll('input[name="logistics"]:checked').length === 0) return 'Escolha pelo menos uma opção de retirada, entrega ou envio.';
     }
-    if (step === 5 && !form.elements.confirm.checked) return 'Confirme as informações antes de abrir o WhatsApp.';
+    if (step === 5) {
+      if (getValue('firstName').length < 2) return 'Informe seu nome.';
+      if (getValue('lastName').length < 2) return 'Informe seu sobrenome.';
+      if (getValue('email') && !form.elements.email.checkValidity()) return 'Confira o endereço de e-mail.';
+      if (!normalizedWhatsapp(getValue('whatsapp'))) return 'Informe o WhatsApp com código do país e entre 8 e 15 dígitos.';
+      if (!form.elements.publicContact.checked) return 'Autorize o contato direto pelo WhatsApp para publicar.';
+      if (!form.elements.confirm.checked) return 'Confirme as informações antes de continuar.';
+    }
     return '';
   }
 
@@ -321,6 +374,7 @@
     form.elements.latitude.value = coordinates[0].toFixed(6);
     form.elements.longitude.value = coordinates[1].toFixed(6);
     form.elements.locationLabel.value = label;
+    if (manual) form.elements.address.value = '';
     if (!listingMap) initMap();
     if (!listingMap || !window.L) {
       locationStatus.textContent = 'Zona definida. O mapa não pôde ser exibido, mas a referência foi mantida.';
@@ -341,6 +395,19 @@
     listingMap.fitBounds(privacyCircle.getBounds(), { padding: [18, 18] });
     locationStatus.textContent = `${manual ? 'Ponto definido' : 'Endereço localizado'} · área pública aproximada de 5 km.`;
     locationResults.hidden = true;
+  }
+
+  function clearResolvedLocation() {
+    if (!getValue('latitude') && !getValue('longitude')) return;
+    form.elements.latitude.value = '';
+    form.elements.longitude.value = '';
+    form.elements.locationLabel.value = '';
+    if (listingMap && locationMarker) listingMap.removeLayer(locationMarker);
+    if (listingMap && privacyCircle) listingMap.removeLayer(privacyCircle);
+    locationMarker = null;
+    privacyCircle = null;
+    locationResults.hidden = true;
+    locationStatus.textContent = 'Endereço alterado. Toque em “Localizar” para atualizar a zona aproximada.';
   }
 
   function publicLocationFromResult(result) {
@@ -488,6 +555,12 @@
       });
       body.append(dl);
     }
+    const seller = document.createElement('div');
+    seller.className = 'nykuto-preview-seller';
+    appendText(seller, 'span', 'Contato do anunciante');
+    appendText(seller, 'strong', `${getValue('firstName')} ${getValue('lastName')}`.trim() || 'Preencha seu nome');
+    appendText(seller, 'small', normalizedWhatsapp(getValue('whatsapp')) || 'Preencha o WhatsApp');
+    body.append(seller);
     card.append(media, body);
     preview.append(card);
   }
@@ -512,6 +585,12 @@
       `Zona pública desejada: ${getValue('locationLabel')} · raio aproximado de 5 km`,
       `Ponto de referência: https://www.openstreetmap.org/?mlat=${getValue('latitude')}&mlon=${getValue('longitude')}#map=15/${getValue('latitude')}/${getValue('longitude')}`,
       selectedFiles.length ? `Fotos selecionadas: ${selectedFiles.length} — vou anexá-las nesta conversa.` : 'Fotos selecionadas: nenhuma.',
+      '',
+      'Contato que deverá aparecer no anúncio:',
+      `Nome: ${getValue('firstName')} ${getValue('lastName')}`,
+      `WhatsApp: ${normalizedWhatsapp(getValue('whatsapp'))}`,
+      getValue('email') ? `E-mail: ${getValue('email')}` : '',
+      'Autorizo que o WhatsApp informado seja usado para o contato direto dos interessados.',
       '',
       'Entendo que este envio é uma pré-inscrição para avaliação e não garante publicação.'
     ];
@@ -552,6 +631,8 @@
   photoInput.addEventListener('change', handlePhotos);
   form.addEventListener('input', (event) => {
     if (event.target.name !== 'confirm') form.elements.confirm.checked = false;
+    if (event.target.name === 'address') clearResolvedLocation();
+    if (currentStep === 5 && ['firstName', 'lastName', 'whatsapp'].includes(event.target.name)) renderPreview();
   });
   addressSearchButton.addEventListener('click', searchAddress);
   form.elements.address.addEventListener('keydown', (event) => {
@@ -564,7 +645,6 @@
   nextButton.addEventListener('click', () => {
     const error = validateStep(currentStep);
     if (error) return setError(error);
-    if (currentStep === 1) renderSubcategories();
     setStep(currentStep + 1);
   });
   backButton.addEventListener('click', () => setStep(currentStep - 1));
@@ -580,6 +660,7 @@
         return;
       }
     }
+    persistProfile();
     const message = composeMessage();
     if (window.NykutoWhatsApp?.open) window.NykutoWhatsApp.open(phone, message);
     else window.location.href = `whatsapp://send?phone=${phone}&text=${encodeURIComponent(message)}`;
@@ -605,6 +686,7 @@
   });
 
   window.addEventListener('beforeunload', clearPhotoUrls);
+  loadSavedProfile();
   const presetCategory = new URLSearchParams(window.location.search).get('categoria');
   const presetInput = presetCategory
     ? [...form.elements.category].find((input) => input.value === presetCategory)

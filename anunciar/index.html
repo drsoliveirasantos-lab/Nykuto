@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#174f43" />
   <title>Anunciar no Nykuto Local — CDE e Foz</title>
-  <meta name="description" content="Cadastre em poucos passos um produto, imóvel, frete, serviço ou pedido em Foz e prepare o envio pelo WhatsApp." />
+  <meta name="description" content="Anuncie em poucos passos um produto, imóvel, frete ou serviço e informe o WhatsApp que receberá os contatos diretamente." />
   <link rel="canonical" href="https://demo.nykuto.com/anunciar/" />
   <link rel="icon" href="/assets/nykuto-emblem-favicon.png" type="image/png" />
   <link rel="stylesheet" href="/styles.css?v=20260823-1" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-  <link rel="stylesheet" href="/demo-imobiliaria.css?v=20260827-3" />
+  <link rel="stylesheet" href="/demo-imobiliaria.css?v=20260828-1" />
 </head>
 <body class="real-estate-demo-page" data-demo-page="announce" data-whatsapp-phone="33768345608">
   <a class="skip-link" href="#anuncio-etapa-1">Ir para o cadastro</a>
@@ -23,11 +23,11 @@
             <span><strong>Nykuto Local</strong><small>CDE ↔ Foz</small></span>
           </a>
           <nav class="demo-agency-nav" aria-label="Navegação principal">
-            <a href="/">Início</a><a href="/imoveis/">Imóveis</a><a href="/mapa/">Mapa</a><a href="/favoritos/">Favoritos</a>
+            <a href="/">Comprar</a><a href="/imoveis/">Imóveis</a><a href="/anunciar/" aria-current="page">Anunciar</a>
           </nav>
           <div class="demo-header-actions">
             <a class="demo-owner-link" href="/anunciar/" aria-current="page">Anunciar</a>
-            <a class="demo-manager-button" href="/gestor/login/" aria-label="Entrar na gestão de imóveis"><span aria-hidden="true">▣</span> Entrar</a>
+            <a class="demo-manager-button" href="/conta/" aria-label="Abrir meu perfil"><span aria-hidden="true">◎</span> Perfil</a>
           </div>
         </header>
 
@@ -46,7 +46,7 @@
             <li data-wizard-progress="2"><span>2</span><small>Tipo</small></li>
             <li data-wizard-progress="3"><span>3</span><small>Anúncio</small></li>
             <li data-wizard-progress="4"><span>4</span><small>Zona</small></li>
-            <li data-wizard-progress="5"><span>5</span><small>Revisar</small></li>
+            <li data-wizard-progress="5"><span>5</span><small>Contato</small></li>
           </ol>
 
           <form class="nykuto-wizard-form" data-listing-form novalidate>
@@ -54,7 +54,7 @@
               <div class="nykuto-step-heading"><span>1 de 5</span><h2 id="wizard-category-title">Escolha a categoria</h2><p>Toque no que mais combina com o seu anúncio.</p></div>
               <fieldset class="nykuto-choice-grid nykuto-category-choices">
                 <legend class="sr-only">Categoria do anúncio</legend>
-                <label><input type="radio" name="category" value="Produto" /><span aria-hidden="true">▣</span><strong>Produto</strong><small>Comprar ou vender</small></label>
+                <label><input type="radio" name="category" value="Produto" /><span aria-hidden="true">▣</span><strong>Produto</strong><small>Vender um produto</small></label>
                 <label><input type="radio" name="category" value="Imóvel" /><span aria-hidden="true">⌂</span><strong>Imóvel</strong><small>Alugar ou vender</small></label>
                 <label><input type="radio" name="category" value="Frete ou mudança" /><span aria-hidden="true">▤</span><strong>Frete</strong><small>Entrega ou mudança</small></label>
                 <label><input type="radio" name="category" value="Serviço local" /><span aria-hidden="true">◇</span><strong>Serviço</strong><small>Oferecer seu trabalho</small></label>
@@ -87,7 +87,7 @@
                 </div>
 
                 <label class="nykuto-field"><span>Moeda</span><select name="currency"><option value="R$">R$</option><option value="Gs.">Gs.</option><option value="US$">US$</option></select></label>
-                <label class="nykuto-field"><span>Preço</span><input name="price" type="text" inputmode="decimal" maxlength="20" placeholder="0,00" /></label>
+                <label class="nykuto-field"><span>Preço</span><input name="price" type="text" inputmode="decimal" maxlength="20" placeholder="0,00" aria-label="Preço, somente números" /></label>
                 <label class="nykuto-field"><span>Forma do preço</span><select name="priceMode"><option value="">Selecione</option><option>Preço fixo</option><option>Negociável</option><option>Sob consulta</option><option>Grátis</option></select></label>
                 <label class="nykuto-field" data-condition-field><span data-condition-label>Estado</span><select name="condition" data-condition-select></select></label>
               </div>
@@ -119,47 +119,36 @@
             </section>
 
             <section class="nykuto-wizard-step" data-wizard-step="5" aria-labelledby="wizard-review-title" hidden>
-              <div class="nykuto-step-heading"><span>5 de 5</span><h2 id="wizard-review-title">Confira antes de enviar</h2><p>Esta é a prévia das informações que seguirão para avaliação.</p></div>
+              <div class="nykuto-step-heading"><span>5 de 5</span><h2 id="wizard-review-title">Seu contato e a prévia</h2><p>Os interessados falarão diretamente com o WhatsApp informado aqui.</p></div>
+              <section class="nykuto-contact-panel" id="contato" data-contact-panel aria-labelledby="contact-panel-title">
+                <header><div><span>Perfil rápido</span><h3 id="contact-panel-title">Quem está anunciando?</h3></div><b>Contato direto</b></header>
+                <div class="nykuto-form-grid">
+                  <label class="nykuto-field"><span>Nome</span><input name="firstName" type="text" maxlength="50" autocomplete="given-name" required /></label>
+                  <label class="nykuto-field"><span>Sobrenome</span><input name="lastName" type="text" maxlength="60" autocomplete="family-name" required /></label>
+                  <label class="nykuto-field"><span>E-mail <small>(opcional)</small></span><input name="email" type="email" maxlength="120" autocomplete="email" inputmode="email" /></label>
+                  <label class="nykuto-field"><span>WhatsApp</span><input name="whatsapp" type="tel" maxlength="20" autocomplete="tel" inputmode="tel" placeholder="Ex.: +595 981 123 456" required /></label>
+                </div>
+                <label class="nykuto-profile-memory"><input type="checkbox" name="publicContact" required /><span>Autorizo que este WhatsApp apareça no anúncio para contato direto.</span></label>
+                <label class="nykuto-profile-memory"><input type="checkbox" name="rememberProfile" /><span>Lembrar estes dados neste aparelho para o próximo anúncio.</span></label>
+                <p><strong>Contato direto:</strong> este será o WhatsApp exibido na publicação. A Nykuto não recebe o pagamento e não cobra comissão sobre a negociação.</p>
+              </section>
               <div class="nykuto-listing-preview" data-listing-preview></div>
               <label class="nykuto-review-confirm"><input type="checkbox" name="confirm" /><span>Confirmo que as informações são verdadeiras e que o item ou serviço é permitido.</span></label>
-              <div class="nykuto-review-note"><strong>Como funciona agora</strong><p>O site não armazena o formulário. A mensagem abre no WhatsApp para revisão manual; o envio não garante publicação. As fotos selecionadas devem ser anexadas na conversa.</p></div>
+              <div class="nykuto-review-note"><strong>Piloto atual</strong><p>Esta versão ainda prepara o cadastro no WhatsApp para ativação inicial. As fotos ficam no aparelho e devem ser anexadas na conversa. Nenhuma publicação automática é simulada.</p></div>
             </section>
 
             <p class="nykuto-wizard-error" data-wizard-error role="alert" hidden></p>
             <footer class="nykuto-wizard-actions">
               <button type="button" class="nykuto-wizard-back" data-wizard-back hidden><span aria-hidden="true">←</span> Voltar</button>
               <button type="button" class="nykuto-wizard-next" data-wizard-next>Continuar <span aria-hidden="true">→</span></button>
-              <button type="submit" class="nykuto-wizard-submit" data-wizard-submit hidden>Enviar pelo WhatsApp <span aria-hidden="true">↗</span></button>
+              <button type="submit" class="nykuto-wizard-submit" data-wizard-submit hidden>Continuar no WhatsApp <span aria-hidden="true">↗</span></button>
             </footer>
           </form>
         </section>
 
         <section class="nykuto-listing-shortcuts" aria-label="Outros caminhos">
-          <a href="/?acao=preciso"><span aria-hidden="true">⌕</span><div><strong>Está procurando algo?</strong><small>Publique um pedido “Preciso de…”</small></div><b>→</b></a>
+          <a href="/"><span aria-hidden="true">⌕</span><div><strong>Quer comprar?</strong><small>Volte ao catálogo e explore as categorias</small></div><b>→</b></a>
           <a href="/gestor/login/"><span aria-hidden="true">⌂</span><div><strong>Já administra imóveis?</strong><small>Entre no painel profissional</small></div><b>→</b></a>
-        </section>
-
-        <section class="demo-publish-process" id="como-anunciar">
-          <div class="demo-publish-heading"><p>Demonstração imobiliária</p><h2>A vitrine de imóveis continua disponível.</h2><span>Depois do cadastro manual, a gestão imobiliária protegida permite organizar fotos, custos, disponibilidade e zona aproximada.</span><a class="demo-manager-login-cta" href="/imoveis/">Ver imóveis demonstrativos <span aria-hidden="true">→</span></a></div>
-          <ol>
-            <li><details open><summary><b>01</b><strong>Até cinco fotos</strong><i aria-hidden="true">＋</i></summary><p>Ordene as imagens que devem aparecer na ficha.</p></details></li>
-            <li><details><summary><b>02</b><strong>Custos separados</strong><i aria-hidden="true">＋</i></summary><p>Aluguel, garantia, taxa e despesas ficam claros.</p></details></li>
-            <li><details><summary><b>03</b><strong>Zona protegida</strong><i aria-hidden="true">＋</i></summary><p>O endereço exato não aparece na vitrine pública.</p></details></li>
-          </ol>
-        </section>
-
-        <section class="demo-assessoria-preview" id="area-assessoria">
-          <div class="demo-publish-heading"><p>Área da assessoria</p><h2>Gestão imobiliária em modo demonstração.</h2><span>Teste como uma imobiliária pode atualizar status, capa e disponibilidade das ofertas.</span><a class="demo-manager-login-cta" href="/gestor/login/">Entrar para testar <span aria-hidden="true">→</span></a></div>
-          <div class="demo-assessoria-dashboard">
-            <div class="demo-assessoria-toolbar"><div><span>Visão geral</span><strong>Meus imóveis</strong></div><a href="#anuncio-etapa-1">＋ Novo anúncio</a></div>
-            <div class="demo-manager-stats"><div><span>Publicados</span><strong>5</strong><small>demonstrativos</small></div><div><span>A revisar</span><strong>2</strong><small>exemplo</small></div><div><span>Reservados</span><strong>1</strong><small>exemplo</small></div></div>
-            <div class="demo-assessoria-list" aria-label="Exemplo de imóveis gerenciados">
-              <article><img src="/assets/demo-imobiliaria/local-studio-01.webp" alt="" width="72" height="58" /><div><strong>NYK-CDE-01</strong><small>Monoambiente · KM 7</small></div><b data-manager-status>Publicado</b></article>
-              <article><img src="/assets/demo-imobiliaria/local-premium-08.webp" alt="" width="72" height="58" data-announce-preview-image /><div><strong>NYK-CDE-05</strong><small>Residencial premium</small></div><b>Revisar</b></article>
-            </div>
-            <div class="demo-assessoria-actions"><a href="#anuncio-etapa-1"><span>＋</span><div><strong>Publicar</strong><p>Novo anúncio</p></div></a><button type="button" data-manager-action="status"><span>↻</span><div><strong>Status</strong><p>Disponível ou reservado</p></div></button><button type="button" data-manager-action="media"><span>▣</span><div><strong>Capa</strong><p>Trocar a imagem</p></div></button></div>
-            <p class="demo-assessoria-feedback" data-manager-feedback aria-live="polite">Toque em uma ação para testar a prévia.</p>
-          </div>
         </section>
 
         <footer class="demo-app-footer"><span><strong>Nykuto Local</strong> · CDE ↔ Foz</span><span>Pré-inscrição sem garantia de publicação · <a href="https://nykuto.com/confidentialite">Privacidade</a></span><a href="/">Voltar ao início <span aria-hidden="true">↗</span></a></footer>
@@ -167,10 +156,10 @@
     </section>
   </main>
 
-  <nav class="demo-mobile-nav" aria-label="Navegação móvel"><a href="/"><span aria-hidden="true">⌕</span> Explorar</a><a href="/imoveis/"><span aria-hidden="true">⌂</span> Imóveis</a><a href="/?acao=preciso"><span aria-hidden="true">＋</span> Preciso</a><a href="/anunciar/" aria-current="page"><span aria-hidden="true">＋</span> Anunciar</a></nav>
+  <nav class="demo-mobile-nav" aria-label="Navegação móvel"><a href="/"><span aria-hidden="true">⌕</span> Comprar</a><a href="/imoveis/"><span aria-hidden="true">⌂</span> Imóveis</a><a class="nykuto-mobile-announce" href="/anunciar/" aria-current="page"><span aria-hidden="true">＋</span> Anunciar</a><a href="/conta/"><span aria-hidden="true">◎</span> Perfil</a></nav>
   <div class="demo-toast" data-demo-toast-output role="status" aria-live="polite" hidden></div>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
   <script src="/whatsapp-launcher.js?v=20260823-2" defer></script>
-  <script src="/anunciar/anunciar.js?v=20260827-3" defer></script>
+  <script src="/anunciar/anunciar.js?v=20260828-1" defer></script>
 </body>
 </html>
