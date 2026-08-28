@@ -4245,7 +4245,7 @@
 }
 
 .nykuto-map-point-selector { margin-bottom: 7px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.nykuto-map-point-selector > span { color: var(--demo-muted); font-size: 8px; font-weight: 800; }
+.nykuto-map-point-selector > span { color: var(--demo-muted); font-size: 10px; font-weight: 800; }
 .nykuto-map-point-selector > div { display: grid; grid-template-columns: repeat(2, auto); gap: 5px; }
 .nykuto-map-point-selector button {
   min-height: 40px;
