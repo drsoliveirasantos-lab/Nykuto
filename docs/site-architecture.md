@@ -53,6 +53,7 @@ demo-imobiliaria.css           Real-estate demo interface styles
 i18n.js                        FR/EN/PT/ES translations and language state
 script.js                      Shared interactions
 demo-imobiliaria.js            Static demo inventory, filters, map and dialogs
+demo-build-stamp.js             Visible demo release marker
 nykuto-local.js                Live local catalogue, filters and request routing
 assets/                        Production images
 assets/demo-imobiliaria/       Optimised, neutralised real-estate demo media
