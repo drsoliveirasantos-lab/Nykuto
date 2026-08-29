@@ -16,11 +16,11 @@ export const LOCAL_STATUSES = new Set(['published', 'paused', 'sold', 'hidden', 
 export const LOCAL_LISTING_KINDS = new Set(['offer', 'request']);
 export const LOCAL_ZONE_RADII = new Set([50, 200, 500, 1000, 2000, 3000, 5000]);
 export const PUBLIC_STATUSES = new Set(['published']);
-export const MAX_MEDIA_COUNT = 5;
+export const MAX_MEDIA_COUNT = 2;
 // Keep the D1 compatibility fallback within conservative Worker CPU/storage
 // budgets until the account-level R2 service is enabled.
 export const MAX_MEDIA_BYTES = 300000;
-export const MAX_TOTAL_MEDIA_BYTES = 1250000;
+export const MAX_TOTAL_MEDIA_BYTES = MAX_MEDIA_COUNT * MAX_MEDIA_BYTES;
 
 const blockedTerms = [
   'arma de fogo', 'municao', 'munição', 'cocaina', 'cocaína', 'maconha', 'droga',

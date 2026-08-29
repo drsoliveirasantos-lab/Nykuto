@@ -4,6 +4,7 @@
   const OPENFREEMAP_STYLE = 'https://tiles.openfreemap.org/styles/liberty';
   const DEFAULT_OSM_HOST = 'tile.openstreetmap.org';
   const IS_CARPOOL_PUBLISHER = new URLSearchParams(window.location.search).get('categoria') === 'Carona compartilhada';
+  const MAX_PHOTO_COUNT = 2;
 
   function isIOSDevice() {
     const ua = navigator.userAgent || '';
@@ -82,7 +83,7 @@
     }
 
     input.addEventListener('change', () => {
-      const files = [...(input.files || [])].slice(0, 5);
+      const files = [...(input.files || [])].slice(0, MAX_PHOTO_COUNT);
       if (!files.length) return;
       help.textContent = `🟡 Verificando ${files.length} foto${files.length > 1 ? 's' : ''} agora…`;
       help.style.color = '#8a6a08';

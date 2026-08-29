@@ -67,6 +67,7 @@
   const carpoolMode = initialParams.get('categoria') === 'Carona compartilhada';
   const directPublishMode = !carpoolMode;
   const wizardSequence = carpoolMode ? [2, 4, 5] : [1, 2, 3, 4, 5];
+  const MAX_PHOTO_COUNT = 2;
 
   const subcategories = {
     Produto: ['Móveis e decoração', 'Eletrodomésticos', 'Eletrônicos e informática', 'Celular e acessórios', 'Moda e acessórios', 'Veículos e peças', 'Outro produto'],
@@ -741,8 +742,8 @@
       photoInput.value = '';
       return;
     }
-    selectedFiles = incoming.slice(0, 5);
-    if (incoming.length > 5) setError('Somente as cinco primeiras fotos foram mantidas.');
+    selectedFiles = incoming.slice(0, MAX_PHOTO_COUNT);
+    if (incoming.length > MAX_PHOTO_COUNT) setError('Somente as duas primeiras fotos foram mantidas.');
     else setError();
     renderPhotos();
   }
