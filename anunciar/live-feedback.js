@@ -58,6 +58,11 @@
     let source;
     let cleanup = () => {};
     try {
+      const sharedPipeline = window.NykutoPhotoPipeline;
+      if (typeof sharedPipeline?.optimizePhoto === 'function') {
+        const optimized = await sharedPipeline.optimizePhoto(file, 0);
+        return Boolean(optimized?.size && optimized.size <= sharedPipeline.maxBytes);
+      }
       if ('createImageBitmap' in window) {
         source = await createImageBitmap(file);
         cleanup = () => source.close?.();
