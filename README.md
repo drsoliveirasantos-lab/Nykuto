@@ -32,6 +32,7 @@ The build copies the production sources to `out/`, `dist/` and `.vercel/output/s
 - `i18n.js` — accessible FR/EN/PT/ES selector, translations and language persistence;
 - `script.js` — navigation, reveal effects, localized estimator and mailto contact helper;
 - `demo-imobiliaria.html`, `demo-imobiliaria.css` and `demo-imobiliaria.js` — local portal and property catalogue;
+- `demo-build-stamp.js` — visible release marker used to confirm the deployed demo version;
 - `nykuto-local.js` — progressive local-category request composer and WhatsApp handoff;
 - `anunciar/anunciar.js` — mobile-first listing wizard, local photo previews, approximate map zone and structured WhatsApp handoff;
 - `assets/` — production imagery;
