@@ -3,6 +3,7 @@
 
   const OPENFREEMAP_STYLE = 'https://tiles.openfreemap.org/styles/liberty';
   const DEFAULT_OSM_HOST = 'tile.openstreetmap.org';
+  const IS_CARPOOL_PUBLISHER = new URLSearchParams(window.location.search).get('categoria') === 'Carona compartilhada';
 
   function isIOSDevice() {
     const ua = navigator.userAgent || '';
@@ -106,7 +107,7 @@
   }
 
   function vectorMapsSupported(L) {
-    if (isIOSDevice()) return false;
+    if (isIOSDevice() && !IS_CARPOOL_PUBLISHER) return false;
     if (!window.maplibregl || typeof L.maplibreGL !== 'function') return false;
     if (typeof window.maplibregl.supported === 'function') {
       try { return window.maplibregl.supported(); } catch (_) { return false; }

@@ -142,7 +142,10 @@ through MapLibre GL. It requires no user API key. If vector rendering is not
 supported or the style cannot load, `anunciar/openfreemap-basemap.js` restores
 the standard OpenStreetMap raster layer automatically, so location selection
 and route publication remain usable. Provider and OpenStreetMap attribution
-must remain visible in either mode.
+must remain visible in either mode. Photo-capable publisher flows keep the
+raster map on iPhone and iPad to protect Mobile Safari's graphics-memory budget;
+the dedicated carpool flow can use the vector map because it omits photo
+selection and still retains the automatic raster fallback.
 
 `/conta/` is a real lightweight online profile. A secure `HttpOnly`, `Secure`,
 `SameSite=Lax` cookie keeps a passwordless 180-day device session; unsafe
