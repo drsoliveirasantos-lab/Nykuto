@@ -129,7 +129,7 @@ Turnstile and publishes atomically to a separate `LOCAL_DB` D1 database.
 
 The preferred image store is the private `LOCAL_MEDIA` R2 binding. Because R2
 is not yet enabled at account level, the pilot has an explicit constrained D1
-fallback: five images maximum, 300 KB each and 1.25 MB total. Exact typed
+fallback: two images maximum, 300 KB each and 600 KB total. Exact typed
 addresses are never sent to the publication API. The author chooses a public
 radius of about 50 m, 200 m, 500 m, 1 km, 2 km, 3 km or 5 km; coordinates are
 rounded to four decimals so that small selected radii remain coherent. The UI

@@ -397,7 +397,7 @@ export async function onRequestPost({ request, env }) {
 
   let images;
   try { images = await resolveImages(form.getAll('photos')); } catch (error) {
-    const message = error.message === 'TOO_MANY_PHOTOS' ? 'Escolha no máximo cinco fotos.' : 'Cada foto deve ser JPG, PNG ou WebP e ter até 300 KB após otimização.';
+    const message = error.message === 'TOO_MANY_PHOTOS' ? 'Escolha no máximo duas fotos.' : 'Cada foto deve ser JPG, PNG ou WebP e ter até 300 KB após otimização.';
     return json({ ok: false, code: error.message, message }, 422);
   }
   if (listing.kind === 'offer' && ['Produto', 'Imóvel'].includes(listing.category) && images.length === 0) return json({ ok: false, code: 'PHOTO_REQUIRED', message: 'Adicione pelo menos uma foto para este anúncio.' }, 422);

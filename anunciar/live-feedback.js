@@ -18,6 +18,7 @@
   let suggestionController = null;
   let reverseController = null;
   let photoRun = 0;
+  const MAX_PHOTO_COUNT = 2;
 
   const style = document.createElement('style');
   style.textContent = `
@@ -94,7 +95,7 @@
 
   async function validatePhotosNow() {
     const run = ++photoRun;
-    const files = [...(photoInput.files || [])].slice(0, 5);
+    const files = [...(photoInput.files || [])].slice(0, MAX_PHOTO_COUNT);
     if (!files.length) return;
     photoHelp.classList.remove('is-valid', 'is-invalid');
     photoHelp.textContent = `Verificando ${files.length} foto${files.length > 1 ? 's' : ''}…`;
