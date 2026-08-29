@@ -68,6 +68,9 @@
   const directPublishMode = !carpoolMode;
   const wizardSequence = carpoolMode ? [2, 4, 5] : [1, 2, 3, 4, 5];
   const MAX_PHOTO_COUNT = 2;
+  const MAX_OPTIMIZED_PHOTO_BYTES = 300000;
+  const MAX_TOTAL_PHOTO_BYTES = MAX_PHOTO_COUNT * MAX_OPTIMIZED_PHOTO_BYTES;
+  const photoOptimizationCache = new WeakMap();
 
   const subcategories = {
     Produto: ['Móveis e decoração', 'Eletrodomésticos', 'Eletrônicos e informática', 'Celular e acessórios', 'Moda e acessórios', 'Veículos e peças', 'Outro produto'],
@@ -1378,7 +1381,8 @@
     if ('createImageBitmap' in window) {
       try {
         const bitmap = await createImageBitmap(file);
-        return { image: bitmap, width: bitmap.width, height: bitmap.height, cleanup: () => bitmap.close() };
+        if (bitmap.width && bitmap.height) return { image: bitmap, width: bitmap.width, height: bitmap.height, cleanup: () => bitmap.close?.() };
+        bitmap.close?.();
       } catch (_) {
         // The regular image decoder below supports a few formats that createImageBitmap may reject.
       }
@@ -1386,11 +1390,16 @@
     const url = URL.createObjectURL(file);
     const image = new Image();
     image.decoding = 'async';
-    await new Promise((resolve, reject) => {
-      image.addEventListener('load', resolve, { once: true });
-      image.addEventListener('error', reject, { once: true });
-      image.src = url;
-    });
+    try {
+      await new Promise((resolve, reject) => {
+        image.addEventListener('load', resolve, { once: true });
+        image.addEventListener('error', reject, { once: true });
+        image.src = url;
+      });
+    } catch (error) {
+      URL.revokeObjectURL(url);
+      throw error;
+    }
     return { image, width: image.naturalWidth, height: image.naturalHeight, cleanup: () => URL.revokeObjectURL(url) };
   }
 
@@ -1398,35 +1407,63 @@
     return new Promise((resolve) => canvas.toBlob(resolve, type, quality));
   }
 
-  async function optimizePhoto(file, index) {
+  async function compressPhoto(file) {
     const source = await loadImage(file);
+    const canvas = document.createElement('canvas');
     try {
       let maxDimension = 1400;
       let quality = 0.8;
       let blob = null;
-      for (let attempt = 0; attempt < 5; attempt += 1) {
+      for (let attempt = 0; attempt < 7; attempt += 1) {
         const scale = Math.min(1, maxDimension / Math.max(source.width, source.height));
         const width = Math.max(1, Math.round(source.width * scale));
         const height = Math.max(1, Math.round(source.height * scale));
-        const canvas = document.createElement('canvas');
         canvas.width = width;
         canvas.height = height;
         const context = canvas.getContext('2d', { alpha: false });
-        context.fillStyle = '#ffffff';
-        context.fillRect(0, 0, width, height);
-        context.drawImage(source.image, 0, 0, width, height);
-        blob = await canvasBlob(canvas, 'image/webp', quality) || await canvasBlob(canvas, 'image/jpeg', quality);
-        if (blob && blob.size <= 300000) break;
+        if (context) {
+          try {
+            context.fillStyle = '#ffffff';
+            context.fillRect(0, 0, width, height);
+            context.drawImage(source.image, 0, 0, width, height);
+            // JPEG canvas encoding is consistently available on Mobile Safari.
+            // A WebP request may silently return a much larger PNG blob there.
+            const encoded = await canvasBlob(canvas, 'image/jpeg', quality);
+            blob = encoded?.type === 'image/jpeg' ? encoded : null;
+          } catch (_) {
+            blob = null;
+          }
+        }
+        if (blob && blob.size <= MAX_OPTIMIZED_PHOTO_BYTES) break;
         maxDimension = Math.round(maxDimension * 0.82);
         quality = Math.max(0.56, quality - 0.06);
       }
-      if (!blob || blob.size > 300000) throw new Error('PHOTO_TOO_LARGE');
-      const extension = blob.type === 'image/webp' ? 'webp' : 'jpg';
-      return new File([blob], `nykuto-${index + 1}.${extension}`, { type: blob.type });
+      if (!blob || blob.size > MAX_OPTIMIZED_PHOTO_BYTES) throw new Error('PHOTO_TOO_LARGE');
+      return blob;
     } finally {
+      canvas.width = 1;
+      canvas.height = 1;
       source.cleanup();
     }
   }
+
+  async function optimizePhoto(file, index) {
+    let pending = photoOptimizationCache.get(file);
+    if (!pending) {
+      pending = compressPhoto(file);
+      photoOptimizationCache.set(file, pending);
+      pending.catch(() => {
+        if (photoOptimizationCache.get(file) === pending) photoOptimizationCache.delete(file);
+      });
+    }
+    const blob = await pending;
+    return new File([blob], `nykuto-${index + 1}.jpg`, { type: 'image/jpeg' });
+  }
+
+  window.NykutoPhotoPipeline = Object.freeze({
+    maxBytes: MAX_OPTIMIZED_PHOTO_BYTES,
+    optimizePhoto
+  });
 
   async function optimizedPhotos() {
     const photos = [];
@@ -1435,7 +1472,7 @@
       photos.push(await optimizePhoto(selectedFiles[index], index));
     }
     const total = photos.reduce((sum, photo) => sum + photo.size, 0);
-    if (total > 1250000) throw new Error('PHOTOS_TOO_LARGE');
+    if (total > MAX_TOTAL_PHOTO_BYTES) throw new Error('PHOTOS_TOO_LARGE');
     photoHelp.textContent = `${photos.length} foto${photos.length === 1 ? '' : 's'} otimizada${photos.length === 1 ? '' : 's'} e pronta${photos.length === 1 ? '' : 's'} para publicação.`;
     return photos;
   }

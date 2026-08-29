@@ -64,6 +64,11 @@
       let bitmap;
       let url;
       try {
+        const sharedPipeline = window.NykutoPhotoPipeline;
+        if (typeof sharedPipeline?.optimizePhoto === 'function') {
+          const optimized = await sharedPipeline.optimizePhoto(file, 0);
+          return Boolean(optimized?.size && optimized.size <= sharedPipeline.maxBytes);
+        }
         if (typeof createImageBitmap === 'function') {
           bitmap = await createImageBitmap(file);
           const ok = Boolean(bitmap.width && bitmap.height);
@@ -154,7 +159,7 @@
   function loadLiveFeedback() {
     if (document.querySelector('script[data-nykuto-live-feedback]')) return;
     const script = document.createElement('script');
-    script.src = `/anunciar/live-feedback.js?v=20260828-4-${Date.now()}`;
+    script.src = `/anunciar/live-feedback.js?v=20260829-4-${Date.now()}`;
     script.dataset.nykutoLiveFeedback = 'true';
     script.addEventListener('load', () => { document.documentElement.dataset.nykutoLiveFeedback = 'loaded'; }, { once: true });
     script.addEventListener('error', () => { document.documentElement.dataset.nykutoLiveFeedback = 'error'; }, { once: true });
