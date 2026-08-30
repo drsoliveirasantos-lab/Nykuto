@@ -4,7 +4,12 @@ import {
   geolocationErrorMessage,
   isPilotCoordinate,
   roundPublicCoordinate
-} from '/anunciar/location-utils.js?v=20260830-4';
+} from '/anunciar/location-utils.js?v=20260830-5';
+import {
+  MAX_PHOTO_COUNT,
+  isDngPhoto,
+  selectSourcePhotos
+} from '/anunciar/photo-utils.js?v=20260830-5';
 
 (() => {
   const form = document.querySelector('[data-listing-form]');
@@ -76,9 +81,7 @@ import {
   const carpoolMode = initialParams.get('categoria') === 'Carona compartilhada';
   const directPublishMode = !carpoolMode;
   const wizardSequence = carpoolMode ? [2, 4, 5] : [1, 2, 3, 4, 5];
-  const MAX_PHOTO_COUNT = 2;
-  const MAX_SOURCE_PHOTO_BYTES = 25 * 1024 * 1024;
-  const MAX_OPTIMIZED_PHOTO_BYTES = 300000;
+  const MAX_OPTIMIZED_PHOTO_BYTES = 180000;
   const MAX_TOTAL_PHOTO_BYTES = MAX_PHOTO_COUNT * MAX_OPTIMIZED_PHOTO_BYTES;
   const photoOptimizationCache = new WeakMap();
 
@@ -780,26 +783,23 @@ import {
   }
 
   function handlePhotos() {
-    const incoming = [...(photoInput.files || [])];
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif', 'image/heic-sequence', 'image/heif-sequence'];
-    const invalid = incoming.find((file) => {
-      const allowedExtension = /\.(?:jpe?g|png|webp|heic|heif)$/i.test(file.name);
-      return (!allowedTypes.includes(String(file.type || '').toLocaleLowerCase('en-US')) && !allowedExtension)
-        || file.size > MAX_SOURCE_PHOTO_BYTES;
-    });
-    if (invalid) {
+    const selection = selectSourcePhotos(photoInput.files);
+    if (selection.error) {
       selectedFiles = [];
       photoInput.value = '';
       renderPhotos();
       photoHelp.classList.remove('is-valid');
       photoHelp.classList.add('is-invalid');
-      photoHelp.textContent = 'Use fotos JPG, PNG, WebP ou HEIC/HEIF com até 25 MB cada.';
-      setError('Use fotos JPG, PNG, WebP ou HEIC/HEIF com até 25 MB cada.');
+      const message = selection.error === 'PHOTO_TOO_LARGE'
+        ? `A foto escolhida tem ${(selection.rejectedFile.size / 1024 / 1024).toLocaleString('pt-BR', { maximumFractionDigits: 1 })} MB. Use uma foto com até 100 MB.`
+        : 'O arquivo escolhido não parece ser uma foto. Escolha uma imagem da galeria ou tire uma nova foto.';
+      photoHelp.textContent = message;
+      setError(message);
       return;
     }
-    selectedFiles = incoming.slice(0, MAX_PHOTO_COUNT);
+    selectedFiles = selection.files;
     photoHelp.classList.remove('is-valid', 'is-invalid');
-    if (incoming.length > MAX_PHOTO_COUNT) setError('Somente as duas primeiras fotos foram mantidas.');
+    if (selection.truncated) setError('Somente as duas primeiras fotos foram mantidas.');
     else setError();
     renderPhotos();
   }
@@ -1600,7 +1600,7 @@ import {
       || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   }
 
-  function withPhotoTimeout(promise, code, milliseconds = 15000) {
+  function withPhotoTimeout(promise, code, milliseconds = 25000) {
     return new Promise((resolve, reject) => {
       let settled = false;
       const timer = window.setTimeout(() => {
@@ -1627,8 +1627,8 @@ import {
   async function loadImage(file) {
     if ('createImageBitmap' in window) {
       const resizeOptions = [
-        { resizeWidth: 1280, resizeQuality: 'high', imageOrientation: 'from-image' },
-        { resizeWidth: 1280, resizeQuality: 'high' }
+        { resizeWidth: 960, resizeQuality: 'medium', imageOrientation: 'from-image' },
+        { resizeWidth: 960, resizeQuality: 'medium' }
       ];
       if (!isIOSDevice() && file.size <= 2 * 1024 * 1024) resizeOptions.push(null);
       for (const options of resizeOptions) {
@@ -1642,7 +1642,7 @@ import {
             return { image: bitmap, width: bitmap.width, height: bitmap.height, cleanup: () => bitmap.close?.() };
           }
         } catch (error) {
-          if (error?.message === 'PHOTO_DECODE_TIMEOUT') throw new Error('PHOTO_DECODE_FAILED');
+          if (error?.message === 'PHOTO_DECODE_TIMEOUT') break;
           // Safari may decode a camera photo through <img> even when createImageBitmap rejects it.
         }
         bitmap?.close?.();
@@ -1662,6 +1662,7 @@ import {
       return { image, width: image.naturalWidth, height: image.naturalHeight, cleanup: () => URL.revokeObjectURL(url) };
     } catch (_) {
       URL.revokeObjectURL(url);
+      if (isDngPhoto(file)) throw new Error('PHOTO_RAW_DECODE_FAILED');
       throw new Error('PHOTO_DECODE_FAILED');
     }
   }
@@ -1679,8 +1680,8 @@ import {
     const source = await loadImage(file);
     const canvas = document.createElement('canvas');
     try {
-      let maxDimension = 1280;
-      let quality = 0.78;
+      let maxDimension = 960;
+      let quality = 0.68;
       let blob = null;
       for (let attempt = 0; attempt < 8; attempt += 1) {
         const scale = Math.min(1, maxDimension / Math.max(source.width, source.height));
@@ -1704,7 +1705,7 @@ import {
         canvas.width = 1;
         canvas.height = 1;
         maxDimension = Math.max(480, Math.round(maxDimension * 0.82));
-        quality = Math.max(0.52, quality - 0.05);
+        quality = Math.max(0.42, quality - 0.05);
       }
       if (!blob) throw new Error('PHOTO_ENCODE_FAILED');
       if (blob.size > MAX_OPTIMIZED_PHOTO_BYTES) throw new Error('PHOTO_TOO_LARGE');
@@ -1757,6 +1758,7 @@ import {
   function photoPublishError(error) {
     const photoNumber = Number.isInteger(error?.photoIndex) ? error.photoIndex + 1 : null;
     const subject = photoNumber ? `A foto ${photoNumber}` : 'Uma das fotos';
+    if (error?.message === 'PHOTO_RAW_DECODE_FAILED') return `${subject} está em ProRAW/DNG e este navegador não conseguiu convertê-la. No app Fotos, compartilhe uma versão compatível ou use uma captura de tela.`;
     if (error?.message === 'PHOTO_DECODE_FAILED') return `${subject} não pôde ser lida neste aparelho. Remova-a e tente outra foto ou uma captura de tela.`;
     if (error?.message === 'PHOTO_ENCODE_FAILED') return `${subject} não pôde ser reduzida neste aparelho. Remova-a e escolha uma versão menor.`;
     if (['PHOTO_TOO_LARGE', 'PHOTOS_TOO_LARGE'].includes(error?.message)) return `${subject} ficou grande demais depois da otimização. Remova-a e escolha uma versão menor.`;

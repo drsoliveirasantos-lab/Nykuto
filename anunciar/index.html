@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="/styles.css?v=20260823-1" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.24.0/dist/maplibre-gl.css" />
-  <link rel="stylesheet" href="/demo-imobiliaria.css?v=20260830-4" />
+  <link rel="stylesheet" href="/demo-imobiliaria.css?v=20260830-5" />
 </head>
 <body class="real-estate-demo-page" data-demo-page="announce" data-whatsapp-phone="33768345608">
   <a class="skip-link" href="#anuncio-etapa-1">Ir para o cadastro</a>
@@ -78,8 +78,8 @@
                 <div class="nykuto-field nykuto-field-wide">
                   <span>Importar imagens <small>(até 2)</small></span>
                   <label class="nykuto-photo-picker">
-                    <input name="photos" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.heic,.heif" aria-describedby="nykuto-photo-help" multiple />
-                    <span aria-hidden="true">＋</span><strong>Adicionar imagens</strong><small>JPG, PNG, WebP ou HEIC compatível · até 25 MB cada</small>
+                    <input name="photos" type="file" accept="image/*,.heic,.heif,.dng" aria-describedby="nykuto-photo-help" multiple />
+                    <span aria-hidden="true">＋</span><strong>Adicionar imagens</strong><small>Fotos iPhone/Android · até 100 MB cada · redução automática</small>
                   </label>
                   <div class="nykuto-photo-preview" data-photo-preview aria-live="polite"></div>
                   <p class="nykuto-field-help" id="nykuto-photo-help" data-photo-help role="status" aria-live="polite">As imagens serão otimizadas antes da publicação.</p>
@@ -202,7 +202,7 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
   <script src="https://unpkg.com/maplibre-gl@5.24.0/dist/maplibre-gl.js" defer></script>
   <script src="https://unpkg.com/@maplibre/maplibre-gl-leaflet@0.1.4/leaflet-maplibre-gl.js" defer></script>
-  <script src="/anunciar/openfreemap-basemap.js?v=20260830-4" defer></script>
-  <script type="module" src="/anunciar/anunciar.js?v=20260830-4"></script>
+  <script src="/anunciar/openfreemap-basemap.js?v=20260830-5" defer></script>
+  <script type="module" src="/anunciar/anunciar.js?v=20260830-5"></script>
 </body>
 </html>

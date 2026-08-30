@@ -30,5 +30,7 @@ jobs:
         run: npm run typecheck
       - name: Validate Cloudflare Pages Functions
         run: npm run functions:check
+      - name: Run publisher regression tests
+        run: npm test
       - name: Build website
         run: npm run build

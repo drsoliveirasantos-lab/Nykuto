@@ -129,11 +129,12 @@ category and subtype, title, optional description, price or contribution,
 photos, an approximate area and the author's name and WhatsApp. Hidden
 category-specific operational values use neutral defaults (`A combinar` or
 `Sob consulta`) so the interface never invents a condition, vehicle type or
-availability claim. The picker accepts at most two JPG, PNG or WebP sources,
-plus HEIC or HEIF when the browser can decode them. Client-side processing
-removes embedded metadata and converts every accepted source to a JPEG no larger
-than 300 KB before the server validates Turnstile and publishes atomically to a
-separate `LOCAL_DB` D1 database.
+availability claim. The picker accepts at most two gallery images up to 100 MB,
+including HEIC, HEIF or DNG when the browser can decode them. Client-side
+processing removes embedded metadata, reduces the longest side to at most 960 px and
+targets a JPEG no larger than 180 KB before the server validates Turnstile and
+publishes atomically to a separate `LOCAL_DB` D1 database. The server retains a
+300 KB hard ceiling for each converted image.
 
 The preferred image store is the private `LOCAL_MEDIA` R2 binding. Because R2
 is not yet enabled at account level, the pilot has an explicit constrained D1
