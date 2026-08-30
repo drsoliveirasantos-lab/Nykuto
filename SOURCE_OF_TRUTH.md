@@ -127,10 +127,13 @@ The Nykuto Local catalogue reads genuine public offers and requests from the
 separate `LOCAL_DB` D1 database. Except for shared rides, public `Anunciar` is a
 direct single-page form: category and subtype, title, optional description,
 price or contribution, up to two images, an approximate public zone and the
-author's name and WhatsApp. Category-specific operational values that are not
+author’s name and WhatsApp. Category-specific operational values that are not
 part of this essential form use neutral public defaults such as `A combinar` or
 `Sob consulta`; the interface must not infer a product's state, a vehicle type
-or an availability claim. Publication remains direct after server validation
+or an availability claim. Category, subtype and these operational values remain
+search metadata; the public detail does not repeat them as cards and instead
+prioritizes photos, title, price, description, approximate zone, seller and the
+direct WhatsApp action. Publication remains direct after server validation
 and Turnstile. Images are re-encoded in the browser to
 remove embedded metadata and limited to 300 KB each. Until account-level R2 is
 enabled, the pilot may use the explicit D1 media fallback with a 600 KB total

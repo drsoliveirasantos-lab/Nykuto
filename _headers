@@ -10,6 +10,9 @@
 /anunciar/*
   Cache-Control: no-cache, no-store, must-revalidate
 
+/anuncio/*
+  Cache-Control: no-cache, no-store, must-revalidate
+
 /gestor/*
   Cache-Control: no-store, private
   X-Robots-Tag: noindex, nofollow
