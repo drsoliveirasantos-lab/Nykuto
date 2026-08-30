@@ -1,4 +1,10 @@
 import { deriveCdeLocalReference } from '/cde-local-reference.js?v=20260830-2';
+import {
+  deviceAccuracyLabel,
+  geolocationErrorMessage,
+  isPilotCoordinate,
+  roundPublicCoordinate
+} from '/anunciar/location-utils.js?v=20260830-4';
 
 (() => {
   const form = document.querySelector('[data-listing-form]');
@@ -32,6 +38,7 @@ import { deriveCdeLocalReference } from '/cde-local-reference.js?v=20260830-2';
   const addressLabel = form.querySelector('[data-address-label]');
   const availabilityLabel = form.querySelector('[data-availability-label]');
   const preview = form.querySelector('[data-listing-preview]');
+  const currentLocationButton = form.querySelector('[data-current-location]');
   const addressSearchButton = form.querySelector('[data-address-search]');
   const locationStatus = form.querySelector('[data-location-status]');
   const locationResults = form.querySelector('[data-location-results]');
@@ -70,6 +77,7 @@ import { deriveCdeLocalReference } from '/cde-local-reference.js?v=20260830-2';
   const directPublishMode = !carpoolMode;
   const wizardSequence = carpoolMode ? [2, 4, 5] : [1, 2, 3, 4, 5];
   const MAX_PHOTO_COUNT = 2;
+  const MAX_SOURCE_PHOTO_BYTES = 25 * 1024 * 1024;
   const MAX_OPTIMIZED_PHOTO_BYTES = 300000;
   const MAX_TOTAL_PHOTO_BYTES = MAX_PHOTO_COUNT * MAX_OPTIMIZED_PHOTO_BYTES;
   const photoOptimizationCache = new WeakMap();
@@ -164,7 +172,12 @@ import { deriveCdeLocalReference } from '/cde-local-reference.js?v=20260830-2';
   let rideDestinationRequestId = 0;
   let rideRoutePending = false;
   let lastGeocodeAt = 0;
+  let geocodeQueue = Promise.resolve();
   let geocodePending = false;
+  let currentLocationPending = false;
+  let currentLocationRequestId = 0;
+  let addressSearchRequestId = 0;
+  const reverseGeocodeRequestIds = { origin: 0, destination: 0 };
   let renderedCategory = '';
   let csrfToken = '';
   let turnstileSiteKey = '';
@@ -173,6 +186,7 @@ import { deriveCdeLocalReference } from '/cde-local-reference.js?v=20260830-2';
   let turnstileAvailability = 'loading';
   let publishedUrl = '';
   const geocodeCache = new Map();
+  const reverseGeocodeCache = new Map();
 
   const getValue = (name) => String(form.elements[name]?.value || '').trim();
   const getCategory = () => getValue('category');
@@ -688,13 +702,13 @@ import { deriveCdeLocalReference } from '/cde-local-reference.js?v=20260830-2';
     locationCopy.textContent = isCarona
       ? 'Informe a saída, o destino e a hora. A rota aparece assim que os dois pontos forem marcados.'
       : 'Localize a zona e escolha a precisão que aparecerá no anúncio.';
-    addressLabel.textContent = isCarona ? 'De onde você sai?' : 'Endereço ou bairro';
+    addressLabel.textContent = isCarona ? 'De onde você sai?' : 'Endereço, bairro ou referência';
     availabilityLabel.textContent = isCarona ? 'Frequência' : 'Disponibilidade';
     if (isCarona) {
       form.elements.address.placeholder = 'Bairro, faculdade ou ponto conhecido';
       form.elements.condition.value = 'Horário confirmado';
       if (rideSeatsLabel) rideSeatsLabel.textContent = isCarpoolRequest() ? 'Quantas pessoas?' : 'Lugares disponíveis';
-      if (geocodeNote) geocodeNote.textContent = 'A busca usa o OpenStreetMap somente quando você toca em “Localizar”. O endereço exato não é publicado.';
+      if (geocodeNote) geocodeNote.textContent = 'O GPS e a busca só são acionados por você. As coordenadas são consultadas no OpenStreetMap/Nominatim; o endereço exato não é publicado.';
       if (contactNote) contactNote.innerHTML = '<strong>Contato direto:</strong> a pessoa interessada falará com você pelo WhatsApp informado.';
       if (confirmCopy) confirmCopy.textContent = 'Confirmo que os dados do trajeto estão corretos.';
       if (reviewNote) reviewNote.innerHTML = '<strong>Pronto para publicar</strong><p>Seu trajeto ficará visível e o contato seguirá diretamente pelo WhatsApp.</p>';
@@ -716,29 +730,45 @@ import { deriveCdeLocalReference } from '/cde-local-reference.js?v=20260830-2';
     photoUrls = [];
   }
 
+  function showOptimizedPhotoPreview(index, file) {
+    const figure = photoPreview.querySelectorAll('figure')[index];
+    if (!figure || !file) return;
+    const currentImage = figure.querySelector(':scope > img');
+    if (currentImage?.dataset.photoUrl) URL.revokeObjectURL(currentImage.dataset.photoUrl);
+    currentImage?.remove();
+    figure.querySelector(':scope > .nykuto-photo-fallback')?.remove();
+    const image = document.createElement('img');
+    const url = URL.createObjectURL(file);
+    photoUrls.push(url);
+    image.dataset.photoUrl = url;
+    image.src = url;
+    image.alt = `Prévia otimizada da foto ${index + 1}`;
+    image.addEventListener('error', () => {
+      image.remove();
+      const fallback = document.createElement('span');
+      fallback.className = 'nykuto-photo-fallback';
+      fallback.textContent = 'Foto pronta';
+      figure.prepend(fallback);
+    }, { once: true });
+    figure.prepend(image);
+  }
+
   function renderPhotos() {
     clearPhotoUrls();
     photoPreview.replaceChildren();
-    selectedFiles.forEach((file, index) => {
+    photoHelp.classList.remove('is-valid', 'is-invalid');
+    selectedFiles.forEach((_, index) => {
       const figure = document.createElement('figure');
-      const image = document.createElement('img');
       const button = document.createElement('button');
-      const url = URL.createObjectURL(file);
-      photoUrls.push(url);
-      image.src = url;
-      image.alt = `Prévia da foto ${index + 1}`;
-      image.addEventListener('error', () => {
-        image.remove();
-        const fallback = document.createElement('span');
-        fallback.className = 'nykuto-photo-fallback';
-        fallback.textContent = 'Foto';
-        figure.prepend(fallback);
-      }, { once: true });
+      const fallback = document.createElement('span');
+      fallback.className = 'nykuto-photo-fallback';
+      fallback.textContent = 'A verificar';
+      figure.append(fallback);
       button.type = 'button';
       button.dataset.removePhoto = String(index);
       button.setAttribute('aria-label', `Remover foto ${index + 1}`);
       button.textContent = '×';
-      figure.append(image, button);
+      figure.append(button);
       photoPreview.append(figure);
     });
     photoHelp.textContent = selectedFiles.length
@@ -746,21 +776,29 @@ import { deriveCdeLocalReference } from '/cde-local-reference.js?v=20260830-2';
       : getCategory() === 'Carona compartilhada'
         ? 'A foto do veículo é opcional. Não envie documentos, placas legíveis ou dados pessoais.'
         : 'As fotos serão otimizadas antes da publicação.';
+    photoPreview.dispatchEvent(new CustomEvent('nykuto:photos-rendered'));
   }
 
   function handlePhotos() {
     const incoming = [...(photoInput.files || [])];
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif', 'image/heic-sequence', 'image/heif-sequence'];
     const invalid = incoming.find((file) => {
-      const allowedExtension = /\.(?:jpe?g|png|webp)$/i.test(file.name);
-      return (!allowedTypes.includes(file.type) && !allowedExtension) || file.size > 10 * 1024 * 1024;
+      const allowedExtension = /\.(?:jpe?g|png|webp|heic|heif)$/i.test(file.name);
+      return (!allowedTypes.includes(String(file.type || '').toLocaleLowerCase('en-US')) && !allowedExtension)
+        || file.size > MAX_SOURCE_PHOTO_BYTES;
     });
     if (invalid) {
-      setError('Use somente fotos JPG, PNG ou WebP com até 10 MB cada.');
+      selectedFiles = [];
       photoInput.value = '';
+      renderPhotos();
+      photoHelp.classList.remove('is-valid');
+      photoHelp.classList.add('is-invalid');
+      photoHelp.textContent = 'Use fotos JPG, PNG, WebP ou HEIC/HEIF com até 25 MB cada.';
+      setError('Use fotos JPG, PNG, WebP ou HEIC/HEIF com até 25 MB cada.');
       return;
     }
     selectedFiles = incoming.slice(0, MAX_PHOTO_COUNT);
+    photoHelp.classList.remove('is-valid', 'is-invalid');
     if (incoming.length > MAX_PHOTO_COUNT) setError('Somente as duas primeiras fotos foram mantidas.');
     else setError();
     renderPhotos();
@@ -879,6 +917,37 @@ import { deriveCdeLocalReference } from '/cde-local-reference.js?v=20260830-2';
     else if (rideRouteStatus) rideRouteStatus.textContent = 'Toque no mapa para marcar para onde você vai.';
   }
 
+  function wait(milliseconds) {
+    return new Promise((resolve) => window.setTimeout(resolve, milliseconds));
+  }
+
+  function useNominatimSlot(task) {
+    const run = geocodeQueue.then(async () => {
+      const elapsed = Date.now() - lastGeocodeAt;
+      if (elapsed < 1000) await wait(1000 - elapsed);
+      lastGeocodeAt = Date.now();
+      try {
+        return await task();
+      } finally {
+        const remaining = 1000 - (Date.now() - lastGeocodeAt);
+        if (remaining > 0) await wait(remaining);
+      }
+    });
+    geocodeQueue = run.catch(() => undefined);
+    return run;
+  }
+
+  function ensureMapPanelVisible() {
+    if (!mapPanel) return;
+    if (directPublishMode) {
+      mapPanel.hidden = false;
+      mapToggleButton?.setAttribute('aria-expanded', 'true');
+      if (mapToggleButton) mapToggleButton.textContent = 'Ocultar mapa';
+    }
+    initMap();
+    window.setTimeout(() => listingMap?.invalidateSize(), 80);
+  }
+
   function initMap() {
     if (directPublishMode && mapPanel?.hidden) return;
     if (listingMap || !window.L || !mapElement) {
@@ -892,10 +961,22 @@ import { deriveCdeLocalReference } from '/cde-local-reference.js?v=20260830-2';
     }).addTo(listingMap);
     listingMap.on('click', (event) => {
       if (carpoolMode && activeMapPoint === 'destination') {
-        void setRideDestination(event.latlng.lat, event.latlng.lng, getValue('rideDestination') || 'Destino escolhido no mapa', { manual: true });
+        if (!isPilotCoordinate(event.latlng.lat, event.latlng.lng)) {
+          if (rideRouteStatus) rideRouteStatus.textContent = 'Esse ponto fica fora da região atendida. Escolha outro ponto entre CDE e Foz.';
+          return;
+        }
+        void setRideDestination(event.latlng.lat, event.latlng.lng, getValue('rideDestination') || 'Destino escolhido no mapa', { manual: true })
+          .then((updated) => {
+            if (updated) return reverseGeocodePoint(event.latlng.lat, event.latlng.lng, { destination: true });
+            return null;
+          });
         return;
       }
-      setLocation(event.latlng.lat, event.latlng.lng, carpoolMode ? 'Saída escolhida no mapa' : 'Zona escolhida no mapa', true);
+      if (setLocation(event.latlng.lat, event.latlng.lng, carpoolMode ? 'Saída escolhida no mapa' : 'Zona escolhida no mapa', true)) {
+        void reverseGeocodePoint(event.latlng.lat, event.latlng.lng);
+      } else {
+        locationStatus.textContent = 'Esse ponto fica fora da região atendida. Escolha outro ponto entre Ciudad del Este e Foz.';
+      }
     });
     const storedCoordinates = [Number(getValue('latitude')), Number(getValue('longitude'))];
     if (storedCoordinates.every(Number.isFinite) && getValue('latitude') && getValue('longitude')) {
@@ -905,14 +986,19 @@ import { deriveCdeLocalReference } from '/cde-local-reference.js?v=20260830-2';
   }
 
   function setLocation(lat, lng, label, manual = false) {
-    const coordinates = [Number(lat), Number(lng)];
-    if (!coordinates.every(Number.isFinite)) return;
+    if (!isPilotCoordinate(lat, lng)) return false;
+    const coordinates = [roundPublicCoordinate(lat), roundPublicCoordinate(lng)];
+    if (!coordinates.every(Number.isFinite)) return false;
+    currentLocationRequestId += 1;
+    addressSearchRequestId += 1;
+    if (currentLocationPending) setCurrentLocationPending(false);
+    reverseGeocodeRequestIds.origin += 1;
     const previousCoordinates = [Number(getValue('latitude')), Number(getValue('longitude'))];
     if (carpoolMode && previousCoordinates.every(Number.isFinite) && getValue('latitude') && getValue('longitude')
       && (Math.abs(previousCoordinates[0] - coordinates[0]) > .00001 || Math.abs(previousCoordinates[1] - coordinates[1]) > .00001)) clearRideRoute({ clearDestination: false });
     form.elements.confirm.checked = false;
-    form.elements.latitude.value = coordinates[0].toFixed(6);
-    form.elements.longitude.value = coordinates[1].toFixed(6);
+    form.elements.latitude.value = coordinates[0].toFixed(4);
+    form.elements.longitude.value = coordinates[1].toFixed(4);
     form.elements.locationLabel.value = label;
     syncCarpoolDefaults();
     if (manual) form.elements.address.value = '';
@@ -925,9 +1011,21 @@ import { deriveCdeLocalReference } from '/cde-local-reference.js?v=20260830-2';
         rideRouteStatus.textContent = 'Saída e destino salvos. O mapa não conseguiu mostrar a rota agora.';
       }
       locationResults.hidden = true;
-      return;
+      return true;
     }
-    if (!locationMarker) locationMarker = window.L.marker(coordinates).addTo(listingMap);
+    if (!locationMarker) {
+      locationMarker = window.L.marker(coordinates, { draggable: true, autoPan: true }).addTo(listingMap);
+      locationMarker.on('dragend', (event) => {
+        const point = event.target.getLatLng();
+        if (setLocation(point.lat, point.lng, carpoolMode ? 'Saída ajustada no mapa' : 'Zona ajustada no mapa', true)) {
+          void reverseGeocodePoint(point.lat, point.lng);
+        } else {
+          const previous = [Number(getValue('latitude')), Number(getValue('longitude'))];
+          if (previous.every(Number.isFinite) && getValue('latitude') && getValue('longitude')) event.target.setLatLng(previous);
+          locationStatus.textContent = 'Esse ponto fica fora da região atendida. O marcador voltou à posição anterior.';
+        }
+      });
+    }
     else locationMarker.setLatLng(coordinates);
     if (!privacyCircle) {
       privacyCircle = window.L.circle(coordinates, {
@@ -949,9 +1047,14 @@ import { deriveCdeLocalReference } from '/cde-local-reference.js?v=20260830-2';
       if (destination) void refreshRideRoute(destination[0], destination[1]);
       else setMapPointMode('destination');
     }
+    return true;
   }
 
   function clearResolvedLocation() {
+    currentLocationRequestId += 1;
+    addressSearchRequestId += 1;
+    if (currentLocationPending) setCurrentLocationPending(false);
+    reverseGeocodeRequestIds.origin += 1;
     if (!getValue('latitude') && !getValue('longitude')) return;
     if (carpoolMode) clearRideRoute({ clearDestination: false });
     form.elements.latitude.value = '';
@@ -962,7 +1065,7 @@ import { deriveCdeLocalReference } from '/cde-local-reference.js?v=20260830-2';
     locationMarker = null;
     privacyCircle = null;
     locationResults.hidden = true;
-    locationStatus.textContent = 'Endereço alterado. Toque em “Localizar” para atualizar a zona aproximada.';
+    locationStatus.textContent = 'Endereço alterado. Toque em “Buscar” para atualizar a zona aproximada.';
     if (carpoolMode) setMapPointMode('origin');
   }
 
@@ -971,6 +1074,100 @@ import { deriveCdeLocalReference } from '/cde-local-reference.js?v=20260830-2';
     const district = address.neighbourhood || address.suburb || address.quarter || address.city_district;
     const city = address.city || address.town || address.municipality || address.village;
     return [district, city].filter(Boolean).join(', ') || city || 'Região de CDE/Foz';
+  }
+
+  async function reverseGeocodePoint(lat, lng, { destination = false } = {}) {
+    if (!isPilotCoordinate(lat, lng)) return null;
+    const coordinates = [roundPublicCoordinate(lat), roundPublicCoordinate(lng)];
+    const target = destination ? 'destination' : 'origin';
+    const requestId = ++reverseGeocodeRequestIds[target];
+    const cacheKey = `${coordinates[0].toFixed(4)},${coordinates[1].toFixed(4)}`;
+    try {
+      let result = reverseGeocodeCache.get(cacheKey);
+      if (!result) {
+        result = await useNominatimSlot(async () => {
+          const params = new URLSearchParams({
+            lat: coordinates[0].toFixed(4),
+            lon: coordinates[1].toFixed(4),
+            format: 'jsonv2',
+            addressdetails: '1',
+            zoom: '16',
+            'accept-language': 'pt-BR'
+          });
+          const response = await fetch(`https://nominatim.openstreetmap.org/reverse?${params.toString()}`, { headers: { Accept: 'application/json' } });
+          if (!response.ok) throw new Error('REVERSE_GEOCODING_UNAVAILABLE');
+          return response.json();
+        });
+        reverseGeocodeCache.set(cacheKey, result);
+      }
+      if (requestId !== reverseGeocodeRequestIds[target]) return null;
+      const publicLabel = publicLocationFromResult(result);
+      if (destination) {
+        form.elements.rideDestination.value = publicRidePlace(publicLabel) || 'Destino escolhido no mapa';
+        syncCarpoolDefaults();
+        if (rideRouteStatus) rideRouteStatus.textContent = `Destino definido · ${form.elements.rideDestination.value}.`;
+      } else {
+        form.elements.address.value = result.display_name || publicLabel;
+        form.elements.locationLabel.value = publicLabel;
+        syncCarpoolDefaults();
+        locationStatus.textContent = `Ponto definido · ${publicLabel} · ${publicZoneSummary(coordinates[0], coordinates[1])}.`;
+      }
+      return result;
+    } catch (_) {
+      if (requestId !== reverseGeocodeRequestIds[target]) return null;
+      if (destination && rideRouteStatus) rideRouteStatus.textContent = 'Destino definido no mapa. O nome da zona não pôde ser carregado agora.';
+      else locationStatus.textContent = `Ponto definido · ${publicZoneSummary(coordinates[0], coordinates[1])}. O nome da zona não pôde ser carregado agora.`;
+      return null;
+    }
+  }
+
+  function setCurrentLocationPending(pending) {
+    currentLocationPending = pending;
+    if (!currentLocationButton) return;
+    currentLocationButton.disabled = pending;
+    currentLocationButton.setAttribute('aria-busy', String(pending));
+    const title = currentLocationButton.querySelector('strong');
+    const detail = currentLocationButton.querySelector('small');
+    if (title) title.textContent = pending ? 'Localizando…' : 'Usar minha localização';
+    if (detail) detail.textContent = pending ? 'Aguarde a resposta do aparelho' : 'O navegador pedirá sua autorização';
+  }
+
+  function locateCurrentPosition() {
+    if (currentLocationPending) return;
+    addressSearchRequestId += 1;
+    setError();
+    const requestId = ++currentLocationRequestId;
+    if (!window.isSecureContext || !navigator.geolocation) {
+      locationStatus.textContent = 'Este navegador não liberou o GPS. Abra no Safari/Chrome, busque uma referência ou marque o ponto no mapa.';
+      return;
+    }
+    setCurrentLocationPending(true);
+    locationStatus.textContent = 'Aguardando a autorização de localização…';
+    navigator.geolocation.getCurrentPosition((position) => {
+      if (requestId !== currentLocationRequestId) return;
+      setCurrentLocationPending(false);
+      const { latitude, longitude, accuracy } = position.coords || {};
+      if (!isPilotCoordinate(latitude, longitude)) {
+        locationStatus.textContent = 'Sua posição atual está fora da região atendida entre Ciudad del Este e Foz. Busque uma referência dentro da região.';
+        return;
+      }
+      ensureMapPanelVisible();
+      if (!setLocation(latitude, longitude, 'Localização atual')) {
+        locationStatus.textContent = 'Não foi possível marcar esta posição. Busque uma referência ou toque no mapa.';
+        return;
+      }
+      const accuracyText = deviceAccuracyLabel(accuracy);
+      locationStatus.textContent = `Localização encontrada${accuracyText ? ` · ${accuracyText}` : ''}. Você pode mover o ponto ou mudar o raio.`;
+      void reverseGeocodePoint(latitude, longitude);
+    }, (error) => {
+      if (requestId !== currentLocationRequestId) return;
+      setCurrentLocationPending(false);
+      locationStatus.textContent = geolocationErrorMessage(error);
+    }, {
+      enableHighAccuracy: true,
+      timeout: 12000,
+      maximumAge: 60000
+    });
   }
 
   function renderLocationResults(results) {
@@ -1005,22 +1202,23 @@ import { deriveCdeLocalReference } from '/cde-local-reference.js?v=20260830-2';
 
   async function searchAddress() {
     if (geocodePending) return;
+    currentLocationRequestId += 1;
+    if (currentLocationPending) setCurrentLocationPending(false);
     const query = getValue('address');
     if (query.length < 4) {
       setError('Digite pelo menos 4 caracteres para buscar o endereço.');
       form.elements.address.focus();
       return;
     }
+    const requestId = ++addressSearchRequestId;
     setError();
     const cacheKey = query.toLocaleLowerCase('pt-BR');
     if (geocodeCache.has(cacheKey)) {
+      if (requestId !== addressSearchRequestId || getValue('address') !== query) return;
       renderLocationResults(geocodeCache.get(cacheKey));
       return;
     }
     geocodePending = true;
-    const elapsed = Date.now() - lastGeocodeAt;
-    if (elapsed < 1000) await new Promise((resolve) => setTimeout(resolve, 1000 - elapsed));
-    lastGeocodeAt = Date.now();
     addressSearchButton.disabled = true;
     addressSearchButton.textContent = 'Buscando…';
     locationStatus.textContent = 'Buscando na região de CDE e Foz…';
@@ -1035,26 +1233,29 @@ import { deriveCdeLocalReference } from '/cde-local-reference.js?v=20260830-2';
         bounded: '1',
         'accept-language': 'pt-BR'
       });
-      const response = await fetch(`https://nominatim.openstreetmap.org/search?${params.toString()}`, { headers: { Accept: 'application/json' } });
-      if (!response.ok) throw new Error('Geocoding unavailable');
-      const payload = await response.json();
+      const payload = await useNominatimSlot(async () => {
+        const response = await fetch(`https://nominatim.openstreetmap.org/search?${params.toString()}`, { headers: { Accept: 'application/json' } });
+        if (!response.ok) throw new Error('Geocoding unavailable');
+        return response.json();
+      });
       const results = Array.isArray(payload) ? payload : [];
       geocodeCache.set(cacheKey, results);
+      if (requestId !== addressSearchRequestId || getValue('address') !== query) return;
       renderLocationResults(results);
     } catch (_error) {
+      if (requestId !== addressSearchRequestId || getValue('address') !== query) return;
       locationResults.hidden = true;
       locationStatus.textContent = 'A busca não respondeu. Você pode tocar diretamente no mapa para marcar a zona.';
     } finally {
-      const wait = Math.max(0, 1000 - (Date.now() - lastGeocodeAt));
-      if (wait) await new Promise((resolve) => setTimeout(resolve, wait));
       addressSearchButton.disabled = false;
-      addressSearchButton.textContent = 'Localizar';
+      addressSearchButton.textContent = 'Buscar';
       geocodePending = false;
     }
   }
 
   function clearRideRoute({ clearDestination = true } = {}) {
     rideRouteRequestId += 1;
+    if (clearDestination) reverseGeocodeRequestIds.destination += 1;
     if (listingMap && rideRouteLayer) listingMap.removeLayer(rideRouteLayer);
     rideRouteLayer = null;
     if (clearDestination) {
@@ -1165,14 +1366,15 @@ import { deriveCdeLocalReference } from '/cde-local-reference.js?v=20260830-2';
 
   async function setRideDestination(lat, lng, label, { manual = false, requestId = null } = {}) {
     const destinationRequestId = requestId ?? ++rideDestinationRequestId;
-    if (destinationRequestId !== rideDestinationRequestId) return;
-    const coordinates = [Number(lat), Number(lng)];
-    if (!coordinates.every(Number.isFinite)) return;
+    if (destinationRequestId !== rideDestinationRequestId || !isPilotCoordinate(lat, lng)) return false;
+    const coordinates = [roundPublicCoordinate(lat), roundPublicCoordinate(lng)];
+    if (!coordinates.every(Number.isFinite)) return false;
+    reverseGeocodeRequestIds.destination += 1;
     const publicLabel = publicRidePlace(label) || 'Destino escolhido no mapa';
     form.elements.confirm.checked = false;
     form.elements.rideDestination.value = publicLabel;
-    form.elements.rideDestinationLatitude.value = coordinates[0].toFixed(6);
-    form.elements.rideDestinationLongitude.value = coordinates[1].toFixed(6);
+    form.elements.rideDestinationLatitude.value = coordinates[0].toFixed(4);
+    form.elements.rideDestinationLongitude.value = coordinates[1].toFixed(4);
     if (campusDestinationSelect) {
       const matchingOption = [...campusDestinationSelect.options].find((option) => option.value === publicLabel);
       campusDestinationSelect.value = matchingOption ? publicLabel : '';
@@ -1180,9 +1382,10 @@ import { deriveCdeLocalReference } from '/cde-local-reference.js?v=20260830-2';
     if (!listingMap) initMap();
     showRideDestinationMarker(coordinates[0], coordinates[1]);
     await refreshRideRoute(coordinates[0], coordinates[1]);
-    if (destinationRequestId !== rideDestinationRequestId) return;
+    if (destinationRequestId !== rideDestinationRequestId) return false;
     if (manual && rideRouteStatus && getValue('latitude') && listingMap && window.L) rideRouteStatus.textContent = 'Destino ajustado no mapa. A rota sugerida foi atualizada.';
     syncCarpoolDefaults();
+    return true;
   }
 
   async function searchRideDestination() {
@@ -1199,9 +1402,6 @@ import { deriveCdeLocalReference } from '/cde-local-reference.js?v=20260830-2';
     rideDestinationSearchButton.disabled = true;
     rideDestinationSearchButton.textContent = 'Localizando…';
     rideRouteStatus.textContent = 'Localizando o destino no mapa…';
-    const elapsed = Date.now() - lastGeocodeAt;
-    if (elapsed < 1000) await new Promise((resolve) => setTimeout(resolve, 1000 - elapsed));
-    lastGeocodeAt = Date.now();
     try {
       const params = new URLSearchParams({
         q: query,
@@ -1213,9 +1413,11 @@ import { deriveCdeLocalReference } from '/cde-local-reference.js?v=20260830-2';
         bounded: '1',
         'accept-language': 'pt-BR'
       });
-      const response = await fetch(`https://nominatim.openstreetmap.org/search?${params.toString()}`, { headers: { Accept: 'application/json' } });
-      if (!response.ok) throw new Error('ROUTE_LOOKUP_FAILED');
-      const payload = await response.json();
+      const payload = await useNominatimSlot(async () => {
+        const response = await fetch(`https://nominatim.openstreetmap.org/search?${params.toString()}`, { headers: { Accept: 'application/json' } });
+        if (!response.ok) throw new Error('ROUTE_LOOKUP_FAILED');
+        return response.json();
+      });
       const result = Array.isArray(payload) ? payload[0] : null;
       const latitude = Number(result?.lat);
       const longitude = Number(result?.lon);
@@ -1230,7 +1432,7 @@ import { deriveCdeLocalReference } from '/cde-local-reference.js?v=20260830-2';
         : 'Não foi possível traçar a rota agora. Tente novamente.';
     } finally {
       rideDestinationSearchButton.disabled = false;
-      rideDestinationSearchButton.textContent = 'Localizar';
+      rideDestinationSearchButton.textContent = 'Buscar';
       rideRoutePending = false;
     }
   }
@@ -1392,68 +1594,120 @@ import { deriveCdeLocalReference } from '/cde-local-reference.js?v=20260830-2';
     };
   }
 
+  function isIOSDevice() {
+    const userAgent = navigator.userAgent || '';
+    return /iPhone|iPad|iPod/i.test(userAgent)
+      || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  }
+
+  function withPhotoTimeout(promise, code, milliseconds = 15000) {
+    return new Promise((resolve, reject) => {
+      let settled = false;
+      const timer = window.setTimeout(() => {
+        settled = true;
+        reject(new Error(code));
+      }, milliseconds);
+      Promise.resolve(promise).then((value) => {
+        if (settled) {
+          value?.close?.();
+          return;
+        }
+        settled = true;
+        window.clearTimeout(timer);
+        resolve(value);
+      }, (error) => {
+        if (settled) return;
+        settled = true;
+        window.clearTimeout(timer);
+        reject(error);
+      });
+    });
+  }
+
   async function loadImage(file) {
     if ('createImageBitmap' in window) {
-      try {
-        const bitmap = await createImageBitmap(file);
-        if (bitmap.width && bitmap.height) return { image: bitmap, width: bitmap.width, height: bitmap.height, cleanup: () => bitmap.close?.() };
-        bitmap.close?.();
-      } catch (_) {
-        // The regular image decoder below supports a few formats that createImageBitmap may reject.
+      const resizeOptions = [
+        { resizeWidth: 1280, resizeQuality: 'high', imageOrientation: 'from-image' },
+        { resizeWidth: 1280, resizeQuality: 'high' }
+      ];
+      if (!isIOSDevice() && file.size <= 2 * 1024 * 1024) resizeOptions.push(null);
+      for (const options of resizeOptions) {
+        let bitmap;
+        try {
+          bitmap = await withPhotoTimeout(
+            options ? createImageBitmap(file, options) : createImageBitmap(file),
+            'PHOTO_DECODE_TIMEOUT'
+          );
+          if (bitmap.width && bitmap.height) {
+            return { image: bitmap, width: bitmap.width, height: bitmap.height, cleanup: () => bitmap.close?.() };
+          }
+        } catch (error) {
+          if (error?.message === 'PHOTO_DECODE_TIMEOUT') throw new Error('PHOTO_DECODE_FAILED');
+          // Safari may decode a camera photo through <img> even when createImageBitmap rejects it.
+        }
+        bitmap?.close?.();
       }
     }
+
     const url = URL.createObjectURL(file);
     const image = new Image();
     image.decoding = 'async';
     try {
-      await new Promise((resolve, reject) => {
+      await withPhotoTimeout(new Promise((resolve, reject) => {
         image.addEventListener('load', resolve, { once: true });
         image.addEventListener('error', reject, { once: true });
         image.src = url;
-      });
-    } catch (error) {
+      }), 'PHOTO_DECODE_FAILED');
+      if (!image.naturalWidth || !image.naturalHeight) throw new Error('PHOTO_DECODE_FAILED');
+      return { image, width: image.naturalWidth, height: image.naturalHeight, cleanup: () => URL.revokeObjectURL(url) };
+    } catch (_) {
       URL.revokeObjectURL(url);
-      throw error;
+      throw new Error('PHOTO_DECODE_FAILED');
     }
-    return { image, width: image.naturalWidth, height: image.naturalHeight, cleanup: () => URL.revokeObjectURL(url) };
   }
 
   function canvasBlob(canvas, type, quality) {
-    return new Promise((resolve) => canvas.toBlob(resolve, type, quality));
+    return withPhotoTimeout(new Promise((resolve, reject) => {
+      canvas.toBlob((blob) => {
+        if (blob) resolve(blob);
+        else reject(new Error('PHOTO_ENCODE_FAILED'));
+      }, type, quality);
+    }), 'PHOTO_ENCODE_TIMEOUT');
   }
 
   async function compressPhoto(file) {
     const source = await loadImage(file);
     const canvas = document.createElement('canvas');
     try {
-      let maxDimension = 1400;
-      let quality = 0.8;
+      let maxDimension = 1280;
+      let quality = 0.78;
       let blob = null;
-      for (let attempt = 0; attempt < 7; attempt += 1) {
+      for (let attempt = 0; attempt < 8; attempt += 1) {
         const scale = Math.min(1, maxDimension / Math.max(source.width, source.height));
         const width = Math.max(1, Math.round(source.width * scale));
         const height = Math.max(1, Math.round(source.height * scale));
         canvas.width = width;
         canvas.height = height;
         const context = canvas.getContext('2d', { alpha: false });
-        if (context) {
-          try {
-            context.fillStyle = '#ffffff';
-            context.fillRect(0, 0, width, height);
-            context.drawImage(source.image, 0, 0, width, height);
-            // JPEG canvas encoding is consistently available on Mobile Safari.
-            // A WebP request may silently return a much larger PNG blob there.
-            const encoded = await canvasBlob(canvas, 'image/jpeg', quality);
-            blob = encoded?.type === 'image/jpeg' ? encoded : null;
-          } catch (_) {
-            blob = null;
-          }
+        if (!context) throw new Error('PHOTO_ENCODE_FAILED');
+        try {
+          context.fillStyle = '#ffffff';
+          context.fillRect(0, 0, width, height);
+          context.drawImage(source.image, 0, 0, width, height);
+          const encoded = await canvasBlob(canvas, 'image/jpeg', quality);
+          blob = encoded?.type === 'image/jpeg' ? encoded : null;
+          if (!blob) throw new Error('PHOTO_ENCODE_FAILED');
+        } catch (_) {
+          throw new Error('PHOTO_ENCODE_FAILED');
         }
         if (blob && blob.size <= MAX_OPTIMIZED_PHOTO_BYTES) break;
-        maxDimension = Math.round(maxDimension * 0.82);
-        quality = Math.max(0.56, quality - 0.06);
+        canvas.width = 1;
+        canvas.height = 1;
+        maxDimension = Math.max(480, Math.round(maxDimension * 0.82));
+        quality = Math.max(0.52, quality - 0.05);
       }
-      if (!blob || blob.size > MAX_OPTIMIZED_PHOTO_BYTES) throw new Error('PHOTO_TOO_LARGE');
+      if (!blob) throw new Error('PHOTO_ENCODE_FAILED');
+      if (blob.size > MAX_OPTIMIZED_PHOTO_BYTES) throw new Error('PHOTO_TOO_LARGE');
       return blob;
     } finally {
       canvas.width = 1;
@@ -1477,14 +1731,22 @@ import { deriveCdeLocalReference } from '/cde-local-reference.js?v=20260830-2';
 
   window.NykutoPhotoPipeline = Object.freeze({
     maxBytes: MAX_OPTIMIZED_PHOTO_BYTES,
-    optimizePhoto
+    optimizePhoto,
+    selectedFiles: () => selectedFiles.slice(),
+    showPreview: showOptimizedPhotoPreview
   });
 
-  async function optimizedPhotos() {
+  async function optimizedPhotos(files = selectedFiles.slice()) {
     const photos = [];
-    for (let index = 0; index < selectedFiles.length; index += 1) {
-      photoHelp.textContent = `Otimizando foto ${index + 1} de ${selectedFiles.length}…`;
-      photos.push(await optimizePhoto(selectedFiles[index], index));
+    for (let index = 0; index < files.length; index += 1) {
+      photoHelp.textContent = `Otimizando foto ${index + 1} de ${files.length}…`;
+      try {
+        photos.push(await optimizePhoto(files[index], index));
+      } catch (error) {
+        const photoError = new Error(error?.message || 'PHOTO_OPTIMIZATION_FAILED');
+        photoError.photoIndex = index;
+        throw photoError;
+      }
     }
     const total = photos.reduce((sum, photo) => sum + photo.size, 0);
     if (total > MAX_TOTAL_PHOTO_BYTES) throw new Error('PHOTOS_TOO_LARGE');
@@ -1492,31 +1754,51 @@ import { deriveCdeLocalReference } from '/cde-local-reference.js?v=20260830-2';
     return photos;
   }
 
+  function photoPublishError(error) {
+    const photoNumber = Number.isInteger(error?.photoIndex) ? error.photoIndex + 1 : null;
+    const subject = photoNumber ? `A foto ${photoNumber}` : 'Uma das fotos';
+    if (error?.message === 'PHOTO_DECODE_FAILED') return `${subject} não pôde ser lida neste aparelho. Remova-a e tente outra foto ou uma captura de tela.`;
+    if (error?.message === 'PHOTO_ENCODE_FAILED') return `${subject} não pôde ser reduzida neste aparelho. Remova-a e escolha uma versão menor.`;
+    if (['PHOTO_TOO_LARGE', 'PHOTOS_TOO_LARGE'].includes(error?.message)) return `${subject} ficou grande demais depois da otimização. Remova-a e escolha uma versão menor.`;
+    return `${subject} não pôde ser preparada. Remova a foto marcada em vermelho e tente outra.`;
+  }
+
   async function publishListing() {
     persistProfile();
-    submitButton.disabled = true;
-    submitButton.textContent = selectedFiles.length ? 'Otimizando fotos…' : 'Publicando…';
-    let photos;
-    try {
-      photos = await optimizedPhotos();
-    } catch (_) {
-      submitButton.disabled = false;
-      submitButton.innerHTML = `${publishButtonLabel()} <span aria-hidden="true">→</span>`;
-      setError('Não foi possível otimizar uma das fotos. Escolha outra imagem JPG, PNG ou WebP.');
-      resetTurnstile();
-      return;
-    }
-    submitButton.textContent = 'Publicando…';
-    const body = new FormData();
-    body.set('payload', JSON.stringify({
+    const photoSnapshot = selectedFiles.slice();
+    const payloadSnapshot = {
       profile: prepareOnlineProfile(),
       listing: listingPayload(),
       turnstileToken
-    }));
-    photos.forEach((photo) => body.append('photos', photo, photo.name));
-    const headers = { Accept: 'application/json' };
-    if (csrfToken) headers['X-CSRF-Token'] = csrfToken;
+    };
+    currentLocationRequestId += 1;
+    addressSearchRequestId += 1;
+    reverseGeocodeRequestIds.origin += 1;
+    reverseGeocodeRequestIds.destination += 1;
+    rideDestinationRequestId += 1;
+    setCurrentLocationPending(false);
+    submitButton.disabled = true;
+    form.setAttribute('aria-busy', 'true');
+    form.setAttribute('inert', '');
+    submitButton.textContent = photoSnapshot.length ? 'Otimizando fotos…' : 'Publicando…';
     try {
+      let photos;
+      try {
+        photos = await optimizedPhotos(photoSnapshot);
+      } catch (error) {
+        photoHelp.classList.remove('is-valid');
+        photoHelp.classList.add('is-invalid');
+        photoHelp.textContent = photoPublishError(error);
+        setError(photoPublishError(error));
+        resetTurnstile();
+        return;
+      }
+      submitButton.textContent = 'Publicando…';
+      const body = new FormData();
+      body.set('payload', JSON.stringify(payloadSnapshot));
+      photos.forEach((photo) => body.append('photos', photo, photo.name));
+      const headers = { Accept: 'application/json' };
+      if (csrfToken) headers['X-CSRF-Token'] = csrfToken;
       const response = await fetch('/api/local/listings', { method: 'POST', headers, body });
       const payload = await response.json();
       if (!response.ok || !payload.listing) throw new Error(payload.message || 'Não foi possível publicar agora.');
@@ -1534,6 +1816,8 @@ import { deriveCdeLocalReference } from '/cde-local-reference.js?v=20260830-2';
       setError(error.message || 'Não foi possível publicar agora. Tente novamente.');
       resetTurnstile();
     } finally {
+      form.removeAttribute('inert');
+      form.removeAttribute('aria-busy');
       submitButton.disabled = false;
       submitButton.innerHTML = `${publishButtonLabel()} <span aria-hidden="true">→</span>`;
     }
@@ -1597,6 +1881,7 @@ import { deriveCdeLocalReference } from '/cde-local-reference.js?v=20260830-2';
     if (carpoolMode && ['rideDestination', 'rideDate', 'rideTime', 'rideSeats', 'rideContribution', 'rideCurrency'].includes(event.target.name)) syncCarpoolDefaults();
     if (currentStep === 5 && ['firstName', 'lastName', 'whatsapp', 'rideDestination', 'rideDate', 'rideTime', 'rideSeats', 'rideContribution', 'rideCurrency'].includes(event.target.name)) renderPreview();
   });
+  currentLocationButton?.addEventListener('click', locateCurrentPosition);
   addressSearchButton.addEventListener('click', searchAddress);
   mapToggleButton?.addEventListener('click', toggleMapPanel);
   rideDestinationSearchButton?.addEventListener('click', searchRideDestination);
@@ -1738,7 +2023,6 @@ import { deriveCdeLocalReference } from '/cde-local-reference.js?v=20260830-2';
     if (preview) preview.hidden = true;
     if (reviewNote) reviewNote.hidden = true;
     if (contactNote) contactNote.hidden = true;
-    if (geocodeNote) geocodeNote.hidden = true;
     if (mapPanel) mapPanel.hidden = true;
     if (mapToggleButton) mapToggleButton.hidden = false;
     form.elements.sourceUrl.value = '';

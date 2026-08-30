@@ -135,10 +135,12 @@ search metadata; the public detail does not repeat them as cards and instead
 prioritizes photos, title, price, description, approximate zone, seller and the
 direct WhatsApp action. Publication remains direct after server validation
 and Turnstile. Images are re-encoded in the browser to
-remove embedded metadata and limited to 300 KB each. Until account-level R2 is
-enabled, the pilot may use the explicit D1 media fallback with a 600 KB total
-per publication; `LOCAL_MEDIA` becomes the preferred private storage binding as
-soon as R2 is available.
+remove embedded metadata and limited to two JPEG files of 300 KB each. The
+picker accepts JPG, PNG and WebP sources, plus HEIC or HEIF when the user's
+browser can decode them; every accepted source is converted to JPEG before
+publication. Until account-level R2 is enabled, the pilot may use the explicit
+D1 media fallback with a 600 KB total per publication; `LOCAL_MEDIA` becomes
+the preferred private storage binding as soon as R2 is available.
 
 The homepage uses eight concise discovery entries. `Eletrônicos` groups the
 legacy phone and electronics sections, and `Serviços` groups the freight and
@@ -174,13 +176,17 @@ transport service.
 Address lookup is an explicit, user-triggered convenience for the CDE–Foz pilot,
 not autocomplete. It may query the public OpenStreetMap Nominatim endpoint only
 with visible attribution, an in-memory result cache, a maximum rate of one
-request per second and a bounded regional query. The interface must disclose
-that the entered search is sent to this third-party service and must retain a
-manual map-placement fallback. The exact typed address is not persisted. The
-author chooses the public precision: about 50 m, 200 m, 500 m, 1 km, 2 km, 3 km
-or 5 km. Coordinates are rounded to four decimals so the selected circle is
-technically coherent; choosing 50 or 200 m must carry a visible warning to use
-a safe public point rather than a private home.
+request per second and a bounded regional query. Current-device location may be
+requested only after an explicit click: the browser must show its permission
+prompt, and refusal must keep address search and manual map placement available.
+After permission, Nominatim reverse geocoding may propose a readable address for
+the selected point. The interface must disclose that the entered search or
+selected coordinates are sent to this third-party service. Neither the complete
+typed nor reverse-geocoded address is persisted or published. The author chooses
+the public precision: about 50 m, 200 m, 500 m, 1 km, 2 km, 3 km or 5 km.
+Persisted public coordinates are rounded to four decimals so the selected
+circle is technically coherent; choosing 50 or 200 m must carry a visible
+warning to use a safe public point rather than a private home.
 Within the established Ciudad del Este PY02 corridor, the rounded public centre
 also produces a coarse local orientation such as `Km 8 · lado Monday (aprox.)`.
 This follows the city's local bridge-to-west convention, not national PY02

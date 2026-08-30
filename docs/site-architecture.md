@@ -129,17 +129,25 @@ category and subtype, title, optional description, price or contribution,
 photos, an approximate area and the author's name and WhatsApp. Hidden
 category-specific operational values use neutral defaults (`A combinar` or
 `Sob consulta`) so the interface never invents a condition, vehicle type or
-availability claim. After client-side image re-encoding, the server validates
-Turnstile and publishes atomically to a separate `LOCAL_DB` D1 database.
+availability claim. The picker accepts at most two JPG, PNG or WebP sources,
+plus HEIC or HEIF when the browser can decode them. Client-side processing
+removes embedded metadata and converts every accepted source to a JPEG no larger
+than 300 KB before the server validates Turnstile and publishes atomically to a
+separate `LOCAL_DB` D1 database.
 
 The preferred image store is the private `LOCAL_MEDIA` R2 binding. Because R2
 is not yet enabled at account level, the pilot has an explicit constrained D1
-fallback: two images maximum, 300 KB each and 600 KB total. Exact typed
-addresses are never sent to the publication API. The author chooses a public
-radius of about 50 m, 200 m, 500 m, 1 km, 2 km, 3 km or 5 km; coordinates are
-rounded to four decimals so that small selected radii remain coherent. The UI
-warns authors to use a safe public point for 50 or 200 m. Address search remains
-an explicit, rate-limited Nominatim action with manual map tap as fallback.
+fallback: two images maximum, 300 KB each and 600 KB total. Exact typed or
+reverse-geocoded addresses are never sent to the publication API or shown on
+the public listing. The author chooses a public radius of about 50 m, 200 m,
+500 m, 1 km, 2 km, 3 km or 5 km; persisted public coordinates are rounded to
+four decimals so that small selected radii remain coherent. The UI warns
+authors to use a safe public point for 50 or 200 m. Address search remains an
+explicit, rate-limited OpenStreetMap Nominatim action. Device geolocation is
+requested only after the author clicks the dedicated control and grants the
+browser permission; reverse geocoding can then propose a readable address.
+Permission refusal or any location failure keeps explicit address search and
+manual map placement available as fallbacks.
 The shared pure `cde-local-reference.js` helper projects that already-rounded
 public centre onto a locally calibrated CDE/PY02 axis. It adds an approximate
 `Km` and Monday/Acaray orientation to cards, detail and publication preview only
