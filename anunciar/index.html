@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="/styles.css?v=20260823-1" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.24.0/dist/maplibre-gl.css" />
-  <link rel="stylesheet" href="/demo-imobiliaria.css?v=20260830-2" />
+  <link rel="stylesheet" href="/demo-imobiliaria.css?v=20260830-4" />
 </head>
 <body class="real-estate-demo-page" data-demo-page="announce" data-whatsapp-phone="33768345608">
   <a class="skip-link" href="#anuncio-etapa-1">Ir para o cadastro</a>
@@ -78,11 +78,11 @@
                 <div class="nykuto-field nykuto-field-wide">
                   <span>Importar imagens <small>(até 2)</small></span>
                   <label class="nykuto-photo-picker">
-                    <input name="photos" type="file" accept="image/jpeg,image/png,image/webp" multiple />
-                    <span aria-hidden="true">＋</span><strong>Adicionar imagens</strong><small>JPG, PNG ou WebP · até 10 MB cada</small>
+                    <input name="photos" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.heic,.heif" aria-describedby="nykuto-photo-help" multiple />
+                    <span aria-hidden="true">＋</span><strong>Adicionar imagens</strong><small>JPG, PNG, WebP ou HEIC compatível · até 25 MB cada</small>
                   </label>
                   <div class="nykuto-photo-preview" data-photo-preview aria-live="polite"></div>
-                  <p class="nykuto-field-help" data-photo-help role="status" aria-live="polite">As imagens serão otimizadas antes da publicação.</p>
+                  <p class="nykuto-field-help" id="nykuto-photo-help" data-photo-help role="status" aria-live="polite">As imagens serão otimizadas antes da publicação.</p>
                 </div>
 
                 <label class="nykuto-field nykuto-field-wide" data-source-url-field><span>Link de outro anúncio <small>(opcional)</small></span><input name="sourceUrl" type="url" maxlength="500" inputmode="url" placeholder="Ex.: seu anúncio no Facebook Marketplace" /></label>
@@ -92,14 +92,18 @@
 
             <section class="nykuto-wizard-step" data-wizard-step="4" aria-labelledby="wizard-location-title" hidden>
               <div class="nykuto-step-heading"><span>4 de 5</span><h2 id="wizard-location-title" data-location-heading>Onde está disponível?</h2><p data-location-copy>Localize a zona e escolha a precisão que aparecerá no anúncio.</p></div>
+              <button type="button" class="nykuto-current-location" data-current-location aria-describedby="nykuto-location-status" aria-controls="nykuto-map-panel">
+                <span aria-hidden="true">◎</span>
+                <span><strong>Usar minha localização</strong><small>O navegador pedirá sua autorização</small></span>
+              </button>
               <div class="nykuto-location-search">
-                <label class="nykuto-field"><span data-address-label>Endereço ou bairro</span><input name="address" type="search" maxlength="140" autocomplete="street-address" placeholder="Ex.: Área 1, Ciudad del Este" /></label>
-                <button type="button" data-address-search>Localizar</button>
+                <label class="nykuto-field"><span data-address-label>Endereço, bairro ou referência</span><input name="address" type="search" maxlength="140" autocomplete="street-address" placeholder="Ex.: Km 8, Hospital Universitário ou Área 1" /></label>
+                <button type="button" data-address-search>Buscar</button>
               </div>
               <div class="nykuto-carona-destination" data-carona-destination hidden>
                 <div class="nykuto-route-destination-search">
                   <label class="nykuto-field"><span>Para onde você vai?</span><input name="rideDestination" type="text" maxlength="80" autocomplete="off" placeholder="Faculdade, bairro ou ponto conhecido" /></label>
-                  <button type="button" data-ride-destination-search>Localizar</button>
+                  <button type="button" data-ride-destination-search>Buscar</button>
                 </div>
                 <label class="nykuto-field nykuto-campus-select"><span>Destino frequente <small>(opcional)</small></span><select data-campus-destination-select><option value="">Outro destino ou ponto no mapa</option><option value="UCP Lago" data-latitude="-25.519490" data-longitude="-54.619432">UCP Lago</option><option value="UCP Plaza City" data-latitude="-25.497347" data-longitude="-54.678903">UCP Plaza City</option><option value="UCP Hospital Universitário" data-latitude="-25.505413" data-longitude="-54.678766">UCP Hospital Universitário</option></select></label>
                 <input name="rideDestinationLatitude" type="hidden" />
@@ -110,9 +114,9 @@
                 <label class="nykuto-field"><span data-radius-label>Precisão mostrada no anúncio</span><select name="zoneRadiusMeters"><option value="50">Ponto preciso (~50 m)</option><option value="200">Raio de 200 m</option><option value="500" selected>Raio de 500 m</option><option value="1000">Raio de 1 km</option><option value="2000">Raio de 2 km</option><option value="3000">Raio de 3 km</option><option value="5000">Raio de 5 km</option></select></label>
                 <button type="button" class="nykuto-map-toggle" data-map-toggle aria-expanded="false">Ajustar no mapa</button>
               </div>
-              <p class="nykuto-location-status" data-location-status role="status" aria-live="polite">Digite uma referência ou toque diretamente no mapa.</p>
+              <p class="nykuto-location-status" id="nykuto-location-status" data-location-status role="status" aria-live="polite">Use sua localização, busque uma referência ou ajuste o ponto no mapa.</p>
               <div class="nykuto-location-results" data-location-results hidden></div>
-              <div data-map-panel hidden>
+              <div id="nykuto-map-panel" data-map-panel hidden>
                 <div class="nykuto-map-point-selector" data-map-point-selector hidden>
                   <span>Toque no mapa para marcar:</span>
                   <div role="group" aria-label="Ponto que será marcado no mapa">
@@ -144,7 +148,7 @@
               </div>
               <p class="nykuto-customs-note" data-listing-carona-notice hidden>Combine o ponto exato e os demais detalhes diretamente pelo WhatsApp.</p>
               <p class="nykuto-customs-note" data-listing-foz-notice hidden><strong>Foz ↔ CDE:</strong> anuncie somente atividades e produtos permitidos. Regras fiscais, aduaneiras e de transporte continuam obrigatórias.</p>
-              <p class="nykuto-geocode-note" data-geocode-note>A busca de endereço é acionada somente por você e consulta o OpenStreetMap/Nominatim. Não use dados pessoais ou confidenciais.</p>
+              <p class="nykuto-geocode-note" data-geocode-note>O GPS e a busca de endereço só são acionados por você. As coordenadas são consultadas no OpenStreetMap/Nominatim; o endereço completo não será publicado.</p>
             </section>
 
             <section class="nykuto-wizard-step" data-wizard-step="5" aria-labelledby="wizard-review-title" hidden>
@@ -198,7 +202,7 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
   <script src="https://unpkg.com/maplibre-gl@5.24.0/dist/maplibre-gl.js" defer></script>
   <script src="https://unpkg.com/@maplibre/maplibre-gl-leaflet@0.1.4/leaflet-maplibre-gl.js" defer></script>
-  <script src="/anunciar/openfreemap-basemap.js?v=20260829-4" defer></script>
-  <script type="module" src="/anunciar/anunciar.js?v=20260830-2"></script>
+  <script src="/anunciar/openfreemap-basemap.js?v=20260830-4" defer></script>
+  <script type="module" src="/anunciar/anunciar.js?v=20260830-4"></script>
 </body>
 </html>

@@ -6,6 +6,8 @@
     "dev": "vite",
     "build": "node scripts/prepare-cloudflare-output.js",
     "functions:check": "node scripts/validate-pages-functions.js",
+    "test:anunciar-location": "node scripts/test-anunciar-location.mjs",
+    "test:anunciar-mobile": "node scripts/test-anunciar-mobile-contract.mjs",
     "test:local-reference": "node scripts/test-cde-local-reference.mjs",
     "start": "vite --host 0.0.0.0",
     "typecheck": "node -e \"console.log('Static site validation: no TypeScript compilation required')\"",
