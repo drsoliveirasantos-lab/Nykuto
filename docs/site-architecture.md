@@ -113,8 +113,11 @@ routes the user to Nykuto's WhatsApp.
 `nykuto-local.js` loads offers from `GET /api/local/listings`, handles category,
 subcategory and text search, and links every genuine card to `/anuncio/?id=`.
 That detail page loads the public record, images and approximate zone, then
-opens WhatsApp directly to the listing author. Nykuto is not part of payment,
-delivery, booking or dispute handling.
+opens WhatsApp directly to the listing author through a compact floating action.
+Category, subtype and neutral operational defaults remain catalogue/search
+metadata and are not repeated as public detail cards. The detail prioritizes
+photos, title, price, description, approximate zone and seller. Nykuto is not
+part of payment, delivery, booking or dispute handling.
 
 The property experience remains on dedicated static routes: `/imoveis/` for the
 full catalogue, `/mapa/` for map-first search, `/favoritos/` for the visitor's

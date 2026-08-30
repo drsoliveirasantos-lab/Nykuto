@@ -8,15 +8,15 @@
 
   const canonical = document.querySelector('[data-listing-canonical]');
   const titleElement = document.querySelector('[data-listing-title]');
-  const categoryElement = document.querySelector('[data-listing-category]');
+  const eyebrowElement = document.querySelector('[data-listing-eyebrow]');
   const statusElement = document.querySelector('[data-listing-status]');
   const locationElement = document.querySelector('[data-listing-location]');
   const priceElement = document.querySelector('[data-listing-price]');
   const priceLabel = document.querySelector('[data-listing-price-label]');
   const priceNote = document.querySelector('[data-listing-price-note]');
   const kindElement = document.querySelector('[data-listing-kind]');
-  const trustElement = document.querySelector('.nykuto-listing-detail-trust');
-  const factsElement = document.querySelector('[data-listing-facts]');
+  const publishedWrap = document.querySelector('[data-listing-published-wrap]');
+  const publishedElement = document.querySelector('[data-listing-published]');
   const descriptionSection = document.querySelector('[data-description-section]');
   const descriptionElement = document.querySelector('[data-listing-description]');
   const logisticsSection = document.querySelector('[data-logistics-section]');
@@ -170,30 +170,6 @@
     return 'zona aproximada';
   }
 
-  function addFact(label, value) {
-    const cleaned = cleanText(value);
-    if (!cleaned) return;
-    const wrapper = document.createElement('div');
-    const span = document.createElement('span');
-    const strong = document.createElement('strong');
-    span.textContent = label;
-    strong.textContent = cleaned;
-    wrapper.append(span, strong);
-    factsElement.append(wrapper);
-  }
-
-  function renderTrust(ride) {
-    if (!trustElement) return;
-    const labels = ride
-      ? ['✓ Contato pelo WhatsApp', '✓ Trajeto sugerido', '✓ Combinação direta']
-      : ['✓ Contato direto', '✓ Zona aproximada', '✓ Sem comissão Nykuto'];
-    trustElement.replaceChildren(...labels.map((label) => {
-      const span = document.createElement('span');
-      span.textContent = label;
-      return span;
-    }));
-  }
-
   function normalizedWhatsapp(value) {
     const digits = cleanText(value).replace(/\D/g, '');
     return /^[1-9]\d{7,14}$/.test(digits) && !/^(\d)\1+$/.test(digits) ? digits : '';
@@ -231,14 +207,19 @@
     if (sellerRole) sellerRole.textContent = ride
       ? `${item.kind === 'request' ? 'Passageiro' : 'Motorista'} · WhatsApp informado pelo usuário`
       : 'Anunciante · WhatsApp informado pelo usuário, ainda não verificado';
-    if (whatsappLabel) whatsappLabel.textContent = ride
+    const actionLabel = ride
       ? (item.kind === 'request' ? 'Oferecer carona no WhatsApp' : 'Pedir uma vaga no WhatsApp')
       : 'Falar no WhatsApp';
+    if (whatsappLabel) whatsappLabel.textContent = actionLabel;
+    whatsappLink.setAttribute('aria-label', actionLabel);
+    whatsappLink.title = actionLabel;
     const phone = normalizedWhatsapp(seller.whatsapp);
     if (!phone) {
       whatsappLink.removeAttribute('href');
       whatsappLink.setAttribute('aria-disabled', 'true');
       if (whatsappLabel) whatsappLabel.textContent = 'WhatsApp indisponível';
+      whatsappLink.setAttribute('aria-label', 'WhatsApp indisponível');
+      whatsappLink.title = 'WhatsApp indisponível';
       return;
     }
     whatsappLink.href = `https://wa.me/${phone}?text=${encodeURIComponent(sellerMessage(item))}`;
@@ -604,8 +585,8 @@
     canonical.href = canonicalUrl;
     titleElement.textContent = cleanText(item.title) || 'Anúncio sem título';
     content.classList.toggle('is-shared-ride', ride);
-    categoryElement.textContent = ride ? 'Carona compartilhada' : ([cleanText(item.category), cleanText(item.subcategory)].filter(Boolean).join(' · ') || 'Anúncio local');
-    statusElement.textContent = ownerView ? `Seu anúncio · ${statusLabels[item.status] || cleanText(item.status)}` : (statusLabels[item.status] || 'Publicado');
+    statusElement.textContent = ownerView ? `Seu anúncio · ${statusLabels[item.status] || cleanText(item.status)}` : '';
+    if (eyebrowElement) eyebrowElement.hidden = !ownerView;
     openReportButton.hidden = ownerView || item.status !== 'published';
     locationElement.textContent = ride
       ? `⌖ Saída em ${zoneLabel} · ${publicRadiusLabel(item.zone?.radiusMeters)}`
@@ -614,19 +595,13 @@
     priceLabel.textContent = ride ? 'Contribuição por pessoa' : (item.kind === 'request' ? 'Orçamento' : 'Preço anunciado');
     priceNote.textContent = price.note;
     kindElement.textContent = ride ? (item.kind === 'request' ? 'Passageiro' : 'Motorista') : (kindLabels[item.kind] || 'Anúncio local');
-    renderTrust(ride);
-
-    factsElement.replaceChildren();
-    if (ride) {
-      addFact('Frequência', cleanText(item.availability));
-      addFact('Publicado em', publishedAt);
-    } else {
-      addFact('Categoria', cleanText(item.category));
-      addFact('Tipo', cleanText(item.subcategory));
-      addFact('Estado', cleanText(item.condition));
-      addFact('Disponibilidade', cleanText(item.availability));
-      addFact('Forma do preço', priceModeLabels[item.priceMode] || cleanText(item.priceMode));
-      addFact('Publicado em', publishedAt);
+    kindElement.hidden = !ride;
+    if (publishedWrap && publishedElement) {
+      publishedWrap.hidden = !publishedAt;
+      publishedElement.textContent = publishedAt;
+      const timestamp = Number(item.publishedAt);
+      if (Number.isFinite(timestamp) && timestamp > 0) publishedElement.dateTime = new Date(timestamp * 1000).toISOString();
+      else publishedElement.removeAttribute('datetime');
     }
 
     const description = cleanText(item.description);
