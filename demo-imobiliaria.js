@@ -2,7 +2,7 @@
   const assetBase = '/assets/demo-imobiliaria/';
   const ciudadDelEsteCenter = [-25.5135, -54.632];
   const openStreetMapTiles = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
-  const publicDemoOrigin = 'https://demo.nykuto.com';
+  const publicDemoOrigin = 'https://cde.nykuto.com';
   const nykutoWhatsappPhone = document.body.dataset.whatsappPhone || '33768345608';
   const pageMode = document.body.dataset.demoPage || 'home';
   const studioPrivacyMasks = [

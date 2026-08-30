@@ -8,7 +8,7 @@ Two Cloudflare Pages projects consume the same `main` branch:
 
 - `nykuto` publishes the complete commercial site on `nykuto.com`;
 - `nykuto-demo` publishes the autonomous Nykuto Local experience at the root of
-  `demo.nykuto.com` by copying `demo-imobiliaria.html` to `index.html` during
+  `cde.nykuto.com` by copying `demo-imobiliaria.html` to `index.html` during
   its build. Its production build command is
   `cp demo-imobiliaria.html index.html`, with `/` as the output directory.
 
@@ -101,7 +101,7 @@ Before a framework migration:
 - responsive and keyboard-accessible interactions.
 
 `demo-imobiliaria.html` is the autonomous Nykuto Local homepage linked from the
-Nykuto commercial site and published canonically on `demo.nykuto.com`. The
+Nykuto commercial site and published canonically on `cde.nykuto.com`. The
 subdomain opens directly on a compact, mobile-first buying surface. Search,
 product and service categories, subcategories and the separate `Anunciar`
 action are visible before the real-estate demonstration. `Comprar` never links

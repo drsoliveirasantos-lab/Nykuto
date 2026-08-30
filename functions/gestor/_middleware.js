@@ -7,7 +7,7 @@ function redirect(location, status = 302) {
 
 export async function onRequest(context) {
   const url = new URL(context.request.url);
-  if (!isDemoHost(context.request)) return redirect(`https://demo.nykuto.com${url.pathname}${url.search}`);
+  if (!isDemoHost(context.request)) return redirect(`https://cde.nykuto.com${url.pathname}${url.search}`);
 
   const isAsset = /\.(?:css|js|png|webp|svg)$/i.test(url.pathname);
   const isLogin = url.pathname === '/gestor/login/' || url.pathname === '/gestor/login/index.html';

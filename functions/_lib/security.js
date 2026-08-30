@@ -5,7 +5,6 @@ export const SESSION_COOKIE = '__Host-nykuto_manager';
 export function isDemoHost(request) {
   const hostname = new URL(request.url).hostname.toLowerCase();
   return hostname === 'cde.nykuto.com'
-    || hostname === 'demo.nykuto.com'
     || hostname === 'nykuto-demo.pages.dev'
     || hostname.endsWith('.nykuto-demo.pages.dev')
     || hostname === 'localhost'
