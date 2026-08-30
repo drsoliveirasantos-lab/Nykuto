@@ -107,6 +107,8 @@ product and service categories, subcategories and the separate `Anunciar`
 action are visible before the real-estate demonstration. `Comprar` never links
 to the seller form. Product and service cards come from the public local API;
 clearly labelled illustrative cards appear only when a live category is empty.
+The eight-entry discovery grid groups phones with electronics and freight with
+services while retaining the older canonical sections behind the interface.
 `Preciso de…` opens the same direct single-page form in request mode and never
 routes the user to Nykuto's WhatsApp.
 
@@ -138,6 +140,12 @@ radius of about 50 m, 200 m, 500 m, 1 km, 2 km, 3 km or 5 km; coordinates are
 rounded to four decimals so that small selected radii remain coherent. The UI
 warns authors to use a safe public point for 50 or 200 m. Address search remains
 an explicit, rate-limited Nominatim action with manual map tap as fallback.
+The shared pure `cde-local-reference.js` helper projects that already-rounded
+public centre onto a locally calibrated CDE/PY02 axis. It adds an approximate
+`Km` and Monday/Acaray orientation to cards, detail and publication preview only
+inside the calibrated corridor; no new address or coordinate is persisted.
+An explicit `Km N` homepage query paginates the public API and filters these
+derived references client-side, so existing listings work without a D1 backfill.
 
 The publisher preserves the existing Leaflet markers, radius circle and OSRM
 route while rendering the base map with the OpenFreeMap `liberty` vector style
@@ -200,8 +208,10 @@ visitor's selection and can send either one property or a concise multi-property
 request when the selected properties share a contact. Different owners remain
 separate so no enquiry is sent to the wrong manager. On small screens, filters
 use a bottom sheet. The local homepage uses a fixed four-action bar for
-buying, properties, publication and profile; property routes keep
-their listing, map, favourites and owner navigation.
+home, properties, publication and profile. The same four destinations remain
+visible on every local route; list, map and favourites stay as contextual
+controls inside the property section. Every Leaflet map creates an isolated
+stacking context below the sticky header and fixed mobile navigation.
 
 Each illustrative property also has a static `/imovel/<reference>/` share page
 with its own Open Graph title, description and neutralised cover image. These

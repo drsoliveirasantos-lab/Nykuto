@@ -4348,3 +4348,127 @@
   .nykuto-listing-wizard.is-carona .nykuto-subcategory-choices { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .nykuto-carona-schedule-fields { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
+
+/* iPhone ergonomics: keep maps below chrome and consolidate mobile overrides. */
+.nykuto-listing-map {
+  position: relative;
+  z-index: 0;
+  isolation: isolate;
+}
+
+@media (max-width: 720px) {
+  .property-demo-header {
+    padding-top: max(7px, env(safe-area-inset-top));
+    padding-right: max(10px, env(safe-area-inset-right));
+    padding-left: max(10px, env(safe-area-inset-left));
+  }
+
+  [data-demo-page="home"] .nykuto-market-heading > a { display: none; }
+
+  .demo-filter-bar {
+    position: relative;
+    z-index: auto;
+    top: auto;
+  }
+
+  .demo-mobile-nav {
+    inset: auto;
+    right: max(8px, env(safe-area-inset-right));
+    bottom: calc(6px + env(safe-area-inset-bottom));
+    left: max(8px, env(safe-area-inset-left));
+  }
+
+  .demo-mobile-nav :is(a, button) {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .demo-mobile-nav a,
+  .demo-mobile-nav a:visited,
+  .demo-mobile-nav .nykuto-mobile-announce,
+  .demo-mobile-nav .nykuto-mobile-announce:visited {
+    background: transparent;
+    color: rgba(255, 255, 255, .72);
+  }
+
+  .demo-mobile-nav a > span,
+  .demo-mobile-nav .nykuto-mobile-announce > span { color: #dfbd6c; }
+
+  .demo-mobile-nav a:active {
+    background: rgba(223, 189, 108, .18);
+    color: #fff;
+  }
+
+  .demo-mobile-nav a[aria-current="page"],
+  .demo-mobile-nav a[aria-current="page"]:visited {
+    background: rgba(255, 255, 255, .1);
+    color: #fff;
+  }
+
+  .demo-mobile-nav a[aria-current="page"] > span { color: #dfbd6c; }
+
+  .demo-mobile-nav .nykuto-mobile-announce[aria-current="page"],
+  .demo-mobile-nav .nykuto-mobile-announce[aria-current="page"]:visited,
+  .demo-mobile-nav .nykuto-mobile-announce[aria-current="page"]:active {
+    background: #dfbd6c;
+    color: #30240e;
+  }
+
+  .demo-mobile-nav .nykuto-mobile-announce[aria-current="page"] > span { color: #30240e; }
+
+  .demo-dialog .demo-dialog-header {
+    position: sticky;
+    z-index: 3;
+    top: 0;
+  }
+
+  .demo-dialog-header > button,
+  .demo-detail-close,
+  .demo-detail-favorite {
+    width: 44px;
+    height: 44px;
+    min-height: 44px;
+    flex-basis: 44px;
+  }
+
+  .demo-detail-close-floating {
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+  }
+
+  .demo-card-media-nav,
+  .demo-detail-media-nav {
+    width: 44px;
+    height: 44px;
+  }
+
+  .demo-listing-actions button,
+  .demo-filter-bar > button,
+  .demo-advanced-toggles button,
+  .demo-filter-dialog-actions button,
+  .demo-map-preview button,
+  .nykuto-map-point-selector button,
+  .nykuto-ride-card > a > b { min-height: 44px; }
+
+  .demo-map-toolbar button {
+    width: 44px;
+    height: 44px;
+  }
+
+  .demo-compare-dock button { min-height: 44px; }
+  .demo-compare-dock .demo-compare-clear { width: 44px; }
+
+  .nykuto-market-example-body h3 { font-size: 13px; }
+  .nykuto-market-example-body strong { font-size: 14px; }
+  .nykuto-market-example-body p,
+  .nykuto-market-demo-note { font-size: 10px; line-height: 1.45; }
+  .demo-listing-ref { font-size: 9px; }
+  .demo-listing-location { font-size: 11px; }
+  .demo-listing-specs span { font-size: 10px; }
+  .demo-listing-freshness span { font-size: 10px; }
+  .demo-listing-freshness small { font-size: 9px; }
+
+  .real-estate-demo-page .nykuto-listing-detail-actions .nykuto-listing-detail-whatsapp {
+    right: max(14px, env(safe-area-inset-right));
+  }
+}

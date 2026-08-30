@@ -23,6 +23,7 @@ const staticFiles = [
   'demo-imobiliaria.js',
   'demo-build-stamp.js',
   'nykuto-local.js',
+  'cde-local-reference.js',
   'whatsapp-launcher.js',
   'favicon.svg',
   'robots.txt',

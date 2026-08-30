@@ -40,21 +40,18 @@
         { icon: '□', title: 'Mesa com 4 cadeiras', price: 'A combinar', meta: 'Como novo · entrega possível' }
       ]
     },
-    phones: {
-      label: 'Celulares',
-      formCategory: 'Produto',
-      subcategories: ['Celular e acessórios'],
-      examples: [
-        { icon: '▯', title: 'Smartphone 128 GB', price: 'R$ 1.850', meta: 'Como novo · com carregador' },
-        { icon: '▯', title: 'Celular Samsung', price: 'R$ 980', meta: 'Bom estado · negociável' },
-        { icon: '◫', title: 'Capas e acessórios', price: 'A partir de R$ 25', meta: 'Novo · envio possível' }
-      ]
-    },
     electronics: {
       label: 'Eletrônicos',
       formCategory: 'Produto',
-      subcategories: ['Eletrônicos e informática'],
+      queryGroup: 'electronics',
+      subcategories: [
+        { label: 'Celulares e acessórios', subcategory: 'Celular e acessórios' },
+        { label: 'Informática, TV e áudio', subcategory: 'Eletrônicos e informática' }
+      ],
       examples: [
+        { icon: '▯', title: 'Smartphone 128 GB', price: 'R$ 1.850', meta: 'Como novo · com carregador' },
+        { icon: '▯', title: 'Celular Samsung', price: 'R$ 980', meta: 'Bom estado · negociável' },
+        { icon: '◫', title: 'Capas e acessórios', price: 'A partir de R$ 25', meta: 'Novo · envio possível' },
         { icon: '▣', title: 'Smart TV 43 polegadas', price: 'R$ 1.400', meta: 'Bom estado · retirada' },
         { icon: '▱', title: 'Notebook para estudos', price: 'US$ 320', meta: 'Usado · funcionando' },
         { icon: '◉', title: 'Caixa de som portátil', price: 'R$ 210', meta: 'Como nova · envio possível' }
@@ -80,21 +77,19 @@
         { icon: '◎', title: 'Jogo de rodas', price: 'A combinar', meta: 'Usado · Ciudad del Este' }
       ]
     },
-    freight: {
-      label: 'Fretes e mudanças',
-      formCategory: 'Frete ou mudança',
-      subcategories: ['Pequeno frete', 'Mudança completa', 'Entrega ou retirada', 'Rota CDE ↔ Foz'],
-      examples: [
-        { icon: '▤', title: 'Pequeno frete local', price: 'A combinar', meta: 'CDE e região · WhatsApp direto' },
-        { icon: '◇', title: 'Mudança residencial', price: 'Sob consulta', meta: 'Veículo e ajudante sob consulta' },
-        { icon: '↔', title: 'Entrega CDE ↔ Foz', price: 'Taxa a combinar', meta: 'Somente itens e rotas permitidos' }
-      ]
-    },
     services: {
       label: 'Serviços',
       formCategory: 'Serviço local',
-      subcategories: ['Climatização', 'Limpeza', 'Montagem e instalação', 'Manutenção e reparo'],
+      queryGroup: 'services',
+      aggregateCategories: true,
+      subcategories: [
+        { label: 'Fretes e mudanças', formCategory: 'Frete ou mudança', section: 'freight' },
+        { label: 'Outros serviços', formCategory: 'Serviço local', section: 'services' }
+      ],
       examples: [
+        { icon: '▤', title: 'Pequeno frete local', price: 'A combinar', meta: 'CDE e região · WhatsApp direto' },
+        { icon: '◇', title: 'Mudança residencial', price: 'Sob consulta', meta: 'Veículo e ajudante sob consulta' },
+        { icon: '↔', title: 'Entrega CDE ↔ Foz', price: 'Taxa a combinar', meta: 'Somente itens e rotas permitidos' },
         { icon: '✦', title: 'Reparo de ar-condicionado', price: 'Orçamento grátis', meta: 'Atendimento local · WhatsApp direto' },
         { icon: '◇', title: 'Montagem de móveis', price: 'A combinar', meta: 'CDE e região · sob consulta' },
         { icon: '◌', title: 'Limpeza residencial', price: 'Por serviço', meta: 'Agenda flexível · contato direto' }
@@ -125,6 +120,29 @@
   let categoryRequest = 0;
   let currentCategoryKey = 'home';
   let currentRideKind = 'offer';
+
+  function normalizedCategoryFilter(value) {
+    return typeof value === 'string' ? { label: value, subcategory: value } : value;
+  }
+
+  function marketQueryParams(categoryKey, category, { filter = null, kind = 'offer', limit = '12' } = {}) {
+    const params = new URLSearchParams({ kind, limit });
+    const queryCategory = filter?.formCategory || (category.aggregateCategories ? '' : category.formCategory);
+    if (queryCategory) params.set('category', queryCategory);
+    if (filter?.section) params.set('section', filter.section);
+    else if (category.queryGroup) params.set('group', category.queryGroup);
+    else params.set('section', categoryKey);
+    if (filter?.subcategory) params.set('subcategory', filter.subcategory);
+    return params;
+  }
+
+  function updateMarketAnnounce(category, isRide, filter = null) {
+    if (!marketAnnounce) return;
+    const formCategory = filter?.formCategory || category.formCategory;
+    const params = new URLSearchParams({ categoria: formCategory });
+    marketAnnounce.href = `/anunciar/?${params.toString()}`;
+    marketAnnounce.innerHTML = `${isRide ? 'Oferecer carona' : 'Anunciar nesta categoria'} <span aria-hidden="true">→</span>`;
+  }
 
   function showMarketMessage(message) {
     if (!toast) return;
@@ -169,6 +187,14 @@
     const symbol = ({ BRL: 'R$', PYG: 'Gs.', USD: 'US$' })[listing.currency] || listing.currency;
     const amount = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 0 }).format(listing.priceAmount || 0);
     return `${symbol} ${amount}${listing.priceMode === 'negotiable' ? ' · negociável' : ''}`;
+  }
+
+  function listingLocation(listing) {
+    const zoneLabel = String(listing.zone?.label || '').trim();
+    const localReference = String(listing.zone?.localReference || '').trim();
+    const kilometre = localReference.match(/km\s*\d+/i)?.[0] || '';
+    const repeatsKilometre = kilometre && normalizeSearch(zoneLabel).includes(normalizeSearch(kilometre));
+    return [repeatsKilometre ? '' : localReference, zoneLabel].filter(Boolean).join(' · ') || 'Zona aproximada';
   }
 
   function feeValue(listing, labels) {
@@ -288,7 +314,7 @@
     badge.textContent = listing.kind === 'request' ? 'Pedido publicado' : 'Anúncio publicado';
     title.textContent = listing.title;
     price.textContent = listingPrice(listing);
-    meta.textContent = `${listing.condition} · ${listing.zone.label}`;
+    meta.textContent = `⌖ ${listingLocation(listing)}`;
     body.append(badge, title, price, meta);
     link.append(visual, body);
     article.append(link);
@@ -302,7 +328,7 @@
     return payload.listings || [];
   }
 
-  async function fetchAllRideListings(params) {
+  async function fetchAllListings(params) {
     const listings = [];
     const limit = 24;
     for (let page = 1; page <= 100; page += 1) {
@@ -327,18 +353,19 @@
     marketPreview?.classList.toggle('is-rides', isRide);
     marketExamples.classList.toggle('is-rides', isRide);
     if (rideSearch) rideSearch.hidden = !isRide;
-    const subcategoryControls = category.subcategories.map((subcategory, index) => {
+    const subcategoryControls = category.subcategories.map((value, index) => {
+      const filter = normalizedCategoryFilter(value);
       const chip = document.createElement('button');
       chip.type = 'button';
-      chip.textContent = subcategory;
+      chip.textContent = filter.label;
       if (isRide && index === 0) chip.classList.add('is-active');
       chip.addEventListener('click', async () => {
         const chipRequestId = ++categoryRequest;
         marketSubcategories.querySelectorAll('button').forEach((button) => button.classList.toggle('is-active', button === chip));
-        const kind = isRide ? (index === 1 ? 'request' : 'offer') : (/^Procuro\b/i.test(subcategory) ? 'request' : 'offer');
+        const kind = isRide ? (index === 1 ? 'request' : 'offer') : (/^Procuro\b/i.test(filter.subcategory || filter.label) ? 'request' : 'offer');
         if (isRide) currentRideKind = kind;
-        const params = new URLSearchParams({ category: category.formCategory, section: categoryKey, kind, limit: isRide ? '24' : '12' });
-        if (!isRide) params.set('subcategory', subcategory);
+        const params = marketQueryParams(categoryKey, category, { filter: isRide ? null : filter, kind, limit: isRide ? '24' : '12' });
+        updateMarketAnnounce(category, isRide, isRide ? null : filter);
         try {
           const listings = await fetchListings(params);
           if (chipRequestId !== categoryRequest) return;
@@ -364,18 +391,14 @@
     marketSubcategories.replaceChildren(...subcategoryControls);
     marketExamples.innerHTML = '<div class="nykuto-market-loading" aria-label="Carregando anúncios"></div><div class="nykuto-market-loading"></div><div class="nykuto-market-loading"></div>';
     if (marketNote) marketNote.textContent = 'Carregando anúncios publicados…';
-    if (marketAnnounce) {
-      const params = new URLSearchParams({ categoria: category.formCategory });
-      marketAnnounce.href = `/anunciar/?${params.toString()}`;
-      marketAnnounce.innerHTML = `${isRide ? 'Oferecer carona' : 'Anunciar nesta categoria'} <span aria-hidden="true">→</span>`;
-    }
+    updateMarketAnnounce(category, isRide);
     marketCategoryButtons.forEach((button) => {
       const active = button.dataset.marketCategory === categoryKey;
       button.classList.toggle('is-active', active);
       button.setAttribute('aria-pressed', String(active));
     });
     try {
-      const params = new URLSearchParams({ category: category.formCategory, section: categoryKey, kind: 'offer', limit: '12' });
+      const params = marketQueryParams(categoryKey, category);
       const listings = await fetchListings(params);
       if (requestId !== categoryRequest) return;
       if (listings.length) {
@@ -449,7 +472,7 @@
     const criteria = { origin: normalizeSearch(originRaw), destination: normalizeSearch(destinationRaw), date };
     const searchRequestId = ++categoryRequest;
     try {
-      const listings = await fetchAllRideListings(new URLSearchParams({
+      const listings = await fetchAllListings(new URLSearchParams({
         category: 'Carona compartilhada',
         section: 'rides',
         kind: currentRideKind,
@@ -478,12 +501,14 @@
 
   marketSearch?.addEventListener('submit', async (event) => {
     event.preventDefault();
-    const query = normalizeSearch(new FormData(marketSearch).get('query')).trim();
+    const rawQuery = String(new FormData(marketSearch).get('query') || '').trim();
+    const query = normalizeSearch(rawQuery).trim();
     if (!query) {
       marketSearch.querySelector('input')?.focus();
       return;
     }
-    if (['imovel', 'imoveis', 'apartamento', 'aluguel', 'kitnet'].some((term) => query.includes(term))) {
+    const kilometreMatch = query.match(/\bkm\s*(\d{1,2})\b/);
+    if (!kilometreMatch && ['imovel', 'imoveis', 'apartamento', 'aluguel', 'kitnet'].some((term) => query.includes(term))) {
       window.location.href = '/imoveis/';
       return;
     }
@@ -494,9 +519,16 @@
     }
     const searchRequestId = ++categoryRequest;
     try {
-      const listings = await fetchListings(new URLSearchParams({ q: query, kind: 'offer', limit: '24' }));
+      const textQuery = kilometreMatch ? query.replace(kilometreMatch[0], ' ').trim() : query;
+      const params = new URLSearchParams({ kind: 'offer', limit: '24' });
+      if (textQuery) params.set('q', textQuery);
+      let listings = kilometreMatch ? await fetchAllListings(params) : await fetchListings(params);
+      if (kilometreMatch) {
+        const expectedKilometre = Number(kilometreMatch[1]);
+        listings = listings.filter((listing) => Number(String(listing.zone?.localReference || '').match(/km\s*(\d{1,2})/i)?.[1]) === expectedKilometre);
+      }
       if (searchRequestId !== categoryRequest) return;
-      marketTitle.textContent = `Resultados para “${String(new FormData(marketSearch).get('query') || '').trim()}”`;
+      marketTitle.textContent = `Resultados para “${rawQuery}”`;
       marketSubcategories.replaceChildren();
       marketCategoryButtons.forEach((button) => { button.classList.remove('is-active'); button.setAttribute('aria-pressed', 'false'); });
       if (listings.length) {

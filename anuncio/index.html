@@ -10,7 +10,7 @@
   <link rel="icon" href="/assets/nykuto-emblem-favicon.png" type="image/png" />
   <link rel="stylesheet" href="/styles.css?v=20260823-1" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-  <link rel="stylesheet" href="/demo-imobiliaria.css?v=20260828-6" />
+  <link rel="stylesheet" href="/demo-imobiliaria.css?v=20260830-2" />
   <style>
     .nykuto-listing-detail-page {
       min-height: calc(100svh - 56px);
@@ -203,7 +203,7 @@
     .nykuto-listing-detail-fees dt { color: var(--demo-muted); font-size: 9px; }
     .nykuto-listing-detail-fees dd { margin: 0; color: var(--demo-ink); font-size: 9px; font-weight: 850; text-align: right; }
 
-    .nykuto-listing-detail-map { height: 210px; min-height: 0; margin-top: 9px; overflow: hidden; border: 1px solid var(--demo-line); border-radius: 12px; background: #dfe8e2; }
+    .nykuto-listing-detail-map { position: relative; z-index: 0; isolation: isolate; height: 210px; min-height: 0; margin-top: 9px; overflow: hidden; border: 1px solid var(--demo-line); border-radius: 12px; background: #dfe8e2; }
     .nykuto-listing-detail-map .leaflet-control-attribution { font-size: 8px; }
     .nykuto-listing-detail-map-note { margin-top: 8px; padding: 10px 12px; border-radius: 10px; background: #eff6f1; color: #4c625b; font-size: 9px; line-height: 1.55; }
     .nykuto-listing-detail-map-note strong { color: var(--demo-forest); }
@@ -334,7 +334,7 @@
       .nykuto-listing-detail-actions :where(a, button) { min-height: 44px; }
       .nykuto-listing-detail-actions .nykuto-listing-detail-whatsapp {
         position: fixed;
-        right: 14px;
+        right: max(14px, env(safe-area-inset-right));
         bottom: calc(82px + env(safe-area-inset-bottom));
         width: 54px;
         height: 54px;
@@ -488,14 +488,14 @@
   </dialog>
 
   <nav class="demo-mobile-nav" aria-label="Navegação móvel">
-    <a href="/"><span aria-hidden="true">⌕</span> Comprar</a>
-    <a href="/imoveis/"><span aria-hidden="true">⌂</span> Imóveis</a>
+    <a href="/" data-nav-home><span aria-hidden="true">⌂</span> Início</a>
+    <a href="/imoveis/" data-nav-properties><span aria-hidden="true">▦</span> Imóveis</a>
     <a class="nykuto-mobile-announce" href="/anunciar/"><span aria-hidden="true">＋</span> Anunciar</a>
     <a href="/conta/"><span aria-hidden="true">◎</span> Perfil</a>
   </nav>
 
   <noscript><p>O JavaScript é necessário para carregar este anúncio. <a href="/">Voltar ao Nykuto Local</a>.</p></noscript>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
-  <script src="/anuncio/anuncio.js?v=20260830-1" defer></script>
+  <script src="/anuncio/anuncio.js?v=20260830-2" defer></script>
 </body>
 </html>

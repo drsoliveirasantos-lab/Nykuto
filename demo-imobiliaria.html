@@ -24,7 +24,7 @@
   <meta name="twitter:image" content="https://demo.nykuto.com/assets/demo-imobiliaria/demo-imobiliaria-og.jpg" />
   <link rel="stylesheet" href="styles.css?v=20260823-1" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-  <link rel="stylesheet" href="demo-imobiliaria.css?v=20260828-4" />
+  <link rel="stylesheet" href="demo-imobiliaria.css?v=20260830-2" />
 </head>
 <body class="real-estate-demo-page" data-demo-page="home" data-whatsapp-phone="33768345608">
   <a class="skip-link" href="#categorias-locais">Ir para as categorias</a>
@@ -59,7 +59,7 @@
           </header>
 
           <form class="nykuto-market-search" data-market-search role="search">
-            <label for="market-search"><span aria-hidden="true">⌕</span><span class="sr-only">Buscar produtos, serviços e caronas</span><input id="market-search" name="query" type="search" autocomplete="off" placeholder="Buscar cama, celular, frete ou carona…" /></label>
+            <label for="market-search"><span aria-hidden="true">⌕</span><span class="sr-only">Buscar produtos, serviços, caronas ou uma região por quilômetro</span><input id="market-search" name="query" type="search" autocomplete="off" placeholder="Buscar cama, frete ou Km 8…" /></label>
             <button type="submit">Buscar</button>
           </form>
 
@@ -73,11 +73,9 @@
             <header><div><p>Comprar</p><h2 id="market-category-title">Explore por categoria</h2></div><small>Toque para ver as subcategorias</small></header>
             <div class="nykuto-buy-categories" data-market-categories>
               <button class="is-active" type="button" data-market-category="home" aria-pressed="true"><span aria-hidden="true">▤</span><strong>Casa e móveis</strong></button>
-              <button type="button" data-market-category="phones" aria-pressed="false"><span aria-hidden="true">▯</span><strong>Celulares</strong></button>
               <button type="button" data-market-category="electronics" aria-pressed="false"><span aria-hidden="true">▣</span><strong>Eletrônicos</strong></button>
               <button type="button" data-market-category="fashion" aria-pressed="false"><span aria-hidden="true">◴</span><strong>Moda</strong></button>
               <button type="button" data-market-category="vehicles" aria-pressed="false"><span aria-hidden="true">◇</span><strong>Veículos</strong></button>
-              <button type="button" data-market-category="freight" aria-pressed="false"><span aria-hidden="true">▤</span><strong>Fretes</strong></button>
               <button type="button" data-market-category="services" aria-pressed="false"><span aria-hidden="true">✦</span><strong>Serviços</strong></button>
               <button type="button" data-market-category="rides" aria-pressed="false"><span aria-hidden="true">⇢</span><strong>Caronas</strong></button>
               <button type="button" data-market-category="foz" aria-pressed="false"><span aria-hidden="true">↔</span><strong>Foz</strong></button>
@@ -218,8 +216,8 @@
   </dialog>
 
   <nav class="demo-mobile-nav" aria-label="Navegação móvel">
-    <a href="/" aria-current="page"><span aria-hidden="true">⌕</span> Comprar</a>
-    <a href="/imoveis/"><span aria-hidden="true">⌂</span> Imóveis</a>
+    <a href="/" aria-current="page"><span aria-hidden="true">⌂</span> Início</a>
+    <a href="/imoveis/"><span aria-hidden="true">▦</span> Imóveis</a>
     <a class="nykuto-mobile-announce" href="/anunciar/"><span aria-hidden="true">＋</span> Anunciar</a>
     <a href="/conta/"><span aria-hidden="true">◎</span> Perfil</a>
   </nav>
@@ -229,7 +227,7 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
   <script src="whatsapp-launcher.js?v=20260823-2" defer></script>
   <script src="demo-imobiliaria.js?v=20260828-1" defer></script>
-  <script src="nykuto-local.js?v=20260828-4" defer></script>
-  <script src="demo-build-stamp.js?v=20260830-1" defer></script>
+  <script src="nykuto-local.js?v=20260830-2" defer></script>
+  <script src="demo-build-stamp.js?v=20260830-2" defer></script>
 </body>
 </html>

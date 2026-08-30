@@ -140,6 +140,12 @@ enabled, the pilot may use the explicit D1 media fallback with a 600 KB total
 per publication; `LOCAL_MEDIA` becomes the preferred private storage binding as
 soon as R2 is available.
 
+The homepage uses eight concise discovery entries. `Eletrônicos` groups the
+legacy phone and electronics sections, and `Serviços` groups the freight and
+local-service entrances. Their canonical category, subtype and market-section
+values remain distinct for validation, specialized publication fields and
+backward compatibility; this is a presentation grouping, not a D1 migration.
+
 The publisher profile is a real, passwordless, cookie-backed session on the
 current device. It lets the author update contact data, pause, republish, mark
 complete or delete publications. Google and Facebook sign-in must not be shown
@@ -175,6 +181,13 @@ author chooses the public precision: about 50 m, 200 m, 500 m, 1 km, 2 km, 3 km
 or 5 km. Coordinates are rounded to four decimals so the selected circle is
 technically coherent; choosing 50 or 200 m must carry a visible warning to use
 a safe public point rather than a private home.
+Within the established Ciudad del Este PY02 corridor, the rounded public centre
+also produces a coarse local orientation such as `Km 8 · lado Monday (aprox.)`.
+This follows the city's local bridge-to-west convention, not national PY02
+chainage. It is omitted for Foz, the microcentre and places outside the calibrated
+corridor, and it never requires or reveals the typed address.
+The homepage may filter the already-public catalogue by an explicit `Km N`
+query using this derived coarse reference, including legacy rows at read time.
 
 Shared-ride publication requires an approximate departure point, destination
 and departure time. After the author confirms both points through lookup, a
