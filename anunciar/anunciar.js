@@ -1,3 +1,5 @@
+import { deriveCdeLocalReference } from '/cde-local-reference.js?v=20260830-2';
+
 (() => {
   const form = document.querySelector('[data-listing-form]');
   if (!form) return;
@@ -80,6 +82,11 @@
     'Carona compartilhada': ['Ofereço carona recorrente', 'Ofereço carona ocasional', 'Procuro carona recorrente', 'Procuro carona ocasional'],
     'Compra ou retirada em Foz': ['Comprar em Foz', 'Retirar uma compra', 'Entregar CDE ↔ Foz', 'Documento permitido', 'Outro pedido permitido'],
     Outro: ['Evento ou aluguel', 'Oportunidade local', 'Doação', 'Outro anúncio']
+  };
+
+  const subcategoryLabels = {
+    'Celular e acessórios': 'Celulares e acessórios',
+    'Eletrônicos e informática': 'Informática, TV e áudio'
   };
 
   const fieldConfig = {
@@ -180,6 +187,14 @@
     if (value === 50) return 'ponto preciso (~50 m)';
     if (value < 1000 || carpoolMode) return `raio de ${value.toLocaleString('pt-BR')} m`;
     return `raio de ${value / 1000} km`;
+  }
+
+  function localReferenceLabel(latitude = getValue('latitude'), longitude = getValue('longitude')) {
+    return deriveCdeLocalReference(latitude, longitude) || '';
+  }
+
+  function publicZoneSummary(latitude = getValue('latitude'), longitude = getValue('longitude')) {
+    return [localReferenceLabel(latitude, longitude), radiusLabel()].filter(Boolean).join(' · ');
   }
 
   function sequenceIndex(step = currentStep) {
@@ -545,7 +560,7 @@
     values.forEach((value) => {
       const option = document.createElement('option');
       option.value = value;
-      option.textContent = value;
+      option.textContent = subcategoryLabels[value] || value;
       select.append(option);
     });
   }
@@ -904,7 +919,7 @@
     if (!listingMap) initMap();
     if (!listingMap || !window.L) {
       locationStatus.textContent = directPublishMode && mapPanel?.hidden
-        ? `Zona definida · ${radiusLabel()} no anúncio. Use “Ajustar no mapa” se quiser mover o ponto.`
+        ? `Zona definida · ${publicZoneSummary(coordinates[0], coordinates[1])}. Use “Ajustar no mapa” se quiser mover o ponto.`
         : 'Zona definida. O mapa não pôde ser exibido, mas a referência foi mantida.';
       if (carpoolMode && storedRideDestinationCoordinates() && rideRouteStatus) {
         rideRouteStatus.textContent = 'Saída e destino salvos. O mapa não conseguiu mostrar a rota agora.';
@@ -927,7 +942,7 @@
       privacyCircle.setRadius(zoneRadiusMeters());
     }
     listingMap.fitBounds(privacyCircle.getBounds(), { padding: [18, 18] });
-    locationStatus.textContent = `${manual ? 'Ponto definido' : 'Endereço localizado'} · ${radiusLabel()} no anúncio.`;
+    locationStatus.textContent = `${manual ? 'Ponto definido' : 'Endereço localizado'} · ${publicZoneSummary(coordinates[0], coordinates[1])}.`;
     locationResults.hidden = true;
     if (carpoolMode) {
       const destination = storedRideDestinationCoordinates();
@@ -984,7 +999,7 @@
     setLocation(firstResult.lat, firstResult.lon, publicLocationFromResult(firstResult));
     locationResults.hidden = directPublishMode;
     locationStatus.textContent = directPublishMode
-      ? `Zona localizada · ${radiusLabel()} no anúncio. Use “Ajustar no mapa” se quiser mover o ponto.`
+      ? `Zona localizada · ${publicZoneSummary(firstResult.lat, firstResult.lon)}. Use “Ajustar no mapa” se quiser mover o ponto.`
       : 'O primeiro resultado já aparece no mapa. Escolha outro abaixo se necessário.';
   }
 
@@ -1302,7 +1317,7 @@
     if (!carpoolMode) {
       const chips = document.createElement('div');
       chips.className = 'nykuto-preview-chips';
-      [getValue('condition'), `${getValue('locationLabel')} · ${radiusLabel()}`, ...checkedLogistics()].filter(Boolean).forEach((value) => appendText(chips, 'span', value));
+      [getValue('condition'), [getValue('locationLabel'), localReferenceLabel(), radiusLabel()].filter(Boolean).join(' · '), ...checkedLogistics()].filter(Boolean).forEach((value) => appendText(chips, 'span', value));
       body.append(chips);
     }
     if (getValue('description')) appendText(body, 'p', getValue('description'));

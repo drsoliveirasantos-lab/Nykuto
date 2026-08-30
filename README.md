@@ -34,6 +34,7 @@ The build copies the production sources to `out/`, `dist/` and `.vercel/output/s
 - `demo-imobiliaria.html`, `demo-imobiliaria.css` and `demo-imobiliaria.js` — local portal and property catalogue;
 - `demo-build-stamp.js` — visible release marker used to confirm the deployed demo version;
 - `nykuto-local.js` — progressive local-category request composer and WhatsApp handoff;
+- `cde-local-reference.js` — shared approximate CDE kilometre/Monday/Acaray orientation helper;
 - `anunciar/anunciar.js` — mobile-first listing wizard, local photo previews, approximate map zone and structured WhatsApp handoff;
 - `assets/` — production imagery;
 - `favicon.svg`, `robots.txt`, `sitemap.xml`, `_headers` — platform and discovery files;

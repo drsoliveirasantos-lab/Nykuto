@@ -1,4 +1,5 @@
 import { hmac, nowSeconds } from './security.js';
+import { deriveCdeLocalReference } from './cde-local-reference.js';
 
 export const LOCAL_CATEGORIES = new Set(['Produto', 'Imóvel', 'Frete ou mudança', 'Serviço local', 'Compra ou retirada em Foz', 'Carona compartilhada', 'Outro']);
 export const LOCAL_SUBCATEGORIES = {
@@ -198,7 +199,8 @@ export function serializeLocalListing(row, { ownerView = false, media = null } =
       label: zoneLabel,
       latitude: Number(row.zone_lat),
       longitude: Number(row.zone_lng),
-      radiusMeters
+      radiusMeters,
+      localReference: deriveCdeLocalReference(row.zone_lat, row.zone_lng)
     },
     sourceUrl: row.source_url || '',
     status: row.status,

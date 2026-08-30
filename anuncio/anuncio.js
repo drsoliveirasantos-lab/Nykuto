@@ -48,6 +48,8 @@
   const reportSubmit = document.querySelector('[data-report-submit]');
   const reportTurnstile = document.querySelector('[data-report-turnstile]');
   const openReportButton = document.querySelector('[data-open-report]');
+  const navHome = document.querySelector('[data-nav-home]');
+  const navProperties = document.querySelector('[data-nav-properties]');
 
   const statusLabels = {
     published: 'Publicado',
@@ -168,6 +170,13 @@
     if (radius > 0 && radius < 1000) return `raio de ${radius} m`;
     if (radius >= 1000) return `raio de ${radius / 1000} km`;
     return 'zona aproximada';
+  }
+
+  function publicLocationLabel(item, zoneLabel) {
+    const localReference = cleanText(item.zone?.localReference);
+    const kilometre = localReference.match(/km\s*\d+/i)?.[0] || '';
+    const repeatsKilometre = kilometre && normalizedText(zoneLabel).includes(normalizedText(kilometre));
+    return [zoneLabel, repeatsKilometre ? '' : localReference, publicRadiusLabel(item.zone?.radiusMeters)].filter(Boolean).join(' · ');
   }
 
   function normalizedWhatsapp(value) {
@@ -580,6 +589,13 @@
     const zoneLabel = cleanText(item.zone?.label) || 'Zona aproximada';
     const publishedAt = formatDate(item.publishedAt);
 
+    const currentNav = item.category === 'Imóvel' ? navProperties : navHome;
+    [navHome, navProperties].forEach((link) => {
+      if (!link) return;
+      if (link === currentNav) link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
+    });
+
     document.title = `${cleanText(item.title) || 'Anúncio'} — Nykuto Local`;
     document.querySelector('meta[name="description"]')?.setAttribute('content', cleanText(item.description).slice(0, 155) || `${price.value} · ${zoneLabel} · contato direto pelo WhatsApp.`);
     canonical.href = canonicalUrl;
@@ -588,9 +604,8 @@
     statusElement.textContent = ownerView ? `Seu anúncio · ${statusLabels[item.status] || cleanText(item.status)}` : '';
     if (eyebrowElement) eyebrowElement.hidden = !ownerView;
     openReportButton.hidden = ownerView || item.status !== 'published';
-    locationElement.textContent = ride
-      ? `⌖ Saída em ${zoneLabel} · ${publicRadiusLabel(item.zone?.radiusMeters)}`
-      : `⌖ ${zoneLabel} · ${publicRadiusLabel(item.zone?.radiusMeters)}`;
+    const publicLocation = publicLocationLabel(item, zoneLabel);
+    locationElement.textContent = ride ? `⌖ Saída em ${publicLocation}` : `⌖ ${publicLocation}`;
     priceElement.textContent = price.value;
     priceLabel.textContent = ride ? 'Contribuição por pessoa' : (item.kind === 'request' ? 'Orçamento' : 'Preço anunciado');
     priceNote.textContent = price.note;

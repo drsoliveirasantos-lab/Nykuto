@@ -33,6 +33,10 @@ import { verifyTurnstile } from '../../../_lib/turnstile.js';
 
 const LISTING_LIFETIME_SECONDS = 45 * 24 * 60 * 60;
 const LOCAL_RIDE_CATEGORY = 'Carona compartilhada';
+const MARKET_SECTION_GROUPS = new Map([
+  ['electronics', ['phones', 'electronics']],
+  ['services', ['freight', 'services']]
+]);
 
 const RIDE_FEE_LABELS = {
   origin: 'Ponto de partida',
@@ -320,6 +324,9 @@ export async function onRequestGet({ request, env }) {
   const rideDestination = normalizeSearchText(url.searchParams.get('destination')).slice(0, 40);
   const category = url.searchParams.get('category') || '';
   const section = url.searchParams.get('section') || '';
+  const group = url.searchParams.get('group') || '';
+  const groupedSections = group ? MARKET_SECTION_GROUPS.get(group) : null;
+  if (group && !groupedSections) return json({ ok: false, code: 'INVALID_FILTER', message: 'Filtro de categoria inválido.' }, 422);
   const subcategory = cleanLocalOptionalText(url.searchParams.get('subcategory'), 80) || '';
   const kind = LOCAL_LISTING_KINDS.has(url.searchParams.get('kind')) ? url.searchParams.get('kind') : 'offer';
   const limit = Math.max(1, Math.min(24, Math.trunc(Number(url.searchParams.get('limit'))) || 12));
@@ -337,7 +344,10 @@ export async function onRequestGet({ request, env }) {
   if (rideOrigin) { conditions.push('instr(l.search_text, ?) > 0'); values.push(rideOrigin); }
   if (rideDestination) { conditions.push('instr(l.search_text, ?) > 0'); values.push(rideDestination); }
   if (LOCAL_CATEGORIES.has(category)) { conditions.push('l.category = ?'); values.push(category); }
-  if (section) { conditions.push('l.market_section = ?'); values.push(section.slice(0, 30)); }
+  if (groupedSections) {
+    conditions.push(`l.market_section IN (${groupedSections.map(() => '?').join(', ')})`);
+    values.push(...groupedSections);
+  } else if (section) { conditions.push('l.market_section = ?'); values.push(section.slice(0, 30)); }
   if (subcategory) { conditions.push('l.subcategory = ?'); values.push(subcategory); }
   const where = conditions.join(' AND ');
   const [rows, count] = await env.LOCAL_DB.batch([
