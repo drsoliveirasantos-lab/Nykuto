@@ -6,6 +6,8 @@
     "dev": "vite",
     "build": "node scripts/prepare-cloudflare-output.js",
     "functions:check": "node scripts/validate-pages-functions.js",
+    "test": "npm run test:anunciar-photos && npm run test:anunciar-location && npm run test:anunciar-mobile && npm run test:local-reference",
+    "test:anunciar-photos": "node scripts/test-anunciar-photos.mjs",
     "test:anunciar-location": "node scripts/test-anunciar-location.mjs",
     "test:anunciar-mobile": "node scripts/test-anunciar-mobile-contract.mjs",
     "test:local-reference": "node scripts/test-cde-local-reference.mjs",

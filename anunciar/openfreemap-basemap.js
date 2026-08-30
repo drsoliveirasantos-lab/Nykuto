@@ -58,7 +58,7 @@
   function loadLiveFeedback() {
     if (document.querySelector('script[data-nykuto-live-feedback]')) return;
     const script = document.createElement('script');
-    script.src = '/anunciar/live-feedback.js?v=20260830-4';
+    script.src = '/anunciar/live-feedback.js?v=20260830-5';
     script.dataset.nykutoLiveFeedback = 'true';
     script.addEventListener('load', () => { document.documentElement.dataset.nykutoLiveFeedback = 'loaded'; }, { once: true });
     script.addEventListener('error', () => { document.documentElement.dataset.nykutoLiveFeedback = 'error'; }, { once: true });

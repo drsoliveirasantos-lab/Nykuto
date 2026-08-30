@@ -135,11 +135,13 @@ search metadata; the public detail does not repeat them as cards and instead
 prioritizes photos, title, price, description, approximate zone, seller and the
 direct WhatsApp action. Publication remains direct after server validation
 and Turnstile. Images are re-encoded in the browser to
-remove embedded metadata and limited to two JPEG files of 300 KB each. The
-picker accepts JPG, PNG and WebP sources, plus HEIC or HEIF when the user's
-browser can decode them; every accepted source is converted to JPEG before
-publication. Until account-level R2 is enabled, the pilot may use the explicit
-D1 media fallback with a 600 KB total per publication; `LOCAL_MEDIA` becomes
+remove embedded metadata and targeted to two JPEG files of 180 KB each. The
+picker accepts gallery images up to 100 MB, including HEIC, HEIF and DNG when
+the user's browser can decode them; every accepted source is converted to JPEG
+at no more than 960 px on its longest side before publication. The server keeps a
+300 KB ceiling per converted image. Until account-level R2 is enabled, the
+pilot may use the explicit D1 media fallback with a 600 KB total per
+publication; `LOCAL_MEDIA` becomes
 the preferred private storage binding as soon as R2 is available.
 
 The homepage uses eight concise discovery entries. `Eletrônicos` groups the

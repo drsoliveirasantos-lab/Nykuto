@@ -47,6 +47,7 @@
 
   function failureText(error, index) {
     const photo = `Foto ${index + 1}`;
+    if (error?.message === 'PHOTO_RAW_DECODE_FAILED') return `${photo}: ProRAW/DNG não pôde ser convertido neste aparelho`;
     if (error?.message === 'PHOTO_DECODE_FAILED') return `${photo}: formato não reconhecido neste aparelho`;
     if (error?.message === 'PHOTO_ENCODE_FAILED') return `${photo}: não pôde ser reduzida neste aparelho`;
     if (error?.message === 'PHOTO_TOO_LARGE') return `${photo}: não pôde ficar abaixo do limite`;
