@@ -6,6 +6,9 @@ A standalone Portuguese-language beauty showcase split across six routes under
 `/ellen-studio/`. The user approved the name **Ellen Studio**, requested a very
 feminine, sophisticated identity with fine contrasting typography, then approved
 separate pages connected by a compact shared menu instead of one long page.
+The approved mobile refresh uses Ellen's supplied portrait, a shorter introduction,
+visible specialty links, compact cards and two-column technique galleries. There is
+no persistent bottom Agenda bar; the provisional agenda remains in the main menu.
 
 This first version remains a **visual preview**, not an operational salon website or
 a SaaS release. Diego approved publication of this protected preview to `main` on
@@ -21,8 +24,9 @@ information and launch are confirmed.
 - `ellen-studio/sobre/index.html`: visual direction and preview limitations.
 - `ellen-studio/agenda/index.html`: provisional contact and booking state.
 - `ellen-studio/ellen-studio.css`: fully separate ivory, powder-rose and deep-brown visual identity.
-- `ellen-studio/ellen-studio.js`: shared progressive mobile navigation.
-- `ellen-studio/editorial-beauty.webp`: optimized, AI-generated editorial brand image.
+- `ellen-studio/ellen-studio.js`: shared progressive mobile navigation and native image-viewer dialog.
+- `ellen-studio/ellen-portrait.webp`: supplied real portrait of Ellen, optimized and stripped of embedded metadata; CSS frames the face and shoulders without the screenshot interface or facial retouching.
+- `ellen-studio/editorial-beauty.webp`: earlier AI-generated concept image, retained but no longer used on the homepage.
 - `ellen-studio/*-editorial.webp`: optimized illustrative references for nails, eyelashes and eyebrows.
 - `ellen-studio/catalogue/*.webp`: fifteen optimized visual references for the proposed techniques on the three specialty pages.
 - `ellen-studio/emblem.svg`: original text-based favicon; not a photograph.
@@ -46,13 +50,20 @@ explicitly suggestions pending Ellen's approval; no prices, durations, credentia
 reviews, availability, address or phone number are invented. All prices read
 `Valor a definir`. The agenda explains that **no reservation is made**.
 
-The hero, specialty pages and technique catalogue use original AI-generated editorial images. They are
-visibly labelled as illustrative, their alternative text states that they are not
-Ellen or studio work, and they are not presented as photographs of her studio. No third-party images,
+The homepage uses the real portrait supplied for Ellen's identity and approved for
+publication in this refresh. The specialty pages and technique catalogue use original
+AI-generated editorial images. They are visibly labelled as illustrative, their
+alternative text does not present them as studio work, and the image viewer repeats
+the AI-reference disclaimer. They are not presented as photographs of her studio. No third-party images,
 remote fonts, trackers or analytics are requested. Native font stacks vary with
 the visitor's installed fonts; no font files are bundled. Core information remains
 readable without JavaScript. Navigation, focus states, service buttons and
 reduced-motion preferences are supported.
+Each technique image links directly to its local full-size asset without JavaScript.
+Where native dialogs are supported, an accessible in-page viewer adds the technique
+name and description, close control, Escape dismissal and return focus. The dialog
+uses no network API, accounts or storage. Technique galleries precede the pending
+service/price section to make browsing more direct.
 
 ## What is deliberately not built yet
 
@@ -75,6 +86,8 @@ npm run functions:check
 The dependency-free contract checks cover all six routes, unique metadata, the
 shared navigation and current-page state, internal links and local assets, ARIA
 references, honest provisional content, the noindex state and copied build outputs.
+Viewer-handler checks cover image/title/description selection, dismissal, focus
+restoration, modified-click behavior and the no-dialog fallback.
 This is not a claim of physical-iPhone or Safari testing. Full-repository checks
 must also run in CI.
 

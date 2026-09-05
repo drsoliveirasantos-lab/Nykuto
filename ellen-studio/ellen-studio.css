@@ -53,7 +53,7 @@
 .page-brows .page-mark{background:linear-gradient(145deg,#f2e8de,#dbc8bd)}
 .page-visual{width:min(100%,390px);justify-self:end;margin:0;position:relative}
 .page-visual::before{content:'';position:absolute;inset:-12px 12px 30px -12px;border:1px solid var(--rose);z-index:-1}
-.page-visual img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;filter:saturate(.86) contrast(.97)}
+.page-visual img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;filter:saturate(.86) contrast(.97)}
 .page-visual figcaption{margin-top:12px;color:var(--muted);font-size:11px;letter-spacing:.12em;text-align:right}
 .service-detail,.values-section{display:grid;grid-template-columns:.8fr 1.2fr;gap:80px;padding-top:74px;padding-bottom:70px}
 .service-intro .eyebrow{margin-bottom:18px}
@@ -72,7 +72,7 @@
 .gallery-heading>p{max-width:410px;margin:0;color:var(--muted);font-size:16px;line-height:1.7}
 .technique-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
 .technique-card{margin:0;background:var(--paper-light);border:1px solid var(--line);overflow:hidden}
-.technique-card img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;filter:saturate(.84) contrast(.97);transition:transform .45s ease,filter .3s ease}
+.technique-card img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;filter:saturate(.84) contrast(.97);transition:transform .45s ease,filter .3s ease}
 .technique-card:hover img{transform:scale(1.025);filter:saturate(.96) contrast(1)}
 .technique-card>div{display:grid;grid-template-columns:38px 1fr;gap:8px 14px;padding:20px}
 .technique-card span{grid-row:1/3;color:var(--rose);font-size:11px;letter-spacing:.12em}
@@ -144,4 +144,102 @@
   .values-section>.portfolio-note{grid-column:1;padding:0;text-align:center}
   .agenda-page{padding-top:58px;padding-bottom:54px}
   .agenda-page h1{font-size:clamp(48px,13vw,64px);letter-spacing:-2px}
+}
+
+/* Portrait-led, compact presentation. The supplied photo is framed in CSS,
+   without retouching Ellen or showing the original screenshot's interface. */
+.preview-note{font-size:.75rem;letter-spacing:.02em}
+.specialty-nav{display:none}
+.home-hero{grid-template-columns:1.1fr .9fr;gap:64px;padding-block:38px 42px}
+.home-hero h1{max-width:600px;font-size:clamp(3.5rem,6vw,5.25rem);line-height:1.05;letter-spacing:-.04em;margin-bottom:22px}
+.home-hero .eyebrow{font-size:.75rem;letter-spacing:.16em;margin-bottom:18px}
+.home-hero .hero-intro{line-height:1.6;margin-bottom:24px}
+.founder-link{display:inline-flex;align-items:center;gap:24px;min-height:44px;border-bottom:1px solid var(--rose);font-size:.875rem}
+.founder-link:hover{color:var(--rose)}
+.founder-portrait{width:100%;max-width:350px;justify-self:end;margin:0}
+.portrait-crop{position:relative;aspect-ratio:4/5;overflow:hidden;background:#ded4cd;border-radius:45% 45% 4px 4px}
+.portrait-crop img{position:absolute;display:block;width:125%;max-width:none;height:auto;left:-12.5%;top:-23%}
+.founder-portrait figcaption{font-size:.75rem;line-height:1.5;color:var(--muted);text-align:center;margin-top:10px;letter-spacing:.06em}
+.home-services{padding-block:36px 52px}
+.compact-heading{margin-bottom:24px;gap:24px}
+.compact-heading h2{font-size:clamp(2rem,3.7vw,3rem);letter-spacing:-.03em}
+.service-link{min-height:0;grid-template-columns:1fr auto;grid-template-rows:200px auto;padding:0 20px 22px;gap:0 14px}
+.service-link img{width:calc(100% + 40px);height:200px;margin-left:-20px}
+.service-link>span{display:none}
+.service-link h3{font-size:2rem;letter-spacing:-.03em}
+.service-link p{font-size:1rem;line-height:1.55}
+.service-link>div,.service-link>b{margin-top:18px}
+.page-hero{padding-block:36px 40px;gap:40px}
+.page-hero h1{font-size:clamp(3.5rem,7vw,6rem);letter-spacing:-.04em;overflow-wrap:anywhere}
+.page-visual{max-width:240px}
+.page-visual figcaption{font-size:.75rem;letter-spacing:.04em}
+.technique-gallery{border-top:0;padding-block:0 40px}
+.gallery-heading{padding:32px 0 24px;gap:28px}
+.gallery-heading h2{font-size:clamp(2.25rem,4vw,3.25rem);letter-spacing:-.03em}
+.gallery-heading .eyebrow{font-size:.75rem;margin-bottom:12px}
+.technique-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.technique-card>div{display:block;padding:16px}
+.technique-card>div>span{display:none}
+.technique-card h3{font-size:1rem;line-height:1.45;overflow-wrap:anywhere}
+.technique-card p{font-size:.875rem;margin-top:6px}
+.technique-preview{display:block;position:relative;overflow:hidden;cursor:zoom-in}
+.technique-preview:focus-visible{outline-offset:-4px;outline-width:3px}
+.technique-card .image-zoom{position:absolute;right:8px;bottom:8px;padding:6px 9px;background:var(--paper-light);color:var(--ink);font-size:.75rem;line-height:1.4;letter-spacing:0;pointer-events:none}
+.catalogue-caption{font-size:.75rem;letter-spacing:.02em}
+.service-detail{border-top:1px solid var(--line);padding-block:40px;gap:40px}
+.site-footer{padding-bottom:32px}
+.image-view-open{overflow:hidden}
+.image-view{width:min(640px,calc(100% - 32px));max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);padding:20px;border:1px solid var(--line);background:var(--paper-light);color:var(--ink);overscroll-behavior:contain}
+.image-view::backdrop{background:#211719bf;backdrop-filter:blur(4px)}
+.image-view-close{display:block;min-height:44px;margin:0 0 12px auto;padding:10px 14px;border:1px solid var(--line);background:transparent;font-size:.875rem}
+.image-view-close:hover{background:var(--paper)}
+.image-view-photo{display:block;width:100%;height:52vh;height:52dvh;object-fit:contain;background:var(--paper)}
+.image-view h2{font-family:var(--sans);font-size:1.25rem;font-weight:500;letter-spacing:0;line-height:1.4;margin:18px 0 8px}
+.image-view-description{font-size:1rem;line-height:1.6;margin:0}
+.image-view-note{font-size:.75rem;line-height:1.5;color:var(--muted);margin:12px 0 0}
+@media(max-width:900px){
+  .site-header{min-height:68px}
+  .site-header .brand-name{font-size:2.25rem}
+  .preview-note{padding:6px 12px;font-size:.75rem}
+  .specialty-nav{display:grid;grid-template-columns:1fr 1fr 1.35fr;border-bottom:1px solid var(--line);gap:6px}
+  .specialty-nav a{display:flex;align-items:center;justify-content:center;min-height:46px;padding:8px 3px;font-size:.875rem;line-height:1.4;overflow-wrap:anywhere;text-align:center}
+  .specialty-nav a:hover,.specialty-nav a[aria-current=true]{color:var(--rose);box-shadow:inset 0 -2px var(--rose)}
+  .home-hero{grid-template-columns:1.1fr .9fr;gap:18px;padding-block:24px 28px}
+  .home-hero .hero-copy{text-align:left;min-width:0}
+  .home-hero h1{font-size:clamp(2rem,8.5vw,3.5rem);line-height:1.08;letter-spacing:-.04em;margin-bottom:12px}
+  .home-hero .eyebrow{font-size:.75rem;letter-spacing:.08em;margin-bottom:12px}
+  .home-hero .hero-intro{font-size:1rem;line-height:1.5;margin:0 0 12px}
+  .founder-link{gap:10px;font-size:.875rem}
+  .founder-portrait{align-self:center;max-width:260px}
+  .founder-portrait figcaption{margin-top:8px;letter-spacing:0}
+  .home-services{padding-block:24px 36px}
+  .compact-heading{margin-bottom:20px}
+  .compact-heading h2{font-size:2rem}
+  .compact-heading>p{font-size:1rem;line-height:1.5;margin-top:8px}
+  .service-links{grid-template-columns:1fr;gap:12px}
+  .service-link{grid-template-columns:84px minmax(0,1fr) auto;grid-template-rows:auto;gap:14px;padding:0 14px 0 0;align-items:center}
+  .service-link img{grid-column:1;width:84px;height:100%;min-height:96px;margin:0;align-self:stretch}
+  .service-link>div,.service-link>b{align-self:center;margin:0;padding-block:12px}
+  .service-link h3{font-size:1.5rem;line-height:1.2;margin-bottom:4px}
+  .service-link p{font-size:.875rem;line-height:1.45}
+  .page-hero{grid-template-columns:minmax(0,1fr) minmax(0,.55fr);text-align:left;gap:20px;padding-block:28px}
+  .page-hero h1{font-size:clamp(2.25rem,7vw,3.5rem);line-height:1.1;margin-bottom:12px;letter-spacing:-.04em}
+  .page-hero .eyebrow{font-size:.75rem;letter-spacing:.07em;margin-bottom:12px}
+  .page-lead{font-size:1rem;line-height:1.5}
+  .page-visual{width:100%;max-width:180px;justify-self:end}
+  .page-visual::before{inset:-6px 6px 26px -6px}
+  .page-visual figcaption{font-size:.75rem;text-align:left;margin-top:8px;letter-spacing:0}
+  .about-hero{grid-template-columns:1fr;text-align:center}
+  .about-hero h1{font-size:clamp(2.5rem,8vw,3.5rem)}
+  .gallery-heading{padding:28px 0 20px;text-align:left}
+  .gallery-heading h2{font-size:2.25rem}
+  .gallery-heading>p{max-width:none;font-size:1rem;line-height:1.6;margin-top:12px}
+  .technique-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .technique-card>div{padding:12px}
+  .technique-card h3{font-size:1rem}
+  .technique-card p{font-size:.875rem}
+  .technique-gallery{padding-bottom:32px}
+  .catalogue-caption{text-align:left;font-size:.75rem}
+  .service-detail{gap:24px;padding-block:32px}
+  .site-footer{padding-block:26px 32px;gap:14px}
 }
