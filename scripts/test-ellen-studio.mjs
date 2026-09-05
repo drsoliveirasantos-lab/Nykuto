@@ -23,6 +23,8 @@ for (const [, target] of html.matchAll(/aria-(?:controls|labelledby|describedby)
 assert.match(html, /lang="pt-BR"/);
 assert.match(html, /name="robots" content="noindex, nofollow, noarchive"/);
 assert.match(html, /PRÉVIA DE DESIGN/);
+assert.match(html, /IMAGEM EDITORIAL ILUSTRATIVA/);
+assert.match(html, /editorial-beauty\.webp/);
 assert.match(html, /Nenhuma reserva é realizada nesta prévia/);
 assert.match(html, /sujeitos à confirmação de Ellen/);
 assert.match(css, /prefers-reduced-motion:reduce/);
@@ -38,10 +40,10 @@ for (const category of ['nails', 'lashes', 'brows']) {
 // Run after npm run build to validate all three deployment outputs too.
 if (process.argv.includes('--built')) {
   for (const output of ['out', 'dist', '.vercel/output/static']) {
-    for (const file of ['index.html', 'ellen-studio.css', 'ellen-studio.js', 'emblem.svg']) {
+    for (const file of ['index.html', 'ellen-studio.css', 'ellen-studio.js', 'emblem.svg', 'editorial-beauty.webp']) {
       const built = resolve(root, output, 'ellen-studio', file);
       assert.ok(existsSync(built), `Missing built file: ${built}`);
-      assert.equal(readFileSync(built, 'utf8'), readFileSync(resolve(pageDir, file), 'utf8'));
+      assert.deepEqual(readFileSync(built), readFileSync(resolve(pageDir, file)));
     }
   }
 }

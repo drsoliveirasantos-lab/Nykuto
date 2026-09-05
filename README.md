@@ -45,10 +45,11 @@ The existing `app/`, `components/` and `data/` folders, together with the old la
 
 ## Ellen Studio preview
 
-`/ellen-studio/` is a Portuguese visual concept pending owner approval, not a live
-booking service. Its styles and scripts are independent of Nykuto Local. Missing
-prices, photographs and contacts are explicitly provisional; there is no admin or
-database integration yet. Run `npm run test:ellen-studio` for source checks and
+`/ellen-studio/` is a Portuguese visual concept approved for publication as a
+non-indexed preview, not a live booking service. Its styles and scripts are
+independent of Nykuto Local. Missing prices, portfolio photographs and contacts
+are explicitly provisional; there is no admin or database integration yet. Run
+`npm run test:ellen-studio` for source checks and
 `node scripts/test-ellen-studio.mjs --built` after building to check copied outputs.
 See `docs/ellen-studio.md` for scope, validation and publication prerequisites.
 

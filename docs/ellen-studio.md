@@ -1,4 +1,4 @@
-# Ellen Studio — public visual prototype
+# Ellen Studio — public visual preview
 
 ## Scope and approved direction
 
@@ -6,14 +6,17 @@ A standalone Portuguese-language beauty showcase at `/ellen-studio/`, developed 
 `feature/ellen-studio`. The user approved the name **Ellen Studio** and requested a
 very feminine, sophisticated identity with fine contrasting typography.
 
-This first version is a **visual prototype**, not an operational salon website or
-a SaaS release. Do not merge it to `main` before Diego validates the design and CI.
+This first version remains a **visual preview**, not an operational salon website or
+a SaaS release. Diego approved publication of this protected preview to `main` on
+5 September 2026; the noindex state remains required until the real business
+information and launch are confirmed.
 
 ## Authoritative sources and integration
 
 - `ellen-studio/index.html`: public presentation, suggested service menu and contact state.
 - `ellen-studio/ellen-studio.css`: fully separate ivory, powder-rose and deep-brown visual identity.
 - `ellen-studio/ellen-studio.js`: mobile navigation and progressive service-category filters.
+- `ellen-studio/editorial-beauty.webp`: optimized, AI-generated editorial brand image.
 - `ellen-studio/emblem.svg`: original text-based favicon; not a photograph.
 - `scripts/test-ellen-studio.mjs`: dependency-free source-contract checks.
 - `scripts/prepare-cloudflare-output.js`: explicitly copies `ellen-studio/` to all three outputs.
@@ -34,12 +37,13 @@ explicitly suggestions pending Ellen's approval; no prices, durations, credentia
 reviews, availability, address or phone number are invented. All prices read
 `Valor a definir`. The agenda explains that **no reservation is made**.
 
-The original abstract artwork uses CSS/SVG. It is labelled provisional, and is
-not presented as Ellen's portrait, actual work, or a photograph of her studio.
-No third-party images, remote fonts, trackers or analytics are requested. Native
-font stacks vary with the visitor's installed fonts; no font files are bundled.
-Core information remains readable without JavaScript. Navigation, focus states,
-service buttons and reduced-motion preferences are supported.
+The hero uses an original AI-generated editorial image. It is visibly labelled
+as illustrative, its alternative text states that it is not Ellen or studio work,
+and it is not presented as a photograph of her studio. No third-party images,
+remote fonts, trackers or analytics are requested. Native font stacks vary with
+the visitor's installed fonts; no font files are bundled. Core information remains
+readable without JavaScript. Navigation, focus states, service buttons and
+reduced-motion preferences are supported.
 
 ## What is deliberately not built yet
 
@@ -66,11 +70,11 @@ JavaScript errors and absence of remote requests. A JavaScript-disabled mobile
 render retained navigation and all service categories. This is not a claim of
 physical-iPhone or Safari testing. Full-repository checks must also run in CI.
 
-## Publication prerequisites
+## Full launch and indexing prerequisites
 
-Obtain Ellen's confirmed services and prices, authorized photos, public business
-contact and location/hours. Confirm the intended language and contact journey.
-Only enable a WhatsApp link after the actual destination is supplied and checked.
-Obtain Diego's design/merge approval; confirm deployment and all relevant checks.
-Remove preview/noindex restrictions only when the business information is genuine
-and the owner approves public indexing. Do not register a new domain for this pilot.
+Obtain Ellen's confirmed services and prices, authorized portfolio photos, public
+business contact and location/hours. Confirm the intended language and contact
+journey. Only enable a WhatsApp link after the actual destination is supplied and
+checked. Remove preview/noindex restrictions only when the business information is
+genuine and the owner approves public indexing. Do not register a new domain for
+this pilot.
