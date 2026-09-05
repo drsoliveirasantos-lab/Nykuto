@@ -2,9 +2,10 @@
 
 ## Scope and approved direction
 
-A standalone Portuguese-language beauty showcase at `/ellen-studio/`, developed on
-`feature/ellen-studio`. The user approved the name **Ellen Studio** and requested a
-very feminine, sophisticated identity with fine contrasting typography.
+A standalone Portuguese-language beauty showcase split across six routes under
+`/ellen-studio/`. The user approved the name **Ellen Studio**, requested a very
+feminine, sophisticated identity with fine contrasting typography, then approved
+separate pages connected by a compact shared menu instead of one long page.
 
 This first version remains a **visual preview**, not an operational salon website or
 a SaaS release. Diego approved publication of this protected preview to `main` on
@@ -13,9 +14,14 @@ information and launch are confirmed.
 
 ## Authoritative sources and integration
 
-- `ellen-studio/index.html`: public presentation, suggested service menu and contact state.
+- `ellen-studio/index.html`: concise presentation and links to the three specialties.
+- `ellen-studio/nails/index.html`: proposed nail services.
+- `ellen-studio/cilios/index.html`: proposed eyelash services.
+- `ellen-studio/sobrancelhas/index.html`: proposed eyebrow services.
+- `ellen-studio/sobre/index.html`: visual direction and preview limitations.
+- `ellen-studio/agenda/index.html`: provisional contact and booking state.
 - `ellen-studio/ellen-studio.css`: fully separate ivory, powder-rose and deep-brown visual identity.
-- `ellen-studio/ellen-studio.js`: mobile navigation and progressive service-category filters.
+- `ellen-studio/ellen-studio.js`: shared progressive mobile navigation.
 - `ellen-studio/editorial-beauty.webp`: optimized, AI-generated editorial brand image.
 - `ellen-studio/emblem.svg`: original text-based favicon; not a photograph.
 - `scripts/test-ellen-studio.mjs`: dependency-free source-contract checks.
@@ -25,8 +31,9 @@ information and launch are confirmed.
 This extends the static source model documented in `site-architecture.md`. It does
 not use inactive Next.js scaffolding, shared commercial CSS, the property manager,
 `LOCAL_DB`, D1 migrations, existing sessions, or the Nykuto Local catalogue. There
-are no changes to existing public homepage/navigation destinations. Both Pages
-projects consume the repository; verify the intended preview host before sharing.
+are no changes to the existing Nykuto public homepage or its navigation. Every
+Ellen Studio route exposes the same direct six-page navigation. Both Pages projects
+consume the repository; verify the intended preview host before sharing.
 The intended final main-domain path is `https://nykuto.com/ellen-studio/`, but that
 URL must not be described as live until an approved deployment is verified.
 
@@ -63,12 +70,11 @@ npm run hygiene
 npm run functions:check
 ```
 
-The first local prototype was rendered in Chromium at widths 320, 375, 390, 768,
-1024, 1440 and 1920 px. Checks covered horizontal overflow, category switching,
-deep-link category selection, mobile menu/Escape/focus behavior, absence of
-JavaScript errors and absence of remote requests. A JavaScript-disabled mobile
-render retained navigation and all service categories. This is not a claim of
-physical-iPhone or Safari testing. Full-repository checks must also run in CI.
+The dependency-free contract checks cover all six routes, unique metadata, the
+shared navigation and current-page state, internal links and local assets, ARIA
+references, honest provisional content, the noindex state and copied build outputs.
+This is not a claim of physical-iPhone or Safari testing. Full-repository checks
+must also run in CI.
 
 ## Full launch and indexing prerequisites
 
