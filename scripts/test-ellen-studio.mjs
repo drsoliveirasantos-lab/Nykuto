@@ -62,6 +62,13 @@ for (const service of ['nails', 'cilios', 'sobrancelhas']) {
   const html = readFileSync(resolve(pageDir, service, 'index.html'), 'utf8');
   assert.match(html, /Valor a definir/);
   assert.match(html, /sujeitos à confirmação/i);
+  assert.ok(html.includes(`../${service}-editorial.webp`));
+  assert.match(html, /REFERÊNCIA VISUAL · IMAGEM ILUSTRATIVA/);
+  assert.match(html, /não representa um trabalho realizado por Ellen/i);
+}
+for (const image of ['nails-editorial.webp', 'cilios-editorial.webp', 'sobrancelhas-editorial.webp']) {
+  assert.ok(home.includes(`./${image}`));
+  assert.ok(existsSync(resolve(pageDir, image)), `Missing prototype image: ${image}`);
 }
 const agenda = readFileSync(resolve(pageDir, 'agenda/index.html'), 'utf8');
 assert.match(agenda, /Nenhuma reserva é realizada nesta prévia/);

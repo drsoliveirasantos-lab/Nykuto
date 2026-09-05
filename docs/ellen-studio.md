@@ -23,6 +23,7 @@ information and launch are confirmed.
 - `ellen-studio/ellen-studio.css`: fully separate ivory, powder-rose and deep-brown visual identity.
 - `ellen-studio/ellen-studio.js`: shared progressive mobile navigation.
 - `ellen-studio/editorial-beauty.webp`: optimized, AI-generated editorial brand image.
+- `ellen-studio/*-editorial.webp`: optimized illustrative references for nails, eyelashes and eyebrows.
 - `ellen-studio/emblem.svg`: original text-based favicon; not a photograph.
 - `scripts/test-ellen-studio.mjs`: dependency-free source-contract checks.
 - `scripts/prepare-cloudflare-output.js`: explicitly copies `ellen-studio/` to all three outputs.
@@ -44,9 +45,9 @@ explicitly suggestions pending Ellen's approval; no prices, durations, credentia
 reviews, availability, address or phone number are invented. All prices read
 `Valor a definir`. The agenda explains that **no reservation is made**.
 
-The hero uses an original AI-generated editorial image. It is visibly labelled
-as illustrative, its alternative text states that it is not Ellen or studio work,
-and it is not presented as a photograph of her studio. No third-party images,
+The hero and specialty pages use original AI-generated editorial images. They are
+visibly labelled as illustrative, their alternative text states that they are not
+Ellen or studio work, and they are not presented as photographs of her studio. No third-party images,
 remote fonts, trackers or analytics are requested. Native font stacks vary with
 the visitor's installed fonts; no font files are bundled. Core information remains
 readable without JavaScript. Navigation, focus states, service buttons and
