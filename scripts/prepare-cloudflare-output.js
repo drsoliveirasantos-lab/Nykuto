@@ -32,7 +32,7 @@ const staticFiles = [
   '_routes.json'
 ];
 
-const staticDirectories = ['assets', 'imovel', 'imoveis', 'mapa', 'favoritos', 'anunciar', 'anuncio', 'conta', 'regras', 'gestor'];
+const staticDirectories = ['assets', 'imovel', 'imoveis', 'mapa', 'favoritos', 'anunciar', 'anuncio', 'conta', 'regras', 'gestor', 'ellen-studio'];
 
 const outputDirs = [
   path.join(root, 'out'),
