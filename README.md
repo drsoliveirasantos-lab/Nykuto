@@ -48,7 +48,8 @@ The existing `app/`, `components/` and `data/` folders, together with the old la
 `/ellen-studio/` is a Portuguese visual concept approved for publication as a
 non-indexed preview, not a live booking service. It uses six separate pages with a
 compact shared menu: home, nails, eyelashes, eyebrows, about and agenda. Its styles
-and scripts are independent of Nykuto Local. Missing prices, portfolio photographs
+and scripts are independent of Nykuto Local. The specialty visuals are explicitly
+labelled AI-generated editorial references. Missing prices, portfolio photographs
 and contacts are explicitly provisional; there is no admin or database integration yet. Run
 `npm run test:ellen-studio` for source checks and
 `node scripts/test-ellen-studio.mjs --built` after building to check copied outputs.
