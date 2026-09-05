@@ -24,6 +24,7 @@ information and launch are confirmed.
 - `ellen-studio/ellen-studio.js`: shared progressive mobile navigation.
 - `ellen-studio/editorial-beauty.webp`: optimized, AI-generated editorial brand image.
 - `ellen-studio/*-editorial.webp`: optimized illustrative references for nails, eyelashes and eyebrows.
+- `ellen-studio/catalogue/*.webp`: fifteen optimized visual references for the proposed techniques on the three specialty pages.
 - `ellen-studio/emblem.svg`: original text-based favicon; not a photograph.
 - `scripts/test-ellen-studio.mjs`: dependency-free source-contract checks.
 - `scripts/prepare-cloudflare-output.js`: explicitly copies `ellen-studio/` to all three outputs.
@@ -45,7 +46,7 @@ explicitly suggestions pending Ellen's approval; no prices, durations, credentia
 reviews, availability, address or phone number are invented. All prices read
 `Valor a definir`. The agenda explains that **no reservation is made**.
 
-The hero and specialty pages use original AI-generated editorial images. They are
+The hero, specialty pages and technique catalogue use original AI-generated editorial images. They are
 visibly labelled as illustrative, their alternative text states that they are not
 Ellen or studio work, and they are not presented as photographs of her studio. No third-party images,
 remote fonts, trackers or analytics are requested. Native font stacks vary with
