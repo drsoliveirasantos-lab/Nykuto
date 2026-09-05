@@ -48,6 +48,12 @@ contact.html                   Mailto contact journey
 mentions-legales.html          Legal notice
 confidentialite.html           Privacy policy
 cgv.html                       B2B terms
+ellen-studio/index.html        Ellen Studio concise preview homepage
+ellen-studio/nails/            Proposed nail services
+ellen-studio/cilios/           Proposed eyelash services
+ellen-studio/sobrancelhas/     Proposed eyebrow services
+ellen-studio/sobre/            Preview identity and limitations
+ellen-studio/agenda/           Provisional contact and booking state
 styles.css                     Shared design system
 demo-imobiliaria.css           Real-estate demo interface styles
 i18n.js                        FR/EN/PT/ES translations and language state
@@ -99,6 +105,11 @@ Before a framework migration:
   stored server-side; visitor messages and transactions are never collected;
 - no invented proof or unsupported claim;
 - responsive and keyboard-accessible interactions.
+
+`/ellen-studio/` is an isolated, non-indexed Portuguese visual preview. Its concise
+homepage and five dedicated pages use the same compact menu, local styles and local
+editorial image. It does not use Nykuto authentication, D1 or shared commercial
+styles, and it does not submit bookings or expose an active contact destination.
 
 `demo-imobiliaria.html` is the autonomous Nykuto Local homepage linked from the
 Nykuto commercial site and published canonically on `cde.nykuto.com`. The

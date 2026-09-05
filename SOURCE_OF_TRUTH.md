@@ -60,6 +60,7 @@ The current production source of truth is the static root site:
 - `conta/` for the lightweight online publisher profile and listing controls;
 - `regras/` for community, safety and external-import rules;
 - `assets/`, `favicon.svg`, `robots.txt`, `sitemap.xml` and `_headers`;
+- `ellen-studio/`, an isolated Portuguese multipage beauty preview with its own assets and navigation;
 - `scripts/prepare-cloudflare-output.js`;
 - `gestor/` for the private real-estate manager pilot interface;
 - `functions/` for Cloudflare Pages authentication, manager and local APIs;
