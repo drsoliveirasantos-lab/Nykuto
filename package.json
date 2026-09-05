@@ -6,11 +6,12 @@
     "dev": "vite",
     "build": "node scripts/prepare-cloudflare-output.js",
     "functions:check": "node scripts/validate-pages-functions.js",
-    "test": "npm run test:anunciar-photos && npm run test:anunciar-location && npm run test:anunciar-mobile && npm run test:local-reference",
+    "test": "npm run test:anunciar-photos && npm run test:anunciar-location && npm run test:anunciar-mobile && npm run test:local-reference && npm run test:ellen-studio",
     "test:anunciar-photos": "node scripts/test-anunciar-photos.mjs",
     "test:anunciar-location": "node scripts/test-anunciar-location.mjs",
     "test:anunciar-mobile": "node scripts/test-anunciar-mobile-contract.mjs",
     "test:local-reference": "node scripts/test-cde-local-reference.mjs",
+    "test:ellen-studio": "node scripts/test-ellen-studio.mjs",
     "start": "vite --host 0.0.0.0",
     "typecheck": "node -e \"console.log('Static site validation: no TypeScript compilation required')\"",
     "hygiene": "node scripts/validate-repository-hygiene.js"
