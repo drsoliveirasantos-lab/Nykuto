@@ -67,7 +67,8 @@ for (const service of ['nails', 'cilios', 'sobrancelhas']) {
   const html = readFileSync(resolve(pageDir, service, 'index.html'), 'utf8');
   assert.match(html, /Valor a definir/);
   assert.match(html, /sujeitos à confirmação/i);
-  assert.ok(html.includes(`../${service}-editorial.webp`));
+  const heroAsset = service === 'cilios' ? '../catalogue/cilios-volume-russo-macro.webp' : `../${service}-editorial.webp`;
+  assert.ok(html.includes(heroAsset));
   assert.match(html, /REFERÊNCIA VISUAL · IMAGEM ILUSTRATIVA/);
   assert.match(html, /não representa um trabalho realizado por Ellen/i);
   assert.match(html, /TÉCNICAS EM DESTAQUE/);
@@ -76,7 +77,7 @@ for (const service of ['nails', 'cilios', 'sobrancelhas']) {
 }
 const catalogues = {
   nails: ['unhas-manicure-classica', 'unhas-esmaltacao-gel', 'unhas-banho-gel', 'unhas-tips-gel', 'unhas-fibra', 'unhas-acrilico-polygel', 'unhas-nail-art'],
-  cilios: ['cilios-lash-lift', 'cilios-classica', 'cilios-hibrida', 'cilios-volume-russo'],
+  cilios: ['cilios-lash-lift-macro', 'cilios-classica-macro', 'cilios-hibrida-macro', 'cilios-volume-russo-macro', 'cilios-cat-eye-macro'],
   sobrancelhas: ['sobrancelhas-design', 'sobrancelhas-coloracao', 'sobrancelhas-henna', 'sobrancelhas-laminacao']
 };
 for (const [service, images] of Object.entries(catalogues)) {
@@ -87,7 +88,17 @@ for (const [service, images] of Object.entries(catalogues)) {
     assert.ok(html.includes(`class="technique-preview" href="../catalogue/${image}.webp" aria-label="Ampliar imagem:`), `Missing accessible full-image link for ${image}`);
   }
 }
-for (const image of ['nails-editorial.webp', 'cilios-editorial.webp', 'sobrancelhas-editorial.webp']) {
+const lashes = readFileSync(resolve(pageDir, 'cilios/index.html'), 'utf8');
+assert.equal([...lashes.matchAll(/class="technique-card"/g)].length, 5);
+assert.equal([...lashes.matchAll(/<img[^>]*width="960" height="640"/g)].length, 6, 'Hero and all five eye references use a landscape frame');
+assert.match(lashes, /sem adicionar extensões/);
+assert.match(lashes, /Uma extensão por cílio natural/);
+assert.match(lashes, /fios individuais e pequenos leques/);
+assert.match(lashes, /Leques de fios ultrafinos/);
+assert.match(lashes, /É um efeito de extensão, não um lash lift/);
+assert.match(lashes, /GERADAS POR IA/);
+assert.doesNotMatch(lashes + home, /cilios-editorial\.webp|cilios-(?:lash-lift|classica|hibrida|volume-russo)\.webp/);
+for (const image of ['nails-editorial.webp', 'catalogue/cilios-volume-russo-macro.webp', 'sobrancelhas-editorial.webp']) {
   assert.ok(home.includes(`./${image}`));
   assert.ok(existsSync(resolve(pageDir, image)), `Missing prototype image: ${image}`);
 }
@@ -101,6 +112,7 @@ assert.match(css, /focus-visible/);
 assert.match(css, /\.service-links/);
 assert.match(css, /\.page-hero/);
 assert.match(css, /\.technique-grid/);
+assert.match(css, /\.page-lashes \.technique-card img\{[^}]*aspect-ratio:3\/2;object-fit:contain/, 'Eye framing must not crop the outer corner or lash tips');
 for (const selector of ['page-visual', 'technique-card']) {
   assert.match(css, new RegExp(`\\.${selector} img\\{[^}]*height:auto`), 'Responsive images must not retain their HTML pixel height');
 }
