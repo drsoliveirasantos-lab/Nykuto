@@ -65,6 +65,20 @@ for (const service of ['nails', 'cilios', 'sobrancelhas']) {
   assert.ok(html.includes(`../${service}-editorial.webp`));
   assert.match(html, /REFERÊNCIA VISUAL · IMAGEM ILUSTRATIVA/);
   assert.match(html, /não representa um trabalho realizado por Ellen/i);
+  assert.match(html, /TÉCNICAS EM DESTAQUE/);
+  assert.match(html, /IMAGENS EDITORIAIS ILUSTRATIVAS/);
+}
+const catalogues = {
+  nails: ['unhas-manicure-classica', 'unhas-esmaltacao-gel', 'unhas-banho-gel', 'unhas-tips-gel', 'unhas-fibra', 'unhas-acrilico-polygel', 'unhas-nail-art'],
+  cilios: ['cilios-lash-lift', 'cilios-classica', 'cilios-hibrida', 'cilios-volume-russo'],
+  sobrancelhas: ['sobrancelhas-design', 'sobrancelhas-coloracao', 'sobrancelhas-henna', 'sobrancelhas-laminacao']
+};
+for (const [service, images] of Object.entries(catalogues)) {
+  const html = readFileSync(resolve(pageDir, service, 'index.html'), 'utf8');
+  for (const image of images) {
+    assert.ok(html.includes(`../catalogue/${image}.webp`), `Missing catalogue image reference ${image}`);
+    assert.ok(existsSync(resolve(pageDir, 'catalogue', `${image}.webp`)), `Missing catalogue image ${image}`);
+  }
 }
 for (const image of ['nails-editorial.webp', 'cilios-editorial.webp', 'sobrancelhas-editorial.webp']) {
   assert.ok(home.includes(`./${image}`));
@@ -79,6 +93,7 @@ assert.match(css, /prefers-reduced-motion:reduce/);
 assert.match(css, /focus-visible/);
 assert.match(css, /\.service-links/);
 assert.match(css, /\.page-hero/);
+assert.match(css, /\.technique-grid/);
 assert.doesNotMatch(js, /\b(?:fetch|XMLHttpRequest|localStorage|sessionStorage)\b/);
 new Script(js, { filename: 'ellen-studio.js' });
 
