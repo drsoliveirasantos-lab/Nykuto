@@ -177,6 +177,23 @@ License: https://github.com/google/fonts/blob/main/ofl/cormorantgaramond/OFL.txt
 Only the local subsets and license ship; visitors make no requests to Google Fonts.
 The existing social-sharing image and metadata are preserved.
 
+### Compact care selection
+
+Diego requested a shorter layout and recognizable icon controls. All nineteen care
+buttons now place a bag-plus icon beside the price in one row, with a 44 × 44 CSS
+pixel target. Selection changes the icon to a check and the button to cherry;
+pressing it again removes the care. Service-specific accessible names, title hints,
+`aria-pressed`, live announcements and the existing count feedback stay available.
+The refresh handler preserves the SVG instead of replacing button contents with text.
+
+Each specialty carries one concise indicative-price note. Repeated card labels and
+per-card cart shortcuts are removed; prices, relevant qualifiers, unquoted care and
+the header/gallery cart links remain. Introductions, headings, card spacing and
+mobile header dimensions are reduced. Nail thumbnails use a square contain frame;
+eye and brow thumbnails retain their complete 3:2 frame and full-image viewer.
+Mobile retains two catalogue columns, and the lash gallery uses three on desktop.
+The existing colors, local fonts, enquiry text and price amounts are preserved.
+
 ## Link sharing
 
 The user explicitly requested an identity-photo preview when sharing the site link

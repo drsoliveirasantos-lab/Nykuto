@@ -63,6 +63,8 @@ Advanced nail extensions are outside this catalogue. Public market references ap
 as indicative prices in reais (R$), with unmatched services marked `Sob consulta`.
 A temporary cart carries care selections between pages and opens Ellen's supplied
 WhatsApp with the care, indicative subtotal and optional appointment preferences.
+Compact care cards pair each price with an accessible bag-plus button that changes
+to a check when selected; the header keeps the cart within reach.
 Ellen confirms the final price and availability; there are no automatic reservations,
 payments, admin or database integration. Portfolio photographs and business details
 remain provisional. Run

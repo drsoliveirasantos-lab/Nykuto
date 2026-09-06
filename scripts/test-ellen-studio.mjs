@@ -108,7 +108,7 @@ assert.match(home, /Imagens editoriais ilustrativas/);
 assert.doesNotMatch(home, /editorial-beauty\.webp/);
 for (const service of ['nails', 'cilios', 'sobrancelhas']) {
   const html = readFileSync(resolve(pageDir, service, 'index.html'), 'utf8');
-  assert.match(html, /Valor indicativo/);
+  assert.match(html, /class="price-note">Valores indicativos\./);
   assert.match(html, /sujeitos à confirmação/i);
   const heroAsset = { nails: '../nails-editorial.webp', cilios: '../catalogue/cilios-volume-russo-macro.webp', sobrancelhas: '../catalogue/sobrancelhas-design-macro.webp' }[service];
   assert.ok(html.includes(heroAsset));
@@ -123,6 +123,9 @@ for (const service of SERVICES) {
   const purchase = servicePages.match(new RegExp(`<div class="service-purchase" data-service-id="${service.id}">([\\s\\S]*?)<\\/div>`))?.[1];
   assert.ok(purchase, `Missing purchasable service ${service.id}`);
   assert.ok(purchase.includes(`data-add-service="${service.id}"`));
+  const control = purchase.match(/<button class="add-to-cart"[^>]*>([\s\S]*?)<\/button>/);
+  assert.match(control?.[0] ?? '', /aria-label="Adicionar [^"]+ ao carrinho"/);
+  assert.match(control[1], /<svg[^>]*aria-hidden="true"/);
   if (service.brl === null) assert.match(purchase, /Sob consulta/);
   else assert.ok(purchase.includes(`<span class="price-amount">${service.brl}</span>`), `Displayed price differs from cart price: ${service.id}`);
 }

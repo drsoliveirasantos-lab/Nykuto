@@ -36,10 +36,12 @@ export function initCart(document, window) {
     document.querySelectorAll('.cart-link').forEach(node => { node.setAttribute('aria-label', `Ver carrinho: ${ids.length} cuidado(s)`); });
     addButtons.forEach(button => {
       const selected = ids.includes(button.dataset.addService);
+      const service = getService(button.dataset.addService);
+      if (!service) return;
       button.setAttribute('aria-pressed', String(selected));
-      button.textContent = selected ? 'No carrinho · remover' : 'Adicionar ao carrinho';
-      const shortcut = button.parentElement.querySelector('[data-cart-shortcut]');
-      if (shortcut) shortcut.hidden = !selected;
+      const label = `${selected ? 'Remover' : 'Adicionar'} ${service.name} ${selected ? 'do' : 'ao'} carrinho`;
+      button.setAttribute('aria-label', label);
+      button.setAttribute('title', label);
     });
     setHidden('[data-cart-empty]', ids.length !== 0);
     setHidden('[data-cart-filled]', ids.length === 0);
