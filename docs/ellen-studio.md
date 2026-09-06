@@ -28,7 +28,8 @@ information and launch are confirmed.
 - `ellen-studio/ellen-portrait.webp`: supplied real portrait of Ellen, optimized and stripped of embedded metadata; CSS frames the face and shoulders without the screenshot interface or facial retouching.
 - `ellen-studio/editorial-beauty.webp`: earlier AI-generated concept image, retained but no longer used on the homepage.
 - `ellen-studio/*-editorial.webp`: optimized illustrative references for nails, eyelashes and eyebrows.
-- `ellen-studio/catalogue/*.webp`: fifteen optimized visual references for the proposed techniques on the three specialty pages.
+- `ellen-studio/catalogue/*.webp`: sixteen active optimized visual references across the three specialties, including five horizontal eye-only eyelash references (`cilios-*-macro.webp`). Earlier eyelash portraits remain retained but are not rendered.
+- `docs/ellen-studio-lashes.md`: professional sources and generation direction for the eyelash reference refresh.
 - `ellen-studio/emblem.svg`: original text-based favicon; not a photograph.
 - `scripts/test-ellen-studio.mjs`: dependency-free source-contract checks.
 - `scripts/prepare-cloudflare-output.js`: explicitly copies `ellen-studio/` to all three outputs.
@@ -64,6 +65,12 @@ Where native dialogs are supported, an accessible in-page viewer adds the techni
 name and description, close control, Escape dismissal and return focus. The dialog
 uses no network API, accounts or storage. Technique galleries precede the pending
 service/price section to make browsing more direct.
+Eyelash references use a horizontal 3:2 frame with no image cropping, including in
+the full-image viewer. The hero and homepage specialty card reuse the Russian-volume
+macro rather than a full-face portrait. Lash lift, classic, hybrid and Russian volume
+are distinguished from cat-eye, which is explicitly an extension styling effect, not
+another lifting technique. The other specialty images and Ellen's real portrait are
+unchanged by this refresh.
 
 ## What is deliberately not built yet
 

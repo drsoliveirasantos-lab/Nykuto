@@ -197,6 +197,15 @@
 .image-view h2{font-family:var(--sans);font-size:1.25rem;font-weight:500;letter-spacing:0;line-height:1.4;margin:18px 0 8px}
 .image-view-description{font-size:1rem;line-height:1.6;margin:0}
 .image-view-note{font-size:.75rem;line-height:1.5;color:var(--muted);margin:12px 0 0}
+/* Eyelash references stay horizontal so both corners and the full lash fringe
+   are visible. Other specialty galleries keep their existing portrait format. */
+.page-lashes .page-visual{width:100%;max-width:400px}
+.page-lashes .page-visual img,.page-lashes .technique-card img{height:auto;aspect-ratio:3/2;object-fit:contain;filter:none}
+.page-lashes .technique-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.page-lashes .technique-card:hover img{transform:none;filter:none}
+.service-link-lashes img{object-fit:contain;filter:none;background:var(--paper-light)}
+.service-link-lashes:hover img{transform:none;filter:none}
+.page-lashes .image-view-photo{height:auto;max-height:52vh;max-height:52dvh;aspect-ratio:3/2}
 @media(max-width:900px){
   .site-header{min-height:68px}
   .site-header .brand-name{font-size:2.25rem}
@@ -242,4 +251,7 @@
   .catalogue-caption{text-align:left;font-size:.75rem}
   .service-detail{gap:24px;padding-block:32px}
   .site-footer{padding-block:26px 32px;gap:14px}
+  .page-lashes .page-hero{grid-template-columns:1fr;gap:18px}
+  .page-lashes .page-visual{width:100%;max-width:340px;justify-self:center}
+  .service-link-lashes img{object-fit:contain}
 }

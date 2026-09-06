@@ -51,8 +51,10 @@ compact shared menu: home, nails, eyelashes, eyebrows, about and agenda. A real
 supplied portrait introduces Ellen on the homepage, and mobile specialty links stay
 visible below the header. The compact technique galleries open full images in an
 accessible dialog (ordinary image links without JavaScript). Its styles
-and scripts are independent of Nykuto Local. The specialty visuals and fifteen-image
-technique catalogue are explicitly labelled AI-generated editorial references. Missing prices, portfolio photographs
+and scripts are independent of Nykuto Local. The specialty visuals and sixteen-image
+technique/effect catalogue are explicitly labelled AI-generated editorial references.
+The five eyelash models use eye-only landscape close-ups to distinguish lift,
+classic, hybrid, Russian volume and the cat-eye styling effect. Missing prices, portfolio photographs
 and contacts are explicitly provisional; there is no admin or database integration yet. Run
 `npm run test:ellen-studio` for source checks and
 `node scripts/test-ellen-studio.mjs --built` after building to check copied outputs.
