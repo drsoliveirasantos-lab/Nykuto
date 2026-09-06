@@ -57,7 +57,8 @@ test('WhatsApp draft contains the right recipient, item details, partial total a
   assert.match(message, /não incluído\(s\) no subtotal/);
   assert.match(message, /10\/09\/2026/);
   assert.match(message, /Tarde/);
-  assert.match(message, /valor final.*a confirmar/);
+  assert.match(message, /Você pode confirmar os valores/);
+  assert.doesNotMatch(message, /Valores indicativos de mercado em reais/);
   assert.throws(() => whatsappHref([]), /Escolha pelo menos/);
 });
 
