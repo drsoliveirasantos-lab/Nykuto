@@ -17,6 +17,7 @@ const routes = [
 const navigationUrls = routes.map(({ url }) => url);
 const titles = new Set();
 const descriptions = new Set();
+const shareImageUrl = 'https://nykuto.com/ellen-studio/og.png';
 
 for (const route of routes) {
   const file = resolve(pageDir, route.file);
@@ -47,7 +48,11 @@ for (const route of routes) {
   assert.doesNotMatch(html, /class="mobile-action"|↗/);
   assert.equal([...html.matchAll(/aria-current="page"/g)].length, 1, `Exactly one current page is required in ${route.file}`);
   for (const url of navigationUrls) assert.match(html, new RegExp(`href="${url}"`), `Navigation is incomplete in ${route.file}`);
-  assert.doesNotMatch(html, /<(?:form|iframe)\b|https?:\/\/|wa\.me\//i);
+  assert.doesNotMatch(html, /<(?:form|iframe)\b|wa\.me\//i);
+  assert.doesNotMatch(html.split('<body')[1], /https?:\/\//i, 'No remote services or booking links in preview content');
+  for (const [url] of html.matchAll(/https?:\/\/[^"\s<>]+/g)) {
+    assert.ok(url.startsWith('https://nykuto.com/ellen-studio/'), `Unexpected absolute URL in ${route.file}: ${url}`);
+  }
 
   const title = html.match(/<title>([^<]+)<\/title>/)?.[1];
   const description = html.match(/<meta name="description" content="([^"]+)"/)?.[1];
@@ -55,7 +60,35 @@ for (const route of routes) {
   assert.ok(description && !descriptions.has(description), `Description must be unique in ${route.file}`);
   titles.add(title);
   descriptions.add(description);
+
+  const socialEntries = [...html.matchAll(/<meta (?:property|name)="((?:og|twitter):[^"]+)" content="([^"]*)">/g)];
+  const social = Object.fromEntries(socialEntries.map(([, key, value]) => [key, value]));
+  assert.equal(Object.keys(social).length, socialEntries.length, `Duplicate social metadata in ${route.file}`);
+  assert.equal(social['og:title'], title);
+  assert.equal(social['twitter:title'], title);
+  assert.equal(social['og:description'], description);
+  assert.equal(social['twitter:description'], description);
+  assert.equal(social['og:url'], `https://nykuto.com${route.url}`);
+  assert.ok(html.includes(`<link rel="canonical" href="https://nykuto.com${route.url}">`));
+  assert.equal(social['og:type'], 'website');
+  assert.equal(social['og:locale'], 'pt_BR');
+  assert.equal(social['og:site_name'], 'Ellen Studio');
+  assert.equal(social['og:image'], shareImageUrl);
+  assert.equal(social['og:image:secure_url'], shareImageUrl);
+  assert.equal(social['twitter:image'], shareImageUrl);
+  assert.equal(social['og:image:type'], 'image/png');
+  assert.equal(social['og:image:width'], '1200');
+  assert.equal(social['og:image:height'], '630');
+  assert.ok(social['og:image:alt']?.includes('Ellen'));
+  assert.equal(social['twitter:image:alt'], social['og:image:alt']);
+  assert.equal(social['twitter:card'], 'summary_large_image');
 }
+
+const shareImage = readFileSync(resolve(pageDir, 'og.png'));
+assert.deepEqual(shareImage.subarray(0, 8), Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]), 'The social card must be an actual PNG');
+assert.equal(shareImage.readUInt32BE(16), 1200, 'Declared share width must match PNG IHDR');
+assert.equal(shareImage.readUInt32BE(20), 630, 'Declared share height must match PNG IHDR');
+assert.ok(shareImage.length < 500 * 1024, 'Keep the social card lightweight');
 
 const home = readFileSync(resolve(pageDir, 'index.html'), 'utf8');
 assert.match(home, /ellen-portrait\.webp/);

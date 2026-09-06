@@ -26,6 +26,7 @@ information and launch are confirmed.
 - `ellen-studio/ellen-studio.css`: fully separate ivory, powder-rose and deep-brown visual identity.
 - `ellen-studio/ellen-studio.js`: shared progressive mobile navigation and native image-viewer dialog.
 - `ellen-studio/ellen-portrait.webp`: supplied real portrait of Ellen, optimized and stripped of embedded metadata; CSS frames the face and shoulders without the screenshot interface or facial retouching.
+- `ellen-studio/og.png`: lightweight 1200 × 630 brand-sharing card, composed from Ellen's supplied photograph and the studio's identity.
 - `ellen-studio/editorial-beauty.webp`: earlier AI-generated concept image, retained but no longer used on the homepage.
 - `ellen-studio/*-editorial.webp`: optimized illustrative references for nails, eyelashes and eyebrows.
 - `ellen-studio/catalogue/*.webp`: sixteen active optimized visual references across the three specialties, including five horizontal eye-only eyelash references (`cilios-*-macro.webp`). Earlier eyelash portraits remain retained but are not rendered.
@@ -72,6 +73,32 @@ are distinguished from cat-eye, which is explicitly an extension styling effect,
 another lifting technique. The other specialty images and Ellen's real portrait are
 unchanged by this refresh.
 
+## Link sharing
+
+The user explicitly requested an identity-photo preview when sharing the site link
+on 6 September 2026. All six pages expose static Open Graph and X card metadata in
+the initial HTML head. The shared image is an absolute same-origin PNG URL, with
+explicit MIME type, width, height and alternative text. Page-specific title,
+description, canonical URL and `og:url` remain aligned with the actual route.
+No JavaScript, external SDK, account or tracking is needed to read these tags.
+
+The card is a photo-based brand composition, not a treatment result or a new
+portrait of a fictional model. The original homepage portrait remains unchanged.
+The generative composite preserves recognizable source identity but is not a
+verified untouched-pixel paste; generation and inspection details are recorded in
+[ellen-studio-share-card.json](ellen-studio-share-card.json).
+Public asset access is retained without enabling search indexing; the existing
+noindex notices and HTTP headers remain in place. Social clients decide whether
+and when to fetch and display a preview, and already-sent messages are not a
+guaranteed reflection of updated page metadata. Do not claim a physical WhatsApp
+send test unless one has actually been performed.
+
+Implementation references: [Open Graph protocol](https://ogp.me/),
+[Meta image guidance](https://developers.facebook.com/documentation/sharing/webmasters/images),
+and [Meta sharing metadata](https://developers.facebook.com/documentation/sharing/webmasters).
+If the card changes later, give the image a new versioned URL to avoid reusing
+cached image bytes. This release adds the first card; it replaces no existing one.
+
 ## What is deliberately not built yet
 
 No admin interface, password, login/session, photo upload, database persistence,
@@ -93,6 +120,8 @@ npm run functions:check
 The dependency-free contract checks cover all six routes, unique metadata, the
 shared navigation and current-page state, internal links and local assets, ARIA
 references, honest provisional content, the noindex state and copied build outputs.
+Sharing checks cover all six pages, matching route metadata, same-origin absolute
+image URLs, unique tags, image MIME type, actual PNG dimensions and file-size budget.
 Viewer-handler checks cover image/title/description selection, dismissal, focus
 restoration, modified-click behavior and the no-dialog fallback.
 This is not a claim of physical-iPhone or Safari testing. Full-repository checks
