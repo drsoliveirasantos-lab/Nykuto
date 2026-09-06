@@ -23,7 +23,8 @@ information and launch are confirmed.
 - `ellen-studio/sobrancelhas/index.html`: proposed eyebrow services.
 - `ellen-studio/sobre/index.html`: visual direction and preview limitations.
 - `ellen-studio/agenda/index.html`: temporary care cart, optional appointment preferences and supplied WhatsApp contact.
-- `ellen-studio/ellen-studio.css`: fully separate ivory, powder-rose and deep-brown visual identity.
+- `ellen-studio/ellen-studio.css`: fully separate cream, cherry and candy-rose visual identity.
+- `ellen-studio/fonts/`: locally served Cormorant Garamond regular and italic WOFF2 subsets, with the bundled SIL Open Font License.
 - `ellen-studio/ellen-studio.js`: shared progressive mobile navigation and native image-viewer dialog.
 - `ellen-studio/ellen-cart-model.mjs`: canonical care IDs, dated reference prices, conversion, draft normalization and WhatsApp message construction.
 - `ellen-studio/ellen-cart.mjs`: cart controls, temporary draft handoff and user-triggered WhatsApp enquiry.
@@ -133,8 +134,9 @@ publication in this refresh. The specialty pages and technique catalogue use ori
 AI-generated editorial images. They are visibly labelled as illustrative, their
 alternative text does not present them as studio work, and the image viewer repeats
 the AI-reference disclaimer. They are not presented as photographs of her studio. No third-party images,
-remote fonts, trackers or analytics are requested. Native font stacks vary with
-the visitor's installed fonts; no font files are bundled. Core information remains
+remote fonts, trackers or analytics are requested. Cormorant Garamond regular and
+italic are served locally for consistent brand, heading and price typography;
+the body uses a native sans-serif stack. Core information remains
 readable without JavaScript. Navigation, focus states, service buttons and
 reduced-motion preferences are supported.
 Each technique image links directly to its local full-size asset without JavaScript.
@@ -148,6 +150,32 @@ macro rather than a full-face portrait. Lash lift, classic, hybrid and Russian v
 are distinguished from cat-eye, which is explicitly an extension styling effect, not
 another lifting technique. The other specialty images and Ellen's real portrait are
 unchanged by this refresh.
+
+## Cherry and candy-rose visual refresh, 6 September 2026
+
+Diego approved the proposed premium, feminine direction: cream-rose surfaces,
+deep cherry headings and primary actions, candy-pink accents and delicate frames.
+The homepage retains its short layout and Ellen's original portrait, now framed in
+a blush panel with a direct `Escolher meus cuidados` link to the existing specialty
+cards. The separate `Conheça Ellen` link stays available. Mobile keeps the compact
+portrait and service rows; all six pages share the updated palette and typography.
+
+Cards use fine rose borders, gently rounded corners, pale pink purchase controls
+and clear cherry selection states. Eyelash and eyebrow images keep their complete
+horizontal framing. Introductory motion runs once, desktop hover movements are
+limited to devices with a fine pointer, and cart-count feedback runs only after a
+selection change. CSS and the count animation respect reduced-motion preferences.
+There is no added fixed bottom bar, autoplay media, scroll interception or animation
+dependency. Existing enquiry wording, rounded prices and booking behavior remain.
+
+Cormorant Garamond by the Cormorant Project Authors is distributed under SIL OFL 1.1.
+Regular 400 and italic 400 were obtained from the Google Fonts CSS API, subset with
+FontTools to Latin, Latin Extended, punctuation and currency glyphs, and encoded as
+WOFF2. The regular face is preloaded; both use `font-display: swap`. Font source:
+https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap
+License: https://github.com/google/fonts/blob/main/ofl/cormorantgaramond/OFL.txt
+Only the local subsets and license ship; visitors make no requests to Google Fonts.
+The existing social-sharing image and metadata are preserved.
 
 ## Link sharing
 

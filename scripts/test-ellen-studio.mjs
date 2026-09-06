@@ -173,6 +173,9 @@ assert.equal(contactUrl.searchParams.get('text'), whatsappMessage);
 
 const css = readFileSync(resolve(pageDir, 'ellen-studio.css'), 'utf8');
 const js = readFileSync(resolve(pageDir, 'ellen-studio.js'), 'utf8');
+for (const [, asset] of css.matchAll(/url\(['"]?(\.\/[^'"\)]+)['"]?\)/g)) {
+  assert.ok(existsSync(resolve(pageDir, asset)), `Missing stylesheet asset: ${asset}`);
+}
 assert.match(css, /prefers-reduced-motion:reduce/);
 assert.match(css, /focus-visible/);
 assert.match(css, /\.service-links/);
