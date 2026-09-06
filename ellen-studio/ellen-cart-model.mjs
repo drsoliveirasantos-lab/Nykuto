@@ -95,7 +95,6 @@ export function appointmentMessage(ids, preferences = {}) {
   lines.push('');
   if (summary.known) lines.push(`${summary.unknown ? 'Subtotal estimado dos itens com referência' : 'Total estimado'}: ${money(summary.total)}`);
   if (summary.unknown) lines.push(`${summary.unknown} cuidado(s) com valor sob consulta, não incluído(s) no subtotal.`);
-  lines.push('Valores indicativos de mercado em reais (R$); valor final e combinação dos cuidados a confirmar com Ellen.');
   const name = cleanText(preferences.name, 70);
   const notes = cleanText(preferences.notes, 500);
   if (name) lines.push('', `Meu nome: ${name}`);

@@ -123,6 +123,10 @@ CDE, romSo on Fresha, and DermoBeauty's published services. Static HTML prices a
 checked against the model. Unknown prices remain selectable but display `Sob consulta`;
 both cart and WhatsApp distinguish a known-price subtotal from the additional
 unquoted care. An all-unquoted selection never displays a zero-price total.
+At Diego's request, the WhatsApp draft omits the redundant sentence explaining
+Brazilian reais: each amount already carries R$. The closing question still asks
+Ellen to confirm prices and available times; the site's reference-price explanation
+remains available on the agenda page.
 
 The homepage uses the real portrait supplied for Ellen's identity and approved for
 publication in this refresh. The specialty pages and technique catalogue use original
