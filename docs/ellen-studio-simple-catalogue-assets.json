@@ -1,0 +1,111 @@
+{
+  "mode": "built-in image_gen",
+  "tool": "image_gen__imagegen",
+  "date": "2026-09-06",
+  "generation_calls": 7,
+  "generation_variants_per_asset": 1,
+  "purpose": "Generated illustrative beauty reference imagery for Ellen Studio catalogue; not real client work",
+  "inspection": "Every generated image visually inspected from full returned image",
+  "assets": [
+    {
+      "prompt": "Use case: photorealistic-natural\nAsset type: standalone beauty catalogue reference photograph for a refined studio website. This is illustrative generated imagery, not documentation of real client work.\nStyle/medium: highly realistic professional beauty photography, honest skin pores, fine hairs and natural skin texture; restrained elegant studio feel.\nLighting/mood: soft diffused natural window light, gentle shadows, neutral exposure.\nColor palette: ivory, powder rose and deep brown.\nConstraints: no text, no logo, no watermark, no tools, no jewellery, no collage, no before-and-after layout.\nComposition/framing: vertical portrait photograph, 4:5 aspect ratio. Close crop of ONE anatomically correct adult hand with five fingers in a relaxed natural pose, all five fingernails clearly readable and in focus against a tasteful matte ivory background. Warm medium-light skin.\nNails: real NATURAL SHORT fingernails, short squoval shape, edge just at fingertip, slim natural profile. Extremely simple manicure appropriate for easy everyday nail art.\nAvoid: long nails, extensions, thick gel, sculpted apex, coffin or almond shape, gems, beads, 3D decoration, elaborate artwork, extra fingers, duplicate fingers, a second hand.\nPrimary request: sheer nude base on every nail with a very fine pastel pink French tip. Simple identical shallow smile lines on all five nails. Keep each pink tip narrow, delicate, even and clearly visible. No other nail art.",
+      "slug": "unhas-francesinha-colorida",
+      "qa": "One anatomically plausible five-finger adult hand. Short natural-looking squoval nails and thin pastel pink tips are clearly visible, with even smile lines. Skin texture and ivory background are realistic. Thumb is viewed more obliquely than other nails.",
+      "source_dimensions": [
+        1122,
+        1402
+      ],
+      "file": "ellen-studio/catalogue/unhas-francesinha-colorida.webp",
+      "width": 640,
+      "height": 800,
+      "bytes": 46048,
+      "sha256": "d3ad4d868b4aab75aac70993ed06dd79e731d58cff79aa862af56da0b94e5f01"
+    },
+    {
+      "prompt": "Use case: photorealistic-natural\nAsset type: standalone beauty catalogue reference photograph for a refined studio website. This is illustrative generated imagery, not documentation of real client work.\nStyle/medium: highly realistic professional beauty photography, honest skin pores, fine hairs and natural skin texture; restrained elegant studio feel.\nLighting/mood: soft diffused natural window light, gentle shadows, neutral exposure.\nColor palette: ivory, powder rose and deep brown.\nConstraints: no text, no logo, no watermark, no tools, no jewellery, no collage, no before-and-after layout.\nComposition/framing: vertical portrait photograph, 4:5 aspect ratio. Close crop of ONE anatomically correct adult hand with five fingers in a relaxed natural pose, all five fingernails clearly readable and in focus against a tasteful matte ivory background. Warm medium-light skin.\nNails: real NATURAL SHORT fingernails, short squoval shape, edge just at fingertip, slim natural profile. Extremely simple manicure appropriate for easy everyday nail art.\nAvoid: long nails, extensions, thick gel, sculpted apex, coffin or almond shape, gems, beads, 3D decoration, elaborate artwork, extra fingers, duplicate fingers, a second hand.\nPrimary request: simple glossy nude nails, with ONLY the ring fingernail fully covered from cuticle to free edge in fine champagne glitter. The ring finger is the fourth digit counting thumb first, between middle and pinky. Show a clear distinct all-over glitter accent on that one ring nail. Every other nail is plain nude with absolutely no glitter.",
+      "slug": "unhas-glitter-detalhe",
+      "qa": "One five-finger hand; four nude nails and one fully champagne-glitter ring nail. Clear distinct accent on correct finger; short squoval natural-looking profile. No gems or 3D elements.",
+      "source_dimensions": [
+        1122,
+        1402
+      ],
+      "file": "ellen-studio/catalogue/unhas-glitter-detalhe.webp",
+      "width": 640,
+      "height": 800,
+      "bytes": 40752,
+      "sha256": "70799a62dc1b6f57e6d7810591681ee504d0834e48266562d2f54683309d0dbf"
+    },
+    {
+      "prompt": "Use case: photorealistic-natural\nAsset type: standalone beauty catalogue reference photograph for a refined studio website. This is illustrative generated imagery, not documentation of real client work.\nStyle/medium: highly realistic professional beauty photography, honest skin pores, fine hairs and natural skin texture; restrained elegant studio feel.\nLighting/mood: soft diffused natural window light, gentle shadows, neutral exposure.\nColor palette: ivory, powder rose and deep brown.\nConstraints: no text, no logo, no watermark, no tools, no jewellery, no collage, no before-and-after layout.\nComposition/framing: vertical portrait photograph, 4:5 aspect ratio. Close crop of ONE anatomically correct adult hand with five fingers in a relaxed natural pose, all five fingernails clearly readable and in focus against a tasteful matte ivory background. Warm medium-light skin.\nNails: real NATURAL SHORT fingernails, short squoval shape, edge just at fingertip, slim natural profile. Extremely simple manicure appropriate for easy everyday nail art.\nAvoid: long nails, extensions, thick gel, sculpted apex, coffin or almond shape, gems, beads, 3D decoration, elaborate artwork, extra fingers, duplicate fingers, a second hand.\nPrimary request: sheer milky pink manicure with 3 to 5 tiny evenly spaced dark burgundy dot motifs on EACH nail. Small round flat dots arranged with clean consistent spacing, minimalist easy dotting nail art. Dots are distinct dark burgundy against soft milky pink. No other nail art.",
+      "slug": "unhas-poas",
+      "qa": "Milky pink manicure with tiny dark burgundy dots on all five readable nails; natural short rounded-squoval profile. Minor prompt deviation: several nails have six dots instead of a maximum five. Parent reviewed this deviation as acceptable for simple design.",
+      "source_dimensions": [
+        1122,
+        1402
+      ],
+      "file": "ellen-studio/catalogue/unhas-poas.webp",
+      "width": 640,
+      "height": 800,
+      "bytes": 54346,
+      "sha256": "c9b145629632c9f0b21e7ee88c41351f96617ab570ad323415800ee70f9928d1"
+    },
+    {
+      "prompt": "Use case: photorealistic-natural\nAsset type: standalone beauty catalogue reference photograph for a refined studio website. This is illustrative generated imagery, not documentation of real client work.\nStyle/medium: highly realistic professional beauty photography, honest skin pores, fine hairs and natural skin texture; restrained elegant studio feel.\nLighting/mood: soft diffused natural window light, gentle shadows, neutral exposure.\nColor palette: ivory, powder rose and deep brown.\nConstraints: no text, no logo, no watermark, no tools, no jewellery, no collage, no before-and-after layout.\nComposition/framing: landscape photograph, 3:2 aspect ratio. VERY TIGHT macro crop showing just ONE full eyebrow and its eye region. Full eyebrow including inner start and tail fills approximately 80% of the frame width. Brow is the main subject and sharpest focus. No lips, no nose tip, no full face, no hair styling visible. Just enough skin margin around the eyebrow and a neutral eye below.\nSubject: adult warm medium-light skin, dark brown eyebrow, natural neutral brown eye, minimal natural lashes and no eye makeup. Detailed realistic brow hairs and visible skin pores.\nPrimary request: natural dark brown eyebrow tidied into a softly defined arch. Distinct individual hairs follow their natural directions, visibly separated by clear skin-coloured gaps. Neat but airy natural density. Absolutely no skin stain or pencilled fill below the hairs. The skin colour within the brow matches the surrounding skin.",
+      "slug": "sobrancelhas-design-macro",
+      "qa": "Tight eyebrow-and-eye macro, full eyebrow spans roughly 80% width; separated natural hairs with clear skin-coloured gaps and tidied arch. No obvious skin fill. Tiny dark hair-edge sliver in upper-right corner, no hairstyle depicted.",
+      "source_dimensions": [
+        1536,
+        1024
+      ],
+      "file": "ellen-studio/catalogue/sobrancelhas-design-macro.webp",
+      "width": 960,
+      "height": 640,
+      "bytes": 117952,
+      "sha256": "bcd2ba37f01c81cc9c8286817d49136fa0549f3af8aa02da21b7ca6ab19c6efc"
+    },
+    {
+      "prompt": "Use case: photorealistic-natural\nAsset type: standalone beauty catalogue reference photograph for a refined studio website. This is illustrative generated imagery, not documentation of real client work.\nStyle/medium: highly realistic professional beauty photography, honest skin pores, fine hairs and natural skin texture; restrained elegant studio feel.\nLighting/mood: soft diffused natural window light, gentle shadows, neutral exposure.\nColor palette: ivory, powder rose and deep brown.\nConstraints: no text, no logo, no watermark, no tools, no jewellery, no collage, no before-and-after layout.\nComposition/framing: landscape photograph, 3:2 aspect ratio. VERY TIGHT macro crop showing just ONE full eyebrow and its eye region. Full eyebrow including inner start and tail fills approximately 80% of the frame width. Brow is the main subject and sharpest focus. No lips, no nose tip, no full face, no hair styling visible. Just enough skin margin around the eyebrow and a neutral eye below.\nSubject: adult warm medium-light skin, dark brown eyebrow, natural neutral brown eye, minimal natural lashes and no eye makeup. Detailed realistic brow hairs and visible skin pores.\nPrimary request: a freshly tinted dark brown eyebrow with visibly darker rich defined hair shafts, emphasizing hair colour. Individual hairs follow natural direction and remain visibly separate; all gaps between hairs remain natural skin-coloured. Hair strands are darkened, not the skin. No pencilled block, no skin stain, no solid shadow or makeup fill. Keep the brow naturally shaped, not brushed upward into lamination.",
+      "slug": "sobrancelhas-coloracao-macro",
+      "qa": "Tight eyebrow-and-eye macro with richer/darker hair shafts than design image and separated hairs with largely skin-coloured gaps. Natural direction, no pencilled block; difference from design remains subtle at thumbnail size.",
+      "source_dimensions": [
+        1536,
+        1024
+      ],
+      "file": "ellen-studio/catalogue/sobrancelhas-coloracao-macro.webp",
+      "width": 960,
+      "height": 640,
+      "bytes": 107128,
+      "sha256": "491352a4ee2b81a08ef2f24292c42718008809d3ba728ecf1506e4817245673f"
+    },
+    {
+      "prompt": "Use case: photorealistic-natural\nAsset type: standalone beauty catalogue reference photograph for a refined studio website. This is illustrative generated imagery, not documentation of real client work.\nStyle/medium: highly realistic professional beauty photography, honest skin pores, fine hairs and natural skin texture; restrained elegant studio feel.\nLighting/mood: soft diffused natural window light, gentle shadows, neutral exposure.\nColor palette: ivory, powder rose and deep brown.\nConstraints: no text, no logo, no watermark, no tools, no jewellery, no collage, no before-and-after layout.\nComposition/framing: landscape photograph, 3:2 aspect ratio. VERY TIGHT macro crop showing just ONE full eyebrow and its eye region. Full eyebrow including inner start and tail fills approximately 80% of the frame width. Brow is the main subject and sharpest focus. No lips, no nose tip, no full face, no hair styling visible. Just enough skin margin around the eyebrow and a neutral eye below.\nSubject: adult warm medium-light skin, dark brown eyebrow, natural neutral brown eye, minimal natural lashes and no eye makeup. Detailed realistic brow hairs and visible skin pores.\nPrimary request: eyebrow henna result with an even subtle light brown SKIN STAIN beneath individually visible dark brown brow hairs. A softly graded inner start fades into a neatly filled makeup-like brow body and crisp clean tail. The visible skin between the brow hairs is distinctly light brown from a superficial henna stain. Hairs remain clearly visible over the stain. Natural moderate brow thickness. This is cosmetic henna tint, not a tattoo, not microblading.",
+      "slug": "sobrancelhas-henna-macro",
+      "qa": "Tight eyebrow-and-eye macro with soft warm-brown tint beneath brow body, graded inner edge and defined tail, individually visible hairs. Stain is subtle and the distinction from regular colouring may need catalogue copy at small display sizes. No tattoo appearance.",
+      "source_dimensions": [
+        1536,
+        1024
+      ],
+      "file": "ellen-studio/catalogue/sobrancelhas-henna-macro.webp",
+      "width": 960,
+      "height": 640,
+      "bytes": 111156,
+      "sha256": "1245a7ea405a708dceba5d587aa5deec1c98fe89a53a5d02706db34259de5bd3"
+    },
+    {
+      "prompt": "Use case: photorealistic-natural\nAsset type: standalone beauty catalogue reference photograph for a refined studio website. This is illustrative generated imagery, not documentation of real client work.\nStyle/medium: highly realistic professional beauty photography, honest skin pores, fine hairs and natural skin texture; restrained elegant studio feel.\nLighting/mood: soft diffused natural window light, gentle shadows, neutral exposure.\nColor palette: ivory, powder rose and deep brown.\nConstraints: no text, no logo, no watermark, no tools, no jewellery, no collage, no before-and-after layout.\nComposition/framing: landscape photograph, 3:2 aspect ratio. VERY TIGHT macro crop showing just ONE full eyebrow and its eye region. Full eyebrow including inner start and tail fills approximately 80% of the frame width. Brow is the main subject and sharpest focus. No lips, no nose tip, no full face, no hair styling visible. Just enough skin margin around the eyebrow and a neutral eye below.\nSubject: adult warm medium-light skin, dark brown eyebrow, natural neutral brown eye, minimal natural lashes and no eye makeup. Detailed realistic brow hairs and visible skin pores.\nPrimary request: unmistakable eyebrow lamination result. Long separated brow hairs brushed visibly UPWARD and slightly diagonal, standing upright through the inner half and sweeping up diagonally across the body. Fluffy larger vertical eyebrow silhouette with lifted combed strands and well-defined upward hair texture. Clear skin-coloured gaps remain between hairs. No skin fill, no stain, no solid pencilled block. Clearly emphasize the brushed-up vertical direction of the hairs.",
+      "slug": "sobrancelhas-laminacao-macro",
+      "qa": "Tight eyebrow-and-eye macro with clearly lifted upward/diagonal separated long hairs, larger fluffy vertical silhouette and no solid skin fill. Visually distinct from the other brow services. Tiny dark hair-edge sliver upper-right, no hairstyle depicted.",
+      "source_dimensions": [
+        1536,
+        1024
+      ],
+      "file": "ellen-studio/catalogue/sobrancelhas-laminacao-macro.webp",
+      "width": 960,
+      "height": 640,
+      "bytes": 127978,
+      "sha256": "e11c8636b645f9601ec724a4e9d04d5cca98b2a7d8534be00819608c4390f803"
+    }
+  ],
+  "optimization": "Proportional resize to 960x640 brows, 640x800 nails (subpixel edge fit for near-4:5 sources); WebP quality 88. No facial retouching or colour edits.",
+  "owner_inspection": "Owner inspected all seven source images. Image descriptions and visible illustrations agree; tint/henna differences are subtle so explanatory copy remains adjacent."
+}

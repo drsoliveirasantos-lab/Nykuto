@@ -51,10 +51,13 @@ compact shared menu: home, nails, eyelashes, eyebrows, about and agenda. A real
 supplied portrait introduces Ellen on the homepage, and mobile specialty links stay
 visible below the header. The compact technique galleries open full images in an
 accessible dialog (ordinary image links without JavaScript). Its styles
-and scripts are independent of Nykuto Local. The specialty visuals and sixteen-image
+and scripts are independent of Nykuto Local. The specialty visuals and fifteen-image
 technique/effect catalogue are explicitly labelled AI-generated editorial references.
 The five eyelash models use eye-only landscape close-ups to distinguish lift,
-classic, hybrid, Russian volume and the cat-eye styling effect. Missing prices, portfolio photographs
+classic, hybrid, Russian volume and the cat-eye styling effect. Four eyebrow close-ups
+compare design, tint, henna and lamination. Six nail models focus on natural nails:
+nude, one colour, white or coloured French tips, glitter accents and dots.
+Advanced nail extensions are outside this catalogue. Missing prices, portfolio photographs
 and business details are explicitly provisional. The agenda links to Ellen's supplied
 WhatsApp contact for enquiries, without automatic reservations; there is no admin
 or database integration yet. Run
