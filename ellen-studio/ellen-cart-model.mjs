@@ -33,10 +33,16 @@ const entries = [
   ['brows-henna', 'Design com henna', 'Sobrancelhas', 80000, 'romso', 'Design e henna'],
   ['brows-lamination', 'Brow lamination', 'Sobrancelhas', 225000, 'dermobeauty', 'Laminação com design · sem coloração']
 ];
+function commercialPrice(pyg) {
+  if (pyg === null) return null;
+  const reais = pyg / PYG_PER_BRL;
+  const increment = reais < 100 ? 5 : 10;
+  return Math.round(reais / increment) * increment;
+}
 export const SERVICES = Object.freeze(entries.map(([id, name, category, pyg, source, detail]) => Object.freeze({
   id, name, category, pyg, source, detail,
-  // Whole reais keep the display discreet; totals sum the displayed line amounts.
-  brl: pyg === null ? null : Math.round(pyg / PYG_PER_BRL)
+  // Commercial steps: R$ 5 below R$ 100, R$ 10 from R$ 100; totals sum these prices.
+  brl: commercialPrice(pyg)
 })));
 const byId = new Map(SERVICES.map(service => [service.id, service]));
 export const getService = id => byId.get(id);
