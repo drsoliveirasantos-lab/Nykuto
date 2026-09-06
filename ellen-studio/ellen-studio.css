@@ -213,6 +213,71 @@
 .page-brows .image-view-photo{height:auto;max-height:52vh;max-height:52dvh;aspect-ratio:3/2}
 .service-link-brows img{object-fit:contain;filter:none;background:var(--paper-light)}
 .service-link-brows:hover img{transform:none;filter:none}
+/* A quiet service basket, with reference prices in the studio's serif face. */
+[hidden]{display:none!important}
+.site-header{gap:20px}
+.cart-link{order:2;display:inline-flex;align-items:center;gap:8px;min-height:44px;flex-shrink:0;font-size:.875rem;color:var(--ink)}
+.cart-link:hover{color:var(--rose)}
+.cart-count{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;border:1px solid var(--line);border-radius:50%;font-size:.75rem}
+.menu-toggle{order:3;flex-shrink:0}
+.price-note{font-size:.875rem;color:var(--muted);line-height:1.6;margin:0 0 22px;max-width:740px}
+.service-purchase{border-top:1px solid var(--line);margin-top:16px;padding-top:14px}
+.service-purchase .price-reference{font-family:var(--sans);font-size:.75rem;letter-spacing:.03em;line-height:1.5;margin:0 0 3px;color:var(--muted)}
+.service-purchase .service-price{display:block;font-family:var(--serif);font-size:2rem;font-weight:400;letter-spacing:-.02em;line-height:1.15;color:var(--ink);font-variant-numeric:lining-nums tabular-nums}
+.service-price .price-amount{font:inherit;letter-spacing:inherit;color:inherit}
+.service-price .price-currency{font-size:.875rem;letter-spacing:0}
+.service-price .price-approx{font-size:.875rem;color:var(--muted)}
+.service-purchase .service-price-query{font-size:1.25rem;font-style:italic;padding-block:4px}
+.service-purchase .price-detail{font-size:.75rem;line-height:1.5;color:var(--muted);margin:7px 0 12px}
+.add-to-cart{display:block;width:100%;min-height:44px;padding:11px 10px;border:1px solid var(--ink);background:transparent;color:var(--ink);font-family:var(--sans);font-size:.875rem;line-height:1.4;text-align:center;cursor:pointer}
+.add-to-cart:hover,.add-to-cart[aria-pressed=true]{background:var(--ink);color:var(--paper-light)}
+.cart-shortcut,.care-choice{display:inline-block;padding-block:12px;min-height:44px;font-size:.875rem;line-height:1.4;color:var(--ink);text-decoration:underline;text-underline-offset:4px}
+.cart-shortcut{width:100%;text-align:center}
+.gallery-cart-link{display:inline-flex;gap:16px;align-items:center;min-height:44px;margin-top:22px;padding:12px 0;border-bottom:1px solid var(--rose);font-size:1rem}
+.service-item-buy{grid-template-columns:28px minmax(0,1fr) minmax(140px,.65fr)}
+.service-item-buy .service-purchase{margin:0;padding:0;border:0}
+.cart-heading{padding-block:42px 32px}
+.cart-heading h1{font-family:var(--serif);font-weight:300;font-size:clamp(3rem,6vw,5.25rem);letter-spacing:-.04em;line-height:1.08;margin:0 0 20px}
+.cart-heading>p:last-child{font-size:1rem;color:var(--muted);max-width:570px;line-height:1.6}
+.cart-layout{display:grid;grid-template-columns:1fr 1fr;gap:64px;padding-bottom:54px;align-items:start}
+.cart-empty{grid-column:1/-1;padding:36px 0;border-block:1px solid var(--line)}
+.cart-empty h2,.contact-assistance h2{font-size:clamp(1.75rem,3vw,2.5rem);letter-spacing:-.03em}
+.cart-empty>p{font-size:1rem;color:var(--muted);max-width:560px}
+.cart-category-links{display:flex;gap:16px;flex-wrap:wrap;margin-top:20px}
+.cart-category-links a{display:inline-flex;align-items:center;min-height:44px;padding:12px 16px;border:1px solid var(--line);font-size:.875rem}
+.cart-section-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line);padding-bottom:20px}
+.cart-section-heading h2{font-size:1.75rem;margin:0;letter-spacing:-.02em}
+.cart-section-heading a{font-size:.875rem;text-decoration:underline;text-underline-offset:4px;min-height:44px;display:flex;align-items:center}
+.cart-items{list-style:none;padding:0;margin:0}
+.cart-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;padding:22px 0;border-bottom:1px solid var(--line)}
+.cart-category{font-size:.75rem;color:var(--rose);letter-spacing:.04em;margin:0 0 4px}
+.cart-item h3{font-family:var(--sans);font-size:1rem;line-height:1.4;font-weight:500;margin:0 0 6px;overflow-wrap:anywhere}
+.cart-item-detail{font-size:.875rem;color:var(--muted);line-height:1.5;margin:0}
+.cart-item-actions{text-align:right}
+.cart-item-price{font-family:var(--serif);font-size:1.375rem;margin:0;line-height:1.3;font-variant-numeric:lining-nums tabular-nums}
+.cart-remove{background:none;border:0;border-bottom:1px solid var(--line);font-size:.875rem;padding:12px 0;min-height:44px;color:var(--muted);cursor:pointer}
+.cart-total{display:flex;justify-content:space-between;align-items:baseline;gap:18px;margin-top:24px}
+.cart-total>span{font-size:1rem}
+.cart-total strong{font-family:var(--serif);font-size:2rem;font-weight:400;letter-spacing:-.025em;line-height:1.2}
+.cart-price-note,.cart-unknown{font-size:.875rem;line-height:1.55;color:var(--muted);margin:12px 0}
+.cart-unknown{color:var(--ink)}
+.appointment-request{background:var(--paper-light);border:1px solid var(--line);padding:30px}
+.appointment-request h2{font-size:2.25rem;letter-spacing:-.025em;line-height:1.15;margin-bottom:16px}
+.request-intro{font-size:1rem;line-height:1.6;color:var(--muted);margin-bottom:22px}
+.appointment-request label{display:block;font-size:.875rem;line-height:1.5;margin:16px 0 7px}
+.appointment-request label>span{color:var(--muted);font-size:.75rem}
+.appointment-request input,.appointment-request select,.appointment-request textarea{display:block;width:100%;min-width:0;max-width:100%;min-height:48px;padding:12px;border:1px solid var(--line);border-radius:0;background:var(--paper-light);color:var(--ink);font-family:var(--sans);font-size:1rem;line-height:1.5}
+.appointment-request textarea{resize:vertical}
+.request-date-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.request-date-row>div{min-width:0}
+.request-submit{width:100%;justify-content:space-between;margin-top:24px;min-height:52px;white-space:normal;text-align:left;font-size:.875rem}
+.request-note{font-size:.875rem;line-height:1.6;color:var(--muted);margin:16px 0 0}
+.cart-error{padding:12px;border:1px solid var(--rose);font-size:.875rem;line-height:1.5}
+.contact-assistance{border-top:1px solid var(--line);padding-block:32px 44px}
+.contact-assistance>p{font-size:.875rem;color:var(--muted);margin:0}
+.price-explanation{margin-top:24px;max-width:720px;font-size:.875rem;line-height:1.6;color:var(--muted)}
+.price-explanation summary{cursor:pointer;min-height:44px;padding-block:10px}
+@media(max-width:1100px){.cart-link-label{display:none}.cart-layout{gap:32px}}
 @media(max-width:900px){
   .site-header{min-height:68px}
   .site-header .brand-name{font-size:2.25rem}
@@ -264,4 +329,17 @@
   .page-brows .page-hero{grid-template-columns:1fr;gap:18px}
   .page-brows .page-visual{width:100%;max-width:340px;justify-self:center}
   .service-link-brows img{object-fit:contain}
+  .site-header{gap:12px}
+  .site-header .brand{margin-right:auto}
+  .service-purchase .service-price{font-size:1.75rem}
+  .service-purchase .service-price-query{font-size:1.125rem}
+  .service-item-buy{grid-template-columns:24px minmax(0,1fr)}
+  .service-item-buy .service-purchase{grid-column:2}
+  .cart-heading{padding-block:28px 24px}
+  .cart-layout{grid-template-columns:1fr;gap:28px;padding-bottom:32px}
+  .appointment-request{padding:22px}
+  .cart-item{gap:14px}
+  .cart-item-price{font-size:1.25rem}
+  .request-submit{font-size:.875rem;padding-inline:16px;gap:14px}
 }
+@media(max-width:380px){.request-date-row{grid-template-columns:1fr}.appointment-request{padding:18px}.cart-total strong{font-size:1.75rem}.cart-item{grid-template-columns:1fr}.cart-item-actions{display:flex;justify-content:space-between;align-items:center;text-align:left}}

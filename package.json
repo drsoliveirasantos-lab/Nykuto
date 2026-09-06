@@ -11,7 +11,7 @@
     "test:anunciar-location": "node scripts/test-anunciar-location.mjs",
     "test:anunciar-mobile": "node scripts/test-anunciar-mobile-contract.mjs",
     "test:local-reference": "node scripts/test-cde-local-reference.mjs",
-    "test:ellen-studio": "node scripts/test-ellen-studio.mjs",
+    "test:ellen-studio": "node scripts/test-ellen-studio.mjs && node --test scripts/test-ellen-cart.mjs",
     "start": "vite --host 0.0.0.0",
     "typecheck": "node -e \"console.log('Static site validation: no TypeScript compilation required')\"",
     "hygiene": "node scripts/validate-repository-hygiene.js"
