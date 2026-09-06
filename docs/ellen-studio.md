@@ -29,7 +29,7 @@ information and launch are confirmed.
 - `ellen-studio/og.png`: lightweight 1200 × 630 brand-sharing card, composed from Ellen's supplied photograph and the studio's identity.
 - `ellen-studio/editorial-beauty.webp`: earlier AI-generated concept image, retained but no longer used on the homepage.
 - `ellen-studio/*-editorial.webp`: optimized illustrative references for nails, eyelashes and eyebrows.
-- `ellen-studio/catalogue/*.webp`: sixteen active optimized visual references across the three specialties, including five horizontal eye-only eyelash references (`cilios-*-macro.webp`). Earlier eyelash portraits remain retained but are not rendered.
+- `ellen-studio/catalogue/*.webp`: fifteen active optimized references: six simple nail finishes, five horizontal eyelash close-ups (`cilios-*-macro.webp`), and four eyebrow close-ups (`sobrancelhas-*-macro.webp`). Earlier portraits and advanced nail references remain retained but are not rendered.
 - `docs/ellen-studio-lashes.md`: professional sources and generation direction for the eyelash reference refresh.
 - `ellen-studio/emblem.svg`: original text-based favicon; not a photograph.
 - `scripts/test-ellen-studio.mjs`: dependency-free source-contract checks.
@@ -46,6 +46,28 @@ The intended final main-domain path is `https://nykuto.com/ellen-studio/`, but t
 URL must not be described as live until an approved deployment is verified.
 
 ## Preview honesty and privacy
+
+### Simplified catalogue, 6 September 2026
+
+Diego requested a closer focus on eyebrow techniques and accessible nail art.
+The nail gallery now presents six finishes on natural nails: nude, one colour,
+classic French, coloured French, one glitter accent and small dots. Fibreglass,
+acrylic, polygel, tips and structural gel overlays are no longer displayed.
+Existing unused files are retained; no advanced service is advertised.
+
+Four eyebrow macro images distinguish shape (design), hair colour (tint), temporary
+skin shading (henna), and hair direction (lamination). The homepage brow thumbnail,
+specialty hero and viewer use the same complete horizontal frame. This is a visual
+comparison of illustrative looks, not a before/after or an offer of every service.
+
+References informing this selection, consulted 6 September 2026:
+[OPI — beginner nail art](https://www.opi.com/blog/nail-trends/5-simple-nail-art-designs-for-beginners),
+[OPI — polka dots](https://www.opi.com/blog/nail-trends/now-trending-polka-dot-nails),
+and [Bar de Cejas — services](https://www.bardecejas.com/servicios).
+No third-party photographs are republished. Image-generation briefs and asset
+inspection notes are recorded in `ellen-studio-simple-catalogue-assets.json`.
+
+### Business details and imagery
 
 A visible notice and HTML/HTTP noindex state remain in place. Service names are
 explicitly suggestions pending Ellen's approval; no prices, durations, credentials,

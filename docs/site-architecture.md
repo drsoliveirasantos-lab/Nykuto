@@ -110,7 +110,9 @@ Before a framework migration:
 homepage and five dedicated pages use the same compact menu, direct specialty links
 and local styles. The homepage features Ellen's supplied real portrait; specialty
 and technique images remain clearly labelled AI-generated references. Compact
-technique galleries use local image links enhanced by a native dialog. There is no
+technique galleries use local image links enhanced by a native dialog. The nail
+catalogue contains six simple finishes for natural nails; the eyebrow catalogue
+compares four techniques using full-width horizontal close-ups and effect descriptions. There is no
 fixed bottom Agenda bar. It does not use Nykuto authentication, D1 or shared commercial
 styles. Its agenda opens the WhatsApp number supplied for Ellen; the site does not
 send messages or confirm bookings automatically.

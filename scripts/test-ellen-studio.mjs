@@ -106,18 +106,18 @@ for (const service of ['nails', 'cilios', 'sobrancelhas']) {
   const html = readFileSync(resolve(pageDir, service, 'index.html'), 'utf8');
   assert.match(html, /Valor a definir/);
   assert.match(html, /sujeitos à confirmação/i);
-  const heroAsset = service === 'cilios' ? '../catalogue/cilios-volume-russo-macro.webp' : `../${service}-editorial.webp`;
+  const heroAsset = { nails: '../nails-editorial.webp', cilios: '../catalogue/cilios-volume-russo-macro.webp', sobrancelhas: '../catalogue/sobrancelhas-design-macro.webp' }[service];
   assert.ok(html.includes(heroAsset));
   assert.match(html, /REFERÊNCIA VISUAL · IMAGEM ILUSTRATIVA/);
   assert.match(html, /não representa um trabalho realizado por Ellen/i);
-  assert.match(html, /TÉCNICAS EM DESTAQUE/);
+  assert.match(html, service === 'nails' ? /MODELOS EM DESTAQUE/ : /TÉCNICAS EM DESTAQUE/);
   assert.match(html, /IMAGENS EDITORIAIS ILUSTRATIVAS/);
   assert.ok(html.indexOf('class="technique-gallery') < html.indexOf('class="service-detail'), 'Technique browsing comes before provisional service details');
 }
 const catalogues = {
-  nails: ['unhas-manicure-classica', 'unhas-esmaltacao-gel', 'unhas-banho-gel', 'unhas-tips-gel', 'unhas-fibra', 'unhas-acrilico-polygel', 'unhas-nail-art'],
+  nails: ['unhas-manicure-classica', 'unhas-esmaltacao-gel', 'unhas-nail-art', 'unhas-francesinha-colorida', 'unhas-glitter-detalhe', 'unhas-poas'],
   cilios: ['cilios-lash-lift-macro', 'cilios-classica-macro', 'cilios-hibrida-macro', 'cilios-volume-russo-macro', 'cilios-cat-eye-macro'],
-  sobrancelhas: ['sobrancelhas-design', 'sobrancelhas-coloracao', 'sobrancelhas-henna', 'sobrancelhas-laminacao']
+  sobrancelhas: ['sobrancelhas-design-macro', 'sobrancelhas-coloracao-macro', 'sobrancelhas-henna-macro', 'sobrancelhas-laminacao-macro']
 };
 for (const [service, images] of Object.entries(catalogues)) {
   const html = readFileSync(resolve(pageDir, service, 'index.html'), 'utf8');
@@ -127,6 +127,15 @@ for (const [service, images] of Object.entries(catalogues)) {
     assert.ok(html.includes(`class="technique-preview" href="../catalogue/${image}.webp" aria-label="Ampliar imagem:`), `Missing accessible full-image link for ${image}`);
   }
 }
+const nails = readFileSync(resolve(pageDir, 'nails/index.html'), 'utf8');
+assert.equal([...nails.matchAll(/class="technique-card"/g)].length, 6);
+assert.doesNotMatch(nails, /fibra|acr[ií]lico|polygel|tips|banho de gel|alongamento/i, 'The nail catalogue focuses on simple finishes for natural nails');
+assert.match(nails, /Francesinha clássica/);
+assert.match(nails, /Francesinha colorida/);
+const brows = readFileSync(resolve(pageDir, 'sobrancelhas/index.html'), 'utf8');
+assert.equal([...brows.matchAll(/class="technique-card"/g)].length, 4);
+assert.equal([...brows.matchAll(/<img[^>]*width="960" height="640"/g)].length, 5, 'All eyebrow images retain the full macro frame');
+assert.doesNotMatch(brows + home, /sobrancelhas-editorial\.webp|sobrancelhas-(?:design|coloracao|henna|laminacao)\.webp/);
 const lashes = readFileSync(resolve(pageDir, 'cilios/index.html'), 'utf8');
 assert.equal([...lashes.matchAll(/class="technique-card"/g)].length, 5);
 assert.equal([...lashes.matchAll(/<img[^>]*width="960" height="640"/g)].length, 6, 'Hero and all five eye references use a landscape frame');
@@ -137,7 +146,7 @@ assert.match(lashes, /Leques de fios ultrafinos/);
 assert.match(lashes, /É um efeito de extensão, não um lash lift/);
 assert.match(lashes, /GERADAS POR IA/);
 assert.doesNotMatch(lashes + home, /cilios-editorial\.webp|cilios-(?:lash-lift|classica|hibrida|volume-russo)\.webp/);
-for (const image of ['nails-editorial.webp', 'catalogue/cilios-volume-russo-macro.webp', 'sobrancelhas-editorial.webp']) {
+for (const image of ['nails-editorial.webp', 'catalogue/cilios-volume-russo-macro.webp', 'catalogue/sobrancelhas-design-macro.webp']) {
   assert.ok(home.includes(`./${image}`));
   assert.ok(existsSync(resolve(pageDir, image)), `Missing prototype image: ${image}`);
 }
