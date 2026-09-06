@@ -194,6 +194,18 @@ eye and brow thumbnails retain their complete 3:2 frame and full-image viewer.
 Mobile retains two catalogue columns, and the lash gallery uses three on desktop.
 The existing colors, local fonts, enquiry text and price amounts are preserved.
 
+### Text hierarchy, 6 September 2026
+
+Diego requested smaller nested copy and a reliable title-to-detail hierarchy.
+Font sizes now use shared role tokens in `ellen-studio.css` across existing rules
+and breakpoints. Mobile page/section headings are 32/24px; desktop uses 44/28px.
+Care names are 16px, descriptions and prices 14px, and qualifiers 12px at the
+standard 16px root size. Prices remain in Cormorant and cherry, without exceeding
+the care name. Input text stays at 16px and icon targets remain 44px.
+See [Typography audit](ellen-studio-typography.md) for the full before/after review,
+scope and source-level validation. Layout, care selection and price amounts do not
+change in this typography correction.
+
 ## Link sharing
 
 The user explicitly requested an identity-photo preview when sharing the site link

@@ -115,8 +115,10 @@ and italic Cormorant Garamond, with its OFL license. The homepage's care-selecti
 action links to its existing specialty cards. Entry motion and cart-count feedback
 respect reduced-motion preferences. The homepage features Ellen's supplied real portrait.
 The care catalogue uses compact price/icon rows with labelled 44px controls and
-selected check states. Specialty
-and technique images remain clearly labelled AI-generated references. Compact
+selected check states. Shared typography tokens define page, section, category,
+care, body/price and metadata levels; nested prices and descriptions remain below
+their care heading. Specialty and technique images remain clearly labelled
+AI-generated references. Compact
 technique galleries use local image links enhanced by a native dialog. The nail
 catalogue contains six simple finishes for natural nails; the eyebrow catalogue
 compares four techniques using full-width horizontal close-ups and effect descriptions. There is no

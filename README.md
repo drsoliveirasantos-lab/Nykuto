@@ -65,6 +65,8 @@ A temporary cart carries care selections between pages and opens Ellen's supplie
 WhatsApp with the care, indicative subtotal and optional appointment preferences.
 Compact care cards pair each price with an accessible bag-plus button that changes
 to a check when selected; the header keeps the cart within reach.
+Shared typography tokens keep care names above descriptions/prices and fine print
+in the visual hierarchy across mobile and desktop.
 Ellen confirms the final price and availability; there are no automatic reservations,
 payments, admin or database integration. Portfolio photographs and business details
 remain provisional. Run
