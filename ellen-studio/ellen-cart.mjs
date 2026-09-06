@@ -93,6 +93,11 @@ export function initCart(document, window) {
     canSave = saveDraft(storage, ids);
     refresh();
     say(message);
+    if (!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('[data-cart-count]').forEach(node => {
+        node.animate?.([{ transform: 'scale(1)' }, { transform: 'scale(1.18)' }, { transform: 'scale(1)' }], { duration: 260, easing: 'ease-out' });
+      });
+    }
   };
   addButtons.forEach(button => {
     const service = getService(button.dataset.addService);

@@ -110,7 +110,10 @@ Before a framework migration:
 
 `/ellen-studio/` is an isolated, non-indexed Portuguese visual preview. Its concise
 homepage and five dedicated pages use the same compact menu, direct specialty links
-and local styles. The homepage features Ellen's supplied real portrait; specialty
+and local styles. Cream, cherry and candy-rose surfaces use locally bundled regular
+and italic Cormorant Garamond, with its OFL license. The homepage's care-selection
+action links to its existing specialty cards. Entry motion and cart-count feedback
+respect reduced-motion preferences. The homepage features Ellen's supplied real portrait; specialty
 and technique images remain clearly labelled AI-generated references. Compact
 technique galleries use local image links enhanced by a native dialog. The nail
 catalogue contains six simple finishes for natural nails; the eyebrow catalogue
