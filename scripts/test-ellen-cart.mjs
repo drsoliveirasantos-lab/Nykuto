@@ -68,6 +68,8 @@ function pageFixture(storage, serviceIds = [], search = '') {
   let assigned = null;
   class Node {
     constructor() { this.dataset = {}; this.attrs = {}; this.handlers = {}; this.children = []; this.hidden = true; this.value = ''; }
+    set textContent(value) { this._textContent = value; this.children = []; }
+    get textContent() { return this._textContent ?? ''; }
     append(...nodes) { nodes.forEach(node => { node.parentElement = this; this.children.push(node); }); }
     replaceChildren() { this.children = []; }
     addEventListener(type, handler) { this.handlers[type] = handler; }
@@ -85,7 +87,7 @@ function pageFixture(storage, serviceIds = [], search = '') {
   for (const selector of ['[data-cart-root]', '[data-cart-items]', '[data-cart-status]', '[data-cart-error]', '[data-cart-empty]', '[data-cart-filled]', '[data-cart-count]', '[data-cart-total-label]', '[data-cart-total]', '[data-cart-unknown]', '[data-cart-choose]']) selectors.set(selector, [new Node()]);
   const anchor = new Node(); anchor.setAttribute('href', '/ellen-studio/agenda/');
   selectors.set('a[href]', [anchor]); selectors.set('.cart-link', [anchor]);
-  const buttons = serviceIds.map(id => { const button = new Node(); button.dataset.addService = id; const parent = new Node(); parent.shortcut = new Node(); parent.append(button); return button; });
+  const buttons = serviceIds.map(id => { const button = new Node(); button.dataset.addService = id; button.append(new Node()); const parent = new Node(); parent.append(button); return button; });
   selectors.set('[data-add-service]', buttons);
   const form = new Node();
   const fields = Object.fromEntries(['name', 'date', 'period', 'notes'].map(name => [name, new Node()]));
@@ -105,8 +107,12 @@ test('real add/remove handlers retain selection across pages, update totals and 
   const storage = memoryStorage();
   const nails = pageFixture(storage, ['nails-nude']);
   assert.equal(nails.buttons[0].hidden, false);
+  const icon = nails.buttons[0].children[0];
+  assert.equal(nails.buttons[0].attrs['aria-label'], 'Adicionar Nude natural ao carrinho');
   nails.buttons[0].handlers.click();
   assert.equal(nails.buttons[0].attrs['aria-pressed'], 'true');
+  assert.equal(nails.buttons[0].attrs['aria-label'], 'Remover Nude natural do carrinho');
+  assert.equal(nails.buttons[0].children[0], icon, 'Updating selection must preserve the icon');
   const brows = pageFixture(storage, ['brows-design']);
   brows.buttons[0].handlers.click();
   assert.deepEqual(brows.cart.getIds(), ['nails-nude', 'brows-design']);
@@ -119,6 +125,8 @@ test('real add/remove handlers retain selection across pages, update totals and 
   assert.equal(brows.focused, brows.document.querySelector('[data-cart-choose]'));
   nails.events.pageshow({ persisted: true });
   assert.deepEqual(nails.cart.getIds(), []);
+  assert.equal(nails.buttons[0].attrs['aria-pressed'], 'false');
+  assert.equal(nails.buttons[0].attrs['aria-label'], 'Adicionar Nude natural ao carrinho');
 });
 test('blocked storage carries selection through navigation and reload URLs', () => {
   const first = pageFixture(undefined, ['nails-nude']);

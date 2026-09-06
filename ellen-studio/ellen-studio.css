@@ -481,3 +481,93 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   .service-link p{font-size:.875rem}
   .cart-total{align-items:start;flex-direction:column;gap:8px}
 }
+
+/* Compact care cards: price and an accessible 44px icon share one row. */
+.site-header{min-height:72px}
+.site-header .brand-name{font-size:2.625rem}
+.home-hero{padding:24px 30px;column-gap:32px;row-gap:18px;margin-block:18px 8px}
+.home-hero h1{font-size:clamp(3rem,5.5vw,4.75rem);margin-bottom:14px}
+.home-hero .eyebrow{margin-bottom:12px}
+.founder-portrait{max-width:270px}
+.home-services{padding-block:22px 30px}
+.compact-heading{margin-bottom:16px}
+.compact-heading h2{font-size:clamp(2rem,3.2vw,2.625rem)}
+.page-hero{padding-block:22px;gap:28px}
+.page-hero h1,.about-hero h1,.cart-heading h1{font-size:clamp(2.375rem,4.5vw,3.5rem);line-height:1.08;margin-bottom:12px}
+.page-hero .eyebrow{margin-bottom:10px}
+.page-visual{max-width:180px}
+.page-lashes .page-visual,.page-brows .page-visual{max-width:220px}
+.gallery-heading{padding:20px 0 14px;gap:20px}
+.gallery-heading h2{font-size:clamp(1.875rem,3.2vw,2.625rem);line-height:1.1}
+.gallery-heading .eyebrow{margin-bottom:8px}
+.gallery-heading>p{line-height:1.5}
+.price-note{font-size:.875rem;line-height:1.5;margin-bottom:14px}
+.technique-grid{gap:14px}
+.technique-card{display:flex;flex-direction:column}
+.technique-card>div{display:flex;flex-direction:column;flex:1;padding:12px}
+.technique-card h3{font-size:1rem;line-height:1.4}
+.technique-card>div>p{font-size:1rem;line-height:1.45;margin:6px 0 10px}
+.page-nails .technique-card img{aspect-ratio:1;object-fit:contain;background:var(--paper-light)}
+.service-purchase{display:grid;grid-template-columns:minmax(0,1fr) 44px;gap:6px 8px;align-items:center;margin-top:10px;padding-top:10px}
+.technique-card .service-purchase{margin-top:auto}
+.service-purchase .service-price{grid-column:1;grid-row:1;min-width:0;font-size:1.875rem;line-height:1.1}
+.service-purchase .service-price-query{font-size:1.25rem;line-height:1.2;padding:0}
+.service-purchase .price-detail{grid-column:1/-1;grid-row:2;margin:0;font-size:.75rem;line-height:1.45}
+.service-purchase .add-to-cart{grid-column:2;grid-row:1;display:inline-flex;align-items:center;justify-content:center;width:44px;min-width:44px;height:44px;min-height:44px;padding:0;border-radius:50%;justify-self:end}
+.add-to-cart .cart-icon{display:block;width:22px;height:22px;flex:none;pointer-events:none}
+.cart-icon-check{display:none}
+.add-to-cart[aria-pressed=true] .cart-icon-plus{display:none}
+.add-to-cart[aria-pressed=true] .cart-icon-check{display:inline}
+.service-purchase noscript{grid-column:1/-1}
+.service-item-buy .service-purchase{padding:10px}
+.gallery-cart-link{margin-top:14px;padding-block:8px}
+.technique-gallery{padding-bottom:24px}
+.service-detail,.values-section{padding-block:28px;gap:28px}
+.service-intro h2{font-size:clamp(1.875rem,3vw,2.5rem);margin-bottom:16px}
+.service-item{padding-block:18px;gap:14px}
+.next-step{padding-block:22px 30px}
+.cart-heading{padding-block:24px 18px}
+.cart-heading>p:last-child{margin-bottom:0}
+.cart-item{padding-block:16px}
+.cart-layout{padding-bottom:30px}
+.site-footer{padding-block:22px}
+@media(min-width:901px){.page-lashes .technique-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:900px){
+  .site-header{min-height:62px}
+  .site-header .brand-name{font-size:2.25rem}
+  .site-header .brand-subtitle{font-size:.75rem;line-height:1.6}
+  .specialty-nav{margin-top:6px}
+  .specialty-nav a{min-height:44px;padding-block:6px}
+  .home-hero{padding:18px;gap:16px 14px;margin-block:12px 6px}
+  .home-hero h1{font-size:clamp(1.875rem,7.8vw,2.625rem);line-height:1.05;margin-bottom:10px}
+  .home-hero .eyebrow{margin-bottom:10px}
+  .founder-portrait{max-width:200px}
+  .hero-actions{grid-template-columns:minmax(0,1fr) 84px;gap:10px}
+  .hero-primary{min-height:48px;padding:10px;line-height:1.35}
+  .compact-heading h2{font-size:2rem}
+  .home-services{padding-block:18px 26px}
+  .service-link img{min-height:82px}
+  .service-link>div{padding-block:10px}
+  .page-hero,.page-lashes .page-hero,.page-brows .page-hero{grid-template-columns:minmax(0,1fr) minmax(0,.6fr);gap:16px;padding-block:18px}
+  .page-hero h1{font-size:clamp(1.875rem,6.7vw,2.375rem);line-height:1.1;margin-bottom:10px}
+  .page-hero .eyebrow{margin-bottom:8px}
+  .page-visual,.page-lashes .page-visual,.page-brows .page-visual{max-width:160px;justify-self:end}
+  .page-visual figcaption{font-size:.75rem;line-height:1.35}
+  .about-hero{grid-template-columns:1fr}
+  .gallery-heading{padding:16px 0 12px}
+  .gallery-heading h2{font-size:1.875rem}
+  .gallery-heading>p{margin-top:8px}
+  .technique-grid{gap:10px}
+  .technique-card>div{padding:10px}
+  .service-purchase .service-price{font-size:1.75rem}
+  .service-purchase .service-price-query{font-size:1.125rem}
+  .service-item-buy .service-purchase{padding:10px}
+  .service-detail,.values-section{padding-block:24px;gap:20px}
+  .service-item{padding-block:16px;gap:12px}
+  .cart-heading h1{font-size:2.5rem}
+  .next-step>p{font-size:1.125rem;line-height:1.45}
+  .next-step>div{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:12px 20px;margin-top:12px}
+  .next-step .button{min-height:48px;padding:12px 16px}
+}
+@media(max-width:360px){.service-purchase .service-price{font-size:1.625rem}.service-purchase .service-price-query{font-size:1.125rem}}
+@media(max-width:340px){.hero-actions{grid-template-columns:1fr}.page-hero,.page-lashes .page-hero,.page-brows .page-hero{grid-template-columns:1fr}.page-visual,.page-lashes .page-visual,.page-brows .page-visual{max-width:170px;justify-self:center}}
