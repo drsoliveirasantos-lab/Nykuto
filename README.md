@@ -57,10 +57,13 @@ The five eyelash models use eye-only landscape close-ups to distinguish lift,
 classic, hybrid, Russian volume and the cat-eye styling effect. Four eyebrow close-ups
 compare design, tint, henna and lamination. Six nail models focus on natural nails:
 nude, one colour, white or coloured French tips, glitter accents and dots.
-Advanced nail extensions are outside this catalogue. Missing prices, portfolio photographs
-and business details are explicitly provisional. The agenda links to Ellen's supplied
-WhatsApp contact for enquiries, without automatic reservations; there is no admin
-or database integration yet. Run
+Advanced nail extensions are outside this catalogue. Public market references appear
+as indicative prices in reais (R$), with unmatched services marked `Sob consulta`.
+A temporary cart carries care selections between pages and opens Ellen's supplied
+WhatsApp with the care, indicative subtotal and optional appointment preferences.
+Ellen confirms the final price and availability; there are no automatic reservations,
+payments, admin or database integration. Portfolio photographs and business details
+remain provisional. Run
 `npm run test:ellen-studio` for source checks and
 `node scripts/test-ellen-studio.mjs --built` after building to check copied outputs.
 See `docs/ellen-studio.md` for scope, validation and publication prerequisites.

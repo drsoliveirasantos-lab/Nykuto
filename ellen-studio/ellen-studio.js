@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  // Visual prototype only: no accounts, persistence, analytics, or booking API.
+  // Shared navigation and image viewer. Temporary enquiries use ellen-cart.mjs.
   const body = document.body;
   const menuButton = document.querySelector('.menu-toggle');
   const menu = document.querySelector('#main-nav');

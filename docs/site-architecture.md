@@ -53,7 +53,9 @@ ellen-studio/nails/            Proposed nail services
 ellen-studio/cilios/           Proposed eyelash services
 ellen-studio/sobrancelhas/     Proposed eyebrow services
 ellen-studio/sobre/            Preview identity and limitations
-ellen-studio/agenda/           Supplied WhatsApp contact; no automatic bookings
+ellen-studio/agenda/           Temporary care cart and WhatsApp appointment enquiry
+ellen-studio/ellen-cart-model.mjs  Care IDs, reference prices and enquiry construction
+ellen-studio/ellen-cart.mjs    Cart controls and temporary draft handoff
 styles.css                     Shared design system
 demo-imobiliaria.css           Real-estate demo interface styles
 i18n.js                        FR/EN/PT/ES translations and language state
@@ -114,8 +116,15 @@ technique galleries use local image links enhanced by a native dialog. The nail
 catalogue contains six simple finishes for natural nails; the eyebrow catalogue
 compares four techniques using full-width horizontal close-ups and effect descriptions. There is no
 fixed bottom Agenda bar. It does not use Nykuto authentication, D1 or shared commercial
-styles. Its agenda opens the WhatsApp number supplied for Ellen; the site does not
-send messages or confirm bookings automatically.
+styles. Dated market prices appear as indicative Brazilian reais, with unknown
+amounts marked for consultation. Its temporary cart stores only selected service IDs
+in tab-scoped sessionStorage; same-site query parameters carry them when storage is
+blocked. This is an enquiry draft, not authoritative business data. Optional name,
+date and notes are never persisted by the site. Submitting the agenda form opens
+the supplied WhatsApp contact with the selection, a qualified price subtotal and
+appointment preferences. The site does not send messages, take payment or confirm
+bookings automatically. The catalogue model and handler checks live separately
+from the unchanged image-viewer and menu script.
 
 `demo-imobiliaria.html` is the autonomous Nykuto Local homepage linked from the
 Nykuto commercial site and published canonically on `cde.nykuto.com`. The

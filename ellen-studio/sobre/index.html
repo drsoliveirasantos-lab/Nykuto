@@ -28,6 +28,7 @@
   <link rel="icon" href="../emblem.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../ellen-studio.css">
   <script src="../ellen-studio.js" defer></script>
+  <script type="module" src="../ellen-cart.mjs"></script>
 </head>
 <body class="page-about">
   <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
@@ -43,12 +44,14 @@
       <a href="/ellen-studio/sobre/" aria-current="page">Sobre</a>
       <a class="nav-contact" href="/ellen-studio/agenda/">Agenda</a>
     </nav>
+    <a class="cart-link" href="/ellen-studio/agenda/" aria-label="Ver carrinho"><svg width="20" height="22" viewBox="0 0 20 22" fill="none" aria-hidden="true"><path d="M3 7h14l1 13H2L3 7Z" stroke="currentColor" stroke-width="1.2"/><path d="M6 8V5a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="1.2"/></svg><span class="cart-link-label">Carrinho</span><span class="cart-count" data-cart-count>0</span></a>
   </header>
   <nav class="specialty-nav section-shell" aria-label="Especialidades">
     <a href="/ellen-studio/nails/">Nails</a>
     <a href="/ellen-studio/cilios/">Cílios</a>
     <a href="/ellen-studio/sobrancelhas/">Sobrancelhas</a>
   </nav>
+  <p class="sr-only" data-cart-status role="status" aria-live="polite" aria-atomic="true"></p>
   <main id="conteudo" class="page-main">
     <section class="page-hero about-hero section-shell" aria-labelledby="page-title">
       <div><p class="eyebrow">O UNIVERSO ELLEN</p><h1 id="page-title">Mais do que beleza.<br>Uma expressão de <em>você.</em></h1><p class="page-lead">Um conceito que celebra o feminino em suas nuances, com leveza e atenção aos pequenos detalhes.</p></div>

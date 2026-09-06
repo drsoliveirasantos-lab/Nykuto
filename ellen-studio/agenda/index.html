@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f7f2ed">
   <meta name="robots" content="noindex, nofollow, noarchive">
-  <meta name="description" content="Fale com Ellen pelo WhatsApp para consultar serviços, valores e horários do Ellen Studio.">
+  <meta name="description" content="Monte seu carrinho de cuidados e envie uma preferência de data para Ellen pelo WhatsApp.">
   <title>Agenda · Ellen Studio</title>
   <link rel="canonical" href="https://nykuto.com/ellen-studio/agenda/">
   <meta property="og:type" content="website">
@@ -13,7 +13,7 @@
   <meta property="og:site_name" content="Ellen Studio">
   <meta property="og:url" content="https://nykuto.com/ellen-studio/agenda/">
   <meta property="og:title" content="Agenda · Ellen Studio">
-  <meta property="og:description" content="Fale com Ellen pelo WhatsApp para consultar serviços, valores e horários do Ellen Studio.">
+  <meta property="og:description" content="Monte seu carrinho de cuidados e envie uma preferência de data para Ellen pelo WhatsApp.">
   <meta property="og:image" content="https://nykuto.com/ellen-studio/og.png">
   <meta property="og:image:secure_url" content="https://nykuto.com/ellen-studio/og.png">
   <meta property="og:image:type" content="image/png">
@@ -22,12 +22,13 @@
   <meta property="og:image:alt" content="Ellen Studio — retrato de Ellen e identidade da marca em tons de marfim e rosa.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Agenda · Ellen Studio">
-  <meta name="twitter:description" content="Fale com Ellen pelo WhatsApp para consultar serviços, valores e horários do Ellen Studio.">
+  <meta name="twitter:description" content="Monte seu carrinho de cuidados e envie uma preferência de data para Ellen pelo WhatsApp.">
   <meta name="twitter:image" content="https://nykuto.com/ellen-studio/og.png">
   <meta name="twitter:image:alt" content="Ellen Studio — retrato de Ellen e identidade da marca em tons de marfim e rosa.">
   <link rel="icon" href="../emblem.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../ellen-studio.css">
   <script src="../ellen-studio.js" defer></script>
+  <script type="module" src="../ellen-cart.mjs"></script>
 </head>
 <body class="page-agenda">
   <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
@@ -43,26 +44,56 @@
       <a href="/ellen-studio/sobre/">Sobre</a>
       <a class="nav-contact" href="/ellen-studio/agenda/" aria-current="page">Agenda</a>
     </nav>
+    <a class="cart-link" href="/ellen-studio/agenda/" aria-label="Ver carrinho"><svg width="20" height="22" viewBox="0 0 20 22" fill="none" aria-hidden="true"><path d="M3 7h14l1 13H2L3 7Z" stroke="currentColor" stroke-width="1.2"/><path d="M6 8V5a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="1.2"/></svg><span class="cart-link-label">Carrinho</span><span class="cart-count" data-cart-count>0</span></a>
   </header>
   <nav class="specialty-nav section-shell" aria-label="Especialidades">
     <a href="/ellen-studio/nails/">Nails</a>
     <a href="/ellen-studio/cilios/">Cílios</a>
     <a href="/ellen-studio/sobrancelhas/">Sobrancelhas</a>
   </nav>
+  <p class="sr-only" data-cart-status role="status" aria-live="polite" aria-atomic="true"></p>
   <main id="conteudo" class="page-main">
-    <section class="appointment agenda-page section-shell" aria-labelledby="agenda-title">
-      <span class="tiny-star" aria-hidden="true">✧</span>
-      <p class="eyebrow">UM MOMENTO SÓ SEU</p>
-      <h1 id="agenda-title">Seu próximo ritual<br>começa <em>aqui.</em></h1>
-      <p class="appointment-lead">Converse com Ellen para confirmar serviços, valores e horários.</p>
-      <a class="button button-dark" href="https://wa.me/595973877606?text=Ol%C3%A1%2C%20Ellen!%20Vim%20pelo%20site%20Ellen%20Studio%20e%20gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os%20e%20hor%C3%A1rios.">Falar com Ellen no WhatsApp</a>
-      <p class="contact-status">WhatsApp: <strong>+595 973 877606</strong><br>O atendimento é combinado pelo WhatsApp.<br>Nenhuma reserva é confirmada automaticamente pelo site.</p>
-      <div class="contact-details">
-        <div><span class="eyebrow">ONDE ENCONTRAR</span><p>Local a confirmar</p></div>
-        <div><span class="eyebrow">SEU TEMPO</span><p>Horários a confirmar</p></div>
-        <div><span class="eyebrow">ACOMPANHE</span><p>Instagram a confirmar</p></div>
+    <section class="cart-heading section-shell" aria-labelledby="agenda-title">
+      <p class="eyebrow">SEU MOMENTO DE CUIDADO</p>
+      <h1 id="agenda-title">Seus cuidados,<br>no seu <em>tempo.</em></h1>
+      <p>Escolha os cuidados e envie seu pedido para combinar um horário com Ellen.</p>
+    </section>
+    <section class="cart-layout section-shell" data-cart-root hidden aria-label="Carrinho e pedido de horário">
+      <div class="cart-empty" data-cart-empty>
+        <h2>Seu carrinho está <em>vazio.</em></h2>
+        <p>Adicione os cuidados que você quer fazer. Sua seleção acompanha a navegação nesta aba.</p>
+        <div class="cart-category-links"><a data-cart-choose href="/ellen-studio/nails/">Escolher Nails</a><a href="/ellen-studio/cilios/">Escolher Cílios</a><a href="/ellen-studio/sobrancelhas/">Escolher Sobrancelhas</a></div>
       </div>
-      <a class="back-link" href="/ellen-studio/">← Voltar ao início</a>
+      <div class="cart-selection" data-cart-filled hidden>
+        <div class="cart-section-heading"><h2>Meu carrinho</h2><a href="/ellen-studio/nails/">Adicionar cuidados</a></div>
+        <ul class="cart-items" data-cart-items></ul>
+        <div class="cart-total"><span data-cart-total-label>Total estimado</span><strong data-cart-total>Sob consulta</strong></div>
+        <p class="cart-unknown" data-cart-unknown hidden></p>
+        <p class="cart-price-note">Referências de mercado em reais. Ellen confirma o valor final e quais cuidados combinar.</p>
+      </div>
+      <form class="appointment-request" data-appointment-form data-cart-filled hidden aria-labelledby="request-title">
+        <p class="eyebrow">COMBINE COM ELLEN</p>
+        <h2 id="request-title">Qual seria o melhor<br><em>momento?</em></h2>
+        <p class="request-intro">Deixe sua preferência. Ellen responde pelo WhatsApp com os horários disponíveis.</p>
+        <label for="request-name">Seu nome <span>(opcional)</span></label>
+        <input id="request-name" name="name" autocomplete="given-name" maxlength="70" placeholder="Como podemos chamar você?">
+        <div class="request-date-row">
+          <div><label for="request-date">Data preferida <span>(opcional)</span></label><input id="request-date" name="date" type="date"></div>
+          <div><label for="request-period">Período</label><select id="request-period" name="period"><option value="">A combinar</option><option value="morning">Manhã</option><option value="afternoon">Tarde</option><option value="evening">Noite</option></select></div>
+        </div>
+        <label for="request-notes">Alguma preferência? <span>(opcional)</span></label>
+        <textarea id="request-notes" name="notes" maxlength="500" rows="3" placeholder="Cor, estilo ou algo que você queira contar para Ellen."></textarea>
+        <p class="cart-error" data-cart-error role="alert" tabindex="-1" hidden></p>
+        <button class="button button-dark request-submit" type="submit">Enviar pedido pelo WhatsApp <span aria-hidden="true">→</span></button>
+        <p class="request-note">O WhatsApp abre com seu pedido pronto para revisar e enviar. Nenhuma reserva é confirmada automaticamente pelo site.</p>
+      </form>
+    </section>
+    <section class="contact-assistance section-shell" aria-labelledby="contact-title">
+      <h2 id="contact-title">Prefere conversar <em>primeiro?</em></h2>
+      <a class="care-choice" href="https://wa.me/595973877606?text=Ol%C3%A1%2C%20Ellen!%20Vim%20pelo%20site%20Ellen%20Studio%20e%20gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os%20e%20hor%C3%A1rios.">Falar com Ellen no WhatsApp</a>
+      <p>+595 973 877606</p>
+      <noscript><p>Converse com Ellen pelo link acima e informe os cuidados que deseja.</p></noscript>
+      <details class="price-explanation"><summary>Sobre os valores indicativos</summary><p>Referências de salões no Paraguai consultadas em 06/09/2026, incluindo uma referência promocional para manicure semipermanente. Conversão aproximada: R$ 1 = 1.168,66 Gs, arredondada para reais inteiros. Não há cobrança pelo site. Serviços, valores finais, formas de pagamento e horários são combinados com Ellen.</p></details>
     </section>
   </main>
   <footer class="site-footer section-shell"><a class="brand" href="/ellen-studio/" aria-label="Ellen Studio, voltar ao início"><span class="brand-name">ellen<span class="brand-dot">.</span></span><span class="brand-subtitle">S T U D I O</span></a><p>Beleza em cada detalhe.</p><small>Prévia visual · Ellen Studio<br>Desenvolvido por Nykuto</small></footer>

@@ -3,6 +3,7 @@ import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { dirname, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Script } from 'node:vm';
+import { SERVICES } from '../ellen-studio/ellen-cart-model.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const pageDir = resolve(root, 'ellen-studio');
@@ -25,7 +26,7 @@ const whatsappUrl = `${whatsappBase}?text=${encodeURIComponent(whatsappMessage)}
 for (const route of routes) {
   const file = resolve(pageDir, route.file);
   const html = readFileSync(file, 'utf8');
-  const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map((match) => match[1]);
+  const ids = [...html.matchAll(/(?:^|\s)id="([^"]+)"/g)].map((match) => match[1]);
   assert.equal(new Set(ids).size, ids.length, `IDs must be unique in ${route.file}`);
 
   for (const [, target] of html.matchAll(/href="#([^"]+)"/g)) {
@@ -51,7 +52,10 @@ for (const route of routes) {
   assert.doesNotMatch(html, /class="mobile-action"|↗/);
   assert.equal([...html.matchAll(/aria-current="page"/g)].length, 1, `Exactly one current page is required in ${route.file}`);
   for (const url of navigationUrls) assert.match(html, new RegExp(`href="${url}"`), `Navigation is incomplete in ${route.file}`);
-  assert.doesNotMatch(html, /<(?:form|iframe)\b/i);
+  assert.doesNotMatch(html, /<iframe\b/i);
+  assert.equal([...html.matchAll(/<form\b/g)].length, route.file === 'agenda/index.html' ? 1 : 0);
+  assert.match(html, /type="module" src="(?:\.\/|\.\.\/)ellen-cart\.mjs"/);
+  assert.match(html, /class="cart-link" href="\/ellen-studio\/agenda\/"/);
   const body = html.split('<body')[1];
   const contactBody = route.file === 'agenda/index.html' ? body.replace(whatsappUrl, '') : body;
   assert.doesNotMatch(contactBody, /https?:\/\//i, 'Only the supplied WhatsApp contact is allowed in preview content');
@@ -104,7 +108,7 @@ assert.match(home, /Imagens editoriais ilustrativas/);
 assert.doesNotMatch(home, /editorial-beauty\.webp/);
 for (const service of ['nails', 'cilios', 'sobrancelhas']) {
   const html = readFileSync(resolve(pageDir, service, 'index.html'), 'utf8');
-  assert.match(html, /Valor a definir/);
+  assert.match(html, /Valor indicativo/);
   assert.match(html, /sujeitos à confirmação/i);
   const heroAsset = { nails: '../nails-editorial.webp', cilios: '../catalogue/cilios-volume-russo-macro.webp', sobrancelhas: '../catalogue/sobrancelhas-design-macro.webp' }[service];
   assert.ok(html.includes(heroAsset));
@@ -113,6 +117,14 @@ for (const service of ['nails', 'cilios', 'sobrancelhas']) {
   assert.match(html, service === 'nails' ? /MODELOS EM DESTAQUE/ : /TÉCNICAS EM DESTAQUE/);
   assert.match(html, /IMAGENS EDITORIAIS ILUSTRATIVAS/);
   assert.ok(html.indexOf('class="technique-gallery') < html.indexOf('class="service-detail'), 'Technique browsing comes before provisional service details');
+}
+const servicePages = ['nails', 'cilios', 'sobrancelhas'].map(service => readFileSync(resolve(pageDir, service, 'index.html'), 'utf8')).join('\n');
+for (const service of SERVICES) {
+  const purchase = servicePages.match(new RegExp(`<div class="service-purchase" data-service-id="${service.id}">([\\s\\S]*?)<\\/div>`))?.[1];
+  assert.ok(purchase, `Missing purchasable service ${service.id}`);
+  assert.ok(purchase.includes(`data-add-service="${service.id}"`));
+  if (service.brl === null) assert.match(purchase, /Sob consulta/);
+  else assert.ok(purchase.includes(`<span class="price-amount">${service.brl}</span>`), `Displayed price differs from cart price: ${service.id}`);
 }
 const catalogues = {
   nails: ['unhas-manicure-classica', 'unhas-esmaltacao-gel', 'unhas-nail-art', 'unhas-francesinha-colorida', 'unhas-glitter-detalhe', 'unhas-poas'],
