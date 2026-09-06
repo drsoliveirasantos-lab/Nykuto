@@ -22,7 +22,7 @@ information and launch are confirmed.
 - `ellen-studio/cilios/index.html`: proposed eyelash services.
 - `ellen-studio/sobrancelhas/index.html`: proposed eyebrow services.
 - `ellen-studio/sobre/index.html`: visual direction and preview limitations.
-- `ellen-studio/agenda/index.html`: provisional contact and booking state.
+- `ellen-studio/agenda/index.html`: supplied WhatsApp contact and provisional booking state.
 - `ellen-studio/ellen-studio.css`: fully separate ivory, powder-rose and deep-brown visual identity.
 - `ellen-studio/ellen-studio.js`: shared progressive mobile navigation and native image-viewer dialog.
 - `ellen-studio/ellen-portrait.webp`: supplied real portrait of Ellen, optimized and stripped of embedded metadata; CSS frames the face and shoulders without the screenshot interface or facial retouching.
@@ -50,7 +50,14 @@ URL must not be described as live until an approved deployment is verified.
 A visible notice and HTML/HTTP noindex state remain in place. Service names are
 explicitly suggestions pending Ellen's approval; no prices, durations, credentials,
 reviews, availability, address or phone number are invented. All prices read
-`Valor a definir`. The agenda explains that **no reservation is made**.
+`Valor a definir`. The agenda explains that **no reservation is confirmed automatically**.
+
+On 6 September 2026, Diego supplied Ellen's public WhatsApp number,
+`+595 973 877606`. The agenda now links to `https://wa.me/595973877606`
+with a Portuguese enquiry prefilled. The visitor chooses whether to send it in
+WhatsApp; this site neither sends nor stores messages. Source checks verify the
+exact destination and decoded message; no message or account verification was
+performed. Services, rates, address and hours still require confirmation.
 
 The homepage uses the real portrait supplied for Ellen's identity and approved for
 publication in this refresh. The specialty pages and technique catalogue use original
@@ -102,7 +109,7 @@ cached image bytes. This release adds the first card; it replaces no existing on
 ## What is deliberately not built yet
 
 No admin interface, password, login/session, photo upload, database persistence,
-payment, appointment storage, calendar sync, or active WhatsApp contact. Do not
+payment, appointment storage, or calendar sync. Contact is an external WhatsApp link. Do not
 present browser previews or edits as saved data. Content currently changes through
 source edits only. An actual authenticated admin is a separate next implementation.
 
@@ -130,8 +137,8 @@ must also run in CI.
 ## Full launch and indexing prerequisites
 
 Obtain Ellen's confirmed services and prices, authorized portfolio photos, public
-business contact and location/hours. Confirm the intended language and contact
-journey. Only enable a WhatsApp link after the actual destination is supplied and
-checked. Remove preview/noindex restrictions only when the business information is
+location/hours. The supplied WhatsApp destination is active for enquiries; confirm
+the intended language and remaining contact journey before full launch.
+Remove preview/noindex restrictions only when the business information is
 genuine and the owner approves public indexing. Do not register a new domain for
 this pilot.
