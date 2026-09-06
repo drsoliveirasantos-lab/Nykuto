@@ -321,3 +321,11 @@ npm run functions:check
 ```
 
 Before merging, inspect the production output, verify internal links, confirm legal publisher data and wait for user approval.
+
+## Shared typography
+
+[The common typography standard](typography-standard.md) defines the text-size
+hierarchy for page, section, category, item, description/price and metadata roles.
+AGENTS and Copilot require it before UI work and require its inclusion in future
+site repositories. Compact interface text and long-form learning text have
+different readability needs; both keep details subordinate to their own heading.
