@@ -14,9 +14,11 @@ test('selection is unique, validated, and ignores injected prices or removed ser
   assert.deepEqual(toggleService(['nails-nude'], '__proto__'), ['nails-nude']);
 });
 test('totals sum displayed reais and explicitly distinguish unpriced services', () => {
-  assert.equal(getService('nails-nude').brl, 51);
-  assert.equal(getService('brows-design').brl, 39);
-  assert.equal(getService('cilios-lift').brl, 128);
+  assert.equal(getService('nails-nude').brl, 50);
+  assert.equal(getService('brows-design').brl, 40);
+  assert.equal(getService('cilios-lift').brl, 130);
+  assert.equal(getService('cilios-russo').brl, 430);
+  assert.match(appointmentMessage(['cilios-russo']), /Total estimado: R\$\s*430\n/);
   const mixed = summarizeCart(['nails-nude', 'brows-design', 'cilios-hibrida']);
   assert.equal(mixed.total, 90);
   assert.equal(mixed.known, 2);

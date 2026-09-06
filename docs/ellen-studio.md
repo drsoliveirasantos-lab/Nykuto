@@ -108,7 +108,10 @@ reference prices and direct WhatsApp contact remain available.
 Public prices were consulted on 6 September 2026. The model records the original
 guaraní amount and exact source URL for every priced entry. Conversion uses the
 [Xe BRL/PYG reference](https://www.xe.com/currencyconverter/convert/?Amount=1&From=BRL&To=PYG),
-1 BRL = 1,168.66 PYG (snapshot 5 September 2026, 23:53 UTC), rounded to whole reais.
+1 BRL = 1,168.66 PYG (snapshot 5 September 2026, 23:53 UTC). At Diego's request,
+commercial prices are rounded to the nearest R$ 5 below R$ 100, and to the nearest
+R$ 10 from R$ 100. For example, Russian volume is displayed as R$ 430 and lash
+lift as R$ 130, with no cents. The same amounts appear in cards, cart and WhatsApp.
 The cart sums these displayed rounded amounts. This is a dated reference, not live
 FX or a payment quote. The semipermanent manicure reference is explicitly promotional;
 the nail-art reference is an add-on for two nails. Tint excludes design, and the
