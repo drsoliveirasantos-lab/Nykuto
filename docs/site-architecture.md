@@ -53,7 +53,7 @@ ellen-studio/nails/            Proposed nail services
 ellen-studio/cilios/           Proposed eyelash services
 ellen-studio/sobrancelhas/     Proposed eyebrow services
 ellen-studio/sobre/            Preview identity and limitations
-ellen-studio/agenda/           Provisional contact and booking state
+ellen-studio/agenda/           Supplied WhatsApp contact; no automatic bookings
 styles.css                     Shared design system
 demo-imobiliaria.css           Real-estate demo interface styles
 i18n.js                        FR/EN/PT/ES translations and language state
@@ -112,7 +112,8 @@ and local styles. The homepage features Ellen's supplied real portrait; specialt
 and technique images remain clearly labelled AI-generated references. Compact
 technique galleries use local image links enhanced by a native dialog. There is no
 fixed bottom Agenda bar. It does not use Nykuto authentication, D1 or shared commercial
-styles, and it does not submit bookings or expose an active contact destination.
+styles. Its agenda opens the WhatsApp number supplied for Ellen; the site does not
+send messages or confirm bookings automatically.
 
 `demo-imobiliaria.html` is the autonomous Nykuto Local homepage linked from the
 Nykuto commercial site and published canonically on `cde.nykuto.com`. The

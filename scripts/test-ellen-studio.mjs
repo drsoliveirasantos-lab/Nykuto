@@ -18,6 +18,9 @@ const navigationUrls = routes.map(({ url }) => url);
 const titles = new Set();
 const descriptions = new Set();
 const shareImageUrl = 'https://nykuto.com/ellen-studio/og.png';
+const whatsappBase = 'https://wa.me/595973877606';
+const whatsappMessage = 'Olá, Ellen! Vim pelo site Ellen Studio e gostaria de saber mais sobre os serviços e horários.';
+const whatsappUrl = `${whatsappBase}?text=${encodeURIComponent(whatsappMessage)}`;
 
 for (const route of routes) {
   const file = resolve(pageDir, route.file);
@@ -48,10 +51,13 @@ for (const route of routes) {
   assert.doesNotMatch(html, /class="mobile-action"|↗/);
   assert.equal([...html.matchAll(/aria-current="page"/g)].length, 1, `Exactly one current page is required in ${route.file}`);
   for (const url of navigationUrls) assert.match(html, new RegExp(`href="${url}"`), `Navigation is incomplete in ${route.file}`);
-  assert.doesNotMatch(html, /<(?:form|iframe)\b|wa\.me\//i);
-  assert.doesNotMatch(html.split('<body')[1], /https?:\/\//i, 'No remote services or booking links in preview content');
+  assert.doesNotMatch(html, /<(?:form|iframe)\b/i);
+  const body = html.split('<body')[1];
+  const contactBody = route.file === 'agenda/index.html' ? body.replace(whatsappUrl, '') : body;
+  assert.doesNotMatch(contactBody, /https?:\/\//i, 'Only the supplied WhatsApp contact is allowed in preview content');
   for (const [url] of html.matchAll(/https?:\/\/[^"\s<>]+/g)) {
-    assert.ok(url.startsWith('https://nykuto.com/ellen-studio/'), `Unexpected absolute URL in ${route.file}: ${url}`);
+    const isContact = route.file === 'agenda/index.html' && url === whatsappUrl;
+    assert.ok(url.startsWith('https://nykuto.com/ellen-studio/') || isContact, `Unexpected absolute URL in ${route.file}: ${url}`);
   }
 
   const title = html.match(/<title>([^<]+)<\/title>/)?.[1];
@@ -136,7 +142,13 @@ for (const image of ['nails-editorial.webp', 'catalogue/cilios-volume-russo-macr
   assert.ok(existsSync(resolve(pageDir, image)), `Missing prototype image: ${image}`);
 }
 const agenda = readFileSync(resolve(pageDir, 'agenda/index.html'), 'utf8');
-assert.match(agenda, /Nenhuma reserva é realizada nesta prévia/);
+assert.match(agenda, /Nenhuma reserva é confirmada automaticamente pelo site/);
+assert.match(agenda, /\+595 973 877606/);
+const whatsappLinks = [...agenda.matchAll(/href="(https:\/\/wa\.me\/[^\"]+)"/g)];
+assert.equal(whatsappLinks.length, 1, 'Expose one clear WhatsApp contact action');
+const contactUrl = new URL(whatsappLinks[0][1]);
+assert.equal(contactUrl.origin + contactUrl.pathname, whatsappBase);
+assert.equal(contactUrl.searchParams.get('text'), whatsappMessage);
 
 const css = readFileSync(resolve(pageDir, 'ellen-studio.css'), 'utf8');
 const js = readFileSync(resolve(pageDir, 'ellen-studio.js'), 'utf8');
