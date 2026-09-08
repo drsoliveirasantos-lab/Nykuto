@@ -120,6 +120,15 @@ private hashed revisions. There is no performance calculation or bot activation.
 See `trading/lab/PROSPECTIVE_COLLECTION.md` for the fixed calendar, protocol,
 collection procedure, data boundaries and limitations.
 
+The Lab interface separates `Suivi actuel`, `Tests précédents` and `Test manuel`
+with accessible tabs in `lab-workspace.mjs` and scoped `lab-workspace.css`.
+Jeu 08 opens by default with its confirmed collection state, next action and
+three-step calendar. Older games remain available in collapsed native details;
+their IDs and deep links are preserved, and navigation reveals the matching tab
+and disclosure. The manual strategy form is isolated visually and does not
+modify the frozen Jeu 08 protocol. No trading engine, data or automation changes
+are part of this presentation layer.
+
 `trading/alerts/` adds the private TradingView inbox and account setup guide.
 `trading/functions/api/alerts/` reuses the signed Access verification. A separate
 Worker in `workers/trading-alerts/` receives TradingView POSTs using a random
