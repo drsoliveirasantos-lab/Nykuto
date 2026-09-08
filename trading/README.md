@@ -15,7 +15,9 @@ Journal entries, checklist state and the calculator defaults are stored only in 
 
 ## Privacy and publication
 
-The production hostname must be protected by Cloudflare Access before it is treated as private. `robots.txt`, HTML robots directives and `_headers` provide defense in depth but are not substitutes for authentication.
+The production hostname is protected by Cloudflare Access. `robots.txt`, HTML robots directives and `_headers` provide additional defense in depth but are not substitutes for authentication.
+
+The dedicated Cloudflare Pages project is `trading-nykuto`, rooted at this `trading/` directory. During V1 validation it deploys from `feat/trading-hq-v1`; it should move to `main` only after the repository checks and owner validation required by the Nykuto workflow.
 
 No API key, broker credential, password or personal portfolio export may be committed to Git. Future broker or market-data integrations must keep credentials server-side and should begin read-only.
 
