@@ -44,3 +44,4 @@ for (const [index, tab] of tabs.entries()) {
 window.addEventListener('hashchange', followHash);
 window.addEventListener('popstate', followHash);
 followHash();
+document.addEventListener('DOMContentLoaded', followHash, { once: true });

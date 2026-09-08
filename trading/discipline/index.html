@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow,noarchive"><meta name="referrer" content="no-referrer"><meta name="theme-color" content="#07111f">
+  <title>Avant un trade · Nykuto Trading HQ</title>
+  <link rel="stylesheet" href="../styles.css"><link rel="stylesheet" href="./discipline.css?v=1"><script type="module" src="./discipline.mjs?v=1"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Aller au contenu</a>
+  <header class="topbar"><div class="brand-wrap"><div class="brand-mark" aria-hidden="true">N</div><div><p class="eyebrow">NYKUTO</p><h1>Trading HQ</h1></div></div><a class="ghost-button" href="../#journal">Mon journal</a></header>
+  <nav class="section-nav" aria-label="Navigation du Trading HQ"><a href="../#dashboard">Dashboard</a><a href="../#risk">Risque</a><a href="../#journal">Journal</a><a href="../lab/">Lab</a><a href="/discipline/" aria-current="page" class="is-active">Avant un trade</a></nav>
+  <main id="main" class="discipline-main">
+    <div class="discipline-intro"><div><p class="eyebrow">PRÉPARATION &amp; DISCIPLINE</p><h2>Avant un trade</h2><p>Mesurer la perte possible et noter ton état avant de décider, aussi en trading manuel.</p></div><a class="ghost-button" href="#preparationForm">Préparer une entrée</a></div>
+    <section class="panel discipline-panel" aria-labelledby="drawdownTitle">
+      <div class="panel-heading"><div><p class="panel-kicker">1 · COMPRENDRE LA PERTE</p><h3 id="drawdownTitle">Baisse du capital et retour au sommet</h3></div><span class="panel-meta">Scénario modifiable</span></div>
+      <div class="discipline-body">
+        <p>Le drawdown est la baisse depuis le plus haut capital. Une perte de 20 % demande ensuite un gain de 25 % pour revenir au même montant.</p>
+        <form id="drawdownForm" class="discipline-fields">
+          <label>Devise<select id="ddCurrency"><option value="EUR">EUR · euro</option><option value="USD">USD · dollar</option><option value="BRL">BRL · réal</option></select></label>
+          <label>Plus haut capital atteint<input id="ddPeak" type="number" min="0.01" step="any" value="1000" required inputmode="decimal"></label>
+          <label>Capital actuel<input id="ddCurrent" type="number" min="0" step="any" value="900" required inputmode="decimal"></label>
+          <label>Risque prévu par trade (%)<input id="ddRisk" type="number" min="0.01" max="100" step="any" value="1" required inputmode="decimal"></label>
+          <label>Pertes consécutives à simuler<input id="ddLosses" type="number" min="1" max="100" step="1" value="5" required></label>
+        </form>
+        <p id="ddError" class="discipline-message" role="status" hidden></p>
+        <div id="ddResults" class="discipline-metrics" aria-live="polite"><article><h4>Perte depuis le sommet</h4><strong id="ddLoss"></strong><small id="ddPct"></small></article><article><h4>Gain nécessaire pour revenir</h4><strong id="ddRecovery"></strong><small>À partir du capital actuel</small></article><article><h4>Après la série de pertes</h4><strong id="ddAfter"></strong><small id="ddAfterDetail"></small></article></div>
+        <p class="discipline-note">Les montants initiaux sont un exemple. Utilise la même devise, à dépôts et retraits constants. Le risque est recalculé sur le capital restant après chaque perte. Les frais et les écarts d’exécution peuvent aggraver la perte prévue au stop.</p>
+      </div>
+    </section>
+    <section class="panel discipline-panel" aria-labelledby="preparationTitle">
+      <div class="panel-heading"><div><p class="panel-kicker">2 · FAIRE LE POINT</p><h3 id="preparationTitle">Ton état avant l’entrée</h3></div><span class="panel-meta">Auto-évaluation</span></div>
+      <div class="discipline-body">
+        <form id="preparationForm">
+          <div class="discipline-fields">
+            <label>Actif<input id="prepAsset" maxlength="24" placeholder="Ex. MNQ" required></label>
+            <label>Mode<select id="prepMode"><option value="paper">Simulation / argent fictif</option><option value="manual">Manuel chez mon courtier</option></select></label>
+            <label>Sens envisagé<select id="prepSide"><option>Long</option><option>Short</option></select></label>
+            <label>Émotion dominante<select id="prepEmotion"><option value="">Choisir mon état</option><option value="calm">Calme</option><option value="excited">Excité</option><option value="anxious">Inquiet</option><option value="frustrated">Frustré</option><option value="tired">Fatigué</option><option value="unsure">Indécis</option></select></label>
+          </div>
+          <div class="discipline-scales"><label>Stress <output id="stressValue" for="prepStress">0 / 5</output><input id="prepStress" type="range" min="0" max="5" value="0"><small>0 = absent · 5 = très élevé</small></label><label>Fatigue <output id="fatigueValue" for="prepFatigue">0 / 5</output><input id="prepFatigue" type="range" min="0" max="5" value="0"><small>0 = reposé · 5 = épuisé</small></label><label>FOMO <output id="fomoValue" for="prepFomo">0 / 5</output><input id="prepFomo" type="range" min="0" max="5" value="0"><small>Peur de rater le mouvement</small></label></div>
+          <label class="discipline-check"><input id="prepRevenge" type="checkbox">J’ai envie de récupérer une perte récente.</label>
+          <label class="discipline-plan">Mon scénario en une phrase<textarea id="prepPlan" maxlength="400" rows="2" placeholder="Quel signal précis attends-tu ? Qu’est-ce qui invaliderait ton idée ?" required></textarea></label>
+          <fieldset class="discipline-checks"><legend>Mes règles pour cette entrée</legend><label><input id="checkSignal" type="checkbox">Déclencheur défini</label><label><input id="checkStop" type="checkbox">Stop défini</label><label><input id="checkSize" type="checkbox">Taille calculée</label><label><input id="checkAccept" type="checkbox">Perte prévue acceptée</label></fieldset>
+          <div class="discipline-feedback"><h4 id="prepFeedbackTitle">Points à compléter</h4><p id="prepFeedback"></p><button type="button" class="ghost-button" id="startPause">Faire une pause de 5 minutes</button><p id="pauseStatus" role="status"></p></div>
+          <div class="discipline-actions"><label>Ma décision<select id="prepDecision"><option value="observe">Observer / passer ce trade</option><option value="consider">Envisager l’entrée selon mon plan</option></select></label><button class="primary-button" type="submit">Enregistrer ma préparation</button></div>
+          <p id="prepSaveStatus" class="discipline-message" role="status"></p>
+        </form>
+        <p class="discipline-note">Ces réponses ne prédisent pas le résultat du trade. La pause est un repère personnel et ne bloque pas ton courtier. Aucun ordre n’est envoyé depuis cette page.</p>
+      </div>
+    </section>
+    <section class="panel discipline-panel" aria-labelledby="prepHistoryTitle">
+      <div class="panel-heading"><div><p class="panel-kicker">3 · APRÈS LA DÉCISION</p><h3 id="prepHistoryTitle">Préparations et bilans</h3></div><button class="ghost-button" type="button" id="exportPreparations">Exporter</button></div>
+      <div class="discipline-body"><p id="prepHistoryEmpty">Aucune préparation enregistrée. Après la clôture d’un trade, ajoute son résultat ici : il apparaîtra aussi dans ton journal.</p><div id="prepHistory"></div><button id="showAllPreparations" class="ghost-button" type="button" hidden>Afficher toutes les préparations</button><p id="historyStatus" role="status"></p><p class="discipline-note">Enregistré sur ce navigateur uniquement, sans synchronisation entre appareils. L’export est facultatif. Fermer la page conserve les données ; effacer les données du navigateur les supprime.</p></div>
+    </section>
+    <details class="discipline-help"><summary>Pourquoi une routine contre le FOMO ?</summary><p>Le FOMO est la peur de manquer une occasion. Noter le scénario et la perte acceptée aide à rendre la décision explicite, sans garantir de gain. Investor.gov invite à éviter les décisions d’investissement prises sous cette pression. <a href="https://www.investor.gov/" target="_blank" rel="noopener noreferrer">Source : Investor.gov</a>.</p></details>
+  </main>
+</body>
+</html>

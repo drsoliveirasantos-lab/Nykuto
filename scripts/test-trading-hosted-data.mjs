@@ -6,6 +6,7 @@ import { onRequest as onRequest05, DATASET_KEY as DATASET_KEY05 } from '../tradi
 import { onRequest as onRequest06, DATASET_KEY as DATASET_KEY06 } from '../trading/functions/api/lab/jeu06.js';
 import { onRequest as onRequest07, DATASET_KEY as DATASET_KEY07 } from '../trading/functions/api/lab/jeu07.js';
 import { onRequest as onRequest08 } from '../trading/functions/api/lab/jeu08.js';
+import { onRequest as onRequest07b, DATASET_KEY as DATASET_KEY07b } from '../trading/functions/api/lab/jeu07b.js';
 import { COLLECTION_KEY } from '../trading/lab/prospective-collection.mjs';
 
 test('hosted data failures cannot become a successful dataset', async () => {
@@ -67,6 +68,10 @@ test('private endpoint verifies the Access signature and fails closed', async ()
     const response07 = await onRequest07({ request: request(valid), env: { TRADING_DATASETS: { get: async key => { assert.equal(key, DATASET_KEY07); return '{"schema":"jeu07-data-v1"}'; } } } });
     assert.equal(response07.status, 200);
     assert.deepEqual(await response07.json(), { schema: 'jeu07-data-v1' });
+    assert.equal((await onRequest07b({ request: request(null), env })).status, 401);
+    const response07b = await onRequest07b({ request: request(valid), env: { TRADING_DATASETS: { get: async key => { assert.equal(key, DATASET_KEY07b); return '{"schema":"jeu07-data-v1","ticker":"MNQU6"}'; } } } });
+    assert.equal(response07b.status, 200);
+    assert.equal((await response07b.json()).ticker, 'MNQU6');
     assert.equal((await onRequest08({ request: request(null), env })).status, 401);
     const response08 = await onRequest08({ request: request(valid), env: { TRADING_DATASETS: { get: async key => { assert.equal(key, COLLECTION_KEY); return JSON.stringify({ schema: 'jeu08-collection-v1', protocol: 'jeu08-mnqz6-v1', records: [], updatedAt: new Date().toISOString() }); } } } });
     assert.equal(response08.status, 200);

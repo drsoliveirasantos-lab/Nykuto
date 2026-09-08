@@ -35,7 +35,7 @@
   }
 
   function mount() {
-    const anchor = byId('filteredGame') || document.querySelector('.future-grid');
+    const anchor = byId('legacyGame03') || byId('filteredGame') || document.querySelector('.future-grid');
     if (!anchor || byId('ablationGame')) return;
     const section = document.createElement('section');
     section.className = 'panel ablation-game';
@@ -76,7 +76,8 @@
           </div>
         </div>
       </div>`;
-    anchor.insertAdjacentElement('afterend', section);
+    if (anchor.id === 'legacyGame03') anchor.appendChild(section);
+    else anchor.insertAdjacentElement('afterend', section);
     byId('runAblation')?.addEventListener('click', run);
   }
 

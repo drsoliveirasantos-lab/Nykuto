@@ -16,6 +16,21 @@ by `/api/lab/jeu06` after Access signature validation, and never committed here.
 
 ## V1 scope
 
+`/discipline/` adds a pre-trade self-report and drawdown scenario calculator,
+including manual trading. Stress, fatigue, FOMO, emotion, plan and checks are
+saved before entry. A five-minute pause is a personal timer, not a broker lock.
+Post-trade R, emotion and plan adherence can be attached and inserted
+idempotently into the existing local journal, which shows before/after emotion.
+No psychological diagnosis or profitability score is produced.
+
+Records use browser-local `nykuto-trading-preparations-v1`; the optional export
+contains this personal history. Existing trades are preserved. Storage failures
+must not claim success or replace unreadable history. If journal linkage fails,
+the preparation retains its saved result and offers a retry. There is no server
+sync or broker connection. Drawdown assumes unchanged cash flows and currency;
+successive hypothetical losses compound on remaining capital. Initial calculator
+amounts are an example, not account data.
+
 - TradingView Advanced Chart widget for market visualization;
 - local risk/position-size calculator;
 - local trade journal and R statistics;

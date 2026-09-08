@@ -9,7 +9,7 @@
   <title>Nykuto Trading HQ</title>
   <meta name="description" content="Tableau de bord privé de préparation, analyse et journal de trading.">
   <link rel="stylesheet" href="./styles.css">
-  <script src="./app.js" defer></script>
+  <script src="./app.js?v=2" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Aller au contenu</a>
@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="topbar-actions">
-      <span class="status-pill"><span class="status-dot" aria-hidden="true"></span>Privé · Paper mode</span>
+      <span class="status-pill"><span class="status-dot" aria-hidden="true"></span>Privé · Suivi personnel</span>
       <a class="ghost-button" href="https://www.tradingview.com/" target="_blank" rel="noopener noreferrer">Ouvrir TradingView ↗</a>
     </div>
   </header>
@@ -199,7 +199,7 @@
         <div>
           <p class="eyebrow">JOURNAL</p>
           <h2 id="journal-title">Construire tes statistiques</h2>
-          <p>V1 locale : les entrées restent dans le stockage de ce navigateur. Aucune donnée n'est envoyée à Nykuto.</p>
+          <p>Les entrées restent sur ce navigateur. Les statistiques ci-dessous regroupent tous les modes enregistrés.</p>
         </div>
         <button class="primary-button" type="button" id="toggleTradeForm">+ Ajouter un trade</button>
       </div>
@@ -218,6 +218,7 @@
         </div>
       </form>
 
+      <p><a class="ghost-button" href="./discipline/">Préparer mon état avant un trade</a></p>
       <div class="journal-stats" aria-label="Statistiques du journal">
         <article><span>Trades</span><strong id="journalCount">0</strong></article>
         <article><span>Win rate</span><strong id="winRate">—</strong></article>
@@ -232,7 +233,7 @@
         </div>
         <div class="table-wrap is-hidden" id="journalTableWrap">
           <table>
-            <thead><tr><th>Date</th><th>Actif</th><th>Direction</th><th>R</th><th>Setup</th><th><span class="sr-only">Action</span></th></tr></thead>
+            <thead><tr><th>Date</th><th>Actif</th><th>Direction</th><th>R</th><th>Setup</th><th>État avant → après</th><th>Mode</th><th><span class="sr-only">Action</span></th></tr></thead>
             <tbody id="journalBody"></tbody>
           </table>
         </div>

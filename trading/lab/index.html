@@ -15,11 +15,11 @@
   <script src="./lab-validation.mjs?v=2" type="module"></script>
   <script src="./lab-session.mjs?v=1" type="module"></script>
   <script src="./lab-market.mjs?v=1" type="module"></script>
-  <script src="./lab-mnq.mjs?v=2" type="module"></script>
+  <script src="./lab-mnq.mjs?v=3" type="module"></script>
   <script src="./lab-collection.mjs?v=2" type="module"></script>
   <link rel="stylesheet" href="./lab-market.css?v=2">
   <link rel="stylesheet" href="./lab-workspace.css?v=1">
-  <script src="./lab-workspace.mjs?v=1" type="module"></script>
+  <script src="./lab-workspace.mjs?v=2" type="module"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Aller au contenu</a>
@@ -55,6 +55,7 @@
     </div>
     <noscript><p>Active JavaScript pour changer de vue et consulter le suivi.</p></noscript>
     <div id="view-current" class="lab-view" role="tabpanel" aria-labelledby="tab-current" tabindex="0">
+    <div class="iv-launch"><div><h4>Un test disponible maintenant</h4><p>Jeu 07 · juillet 2026 · données complètes pour un diagnostic court.</p></div><a class="primary-button" href="#mnqGame">Ouvrir le test</a></div>
     <section class="panel independent-game market-game collection-focus" id="collectionGame" aria-labelledby="collectionTitle">
       <div class="panel-heading"><div><p class="panel-kicker">JEU 08 · SUIVI ACTUEL</p><h3 id="collectionTitle">MNQ · microcontrat Nasdaq</h3></div><span id="collectionStatus" class="lab-status planned">Vérification…</span></div>
       <div class="iv-content">
@@ -80,22 +81,21 @@
     <div id="view-history" class="lab-view" role="tabpanel" aria-labelledby="tab-history" tabindex="0" hidden>
     <div class="lab-view-heading"><h3>Tests précédents</h3><p>Ouvre un test pour retrouver ses données, ses règles et ses résultats. Relancer un même historique n’ajoute pas de nouvelle preuve.</p></div>
     <details class="lab-archive">
-      <summary><span class="archive-number">07</span><span class="archive-title"><strong>Vérifier les horaires MNQ</strong><small>Octobre–novembre 2024 · prix reçus, horaires incomplets</small></span><span class="archive-state warning">Bloqué</span><span class="archive-toggle" aria-hidden="true">+</span></summary>
+      <summary><span class="archive-number">07</span><span class="archive-title"><strong>Test de remplacement MNQ</strong><small>1–24 juillet 2026 · 17 séances à évaluer</small></span><span class="archive-state neutral">Disponible</span><span class="archive-toggle" aria-hidden="true">+</span></summary>
     <section class="panel independent-game market-game mnq-game" id="mnqGame" aria-labelledby="mnqTitle">
-      <div class="panel-heading"><div><p class="panel-kicker">JEU 07 · CONFIRMATION COMPLÉMENTAIRE</p><h3 id="mnqTitle">MNQ sur une période encore inutilisée</h3></div><span id="mnqStatus" class="lab-status warning">DONNÉES INCOMPLÈTES</span></div>
+      <div class="panel-heading"><div><p class="panel-kicker">JEU 07 · NOUVELLE PÉRIODE</p><h3 id="mnqTitle">MNQ · du 1er au 24 juillet 2026</h3></div><span id="mnqStatus" class="lab-status planned">Disponible</span></div>
       <div class="iv-content">
-        <p class="iv-intro">Même stratégie que le Jeu 06, sur octobre–novembre 2024. Les prix sont disponibles, mais les horaires historiques des futures sont incomplets : le calcul de performance est bloqué.</p>
-        <div class="iv-periods"><span>MNQZ4 · Micro Nasdaq</span><span>Octobre – novembre 2024</span><span>15 minutes · séance américaine</span></div>
-        <div class="iv-launch"><div><h4>Vérifier les données avant de calculer</h4><p>Le contrôle vérifie les prix, les séances et la préparation des indicateurs. Aucun téléchargement nécessaire.</p></div><button id="mnqRun" class="primary-button" type="button">Vérifier le Jeu 07</button></div>
-        <p id="mnqMessage" class="iv-message" role="status" aria-live="polite">Recherche du 8 septembre 2026 : horaires du 29 novembre retrouvés et intégrés. 58 autres séances restent à vérifier.</p>
-        <details class="iv-help"><summary>Horaires retrouvés et sources</summary><p>Le calendrier publié par <a href="https://www.ironbeam.com/thanksgiving-holiday-futures-trading-hours-2024/" target="_blank" rel="noopener noreferrer">Ironbeam le 26 novembre 2024</a> indique une ouverture le 28 novembre à 17 h et une clôture le 29 novembre à 12 h 15, heure de Chicago. Cet intervalle couvre la séance actions du 29 novembre, de 9 h 30 à 13 h à New York. Il est intégré au contrôle.</p><p>Il s’agit d’un horaire annoncé, pas d’un relevé des éventuels incidents de marché. La <a href="https://www.cmegroup.com/trading/equity-index/files/cme-micro-e-mini-futures-fact-card.pdf" target="_blank" rel="noopener noreferrer">fiche CME d’avril 2023</a> précise les horaires habituels, mais ne certifie pas chaque séance de 2024. Elle ne remplace donc pas les 58 intervalles encore manquants.</p></details>
+        <p class="iv-intro">Un test que tu peux lancer maintenant : les prix et horaires des 28 séances, préparation comprise, sont intégrés. La stratégie reste identique.</p>
+        <div class="iv-periods"><span>MNQU6 · Micro Nasdaq</span><span>17 séances évaluées</span><span>Bougies de 15 minutes</span></div>
+        <div class="iv-launch"><div><h4>Calculer le diagnostic court</h4><p>Les données se chargent automatiquement. La période a été fixée avant le calcul.</p></div><button id="mnqRun" class="primary-button" type="button">Lancer le Jeu 07</button></div>
+        <p id="mnqMessage" class="iv-message" role="status" aria-live="polite">Prêt à calculer. Ce test est plus court que les fenêtres de deux mois exigées pour une confirmation.</p>
         <div id="mnqResults" hidden>
           <div id="mnqQuality" class="mc-summary"></div>
-          <details id="mnqMissingDetails" class="iv-help"><summary>Séances dont les horaires futures manquent</summary><p>Chaque séance doit avoir une ouverture et une fermeture vérifiées. Une information de préouverture seule ne suffit pas.</p><ul id="mnqMissing"></ul></details>
-          <div id="mnqPerformance" hidden><div class="iv-table-wrap"><table class="iv-table"><caption>Résultat net en R · hypothèses de coûts du Jeu 06</caption><tbody id="mnqNumbers"></tbody></table></div><ul id="mnqChecks"></ul></div>
+          <details id="mnqMissingDetails" class="iv-help"><summary>Séances dont les horaires manquent</summary><ul id="mnqMissing"></ul></details>
+          <div id="mnqPerformance" hidden><div class="iv-table-wrap"><table class="iv-table"><caption>Résultat net en R · R = risque initial prévu au stop</caption><tbody id="mnqNumbers"></tbody></table></div><ul id="mnqChecks"></ul></div>
         </div>
-        <details class="iv-help"><summary>Règles et critères du Jeu 07</summary><p>EMA 9/21 + ADX 14 ≥ 20 ; stop ATR 14 × 1,25 ; objectif 1,5 R arrondi au tick ; trois entrées par jour maximum ; pause après deux pertes consécutives ou −2 R réalisés. Sortie à l’ouverture de la dernière bougie de séance, sans position la nuit.</p><p>MNQ : tick de 0,25 point, 2 $ par point. Coût hypothétique de 3,50 $ par aller-retour et par contrat ; nouvelle simulation à 7 $ pour le stress. Les frais du courtier et le risque d’un contrat pour ton capital restent à vérifier.</p><p>Préparation du 9 au 30 septembre 2024. Les dates et règles ont été fixées avant la récupération des prix. Le contrôle exige le calendrier actions et les horaires futures complets, y compris les jours de clôture anticipée.</p><p>Ce jeu ne contient qu’une fenêtre de deux mois. La confirmation exige toujours trois fenêtres distinctes, au moins 40 transactions au total et 12 par fenêtre, un résultat positif dans chacune, un profit factor d’au moins 1,10, une baisse réalisée limitée à 8 R et un résultat positif avec les coûts doublés. Les anciens jeux ne sont pas ajoutés au total.</p></details>
-        <div class="iv-verdict"><h4>Ce qu’il manque pour continuer</h4><p>Des horaires historiques futures complets et vérifiables pour cette période. Les prix seuls ne permettent pas de reconstituer un calendrier officiel. Même une performance positive sur ces deux mois ne suffirait pas à valider le Paper Bot.</p><p>Tu peux déjà utiliser les <a href="../alerts/">alertes TradingView</a> pour observer le marché. Paper Bot et Shadow restent désactivés.</p></div>
+        <details class="iv-help"><summary>Règles, dates et limites</summary><p>Préparation du 15 au 30 juin 2026, hors 19 juin ; test du 1er au 24 juillet, hors 3 juillet. Séances actions américaines 9 h 30–16 h à New York, vérifiées avec les horaires MNQ de Massive. Les jours fériés sont exclus selon le calendrier NYSE.</p><p>EMA 9/21 + ADX 14 ≥ 20 ; stop ATR 14 × 1,25 ; objectif 1,5 R arrondi au tick ; trois entrées par jour maximum ; pause après deux pertes consécutives ou −2 R réalisés. Sortie à l’ouverture de la dernière bougie, sans position la nuit.</p><p>MNQ : tick de 0,25 point, 2 $ par point. Coût hypothétique de 3,50 $ par aller-retour et par contrat ; nouvelle simulation à 7 $ pour le stress. Les frais réels et le capital nécessaire restent à vérifier.</p><p>La confirmation exige toujours trois fenêtres complètes de deux mois, au moins 40 transactions au total et 12 par fenêtre, un résultat positif dans chacune, un profit factor ≥ 1,10, une baisse réalisée ≤ 8 R et un résultat positif avec coûts doublés. Ces 17 séances ne remplissent pas à elles seules ces conditions.</p></details>
+        <div class="iv-verdict"><h4>Pourquoi les dates ont changé</h4><p>L’ancienne période d’octobre–novembre 2024 est mise de côté : ses horaires restent incomplets. Juillet 2026 permet d’avancer avec un diagnostic disponible. Le Jeu 08 continue de recueillir les prochaines séances. Paper Bot et Shadow restent désactivés.</p></div>
       </div>
     </section>
     </details>
@@ -219,6 +219,8 @@
       </div>
     </section>
     </details>
+    <details class="lab-archive"><summary><span class="archive-number">03</span><span class="archive-title"><strong>Comprendre l’effet de chaque filtre</strong><small>Ancien diagnostic · historique déjà examiné</small></span><span class="archive-state">Exploratoire</span><span class="archive-toggle" aria-hidden="true">+</span></summary><div id="legacyGame03"></div></details>
+    <details class="lab-archive"><summary><span class="archive-number">02</span><span class="archive-title"><strong>Comparer la stratégie simple et filtrée</strong><small>Ancien diagnostic · historique déjà examiné</small></span><span class="archive-state">Exploratoire</span><span class="archive-toggle" aria-hidden="true">+</span></summary><div id="legacyGame02"></div></details>
     </div>
     <div id="view-manual" class="lab-view" role="tabpanel" aria-labelledby="tab-manual" tabindex="0" hidden>
     <div class="lab-view-heading"><h3>Test manuel</h3><p>Essaie des paramètres sur un historique. Ces réglages ne modifient pas le protocole fixé du Jeu 08.</p></div>

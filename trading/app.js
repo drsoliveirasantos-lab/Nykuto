@@ -147,12 +147,15 @@
         trade.asset,
         trade.side,
         `${r > 0 ? '+' : ''}${number.format(r)} R`,
-        trade.setup || '—'
+        trade.setup || '—',
+        trade.discipline ? `${({ calm: 'Calme', excited: 'Excité', anxious: 'Inquiet', frustrated: 'Frustré', tired: 'Fatigué', unsure: 'Indécis' })[trade.discipline.before] || '—'} → ${({ calm: 'Calme', excited: 'Excité', anxious: 'Inquiet', frustrated: 'Frustré', tired: 'Fatigué', unsure: 'Indécis' })[trade.discipline.after] || '—'}` : 'Non renseigné',
+        trade.discipline?.mode === 'manual' ? 'Manuel' : trade.discipline?.mode === 'paper' ? 'Simulation' : 'Non renseigné'
       ];
       cells.forEach((value, index) => {
         const td = document.createElement('td');
         td.textContent = value;
         if (index === 3) td.className = rClass;
+        if (index === 5 && trade.discipline) td.title = `FOMO ${trade.discipline.fomo}/5 · stress ${trade.discipline.stress}/5 · fatigue ${trade.discipline.fatigue}/5 · ${trade.discipline.mode === 'manual' ? 'Manuel' : 'Simulation'}`;
         tr.appendChild(td);
       });
       const action = document.createElement('td');
@@ -194,6 +197,12 @@
   });
 
   renderJournal();
+
+  window.addEventListener('storage', event => {
+    if (event.key !== KEYS.trades) return;
+    const updated = readLocal(KEYS.trades, null);
+    if (Array.isArray(updated)) { trades = updated; renderJournal(); }
+  });
 
   const savedChecklist = readLocal(KEYS.checklist, {});
   const checklistInputs = [...document.querySelectorAll('[data-check]')];

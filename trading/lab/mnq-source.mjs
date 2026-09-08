@@ -9,12 +9,12 @@ export async function readConfirmation(text, expected = CONFIRMATION_SOURCE) {
   if (bundle.schema !== 'jeu07-data-v1' || bundle.bars?.length !== expected.bars || bundle.calendar?.length !== expected.sessions) throw new Error('Historique du Jeu 07 invalide.');
   return { ...bundle, sha256 };
 }
-export async function loadConfirmation(fetcher = fetch) {
+export async function loadConfirmation(fetcher = fetch, expected = CONFIRMATION_SOURCE, endpoint = '/api/lab/jeu07') {
   try {
-    const response = await fetcher('/api/lab/jeu07', { credentials: 'same-origin', cache: 'no-store', redirect: 'error', signal: AbortSignal.timeout(15000) });
+    const response = await fetcher(endpoint, { credentials: 'same-origin', cache: 'no-store', redirect: 'error', signal: AbortSignal.timeout(15000) });
     if ([401, 403].includes(response.status)) throw new Error('Recharge la page pour te reconnecter au site.');
     if (!response.ok || !response.headers.get('content-type')?.includes('application/json')) throw new Error('Les données du Jeu 07 sont momentanément indisponibles.');
-    return await readConfirmation(await response.text());
+    return await readConfirmation(await response.text(), expected);
   } catch (error) {
     if (['AbortError', 'TimeoutError'].includes(error.name) || error instanceof TypeError) throw new Error('Chargement interrompu. Recharge la page puis réessaie.');
     throw error;

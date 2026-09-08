@@ -7,12 +7,12 @@ const epoch = day => Date.parse(`${day}T00:00:00Z`) / 1000;
 const minute = text => Number(text.slice(11, 13)) * 60 + Number(text.slice(14, 16));
 const product = PRODUCTS.find(p => p.symbol === 'MNQ');
 
-export function inspectConfirmation(bundle) {
-  if (bundle.schema !== 'jeu07-data-v1' || bundle.ticker !== CONFIRMATION_POLICY.ticker || !Array.isArray(bundle.calendar) || bundle.calendar.length !== 59 || !Array.isArray(bundle.bars) || bundle.bars.length > 5000 || !Array.isArray(bundle.scheduleEvents) || bundle.scheduleEvents.length > 2000) throw new Error('Historique du Jeu 07 invalide.');
+export function inspectConfirmation(bundle, policy = CONFIRMATION_POLICY) {
+  if (bundle.schema !== 'jeu07-data-v1' || bundle.ticker !== policy.ticker || !Array.isArray(bundle.calendar) || bundle.calendar.length !== (policy.calendarDays?.length || 59) || !Array.isArray(bundle.bars) || bundle.bars.length > 5000 || !Array.isArray(bundle.scheduleEvents) || bundle.scheduleEvents.length > 2000) throw new Error('Historique du Jeu 07 invalide.');
   const sessions = new Map(); let previousDay = '';
   for (const entry of bundle.calendar) {
     const expectedClose = entry.date === '2024-11-29' ? 780 : 960;
-    if (typeof entry.date !== 'string' || !/^2024-\d{2}-\d{2}$/.test(entry.date) || entry.date <= previousDay || entry.date < CONFIRMATION_POLICY.prep || entry.date >= CONFIRMATION_POLICY.end || typeof entry.open !== 'string' || typeof entry.close !== 'string' || !entry.open.startsWith(entry.date) || !entry.close.startsWith(entry.date) || minute(entry.open) !== 570 || minute(entry.close) !== expectedClose) throw new Error('Calendrier du Jeu 07 invalide.');
+    if (typeof entry.date !== 'string' || !new RegExp(`^${policy.prep.slice(0, 4)}-\\d{2}-\\d{2}$`).test(entry.date) || (policy.calendarDays && !policy.calendarDays.includes(entry.date)) || entry.date <= previousDay || entry.date < policy.prep || entry.date >= policy.end || typeof entry.open !== 'string' || typeof entry.close !== 'string' || !entry.open.startsWith(entry.date) || !entry.close.startsWith(entry.date) || minute(entry.open) !== 570 || minute(entry.close) !== expectedClose) throw new Error('Calendrier du Jeu 07 invalide.');
     sessions.set(entry.date, { ...entry, openMinute: 570, closeMinute: expectedClose }); previousDay = entry.date;
   }
   const daily = new Map(), seen = new Set();
@@ -54,22 +54,22 @@ export function inspectConfirmation(bundle) {
     }
     if (!covered) missingScheduleDays.push(session.date);
   }
-  const warmup = candles.filter(c => c.time < epoch(CONFIRMATION_POLICY.start)).length;
-  const quality = { bars: candles.length, expectedSessions: sessions.size, scoredSessions: [...sessions.keys()].filter(day => day >= CONFIRMATION_POLICY.start).length, warmup, priceSessions: sessions.size - missingPriceDays.length, scheduleSessions: sessions.size - missingScheduleDays.length, uniqueScheduleEvents: events.size, missingPriceDays, missingScheduleDays };
+  const warmup = candles.filter(c => c.time < epoch(policy.start)).length;
+  const quality = { bars: candles.length, expectedSessions: sessions.size, scoredSessions: [...sessions.keys()].filter(day => day >= policy.start).length, warmup, priceSessions: sessions.size - missingPriceDays.length, scheduleSessions: sessions.size - missingScheduleDays.length, uniqueScheduleEvents: events.size, missingPriceDays, missingScheduleDays };
   const ready = !missingPriceDays.length && !missingScheduleDays.length && warmup >= RULES.warmup;
   return { quality, ready, candles };
 }
 function describe(trades) { return { ...metrics(trades), cost: trades.reduce((n, t) => n + t.costR, 0), worst: trades.length ? Math.min(...trades.map(t => t.resultR)) : null }; }
-export function runConfirmation(bundle) {
-  const { quality, ready, candles } = inspectConfirmation(bundle);
-  if (!ready) return { policy: CONFIRMATION_POLICY, quality, status: 'Données incomplètes', calculated: false, normal: null, stress: null, trades: [], stressTrades: [], checks: [], paperEnabled: false };
+export function runConfirmation(bundle, policy = CONFIRMATION_POLICY) {
+  const { quality, ready, candles } = inspectConfirmation(bundle, policy);
+  if (!ready) return { policy, quality, status: 'Données incomplètes', calculated: false, normal: null, stress: null, trades: [], stressTrades: [], checks: [], paperEnabled: false };
   const context = contextFor(candles);
-  const window = { start: epoch(CONFIRMATION_POLICY.start), end: epoch(CONFIRMATION_POLICY.end), label: 'Octobre – novembre 2024' };
-  const trades = simulateMarket(candles, context, window, product, 1, CONFIRMATION_POLICY.ticker);
-  const stressTrades = simulateMarket(candles, context, window, product, 2, CONFIRMATION_POLICY.ticker);
+  const window = { start: epoch(policy.start), end: epoch(policy.end), label: policy.label || 'Octobre – novembre 2024' };
+  const trades = simulateMarket(candles, context, window, product, 1, policy.ticker);
+  const stressTrades = simulateMarket(candles, context, window, product, 2, policy.ticker);
   const normal = describe(trades), stress = describe(stressTrades);
   const checks = [
-    { label: 'Trois fenêtres complètes de deux mois encore inutilisées', pass: CONFIRMATION_POLICY.completeWindows >= CONFIRMATION_POLICY.requiredWindows },
+    { label: 'Trois fenêtres complètes de deux mois encore inutilisées', pass: policy.completeWindows >= policy.requiredWindows },
     { label: 'Au moins 40 nouvelles transactions au total', pass: normal.count >= 40 },
     { label: 'Au moins 12 transactions dans la fenêtre disponible', pass: normal.count >= 12 },
     { label: 'Moyenne nette positive dans la fenêtre disponible', pass: normal.exp !== null && normal.exp > 0 },
@@ -77,5 +77,5 @@ export function runConfirmation(bundle) {
     { label: 'Baisse maximale réalisée limitée à 8 R', pass: normal.dd <= 8 },
     { label: 'Résultat positif avec les coûts doublés', pass: stress.total > 0 }
   ];
-  return { policy: CONFIRMATION_POLICY, quality, status: 'Confirmation incomplète', calculated: true, normal, stress, trades, stressTrades, checks, paperEnabled: false };
+  return { policy, quality, status: policy.diagnostic ? 'Diagnostic court, non confirmé' : 'Confirmation incomplète', calculated: true, normal, stress, trades, stressTrades, checks, paperEnabled: false };
 }

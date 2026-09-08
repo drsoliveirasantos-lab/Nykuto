@@ -110,6 +110,19 @@ and refuses performance calculation. The incomplete snapshot stays in private
 KV; no licensed prices enter Git. See `trading/lab/MNQ_CONFIRMATION.md` for the
 frozen protocol, sample-size limits, availability evidence and repair boundary.
 
+At the owner’s request, Jeu 07 now offers a replacement July 1–24, 2026
+MNQU6 diagnostic through `mnq-retest.mjs`, `retest-source.mjs` and private
+`/api/lab/jeu07b`. The old snapshot and default engine policy are preserved.
+The validator/simulator accepts the fixed replacement policy; 28 sessions and
+728 candles pass, but this short test cannot satisfy three complete two-month
+confirmation windows. See `trading/lab/MNQ_RETEST.md`.
+
+`trading/discipline/` hosts the drawdown scenario and emotional self-report,
+with an optional pause and post-trade journal linkage. Pure rules are in
+`discipline-core.mjs`. Records remain browser-local; there is no broker endpoint,
+server emotional profiling or device sync. Shared navigation exposes this page;
+the Journal shows linked before/after emotion. See `trading/README.md`.
+
 Jeu 08 adds `prospective-collection.mjs`, `lab-collection.mjs` and private
 GET-only `/api/lab/jeu08`. It archives future MNQZ6 sessions (September 9–30,
 2026 preparation, October–November first test window) using existing Massive

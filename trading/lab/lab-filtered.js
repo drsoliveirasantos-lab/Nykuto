@@ -37,7 +37,7 @@
   }
 
   function mountUi() {
-    const anchor = byId('backtestResults');
+    const anchor = byId('legacyGame02') || byId('backtestResults');
     if (!anchor || byId('filteredGame')) return;
     const section = document.createElement('section');
     section.className = 'panel filtered-game';
@@ -88,7 +88,8 @@
           </div>
         </div>
       </div>`;
-    anchor.insertAdjacentElement('afterend', section);
+    if (anchor.id === 'legacyGame02') anchor.appendChild(section);
+    else anchor.insertAdjacentElement('afterend', section);
     byId('runFilteredGame')?.addEventListener('click', runGame);
   }
 
