@@ -7,7 +7,7 @@
   <meta name="referrer" content="no-referrer">
   <meta name="theme-color" content="#07111f">
   <title>Lab · Nykuto Trading HQ</title>
-  <meta name="description" content="Strategy Lab privé pour préparer des stratégies, backtests et paper bots sans ordre réel.">
+  <meta name="description" content="Strategy Lab privé pour définir et backtester des stratégies avant paper et shadow mode.">
   <link rel="stylesheet" href="../styles.css">
   <link rel="stylesheet" href="./lab.css">
   <script src="./lab.js" defer></script>
@@ -38,65 +38,104 @@
     <section class="lab-intro">
       <div>
         <p class="eyebrow">STRATEGY LAB</p>
-        <h2>Construire avant d'automatiser</h2>
-        <p>Une stratégie doit d'abord être définie, backtestée, puis testée en paper et en shadow mode avant toute connexion d'exécution broker.</p>
+        <h2>Mesurer avant d'automatiser</h2>
+        <p>Définis une règle reproductible, teste-la sur l'historique, puis seulement ensuite passe au Paper Bot et au Shadow mode.</p>
       </div>
-      <span class="mode-note">Aucun ordre réel · aucune API broker d'exécution</span>
+      <span class="mode-note">Aucun ordre réel · aucun broker d'exécution</span>
     </section>
 
     <section class="pipeline" aria-label="Pipeline de validation">
-      <article class="pipeline-step is-current"><span>01</span><div><strong>Stratégie</strong><small>Règles déterministes</small></div></article>
-      <article class="pipeline-step"><span>02</span><div><strong>Backtest</strong><small>Historique + frais</small></div></article>
-      <article class="pipeline-step"><span>03</span><div><strong>Paper Bot</strong><small>Marché réel, argent fictif</small></div></article>
+      <article class="pipeline-step is-done"><span>01</span><div><strong>Stratégie</strong><small>Règles déterministes</small></div></article>
+      <article class="pipeline-step is-current"><span>02</span><div><strong>Backtest</strong><small>Actif maintenant</small></div></article>
+      <article class="pipeline-step"><span>03</span><div><strong>Paper Bot</strong><small>Marché réel, fictif</small></div></article>
       <article class="pipeline-step"><span>04</span><div><strong>Shadow</strong><small>Signaux sans exécution</small></div></article>
     </section>
 
     <section class="lab-grid">
       <form class="panel strategy-panel" id="strategyForm">
-        <div class="panel-heading"><div><p class="panel-kicker">01 · STRATÉGIE</p><h3>Paramètres de départ</h3></div><span class="panel-meta" id="saveState">Local</span></div>
+        <div class="panel-heading"><div><p class="panel-kicker">01 · STRATÉGIE</p><h3>Règles testables</h3></div><span class="panel-meta" id="saveState">Local</span></div>
         <div class="lab-form-grid">
           <label><span>Nom</span><input id="strategyName" maxlength="40" value="Stratégie test 01"></label>
           <label><span>Actif</span><select id="strategyAsset"><option>SPY</option><option>QQQ</option><option>BTCUSDT</option><option>ETHUSDT</option><option>GOLD</option></select></label>
           <label><span>Timeframe</span><select id="strategyTimeframe"><option>5m</option><option selected>15m</option><option>1h</option><option>1d</option></select></label>
+          <label><span>Direction</span><select id="strategyDirection"><option value="both">Long + Short</option><option value="long">Long seulement</option><option value="short">Short seulement</option></select></label>
+
+          <label><span>Modèle de signal</span><select id="signalModel"><option value="ema">Croisement EMA</option><option value="rsi">RSI réintégration</option><option value="breakout">Breakout + volume</option></select></label>
+          <label><span id="paramALabel">EMA rapide</span><input id="signalParamA" type="number" min="2" max="200" step="1" value="9"></label>
+          <label><span id="paramBLabel">EMA lente</span><input id="signalParamB" type="number" min="3" max="400" step="1" value="21"></label>
+          <label><span>Stop ATR</span><div class="input-suffix"><input id="atrMultiple" type="number" min="0.25" max="10" step="0.25" value="1.5"><b>×</b></div></label>
+
           <label><span>Risque / trade</span><div class="input-suffix"><input id="strategyRisk" type="number" min="0.1" max="5" step="0.1" value="1"><b>%</b></div></label>
-          <label><span>R:R minimal</span><input id="strategyRR" type="number" min="0.5" max="10" step="0.1" value="2"></label>
+          <label><span>Objectif R:R</span><input id="strategyRR" type="number" min="0.5" max="10" step="0.1" value="2"></label>
           <label><span>Trades max / jour</span><input id="maxTrades" type="number" min="1" max="50" step="1" value="5"></label>
           <label><span>Perte max / jour</span><div class="input-suffix"><input id="maxDailyLoss" type="number" min="0.5" max="10" step="0.5" value="3"><b>R</b></div></label>
+
           <label><span>Pause après pertes</span><div class="input-suffix"><input id="lossStreak" type="number" min="1" max="10" step="1" value="3"><b>×</b></div></label>
-          <label class="full-field"><span>Règle d'entrée</span><textarea id="entryRule" rows="2" placeholder="Ex. tendance haussière + breakout confirmé + volume supérieur à la moyenne"></textarea></label>
-          <label class="full-field"><span>Invalidation / sortie</span><textarea id="exitRule" rows="2" placeholder="Ex. stop sous le niveau invalidé, objectif ≥ 2R"></textarea></label>
+          <label class="model-explainer"><span>Logique actuelle</span><small id="modelExplanation">Signal sur croisement des moyennes ; entrée à l'ouverture de la bougie suivante.</small></label>
+          <label class="notes-field"><span>Note personnelle</span><input id="entryRule" maxlength="140" placeholder="Pourquoi veux-tu tester cette idée ?"></label>
+          <label class="notes-field"><span>Règle complémentaire</span><input id="exitRule" maxlength="140" placeholder="Ex. ne pas trader pendant une annonce majeure"></label>
         </div>
         <div class="lab-actions"><button type="submit" class="primary-button">Enregistrer</button><button type="button" class="ghost-button" id="resetStrategy">Réinitialiser</button></div>
       </form>
 
       <div class="lab-side">
-        <article class="panel compact-panel">
-          <div class="panel-heading"><div><p class="panel-kicker">RISQUE</p><h3>Exposition prévue</h3></div></div>
+        <article class="panel compact-panel risk-card">
+          <div class="panel-heading"><div><p class="panel-kicker">RISQUE</p><h3>Exposition</h3></div></div>
           <div class="metric-list">
-            <div><span>Capital de référence</span><strong id="labCapital">1 000 €</strong></div>
-            <div><span>Risque / trade</span><strong id="labRiskAmount">10 €</strong></div>
-            <div><span>Perte journalière max</span><strong id="labDailyLoss">30 €</strong></div>
+            <div><span>Capital</span><strong id="labCapital">1 000 €</strong></div>
+            <div><span>1 R / trade</span><strong id="labRiskAmount">10 €</strong></div>
+            <div><span>Perte jour max</span><strong id="labDailyLoss">30 €</strong></div>
           </div>
         </article>
 
-        <article class="panel compact-panel">
-          <div class="panel-heading"><div><p class="panel-kicker">02 · BACKTEST</p><h3>État</h3></div><span class="lab-status planned">À construire</span></div>
-          <p class="compact-copy">Le moteur utilisera les mêmes historiques que Replay, puis calculera expectancy, profit factor, drawdown et séries de pertes.</p>
-        </article>
-
-        <article class="panel compact-panel">
-          <div class="panel-heading"><div><p class="panel-kicker">03 · PAPER BOT</p><h3>État</h3></div><span class="lab-status off">OFF</span></div>
-          <p class="compact-copy">Les signaux seront exécutés uniquement sur capital fictif jusqu'à validation statistique.</p>
-        </article>
-
-        <article class="panel compact-panel">
-          <div class="panel-heading"><div><p class="panel-kicker">04 · SHADOW</p><h3>État</h3></div><span class="lab-status off">OFF</span></div>
-          <p class="compact-copy">Le système enregistrera les trades qu'il aurait pris en direct, sans toucher au broker.</p>
+        <article class="panel backtest-panel" id="backtestPanel">
+          <div class="panel-heading"><div><p class="panel-kicker">02 · BACKTEST</p><h3>Lancer un test</h3></div><span class="lab-status active">ACTIF</span></div>
+          <div class="backtest-controls">
+            <label><span>Date de départ</span><input id="backtestDate" type="date" required></label>
+            <label><span>Coût estimé / trade</span><div class="input-suffix"><input id="costPerTradeR" type="number" min="0" max="1" step="0.01" value="0.05"><b>R</b></div></label>
+            <button class="primary-button run-backtest" type="button" id="runBacktest">Lancer</button>
+          </div>
+          <p class="backtest-note" id="backtestNote">Entrée sur la bougie suivante · stop et target simulés · stop prioritaire si les deux sont touchés dans la même bougie.</p>
         </article>
       </div>
     </section>
+
+    <section class="panel results-panel" id="backtestResults" aria-labelledby="resultsTitle">
+      <div class="panel-heading results-heading">
+        <div><p class="panel-kicker">RÉSULTATS</p><h3 id="resultsTitle">Aucun backtest lancé</h3></div>
+        <div class="result-badges"><span class="lab-status planned" id="sampleBadge">Échantillon —</span><span class="lab-status planned" id="validationBadge">Validation 30 %</span></div>
+      </div>
+      <div class="backtest-metrics">
+        <article><span>Trades</span><strong id="btTrades">—</strong></article>
+        <article><span>Win rate</span><strong id="btWinRate">—</strong></article>
+        <article><span>R cumulé</span><strong id="btTotalR">—</strong></article>
+        <article><span>Expectancy</span><strong id="btExpectancy">—</strong></article>
+        <article><span>Profit factor</span><strong id="btProfitFactor">—</strong></article>
+        <article><span>Max drawdown</span><strong id="btDrawdown">—</strong></article>
+        <article><span>Pire série</span><strong id="btLossStreak">—</strong></article>
+        <article class="validation-metric"><span>Validation 30 %</span><strong id="btValidationR">—</strong></article>
+      </div>
+      <div class="backtest-bottom">
+        <div class="test-split">
+          <div><span>Développement 70 %</span><strong id="btTrainStats">—</strong></div>
+          <div><span>Validation 30 %</span><strong id="btValidationStats">—</strong></div>
+          <p id="btInterpretation">Le résultat hors échantillon est affiché séparément pour limiter l'illusion d'une stratégie optimisée uniquement sur le passé.</p>
+        </div>
+        <div class="trade-log-wrap">
+          <table class="trade-log">
+            <thead><tr><th>Date</th><th>Side</th><th>Entrée</th><th>Sortie</th><th>R</th><th>Motif</th></tr></thead>
+            <tbody id="backtestTradesBody"><tr><td colspan="6">Les derniers trades simulés apparaîtront ici.</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="future-grid" aria-label="Étapes futures">
+      <article class="panel compact-panel"><div class="panel-heading"><div><p class="panel-kicker">03 · PAPER BOT</p><h3>Marché réel, argent fictif</h3></div><span class="lab-status off">OFF</span></div><p class="compact-copy">Sera activé après validation du moteur de backtest et de ses hypothèses d'exécution.</p></article>
+      <article class="panel compact-panel"><div class="panel-heading"><div><p class="panel-kicker">04 · SHADOW</p><h3>Signaux sans ordre</h3></div><span class="lab-status off">OFF</span></div><p class="compact-copy">Enregistrera ce que le système aurait fait en direct, sans envoyer quoi que ce soit à un broker.</p></article>
+    </section>
   </main>
 
-  <footer><p><strong>Nykuto Strategy Lab</strong> — recherche et entraînement personnel. Pas de conseil financier ni d'exécution réelle.</p></footer>
+  <footer><p><strong>Nykuto Strategy Lab</strong> — backtests pédagogiques et paper only. Les résultats historiques ne garantissent aucune performance future.</p></footer>
 </body>
 </html>
