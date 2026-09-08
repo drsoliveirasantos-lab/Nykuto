@@ -1,0 +1,15 @@
+.market-game{margin-bottom:.75rem;--mc-body:.75rem;--mc-meta:.6875rem;--mc-title:.9375rem;--mc-card:.8125rem}
+.market-game .panel-heading h3{font-size:var(--mc-title)}
+.market-game .iv-content,.market-game .iv-intro,.market-game .iv-message,.market-game .iv-table,.market-game .iv-help{font-size:var(--mc-body)}
+.market-game .iv-launch h4,.market-game .iv-verdict h4{font-size:.875rem}
+.market-game .iv-meta,.market-game .iv-table caption,.market-game .iv-periods,.market-game .iv-help p{font-size:var(--mc-meta)}
+.market-game button{min-height:44px;font-size:var(--mc-body)}
+.mc-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.5rem;margin:.6rem 0}
+.mc-summary article{border:1px solid var(--line);border-radius:8px;padding:.65rem;min-width:0}
+.mc-summary h4{font-size:var(--mc-card);margin:0 0 .4rem}.mc-summary p{font-size:var(--mc-body);margin:.25rem 0}.mc-summary small{font-size:var(--mc-meta);color:var(--muted);display:block}
+.mc-figure{margin:1rem 0;border:1px solid var(--line);border-radius:8px;padding:.6rem}
+.mc-figure figcaption{font-size:var(--mc-body);margin-bottom:.5rem}.mc-figure svg{display:block;width:100%;height:auto;min-height:170px;overflow:visible}
+.mc-legend{display:flex;gap:1rem;justify-content:center;font-size:var(--mc-meta)}
+.mc-spy{color:#53d8ac}.mc-mes{color:#65baff}.mc-mnq{color:#dfb5ff}
+.mc-checks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.75rem}.mc-checks h5{font-size:var(--mc-card);margin:.5rem 0}.mc-checks ul{font-size:var(--mc-body);padding-left:1rem}
+@media(max-width:650px){.mc-summary,.mc-checks{grid-template-columns:1fr}.market-game .iv-launch{align-items:stretch}.mc-figure{padding:.35rem}.mc-figure svg{min-height:130px}.mc-summary article{padding:.55rem}}

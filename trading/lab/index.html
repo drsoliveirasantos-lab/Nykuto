@@ -14,6 +14,8 @@
   <script src="./lab.js" defer></script>
   <script src="./lab-validation.mjs?v=2" type="module"></script>
   <script src="./lab-session.mjs?v=1" type="module"></script>
+  <script src="./lab-market.mjs?v=1" type="module"></script>
+  <link rel="stylesheet" href="./lab-market.css?v=1">
 </head>
 <body>
   <a class="skip-link" href="#main">Aller au contenu</a>
@@ -27,6 +29,7 @@
       <a class="ghost-button" href="../">Dashboard</a>
       <a class="ghost-button" href="#independentGame">Jeu 04</a>
       <a class="ghost-button" href="#sessionGame">Jeu 05</a>
+      <a class="ghost-button" href="#marketGame">Jeu 06</a>
     </div>
   </header>
 
@@ -47,6 +50,33 @@
         <p>Définis une règle reproductible, teste-la sur l'historique, puis seulement ensuite passe au Paper Bot et au Shadow mode.</p>
       </div>
       <span class="mode-note">Aucun ordre réel · aucun broker d'exécution</span>
+    </section>
+
+    <section class="panel independent-game market-game" id="marketGame" aria-labelledby="marketTitle">
+      <div class="panel-heading"><div><p class="panel-kicker">JEU 06 · COMPARAISON DES MARCHÉS</p><h3 id="marketTitle">La même stratégie sur SPY, MES et MNQ</h3></div><span id="mcStatus" class="lab-status planned">PRÊT</span></div>
+      <div class="iv-content">
+        <p class="iv-intro">Est-ce que la stratégie tient sur plusieurs transactions ? Compare le résultat après coûts sur l’ETF S&P 500 et deux micro futures, pendant les mêmes séances.</p>
+        <div class="iv-periods"><span>Juillet – août 2025</span><span>Septembre – octobre 2025</span><span>Novembre – décembre 2025</span></div>
+        <div class="iv-launch"><div><h4>Six mois encore inutilisés dans nos tests</h4><p>EMA 9/21 + ADX ≥ 20 · bougies 15 minutes · sortie avant la clôture · 3 entrées/jour maximum.</p></div><button id="mcRun" class="primary-button" type="button">Lancer le Jeu 06</button></div>
+        <p id="mcMessage" class="iv-message" role="status" aria-live="polite">Les données historiques sont intégrées. Le bouton calcule les trois marchés.</p>
+        <div id="mcResults" hidden>
+          <div id="mcSummary" class="mc-summary"></div>
+          <p id="mcInterpretation" class="iv-message"></p>
+          <div class="iv-table-wrap" role="region" aria-label="Comparaison des trois marchés" tabindex="0"><table class="iv-table"><caption>R = risque prévu au stop d’une transaction · valeurs nettes après coûts simulés</caption><thead><tr><th scope="col">Marché</th><th scope="col">Transactions</th><th scope="col">Réussite</th><th scope="col">R moyen</th><th scope="col">R cumulé</th><th scope="col">Profit factor</th><th scope="col">Baisse max.</th><th scope="col">Coûts doublés</th></tr></thead><tbody id="mcTotals"></tbody></table></div>
+          <figure class="mc-figure"><figcaption>Évolution du résultat cumulé, dans l’ordre réel des transactions</figcaption><svg id="mcChart" viewBox="0 0 900 240" role="img" aria-label="Courbes de résultat cumulé pour SPY, MES et MNQ"></svg><div class="mc-legend"><span class="mc-spy">SPY</span><span class="mc-mes">MES</span><span class="mc-mnq">MNQ</span></div></figure>
+          <div class="iv-table-wrap" role="region" aria-label="Résultats des marchés par période" tabindex="0"><table class="iv-table"><caption>Chaque période compte : un total positif peut cacher des mois déficitaires.</caption><thead><tr><th scope="col">Période</th><th scope="col">Marché</th><th scope="col">Transactions</th><th scope="col">Réussite</th><th scope="col">R moyen</th><th scope="col">R cumulé</th><th scope="col">Pertes consécutives max.</th></tr></thead><tbody id="mcPeriods"></tbody></table></div>
+          <div class="iv-verdict"><h4>Critères fixés avant le calcul</h4><div id="mcChecks" class="mc-checks"></div><p>Une « piste à examiner » reste un résultat de recherche. Les marchés sont liés entre eux ; choisir le meilleur de ce tableau ne prouve pas sa rentabilité future. Paper Bot et Shadow restent désactivés.</p></div>
+          <details class="iv-help"><summary>Frais, contrats et limites du test</summary>
+            <p>Hypothèses par aller-retour : SPY, 0,02 $ de frais par action + deux ticks de 0,01 $ ; MES et MNQ, 2,50 $ de frais par contrat + deux ticks. Total : 0,04 $/action SPY, 5 $/contrat MES et 3,50 $/contrat MNQ. Ce sont des scénarios de calcul, pas les tarifs vérifiés de ton courtier.</p>
+            <p>Le test double tous ces coûts et recalcule les entrées, car les limites de perte journalière peuvent arrêter le trading plus tôt. Les abonnements aux données et les coûts d’emprunt des ventes à découvert ne sont pas inclus.</p>
+            <p>Les montants sont normalisés en R. Ce n’est pas une comparaison à capital égal : marge, taille des positions, accessibilité d’un contrat entier et liquidation du compte ne sont pas modélisées.</p>
+            <p>MES : 5 $ par point ; MNQ : 2 $ par point ; tick de 0,25 point. Arrêt et objectif arrondis au tick. Passage aux contrats suivants les 15 septembre et 15 décembre ; indicateurs préparés séparément sur chaque contrat.</p>
+            <p>Séances communes au marché actions américain, avec ses clôtures anticipées. Sortie à l’ouverture de la dernière bougie, 15 minutes avant cette clôture. Le marché futures de nuit n’est pas testé. Si stop et objectif sont touchés dans une même bougie, le stop est retenu en premier. Les prix d’exécution restent des approximations.</p>
+            <p id="mcProvenance"></p><ul id="mcCoverage"></ul>
+          </details>
+          <button id="mcExport" class="ghost-button" type="button">Exporter les résultats du Jeu 06</button>
+        </div>
+      </div>
     </section>
 
     <section class="pipeline" aria-label="Pipeline de validation">

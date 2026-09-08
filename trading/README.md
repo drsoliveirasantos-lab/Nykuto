@@ -2,6 +2,18 @@
 
 Private personal trading workspace intended for `trading.nykuto.com`.
 
+## Latest Lab comparison — Jeu 06
+
+`/lab/#marketGame` compares the unchanged session-close EMA + ADX strategy on
+SPY, MES and MNQ during July–December 2025, with normalized R, explicit per-unit
+cost assumptions and a doubled-cost rerun. One click loads a private verified
+snapshot and calculates totals, period results, cumulative curves and research
+gates. All bots remain disabled. MNQ's aggregate +5.23 R does not pass the
+consistency gate because September–October is negative. The fixed protocol,
+data boundaries and complete results are in [MARKET_COMPARISON.md](lab/MARKET_COMPARISON.md).
+Licensed raw price histories are stored privately in `TRADING_DATASETS`, served
+by `/api/lab/jeu06` after Access signature validation, and never committed here.
+
 ## V1 scope
 
 - TradingView Advanced Chart widget for market visualization;
