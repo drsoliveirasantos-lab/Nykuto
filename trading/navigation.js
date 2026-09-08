@@ -17,6 +17,7 @@
     ensureLink('/replay/', 'Replay');
     ensureLink('/lab/', 'Lab');
   }
+  ensureLink('/alerts/', 'Alertes');
 
   function showModule(id, updateHash = true) {
     if (!modules.length || !moduleIds.includes(id)) return;

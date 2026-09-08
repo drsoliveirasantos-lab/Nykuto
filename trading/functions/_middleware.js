@@ -35,7 +35,7 @@ export async function onRequest(context) {
           `<link rel="shortcut icon" type="image/png" href="${MED_NYKUTO_ICON}">` +
           `<link rel="apple-touch-icon" href="${MED_NYKUTO_ICON}">` +
           `<link rel="stylesheet" href="/compact.css?v=1">` +
-          `<script src="/navigation.js?v=1" defer></script>` +
+          `<script src="/navigation.js?v=2" defer></script>` +
           labScripts,
           { html: true }
         );

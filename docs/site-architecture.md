@@ -97,6 +97,21 @@ with exchange calendars. The 2026 comparison is explicitly exploratory;
 only the new 2025 windows determine the research verdict. No market history
 is committed to Git. See `trading/lab/SESSION_COMPARISON.md`.
 
+Jeu 06 compares SPY, MES and MNQ over frozen July–December 2025 windows using
+`market-comparison.mjs` and private `/api/lab/jeu06`. See
+`trading/lab/MARKET_COMPARISON.md` and `trading/lab/JEU06_AUDIT.md`.
+
+`trading/alerts/` adds the private TradingView inbox and account setup guide.
+`trading/functions/api/alerts/` reuses the signed Access verification. A separate
+Worker in `workers/trading-alerts/` receives TradingView POSTs using a random
+capability URL and the official source IP allowlist, without opening the private
+site through Access. Its shared validation module is
+`trading/alerts/alert-service.mjs`. Dedicated `TRADING_ALERTS` KV binds the Worker
+and Pages; only a hash of the webhook token is provisioned as a Worker secret.
+No secrets or actual alert data are committed. See `trading/alerts/README.md` for
+deployment, data boundaries, test labeling and eventual-consistency limits.
+This Worker is not part of the commercial static build and never sends orders.
+
 `npm run build` creates three equivalent static outputs:
 
 - `out/` — Cloudflare Pages production output;

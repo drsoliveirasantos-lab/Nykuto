@@ -57,7 +57,7 @@
       <div class="iv-content">
         <p class="iv-intro">Est-ce que la stratégie tient sur plusieurs transactions ? Compare le résultat après coûts sur l’ETF S&P 500 et deux micro futures, pendant les mêmes séances.</p>
         <div class="iv-periods"><span>Juillet – août 2025</span><span>Septembre – octobre 2025</span><span>Novembre – décembre 2025</span></div>
-        <div class="iv-launch"><div><h4>Six mois encore inutilisés dans nos tests</h4><p>EMA 9/21 + ADX ≥ 20 · bougies 15 minutes · sortie avant la clôture · 3 entrées/jour maximum.</p></div><button id="mcRun" class="primary-button" type="button">Lancer le Jeu 06</button></div>
+        <div class="iv-launch"><div><h4>Six mois figés pour cette comparaison</h4><p>EMA 9/21 + ADX ≥ 20 · bougies 15 minutes · sortie avant la clôture · 3 entrées/jour maximum.</p></div><button id="mcRun" class="primary-button" type="button">Lancer le Jeu 06</button></div>
         <p id="mcMessage" class="iv-message" role="status" aria-live="polite">Les données historiques sont intégrées. Le bouton calcule les trois marchés.</p>
         <div id="mcResults" hidden>
           <div id="mcSummary" class="mc-summary"></div>
@@ -74,6 +74,7 @@
             <p>Séances communes au marché actions américain, avec ses clôtures anticipées. Sortie à l’ouverture de la dernière bougie, 15 minutes avant cette clôture. Le marché futures de nuit n’est pas testé. Si stop et objectif sont touchés dans une même bougie, le stop est retenu en premier. Les prix d’exécution restent des approximations.</p>
             <p id="mcProvenance"></p><ul id="mcCoverage"></ul>
           </details>
+          <div class="iv-verdict"><h4>Combien de jeux avant le Paper Bot ?</h4><p>Il n’y a pas de nombre magique. Le Jeu 06 a été recalculé et vérifié le 8 septembre 2026. MNQ termine à +5,23 R sur 66 transactions (+3,36 R avec coûts doublés), mais septembre–octobre reste à −0,66 R : son résultat reste non confirmé.</p><p>Prochaine campagne proposée : garder les règles MNQ inchangées et les confirmer sur un historique distinct, encore inutilisé. Fixer les dates et les critères avant le calcul, puis vérifier les frais du courtier et la taille d’un contrat pour le capital disponible. Relancer le même historique n’ajoute pas de preuve.</p><p>Si cette confirmation et les contrôles d’exécution passent, préparer un pilote en argent fictif pour mesurer les retards, les prix obtenus, les doublons et les arrêts de perte. Un autre résultat insuffisant impose de revoir l’hypothèse ; accumuler des jeux jusqu’à obtenir du vert ne valide pas le bot.</p><p>Les <a href="../alerts/">alertes TradingView</a> peuvent déjà servir à observer le marché. Elles n’activent ni Paper Bot ni Shadow.</p></div>
           <button id="mcExport" class="ghost-button" type="button">Exporter les résultats du Jeu 06</button>
         </div>
       </div>

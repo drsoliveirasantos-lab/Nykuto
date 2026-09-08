@@ -7,7 +7,7 @@ let cachedKeys = null, keysUntil = 0;
 const bytes = value => Uint8Array.from(atob(value.replace(/-/g, '+').replace(/_/g, '/')), c => c.charCodeAt(0));
 const decode = value => JSON.parse(new TextDecoder().decode(bytes(value)));
 
-async function authorized(request) {
+export async function authorized(request) {
   try {
     const token = request.headers.get('Cf-Access-Jwt-Assertion');
     if (!token || token.length > 16384) return false;

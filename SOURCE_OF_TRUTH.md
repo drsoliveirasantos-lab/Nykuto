@@ -64,6 +64,8 @@ The current production source of truth is the static root site:
 - `trading/`, the private Trading HQ published separately from its validation
   branch; its lab protocol and data boundaries are documented in
   `trading/lab/INDEPENDENT_VALIDATION.md`;
+- `workers/trading-alerts/`, the isolated TradingView webhook receiver; private
+  inbox, shared validation and deployment details live in `trading/alerts/`;
 - `scripts/prepare-cloudflare-output.js`;
 - `gestor/` for the private real-estate manager pilot interface;
 - `functions/` for Cloudflare Pages authentication, manager and local APIs;
