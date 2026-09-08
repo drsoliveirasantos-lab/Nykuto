@@ -101,6 +101,13 @@ Jeu 06 compares SPY, MES and MNQ over frozen July–December 2025 windows using
 `market-comparison.mjs` and private `/api/lab/jeu06`. See
 `trading/lab/MARKET_COMPARISON.md` and `trading/lab/JEU06_AUDIT.md`.
 
+Jeu 07 uses `mnq-confirmation.mjs`, `mnq-source.mjs`, `lab-mnq.mjs` and protected
+`/api/lab/jeu07`. Its October–November 2024 MNQZ4 snapshot has complete cash
+prices but lacks verified futures schedules. It displays the missing coverage
+and refuses performance calculation. The incomplete snapshot stays in private
+KV; no licensed prices enter Git. See `trading/lab/MNQ_CONFIRMATION.md` for the
+frozen protocol, sample-size limits, availability evidence and repair boundary.
+
 `trading/alerts/` adds the private TradingView inbox and account setup guide.
 `trading/functions/api/alerts/` reuses the signed Access verification. A separate
 Worker in `workers/trading-alerts/` receives TradingView POSTs using a random

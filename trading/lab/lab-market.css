@@ -12,4 +12,7 @@
 .mc-legend{display:flex;gap:1rem;justify-content:center;font-size:var(--mc-meta)}
 .mc-spy{color:#53d8ac}.mc-mes{color:#65baff}.mc-mnq{color:#dfb5ff}
 .mc-checks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.75rem}.mc-checks h5{font-size:var(--mc-card);margin:.5rem 0}.mc-checks ul{font-size:var(--mc-body);padding-left:1rem}
+.mnq-game .mc-summary{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(max-width:850px){.mnq-game .mc-summary{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:450px){.mnq-game .mc-summary{grid-template-columns:1fr}}
 @media(max-width:650px){.mc-summary,.mc-checks{grid-template-columns:1fr}.market-game .iv-launch{align-items:stretch}.mc-figure{padding:.35rem}.mc-figure svg{min-height:130px}.mc-summary article{padding:.55rem}}

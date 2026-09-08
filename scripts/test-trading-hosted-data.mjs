@@ -4,6 +4,7 @@ import { readDataset, loadHostedDataset } from '../trading/lab/validation-source
 import { onRequest, DATASET_KEY } from '../trading/functions/api/lab/jeu04.js';
 import { onRequest as onRequest05, DATASET_KEY as DATASET_KEY05 } from '../trading/functions/api/lab/jeu05.js';
 import { onRequest as onRequest06, DATASET_KEY as DATASET_KEY06 } from '../trading/functions/api/lab/jeu06.js';
+import { onRequest as onRequest07, DATASET_KEY as DATASET_KEY07 } from '../trading/functions/api/lab/jeu07.js';
 
 test('hosted data failures cannot become a successful dataset', async () => {
   await assert.rejects(loadHostedDataset(async () => new Response('<html>login</html>', { headers: { 'Content-Type': 'text/html' } })), /indisponibles/);
@@ -60,6 +61,10 @@ test('private endpoint verifies the Access signature and fails closed', async ()
     const response06 = await onRequest06({ request: request(valid), env: { TRADING_DATASETS: { get: async key => { assert.equal(key, DATASET_KEY06); return '{"schema":"jeu06-data-v1"}'; } } } });
     assert.equal(response06.status, 200);
     assert.deepEqual(await response06.json(), { schema: 'jeu06-data-v1' });
+    assert.equal((await onRequest07({ request: request(null), env })).status, 401);
+    const response07 = await onRequest07({ request: request(valid), env: { TRADING_DATASETS: { get: async key => { assert.equal(key, DATASET_KEY07); return '{"schema":"jeu07-data-v1"}'; } } } });
+    assert.equal(response07.status, 200);
+    assert.deepEqual(await response07.json(), { schema: 'jeu07-data-v1' });
     assert.equal((await onRequest({ request: request(valid), env: {} })).status, 503);
     assert.equal((await onRequest({ request: new Request('https://trading.nykuto.com/api/lab/jeu04', { method: 'POST' }), env })).status, 405);
   } finally { globalThis.fetch = originalFetch; }

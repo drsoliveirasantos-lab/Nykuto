@@ -15,7 +15,8 @@
   <script src="./lab-validation.mjs?v=2" type="module"></script>
   <script src="./lab-session.mjs?v=1" type="module"></script>
   <script src="./lab-market.mjs?v=1" type="module"></script>
-  <link rel="stylesheet" href="./lab-market.css?v=1">
+  <script src="./lab-mnq.mjs?v=1" type="module"></script>
+  <link rel="stylesheet" href="./lab-market.css?v=2">
 </head>
 <body>
   <a class="skip-link" href="#main">Aller au contenu</a>
@@ -30,6 +31,7 @@
       <a class="ghost-button" href="#independentGame">Jeu 04</a>
       <a class="ghost-button" href="#sessionGame">Jeu 05</a>
       <a class="ghost-button" href="#marketGame">Jeu 06</a>
+      <a class="ghost-button" href="#mnqGame">Jeu 07</a>
     </div>
   </header>
 
@@ -50,6 +52,23 @@
         <p>Définis une règle reproductible, teste-la sur l'historique, puis seulement ensuite passe au Paper Bot et au Shadow mode.</p>
       </div>
       <span class="mode-note">Aucun ordre réel · aucun broker d'exécution</span>
+    </section>
+
+    <section class="panel independent-game market-game mnq-game" id="mnqGame" aria-labelledby="mnqTitle">
+      <div class="panel-heading"><div><p class="panel-kicker">JEU 07 · CONFIRMATION COMPLÉMENTAIRE</p><h3 id="mnqTitle">MNQ sur une période encore inutilisée</h3></div><span id="mnqStatus" class="lab-status warning">DONNÉES INCOMPLÈTES</span></div>
+      <div class="iv-content">
+        <p class="iv-intro">Même stratégie que le Jeu 06, sur octobre–novembre 2024. Les prix sont disponibles, mais les horaires historiques des futures sont incomplets : le calcul de performance est bloqué.</p>
+        <div class="iv-periods"><span>MNQZ4 · Micro Nasdaq</span><span>Octobre – novembre 2024</span><span>15 minutes · séance américaine</span></div>
+        <div class="iv-launch"><div><h4>Vérifier les données avant de calculer</h4><p>Le contrôle vérifie les prix, les séances et la préparation des indicateurs. Aucun téléchargement nécessaire.</p></div><button id="mnqRun" class="primary-button" type="button">Vérifier le Jeu 07</button></div>
+        <p id="mnqMessage" class="iv-message" role="status" aria-live="polite">Dernière vérification : 8 septembre 2026. Aucun résultat de trading validé pour ce jeu.</p>
+        <div id="mnqResults" hidden>
+          <div id="mnqQuality" class="mc-summary"></div>
+          <details id="mnqMissingDetails" class="iv-help"><summary>Séances dont les horaires futures manquent</summary><p>Chaque séance doit avoir une ouverture et une fermeture vérifiées. Une information de préouverture seule ne suffit pas.</p><ul id="mnqMissing"></ul></details>
+          <div id="mnqPerformance" hidden><div class="iv-table-wrap"><table class="iv-table"><caption>Résultat net en R · hypothèses de coûts du Jeu 06</caption><tbody id="mnqNumbers"></tbody></table></div><ul id="mnqChecks"></ul></div>
+        </div>
+        <details class="iv-help"><summary>Règles et critères du Jeu 07</summary><p>EMA 9/21 + ADX 14 ≥ 20 ; stop ATR 14 × 1,25 ; objectif 1,5 R arrondi au tick ; trois entrées par jour maximum ; pause après deux pertes consécutives ou −2 R réalisés. Sortie à l’ouverture de la dernière bougie de séance, sans position la nuit.</p><p>MNQ : tick de 0,25 point, 2 $ par point. Coût hypothétique de 3,50 $ par aller-retour et par contrat ; nouvelle simulation à 7 $ pour le stress. Les frais du courtier et le risque d’un contrat pour ton capital restent à vérifier.</p><p>Préparation du 9 au 30 septembre 2024. Les dates et règles ont été fixées avant la récupération des prix. Le contrôle exige le calendrier actions et les horaires futures complets, y compris les jours de clôture anticipée.</p><p>Ce jeu ne contient qu’une fenêtre de deux mois. La confirmation exige toujours trois fenêtres distinctes, au moins 40 transactions au total et 12 par fenêtre, un résultat positif dans chacune, un profit factor d’au moins 1,10, une baisse réalisée limitée à 8 R et un résultat positif avec les coûts doublés. Les anciens jeux ne sont pas ajoutés au total.</p></details>
+        <div class="iv-verdict"><h4>Ce qu’il manque pour continuer</h4><p>Des horaires historiques futures complets et vérifiables pour cette période. Les prix seuls ne permettent pas de reconstituer un calendrier officiel. Même une performance positive sur ces deux mois ne suffirait pas à valider le Paper Bot.</p><p>Tu peux déjà utiliser les <a href="../alerts/">alertes TradingView</a> pour observer le marché. Paper Bot et Shadow restent désactivés.</p></div>
+      </div>
     </section>
 
     <section class="panel independent-game market-game" id="marketGame" aria-labelledby="marketTitle">
