@@ -117,6 +117,20 @@ The validator/simulator accepts the fixed replacement policy; 28 sessions and
 728 candles pass, but this short test cannot satisfy three complete two-month
 confirmation windows. See `trading/lab/MNQ_RETEST.md`.
 
+Jeu 09 adds `mnq-six-months-policy.mjs`, `mnq-six-months.mjs`,
+`six-months-source.mjs`, `lab-six-months.mjs` and private `/api/lab/jeu09`.
+It evaluates January–February, April–May and July–August 2026 on three separately
+prepared MNQ contracts, using the unchanged market simulator. An initial
+January–June attempt remains unscored because March 6 prices are missing;
+the replacement windows were fixed before performance calculation. Exact
+calendar support and the Christmas early close extend the confirmation data
+validator without changing its existing default 2024 behavior. Source bytes
+are pinned and private; the browser recalculates on load and on request.
+This is retrospective, nonconsecutive and overlaps previously seen markets;
+it cannot satisfy independent confirmation or activate a bot. See
+`trading/lab/MNQ_SIX_MONTHS.md` for dates, the failed availability attempt,
+results and audit. Game 08 and account isolation remain intact.
+
 `trading/discipline/` hosts the drawdown scenario and emotional self-report,
 with an optional pause and post-trade journal linkage. Pure rules are in
 `discipline-core.mjs`. Records use account-scoped D1 persistence with device sync. There is no broker endpoint
@@ -135,8 +149,9 @@ collection procedure, data boundaries and limitations.
 
 The Lab interface separates `Suivi actuel`, `Tests précédents` and `Test manuel`
 with accessible tabs in `lab-workspace.mjs` and scoped `lab-workspace.css`.
-Jeu 08 opens by default with its confirmed collection state, next action and
-three-step calendar. Older games remain available in collapsed native details;
+Jeu 09 now opens by default with the latest six-month MNQ retrospective result.
+Jeu 08 retains its collection state, next action and three-step calendar in
+a collapsible disclosure. Older games remain available in collapsed native details;
 their IDs and deep links are preserved, and navigation reveals the matching tab
 and disclosure. The manual strategy form is isolated visually and does not
 modify the frozen Jeu 08 protocol. No trading engine, data or automation changes

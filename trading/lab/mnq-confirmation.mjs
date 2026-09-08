@@ -11,8 +11,8 @@ export function inspectConfirmation(bundle, policy = CONFIRMATION_POLICY) {
   if (bundle.schema !== 'jeu07-data-v1' || bundle.ticker !== policy.ticker || !Array.isArray(bundle.calendar) || bundle.calendar.length !== (policy.calendarDays?.length || 59) || !Array.isArray(bundle.bars) || bundle.bars.length > 5000 || !Array.isArray(bundle.scheduleEvents) || bundle.scheduleEvents.length > 2000) throw new Error('Historique du Jeu 07 invalide.');
   const sessions = new Map(); let previousDay = '';
   for (const entry of bundle.calendar) {
-    const expectedClose = entry.date === '2024-11-29' ? 780 : 960;
-    if (typeof entry.date !== 'string' || !new RegExp(`^${policy.prep.slice(0, 4)}-\\d{2}-\\d{2}$`).test(entry.date) || (policy.calendarDays && !policy.calendarDays.includes(entry.date)) || entry.date <= previousDay || entry.date < policy.prep || entry.date >= policy.end || typeof entry.open !== 'string' || typeof entry.close !== 'string' || !entry.open.startsWith(entry.date) || !entry.close.startsWith(entry.date) || minute(entry.open) !== 570 || minute(entry.close) !== expectedClose) throw new Error('Calendrier du Jeu 07 invalide.');
+    const expectedClose = policy.earlyCloses?.[entry.date] ?? (entry.date === '2024-11-29' ? 780 : 960);
+    if (typeof entry.date !== 'string' || !(policy.calendarDays ? /^\d{4}-\d{2}-\d{2}$/ : new RegExp(`^${policy.prep.slice(0, 4)}-\\d{2}-\\d{2}$`)).test(entry.date) || (policy.calendarDays && !policy.calendarDays.includes(entry.date)) || entry.date <= previousDay || entry.date < policy.prep || entry.date >= policy.end || typeof entry.open !== 'string' || typeof entry.close !== 'string' || !entry.open.startsWith(entry.date) || !entry.close.startsWith(entry.date) || minute(entry.open) !== 570 || minute(entry.close) !== expectedClose) throw new Error('Calendrier du Jeu 07 invalide.');
     sessions.set(entry.date, { ...entry, openMinute: 570, closeMinute: expectedClose }); previousDay = entry.date;
   }
   const daily = new Map(), seen = new Set();

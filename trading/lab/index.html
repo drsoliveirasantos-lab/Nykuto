@@ -17,6 +17,7 @@
   <script src="./lab-market.mjs?v=1" type="module"></script>
   <script src="./lab-mnq.mjs?v=3" type="module"></script>
   <script src="./lab-collection.mjs?v=2" type="module"></script>
+  <script src="./lab-six-months.mjs?v=1" type="module"></script>
   <link rel="stylesheet" href="./lab-market.css?v=2">
   <link rel="stylesheet" href="./lab-workspace.css?v=1">
   <script src="./lab-workspace.mjs?v=2" type="module"></script>
@@ -55,9 +56,23 @@
     </div>
     <noscript><p>Active JavaScript pour changer de vue et consulter le suivi.</p></noscript>
     <div id="view-current" class="lab-view" role="tabpanel" aria-labelledby="tab-current" tabindex="0">
-    <div class="iv-launch"><div><h4>Un test disponible maintenant</h4><p>Jeu 07 · juillet 2026 · données complètes pour un diagnostic court.</p></div><a class="primary-button" href="#mnqGame">Ouvrir le test</a></div>
+    <section class="panel independent-game market-game mnq-game" id="sixMonthsGame" aria-labelledby="sixTitle">
+      <div class="panel-heading"><div><p class="panel-kicker">JEU 09 · DERNIER TEST</p><h3 id="sixTitle">MNQ · six mois de tests</h3></div><span id="sixStatus" class="lab-status planned">Vérification…</span></div>
+      <div class="iv-content">
+        <p class="iv-intro">Janvier–février, avril–mai et juillet–août 2026. La même stratégie sur trois périodes de deux mois, avec les coûts habituels puis doublés.</p>
+        <p id="sixMessage" class="iv-message" role="status" aria-live="polite">Les résultats sont recalculés à partir de l’historique vérifié.</p>
+        <div id="sixResults" hidden>
+          <div class="mc-summary"><article><h4>Transactions</h4><strong id="sixCount">—</strong><p id="sixWins"></p></article><article><h4>Résultat net</h4><strong id="sixNet">—</strong><p>Après les frais simulés</p></article><article><h4>Frais doublés</h4><strong id="sixStress">—</strong><p>Nouvelle simulation</p></article><article><h4>Baisse maximale</h4><strong id="sixDrawdown">—</strong><p>Sur les périodes testées</p></article></div>
+          <div class="iv-table-wrap" role="region" aria-label="Résultats du Jeu 09 par période" tabindex="0"><table class="iv-table"><caption>R = risque initial prévu au stop. Six mois non consécutifs ; ce cumul n’est pas un rendement de compte.</caption><thead><tr><th scope="col">Période</th><th scope="col">Trades</th><th scope="col">Gagnants</th><th scope="col">Net</th><th scope="col">Frais doublés</th><th scope="col">Gains / pertes</th></tr></thead><tbody id="sixRows"></tbody></table></div>
+          <div class="iv-verdict"><h4>Ce que cela change pour le bot</h4><p id="sixNext"></p><details class="iv-help"><summary>Voir les critères et les données vérifiées</summary><ul id="sixChecks"></ul><p id="sixQuality" class="iv-meta"></p><p>Le rapport gains / pertes doit atteindre 1,10 avant arrondi. Les préparations sont séparées par contrat ; elles ne comptent pas dans les résultats.</p></details></div>
+        </div>
+        <div class="collection-refresh-row"><button id="sixRun" class="ghost-button" type="button">Recalculer le Jeu 09</button><p class="iv-meta">Même historique et mêmes règles à chaque calcul.</p></div>
+        <details class="iv-help"><summary>Pourquoi ces dates et quelles limites ?</summary><p>L’essai initial janvier–juin a été arrêté avant tout résultat : des cours du 6 mars manquent, même à la minute. Les trois nouvelles fenêtres ont ensuite été fixées avant le calcul. Mars et juin ne sont pas évalués ; juin prépare seulement le dernier contrat.</p><p>Ce test est rétrospectif. Certaines dates ont déjà été vues sur SPY et une partie de juillet sur MNQ : il ne remplace pas une confirmation indépendante. Le cumul et la baisse concernent seulement les périodes retenues.</p><p>EMA 9/21 + ADX 14 ≥ 20, stop ATR × 1,25, cible 1,5 R, entrée suivante et sortie avant clôture. Trois entrées/jour maximum ; arrêt après deux pertes consécutives ou −2 R. Coût hypothétique par contrat : 3,50 $ par aller-retour, puis 7 $. Frais réels, marges et exécution chez un courtier restent à vérifier.</p></details>
+      </div>
+    </section>
+    <details class="lab-archive"><summary><span class="archive-number">08</span><span class="archive-title"><strong>Collecte des prochaines séances</strong><small>Septembre–novembre 2026 · voir la programmation et l’avancement</small></span><span class="archive-state neutral">Suivi</span><span class="archive-toggle" aria-hidden="true">+</span></summary>
     <section class="panel independent-game market-game collection-focus" id="collectionGame" aria-labelledby="collectionTitle">
-      <div class="panel-heading"><div><p class="panel-kicker">JEU 08 · SUIVI ACTUEL</p><h3 id="collectionTitle">MNQ · microcontrat Nasdaq</h3></div><span id="collectionStatus" class="lab-status planned">Vérification…</span></div>
+      <div class="panel-heading"><div><p class="panel-kicker">JEU 08 · COLLECTE PROGRAMMÉE</p><h3 id="collectionTitle">MNQ · microcontrat Nasdaq</h3></div><span id="collectionStatus" class="lab-status planned">Vérification…</span></div>
       <div class="iv-content">
         <div class="collection-overview">
           <div class="collection-state-copy"><p class="collection-label">Où on en est</p><h4 id="collectionHeadline">Lecture de la collecte…</h4><p id="collectionMessage" role="status" aria-live="polite">Connexion au journal privé.</p></div>
@@ -76,6 +91,7 @@
         <div class="collection-refresh-row"><button id="collectionRefresh" class="ghost-button" type="button">Actualiser l’état</button><p id="collectionUpdated" class="iv-meta"></p></div>
       </div>
     </section>
+    </details>
     <details class="lab-explanation"><summary>Quelle stratégie est testée et quand pourra-t-on passer à l’argent fictif ?</summary><div class="lab-explanation-content"><p>Le Jeu 08 recueille les données d’une première période de deux mois. Les résultats seront calculés après la collecte et son audit. Une seule période ne suffit pas à valider le bot.</p><details class="iv-help"><summary>Ce qui est fixé avant le test</summary><p>MNQZ6, bougies de 15 minutes pendant la séance actions américaine. EMA 9/21 + ADX 14 ≥ 20 ; stop ATR 14 × 1,25 ; objectif 1,5 R ; trois entrées par jour maximum ; arrêt après deux pertes consécutives ou −2 R réalisés. Sortie à l’ouverture de la dernière bougie. Hypothèses de coûts : 3,50 $ par aller-retour et par contrat, puis nouvelle simulation à 7 $.</p><p>Le <a href="https://www.nyse.com/trade/hours-calendars" target="_blank" rel="noopener noreferrer">calendrier prévisionnel NYSE</a>, consulté le 8 septembre 2026, détermine les séances attendues. Les horaires futures viennent de Massive. Ce sont des horaires annoncés : un audit des interruptions et des données restera nécessaire avant le calcul.</p><p>Les périodes des anciens jeux restent séparées. Une seule nouvelle fenêtre ne suffit pas : la confirmation exige trois fenêtres distinctes de deux mois, au moins 40 transactions au total et 12 par fenêtre, un résultat positif dans chacune, un profit factor ≥ 1,10, une baisse réalisée ≤ 8 R et un résultat positif avec les coûts doublés.</p></details></div></details>
     </div>
     <div id="view-history" class="lab-view" role="tabpanel" aria-labelledby="tab-history" tabindex="0" hidden>
