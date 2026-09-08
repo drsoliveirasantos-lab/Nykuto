@@ -61,7 +61,7 @@ Si données ou horaires manquent, annoncer l'indisponibilité au lieu d'inventer
 des bougies ou de changer les dates. Aucune donnée licenciée dans Git : snapshot
 privé en KV et endpoint authentifié, empreinte vérifiée avant le calcul.
 
-## Contrôle de disponibilité — calcul bloqué
+## Contrôle de disponibilité initial — calcul bloqué
 
 Le protocole initial a été enregistré dans le commit
 `04af428f835e7245ab576c865d5d6ce25a13dc5f`, avant récupération des prix.
@@ -94,3 +94,58 @@ les prix sont incomplets. Aucun zéro n'est présenté comme une performance.
 Une future réparation devra compléter les horaires authentiques, vérifier la
 nouvelle empreinte, puis publier explicitement ce nouveau snapshot. Elle ne
 doit ni changer les dates ni déduire le calendrier des bougies disponibles.
+
+## Recherche et réparation partielle du 8 septembre 2026
+
+La recherche demandée par Diego a retrouvé un calendrier opérationnel publié
+par Ironbeam le 26 novembre 2024 :
+https://www.ironbeam.com/thanksgiving-holiday-futures-trading-hours-2024/
+Pour les indices, il précise l'ouverture du 28 novembre à 17:00 CT et la
+clôture du 29 novembre à 12:15 CT. Avec `America/Chicago` en UTC−6 à ces dates,
+cela donne `2024-11-28T23:00:00Z` et `2024-11-29T18:15:00Z`. La séance cash
+du 29 novembre, 09:30–13:00 New York, est entièrement incluse. Seul cet
+intervalle est transcrit : pas d'ouverture inventée pour le 27 novembre.
+
+Ces deux événements sont explicitement attribués à Ironbeam, de type
+`published-holiday-schedule`. Ils décrivent le calendrier annoncé et ne sont
+ni des événements Massive ni une garantie d'absence d'incident intrajournalier.
+Les préouvertures Massive d'origine restent conservées. Les prix, le calendrier
+actions, les dates, les paramètres, les critères et le moteur sont inchangés.
+
+Le snapshot v2 compte 88 012 octets, SHA-256
+`2dc405ce2e5fd33ebcb065c33c4192c62362abc62f37d9981ec323254e8fc891`,
+sous `jeu07/mnq-confirmation-v2.json` en KV privé. L'endpoint du Jeu 07 sert cette
+révision avec contrôle d'empreinte côté client ; v1 est conservé. Le contrôle
+passe à **1/59 séance documentée**, avec **58 séances encore manquantes**.
+`calculated` reste `false`, `normal` et `stress` restent `null` : aucune
+performance ne peut être calculée par cette réparation partielle.
+
+Autres sources examinées, non utilisées pour remplir les intervalles manquants :
+
+- Fiche CME Micro E-mini, référence PM2662/0423 (avril 2023), horaires
+  habituels 17:00–16:00 du dimanche au vendredi :
+  https://www.cmegroup.com/trading/equity-index/files/cme-micro-e-mini-futures-fact-card.pdf
+  Une règle générale ne certifie pas chaque séance historique et ses exceptions.
+- CME, horaires de settlement Columbus Day 2024 et Veterans Day 2024 :
+  https://www.cmegroup.com/tools-information/holiday-calendar/files/columbus-day-holiday-settlement-times-2024.pdf
+  https://www.cmegroup.com/tools-information/holiday-calendar/files/veterans-day-holiday-settlement-times-2024.pdf
+  Ils annoncent des settlements aux heures normales, pas les ouvertures et
+  fermetures de négociation. Ne pas les transformer en preuves d'intervalles.
+- CME, Thanksgiving 2024 :
+  https://www.cmegroup.com/tools-information/holiday-calendar/files/thanksgiving-holiday-settlement-times-2024.pdf
+  Le settlement indices à 12:00 CT le 29 novembre ne désigne pas la clôture
+  de négociation à 12:15 CT.
+- Le service public utilisé par la page CME Trading Hours,
+  `/services/trading-hours-by-product`, identifie MNQ par le produit 8668,
+  groupe NQ. Les requêtes ciblant les 9–11 septembre et 28–30 novembre 2024
+  renvoient les dates demandées mais zéro événement. Pas de calendrier de
+  remplacement disponible dans ces réponses.
+- Une recherche Massive supplémentaire sur NQ, groupe identifié par CME,
+  renvoie également seulement deux préouvertures le 1er octobre. Aucun horaire
+  NQ n'est substitué à MNQ. Les recherches précédentes sur MNQ ne sont pas
+  répétées pour prétendre améliorer la couverture.
+
+La recherche publique ne suffit donc pas à lever le blocage. La suite exige
+des intervalles historiques vérifiables pour les 58 dates listées dans le site,
+ou une source d'archive couvrant explicitement toute la période. Aucune nouvelle
+fenêtre ni aucun résultat n'est sélectionné pour contourner cette indisponibilité.

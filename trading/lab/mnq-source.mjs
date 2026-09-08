@@ -1,4 +1,4 @@
-export const CONFIRMATION_SOURCE = Object.freeze({ sha256: '770306897634833cca092cdd5730bb8d30d5a9a72d8a56e571f87a6ef0c79390', bytes: 86442, bars: 1522, sessions: 59 });
+export const CONFIRMATION_SOURCE = Object.freeze({ sha256: '2dc405ce2e5fd33ebcb065c33c4192c62362abc62f37d9981ec323254e8fc891', bytes: 88012, bars: 1522, sessions: 59 });
 export async function readConfirmation(text, expected = CONFIRMATION_SOURCE) {
   const bytes = new TextEncoder().encode(text);
   if (bytes.length !== expected.bytes || bytes.length > 1000000) throw new Error('Taille de l’historique du Jeu 07 incorrecte.');

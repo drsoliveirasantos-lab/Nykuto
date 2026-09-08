@@ -103,7 +103,9 @@ Jeu 06 compares SPY, MES and MNQ over frozen July–December 2025 windows using
 
 Jeu 07 uses `mnq-confirmation.mjs`, `mnq-source.mjs`, `lab-mnq.mjs` and protected
 `/api/lab/jeu07`. Its October–November 2024 MNQZ4 snapshot has complete cash
-prices but lacks verified futures schedules. It displays the missing coverage
+prices but lacks complete verified futures schedules. The v2 snapshot adds only
+the November 29 holiday interval from Ironbeam's November 26, 2024 publication
+(1/59 covered sessions, 58 still missing), with explicit provenance. It displays the missing coverage
 and refuses performance calculation. The incomplete snapshot stays in private
 KV; no licensed prices enter Git. See `trading/lab/MNQ_CONFIRMATION.md` for the
 frozen protocol, sample-size limits, availability evidence and repair boundary.

@@ -1,4 +1,4 @@
-import { loadConfirmation } from './mnq-source.mjs';
+import { loadConfirmation } from './mnq-source.mjs?v=2';
 import { runConfirmation } from './mnq-confirmation.mjs';
 
 const el = id => document.getElementById(id);
@@ -18,7 +18,7 @@ el('mnqRun').addEventListener('click', async () => {
     for (const [label, value, detail] of [
       ['Prix historiques', `${q.priceSessions} / ${q.expectedSessions} séances`, `${number.format(q.bars)} bougies contrôlées`],
       ['Préparation', `${q.warmup} bougies`, '220 bougies minimum avant octobre'],
-      ['Horaires futures', `${q.scheduleSessions} / ${q.expectedSessions} séances`, 'Ouverture et fermeture à confirmer'],
+      ['Horaires futures documentés', `${q.scheduleSessions} / ${q.expectedSessions} séances`, `${q.missingScheduleDays.length} séances encore à vérifier`],
       ['Période étudiée', `${q.scoredSessions} séances`, 'Une fenêtre de deux mois']
     ]) { const card = node('article', ''); card.append(node('h4', label), node('p', value), node('small', detail)); el('mnqQuality').append(card); }
     el('mnqMissing').replaceChildren();
@@ -27,7 +27,7 @@ el('mnqRun').addEventListener('click', async () => {
     el('mnqResults').hidden = false;
     el('mnqStatus').textContent = result.status.toLocaleUpperCase('fr-FR');
     if (!result.calculated) {
-      el('mnqMessage').textContent = 'Contrôle terminé : données incomplètes. Aucun gain, perte ou taux de réussite n’a été calculé. Les bots restent désactivés.';
+      el('mnqMessage').textContent = `Contrôle terminé : ${q.scheduleSessions} séance(s) documentée(s), ${q.missingScheduleDays.length} horaires encore manquants. Aucun résultat de trading calculé. Les bots restent désactivés.`;
     } else {
       el('mnqMessage').textContent = 'Calcul terminé. Une seule fenêtre ne suffit pas à confirmer la stratégie ; les bots restent désactivés.';
       el('mnqNumbers').replaceChildren();

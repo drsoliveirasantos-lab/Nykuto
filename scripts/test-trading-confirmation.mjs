@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { inspectConfirmation, runConfirmation } from '../trading/lab/mnq-confirmation.mjs';
-import { readConfirmation, loadConfirmation } from '../trading/lab/mnq-source.mjs';
+import { CONFIRMATION_SOURCE, readConfirmation, loadConfirmation } from '../trading/lab/mnq-source.mjs';
 
 function fixture() {
   const calendar = [], bars = [], scheduleEvents = [];
@@ -36,6 +36,18 @@ test('a truncated session or intraday trading pause prevents a confirmation calc
   data.scheduleEvents.at(-1).event = 'pcp';
   assert.equal(runConfirmation(data).calculated, false);
 });
+test('the published Thanksgiving interval covers only November 29 and cannot unlock the full test', () => {
+  const data = fixture();
+  data.scheduleEvents = [['open', '2024-11-28T23:00:00Z'], ['close', '2024-11-29T18:15:00Z']].map(([event, timestamp]) => ({ product_code: 'MNQ', trading_venue: 'XCME', session_end_date: '2024-11-29', event, timestamp }));
+  const result = runConfirmation(data);
+  assert.equal(result.quality.scheduleSessions, 1);
+  assert.equal(result.quality.missingScheduleDays.length, 58);
+  assert.equal(result.quality.missingScheduleDays.includes('2024-11-29'), false);
+  assert.equal(result.calculated, false);
+  assert.equal(result.normal, null);
+  assert.equal(result.stress, null);
+  assert.equal(result.paperEnabled, false);
+});
 test('contract identity, tick grid, duplicates and DST time errors are rejected', () => {
   const data = fixture();
   assert.throws(() => inspectConfirmation({ ...data, ticker: 'MNQH5' }), /invalide/);
@@ -53,7 +65,7 @@ test('verified input still cannot certify a bot from one two-month window', () =
 });
 test('integrity and loading failures cannot masquerade as a completed confirmation', async () => {
   await assert.rejects(readConfirmation('{}'), /Taille/);
-  await assert.rejects(readConfirmation('{}'.padEnd(86442)), /ne correspond pas/);
+  await assert.rejects(readConfirmation('{}'.padEnd(CONFIRMATION_SOURCE.bytes)), /ne correspond pas/);
   await assert.rejects(loadConfirmation(async () => new Response('', { status: 401 })), /reconnecter/);
   await assert.rejects(loadConfirmation(async () => new Response('<html>login</html>')), /indisponibles/);
   await assert.rejects(loadConfirmation(async () => { throw new TypeError('network'); }), /interrompu/);

@@ -15,7 +15,7 @@
   <script src="./lab-validation.mjs?v=2" type="module"></script>
   <script src="./lab-session.mjs?v=1" type="module"></script>
   <script src="./lab-market.mjs?v=1" type="module"></script>
-  <script src="./lab-mnq.mjs?v=1" type="module"></script>
+  <script src="./lab-mnq.mjs?v=2" type="module"></script>
   <link rel="stylesheet" href="./lab-market.css?v=2">
 </head>
 <body>
@@ -60,7 +60,8 @@
         <p class="iv-intro">Même stratégie que le Jeu 06, sur octobre–novembre 2024. Les prix sont disponibles, mais les horaires historiques des futures sont incomplets : le calcul de performance est bloqué.</p>
         <div class="iv-periods"><span>MNQZ4 · Micro Nasdaq</span><span>Octobre – novembre 2024</span><span>15 minutes · séance américaine</span></div>
         <div class="iv-launch"><div><h4>Vérifier les données avant de calculer</h4><p>Le contrôle vérifie les prix, les séances et la préparation des indicateurs. Aucun téléchargement nécessaire.</p></div><button id="mnqRun" class="primary-button" type="button">Vérifier le Jeu 07</button></div>
-        <p id="mnqMessage" class="iv-message" role="status" aria-live="polite">Dernière vérification : 8 septembre 2026. Aucun résultat de trading validé pour ce jeu.</p>
+        <p id="mnqMessage" class="iv-message" role="status" aria-live="polite">Recherche du 8 septembre 2026 : horaires du 29 novembre retrouvés et intégrés. 58 autres séances restent à vérifier.</p>
+        <details class="iv-help"><summary>Horaires retrouvés et sources</summary><p>Le calendrier publié par <a href="https://www.ironbeam.com/thanksgiving-holiday-futures-trading-hours-2024/" target="_blank" rel="noopener noreferrer">Ironbeam le 26 novembre 2024</a> indique une ouverture le 28 novembre à 17 h et une clôture le 29 novembre à 12 h 15, heure de Chicago. Cet intervalle couvre la séance actions du 29 novembre, de 9 h 30 à 13 h à New York. Il est intégré au contrôle.</p><p>Il s’agit d’un horaire annoncé, pas d’un relevé des éventuels incidents de marché. La <a href="https://www.cmegroup.com/trading/equity-index/files/cme-micro-e-mini-futures-fact-card.pdf" target="_blank" rel="noopener noreferrer">fiche CME d’avril 2023</a> précise les horaires habituels, mais ne certifie pas chaque séance de 2024. Elle ne remplace donc pas les 58 intervalles encore manquants.</p></details>
         <div id="mnqResults" hidden>
           <div id="mnqQuality" class="mc-summary"></div>
           <details id="mnqMissingDetails" class="iv-help"><summary>Séances dont les horaires futures manquent</summary><p>Chaque séance doit avoir une ouverture et une fermeture vérifiées. Une information de préouverture seule ne suffit pas.</p><ul id="mnqMissing"></ul></details>
