@@ -45,6 +45,12 @@ Journal entries, preparations, checklist state, calculator defaults and Strategy
 
 ## Compact workspace
 
+The Dashboard now includes a personal monthly calendar, cumulative R curve, daily
+trade detail and mode/timezone filters. It uses the authenticated user's journal,
+with explicit data-quality and legacy-date notices. New entries carry closing
+time and mode; no broker history or monetary balance is implied. See
+`performance/README.md` for the scope and metric definitions.
+
 Desktop Trading HQ prioritises density because it is a private trading workspace. The shared `compact.css` layer reduces spacing and UI typography on large screens while keeping mobile form controls large enough for reliable touch input. `navigation.js` turns the Dashboard, Risk, Journal and Plan anchors into mutually exclusive module views so switching modules does not require scrolling through unrelated sections. Replay and Lab remain dedicated routes.
 
 ## Strategy Lab

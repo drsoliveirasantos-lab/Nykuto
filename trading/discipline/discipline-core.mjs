@@ -25,7 +25,7 @@ export function validatePreparation(p) {
 export function journalTrade(p) {
   validatePreparation(p);
   if (!p.result || !Number.isFinite(p.result.r) || !Number.isFinite(Date.parse(p.result.closedAt)) || !EMOTIONS[p.result.emotion] || !['yes', 'partly', 'no'].includes(p.result.followedPlan)) throw new Error('Bilan du trade invalide.');
-  return { id: `discipline-${p.id}`, prepId: p.id, createdAt: p.result.closedAt, asset: p.asset, side: p.side, r: p.result.r, setup: p.plan.slice(0, 50), note: (p.result.note || '').slice(0, 300), discipline: { before: p.emotion, after: p.result.emotion, stress: p.stress, fatigue: p.fatigue, fomo: p.fomo, followedPlan: p.result.followedPlan, mode: p.mode, preparedAt: p.createdAt } };
+  return { id: `discipline-${p.id}`, prepId: p.id, createdAt: p.result.closedAt, closedAt: p.result.closedAt, mode: p.mode, asset: p.asset, side: p.side, r: p.result.r, setup: p.plan.slice(0, 50), note: (p.result.note || '').slice(0, 300), discipline: { before: p.emotion, after: p.result.emotion, stress: p.stress, fatigue: p.fatigue, fomo: p.fomo, followedPlan: p.result.followedPlan, mode: p.mode, preparedAt: p.createdAt } };
 }
 export function mergeJournal(trades, p) {
   if (!Array.isArray(trades)) throw new Error('Journal existant illisible : aucune donnée remplacée.');

@@ -9,7 +9,9 @@
   <title>Nykuto Trading HQ</title>
   <meta name="description" content="Tableau de bord privé de préparation, analyse et journal de trading.">
   <link rel="stylesheet" href="./styles.css">
-  <script src="./app.js?v=3" defer></script>
+  <link rel="stylesheet" href="./performance/performance.css?v=1">
+  <script src="./app.js?v=4" defer></script>
+  <script src="./performance/performance.mjs?v=1" type="module"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Aller au contenu</a>
@@ -40,8 +42,8 @@
       <div class="section-heading">
         <div>
           <p class="eyebrow">CENTRE DE COMMANDE</p>
-          <h2 id="dashboard-title">Vue marché et discipline</h2>
-          <p>Le graphique vient de TradingView. Le risk manager, le journal et les règles sont les tiens.</p>
+          <h2 id="dashboard-title">Mes résultats et mes marchés</h2>
+          <p>Ton journal personnel, les journées à revoir et tes graphiques.</p>
         </div>
         <span class="mode-note">Aucun ordre réel n'est envoyé depuis ce site.</span>
       </div>
@@ -60,7 +62,7 @@
         <article class="kpi-card">
           <p class="kpi-label">Trades journalisés</p>
           <p class="kpi-value" id="tradeCountKpi">0</p>
-          <p class="kpi-meta">Stockés sur cet appareil</p>
+          <p class="kpi-meta">Sauvegardés dans ton compte</p>
         </article>
         <article class="kpi-card">
           <p class="kpi-label">R moyen</p>
@@ -68,6 +70,33 @@
           <p class="kpi-meta">Calculé depuis le journal</p>
         </article>
       </div>
+
+      <section class="performance" aria-labelledby="performanceTitle">
+        <div class="perf-heading"><div><h3 id="performanceTitle">Mes performances</h3><p>Résultats en R · 1 R = le risque initial d’un trade</p></div><a class="ghost-button" href="#journal">Ouvrir mon journal</a></div>
+        <fieldset id="perfInputs" disabled><legend>La période à revoir</legend>
+          <label for="perfMonth">Mois<input id="perfMonth" type="month" min="1900-01" max="2100-12" required></label>
+          <label for="perfMode">Trades<select id="perfMode"><option value="all">Tous les modes</option><option value="manual">Manuel</option><option value="paper">Simulation</option><option value="replay">Replay</option><option value="unknown">Non renseigné</option></select></label>
+          <label for="perfZone">Fuseau horaire<select id="perfZone"></select></label>
+          <div class="perf-filter-actions"><button id="perfPrevious" class="ghost-button" type="button" aria-label="Mois précédent">←</button><button id="perfToday" class="ghost-button" type="button">Ce mois</button><button id="perfNext" class="ghost-button" type="button" aria-label="Mois suivant">→</button></div>
+        </fieldset>
+        <p id="perfStatus" class="perf-status" role="status" aria-live="polite">Chargement de ton journal…</p>
+        <div id="perfContent" hidden>
+          <div class="perf-stats" aria-label="Statistiques du mois sélectionné">
+            <article class="panel perf-stat"><h4>Résultat cumulé</h4><strong id="perfTotal">—</strong><p>Somme des résultats en R</p></article>
+            <article class="panel perf-stat"><h4>Trades</h4><strong id="perfCount">—</strong><p>Période et mode sélectionnés</p></article>
+            <article class="panel perf-stat"><h4>Taux de réussite</h4><strong id="perfWin">—</strong><p id="perfWinNote"></p></article>
+            <article class="panel perf-stat"><h4>Résultat moyen</h4><strong id="perfAverage">—</strong><p>R par trade enregistré</p></article>
+            <article class="panel perf-stat"><h4>Gains / pertes</h4><strong id="perfRatio">—</strong><p>Rapport des totaux en R</p></article>
+            <article class="panel perf-stat"><h4>Baisse maximale</h4><strong id="perfDrawdown">—</strong><p>Depuis un sommet du mois, en R</p></article>
+          </div>
+          <div class="perf-layout">
+            <section class="panel perf-calendar-panel" aria-labelledby="perfMonthTitle"><h4 id="perfMonthTitle">Calendrier du mois</h4><div class="perf-calendar-scroll" tabindex="0" role="region" aria-label="Calendrier des résultats, sélectionner une journée"><div class="perf-weekdays" aria-hidden="true"><span>Lun.</span><span>Mar.</span><span>Mer.</span><span>Jeu.</span><span>Ven.</span><span>Sam.</span><span>Dim.</span></div><div id="perfCalendar" class="perf-calendar"></div></div></section>
+            <aside class="panel perf-curve-panel" aria-labelledby="perfCurveTitle"><h4 id="perfCurveTitle">Courbe du mois</h4><div><div id="perfCurve"></div><p id="perfCurveEmpty">La courbe apparaîtra avec tes premiers trades.</p><p>Résultat cumulé à la fin de chaque journée.</p></div><dl><dt>Plus longue série de pertes</dt><dd id="perfStreak">—</dd><dt>Historique affiché</dt><dd>Journal de ton compte Nykuto. La synchronisation avec un courtier n’est pas encore connectée.</dd></dl></aside>
+          </div>
+          <section class="panel perf-day-detail" aria-labelledby="perfDayTitle"><h4 id="perfDayTitle">Détail de la journée</h4><p id="perfDaySummary" role="status" aria-live="polite"></p><div id="perfDayTable" class="perf-table-wrap" tabindex="0" role="region" aria-label="Trades de la journée"><table><thead><tr><th>Heure</th><th>Actif</th><th>Sens</th><th>Résultat</th><th>Mode</th><th>Setup</th><th>Note</th></tr></thead><tbody id="perfDayRows"></tbody></table></div></section>
+        </div>
+        <details class="perf-method"><summary>Comprendre ces chiffres</summary><p>Le calendrier et les statistiques suivent le même mois et le même filtre. Les résultats sont ceux saisis dans ton journal ; l’inclusion des commissions dépend de ta saisie. Un trade à zéro compte dans le total, mais pas parmi les gagnants. Le rapport gains / pertes compare les sommes positives et négatives en R ; ce n’est pas un profit factor en euros ou dollars lorsque le risque monétaire varie.</p><p>La baisse maximale part de zéro au début du mois et mesure le recul maximal du cumul après chaque trade clôturé. Elle ne mesure ni les pertes latentes, ni une baisse de capital en pourcentage, ni un sommet situé avant le mois. La courbe regroupe les résultats par journée. À heure identique, l’ordre d’enregistrement départage les trades. Un gain ou un trade à zéro interrompt une série de pertes.</p><p>Les anciens trades sans date de clôture utilisent leur date d’enregistrement ; ceux sans mode restent « Non renseigné ». Les nouveaux trades du Replay utilisent leur date historique et le mode Replay. Ces statistiques décrivent ton historique enregistré ; aucun solde de courtier ni score de rentabilité future n’est déduit.</p></details>
+      </section>
 
       <div class="market-layout">
         <article class="panel chart-panel" aria-labelledby="chart-title">
@@ -210,6 +239,8 @@
           <label><span>Actif</span><input id="tradeAsset" required maxlength="24" placeholder="NASDAQ, BTC…"></label>
           <label><span>Direction</span><select id="tradeSide"><option value="Long">Long</option><option value="Short">Short</option></select></label>
           <label><span>Résultat (R)</span><input id="tradeR" required type="number" step="0.01" placeholder="Ex. 1.8" inputmode="decimal"></label>
+          <label><span>Date de clôture · heure de cet appareil</span><input id="tradeClosedAt" type="datetime-local" required></label>
+          <label><span>Mode</span><select id="tradeMode"><option value="unknown">Non renseigné</option><option value="manual">Manuel</option><option value="paper">Simulation</option></select></label>
           <label><span>Setup</span><input id="tradeSetup" maxlength="50" placeholder="Breakout + retest"></label>
           <label class="wide-field"><span>Note</span><textarea id="tradeNote" rows="3" maxlength="300" placeholder="Pourquoi l'entrée ? Qu'est-ce qui a été bien ou mal exécuté ?"></textarea></label>
         </div>

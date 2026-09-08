@@ -243,6 +243,8 @@
     const entry = {
       id: crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`,
       createdAt: new Date().toISOString(),
+      closedAt: new Date(closed.closedAt * 1000).toISOString(),
+      mode: 'replay',
       asset: loadedAsset.slice(0, 24),
       side: closed.side,
       r: closed.r,

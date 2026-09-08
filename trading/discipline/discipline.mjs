@@ -1,4 +1,4 @@
-import { PREPARATIONS_KEY, TRADES_KEY, EMOTIONS, drawdownScenario, preparationReasons, validatePreparation, mergeJournal } from './discipline-core.mjs';
+import { PREPARATIONS_KEY, TRADES_KEY, EMOTIONS, drawdownScenario, preparationReasons, validatePreparation, mergeJournal } from './discipline-core.mjs?v=2';
 await window.Nykuto.ready;
 const el = id => document.getElementById(id);
 const node = (tag, text, className) => { const n = document.createElement(tag); n.textContent = text; if (className) n.className = className; return n; };

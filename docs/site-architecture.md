@@ -147,6 +147,14 @@ collection ends. It audits the archive before comparing the same eight rules
 on October–November, preserves Jeu 08 and stops with a precise report if data
 or access is incomplete. This does not imply continuous optimization or trading.
 
+The Dashboard includes `trading/performance/`: an account-only monthly R calendar,
+curve and daily trade table with mode/timezone filters. Its pure metrics never
+invent cash balances or convert historical R using current risk settings. New
+journal entries retain a closing timestamp and explicit mode; Replay uses its
+historical time. Existing records remain intact with visible legacy-date and
+unknown-mode treatment. It reuses account-scoped D1 state without new APIs or
+broker credentials. See `trading/performance/README.md` for exact definitions.
+
 `trading/analysis/` adds a native MNQ candle chart beside an explainable reading.
 The selected 20–500 closed candles determine both the chart and every measure;
 confirmed swing structure, potential MSS/BOS, EMA9/21 and candle bodies never use

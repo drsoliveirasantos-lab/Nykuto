@@ -1,6 +1,7 @@
 (async () => {
   'use strict';
   await window.Nykuto.ready;
+  const { journalMode } = await import('./performance/performance-core.mjs');
 
   const KEYS = {
     settings: 'nykuto-trading-settings-v1',
@@ -107,7 +108,13 @@
   function setTradeForm(open) {
     tradeForm.classList.toggle('is-hidden', !open);
     toggleTradeForm.setAttribute('aria-expanded', String(open));
-    if (open) byId('tradeAsset').focus();
+    if (open) {
+      if (!byId('tradeClosedAt').value) {
+        const now = new Date();
+        byId('tradeClosedAt').value = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0,16);
+      }
+      byId('tradeAsset').focus();
+    }
   }
 
   toggleTradeForm.setAttribute('aria-expanded', 'false');
@@ -145,13 +152,13 @@
       const r = Number(trade.r);
       const rClass = r > 0 ? 'r-positive' : r < 0 ? 'r-negative' : '';
       const cells = [
-        dateFmt.format(new Date(trade.createdAt)),
+        dateFmt.format(new Date(trade.closedAt || trade.createdAt)),
         trade.asset,
         trade.side,
         `${r > 0 ? '+' : ''}${number.format(r)} R`,
         trade.setup || '—',
         trade.discipline ? `${({ calm: 'Calme', excited: 'Excité', anxious: 'Inquiet', frustrated: 'Frustré', tired: 'Fatigué', unsure: 'Indécis' })[trade.discipline.before] || '—'} → ${({ calm: 'Calme', excited: 'Excité', anxious: 'Inquiet', frustrated: 'Frustré', tired: 'Fatigué', unsure: 'Indécis' })[trade.discipline.after] || '—'}` : 'Non renseigné',
-        trade.discipline?.mode === 'manual' ? 'Manuel' : trade.discipline?.mode === 'paper' ? 'Simulation' : 'Non renseigné'
+        ({manual:'Manuel',paper:'Simulation',replay:'Replay',unknown:'Non renseigné'})[journalMode(trade)]
       ];
       cells.forEach((value, index) => {
         const td = document.createElement('td');
@@ -175,17 +182,21 @@
       tr.appendChild(action);
       journalBody.appendChild(tr);
     });
+    window.dispatchEvent(new CustomEvent('nykuto:journal-updated'));
   }
 
   tradeForm.addEventListener('submit', async event => {
     event.preventDefault();
     const asset = byId('tradeAsset').value.trim();
     const r = finite(byId('tradeR').value);
-    if (!asset || r === null) return;
+    const closedAt = new Date(byId('tradeClosedAt').value);
+    if (!asset || r === null || !Number.isFinite(closedAt.getTime())) return;
 
     const entry = {
       id: crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`,
       createdAt: new Date().toISOString(),
+      closedAt: closedAt.toISOString(),
+      mode: byId('tradeMode').value,
       asset: asset.slice(0, 24),
       side: byId('tradeSide').value === 'Short' ? 'Short' : 'Long',
       r,
