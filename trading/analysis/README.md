@@ -1,0 +1,73 @@
+# Analyse du graphique
+
+`/analysis/` gives the user a native chart and deterministic, descriptive reading
+of exactly the same 20–500 requested closed candles. If an endpoint is too early,
+the actual smaller count is disclosed. Contract, interval, end date, slider and
+single-bar steps recalculate in document memory. Chart pan/zoom does not change
+the analysis selection. Date selection snaps to the latest available candle at
+or before that date, displays the actual endpoint, and rejects dates outside the
+available history. Missing data and invalid selections clear the previous result.
+
+`analysis-source.mjs` reuses the checksum-pinned private Jeu 09 snapshot and its
+complete calendar validation before exposing prepared MNQH6, MNQM6 and MNQU6 cash
+histories. There is no new endpoint, market-data subscription, upload, persistence,
+order path or bot change. The common account middleware protects the page,
+modules and data. Raw licensed prices remain outside Git. This is historical
+data, not a live feed or access to the opaque TradingView widget on Dashboard.
+
+The chart uses the same Lightweight Charts 4.2.0 standalone dependency as Replay.
+The chart failure state preserves the independently calculated text. Both are
+rendered from the same selected array; no data is read from TradingView.
+
+## Defined observations
+
+- Strict swing: two lower highs / higher lows on each side. A pivot becomes known
+  only at the second following candle's close. Last-two-bar pivots stay unconfirmed.
+  Cash bars may span overnight gaps; their actual timestamps are preserved.
+- Structure: compare the last two confirmed highs and lows. All ascending is up,
+  all descending is down; otherwise mixed or insufficient. No future confirmation.
+- Initial direction comes from those confirmed swings or the first pivot break.
+  Subsequent same-direction breaks are BOS. An opposite close is a potential MSS
+  only with a body aligned with that direction, at least 60% of the range, and a
+  range at least the prior ATR14, after 14 preceding selected bars. Otherwise it
+  is an opposite break. A wick alone is never a closing break. These explicit
+  descriptive definitions are not a validated trading system.
+- EMA9/21 use selected closes, initialized at the first close. ATR14 uses selected
+  true ranges, initialized at the first range and Wilder-smoothed. Nothing before
+  the selected start is used; readings may change when the window changes.
+- Engulfing: opposite-color bodies, full body enclosure with at least one strict
+  bound, two contiguous same-session bars. Doji: body <=10% range. Hammer shape /
+  upper wick: main wick >=2 bodies, opposite wick <=1 body, body >10% range.
+  Dominant body: >=80% range. These do not imply a reversal probability.
+- Relative volume uses the previous 20 selected candles and does not adjust for
+  time of day. EMA momentum, last swing structure and last break are separate
+  observations and may diverge. No combined buy/sell score is manufactured.
+- Hourly candles require four contiguous same-day 15-minute bars anchored at
+  09:30 New York. Full sessions yield six hours, the Christmas half-session three.
+  Partial final half-hours are excluded. Contracts are never spliced together.
+- Chart markers sit on the breaking candle. The ledger uses its closing time
+  and records when its pivot became known. Horizontal lines show the last known
+  levels at the endpoint, not levels that were available across the entire chart.
+
+## Validation and publication follow-up
+
+`scripts/test-trading-analysis.mjs` covers excluded-context independence, delayed
+pivot confirmation, causal prefix stability, close-versus-wick and aligned-body
+rules in both directions, hourly gaps/early closes, patterns and invalid data.
+It is included in `npm run test:trading-validation`. A private real-snapshot
+calculation checks the three contracts and both intervals without publishing prices.
+UI source, links and sizing are reviewed statically; browser rendering is not
+claimed to have been checked.
+
+September 8 validation: all 65 trading tests passed, including six analysis tests;
+72 selections on the private real snapshot passed across three contracts, two
+intervals, three counts and four endpoints. Build, repository hygiene (zero
+findings), 25 Pages Function modules and page references passed locally.
+
+At the owner's request, after completing the code and local gates, publish to the
+existing trading validation branch and schedule a separate check of the published
+commit's GitHub workflows and Cloudflare deployment. Give an estimated delay,
+then end the active turn while remote runs execute. The follow-up must check the
+specific commit, distinguish pending/missing runs from success, fix scoped failures
+when possible and report blockers. Do not merge main, change branch protection,
+activate any bot or alter the future MNQ collection to make a check appear green.

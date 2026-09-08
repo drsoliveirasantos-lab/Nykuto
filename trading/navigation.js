@@ -17,6 +17,7 @@
     ensureLink('/replay/', 'Replay');
     ensureLink('/lab/', 'Lab');
   }
+  ensureLink('/analysis/', 'Analyse');
   ensureLink('/alerts/', 'Alertes');
   ensureLink('/discipline/', 'Avant un trade');
   ensureLink('/account/#feedback', 'Retours');

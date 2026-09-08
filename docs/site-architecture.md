@@ -147,6 +147,15 @@ collection ends. It audits the archive before comparing the same eight rules
 on October–November, preserves Jeu 08 and stops with a precise report if data
 or access is incomplete. This does not imply continuous optimization or trading.
 
+`trading/analysis/` adds a native MNQ candle chart beside an explainable reading.
+The selected 20–500 closed candles determine both the chart and every measure;
+confirmed swing structure, potential MSS/BOS, EMA9/21 and candle bodies never use
+unselected future context. Three contract histories reuse the existing verified,
+private Jeu 09 source. Optional hourly bars require four complete cash candles.
+This is descriptive historical analysis with no order or news path. The common
+navigation and Dashboard link to it; TradingView remains a separate widget. See
+`trading/analysis/README.md` for exact definitions and validation boundaries.
+
 `trading/discipline/` hosts the drawdown scenario and emotional self-report,
 with an optional pause and post-trade journal linkage. Pure rules are in
 `discipline-core.mjs`. Records use account-scoped D1 persistence with device sync. There is no broker endpoint

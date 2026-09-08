@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive,nosnippet"><meta name="referrer" content="no-referrer"><meta name="theme-color" content="#07111f">
+  <title>Analyse du graphique · Nykuto Trading HQ</title>
+  <meta name="description" content="Analyse explicable des bougies MNQ sélectionnées : tendance, structure, MSS potentiel et formes de bougies.">
+  <link rel="stylesheet" href="../styles.css"><link rel="stylesheet" href="./analysis.css?v=1">
+  <script src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js" defer></script>
+  <script src="./analysis.mjs?v=1" type="module"></script>
+</head>
+<body class="analysis-page">
+  <a class="skip-link" href="#main">Aller au contenu</a>
+  <header class="topbar"><div class="brand-wrap"><div class="brand-mark" aria-hidden="true">N</div><div><p class="eyebrow">NYKUTO</p><h1>Trading HQ</h1></div></div><span class="status-pill">Analyse historique · aucun ordre</span></header>
+  <nav class="section-nav" aria-label="Navigation du Trading HQ"><a href="/">Dashboard</a><a href="/analysis/" class="is-active" aria-current="page">Analyse</a><a href="/replay/">Replay</a><a href="/lab/">Lab</a></nav>
+  <main id="main" class="analysis-main">
+    <div class="analysis-heading"><div><p class="eyebrow">LECTURE DU GRAPHIQUE</p><h2>Analyser les bougies</h2><p>Choisis une période. Le graphique et l’analyse utilisent exactement la même sélection.</p></div><button id="analysisReload" class="ghost-button" type="button">Recharger les données</button></div>
+    <form id="analysisForm" class="panel analysis-form"><fieldset id="analysisInputs" disabled><legend>Ta sélection</legend>
+      <label for="analysisContract">Contrat MNQ<select id="analysisContract"><option value="MNQU6">MNQU6 · juin–août 2026</option><option value="MNQM6">MNQM6 · mars–mai 2026</option><option value="MNQH6">MNQH6 · déc. 2025–févr. 2026</option></select></label>
+      <label for="analysisInterval">Unité de temps<select id="analysisInterval"><option value="900">15 minutes</option><option value="3600">1 heure</option></select></label>
+      <label for="analysisCount">Nombre de bougies<input id="analysisCount" type="number" min="20" max="500" step="1" value="100" required></label>
+      <label for="analysisEndDate">Jusqu’au jour<input id="analysisEndDate" type="date" required></label>
+      <button class="primary-button" type="submit">Analyser</button>
+    </fieldset></form>
+    <p id="analysisStatus" class="analysis-status" role="status" aria-live="polite">Chargement des données vérifiées…</p>
+    <div id="analysisResults" class="analysis-layout" hidden>
+      <section class="panel analysis-chart-panel" aria-labelledby="analysisChartTitle"><div class="panel-heading"><div><h3 id="analysisChartTitle">Graphique sélectionné</h3><p id="analysisScope" class="analysis-meta"></p></div><button id="analysisFit" class="ghost-button" type="button">Recentrer</button></div>
+        <div id="analysisChart" aria-label="Bougies de la sélection et repères de structure"></div>
+        <p id="analysisChartError" class="analysis-meta" hidden>Le moteur graphique n’a pas pu être chargé. Les résultats textuels restent disponibles ; recharge la page pour réessayer.</p>
+        <p class="analysis-meta analysis-credit"><a href="https://www.tradingview.com/" target="_blank" rel="noopener noreferrer">TradingView Lightweight Charts™</a> · Copyright (c) 2025 TradingView, Inc.</p>
+        <div class="analysis-cursor"><button id="analysisPrevious" class="ghost-button" type="button" aria-label="Terminer une bougie plus tôt">−1 bougie</button><label for="analysisEndIndex">Déplacer la fin de l’analyse<input id="analysisEndIndex" type="range" min="0" max="1" value="1"></label><button id="analysisNext" class="ghost-button" type="button" aria-label="Terminer une bougie plus tard">+1 bougie</button></div>
+        <p class="analysis-meta analysis-legend">BOS : poursuite du sens précédent. MSS ? : rupture opposée avec impulsion. Les lignes indiquent les derniers pivots connus à la fin de la sélection. Déplacer ou zoomer le graphique ne change pas la sélection analysée.</p>
+      </section>
+      <aside class="panel analysis-reading" aria-labelledby="analysisReadingTitle"><div class="panel-heading"><h3 id="analysisReadingTitle">Ce que montrent les bougies</h3></div><div class="analysis-reading-content">
+        <p id="analysisSummary"></p>
+        <dl class="analysis-facts"><div><dt>Structure des sommets / creux</dt><dd id="analysisTrend"></dd></div><div><dt>Direction EMA 9 / 21</dt><dd id="analysisMomentum"></dd></div><div><dt>Dernière bougie</dt><dd id="analysisPattern"></dd></div><div><dt>Dernière rupture détectée</dt><dd id="analysisBreak"></dd></div></dl>
+        <h4>Les niveaux à comprendre</h4><ul id="analysisLevels"></ul>
+        <details open><summary>Pourquoi cette lecture ?</summary><ul id="analysisReasons"></ul></details>
+        <p class="analysis-meta">Lecture calculée selon les règles ci-dessous. Elle ne donne pas une probabilité de gain et ne recommande pas un achat ou une vente.</p>
+      </div></aside>
+    </div>
+    <details id="analysisEventsPanel" class="panel analysis-disclosure" hidden><summary>Voir les ruptures de la sélection</summary><div class="analysis-table-wrap" tabindex="0" role="region" aria-label="Ruptures de structure"><table><caption>Heures de clôture à New York. Un pivot n’est disponible qu’après deux bougies suivantes clôturées.</caption><thead><tr><th scope="col">Clôture</th><th scope="col">Repère</th><th scope="col">Sens</th><th scope="col">Niveau franchi</th><th scope="col">Pivot connu depuis</th></tr></thead><tbody id="analysisEvents"></tbody></table></div></details>
+    <details class="panel analysis-disclosure"><summary>Définitions, données et limites</summary><div class="analysis-method"><p><strong>Structure :</strong> deux sommets et deux creux confirmés ascendants indiquent une structure haussière ; tous descendants, une structure baissière. Les autres configurations sont mixtes ou insuffisantes. Un pivot est strictement plus haut ou plus bas que ses deux voisins de chaque côté : sa confirmation arrive donc deux bougies plus tard.</p><p><strong>MSS potentiel :</strong> clôture au-delà du dernier pivot confirmé, dans le sens opposé à la structure précédemment établie ou à la dernière rupture, avec un corps dans le sens de la rupture, d’au moins 60 % de l’amplitude, et une amplitude au moins égale à l’ATR 14 précédent. Il faut au moins 14 bougies précédentes dans la sélection. Ce choix de définition est explicite ; il ne garantit pas un retournement. Une rupture opposée sans cette impulsion est signalée séparément.</p><p><strong>Formes de bougies :</strong> englobante par le corps, doji avec corps ≤10 % de l’amplitude, longue mèche ≥2 fois le corps, ou corps dominant ≥80 %. Une forme de marteau seule n’établit pas un signal haussier. Les englobantes exigent deux bougies contiguës de la même séance.</p><p><strong>Périmètre :</strong> toutes les mesures utilisent uniquement les bougies sélectionnées. Le contexte situé avant ou après est exclu. Réduire ou déplacer la sélection peut donc modifier les pivots et l’analyse. Les deux dernières bougies ne peuvent pas encore être des pivots confirmés.</p><p><strong>Données :</strong> historique MNQ vérifié du Lab, contrats séparés, séance actions américaine. Les heures regroupent quatre bougies de 15 minutes depuis 9 h 30 ; les demi-heures de fin de séance sont exclues du mode 1 h. Les prix sont contrôlés avant le calcul. Le graphique n’est pas un flux en direct et ne lit pas le widget TradingView du Dashboard.</p><p>Cette analyse descriptive ne change pas le bot, les critères des tests, le journal ou les connexions personnelles. Elle n’analyse pas les actualités économiques. Les essais du calendrier d’annonces restent dans le <a href="/lab/#confluenceGame">Jeu 10</a>.</p></div></details>
+  </main>
+</body>
+</html>

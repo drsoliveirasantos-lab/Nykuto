@@ -77,6 +77,14 @@ the current tab. Missing data blocks the calculation explicitly; no placeholder
 market result is displayed. Protocol, execution corrections, data checks and
 limitations are documented in [INDEPENDENT_VALIDATION.md](lab/INDEPENDENT_VALIDATION.md).
 
+## Analyse du graphique
+
+`/analysis/` lets members select a MNQ contract, 20–500 candles, 15-minute or hourly
+bars and an endpoint. A native chart and explanations use exactly that window:
+confirmed highs/lows, potential MSS/BOS, EMA direction and candle shapes. Data
+comes from the existing verified private Jeu 09 history; it is not live or taken
+from the TradingView widget. See `analysis/README.md` for rules, limits and checks.
+
 ## Market Replay
 
 `/replay/` is an isolated training interface designed to cover the learning need for bar replay without copying TradingView's proprietary replay implementation.
