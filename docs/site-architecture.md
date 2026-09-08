@@ -110,6 +110,16 @@ and refuses performance calculation. The incomplete snapshot stays in private
 KV; no licensed prices enter Git. See `trading/lab/MNQ_CONFIRMATION.md` for the
 frozen protocol, sample-size limits, availability evidence and repair boundary.
 
+Jeu 08 adds `prospective-collection.mjs`, `lab-collection.mjs` and private
+GET-only `/api/lab/jeu08`. It archives future MNQZ6 sessions (September 9–30,
+2026 preparation, October–November first test window) using existing Massive
+and Cloudflare connections. The endpoint recomputes coverage from private KV;
+it exposes neither raw prices nor a write interface. A bounded scheduled task
+uses `scripts/collect-trading-session.mjs` to normalize captures and retain
+private hashed revisions. There is no performance calculation or bot activation.
+See `trading/lab/PROSPECTIVE_COLLECTION.md` for the fixed calendar, protocol,
+collection procedure, data boundaries and limitations.
+
 `trading/alerts/` adds the private TradingView inbox and account setup guide.
 `trading/functions/api/alerts/` reuses the signed Access verification. A separate
 Worker in `workers/trading-alerts/` receives TradingView POSTs using a random

@@ -16,6 +16,7 @@
   <script src="./lab-session.mjs?v=1" type="module"></script>
   <script src="./lab-market.mjs?v=1" type="module"></script>
   <script src="./lab-mnq.mjs?v=2" type="module"></script>
+  <script src="./lab-collection.mjs?v=1" type="module"></script>
   <link rel="stylesheet" href="./lab-market.css?v=2">
 </head>
 <body>
@@ -32,6 +33,7 @@
       <a class="ghost-button" href="#sessionGame">Jeu 05</a>
       <a class="ghost-button" href="#marketGame">Jeu 06</a>
       <a class="ghost-button" href="#mnqGame">Jeu 07</a>
+      <a class="ghost-button" href="#collectionGame">Jeu 08</a>
     </div>
   </header>
 
@@ -52,6 +54,26 @@
         <p>Définis une règle reproductible, teste-la sur l'historique, puis seulement ensuite passe au Paper Bot et au Shadow mode.</p>
       </div>
       <span class="mode-note">Aucun ordre réel · aucun broker d'exécution</span>
+    </section>
+
+    <section class="panel independent-game market-game" id="collectionGame" aria-labelledby="collectionTitle">
+      <div class="panel-heading"><div><p class="panel-kicker">JEU 08 · COLLECTE PROSPECTIVE</p><h3 id="collectionTitle">Conserver les prochaines séances de MNQ</h3></div><span id="collectionStatus" class="lab-status planned">LECTURE DU JOURNAL</span></div>
+      <div class="iv-content">
+        <p class="iv-intro">Les prix et les horaires seront archivés chaque jour avec les accès existants. La stratégie et la période sont fixées avant les séances, pour préparer un nouveau test.</p>
+        <div class="iv-periods"><span>MNQZ6 · Micro Nasdaq</span><span>Préparation : 9–30 septembre 2026</span><span>Test : octobre–novembre 2026</span></div>
+        <div class="iv-launch"><div><h4>Une collecte après la séance</h4><p>Le passage a lieu le lendemain matin. Ce suivi n’est pas un flux en direct. Aucun fichier à télécharger.</p></div><button id="collectionRefresh" class="primary-button" type="button">Actualiser le suivi</button></div>
+        <p id="collectionMessage" class="iv-message" role="status" aria-live="polite">Chargement du journal privé…</p>
+        <noscript><p>Active JavaScript pour lire le suivi de collecte.</p></noscript>
+        <div id="collectionResults" hidden>
+          <p id="collectionAutomation"></p>
+          <div class="mc-summary"><article><h4>Préparation</h4><p id="collectionPrep"></p><small>Indicateurs préparés avant le test</small></article><article><h4>Période de test</h4><p id="collectionTest"></p><small>Une première fenêtre de deux mois</small></article><article><h4>Couverture à ce jour</h4><p id="collectionCoverage"></p><small>Prix complets et horaires reçus sous 48 h</small></article></div>
+          <p id="collectionUpdated" class="iv-meta"></p>
+          <p id="collectionEmpty">Première séance prévue le 9 septembre. Première collecte après clôture le 10 septembre 2026.</p>
+          <details class="iv-help"><summary>Journal des séances et données manquantes</summary><div class="iv-table-wrap" role="region" aria-label="Journal des séances collectées" tabindex="0"><table class="iv-table"><caption>Une séance incomplète reste visible et bloque la complétude de l’archive.</caption><thead><tr><th scope="col">Séance</th><th scope="col">Usage</th><th scope="col">Bougies</th><th scope="col">Horaires</th><th scope="col">État</th></tr></thead><tbody id="collectionRows"></tbody></table></div></details>
+        </div>
+        <details class="iv-help"><summary>Ce qui est fixé avant le test</summary><p>MNQZ6, bougies de 15 minutes pendant la séance actions américaine. EMA 9/21 + ADX 14 ≥ 20 ; stop ATR 14 × 1,25 ; objectif 1,5 R ; trois entrées par jour maximum ; arrêt après deux pertes consécutives ou −2 R réalisés. Sortie à l’ouverture de la dernière bougie. Hypothèses de coûts : 3,50 $ par aller-retour et par contrat, puis nouvelle simulation à 7 $.</p><p>Le <a href="https://www.nyse.com/trade/hours-calendars" target="_blank" rel="noopener noreferrer">calendrier prévisionnel NYSE</a>, consulté le 8 septembre 2026, détermine les séances attendues. Les horaires futures viennent de Massive. Ce sont des horaires annoncés : un audit des interruptions et des données restera nécessaire avant le calcul.</p><p>Les périodes des anciens jeux restent séparées. Une seule nouvelle fenêtre ne suffit pas : la confirmation exige trois fenêtres distinctes de deux mois, au moins 40 transactions au total et 12 par fenêtre, un résultat positif dans chacune, un profit factor ≥ 1,10, une baisse réalisée ≤ 8 R et un résultat positif avec les coûts doublés.</p></details>
+        <div class="iv-verdict"><h4>Prochaine étape</h4><p>Réunir les séances, examiner les manques, puis calculer le test après le 30 novembre. La collecte ne valide pas la stratégie. Paper Bot et Shadow restent désactivés.</p></div>
+      </div>
     </section>
 
     <section class="panel independent-game market-game mnq-game" id="mnqGame" aria-labelledby="mnqTitle">
