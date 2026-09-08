@@ -70,3 +70,18 @@ de signature Access, de protection des écritures, de normalisation, de doublons
 et d'échec du stockage. Les IP TradingView ne sont simulées que dans les tests
 locaux. Ne pas usurper les en-têtes sur l'endpoint déployé. Le test interne du site
 ne confirme pas TradingView de bout en bout : seul un vrai déclenchement le fait.
+
+
+## Comptes testeurs
+
+Les routes privées vérifient aussi l’adhésion active et le nom/prénom dans D1.
+L’historique et le lien existants du propriétaire restent à leurs clés initiales.
+Chaque testeur utilise exclusivement le préfixe `users/<id>/` du KV, incluant
+sa configuration et ses événements. Le récepteur accepte
+`/personal/<id>/<jeton>` : le hash du jeton trouve une route privée `routes/<hash>`,
+puis le Worker vérifie le compte actif dans `TRADING_USERS` avant toute écriture.
+Une désactivation D1 bloque donc aussi la réception personnelle.
+Le nouveau binding D1 complète le KV ; le secret propriétaire existant doit être
+conservé via `keep_bindings: ["secret_text"]` pendant l’upload du Worker.
+La clé de route et le lien personnel sont provisionnés hors Git, sans envoyer
+d’invitation. Aucun événement TradingView authentique n’est inventé pour le test.

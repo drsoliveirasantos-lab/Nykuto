@@ -119,8 +119,8 @@ confirmation windows. See `trading/lab/MNQ_RETEST.md`.
 
 `trading/discipline/` hosts the drawdown scenario and emotional self-report,
 with an optional pause and post-trade journal linkage. Pure rules are in
-`discipline-core.mjs`. Records remain browser-local; there is no broker endpoint,
-server emotional profiling or device sync. Shared navigation exposes this page;
+`discipline-core.mjs`. Records use account-scoped D1 persistence with device sync. There is no broker endpoint
+or server emotional profiling. Shared navigation exposes this page;
 the Journal shows linked before/after emotion. See `trading/README.md`.
 
 Jeu 08 adds `prospective-collection.mjs`, `lab-collection.mjs` and private
@@ -141,6 +141,18 @@ their IDs and deep links are preserved, and navigation reveals the matching tab
 and disclosure. The manual strategy form is isolated visually and does not
 modify the frozen Jeu 08 protocol. No trading engine, data or automation changes
 are part of this presentation layer.
+
+`trading/account/` adds required first/last-name onboarding, personal settings and
+feedback to the site owner. Cloudflare Access email PIN verifies identity;
+Functions middleware additionally checks the private D1 membership registry and
+profile completion. `TRADING_USERS` is a dedicated D1 database; schema migrations
+are in `trading/migrations/`. No invite email or credential is committed.
+Personal journal, preparation and settings queries always derive ownership from
+the signed identity. Conditional revisions reject stale tab/device overwrites.
+The browser keeps only document memory; an owner-only import can preserve the
+previous device-local journal. Feedback is visible only to its author and the
+owner, who can respond and update its status. Brokers remain unconnected.
+See `trading/account/README.md` for provisioning and access tests.
 
 `trading/alerts/` adds the private TradingView inbox and account setup guide.
 `trading/functions/api/alerts/` reuses the signed Access verification. A separate

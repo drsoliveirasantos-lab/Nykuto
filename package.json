@@ -7,7 +7,7 @@
     "build": "node scripts/prepare-cloudflare-output.js",
     "functions:check": "node scripts/validate-pages-functions.js",
     "test": "npm run test:anunciar-photos && npm run test:anunciar-location && npm run test:anunciar-mobile && npm run test:local-reference && npm run test:ellen-studio && npm run test:trading-validation",
-    "test:trading-validation": "node --test scripts/test-trading-validation.mjs scripts/test-trading-hosted-data.mjs scripts/test-trading-session.mjs scripts/test-trading-market.mjs scripts/test-trading-alerts.mjs scripts/test-trading-confirmation.mjs scripts/test-trading-collection.mjs scripts/test-trading-discipline.mjs",
+    "test:trading-validation": "node --test scripts/test-trading-validation.mjs scripts/test-trading-hosted-data.mjs scripts/test-trading-session.mjs scripts/test-trading-market.mjs scripts/test-trading-alerts.mjs scripts/test-trading-confirmation.mjs scripts/test-trading-collection.mjs scripts/test-trading-discipline.mjs scripts/test-trading-accounts.mjs",
     "test:anunciar-photos": "node scripts/test-anunciar-photos.mjs",
     "test:anunciar-location": "node scripts/test-anunciar-location.mjs",
     "test:anunciar-mobile": "node scripts/test-anunciar-mobile-contract.mjs",

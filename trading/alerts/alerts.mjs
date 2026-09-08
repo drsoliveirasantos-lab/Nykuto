@@ -1,10 +1,11 @@
+await window.Nykuto.ready;
 const $ = id => document.getElementById(id);
 let busy = false, hadSuccess = false, hasTradingView = false;
 const date = value => new Intl.DateTimeFormat('fr-FR', { dateStyle: 'short', timeStyle: 'medium' }).format(new Date(value));
 const number = value => new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 8 }).format(value);
 async function api(path = '', options = {}) {
   let response;
-  try { response = await fetch(`/api/alerts${path}`, { credentials: 'same-origin', cache: 'no-store', redirect: 'error', signal: AbortSignal.timeout(12000), ...options }); }
+  try { response = await fetch(`/api/alerts${path}`, { credentials: 'same-origin', cache: 'no-store', redirect: 'error', signal: AbortSignal.timeout(12000), ...options, headers: { 'X-Nykuto-User': window.Nykuto.user.id, ...options.headers } }); }
   catch { throw new Error('Connexion interrompue. Recharge la page si ta session a expiré.'); }
   if ([401, 403].includes(response.status)) throw new Error('Recharge la page pour te reconnecter au site.');
   if (!response.headers.get('content-type')?.includes('application/json')) throw new Error('Réponse indisponible. Recharge la page puis réessaie.');

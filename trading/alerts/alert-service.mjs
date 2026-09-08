@@ -69,6 +69,15 @@ export async function readSetup(kv) {
   const raw = await kv?.get(CONFIG_KEY);
   if (!raw) throw new Error('Setup unavailable');
   const config = JSON.parse(raw);
-  if (config.schema !== 'trading-alerts-v1' || typeof config.webhookUrl !== 'string' || !/^https:\/\/nykuto-trading-alerts\.[a-z0-9-]+\.workers\.dev\/hook\/[a-f0-9]{64}$/.test(config.webhookUrl)) throw new Error('Invalid setup');
+  if (config.schema !== 'trading-alerts-v1' || typeof config.webhookUrl !== 'string' || !/^https:\/\/nykuto-trading-alerts\.[a-z0-9-]+\.workers\.dev\/(?:hook|personal\/[a-f0-9-]{36})\/[a-f0-9]{64}$/.test(config.webhookUrl)) throw new Error('Invalid setup');
   return { webhookUrl: config.webhookUrl };
+}
+
+// Existing owner's inbox keeps its original keys; every tester gets a separate prefix.
+export function personalAlerts(kv, user) {
+  if (!kv) throw new Error('Storage unavailable');
+  if (user.role === 'owner') return kv;
+  if (!/^[a-f0-9-]{36}$/.test(user.id)) throw new Error('Invalid account');
+  const prefix = `users/${user.id}/`;
+  return { get: key => kv.get(prefix + key), put: (key, value, options) => kv.put(prefix + key, value, options), list: options => kv.list({ ...options, prefix: prefix + options.prefix }) };
 }

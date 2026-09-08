@@ -7,7 +7,7 @@ let cachedKeys = null, keysUntil = 0;
 const bytes = value => Uint8Array.from(atob(value.replace(/-/g, '+').replace(/_/g, '/')), c => c.charCodeAt(0));
 const decode = value => JSON.parse(new TextDecoder().decode(bytes(value)));
 
-export async function authorized(request) {
+export async function authenticate(request) {
   try {
     const token = request.headers.get('Cf-Access-Jwt-Assertion');
     if (!token || token.length > 16384) return false;
@@ -30,9 +30,12 @@ export async function authorized(request) {
     const jwk = cachedKeys.find(key => key.kid === header.kid && key.kty === 'RSA' && (!key.alg || key.alg === 'RS256'));
     if (!jwk) return false;
     const key = await crypto.subtle.importKey('jwk', jwk, { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' }, false, ['verify']);
-    return await crypto.subtle.verify('RSASSA-PKCS1-v1_5', key, bytes(parts[2]), new TextEncoder().encode(`${parts[0]}.${parts[1]}`));
+    const valid = await crypto.subtle.verify('RSASSA-PKCS1-v1_5', key, bytes(parts[2]), new TextEncoder().encode(`${parts[0]}.${parts[1]}`));
+    return valid ? claims : false;
   } catch { return false; }
 }
+
+export const authorized = async request => Boolean(await authenticate(request));
 
 export async function serveDataset({ request, env }, key, contentType) {
   const headers = { 'Cache-Control': 'private, no-store', 'X-Content-Type-Options': 'nosniff', 'X-Robots-Tag': 'noindex, nofollow, noarchive', 'Vary': 'Cookie, Cf-Access-Jwt-Assertion' };

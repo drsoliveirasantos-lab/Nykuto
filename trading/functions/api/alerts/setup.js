@@ -1,9 +1,12 @@
-import { authorized } from '../lab/jeu04.js';
+import { member, handle } from '../../../account/account-service.mjs';
+import { personalAlerts } from '../../../alerts/alert-service.mjs';
 import { json, readSetup } from '../../../alerts/alert-service.mjs';
 
-export async function onRequest({ request, env }) {
+export const onRequest = context => handle(async () => {
+  const { request, env } = context;
   if (request.method !== 'GET') return json({ error: 'Méthode non autorisée.' }, 405);
-  if (!await authorized(request)) return json({ error: 'Reconnecte-toi au site.' }, 401);
-  try { return json(await readSetup(env.TRADING_ALERTS)); }
+  const user = await member(context);
+  const storage = personalAlerts(env.TRADING_ALERTS, user);
+  try { return json(await readSetup(storage)); }
   catch { return json({ error: 'La connexion TradingView n’est pas encore disponible.' }, 503); }
-}
+});

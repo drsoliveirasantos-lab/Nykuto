@@ -1,5 +1,6 @@
-(() => {
+(async () => {
   'use strict';
+  await window.Nykuto.ready;
 
   const KEY = 'nykuto-trading-strategy-lab-v1';
   const SETTINGS = 'nykuto-trading-settings-v1';
@@ -53,11 +54,11 @@
   }
 
   function persist() {
-    localStorage.setItem(KEY, JSON.stringify(snapshot()));
+    return window.Nykuto.set(KEY, snapshot());
   }
 
   function savedCapital() {
-    const settings = safe(localStorage.getItem(SETTINGS), {});
+    const settings = window.Nykuto.read(SETTINGS, {});
     const capital = finite(settings.capital);
     return capital !== null && capital > 0 ? capital : 1000;
   }
@@ -99,7 +100,7 @@
   }
 
   function load() {
-    const saved = safe(localStorage.getItem(KEY), {});
+    const saved = window.Nykuto.read(KEY, {});
     fields.forEach(id => {
       const element = byId(id);
       if (element) element.value = saved[id] ?? defaults[id] ?? '';
@@ -487,7 +488,6 @@
       return;
     }
 
-    persist();
     button.disabled = true;
     button.textContent = 'Calcul…';
     note.textContent = 'Chargement de l’historique puis simulation sans regarder les bougies futures…';
@@ -518,15 +518,15 @@
   }
 
   byId('strategyForm')?.addEventListener('input', renderRisk);
-  byId('strategyForm')?.addEventListener('submit', event => {
+  byId('strategyForm')?.addEventListener('submit', async event => {
     event.preventDefault();
-    persist();
+    try { await persist(); } catch (error) { window.Nykuto.status(error.message); return; }
     const state = byId('saveState');
     state.textContent = 'Enregistré';
-    setTimeout(() => { state.textContent = 'Local'; }, 1400);
+    setTimeout(() => { state.textContent = 'Mon compte'; }, 1400);
   });
-  byId('resetStrategy')?.addEventListener('click', () => {
-    localStorage.removeItem(KEY);
+  byId('resetStrategy')?.addEventListener('click', async () => {
+    try { await window.Nykuto.set(KEY, {}); } catch (error) { window.Nykuto.status(error.message); return; }
     Object.entries(defaults).forEach(([id, value]) => {
       const element = byId(id);
       if (element) element.value = value;
@@ -540,4 +540,4 @@
   byId('runBacktest')?.addEventListener('click', runBacktest);
 
   load();
-})();
+})().catch(error => window.Nykuto.status(error.message));

@@ -1,5 +1,6 @@
-(() => {
+(async () => {
   'use strict';
+  await window.Nykuto.ready;
 
   const JOURNAL_KEY = 'nykuto-trading-trades-v1';
   const SETTINGS_KEY = 'nykuto-trading-settings-v1';
@@ -8,8 +9,8 @@
   const safeParse = (value, fallback) => {
     try { return JSON.parse(value) ?? fallback; } catch { return fallback; }
   };
-  const readLocal = (key, fallback) => safeParse(localStorage.getItem(key), fallback);
-  const writeLocal = (key, value) => localStorage.setItem(key, JSON.stringify(value));
+  const readLocal = (key, fallback) => window.Nykuto.read(key, fallback);
+  const writeLocal = (key, value) => window.Nykuto.set(key, value);
   const priceFmt = new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 4 });
   const moneyFmt = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 2 });
   const percentFmt = new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 1 });
@@ -239,9 +240,7 @@
 
   function appendToJournal(closed) {
     if (!Number.isFinite(closed.r)) return;
-    let journal = readLocal(JOURNAL_KEY, []);
-    if (!Array.isArray(journal)) journal = [];
-    journal.push({
+    const entry = {
       id: crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`,
       createdAt: new Date().toISOString(),
       asset: loadedAsset.slice(0, 24),
@@ -249,8 +248,8 @@
       r: closed.r,
       setup: 'Replay',
       note: `${loadedInterval} · ${dateTimeFmt.format(new Date(closed.openedAt * 1000))} → ${dateTimeFmt.format(new Date(closed.closedAt * 1000))} · ${closed.reason}`.slice(0, 300)
-    });
-    writeLocal(JOURNAL_KEY, journal);
+    };
+    return window.Nykuto.update(JOURNAL_KEY, current => [...(current || []), entry]);
   }
 
   function closePosition(exitPrice, reason, candle = currentCandle()) {
@@ -268,7 +267,7 @@
     };
     sessionTrades.push(closed);
     lastClosed = closed;
-    appendToJournal(closed);
+    appendToJournal(closed)?.catch(error => setNotice(`Trade conservé dans cette session, journal non enregistré : ${error.message}`, 'error'));
     position = null;
     renderSessionStats();
     updatePositionMetrics();
@@ -418,4 +417,4 @@
   initChart();
   setControlsEnabled(false);
   renderSessionStats();
-})();
+})().catch(error => window.Nykuto.status(error.message));

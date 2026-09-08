@@ -19,6 +19,9 @@
   }
   ensureLink('/alerts/', 'Alertes');
   ensureLink('/discipline/', 'Avant un trade');
+  ensureLink('/account/#feedback', 'Retours');
+  ensureLink('/account/', 'Mon compte');
+  ensureLink('/cdn-cgi/access/logout', 'Déconnexion');
 
   function showModule(id, updateHash = true) {
     if (!modules.length || !moduleIds.includes(id)) return;

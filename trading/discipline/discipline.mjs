@@ -1,8 +1,9 @@
 import { PREPARATIONS_KEY, TRADES_KEY, EMOTIONS, drawdownScenario, preparationReasons, validatePreparation, mergeJournal } from './discipline-core.mjs';
+await window.Nykuto.ready;
 const el = id => document.getElementById(id);
 const node = (tag, text, className) => { const n = document.createElement(tag); n.textContent = text; if (className) n.className = className; return n; };
-const read = (key, fallback) => { const value = localStorage.getItem(key); return value === null ? fallback : JSON.parse(value); };
-const write = (key, value) => localStorage.setItem(key, JSON.stringify(value));
+const read = (key, fallback) => window.Nykuto.read(key, fallback);
+const write = (key, value) => window.Nykuto.set(key, value);
 const preparations = () => { const list = read(PREPARATIONS_KEY, []); if (!Array.isArray(list)) throw new Error('Préparations illisibles : aucune donnée remplacée.'); list.forEach(validatePreparation); return list; };
 const number = value => value.trim() === '' ? NaN : Number(value);
 const fmt = value => new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 2 }).format(value);
@@ -45,28 +46,28 @@ function showPause() {
     const until = Number(read(PAUSE_KEY, 0)), left = Math.max(0, Math.ceil((until - Date.now()) / 1000));
     el('pauseStatus').textContent = left ? `Pause personnelle : ${Math.floor(left / 60)} min ${String(left % 60).padStart(2, '0')} s restantes. Reviens ensuite à ton scénario.` : until ? 'Pause terminée. Réévalue ton état avant de décider.' : '';
     el('startPause').disabled = left > 0;
-  } catch { el('pauseStatus').textContent = 'La pause ne peut pas être enregistrée sur ce navigateur.'; }
+  } catch { el('pauseStatus').textContent = 'La pause ne peut pas être enregistrée dans ton compte.'; }
 }
-el('startPause').addEventListener('click', () => { try { write(PAUSE_KEY, Date.now() + 300000); showPause(); } catch { el('pauseStatus').textContent = 'Pause non enregistrée : stockage du navigateur indisponible.'; } });
+el('startPause').addEventListener('click', async () => { try { await write(PAUSE_KEY, Date.now() + 300000); showPause(); } catch { el('pauseStatus').textContent = 'Pause non enregistrée : sauvegarde du compte indisponible.'; } });
 showPause(); setInterval(() => { if (!document.hidden) showPause(); }, 1000);
 document.addEventListener('visibilitychange', showPause);
 
-el('preparationForm').addEventListener('submit', event => {
+el('preparationForm').addEventListener('submit', async event => {
   event.preventDefault();
+  const button = event.submitter; if (button.disabled) return; button.disabled = true;
   try {
     const list = preparations();
     if (list.length >= 1000) throw new Error('Limite de 1 000 préparations atteinte. Exporte ton historique avant de poursuivre.');
     const p = validatePreparation({ ...formValue(), id: crypto.randomUUID(), createdAt: new Date().toISOString(), drawdown: calculator ? { ...calculator } : null, result: null });
-    write(PREPARATIONS_KEY, [...list, p]);
+    await window.Nykuto.update(PREPARATIONS_KEY, current => [...(current || []), p]);
     el('preparationForm').reset(); feedback();
     el('prepSaveStatus').textContent = 'Préparation enregistrée. Après la clôture, ajoute le bilan ci-dessous si tu as pris ce trade.';
     renderHistory();
-  } catch (error) { el('prepSaveStatus').textContent = `Non enregistré : ${error.message}`; }
+  } catch (error) { el('prepSaveStatus').textContent = `Non enregistré : ${error.message}`; } finally { button.disabled = false; }
 });
 
-function syncResult(p) {
-  const journal = read(TRADES_KEY, []), merged = mergeJournal(journal, p);
-  if (merged !== journal) write(TRADES_KEY, merged);
+async function syncResult(p) {
+  await window.Nykuto.update(TRADES_KEY, current => mergeJournal(current || [], p));
 }
 function field(label, input) { const wrapper = node('label', label); wrapper.append(input); return wrapper; }
 function select(options, required = false) {
@@ -84,8 +85,9 @@ function resultForm(p) {
   const save = node('button', 'Enregistrer le bilan', 'primary-button'); save.type = 'submit';
   const message = node('p', '', 'discipline-message'); message.setAttribute('role', 'status');
   form.append(node('p', 'R = risque initial prévu au stop. Inscris le résultat après les frais ; un stop peut perdre plus de 1 R.'), grid, save, message);
-  form.addEventListener('submit', event => {
+  form.addEventListener('submit', async event => {
     event.preventDefault();
+    if (save.disabled) return; save.disabled = true;
     let saved = false;
     try {
       const list = preparations(), current = list.find(item => item.id === p.id);
@@ -94,13 +96,13 @@ function resultForm(p) {
       const complete = { ...current, result: { r: value, emotion: emotion.value, followedPlan: plan.value, note: note.value.trim(), closedAt: new Date().toISOString() } };
       // Validate before either write. Preserve the preparation if the journal write fails.
       mergeJournal(read(TRADES_KEY, []), complete);
-      write(PREPARATIONS_KEY, list.map(item => item.id === p.id ? complete : item)); saved = true;
-      syncResult(complete);
+      await window.Nykuto.update(PREPARATIONS_KEY, current => current.map(item => item.id === p.id ? complete : item)); saved = true;
+      await syncResult(complete);
       renderHistory(); el('historyStatus').textContent = 'Bilan enregistré et ajouté au journal, avec l’état avant et après le trade.';
     } catch (error) {
       if (saved) { renderHistory(); el('historyStatus').textContent = 'Bilan conservé ici. L’ajout au journal a échoué : utilise « Relier au journal » pour réessayer.'; }
       else message.textContent = `Non enregistré : ${error.message}`;
-    }
+    } finally { save.disabled = false; }
   });
   return form;
 }
@@ -117,7 +119,7 @@ function renderHistory() {
       if (p.result) {
         details.append(node('p', `Après : ${EMOTIONS[p.result.emotion]} · plan respecté : ${{ yes: 'oui', partly: 'en partie', no: 'non' }[p.result.followedPlan]}. ${p.result.note || ''}`));
         const button = node('button', 'Relier au journal', 'ghost-button'); button.type = 'button';
-        button.addEventListener('click', () => { try { syncResult(p); el('historyStatus').textContent = 'Bilan présent dans le journal, sans doublon.'; } catch (e) { el('historyStatus').textContent = e.message; } });
+        button.addEventListener('click', async () => { try { await syncResult(p); el('historyStatus').textContent = 'Bilan présent dans le journal, sans doublon.'; } catch (e) { el('historyStatus').textContent = e.message; } });
         details.append(button);
       } else details.append(resultForm(p));
       root.append(details);
@@ -131,5 +133,4 @@ el('exportPreparations').addEventListener('click', () => {
     const a = document.createElement('a'); a.href = url; a.download = 'nykuto-preparations.json'; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
   } catch (error) { el('historyStatus').textContent = `Export impossible : ${error.message}`; }
 });
-window.addEventListener('storage', event => { if (event.key === PREPARATIONS_KEY || event.key === TRADES_KEY) renderHistory(); if (event.key === PAUSE_KEY) showPause(); });
 renderHistory();

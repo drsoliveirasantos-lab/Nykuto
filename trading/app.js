@@ -1,5 +1,6 @@
-(() => {
+(async () => {
   'use strict';
+  await window.Nykuto.ready;
 
   const KEYS = {
     settings: 'nykuto-trading-settings-v1',
@@ -16,8 +17,8 @@
   const safeParse = (value, fallback) => {
     try { return JSON.parse(value) ?? fallback; } catch { return fallback; }
   };
-  const readLocal = (key, fallback) => safeParse(localStorage.getItem(key), fallback);
-  const writeLocal = (key, value) => localStorage.setItem(key, JSON.stringify(value));
+  const readLocal = (key, fallback) => window.Nykuto.read(key, fallback);
+  const writeLocal = (key, value) => window.Nykuto.set(key, value);
   const finite = value => Number.isFinite(Number(value)) ? Number(value) : null;
 
   const sectionNav = document.querySelector('.section-nav');
@@ -41,7 +42,7 @@
   if (finite(savedSettings.risk) !== null && savedSettings.risk > 0) riskInput.value = savedSettings.risk;
 
   function persistRiskSettings() {
-    writeLocal(KEYS.settings, { capital: finite(capitalInput.value), risk: finite(riskInput.value) });
+    return writeLocal(KEYS.settings, { capital: finite(capitalInput.value), risk: finite(riskInput.value) });
   }
 
   function calculateRisk() {
@@ -89,10 +90,11 @@
       byId('rrMeta').textContent = 'Renseigne stop et objectif';
     }
 
-    persistRiskSettings();
+
   }
 
   riskForm.addEventListener('input', calculateRisk);
+  riskForm.addEventListener('change', () => { persistRiskSettings().catch(() => {}); });
   calculateRisk();
 
   const toggleTradeForm = byId('toggleTradeForm');
@@ -164,9 +166,9 @@
       button.className = 'delete-trade';
       button.textContent = '×';
       button.setAttribute('aria-label', `Supprimer le trade ${trade.asset}`);
-      button.addEventListener('click', () => {
-        trades = trades.filter(item => item.id !== trade.id);
-        writeLocal(KEYS.trades, trades);
+      button.addEventListener('click', async () => {
+        button.disabled = true;
+        try { await window.Nykuto.update(KEYS.trades, current => (current || []).filter(item => item.id !== trade.id)); trades = readLocal(KEYS.trades, []); } catch { button.disabled = false; return; }
         renderJournal();
       });
       action.appendChild(button);
@@ -175,13 +177,13 @@
     });
   }
 
-  tradeForm.addEventListener('submit', event => {
+  tradeForm.addEventListener('submit', async event => {
     event.preventDefault();
     const asset = byId('tradeAsset').value.trim();
     const r = finite(byId('tradeR').value);
     if (!asset || r === null) return;
 
-    trades.push({
+    const entry = {
       id: crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`,
       createdAt: new Date().toISOString(),
       asset: asset.slice(0, 24),
@@ -189,8 +191,9 @@
       r,
       setup: byId('tradeSetup').value.trim().slice(0, 50),
       note: byId('tradeNote').value.trim().slice(0, 300)
-    });
-    writeLocal(KEYS.trades, trades);
+    };
+    const button = tradeForm.querySelector('[type="submit"]'); button.disabled = true;
+    try { await window.Nykuto.update(KEYS.trades, current => [...(current || []), entry]); trades = readLocal(KEYS.trades, []); } catch { return; } finally { button.disabled = false; }
     tradeForm.reset();
     setTradeForm(false);
     renderJournal();
@@ -198,26 +201,20 @@
 
   renderJournal();
 
-  window.addEventListener('storage', event => {
-    if (event.key !== KEYS.trades) return;
-    const updated = readLocal(KEYS.trades, null);
-    if (Array.isArray(updated)) { trades = updated; renderJournal(); }
-  });
-
   const savedChecklist = readLocal(KEYS.checklist, {});
   const checklistInputs = [...document.querySelectorAll('[data-check]')];
   checklistInputs.forEach(input => {
     input.checked = Boolean(savedChecklist[input.dataset.check]);
   });
 
-  function renderChecklist() {
+  function renderChecklist(save = false) {
     const state = {};
     let completed = 0;
     checklistInputs.forEach(input => {
       state[input.dataset.check] = input.checked;
       if (input.checked) completed += 1;
     });
-    writeLocal(KEYS.checklist, state);
+    if (save) writeLocal(KEYS.checklist, state).catch(() => {});
     byId('checklistLabel').textContent = `${completed} / ${checklistInputs.length} validés`;
     byId('checklistProgress').style.width = `${(completed / checklistInputs.length) * 100}%`;
   }
@@ -225,7 +222,7 @@
   checklistInputs.forEach(input => input.addEventListener('change', renderChecklist));
   byId('resetChecklist').addEventListener('click', () => {
     checklistInputs.forEach(input => { input.checked = false; });
-    renderChecklist();
+    renderChecklist(true);
   });
   renderChecklist();
-})();
+})().catch(error => window.Nykuto.status(error.message));

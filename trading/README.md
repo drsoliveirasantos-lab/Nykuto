@@ -20,20 +20,19 @@ by `/api/lab/jeu06` after Access signature validation, and never committed here.
 including manual trading. Stress, fatigue, FOMO, emotion, plan and checks are
 saved before entry. A five-minute pause is a personal timer, not a broker lock.
 Post-trade R, emotion and plan adherence can be attached and inserted
-idempotently into the existing local journal, which shows before/after emotion.
+idempotently into the personal account journal, which shows before/after emotion.
 No psychological diagnosis or profitability score is produced.
 
-Records use browser-local `nykuto-trading-preparations-v1`; the optional export
+Records use account-scoped `nykuto-trading-preparations-v1`; the optional export
 contains this personal history. Existing trades are preserved. Storage failures
 must not claim success or replace unreadable history. If journal linkage fails,
-the preparation retains its saved result and offers a retry. There is no server
-sync or broker connection. Drawdown assumes unchanged cash flows and currency;
+the preparation retains its saved result and offers a retry. Confirmed records sync through the personal account. There is no broker connection. Drawdown assumes unchanged cash flows and currency;
 successive hypothetical losses compound on remaining capital. Initial calculator
 amounts are an example, not account data.
 
 - TradingView Advanced Chart widget for market visualization;
 - local risk/position-size calculator;
-- local trade journal and R statistics;
+- personal account journal and R statistics;
 - pre-trade checklist;
 - market replay training screen with candle-by-candle reveal;
 - simulated Long/Short positions inside Replay, including optional stop/target handling;
@@ -42,11 +41,11 @@ amounts are an example, not account data.
 - no broker execution and no automated real-money trading;
 - no server-side portfolio or credential storage.
 
-Journal entries, checklist state, calculator defaults and Strategy Lab configuration are stored only in browser `localStorage` in V1. Replay trades with a valid stop are appended to the same local journal in R.
+Journal entries, preparations, checklist state, calculator defaults and Strategy Lab configuration are saved in account-scoped D1 records. Replay trades with a valid stop are appended to the same personal journal in R. First and last names are required after email-PIN login. See `account/README.md` for tester provisioning, feedback and the owner-only legacy import.
 
 ## Compact workspace
 
-Desktop Trading HQ prioritises density because it is a private single-user terminal. The shared `compact.css` layer reduces spacing and UI typography on large screens while keeping mobile form controls large enough for reliable touch input. `navigation.js` turns the Dashboard, Risk, Journal and Plan anchors into mutually exclusive module views so switching modules does not require scrolling through unrelated sections. Replay and Lab remain dedicated routes.
+Desktop Trading HQ prioritises density because it is a private trading workspace. The shared `compact.css` layer reduces spacing and UI typography on large screens while keeping mobile form controls large enough for reliable touch input. `navigation.js` turns the Dashboard, Risk, Journal and Plan anchors into mutually exclusive module views so switching modules does not require scrolling through unrelated sections. Replay and Lab remain dedicated routes.
 
 ## Strategy Lab
 

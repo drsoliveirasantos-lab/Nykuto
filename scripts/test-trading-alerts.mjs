@@ -1,4 +1,5 @@
 import test from 'node:test';
+import { accountDatabase, users } from './trading-account-fixtures.mjs';
 import assert from 'node:assert/strict';
 import worker from '../workers/trading-alerts/worker.mjs';
 import { hash, normalizeAlert, listAlerts, CONFIG_KEY } from '../trading/alerts/alert-service.mjs';
@@ -16,7 +17,7 @@ function storage() {
     async list({ prefix, limit }) { const keys = [...data].filter(([key]) => key.startsWith(prefix)).sort(([a], [b]) => a.localeCompare(b)); return { keys: keys.slice(0, limit).map(([name, value]) => ({ name, metadata: value.metadata })), list_complete: keys.length <= limit }; }
   };
 }
-async function environment() { return { TRADING_ALERTS: storage(), WEBHOOK_TOKEN_HASH: await hash(token) }; }
+async function environment() { return { TRADING_USERS: accountDatabase(), TRADING_ALERTS: storage(), WEBHOOK_TOKEN_HASH: await hash(token) }; }
 function request(body = payload(), options = {}) {
   const { headers, path = `/hook/${token}`, method = 'POST' } = options;
   return new Request(`https://receiver.example${path}`, { method, headers: { 'CF-Connecting-IP': '52.89.214.238', 'Content-Type': 'application/json', ...headers }, ...(method === 'POST' ? { body: typeof body === 'string' ? body : JSON.stringify(body) } : {}) });
@@ -66,7 +67,7 @@ test('private inbox, setup and test action verify Access and reject cross-origin
   try {
     const env = await environment(), origin = 'https://trading.nykuto.com';
     const encode = value => Buffer.from(JSON.stringify(value)).toString('base64url');
-    const claims = { iss: 'https://nykuto.cloudflareaccess.com', aud: ['c32e7605f403b5782f17f3ba017488d62e13599d14811f0a15a3d914c4b50190'], iat: Math.floor(Date.now() / 1000) - 1, exp: Math.floor(Date.now() / 1000) + 300 };
+    const claims = { email: users[0].email, iss: 'https://nykuto.cloudflareaccess.com', aud: ['c32e7605f403b5782f17f3ba017488d62e13599d14811f0a15a3d914c4b50190'], iat: Math.floor(Date.now() / 1000) - 1, exp: Math.floor(Date.now() / 1000) + 300 };
     const unsigned = `${encode({ alg: 'RS256', kid: jwk.kid })}.${encode(claims)}`;
     const signature = await crypto.subtle.sign('RSASSA-PKCS1-v1_5', pair.privateKey, new TextEncoder().encode(unsigned));
     const jwt = `${unsigned}.${Buffer.from(signature).toString('base64url')}`;
