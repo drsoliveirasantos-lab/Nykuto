@@ -14,11 +14,11 @@ const ASSETS = {
 };
 
 const INTERVALS = {
-  '1m': { yahoo: '1m', binance: '1m', yahooDays: 7 },
-  '5m': { yahoo: '5m', binance: '5m', yahooDays: 14 },
-  '15m': { yahoo: '15m', binance: '15m', yahooDays: 30 },
-  '1h': { yahoo: '60m', binance: '1h', yahooDays: 60 },
-  '1d': { yahoo: '1d', binance: '1d', yahooDays: 730 }
+  '1m': { yahoo: '1m', binance: '1m', lookbackDays: 2, futureDays: 7, binanceMs: 60_000 },
+  '5m': { yahoo: '5m', binance: '5m', lookbackDays: 7, futureDays: 14, binanceMs: 300_000 },
+  '15m': { yahoo: '15m', binance: '15m', lookbackDays: 14, futureDays: 30, binanceMs: 900_000 },
+  '1h': { yahoo: '60m', binance: '1h', lookbackDays: 30, futureDays: 60, binanceMs: 3_600_000 },
+  '1d': { yahoo: '1d', binance: '1d', lookbackDays: 400, futureDays: 730, binanceMs: 86_400_000 }
 };
 
 function json(body, status = 200) {
@@ -36,12 +36,12 @@ function validDate(value) {
   return /^\d{4}-\d{2}-\d{2}$/.test(value || '') && Number.isFinite(Date.parse(`${value}T00:00:00Z`));
 }
 
-async function fetchBinance(asset, interval, date) {
-  const startTime = Date.parse(`${date}T00:00:00Z`);
+async function fetchBinance(asset, interval, replayStartMs) {
+  const contextStart = Math.max(0, replayStartMs - interval.binanceMs * 200);
   const endpoint = new URL('https://api.binance.com/api/v3/klines');
   endpoint.searchParams.set('symbol', asset.symbol);
   endpoint.searchParams.set('interval', interval.binance);
-  endpoint.searchParams.set('startTime', String(startTime));
+  endpoint.searchParams.set('startTime', String(contextStart));
   endpoint.searchParams.set('limit', '1000');
 
   const response = await fetch(endpoint.toString(), { headers: { accept: 'application/json' } });
@@ -75,9 +75,11 @@ async function fetchYahooEndpoint(host, asset, interval, startSeconds, endSecond
   });
 }
 
-async function fetchYahoo(asset, interval, date) {
-  const startSeconds = Math.floor(Date.parse(`${date}T00:00:00Z`) / 1000);
-  const endSeconds = startSeconds + interval.yahooDays * 86400;
+async function fetchYahoo(asset, interval, replayStartMs) {
+  const replayStartSeconds = Math.floor(replayStartMs / 1000);
+  const startSeconds = Math.max(0, replayStartSeconds - interval.lookbackDays * 86400);
+  const requestedEnd = replayStartSeconds + interval.futureDays * 86400;
+  const endSeconds = Math.min(requestedEnd, Math.floor(Date.now() / 1000) + 86400);
   let response = await fetchYahooEndpoint('query1.finance.yahoo.com', asset, interval, startSeconds, endSeconds);
   if (!response.ok) response = await fetchYahooEndpoint('query2.finance.yahoo.com', asset, interval, startSeconds, endSeconds);
   if (!response.ok) {
@@ -106,7 +108,7 @@ async function fetchYahoo(asset, interval, date) {
     };
     if (Number.isFinite(candle.time) && Number.isFinite(candle.open) && Number.isFinite(candle.high) && Number.isFinite(candle.low) && Number.isFinite(candle.close)) candles.push(candle);
   }
-  return candles.slice(0, 1600);
+  return candles.slice(0, 3000);
 }
 
 export async function onRequestGet({ request }) {
@@ -120,18 +122,20 @@ export async function onRequestGet({ request }) {
   if (!asset) return json({ error: 'Actif non pris en charge par le Replay.' }, 400);
   if (!interval) return json({ error: 'Timeframe non pris en charge par le Replay.' }, 400);
   if (!validDate(date)) return json({ error: 'Date invalide.' }, 400);
-  if (Date.parse(`${date}T00:00:00Z`) > Date.now()) return json({ error: 'La date doit être dans le passé.' }, 400);
+  const replayStartMs = Date.parse(`${date}T00:00:00Z`);
+  if (replayStartMs > Date.now()) return json({ error: 'La date doit être dans le passé.' }, 400);
 
   try {
     const candles = asset.provider === 'binance'
-      ? await fetchBinance(asset, interval, date)
-      : await fetchYahoo(asset, interval, date);
+      ? await fetchBinance(asset, interval, replayStartMs)
+      : await fetchYahoo(asset, interval, replayStartMs);
 
     if (candles.length < 3) return json({ error: 'Pas assez de chandeliers pour cette période.' }, 404);
     return json({
       asset: assetKey,
       label: asset.label,
       interval: intervalKey,
+      replayStartTime: Math.floor(replayStartMs / 1000),
       source: asset.provider === 'binance' ? 'Binance public market data' : 'flux public US (Yahoo Finance)',
       candles
     });
