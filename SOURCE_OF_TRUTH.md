@@ -61,6 +61,9 @@ The current production source of truth is the static root site:
 - `regras/` for community, safety and external-import rules;
 - `assets/`, `favicon.svg`, `robots.txt`, `sitemap.xml` and `_headers`;
 - `ellen-studio/`, an isolated Portuguese multipage beauty preview with its own assets and navigation;
+- `trading/`, the private Trading HQ published separately from its validation
+  branch; its lab protocol and data boundaries are documented in
+  `trading/lab/INDEPENDENT_VALIDATION.md`;
 - `scripts/prepare-cloudflare-output.js`;
 - `gestor/` for the private real-estate manager pilot interface;
 - `functions/` for Cloudflare Pages authentication, manager and local APIs;

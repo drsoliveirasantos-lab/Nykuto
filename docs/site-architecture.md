@@ -76,6 +76,14 @@ scripts/prepare-cloudflare-output.js
 
 ## Generated outputs
 
+The private `trading/` site is a separate Cloudflare Pages project,
+`trading-nykuto`, publishing that directory directly from `feat/trading-hq-v1`
+during owner validation. It is not part of the main commercial build outputs.
+Its `/lab/` includes a browser-only independent-validation module, with pure
+CSV parsing, indicators and simulation modules. Imported histories remain in
+the tab; see `trading/lab/INDEPENDENT_VALIDATION.md` for its fixed protocol and
+data limitations. `npm run test:trading-validation` runs its regression checks.
+
 `npm run build` creates three equivalent static outputs:
 
 - `out/` — Cloudflare Pages production output;

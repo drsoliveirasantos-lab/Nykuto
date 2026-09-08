@@ -10,7 +10,9 @@
   <meta name="description" content="Strategy Lab privé pour définir et backtester des stratégies avant paper et shadow mode.">
   <link rel="stylesheet" href="../styles.css">
   <link rel="stylesheet" href="./lab.css">
+  <link rel="stylesheet" href="./lab-validation.css?v=1">
   <script src="./lab.js" defer></script>
+  <script src="./lab-validation.mjs?v=1" type="module"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Aller au contenu</a>
@@ -22,6 +24,7 @@
     <div class="topbar-actions">
       <span class="status-pill"><span class="status-dot" aria-hidden="true"></span>Lab · Paper only</span>
       <a class="ghost-button" href="../">Dashboard</a>
+      <a class="ghost-button" href="#independentGame">Jeu 04</a>
     </div>
   </header>
 
@@ -126,6 +129,46 @@
             <thead><tr><th>Date</th><th>Side</th><th>Entrée</th><th>Sortie</th><th>R</th><th>Motif</th></tr></thead>
             <tbody id="backtestTradesBody"><tr><td colspan="6">Les derniers trades simulés apparaîtront ici.</td></tr></tbody>
           </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel independent-game" id="independentGame" aria-labelledby="validationTitle">
+      <div class="panel-heading">
+        <div><p class="panel-kicker">JEU 04 · VALIDATION INDÉPENDANTE</p><h3 id="validationTitle">Le filtre tient-il sur d’autres périodes ?</h3></div>
+        <span class="lab-status off" id="ivStatus">DONNÉES REQUISES</span>
+      </div>
+      <div class="iv-content">
+        <p class="iv-intro">Comparer l’EMA 9/21 seule à la même stratégie avec ADX ≥ 20. Le filtre reste une piste : ses 12 trades du Jeu 03 ne suffisent pas à le valider.</p>
+        <div class="iv-periods" aria-label="Périodes fixes du test"><span>Janvier – février 2026</span><span>Mars – avril 2026</span><span>Mai – juin 2026</span></div>
+        <p class="iv-meta">SPY · 15 minutes · stop 1,25 ATR · objectif 1,5 R · coût 0,05 R par trade · 3 entrées/jour maximum</p>
+        <div class="iv-import">
+          <label for="ivFile"><strong>Historique SPY 15 minutes</strong><span>CSV de décembre 2025 à juin 2026. Décembre prépare les indicateurs ; seuls janvier à juin sont évalués.</span></label>
+          <input id="ivFile" type="file" accept=".csv,text/csv" aria-describedby="ivFormat ivDataNote">
+          <button id="ivRun" class="primary-button" type="button" disabled>Lancer le Jeu 04</button>
+        </div>
+        <p id="ivDataNote" class="iv-data-note">La source actuelle est limitée à 60 jours en 15 minutes. Un historique plus ancien est nécessaire pour ce test. Le CSV reste dans cet onglet et n’est pas envoyé au serveur.</p>
+        <details class="iv-help"><summary>Format et hypothèses du test</summary>
+          <p id="ivFormat">Colonnes : time, open, high, low, close ; volume et symbol facultatifs. Dates Unix (secondes ou millisecondes) ou ISO avec fuseau explicite. Bougies horodatées à l’ouverture ; séance américaine 09 h 30–16 h, heure de New York. Maximum 12 Mo. Sans colonne symbol, l’actif SPY est déclaré par l’importateur et ne peut pas être vérifié.</p>
+          <p>Les horaires hors séance et les dates hors période sont écartés. Les doublons identiques ne sont comptés qu’une fois ; les doublons contradictoires, prix vides et trous intrajournaliers bloquent le test. Le contrôle ne certifie pas l’exhaustivité du fournisseur ni les ajustements des cours.</p>
+          <p>Entrée à la bougie suivante. Position fermée en fin de chaque période. Un gap au-delà du stop utilise le prix d’ouverture ; si stop et objectif sont touchés dans une même bougie, le stop prime. Les blocages après −2 R réalisés ou 2 pertes consécutives sont réinitialisés chaque jour ; ils ne plafonnent pas la perte d’un trade.</p>
+          <p>Les deux variantes utilisent ce même moteur corrigé. Les résultats ne sont donc pas directement comparables aux anciens Jeux 02–03. Après consultation, ces périodes ne doivent pas servir à modifier les paramètres puis être présentées comme un nouveau test indépendant.</p>
+        </details>
+        <p id="ivMessage" class="iv-message" role="status" aria-live="polite">En attente d’un historique indépendant. Aucun nouveau résultat calculé.</p>
+        <div id="ivResults" hidden>
+          <div class="iv-summary">
+            <article><h4>EMA seule</h4><strong id="ivBaseline">—</strong><span id="ivBaselineNote">—</span></article>
+            <article><h4>Avec No-range</h4><strong id="ivFiltered">—</strong><span id="ivFilteredNote">—</span></article>
+            <article><h4>Coûts doublés</h4><strong id="ivStress">—</strong><span>Nouvelle simulation à 0,10 R/trade</span></article>
+            <article><h4>Verdict</h4><strong id="ivVerdict">—</strong><span>Paper Bot et Shadow : OFF</span></article>
+          </div>
+          <div class="iv-table-wrap" role="region" aria-label="Résultats par période" tabindex="0">
+            <table class="iv-table"><caption>Résultats après coûts · R = risque initial d’un trade</caption><thead><tr><th scope="col">Période</th><th scope="col">Variante</th><th scope="col">Trades</th><th scope="col">Gagnants</th><th scope="col">R moyen</th><th scope="col">R cumulé</th><th scope="col">Profit factor</th><th scope="col">Baisse max. réalisée</th></tr></thead><tbody id="ivRows"></tbody></table>
+          </div>
+          <p id="ivUncertainty" class="iv-meta"></p>
+          <div class="iv-verdict"><h4>Critères fixés avant le calcul</h4><ul id="ivChecks"></ul><p>Ces seuils servent à décider quoi examiner ensuite. Ils ne prouvent pas une rentabilité future et n’activent aucun bot.</p></div>
+          <details class="iv-help"><summary>Données réellement évaluées</summary><p id="ivProvenance"></p><ul id="ivCoverage"></ul></details>
+          <button id="ivExport" class="ghost-button" type="button">Exporter les résultats</button>
         </div>
       </div>
     </section>

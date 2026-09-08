@@ -44,6 +44,13 @@ The result surface reports trades, win rate, total R, expectancy, profit factor,
 
 Paper Bot and Shadow remain visibly OFF. They must not be presented as active until live-market ingestion, scheduling, persistence and monitoring have been implemented and validated. Broker execution remains explicitly out of scope.
 
+Jeu 04 adds a fixed independent comparison of EMA alone versus EMA + No-range
+on three January–June 2026 windows. It requires an older SPY 15m CSV because the
+current Yahoo source cannot supply that period. The imported file remains in
+the current tab. Missing data blocks the calculation explicitly; no placeholder
+market result is displayed. Protocol, execution corrections, data checks and
+limitations are documented in [INDEPENDENT_VALIDATION.md](lab/INDEPENDENT_VALIDATION.md).
+
 ## Market Replay
 
 `/replay/` is an isolated training interface designed to cover the learning need for bar replay without copying TradingView's proprietary replay implementation.
