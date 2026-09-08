@@ -18,8 +18,9 @@
   <script src="./lab-mnq.mjs?v=3" type="module"></script>
   <script src="./lab-collection.mjs?v=2" type="module"></script>
   <script src="./lab-six-months.mjs?v=1" type="module"></script>
+  <script src="./lab-confluence.mjs?v=1" type="module"></script>
   <link rel="stylesheet" href="./lab-market.css?v=2">
-  <link rel="stylesheet" href="./lab-workspace.css?v=1">
+  <link rel="stylesheet" href="./lab-workspace.css?v=2">
   <script src="./lab-workspace.mjs?v=2" type="module"></script>
 </head>
 <body>
@@ -56,8 +57,32 @@
     </div>
     <noscript><p>Active JavaScript pour changer de vue et consulter le suivi.</p></noscript>
     <div id="view-current" class="lab-view" role="tabpanel" aria-labelledby="tab-current" tabindex="0">
+    <section class="panel independent-game market-game" id="confluenceGame" aria-labelledby="confluenceTitle">
+      <div class="panel-heading"><div><p class="panel-kicker">JEU 10 · COMPRENDRE LES SIGNAUX</p><h3 id="confluenceTitle">Qu’est-ce qui aide vraiment le bot ?</h3></div><span id="confluenceStatus" class="lab-status planned">Vérification…</span></div>
+      <div class="iv-content">
+        <p class="iv-intro">Huit versions sur le même historique MNQ : tendance, bougie englobante, volume, jours d’annonces, combinaison, longs et shorts. Janvier–février, avril–mai et juillet–août 2026.</p>
+        <p id="confluenceMessage" class="iv-message" role="status" aria-live="polite">Les données sont contrôlées avant le calcul.</p>
+        <div id="confluenceResults" hidden>
+          <div class="mc-summary"><article><h4>Filtre de volume</h4><strong id="confluenceVolume">—</strong><p>À comparer à la référence et aux trois périodes</p></article><article><h4>Jours d’annonces écartés</h4><strong id="confluenceEvents">—</strong><p>CPI, emploi américain, décision FOMC</p></article><article><h4>Quatre confirmations</h4><strong id="confluenceCombined">—</strong><p id="confluenceCombinedNote"></p></article></div>
+          <div class="iv-table-wrap" role="region" aria-label="Comparaison des huit versions" tabindex="0"><table class="iv-table"><caption>R = risque initial au stop. Résultats après frais simulés. Dates déjà vues : exploration, sans validation indépendante.</caption><thead><tr><th scope="col">Version</th><th scope="col">Trades</th><th scope="col">Réussite</th><th scope="col">Net</th><th scope="col">Frais doublés</th><th scope="col">Gains / pertes</th><th scope="col">Baisse max.</th><th scope="col">Lecture</th></tr></thead><tbody id="confluenceRows"></tbody></table></div>
+          <div class="iv-verdict confluence-detail"><label for="confluenceVariant">Examiner une version</label><select id="confluenceVariant" aria-controls="confluenceDetail"></select>
+            <div id="confluenceDetail"><h4 id="confluenceDetailTitle"></h4><p id="confluenceDelta"></p>
+              <div class="iv-table-wrap" role="region" aria-label="Résultats de la version par période" tabindex="0"><table class="iv-table"><thead><tr><th scope="col">Période</th><th scope="col">Trades</th><th scope="col">Net</th><th scope="col">Frais doublés</th></tr></thead><tbody id="confluencePeriods"></tbody></table></div>
+              <details class="iv-help"><summary>Voir les critères et le détail long / short</summary><ul id="confluenceChecks"></ul><div class="iv-table-wrap" role="region" aria-label="Ventilation par sens" tabindex="0"><table class="iv-table"><caption>Ventilation de cette simulation. Elle n’est pas un nouveau test long seul ou short seul.</caption><thead><tr><th scope="col">Sens</th><th scope="col">Trades</th><th scope="col">Réussite</th><th scope="col">Net</th></tr></thead><tbody id="confluenceSides"></tbody></table></div></details>
+              <details class="iv-help"><summary>Pourquoi les signaux sont acceptés ou refusés</summary><p id="confluenceDecisionCount"></p><div class="iv-table-wrap" role="region" aria-label="Décisions de la simulation" tabindex="0"><table class="iv-table"><thead><tr><th scope="col">Clôture du signal · New York</th><th scope="col">Sens</th><th scope="col">Décision</th><th scope="col">Explication</th></tr></thead><tbody id="confluenceDecisions"></tbody></table></div></details>
+            </div>
+          </div>
+          <details class="iv-help"><summary>Le short fait-il gagner plus vite ?</summary><p>Un long gagne si le prix monte ; un short gagne si le prix baisse. À taille identique sur MNQ, 10 points favorables valent 20 $ bruts par contrat dans les deux sens. Un mouvement défavorable de même taille fait perdre autant.</p><p id="confluenceSpeed"></p><p><a href="https://www.cmegroup.com/markets/equities/nasdaq/micro-e-mini-nasdaq-100.html" target="_blank" rel="noopener noreferrer">Caractéristiques du contrat MNQ — CME</a></p></details>
+          <p id="confluenceQuality" class="iv-meta"></p>
+        </div>
+        <div class="collection-refresh-row"><button id="confluenceRun" class="ghost-button" type="button">Recalculer les huit versions</button><p class="iv-meta">Les mêmes règles, sans recherche automatique de paramètres gagnants.</p></div>
+        <details class="iv-help"><summary>Ce que le bot analyse et les limites du test</summary><p>La référence teste déjà les achats et les ventes : croisement EMA 9/21, force de tendance ADX, volatilité ATR, sortie avant clôture et freins après pertes. Le nouveau test ajoute séparément quatre confirmations, puis les réunit. Il simule aussi les longs seuls et les shorts seuls en recalculant leurs freins quotidiens.</p><ul><li><strong>Tendance :</strong> EMA 20 et 50 sur des heures entièrement closes, construites depuis 9 h 30 New York. Aucune heure future ou incomplète.</li><li><strong>Englobante :</strong> le corps de la bougie signal englobe celui de la précédente, de couleur opposée et dans la même séance. Ce motif ne garantit pas un retournement.</li><li><strong>Volume :</strong> comparaison avec les cinq séances précédentes au même quart d’heure ; la bougie signal ne participe pas à sa moyenne de référence.</li><li><strong>Événements :</strong> le test écarte toute la séance des trois types d’annonces recensés. Il ne prédit pas la réaction à l’annonce.</li></ul><p>Les nouveaux critères sont fixés avant leur calcul, mais ces dates ont déjà servi au Jeu 09. Un bon résultat sur cet historique doit encore être confirmé ailleurs. Multiplier les essais augmente le risque de trouver une réussite due au hasard ; le nombre de versions et les échecs restent visibles. <a href="https://carmamaths.org/jon/backtest.pdf" target="_blank" rel="noopener noreferrer">Étude sur le surajustement des backtests</a>.</p><p>Les coûts de 3,50 $ puis 7 $ par aller-retour sont des hypothèses. La baisse et le cumul portent sur six mois non consécutifs. Aucun bot parfait ou gain garanti ; Paper Bot et Shadow restent désactivés.</p></details>
+        <details class="iv-help"><summary>Quelles annonces sont prises en compte ?</summary><p>Calendrier historique consulté le 8 septembre 2026 ; les dates sont celles des publications. Ce n’est pas un suivi des actualités en direct. Les calendriers peuvent avoir été révisés et ne prouvent pas ce qui était connu à l’époque.</p><ul id="confluenceEventsList"></ul><p>Non couverts ici : PCE, PIB, résultats d’entreprises, discours, minutes FOMC, géopolitique et événements imprévus. Aucun calendrier ne peut annoncer toutes les nouvelles.</p></details>
+      </div>
+    </section>
+    <details class="lab-archive"><summary><span class="archive-number">09</span><span class="archive-title"><strong>Référence sur six mois MNQ</strong><small>Retrouver le résultat avant ajout des confirmations</small></span><span class="archive-state neutral">Historique</span><span class="archive-toggle" aria-hidden="true">+</span></summary>
     <section class="panel independent-game market-game mnq-game" id="sixMonthsGame" aria-labelledby="sixTitle">
-      <div class="panel-heading"><div><p class="panel-kicker">JEU 09 · DERNIER TEST</p><h3 id="sixTitle">MNQ · six mois de tests</h3></div><span id="sixStatus" class="lab-status planned">Vérification…</span></div>
+      <div class="panel-heading"><div><p class="panel-kicker">JEU 09 · RÉFÉRENCE</p><h3 id="sixTitle">MNQ · six mois de tests</h3></div><span id="sixStatus" class="lab-status planned">Vérification…</span></div>
       <div class="iv-content">
         <p class="iv-intro">Janvier–février, avril–mai et juillet–août 2026. La même stratégie sur trois périodes de deux mois, avec les coûts habituels puis doublés.</p>
         <p id="sixMessage" class="iv-message" role="status" aria-live="polite">Les résultats sont recalculés à partir de l’historique vérifié.</p>
@@ -70,6 +95,7 @@
         <details class="iv-help"><summary>Pourquoi ces dates et quelles limites ?</summary><p>L’essai initial janvier–juin a été arrêté avant tout résultat : des cours du 6 mars manquent, même à la minute. Les trois nouvelles fenêtres ont ensuite été fixées avant le calcul. Mars et juin ne sont pas évalués ; juin prépare seulement le dernier contrat.</p><p>Ce test est rétrospectif. Certaines dates ont déjà été vues sur SPY et une partie de juillet sur MNQ : il ne remplace pas une confirmation indépendante. Le cumul et la baisse concernent seulement les périodes retenues.</p><p>EMA 9/21 + ADX 14 ≥ 20, stop ATR × 1,25, cible 1,5 R, entrée suivante et sortie avant clôture. Trois entrées/jour maximum ; arrêt après deux pertes consécutives ou −2 R. Coût hypothétique par contrat : 3,50 $ par aller-retour, puis 7 $. Frais réels, marges et exécution chez un courtier restent à vérifier.</p></details>
       </div>
     </section>
+    </details>
     <details class="lab-archive"><summary><span class="archive-number">08</span><span class="archive-title"><strong>Collecte des prochaines séances</strong><small>Septembre–novembre 2026 · voir la programmation et l’avancement</small></span><span class="archive-state neutral">Suivi</span><span class="archive-toggle" aria-hidden="true">+</span></summary>
     <section class="panel independent-game market-game collection-focus" id="collectionGame" aria-labelledby="collectionTitle">
       <div class="panel-heading"><div><p class="panel-kicker">JEU 08 · COLLECTE PROGRAMMÉE</p><h3 id="collectionTitle">MNQ · microcontrat Nasdaq</h3></div><span id="collectionStatus" class="lab-status planned">Vérification…</span></div>

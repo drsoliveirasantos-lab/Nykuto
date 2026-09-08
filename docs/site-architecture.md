@@ -131,6 +131,22 @@ it cannot satisfy independent confirmation or activate a bot. See
 `trading/lab/MNQ_SIX_MONTHS.md` for dates, the failed availability attempt,
 results and audit. Game 08 and account isolation remain intact.
 
+Jeu 10 adds `confluence-policy.mjs`, `confluence-engine.mjs` and
+`lab-confluence.mjs`, reusing the private pinned Jeu 09 history and its endpoint.
+Eight fixed exploratory variants compare hourly trend, engulfing bodies,
+same-slot relative volume, three official macro-event categories, their joint
+filter, long-only and short-only with the original baseline. A signal-filter
+hook in `simulateMarket` preserves default results and fully resimulates daily
+brakes for every variant/cost. Hourly candles must be closed; volume references
+only five prior sessions. The UI provides per-period, per-direction and causal
+signal explanations, with all failed gates and event coverage limitations.
+This is already-seen history, not independent evidence or a live news service.
+See `trading/lab/CONFLUENCE_DIAGNOSTIC.md` for the frozen rules and full results.
+A separate one-time follow-up is scheduled for December 3 after the existing
+collection ends. It audits the archive before comparing the same eight rules
+on October–November, preserves Jeu 08 and stops with a precise report if data
+or access is incomplete. This does not imply continuous optimization or trading.
+
 `trading/discipline/` hosts the drawdown scenario and emotional self-report,
 with an optional pause and post-trade journal linkage. Pure rules are in
 `discipline-core.mjs`. Records use account-scoped D1 persistence with device sync. There is no broker endpoint
@@ -149,7 +165,8 @@ collection procedure, data boundaries and limitations.
 
 The Lab interface separates `Suivi actuel`, `Tests précédents` and `Test manuel`
 with accessible tabs in `lab-workspace.mjs` and scoped `lab-workspace.css`.
-Jeu 09 now opens by default with the latest six-month MNQ retrospective result.
+Jeu 10 opens by default with the exploratory comparison. Jeu 09 remains in a
+disclosure with its original six-month MNQ retrospective result.
 Jeu 08 retains its collection state, next action and three-step calendar in
 a collapsible disclosure. Older games remain available in collapsed native details;
 their IDs and deep links are preserved, and navigation reveals the matching tab

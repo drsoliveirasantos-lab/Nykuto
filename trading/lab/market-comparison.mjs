@@ -84,7 +84,7 @@ export function tradeTerms(product, atr, costFactor = 1) {
   return { risk, targetDistance, riskDollars, costDollars, costR: costDollars / riskDollars };
 }
 
-export function simulateMarket(candles, ctx, window, product, costFactor = 1, ticker = product.symbol) {
+export function simulateMarket(candles, ctx, window, product, costFactor = 1, ticker = product.symbol, options = {}) {
   const first = candles.findIndex(c => c.time >= window.start);
   let end = candles.findIndex(c => c.time >= window.end);
   if (end < 0) end = candles.length;
@@ -118,7 +118,7 @@ export function simulateMarket(candles, ctx, window, product, costFactor = 1, ti
     if (position) { const fill = exitFill(position, candle); if (fill) closePosition(fill, candle); }
     if (!position && allowed() && i < end - 1 && [ctx.fast[i - 1], ctx.slow[i - 1], ctx.fast[i], ctx.slow[i], ctx.adx[i]].every(Number.isFinite) && ctx.adx[i] >= RULES.adxMin) {
       const side = ctx.fast[i - 1] <= ctx.slow[i - 1] && ctx.fast[i] > ctx.slow[i] ? 'Long' : ctx.fast[i - 1] >= ctx.slow[i - 1] && ctx.fast[i] < ctx.slow[i] ? 'Short' : null;
-      if (side) pending = { side, index: i };
+      if (side && (!options.acceptSignal || options.acceptSignal(side, i))) pending = { side, index: i };
     }
   }
   if (position) throw new Error(`${ticker} : position encore ouverte à la fin d’une période.`);
