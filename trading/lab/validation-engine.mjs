@@ -67,7 +67,7 @@ export function exitFill(position, candle) {
 
 // Each window starts flat. Indicator preparation may use only earlier bars;
 // no order from preparation or another window is carried into the scored period.
-export function simulate(candles, ctx, window, filtered, costR = RULES.costR) {
+export function simulate(candles, ctx, window, filtered, costR = RULES.costR, flatBeforeClose = false) {
   const first = candles.findIndex(c => c.time >= window.start);
   let end = candles.findIndex(c => c.time >= window.end);
   if (end < 0) end = candles.length;
@@ -85,7 +85,13 @@ export function simulate(candles, ctx, window, filtered, costR = RULES.costR) {
   for (let i = first; i < end; i += 1) {
     const candle = candles[i];
     const currentDay = candle.day || new Date(candle.time * 1000).toISOString().slice(0, 10);
-    if (day !== currentDay) { day = currentDay; count = 0; realized = 0; losses = 0; }
+    if (day !== currentDay) { day = currentDay; count = 0; realized = 0; losses = 0; if (flatBeforeClose) pending = null; }
+    // sessionEnd comes from the validated exchange calendar, never a future price.
+    if (flatBeforeClose && candle.sessionEnd) {
+      pending = null;
+      if (position) close(exitFill(position, { open: candle.open, high: candle.open, low: candle.open }) || { price: candle.open, reason: 'Fin de séance' }, candle);
+      continue;
+    }
     const allowed = () => count < RULES.maxTrades && realized > -RULES.maxDailyLoss && losses < RULES.lossStreak;
     if (!position && pending) {
       const risk = ctx.atr[pending.index] * RULES.atrMultiple;

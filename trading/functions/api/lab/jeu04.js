@@ -34,13 +34,15 @@ async function authorized(request) {
   } catch { return false; }
 }
 
-export async function onRequest({ request, env }) {
+export async function serveDataset({ request, env }, key, contentType) {
   const headers = { 'Cache-Control': 'private, no-store', 'X-Content-Type-Options': 'nosniff', 'X-Robots-Tag': 'noindex, nofollow, noarchive', 'Vary': 'Cookie, Cf-Access-Jwt-Assertion' };
   if (request.method !== 'GET') return new Response('Method not allowed', { status: 405, headers: { ...headers, Allow: 'GET' } });
   if (!await authorized(request)) return new Response('Authentication required', { status: 401, headers });
   try {
-    const csv = await env.TRADING_DATASETS?.get(DATASET_KEY);
+    const csv = await env.TRADING_DATASETS?.get(key);
     if (!csv) return new Response('Dataset unavailable', { status: 503, headers });
-    return new Response(csv, { headers: { ...headers, 'Content-Type': 'text/csv; charset=utf-8' } });
+    return new Response(csv, { headers: { ...headers, 'Content-Type': contentType } });
   } catch { return new Response('Dataset unavailable', { status: 503, headers }); }
 }
+
+export const onRequest = context => serveDataset(context, DATASET_KEY, 'text/csv; charset=utf-8');

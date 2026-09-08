@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="./lab-validation.css?v=2">
   <script src="./lab.js" defer></script>
   <script src="./lab-validation.mjs?v=2" type="module"></script>
+  <script src="./lab-session.mjs?v=1" type="module"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Aller au contenu</a>
@@ -25,6 +26,7 @@
       <span class="status-pill"><span class="status-dot" aria-hidden="true"></span>Lab · Paper only</span>
       <a class="ghost-button" href="../">Dashboard</a>
       <a class="ghost-button" href="#independentGame">Jeu 04</a>
+      <a class="ghost-button" href="#sessionGame">Jeu 05</a>
     </div>
   </header>
 
@@ -129,6 +131,45 @@
             <thead><tr><th>Date</th><th>Side</th><th>Entrée</th><th>Sortie</th><th>R</th><th>Motif</th></tr></thead>
             <tbody id="backtestTradesBody"><tr><td colspan="6">Les derniers trades simulés apparaîtront ici.</td></tr></tbody>
           </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel independent-game" id="sessionGame" aria-labelledby="sessionTitle">
+      <div class="panel-heading">
+        <div><p class="panel-kicker">JEU 05 · COMPARAISON SANS NUIT</p><h3 id="sessionTitle">Fermer avant la nuit réduit-il les pertes ?</h3></div>
+        <span class="lab-status active" id="scStatus">DONNÉES INTÉGRÉES</span>
+      </div>
+      <div class="iv-content">
+        <p class="iv-intro">Dans le Jeu 04, quatre sorties au-delà du stop totalisent −9,96 R. On teste une seule modification : fermer 15 minutes avant la fin de séance et annuler les signaux reportés au lendemain.</p>
+        <div class="iv-periods" aria-label="Nouvel historique de comparaison"><span>Janvier – février 2025</span><span>Mars – avril 2025</span><span>Mai – juin 2025</span></div>
+        <p class="iv-meta">SPY · 15 minutes · EMA 9/21 + ADX ≥ 20 · stop 1,25 ATR · objectif 1,5 R · coût 0,05 R/trade</p>
+        <div class="iv-launch"><div><h4>Comparaison sur un historique distinct</h4><p>3 706 bougies Alpaca · décembre 2024 à juin 2025 · 143 séances avec préparation.</p></div><button id="scRun" class="primary-button" type="button">Lancer le Jeu 05</button></div>
+        <p class="iv-data-note">Les règles ont été fixées avant le calcul sur 2025. Cet historique n’a pas servi aux Jeux 03–04. Il s’agit d’un test historique, pas d’un suivi en direct.</p>
+        <p id="scMessage" class="iv-message" role="status" aria-live="polite">Clique sur « Lancer le Jeu 05 » : les données sont déjà intégrées.</p>
+        <div id="scResults" hidden>
+          <div class="iv-summary">
+            <article><h4>Avec nuits</h4><strong id="scControl">—</strong><span id="scControlNote">—</span></article>
+            <article><h4>Sans nuit</h4><strong id="scCandidate">—</strong><span id="scCandidateNote">—</span></article>
+            <article><h4>Coûts doublés</h4><strong id="scStress">—</strong><span>Sans nuit · coût 0,10 R/trade</span></article>
+            <article><h4>Verdict</h4><strong id="scVerdict">—</strong><span>Paper Bot et Shadow : OFF</span></article>
+          </div>
+          <p id="scInterpretation" class="iv-message"></p>
+          <div class="iv-table-wrap" role="region" aria-label="Comparaison du Jeu 05 par période" tabindex="0">
+            <table class="iv-table"><caption>Janvier–juin 2025 · résultats après coûts · R = risque initial prévu par trade</caption><thead><tr><th scope="col">Période</th><th scope="col">Version</th><th scope="col">Trades</th><th scope="col">Réussite</th><th scope="col">R moyen</th><th scope="col">R cumulé</th><th scope="col">Baisse max.</th><th scope="col">Pire trade</th></tr></thead><tbody id="scRows"></tbody></table>
+          </div>
+          <p id="scRisk" class="iv-meta"></p><p id="scUncertainty" class="iv-meta"></p>
+          <div class="iv-verdict"><h4>Critères fixés avant le calcul</h4><ul id="scChecks"></ul><p>Une perte réduite ou un meilleur taux de réussite ne suffisent pas à valider la rentabilité. Aucun bot n’est activé par ce test.</p></div>
+          <details class="iv-help"><summary>Diagnostic du Jeu 04 et comparaison exploratoire sur 2026</summary>
+            <p id="scDevelopment"></p><p>Les groupes suivants se recoupent : leurs résultats ne s’additionnent pas. Les horaires sont ceux de New York.</p>
+            <div class="iv-table-wrap"><table class="iv-table"><caption>EMA + ADX, janvier–juin 2026 · diagnostic descriptif</caption><thead><tr><th scope="col">Groupe</th><th scope="col">Trades</th><th scope="col">Réussite</th><th scope="col">R cumulé</th><th scope="col">R moyen</th></tr></thead><tbody id="scDiagnosis"></tbody></table></div>
+          </details>
+          <details class="iv-help"><summary>Données et hypothèses d’exécution</summary><p id="scProvenance"></p><ul id="scCoverage"></ul>
+            <p>Sortie simulée à l’ouverture de la dernière bougie : 15 h 45 normalement, 12 h 45 si la séance ferme à 13 h. Aucune entrée dans cette bougie. Les horaires viennent du calendrier de marché ; toute séance incomplète bloque le calcul.</p>
+            <p>Le stop prime si stop et objectif sont touchés dans une même bougie. Les gaps intrajournaliers peuvent toujours dépasser le risque prévu. Les prix de sortie et coûts fixes sont des approximations : ni exécution réelle ni plafond de perte ne sont garantis. Les ajustements du fournisseur ne sont pas vérifiés indépendamment.</p>
+            <p>Après consultation, les périodes 2025 deviennent connues : elles ne pourront pas valider de nouveaux réglages comme si elles étaient encore inédites.</p>
+          </details>
+          <button id="scExport" class="ghost-button" type="button">Exporter les résultats du Jeu 05</button>
         </div>
       </div>
     </section>

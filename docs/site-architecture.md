@@ -89,6 +89,14 @@ remain in the tab. See `trading/lab/INDEPENDENT_VALIDATION.md` for the frozen
 protocol and snapshot identity. `npm run test:trading-validation` covers both
 the engine and private data-loading checks.
 
+Jeu 05 adds `session-comparison.mjs`, `session-source.mjs` and `lab-session.mjs`.
+It tests one frozen session-close policy, keeping the Jeu 04 engine's default
+behavior intact. `trading/functions/api/lab/jeu05.js` reuses the same Access
+verification and private KV binding to serve a checksum-pinned 2025 snapshot
+with exchange calendars. The 2026 comparison is explicitly exploratory;
+only the new 2025 windows determine the research verdict. No market history
+is committed to Git. See `trading/lab/SESSION_COMPARISON.md`.
+
 `npm run build` creates three equivalent static outputs:
 
 - `out/` — Cloudflare Pages production output;
