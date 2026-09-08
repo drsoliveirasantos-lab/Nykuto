@@ -1,15 +1,13 @@
 const MED_NYKUTO_ICON = 'https://med.nykuto.com/assets/logo-medcursos-icon.png?v=trading-1';
+const CSP = "default-src 'self'; script-src 'self' https://s3.tradingview.com https://unpkg.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://med.nykuto.com https://*.tradingview.com https://s3-symbol-logo.tradingview.com; font-src 'self'; frame-src https://*.tradingview.com; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'; upgrade-insecure-requests";
 
-function allowMedNykutoIcon(headers) {
-  const csp = headers.get('Content-Security-Policy');
-  if (!csp || csp.includes('https://med.nykuto.com')) return;
-  headers.set(
-    'Content-Security-Policy',
-    csp.replace(
-      "img-src 'self' data:",
-      "img-src 'self' data: https://med.nykuto.com"
-    )
-  );
+function applySecurityHeaders(headers) {
+  headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive, nosnippet');
+  headers.set('Referrer-Policy', 'no-referrer');
+  headers.set('X-Content-Type-Options', 'nosniff');
+  headers.set('X-Frame-Options', 'DENY');
+  headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), payment=(), usb=()');
+  headers.set('Content-Security-Policy', CSP);
 }
 
 export async function onRequest(context) {
@@ -18,7 +16,7 @@ export async function onRequest(context) {
   if (!contentType.includes('text/html')) return response;
 
   const headers = new Headers(response.headers);
-  allowMedNykutoIcon(headers);
+  applySecurityHeaders(headers);
   const htmlResponse = new Response(response.body, {
     status: response.status,
     statusText: response.statusText,
