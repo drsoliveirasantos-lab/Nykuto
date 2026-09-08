@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#07111f">
+  <title>Nykuto Trading HQ</title>
+  <meta name="description" content="Tableau de bord privé de préparation, analyse et journal de trading.">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Aller au contenu</a>
+
+  <header class="topbar">
+    <div class="brand-wrap">
+      <div class="brand-mark" aria-hidden="true">N</div>
+      <div>
+        <p class="eyebrow">NYKUTO</p>
+        <h1>Trading HQ</h1>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <span class="status-pill"><span class="status-dot" aria-hidden="true"></span>Privé · Paper mode</span>
+      <a class="ghost-button" href="https://www.tradingview.com/" target="_blank" rel="noopener noreferrer">Ouvrir TradingView ↗</a>
+    </div>
+  </header>
+
+  <nav class="section-nav" aria-label="Navigation du tableau de bord">
+    <a href="#dashboard">Dashboard</a>
+    <a href="#risk">Risque</a>
+    <a href="#journal">Journal</a>
+    <a href="#plan">Plan</a>
+  </nav>
+
+  <main id="main">
+    <section id="dashboard" class="page-section hero-section" aria-labelledby="dashboard-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">CENTRE DE COMMANDE</p>
+          <h2 id="dashboard-title">Vue marché et discipline</h2>
+          <p>Le graphique vient de TradingView. Le risk manager, le journal et les règles sont les tiens.</p>
+        </div>
+        <span class="mode-note">Aucun ordre réel n'est envoyé depuis ce site.</span>
+      </div>
+
+      <div class="kpi-grid" aria-label="Résumé personnel">
+        <article class="kpi-card">
+          <p class="kpi-label">Capital de référence</p>
+          <p class="kpi-value" id="capitalKpi">1 000 €</p>
+          <p class="kpi-meta">Utilisé pour le calcul de taille</p>
+        </article>
+        <article class="kpi-card">
+          <p class="kpi-label">Risque / trade</p>
+          <p class="kpi-value" id="riskKpi">1,00 %</p>
+          <p class="kpi-meta">Règle personnelle, pas une recommandation</p>
+        </article>
+        <article class="kpi-card">
+          <p class="kpi-label">Trades journalisés</p>
+          <p class="kpi-value" id="tradeCountKpi">0</p>
+          <p class="kpi-meta">Stockés sur cet appareil</p>
+        </article>
+        <article class="kpi-card">
+          <p class="kpi-label">R moyen</p>
+          <p class="kpi-value" id="avgRKpi">—</p>
+          <p class="kpi-meta">Calculé depuis le journal</p>
+        </article>
+      </div>
+
+      <div class="market-layout">
+        <article class="panel chart-panel" aria-labelledby="chart-title">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-kicker">MARCHÉS</p>
+              <h3 id="chart-title">Graphique principal</h3>
+            </div>
+            <span class="panel-meta">TradingView · widget gratuit</span>
+          </div>
+          <div class="chart-frame">
+            <div class="tradingview-widget-container" style="height:100%;width:100%">
+              <div class="tradingview-widget-container__widget" style="height:calc(100% - 28px);width:100%"></div>
+              <div class="tradingview-widget-copyright">
+                <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">Graphiques par TradingView</a>
+              </div>
+              <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+              {
+                "autosize": true,
+                "symbol": "NASDAQ:NDX",
+                "interval": "15",
+                "timezone": "exchange",
+                "theme": "dark",
+                "backgroundColor": "rgba(7, 17, 31, 1)",
+                "gridColor": "rgba(255, 255, 255, 0.05)",
+                "style": "1",
+                "withdateranges": true,
+                "hide_side_toolbar": false,
+                "allow_symbol_change": true,
+                "save_image": false,
+                "locale": "fr",
+                "watchlist": [
+                  "NASDAQ:NDX",
+                  "SP:SPX",
+                  "BINANCE:BTCUSDT",
+                  "BINANCE:ETHUSDT",
+                  "FX:EURUSD",
+                  "OANDA:XAUUSD"
+                ],
+                "details": true,
+                "hotlist": false,
+                "calendar": false,
+                "support_host": "https://www.tradingview.com"
+              }
+              </script>
+            </div>
+          </div>
+        </article>
+
+        <aside class="panel rules-panel" aria-labelledby="rules-title">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-kicker">GARDE-FOU</p>
+              <h3 id="rules-title">Avant toute entrée</h3>
+            </div>
+          </div>
+          <div class="rule-list">
+            <div><span>01</span><p><strong>Scénario défini</strong><br>Pourquoi ce trade existe ?</p></div>
+            <div><span>02</span><p><strong>Invalidation connue</strong><br>Le stop correspond à une idée invalidée.</p></div>
+            <div><span>03</span><p><strong>Taille calculée</strong><br>La position découle du risque, pas de l'envie.</p></div>
+            <div><span>04</span><p><strong>Ratio vérifié</strong><br>Le potentiel est comparé au risque avant l'ordre.</p></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="risk" class="page-section" aria-labelledby="risk-title">
+      <div class="section-heading compact-heading">
+        <div>
+          <p class="eyebrow">RISK MANAGER</p>
+          <h2 id="risk-title">Calculer avant de trader</h2>
+          <p>Tu renseignes le capital, l'entrée, le stop et l'objectif. Le site calcule la taille et le ratio R:R.</p>
+        </div>
+      </div>
+
+      <div class="risk-layout">
+        <form class="panel form-panel" id="riskForm">
+          <div class="form-grid">
+            <label>
+              <span>Capital de référence (€)</span>
+              <input id="capitalInput" name="capital" type="number" min="0" step="0.01" value="1000" inputmode="decimal">
+            </label>
+            <label>
+              <span>Risque maximal (%)</span>
+              <input id="riskInput" name="risk" type="number" min="0.01" max="100" step="0.01" value="1" inputmode="decimal">
+            </label>
+            <label>
+              <span>Prix d'entrée</span>
+              <input id="entryInput" name="entry" type="number" min="0" step="any" placeholder="Ex. 100" inputmode="decimal">
+            </label>
+            <label>
+              <span>Stop loss</span>
+              <input id="stopInput" name="stop" type="number" min="0" step="any" placeholder="Ex. 98" inputmode="decimal">
+            </label>
+            <label class="wide-field">
+              <span>Take profit</span>
+              <input id="targetInput" name="target" type="number" min="0" step="any" placeholder="Ex. 106" inputmode="decimal">
+            </label>
+          </div>
+        </form>
+
+        <div class="risk-results" aria-live="polite">
+          <article class="result-card primary-result">
+            <p class="result-label">Montant risqué</p>
+            <p class="result-value" id="riskAmountResult">10,00 €</p>
+            <p class="result-meta">Capital × risque maximal</p>
+          </article>
+          <article class="result-card">
+            <p class="result-label">Taille de position</p>
+            <p class="result-value" id="positionSizeResult">—</p>
+            <p class="result-meta" id="positionMeta">Renseigne entrée et stop</p>
+          </article>
+          <article class="result-card">
+            <p class="result-label">Ratio risque / rendement</p>
+            <p class="result-value" id="rrResult">—</p>
+            <p class="result-meta" id="rrMeta">Renseigne stop et objectif</p>
+          </article>
+          <article class="result-card">
+            <p class="result-label">Distance du stop</p>
+            <p class="result-value" id="stopDistanceResult">—</p>
+            <p class="result-meta">En % du prix d'entrée</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="journal" class="page-section" aria-labelledby="journal-title">
+      <div class="section-heading compact-heading">
+        <div>
+          <p class="eyebrow">JOURNAL</p>
+          <h2 id="journal-title">Construire tes statistiques</h2>
+          <p>V1 locale : les entrées restent dans le stockage de ce navigateur. Aucune donnée n'est envoyée à Nykuto.</p>
+        </div>
+        <button class="primary-button" type="button" id="toggleTradeForm">+ Ajouter un trade</button>
+      </div>
+
+      <form class="panel trade-form is-hidden" id="tradeForm">
+        <div class="form-grid journal-grid">
+          <label><span>Actif</span><input id="tradeAsset" required maxlength="24" placeholder="NASDAQ, BTC…"></label>
+          <label><span>Direction</span><select id="tradeSide"><option value="Long">Long</option><option value="Short">Short</option></select></label>
+          <label><span>Résultat (R)</span><input id="tradeR" required type="number" step="0.01" placeholder="Ex. 1.8" inputmode="decimal"></label>
+          <label><span>Setup</span><input id="tradeSetup" maxlength="50" placeholder="Breakout + retest"></label>
+          <label class="wide-field"><span>Note</span><textarea id="tradeNote" rows="3" maxlength="300" placeholder="Pourquoi l'entrée ? Qu'est-ce qui a été bien ou mal exécuté ?"></textarea></label>
+        </div>
+        <div class="form-actions">
+          <button class="ghost-button" type="button" id="cancelTrade">Annuler</button>
+          <button class="primary-button" type="submit">Enregistrer</button>
+        </div>
+      </form>
+
+      <div class="journal-stats" aria-label="Statistiques du journal">
+        <article><span>Trades</span><strong id="journalCount">0</strong></article>
+        <article><span>Win rate</span><strong id="winRate">—</strong></article>
+        <article><span>R cumulé</span><strong id="totalR">—</strong></article>
+        <article><span>R moyen</span><strong id="averageR">—</strong></article>
+      </div>
+
+      <div class="panel table-panel">
+        <div class="empty-state" id="emptyJournal">
+          <strong>Aucun trade enregistré</strong>
+          <p>Commence par du paper trading et consigne chaque décision. Les statistiques deviendront utiles avec l'échantillon.</p>
+        </div>
+        <div class="table-wrap is-hidden" id="journalTableWrap">
+          <table>
+            <thead><tr><th>Date</th><th>Actif</th><th>Direction</th><th>R</th><th>Setup</th><th><span class="sr-only">Action</span></th></tr></thead>
+            <tbody id="journalBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="plan" class="page-section" aria-labelledby="plan-title">
+      <div class="section-heading compact-heading">
+        <div>
+          <p class="eyebrow">DISCIPLINE</p>
+          <h2 id="plan-title">Checklist pré-trade</h2>
+          <p>Une checklist simple pour éviter qu'une impulsion devienne un ordre.</p>
+        </div>
+      </div>
+
+      <div class="panel checklist" id="checklist">
+        <label><input type="checkbox" data-check="context"><span><strong>Contexte compris</strong><small>Tendance, niveau et timeframe identifiés.</small></span></label>
+        <label><input type="checkbox" data-check="trigger"><span><strong>Déclencheur défini</strong><small>Je sais précisément ce qui valide l'entrée.</small></span></label>
+        <label><input type="checkbox" data-check="invalidation"><span><strong>Invalidation définie</strong><small>Le stop correspond à l'hypothèse devenue fausse.</small></span></label>
+        <label><input type="checkbox" data-check="risk"><span><strong>Risque calculé</strong><small>La taille respecte ma limite avant l'ordre.</small></span></label>
+        <label><input type="checkbox" data-check="emotion"><span><strong>Décision non impulsive</strong><small>Je peux expliquer ce trade en une phrase.</small></span></label>
+        <div class="checklist-footer">
+          <div>
+            <span class="progress-label" id="checklistLabel">0 / 5 validés</span>
+            <div class="progress-track" aria-hidden="true"><span id="checklistProgress"></span></div>
+          </div>
+          <button class="ghost-button" id="resetChecklist" type="button">Réinitialiser</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>Nykuto Trading HQ · V1</strong> — outil personnel d'organisation et d'apprentissage, pas un service de conseil financier.</p>
+    <p>Les graphiques TradingView peuvent dépendre de leurs propres flux et conditions d'utilisation. Les modules personnels de cette V1 restent locaux au navigateur.</p>
+  </footer>
+</body>
+</html>
