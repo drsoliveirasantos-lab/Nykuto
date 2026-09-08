@@ -20,6 +20,15 @@
   const writeLocal = (key, value) => localStorage.setItem(key, JSON.stringify(value));
   const finite = value => Number.isFinite(Number(value)) ? Number(value) : null;
 
+  const sectionNav = document.querySelector('.section-nav');
+  if (sectionNav && !sectionNav.querySelector('[data-replay-link]')) {
+    const replayLink = document.createElement('a');
+    replayLink.href = './replay/';
+    replayLink.textContent = 'Replay';
+    replayLink.dataset.replayLink = 'true';
+    sectionNav.appendChild(replayLink);
+  }
+
   const riskForm = byId('riskForm');
   const capitalInput = byId('capitalInput');
   const riskInput = byId('riskInput');
