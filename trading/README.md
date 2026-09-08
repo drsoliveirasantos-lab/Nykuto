@@ -11,7 +11,7 @@ Private personal trading workspace intended for `trading.nykuto.com`.
 - market replay training screen with candle-by-candle reveal;
 - simulated Long/Short positions inside Replay, including optional stop/target handling;
 - compact desktop workspace where Dashboard, Risk, Journal and Plan open as single module views instead of one long scrolling page;
-- `/lab/` Strategy Lab shell for strategy definition, backtest planning, Paper Bot and Shadow validation;
+- `/lab/` Strategy Lab with deterministic strategy configuration and an active historical Backtest V1;
 - no broker execution and no automated real-money trading;
 - no server-side portfolio or credential storage.
 
@@ -30,7 +30,19 @@ Desktop Trading HQ prioritises density because it is a private single-user termi
 3. run the validated rules as a Paper Bot using live-market inputs but fictitious capital;
 4. run a Shadow phase that records trades the system would have taken without sending broker orders.
 
-V1 implements the compact Lab interface and local strategy/risk configuration only. Backtest execution, live Paper Bot scheduling and Shadow monitoring are not represented as active until their engines are actually implemented and validated. Broker execution remains explicitly out of scope.
+Backtest V1 is active. It reuses the allow-listed historical endpoint used by Replay and currently supports three explicit, inspectable signal models:
+
+- EMA crossover;
+- RSI re-entry after an extreme zone;
+- price breakout with a volume confirmation threshold.
+
+Signals are generated only from information available at the close of a candle and simulated entries occur at the following candle's open to avoid same-bar look-ahead. Stops use ATR multiples; targets use the configured R:R. Only one simulated position can be open at a time. The daily trade limit, daily maximum realized loss and pause-after-consecutive-losses rules are enforced during the simulation. A configurable per-trade cost in R is subtracted from results.
+
+If stop and target both fall inside one OHLC candle, V1 conservatively records the stop first because the intrabar path is unknown. An open position at the end of the sample is closed at the final close.
+
+The result surface reports trades, win rate, total R, expectancy, profit factor, maximum drawdown and longest losing streak. The last 30% of chronological candles are treated as a validation segment and displayed separately from the first 70%. This is a basic out-of-sample guardrail, not proof of robustness. Small samples are explicitly labelled.
+
+Paper Bot and Shadow remain visibly OFF. They must not be presented as active until live-market ingestion, scheduling, persistence and monitoring have been implemented and validated. Broker execution remains explicitly out of scope.
 
 ## Market Replay
 
@@ -43,7 +55,7 @@ Historical candles come through the same-origin read-only Pages Function `functi
 - Binance public klines for BTC/ETH/SOL pairs;
 - a public Yahoo Finance chart feed for the selected US ETFs, indices, equities and commodity futures.
 
-The Yahoo chart endpoint is not a contractual Nykuto data source and may change, throttle or limit intraday history. The interface must keep that limitation visible and fail clearly rather than fabricate candles. No market-data credential is committed to Git. A future licensed provider or broker data feed can replace this adapter without changing the replay UI.
+The Yahoo chart endpoint is not a contractual Nykuto data source and may change, throttle or limit intraday history. The interface must keep that limitation visible and fail clearly rather than fabricate candles. No market-data credential is committed to Git. A future licensed provider or broker data feed can replace this adapter without changing the Replay or Backtest UI.
 
 Because an OHLC candle does not reveal the exact intrabar sequence, if both a simulated stop and target are inside the same newly revealed candle the V1 simulator conservatively treats the stop as occurring first. This is an explicit training assumption, not a claim about real execution.
 
