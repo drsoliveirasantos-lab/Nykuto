@@ -1,0 +1,39 @@
+/* Private Trading HQ density layer. Mobile keeps comfortable controls; desktop prioritises information density. */
+.is-module-hidden{display:none!important}
+.section-nav a.is-active{color:var(--text);background:var(--surface-2);border-color:var(--line-strong)}
+
+@media (min-width:900px){
+  :root{
+    --section-title:1.125rem;
+    --subheading:1rem;
+    --item-title:.875rem;
+    --body:.75rem;
+    --meta:.6875rem;
+    --radius:11px;
+  }
+  body{line-height:1.34;overflow-x:hidden}
+  .topbar{padding:.42rem 1rem;min-height:50px}
+  .brand-mark{width:30px;height:30px;border-radius:8px;font-size:.75rem}
+  .brand-wrap{gap:.5rem}.brand-wrap h1{font-size:.9rem}.eyebrow,.panel-kicker{font-size:.625rem}
+  .status-pill{padding:.3rem .5rem;font-size:.625rem}.status-dot{width:5px;height:5px}
+  .ghost-button,.primary-button{min-height:32px;padding:.35rem .58rem;border-radius:8px;font-size:.72rem}
+  .section-nav{top:50px;padding:.28rem 1rem;gap:.18rem}
+  .section-nav a{padding:.3rem .52rem;border:1px solid transparent;border-radius:7px;font-size:.72rem}
+  main{max-width:none}
+  .page-section{padding:.85rem 1rem;scroll-margin-top:85px}
+  .hero-section{padding-top:.7rem}
+  .section-heading{margin-bottom:.55rem;gap:.6rem}.section-heading h2{margin:.08rem 0 .18rem}.section-heading p:not(.eyebrow){font-size:.72rem}
+  .mode-note{padding:.3rem .45rem;font-size:.625rem;border-radius:7px}
+  .kpi-grid{gap:.4rem;margin-bottom:.45rem}.kpi-card{padding:.52rem .62rem}.kpi-value,.result-value{font-size:1rem;margin-top:.12rem}.kpi-meta,.result-meta,.panel-meta{font-size:.625rem}
+  .market-layout{grid-template-columns:minmax(0,1fr) 235px;gap:.45rem}
+  .panel-heading{padding:.46rem .62rem}.panel-heading h3{font-size:.82rem}
+  .chart-frame{height:calc(100vh - 225px);min-height:360px;max-height:none}
+  .rule-list{padding:.1rem .6rem .4rem}.rule-list>div{grid-template-columns:25px 1fr;gap:.4rem;padding:.55rem 0}.rule-list span{width:23px;height:23px;border-radius:6px;font-size:.6rem}.rule-list p{font-size:.69rem}.rule-list strong{font-size:.76rem}
+  .risk-layout{gap:.45rem}.form-panel,.trade-form{padding:.65rem}.form-grid{gap:.45rem}.form-grid label{gap:.22rem}.form-grid label>span{font-size:.7rem}
+  .form-grid input,.form-grid select,.form-grid textarea{min-height:34px;border-radius:7px;padding:.38rem .48rem;font-size:.78rem}
+  .risk-results{gap:.4rem}.result-card{padding:.6rem}
+  .journal-stats{gap:.4rem;margin-bottom:.4rem}.journal-stats article{padding:.5rem .62rem}.journal-stats span{font-size:.7rem}
+  .table-panel{max-height:calc(100vh - 245px);min-height:0}.table-wrap{max-height:calc(100vh - 245px);overflow:auto}table{font-size:.72rem}th,td{padding:.42rem .58rem}th{font-size:.6rem}
+  .checklist{padding:.1rem .65rem}.checklist>label{padding:.58rem 0;gap:.55rem}.checklist>label input{width:16px;height:16px}.checklist>label strong{font-size:.78rem}.checklist>label small{font-size:.69rem}.checklist-footer{padding:.6rem 0}
+  footer{display:none}
+}
