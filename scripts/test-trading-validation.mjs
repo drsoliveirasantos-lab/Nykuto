@@ -115,6 +115,8 @@ test('browser module references existing controls and all imports resolve', () =
   const ui = readFileSync(new URL('../trading/lab/lab-validation.mjs', import.meta.url), 'utf8');
   for (const match of ui.matchAll(/byId\('([^']+)'\)/g)) assert.ok(html.includes(`id="${match[1]}"`), match[1]);
   assert.match(html, /type="module"/);
-  assert.match(html, /id="ivRun"[^>]*disabled/);
+  assert.match(html, /id="ivRun"/);
+  assert.doesNotMatch(html, /id="ivRun"[^>]*disabled/);
+  assert.match(ui, /loadHostedDataset\(\)/);
   assert.match(html, /id="ivResults" hidden/);
 });

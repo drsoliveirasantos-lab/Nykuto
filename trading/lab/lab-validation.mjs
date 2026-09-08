@@ -1,5 +1,6 @@
-import { MAX_BYTES, parseCandles } from './validation-data.mjs';
+import { MAX_BYTES } from './validation-data.mjs';
 import { runValidation } from './validation-engine.mjs';
+import { readDataset, loadHostedDataset } from './validation-source.mjs';
 
 const byId = id => document.getElementById(id);
 const number = new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 2 });
@@ -27,15 +28,14 @@ byId('ivFile').addEventListener('change', async event => {
   const current = ++revision;
   dataset = null; resetResults(); byId('ivRun').disabled = true;
   const file = event.target.files?.[0];
-  if (!file) { status('DONNÉES REQUISES'); message('En attente d’un historique indépendant.'); return; }
+  if (!file) { useHosted(); return; }
   status('LECTURE'); message('Vérification du fichier…');
   try {
     if (file.size > MAX_BYTES) throw new Error('Fichier trop volumineux (12 Mo maximum).');
     const text = await file.text();
-    const parsed = parseCandles(text);
-    const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+    const parsed = await readDataset(text, { filename: file.name });
     if (current !== revision) return;
-    dataset = { ...parsed, filename: file.name, sha256: [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, '0')).join('') };
+    dataset = parsed;
     status('PRÊT', 'active');
     message(`${number.format(parsed.candles.length)} bougies lues. ${parsed.duplicateCount} doublon(s) identique(s) écarté(s). ${parsed.symbolVerified ? 'Colonne symbol : SPY.' : 'Actif déclaré : SPY (pas de colonne symbol pour le vérifier).'} Lance le test pour vérifier la couverture des trois périodes.`);
     byId('ivRun').disabled = false;
@@ -44,6 +44,14 @@ byId('ivFile').addEventListener('change', async event => {
     status('FICHIER À VÉRIFIER', 'warning'); message(error.message || 'Lecture impossible.', true);
   }
 });
+
+function useHosted() {
+  revision++; dataset = null; resetResults(); byId('ivFile').value = '';
+  byId('ivRun').disabled = false;
+  status('DONNÉES INTÉGRÉES', 'active');
+  message('Historique Alpaca prêt. Clique sur « Lancer le Jeu 04 » pour calculer les résultats.');
+}
+byId('ivHosted').addEventListener('click', useHosted);
 
 function render(result) {
   byId('ivBaseline').textContent = `${r(result.baseline.exp)} / trade`;
@@ -79,20 +87,24 @@ function render(result) {
 }
 
 byId('ivRun').addEventListener('click', async () => {
-  if (!dataset || byId('ivRun').disabled) return;
-  resetResults(); byId('ivRun').disabled = true; byId('ivFile').disabled = true;
-  status('CALCUL'); message('Calcul des deux variantes et du scénario à coûts doublés…');
+  if (byId('ivRun').disabled) return;
+  const current = ++revision;
+  resetResults(); byId('ivRun').disabled = true; byId('ivFile').disabled = true; byId('ivHosted').disabled = true;
+  status(dataset ? 'CALCUL' : 'CHARGEMENT'); message(dataset ? 'Calcul des deux variantes et du scénario à coûts doublés…' : 'Chargement de l’historique Alpaca intégré…');
   // Yield once so the busy state is painted; all computations remain in this tab.
   await new Promise(resolve => setTimeout(resolve, 0));
   try {
+    if (!dataset) dataset = await loadHostedDataset();
+    if (current !== revision) return;
+    status('CALCUL'); message('Calcul des deux variantes et du scénario à coûts doublés…');
     const result = runValidation(dataset.candles);
-    result.source = { filename: dataset.filename, sha256: dataset.sha256, symbolVerified: dataset.symbolVerified, duplicateCount: dataset.duplicateCount };
+    result.source = { filename: dataset.filename, sha256: dataset.sha256, symbolVerified: dataset.symbolVerified, duplicateCount: dataset.duplicateCount, provider: dataset.provider, feed: dataset.feed };
     result.calculatedAt = new Date().toISOString();
     render(result); report = result;
     status('TERMINÉ', 'active'); message(`${result.gate.status}. Trois périodes évaluées séparément. Paper Bot et Shadow restent désactivés.`);
   } catch (error) {
-    resetResults(); status('DONNÉES INSUFFISANTES', 'warning'); message(error.message || 'Le test n’a pas pu être calculé.', true);
-  } finally { byId('ivRun').disabled = false; byId('ivFile').disabled = false; }
+    resetResults(); status('À RELANCER', 'warning'); message(error.message || 'Le test n’a pas pu être calculé.', true);
+  } finally { byId('ivRun').disabled = false; byId('ivFile').disabled = false; byId('ivHosted').disabled = false; }
 });
 
 byId('ivExport').addEventListener('click', () => {

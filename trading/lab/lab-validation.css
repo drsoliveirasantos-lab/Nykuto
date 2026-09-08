@@ -6,6 +6,9 @@
 .iv-periods{display:flex;flex-wrap:wrap;gap:.4rem}
 .iv-periods span{padding:.3rem .5rem;border:1px solid var(--line-strong);border-radius:6px;background:var(--surface-2)}
 .iv-meta{font-size:var(--iv-meta);color:var(--muted);overflow-wrap:anywhere}
+.iv-launch{display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap;padding:.75rem;border:1px solid var(--line-strong);border-radius:9px;background:var(--surface)}
+.iv-launch h4{font-size:var(--iv-subtitle);margin:0 0 .25rem}
+.iv-launch p{margin:0;color:var(--muted)}
 .iv-import{display:grid;grid-template-columns:minmax(180px,1fr) minmax(180px,1fr) auto;align-items:center;gap:.75rem;padding:.75rem;border:1px solid var(--line-strong);border-radius:9px;background:var(--surface)}
 .iv-import label{display:grid;gap:.3rem;min-width:0}
 .iv-import label strong{font-size:var(--iv-subtitle)}

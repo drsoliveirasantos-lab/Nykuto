@@ -42,13 +42,46 @@ These are project research guardrails, not universal statistical evidence.
 The Wilson 95% win-rate interval is descriptive: it assumes independent trades
 and is not a confidence interval for profitability or filter improvement.
 
-## Data constraint and import
+## Hosted snapshot and optional import
+
+On 2026-09-08 Alpaca became accessible in ChatGPT. Seven monthly SIP requests
+provided December 2025 through June 2026 at 15-minute resolution. The snapshot
+was filtered against Alpaca's exchange calendar, including the December 24
+early close: 3,758 bars across all 145 expected sessions, no missing regular
+session interval. December contributes 560 preparation bars; the scored windows
+contain 1,014 / 1,118 / 1,066 bars across 39 / 43 / 41 sessions.
+
+The owner requested direct use on the site without downloading or uploading.
+`Lancer le Jeu 04` now fetches `/api/lab/jeu04` and runs the unchanged engine.
+`validation-source.mjs` checks the exact SHA-256 and row count before parsing:
+`218536e880fdc44217f427700abd375fcff156f2af1deaa68bd178f6b12ef6b9`.
+It is a fixed historical snapshot, not a live Alpaca feed. Adjustment settings
+are not exposed by the connector and have not been independently verified.
+
+Cloudflare KV namespace `nykuto-trading-datasets`, production Pages binding
+`TRADING_DATASETS`, stores key `jeu04/spy-15m-2025-12-2026-06-v1.csv` privately.
+Provision the exact UTF-8 CSV through the authenticated Cloudflare API; verify
+its byte length and SHA-256 after write. Never commit the CSV, credentials or
+user tokens. The endpoint validates Cloudflare Access RS256 signatures using
+the organization's public JWKS, plus the Trading HQ audience, issuer and time
+claims. It denies unauthenticated access before reading KV, returns private
+no-store responses, and fails closed when authorization or data is unavailable.
+The Pages production config uses `fail_open: false`. Existing Access policies
+continue to cover the custom hostname, pages.dev and preview hostnames.
+
+The first calculation of this fixed snapshot gives 94 baseline trades
+(-14.139592394964211 R) and 47 filtered trades (-7.614160272285612 R), with the
+filtered result -9.964160272285623 R at doubled costs. The verdict is
+**Non confirmé** and bots remain disabled. These are reproduction checkpoints,
+not hardcoded display results. No rule was changed after inspecting results.
+
+### Earlier provider limitation and local-file fallback
 
 On 2026-09-08 the actual Yahoo chart request for SPY 15m, January–June 2026,
 returned HTTP 422: the requested range must be within the last 60 days. Never
 silently reuse recent data, change timeframe, fabricate bars or declare success.
 
-The UI initially says **Données requises**. It accepts a local CSV (12 MiB and
+The optional local-file section accepts a CSV (12 MiB and
 100,000 rows maximum) with `time,open,high,low,close`, optional `volume,symbol`.
 Unix seconds/milliseconds and ISO timestamps with explicit timezone are accepted;
 timezone-free timestamps are rejected. Common Alpaca `t,o,h,l,c,v` headers also
@@ -65,15 +98,15 @@ at least 13 consecutive bars (allowing genuine shortened sessions).
 These checks do not certify exchange-calendar completeness, absent whole
 sessions, corporate-action adjustment, or provider quality.
 
-CSV data and results stay in the current tab, with no upload or persistence.
+Locally imported CSV data and calculated results stay in the current tab,
+with no upload or persistence. The default hosted snapshot persists in KV.
 The optional JSON report contains the rule version, file name, SHA-256,
 declared-symbol verification, actual coverage, all simulated trades and metrics.
 No broker credential or personal portfolio export belongs in the repository.
 
-Alpaca was identified as a potential source with historical stock bars. Its app
-was not connected when this protocol was authored. Connecting a ChatGPT app does
-not automatically configure a website feed; use retrieved bars through this
-import, or separately implement an authorized server-side data integration.
+Connecting a ChatGPT app does not automatically configure a website feed.
+This integration serves the already retrieved snapshot through the private
+site; it does not connect a brokerage account or place orders.
 
 ## Verification
 

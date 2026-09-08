@@ -79,10 +79,15 @@ scripts/prepare-cloudflare-output.js
 The private `trading/` site is a separate Cloudflare Pages project,
 `trading-nykuto`, publishing that directory directly from `feat/trading-hq-v1`
 during owner validation. It is not part of the main commercial build outputs.
-Its `/lab/` includes a browser-only independent-validation module, with pure
-CSV parsing, indicators and simulation modules. Imported histories remain in
-the tab; see `trading/lab/INDEPENDENT_VALIDATION.md` for its fixed protocol and
-data limitations. `npm run test:trading-validation` runs its regression checks.
+Its `/lab/` includes an independent-validation module, with pure CSV parsing,
+indicators and browser simulation modules. The default Jeu 04 snapshot loads
+from `trading/functions/api/lab/jeu04.js`, backed by the private
+`TRADING_DATASETS` KV binding. Cloudflare Access protects the site and the
+endpoint also verifies the JWT signature, issuer, audience and expiry. Raw
+market data is provisioned only in KV, never Git. Optional imported histories
+remain in the tab. See `trading/lab/INDEPENDENT_VALIDATION.md` for the frozen
+protocol and snapshot identity. `npm run test:trading-validation` covers both
+the engine and private data-loading checks.
 
 `npm run build` creates three equivalent static outputs:
 
