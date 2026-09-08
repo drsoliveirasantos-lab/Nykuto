@@ -22,6 +22,10 @@ export async function onRequest(context) {
     statusText: response.statusText,
     headers
   });
+  const path = new URL(context.request.url).pathname;
+  const labScript = path === '/lab' || path.startsWith('/lab/')
+    ? '<script src="/lab/lab-filtered.js?v=2" defer></script>'
+    : '';
 
   return new HTMLRewriter()
     .on('head', {
@@ -31,7 +35,8 @@ export async function onRequest(context) {
           `<link rel="shortcut icon" type="image/png" href="${MED_NYKUTO_ICON}">` +
           `<link rel="apple-touch-icon" href="${MED_NYKUTO_ICON}">` +
           `<link rel="stylesheet" href="/compact.css?v=1">` +
-          `<script src="/navigation.js?v=1" defer></script>`,
+          `<script src="/navigation.js?v=1" defer></script>` +
+          labScript,
           { html: true }
         );
       }
