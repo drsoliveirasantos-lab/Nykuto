@@ -5,16 +5,15 @@
   const moduleIds = ['dashboard', 'risk', 'journal', 'plan'];
   const modules = moduleIds.map(id => document.getElementById(id)).filter(Boolean);
 
-  function ensureLink(href, label, active = false) {
+  function ensureLink(href, label) {
     if (!nav || nav.querySelector(`a[href="${href}"]`)) return;
     const link = document.createElement('a');
     link.href = href;
     link.textContent = label;
-    if (active) link.classList.add('is-active');
     nav.appendChild(link);
   }
 
-  if (nav) {
+  if (nav && modules.length) {
     ensureLink('/replay/', 'Replay');
     ensureLink('/lab/', 'Lab');
   }
@@ -32,7 +31,7 @@
       });
     }
     if (updateHash) history.replaceState(null, '', `#${id}`);
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    window.scrollTo({ top: 0, behavior: 'auto' });
   }
 
   if (modules.length) {
