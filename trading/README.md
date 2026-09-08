@@ -10,10 +10,27 @@ Private personal trading workspace intended for `trading.nykuto.com`.
 - pre-trade checklist;
 - market replay training screen with candle-by-candle reveal;
 - simulated Long/Short positions inside Replay, including optional stop/target handling;
-- no broker execution and no automated trading;
+- compact desktop workspace where Dashboard, Risk, Journal and Plan open as single module views instead of one long scrolling page;
+- `/lab/` Strategy Lab shell for strategy definition, backtest planning, Paper Bot and Shadow validation;
+- no broker execution and no automated real-money trading;
 - no server-side portfolio or credential storage.
 
-Journal entries, checklist state and the calculator defaults are stored only in browser `localStorage` in V1. Replay trades with a valid stop are appended to the same local journal in R.
+Journal entries, checklist state, calculator defaults and Strategy Lab configuration are stored only in browser `localStorage` in V1. Replay trades with a valid stop are appended to the same local journal in R.
+
+## Compact workspace
+
+Desktop Trading HQ prioritises density because it is a private single-user terminal. The shared `compact.css` layer reduces spacing and UI typography on large screens while keeping mobile form controls large enough for reliable touch input. `navigation.js` turns the Dashboard, Risk, Journal and Plan anchors into mutually exclusive module views so switching modules does not require scrolling through unrelated sections. Replay and Lab remain dedicated routes.
+
+## Strategy Lab
+
+`/lab/` is the control surface for the systematic-trading workflow:
+
+1. define deterministic strategy rules and risk limits;
+2. backtest them on historical data;
+3. run the validated rules as a Paper Bot using live-market inputs but fictitious capital;
+4. run a Shadow phase that records trades the system would have taken without sending broker orders.
+
+V1 implements the compact Lab interface and local strategy/risk configuration only. Backtest execution, live Paper Bot scheduling and Shadow monitoring are not represented as active until their engines are actually implemented and validated. Broker execution remains explicitly out of scope.
 
 ## Market Replay
 
@@ -40,7 +57,7 @@ No API key, broker credential, password or personal portfolio export may be comm
 
 ## Typography
 
-This interface follows `../docs/typography-standard.md`: section titles remain above item titles, body/price text and metadata; form controls remain 16px for mobile usability and icon controls retain accessible touch targets.
+The general Nykuto typography hierarchy still applies, but this single-user trading terminal intentionally uses a denser desktop scale after explicit owner request. Headings remain larger than their subordinate content. Mobile inputs retain larger control text and touch targets for usability.
 
 ## External charts
 
