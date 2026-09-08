@@ -15,8 +15,8 @@ const ASSETS = {
 
 const INTERVALS = {
   '1m': { yahoo: '1m', binance: '1m', lookbackDays: 2, futureDays: 7, binanceMs: 60_000 },
-  '5m': { yahoo: '5m', binance: '5m', lookbackDays: 7, futureDays: 14, binanceMs: 300_000 },
-  '15m': { yahoo: '15m', binance: '15m', lookbackDays: 14, futureDays: 30, binanceMs: 900_000 },
+  '5m': { yahoo: '5m', binance: '5m', lookbackDays: 7, futureDays: 30, binanceMs: 300_000 },
+  '15m': { yahoo: '15m', binance: '15m', lookbackDays: 10, futureDays: 45, binanceMs: 900_000 },
   '1h': { yahoo: '60m', binance: '1h', lookbackDays: 30, futureDays: 60, binanceMs: 3_600_000 },
   '1d': { yahoo: '1d', binance: '1d', lookbackDays: 400, futureDays: 730, binanceMs: 86_400_000 }
 };
@@ -108,7 +108,7 @@ async function fetchYahoo(asset, interval, replayStartMs) {
     };
     if (Number.isFinite(candle.time) && Number.isFinite(candle.open) && Number.isFinite(candle.high) && Number.isFinite(candle.low) && Number.isFinite(candle.close)) candles.push(candle);
   }
-  return candles.slice(0, 3000);
+  return candles.slice(0, 4000);
 }
 
 export async function onRequestGet({ request }) {
