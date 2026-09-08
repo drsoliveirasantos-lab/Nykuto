@@ -344,9 +344,9 @@
       });
       const payload = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(payload.error || 'Données indisponibles pour cette période.');
-      if (!Array.isArray(payload.candles) || payload.candles.length < contextBars + 2) throw new Error('Pas assez de bougies pour créer ce replay. Essaie une date plus récente ou un timeframe plus grand.');
+      if (!Array.isArray(payload.candles)) throw new Error('La source n’a renvoyé aucun chandelier exploitable.');
 
-      candles = payload.candles.map(item => ({
+      const normalized = payload.candles.map(item => ({
         time: Number(item.time),
         open: Number(item.open),
         high: Number(item.high),
@@ -355,11 +355,22 @@
         volume: Number(item.volume || 0)
       })).filter(item => Number.isFinite(item.time) && Number.isFinite(item.open) && Number.isFinite(item.high) && Number.isFinite(item.low) && Number.isFinite(item.close));
 
-      if (candles.length < contextBars + 2) throw new Error('Les données reçues sont insuffisantes pour cette session.');
+      const replayStartTime = Number(payload.replayStartTime);
+      const replayIndex = normalized.findIndex(item => item.time >= replayStartTime);
+      if (!Number.isFinite(replayStartTime) || replayIndex < 0 || replayIndex >= normalized.length - 1) {
+        throw new Error('La source ne fournit pas assez de données autour de la date choisie. Essaie une autre date.');
+      }
+
+      const firstIndex = Math.max(0, replayIndex - Math.max(1, contextBars - 1));
+      candles = normalized.slice(firstIndex);
+      startCursor = replayIndex - firstIndex;
+      if (startCursor < 1 || candles.length < startCursor + 2) {
+        throw new Error('Pas assez de contexte ou de bougies futures pour créer ce replay.');
+      }
+
       loadedAsset = asset;
       loadedLabel = payload.label || asset;
       loadedInterval = interval;
-      startCursor = Math.min(contextBars - 1, candles.length - 2);
       cursor = startCursor;
       position = null;
       lastClosed = null;
@@ -374,7 +385,8 @@
       updateProgress();
       renderSessionStats();
       updatePositionMetrics();
-      setNotice(`${candles.length} bougies chargées via ${payload.source || 'la source de marché'}. Le futur après la bougie ${cursor + 1} est masqué.`, 'success');
+      const hiddenBars = candles.length - cursor - 1;
+      setNotice(`${cursor + 1} bougies de contexte visibles · ${hiddenBars} bougies futures masquées · source : ${payload.source || 'marché'}.`, 'success');
     } catch (error) {
       candles = [];
       cursor = -1;
