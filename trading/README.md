@@ -2,17 +2,17 @@
 
 Private personal trading workspace intended for `trading.nykuto.com`.
 
-## Latest Lab comparison — Jeu 27
+## Latest Lab comparison — Jeu 28
 
-The latest exploratory comparison is `/lab/#reentryGame`: a fresh breakout and
-retest after a same-side exit, at most two trades per day and one microcontract.
-MNQ rises from 36 to 42 trades but falls from +887.50 to +456.50 USD net;
-the six additional entries lose 431 USD. All four configurations fail
-qualification; the May–August reserve remains unscored. The panel shows both
-cost assumptions, the archived Game 23 baseline and observed daily activity.
-The ledger retains 61 configurations from Games 19–27, with no independent
-confirmation. Game 26 and earlier comparisons remain in expandable history.
-See [JEU27_RESULTS.md](lab/JEU27_RESULTS.md).
+The latest exploratory comparison is `/lab/#protectionGame`: a fee-covered
+stop moved only after a completed +1R bar, effective on the next bar. It keeps
+Game 23 fixed150 entries and excludes the Game 27 reentries. MNQ improves from
++887.50 to +931.50 USD on the same 36 trades because one loss becomes zero;
+MES/MGC deteriorate and MYM remains negative. All four fail qualification.
+The panel shows both costs, matched-entry effects, daily activity and limits.
+The ledger retains 65 trials with no independent confirmation; the May–August
+reserve remains unscored. Game 27 and earlier comparisons remain archived.
+See [JEU28_RESULTS.md](lab/JEU28_RESULTS.md).
 
 ## Earlier comparison — Jeu 06
 

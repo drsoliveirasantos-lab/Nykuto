@@ -1,7 +1,7 @@
 {
   "schema": "research-ledger-v1",
-  "scope": "Jeux 19–27 only; earlier studies remain in their own reports",
-  "configurationCount": 61,
+  "scope": "Jeux 19–28 only; earlier studies remain in their own reports",
+  "configurationCount": 65,
   "independentConfirmations": 0,
   "entries": [
     {
@@ -1256,6 +1256,106 @@
       "quantity": 1,
       "context": "breakout-open-at-or-after-previous-same-side-exit-bar-close",
       "comparisons": "Archived Game23 fixed150; no reference rerun or new counting"
+    },
+    {
+      "game": 28,
+      "id": "MNQ/closed-breakeven150",
+      "executionKey": "ad6e0d4d8b4bdcabcc21a592b295deccbb13edc225e76067d7a3bd8f03bb2d13",
+      "freezeSha256": "1b7e6df2a381d4b6b2f8908ed53c20bc9eb8dba97417a09438fe0245a097c6af",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "MNQ/closed-breakeven150",
+      "phase": "train",
+      "start": "2026-01-01",
+      "end": "2026-05-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu28-report.json",
+      "riskCaps": [
+        150
+      ],
+      "dailyLoss": 300,
+      "floorReserve": 100,
+      "quantity": 1,
+      "context": "closed-bar-1R-next-bar-fee-covered-stop",
+      "comparisons": "Archived Game23 fixed150; matched entry and exit-change reconciliation; reference not rerun"
+    },
+    {
+      "game": 28,
+      "id": "MES/closed-breakeven150",
+      "executionKey": "400ed7d43d3766050a3c724cc229b287e7ece8df9ac6074fab9483fb0cc6bb02",
+      "freezeSha256": "1b7e6df2a381d4b6b2f8908ed53c20bc9eb8dba97417a09438fe0245a097c6af",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "MES/closed-breakeven150",
+      "phase": "train",
+      "start": "2026-01-01",
+      "end": "2026-05-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu28-report.json",
+      "riskCaps": [
+        150
+      ],
+      "dailyLoss": 300,
+      "floorReserve": 100,
+      "quantity": 1,
+      "context": "closed-bar-1R-next-bar-fee-covered-stop",
+      "comparisons": "Archived Game23 fixed150; matched entry and exit-change reconciliation; reference not rerun"
+    },
+    {
+      "game": 28,
+      "id": "MYM/closed-breakeven150",
+      "executionKey": "f39737a8b708e0f30f4f921a52480c31cb7b36e5037fc20fee6e22838d18e09d",
+      "freezeSha256": "1b7e6df2a381d4b6b2f8908ed53c20bc9eb8dba97417a09438fe0245a097c6af",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "MYM/closed-breakeven150",
+      "phase": "train",
+      "start": "2026-01-01",
+      "end": "2026-05-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu28-report.json",
+      "riskCaps": [
+        150
+      ],
+      "dailyLoss": 300,
+      "floorReserve": 100,
+      "quantity": 1,
+      "context": "closed-bar-1R-next-bar-fee-covered-stop",
+      "comparisons": "Archived Game23 fixed150; matched entry and exit-change reconciliation; reference not rerun"
+    },
+    {
+      "game": 28,
+      "id": "MGC/closed-breakeven150",
+      "executionKey": "3f17770672977e612b8fa0adad84b495f4fe8160dd9cd22ae2452539ad87c94a",
+      "freezeSha256": "1b7e6df2a381d4b6b2f8908ed53c20bc9eb8dba97417a09438fe0245a097c6af",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "MGC/closed-breakeven150",
+      "phase": "train",
+      "start": "2026-01-01",
+      "end": "2026-05-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu28-report.json",
+      "riskCaps": [
+        150
+      ],
+      "dailyLoss": 300,
+      "floorReserve": 100,
+      "quantity": 1,
+      "context": "closed-bar-1R-next-bar-fee-covered-stop",
+      "comparisons": "Archived Game23 fixed150; matched entry and exit-change reconciliation; reference not rerun"
     }
   ]
 }

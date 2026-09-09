@@ -678,7 +678,7 @@ same-side exit candle closes; at most two trades total per day, one position
 and one microcontract. Rules, 30 dependencies and eight synthetic tests were
 frozen and committed before performance. All four configurations fail; MNQ
 grows from 36 to 42 trades but falls from +887.50 to +456.50 USD net.
-`lab-fresh-reentry.mjs` is the current checksum-pinned panel, showing both costs,
+`lab-fresh-reentry.mjs` is its archived checksum-pinned panel, showing both costs,
 archived equal-risk comparisons, the impact of repeated entries and observed
 daily activity. The new panel uses scoped typography roles with 14px body,
 16px expandable titles, 20px section title and 12px brief metadata.
@@ -687,3 +687,22 @@ retains 61 configurations; reserve May–August stays unscored, with no independ
 confirmation or live/Paper/Shadow activation. Private executions are archived at
 `jeu27/fresh-reentry-v1/manifest.json`. See `trading/lab/JEU27_PROTOCOL.md`,
 `JEU27_RESULTS.md` and `JEU27_ARCHIVE.md`.
+
+
+Game 28 isolates a one-time stop move after a surviving five-minute bar closes
+at +1 original price-risk. `jeu28-protection.mjs` schedules the fee-covered,
+tick-aligned stop for the next bar; `jeu28-engine.mjs` retains Game 23 entries,
+initial risk, targets and account rules. `jeu28-comparison.mjs` pairs identical
+entries to distinguish avoided losses from cut gains. No Game 27 reentries
+are combined with this hypothesis. Thirty-two dependencies were frozen before
+performance. MNQ gains 44 USD from one changed exit, to +931.50 USD on 36 trades,
+while MES/MGC deteriorate and MYM remains negative. All four fail qualification.
+`lab-break-even.mjs` is the current checksum-pinned Lab panel, with both costs,
+matched effects, daily activity and explicit small-sample limits. Game 27 and
+earlier HTML IDs remain archived; the new panel reuses the scoped 14px body,
+16px expandable-title, 20px section-title and 12px metadata roles. The research
+ledger preserves all 61 previous trials and adds four, for 65. Private details
+are stored at `jeu28/closed-breakeven-v1/manifest.json`. See
+`trading/lab/JEU28_PROTOCOL.md`, `JEU28_RESULTS.md` and `JEU28_ARCHIVE.md`.
+Reserve May–August remains unscored; no independent confirmation, collection
+change or live/Paper/Shadow activation.
