@@ -93,8 +93,8 @@
 .lab-archive .iv-content{padding:1.1rem 1.2rem}
 .lab-main .iv-content,.lab-main .iv-table,.lab-main .iv-intro,.lab-main .iv-message,.lab-main .iv-help{font-size:var(--lab-body)}
 .lab-main .iv-help p,.lab-main .iv-verdict p{font-size:var(--lab-body);line-height:1.65}
-#reentryGame,#protectionGame{--lab-section:1.25rem;--lab-heading:1.125rem;--lab-card:1rem;--lab-body:.875rem;--lab-meta:.75rem}
-#reentryGame .iv-help summary,#protectionGame .iv-help summary{font-size:var(--lab-card)}
+#reentryGame,#protectionGame,#marketProfiles{--lab-section:1.25rem;--lab-heading:1.125rem;--lab-card:1rem;--lab-body:.875rem;--lab-meta:.75rem}
+#reentryGame .iv-help summary,#protectionGame .iv-help summary,#marketProfiles .iv-help summary{font-size:var(--lab-card)}
 .lab-main .iv-launch{margin:.75rem 0;padding:1rem;gap:1rem}
 .lab-main .iv-launch h4,.lab-main .iv-verdict h4{font-size:var(--lab-heading)}
 .lab-main .iv-meta,.lab-main .iv-periods,.lab-main .iv-table caption{font-size:var(--lab-meta)}
@@ -119,3 +119,15 @@
 @media(max-width:850px){.collection-stages{grid-template-columns:1fr}.collection-stages li{border-right:0;border-bottom:1px solid var(--line)}.collection-stages li:last-child{border-bottom:0}.collection-overview{gap:1rem;grid-template-columns:1fr}.collection-action{margin-top:.25rem}#view-manual .lab-grid{grid-template-columns:1fr}}
 @media(max-width:560px){.lab-main{padding:1rem .75rem 2rem}.lab-intro{align-items:flex-start;gap:.75rem}.lab-bot-state{padding:.4rem .6rem}.lab-bot-state span{display:none}.lab-tabs{gap:0;justify-content:space-between}.lab-tabs button{padding:.65rem .3rem}.lab-main .panel-heading,.collection-focus .iv-content{padding:1rem}.lab-archive>summary{padding:.9rem .8rem;gap:.6rem;flex-wrap:wrap}.archive-number{padding:.35rem}.archive-title{flex-basis:65%}.archive-state{margin-left:2.5rem}.archive-toggle{margin-left:auto}.collection-journal summary{align-items:flex-start}#collectionCoverage{margin-left:1.4rem;width:100%}.lab-main .lab-status{max-width:100%}#view-manual .lab-form-grid input,#view-manual .lab-form-grid select,#view-manual .backtest-controls input{font-size:1rem;min-height:44px}.collection-refresh-row{align-items:flex-start;flex-direction:column}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+.market-profile-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1rem 0}
+.market-profile-card{min-width:0;padding:1rem;border:1px solid var(--line-strong);border-radius:8px;background:var(--surface)}
+.market-profile-card h4{font-size:var(--lab-card);line-height:1.4;margin:0 0 .75rem}
+.market-profile-card label{display:block;font-size:var(--lab-body);margin-bottom:.35rem}
+.market-profile-card select{width:100%;min-height:44px;font-size:1rem;padding:.45rem;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--text)}
+.market-profile-card p{font-size:var(--lab-body);line-height:1.6;overflow-wrap:anywhere}
+.market-profile-card .profile-state,.market-profile-card .profile-periods{font-size:var(--lab-meta)}
+.profile-reload{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
+.profile-reload button{min-height:44px;font-size:var(--lab-body);padding:.55rem .8rem}
+.profile-reload p{flex:1 1 18rem;font-size:var(--lab-meta);color:var(--muted)}
+@media(max-width:700px){.market-profile-grid{grid-template-columns:minmax(0,1fr)}}

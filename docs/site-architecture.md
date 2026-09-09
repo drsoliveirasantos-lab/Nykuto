@@ -697,7 +697,7 @@ entries to distinguish avoided losses from cut gains. No Game 27 reentries
 are combined with this hypothesis. Thirty-two dependencies were frozen before
 performance. MNQ gains 44 USD from one changed exit, to +931.50 USD on 36 trades,
 while MES/MGC deteriorate and MYM remains negative. All four fail qualification.
-`lab-break-even.mjs` is the current checksum-pinned Lab panel, with both costs,
+`lab-break-even.mjs` is its archived checksum-pinned Lab panel, with both costs,
 matched effects, daily activity and explicit small-sample limits. Game 27 and
 earlier HTML IDs remain archived; the new panel reuses the scoped 14px body,
 16px expandable-title, 20px section-title and 12px metadata roles. The research
@@ -706,3 +706,26 @@ are stored at `jeu28/closed-breakeven-v1/manifest.json`. See
 `trading/lab/JEU28_PROTOCOL.md`, `JEU28_RESULTS.md` and `JEU28_ARCHIVE.md`.
 Reserve May–August remains unscored; no independent confirmation, collection
 change or live/Paper/Shadow activation.
+
+
+The current Lab starts at `#marketProfiles`, with four independent research
+focuses from existing equal-risk Game 23/26/27/28 reports. MNQ/MYM initially
+inspect Game 28 protection, MES Game 23 baseline, and MGC Game 26 closed failure.
+`market-profile-registry.mjs` verifies all source report hashes, creates immutable
+views and never authorizes execution; all execution strategy IDs remain null.
+`lab-market-profiles.mjs` provides per-market menus, both costs, criteria and
+partial-failure recovery without silent fallback. Choices are page-local, with
+no changes to existing account preferences. The latest Game 28 panel and all
+previous HTML IDs remain in expandable history. No new historical performance
+is calculated and the ledger stays at 65 trials.
+`account-risk-supervisor.mjs` computes contract-specific planned risk against
+one shared 150/300 USD research budget and 100 USD floor reserve. It allows
+at most one position or pending proposal and two daily entries, including
+reservations, with common loss brakes, account/session checks and revision
+checks. It is an in-memory research preflight, not an atomic server broker lock;
+future execution requires authoritative fresh state, durable coordination and
+fill/cancellation reconciliation. Every outcome keeps executionAllowed false.
+The Lab's clearly fictitious risk examples exercise this same module.
+See `trading/lab/MARKET_PROFILES.md` and the two market-profile test files.
+No frozen engine, raw history, collection, workflow or secret changes;
+Paper/Shadow/broker/live execution stay disabled.
