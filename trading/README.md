@@ -2,16 +2,31 @@
 
 Private personal trading workspace intended for `trading.nykuto.com`.
 
-## Current Lab — cross-market audit
+## Current Lab — Game 31 market filters
 
-The Lab opens with `/lab/#marketAudit`: 126 distinct normal-cost diagnostic
+The Lab now opens at `/lab/#marketFiltersGame`. Three fixed research variants
+(MES RSI extremes, MGC entries before 11:00 New York, and both) are replayed
+against the unchanged portfolio across five windows/modes and both costs.
+All 40 views include daily/weekly aggregates, market contributions and removed
+winners/losers plus new admissions. The combined normal-cost January–April
+net rises from 492.75 to 1,076.25 USD; August improves from −561.50 to −235.50
+USD but remains negative (−622 USD at doubled costs). Every candidate fails
+the frozen profitability criterion. These observed periods provide no independent
+confirmation and no execution is activated. The append-only ledger totals 70
+configurations; all 67 earlier entries and frozen reports are preserved.
+See [Game 31 results](lab/JEU31_RESULTS.md), [protocol](lab/JEU31_PROTOCOL.md)
+and [private archive manifest](lab/jeu31-archive.json).
+
+## Historical Lab — cross-market audit
+
+The earlier audit remains at `/lab/#marketAudit`: 126 distinct normal-cost diagnostic
 trades, all 67 archived trials reconciled, 264 exit checks and 138 causal context
 prefix checks. Thirty-two views compare winners, losers, unknown confirmations,
 pre-entry features, price-path bounds, sides, hours, weekdays, exits and refusals.
 Initial and doubled costs use explicit matched/unmatched-trade attribution.
 The report distinguishes the August diagnostic from its account model.
 
-MGC's time-of-day split is a future test hypothesis; MNQ's August losing trades
+MGC's time-of-day split was a test hypothesis for Game 31; MNQ's August losing trades
 never reached +1R, and MES/MYM remain weak. No strategy is newly qualified, no
 filter is activated and the ledger remains unchanged. See the complete
 [market audit](lab/MARKET_AUDIT_RESULTS.md) and its
@@ -22,7 +37,7 @@ from oversold/overbought zones below30/above70, their latest-bar exit crossings
 and trade direction. It adds no strategy filter. See
 [RSI zones](lab/RSI_ZONES_RESULTS.md).
 
-## Latest Lab comparison — Jeu 30, August 2026
+## Historical Lab comparison — Jeu 30, August 2026
 
 The August panel remains at `/lab/#augustGame`. Diego explicitly requested August;
 the same Game 29 economic rules were frozen locally before calculating it.

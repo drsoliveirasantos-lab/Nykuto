@@ -14,7 +14,7 @@ test('August report preserves its frozen rules and publishes 21 daily aggregates
     assert.equal(x.calendar.weeks[4].first, '2026-08-31'); assert.equal(x.calendar.weeks[4].expectedSessions, 1);
   }
   const ledger = JSON.parse(await readFile(new URL('../trading/lab/research-ledger.json', import.meta.url)));
-  assert.equal(ledger.entries.length, 67); assert.equal(ledger.configurationCount, 67);
+  assert.equal(ledger.entries.filter(x => x.game <= 30).length, 67); assert.equal(ledger.configurationCount, ledger.entries.length);
   assert.equal(ledger.entries.filter(x => x.game <= 29).length, 66);
   const entry = ledger.entries.find(x => x.game === 30); assert.equal(entry.holdoutStatus, 'evaluated-by-request');
   assert.equal(entry.freezeSha256, r.freezeSha256); assert.equal(entry.economicRulesChanged, false); assert.equal(entry.selected, false);

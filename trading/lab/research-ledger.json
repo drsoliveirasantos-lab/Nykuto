@@ -1,7 +1,7 @@
 {
   "schema": "research-ledger-v1",
-  "scope": "Jeux 19–30 only; earlier studies remain in their own reports",
-  "configurationCount": 67,
+  "scope": "Jeux 19–31 only; earlier studies remain in their own reports",
+  "configurationCount": 70,
   "independentConfirmations": 0,
   "entries": [
     {
@@ -1423,6 +1423,66 @@
       "quantity": 1,
       "economicRulesChanged": false,
       "context": "User-requested August review of unchanged Game29 profiles; no automatic qualification; month consumed for this portfolio"
+    },
+    {
+      "game": 31,
+      "id": "PORTFOLIO/game31-mes-rsi",
+      "executionKey": "e7c34b3a9235c9679b59cf8778c8668a1b3ea16d11d26425640f01c743f56ec2",
+      "freezeSha256": "dcf7f29698cdb6d173aef5f8977ce5424be4042d487d5854ab7051f91518899b",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "PORTFOLIO/game31-mes-rsi",
+      "phase": "observed-period-research",
+      "start": "2026-01-01",
+      "end": "2026-09-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "already-observed",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu31-report.json",
+      "executionAllowed": false,
+      "diagnosticImprovementPassed": false,
+      "context": "Three fixed market-filter configurations; Jan–Apr and August replayed separately; no May–July data used; no independent confirmation"
+    },
+    {
+      "game": 31,
+      "id": "PORTFOLIO/game31-mgc-morning",
+      "executionKey": "443ef2906dec42b69fe4e77aa8b5f6f18277c35e64fc7b2d69b2dea430e9175f",
+      "freezeSha256": "dcf7f29698cdb6d173aef5f8977ce5424be4042d487d5854ab7051f91518899b",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "PORTFOLIO/game31-mgc-morning",
+      "phase": "observed-period-research",
+      "start": "2026-01-01",
+      "end": "2026-09-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "already-observed",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu31-report.json",
+      "executionAllowed": false,
+      "diagnosticImprovementPassed": false,
+      "context": "Three fixed market-filter configurations; Jan–Apr and August replayed separately; no May–July data used; no independent confirmation"
+    },
+    {
+      "game": 31,
+      "id": "PORTFOLIO/game31-combined",
+      "executionKey": "46e9ca7e44f79e58a047db21ca4a7faa1782632da69f95a1fe1099c5681acea3",
+      "freezeSha256": "dcf7f29698cdb6d173aef5f8977ce5424be4042d487d5854ab7051f91518899b",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "PORTFOLIO/game31-combined",
+      "phase": "observed-period-research",
+      "start": "2026-01-01",
+      "end": "2026-09-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "already-observed",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu31-report.json",
+      "executionAllowed": false,
+      "diagnosticImprovementPassed": false,
+      "context": "Three fixed market-filter configurations; Jan–Apr and August replayed separately; no May–July data used; no independent confirmation"
     }
   ]
 }

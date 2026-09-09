@@ -7,7 +7,16 @@ const raw = await readFile(new URL('../trading/lab/market-audit-report.json', im
 test('market audit reconciles all 67 archived trials, 126 distinct observations and immutable sources', async () => {
   const r = await verifyMarketAudit(raw), freeze = JSON.parse(await readFile(new URL('../trading/lab/market-audit-freeze.json', import.meta.url)));
   for (const [path, sha] of Object.entries(freeze.files)) assert.equal(createHash('sha256').update(await readFile(new URL('../' + path, import.meta.url))).digest('hex'), sha, path);
-  for (const [path, sha] of Object.entries(r.source.publicFiles)) assert.equal(createHash('sha256').update(await readFile(new URL('../' + path, import.meta.url))).digest('hex'), sha, path);
+  for (const [path, sha] of Object.entries(r.source.publicFiles)) {
+    let bytes = await readFile(new URL('../' + path, import.meta.url));
+    if (path === 'trading/lab/research-ledger.json') {
+      // Reconstruct the exact audit-era document from the unchanged first 67 entries.
+      const ledger = JSON.parse(bytes);
+      const historical = { ...ledger, scope: 'Jeux 19–30 only; earlier studies remain in their own reports', configurationCount: 67, entries: ledger.entries.slice(0, 67) };
+      bytes = Buffer.from(JSON.stringify(historical, null, 2) + '\n');
+    }
+    assert.equal(createHash('sha256').update(bytes).digest('hex'), sha, path);
+  }
   assert.equal(r.primary.observations, 126); assert.equal(r.newStrategyTrials, 0); assert.equal(r.inventory.length, 67);
   assert.equal(r.audit.executionChecks, 264); assert.equal(r.audit.contextPrefixChecks, 138);
   const august = r.views.find(v => v.id === 'august' && v.mode === 'diagnostic');
