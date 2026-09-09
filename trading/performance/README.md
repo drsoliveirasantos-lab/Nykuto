@@ -8,6 +8,14 @@ and touch targets 44px. The calendar can scroll inside its panel on narrow scree
 
 ## Data and ownership
 
+September 9 density adjustment: `dashboard-density.css` scopes tighter gaps,
+padding and statistic rows to Dashboard. Calendar cells have a 62px minimum
+(previously 84px desktop / 76px mobile), and traded-day list rows 48px. Existing
+44px touch controls, 16px input text, per-account colors and narrow-screen list
+default remain. The whole-journal summary remains distinct from month/mode totals.
+No journal data or performance calculations change. This follow-up is reviewed
+in source; a new visual browser audit is not claimed.
+
 `performance.mjs` waits for the existing account session and reads only the
 current member's `nykuto-trading-trades-v1` document through `window.Nykuto`.
 It never reads another account, queries a broker or stores data on the device.

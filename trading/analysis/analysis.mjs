@@ -1,47 +1,46 @@
 import { loadAnalysisHistory } from './analysis-source.mjs';
 import { selectAnalysisWindow, aggregateCashHours, analyzeCandles } from './structure-core.mjs';
+import { calculateIndicators, DEFAULT_LAYERS } from './chart-indicators.mjs';
+import { createAnalysisChart } from './chart-view.mjs';
 
 const el = id => document.getElementById(`analysis${id}`);
 const price = n => new Intl.NumberFormat('fr-FR', { minimumFractionDigits:2, maximumFractionDigits:2 }).format(n);
 const stamp = t => new Intl.DateTimeFormat('fr-FR', { timeZone:'America/New_York', day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' }).format(new Date(t * 1000));
 const tickStamp = (t, type) => new Intl.DateTimeFormat('fr-FR', { timeZone:'America/New_York', ...(type===0?{year:'numeric'}:type===1?{month:'short'}:type===2?{day:'2-digit',month:'2-digit'}:{hour:'2-digit',minute:'2-digit'}) }).format(new Date(t * 1000));
-let groups = [], bars = [], endIndex = 0, chart = null, series = null, lines = [], observer = null;
+let groups = [], bars = [], endIndex = 0, chart = null, observer = null, current = null;
+const layers={...DEFAULT_LAYERS};
+const layerLabels={ema:'EMA 9 jaune / 21 bleue',pivots:'HH / LH / HL / LL',bos:'BOS',mss:'MSS ?',breaks:'Autres ruptures',engulfing:'Englobantes',patterns:'Doji / mèches',levels:'Niveaux',rsi:'RSI 14',volume:'Volume',bands:'Bollinger 20'};
 
 function clearResults(message) {
   el('Status').textContent = message;
   el('Results').hidden = true;
   el('EventsPanel').hidden = true;
-  if (series) { series.setData([]); series.setMarkers([]); }
+  current=null;
 }
 function list(id, texts) {
   el(id).replaceChildren(...texts.map(text => { const li=document.createElement('li');li.textContent=text;return li; }));
 }
-function draw(candles, result) {
+function draw() {
+  if(!current)return;
+  const {candles,result,indicators,interval,key}=current;
+  const visible=Object.keys(layers).filter(k=>layers[k]);
+  el('LayerCount').textContent=`${visible.length} affichés`;
+  el('VisibleLayers').textContent=visible.length?visible.map(k=>layerLabels[k]).join(' · '):'Bougies seules · tous les indicateurs sont masqués.';
+  const lastRsi=indicators.rsi.at(-1)?.value;
+  el('RsiValue').textContent=lastRsi===undefined?'RSI indisponible : au moins 15 bougies sont nécessaires.':`Dernière bougie : ${price(lastRsi)} · repères 30 / 70, sans signal d’ordre.`;
   try {
     if (!chart) {
       if (!window.LightweightCharts) throw new Error('Chart unavailable');
-      const host=el('Chart');
-      chart=window.LightweightCharts.createChart(host, {
-        width:host.clientWidth, height:host.clientHeight,
-        layout:{background:{type:'solid',color:'#07111f'},textColor:'#c7d9e8',fontSize:11},
-        grid:{vertLines:{color:'#17283c'},horzLines:{color:'#17283c'}},
-        rightPriceScale:{borderColor:'#263d56'},timeScale:{timeVisible:true,secondsVisible:false,borderColor:'#263d56',tickMarkFormatter:tickStamp},
-        localization:{locale:'fr-FR',timeFormatter:stamp}
-      });
-      series=chart.addCandlestickSeries({upColor:'#34dfbc',downColor:'#fb8b9e',borderVisible:false,wickUpColor:'#34dfbc',wickDownColor:'#fb8b9e',priceFormat:{type:'price',precision:2,minMove:0.25}});
-      observer=new ResizeObserver(()=>{if(!el('Results').hidden)chart.resize(host.clientWidth,host.clientHeight);});
-      observer.observe(host);
+      chart=createAnalysisChart(window.LightweightCharts,{price:el('Chart'),rsi:el('RsiChart'),rsiPanel:el('RsiPanel')},{tick:tickStamp,stamp});
+      observer=new ResizeObserver(()=>{if(chart&&!el('Results').hidden)chart.resize();});
+      observer.observe(el('Chart'));
     }
-    series.setData(candles.map(({time,open,high,low,close})=>({time,open,high,low,close})));
-    // Mark the breaking candle, never a pivot before its confirmation time.
-    series.setMarkers(result.events.map(e=>({time:e.time,position:e.direction==='up'?'belowBar':'aboveBar',color:e.direction==='up'?'#34dfbc':'#fb8b9e',shape:'circle',text:e.kind==='MSS potentiel'?'MSS ?':e.kind==='BOS'?'BOS':'Rupture'})));
-    lines.forEach(line=>series.removePriceLine(line));lines=[];
-    [result.activeHigh,result.activeLow].filter(Boolean).forEach(p=>lines.push(series.createPriceLine({price:p.price,color:p.type==='high'?'#81bfff':'#f0c078',lineWidth:1,lineStyle:2,axisLabelVisible:true,title:p.type==='high'?'Sommet':'Creux'})));
-    chart.timeScale().fitContent();
+    chart.draw(candles,result,indicators,interval,layers,key);
     el('ChartError').hidden=true;el('Fit').disabled=false;
   } catch {
     // Text remains usable if the external chart library is blocked.
-    if (chart) { observer?.disconnect();chart.remove();chart=null;series=null;lines=[]; }
+    if (chart) { observer?.disconnect();chart.destroy();chart=null; }
+    el('RsiPanel').hidden=true;
     el('ChartError').hidden=false;el('Fit').disabled=true;
   }
 }
@@ -76,7 +75,8 @@ function render() {
     el('EndIndex').setAttribute('aria-valuetext',`Fin le ${stamp(r.closedAt)} à New York`);
     el('Previous').disabled=endIndex===0;el('Next').disabled=endIndex===bars.length-1;
     el('EndDate').value=bars[endIndex].day;
-    draw(candles,r);
+    current={candles,result:r,indicators:calculateIndicators(candles),interval,key:`${el('Contract').value}:${interval}:${r.first}:${r.last}:${r.count}`};
+    draw();
   } catch(error) { clearResults(error.message); }
 }
 function rebuild(resetDate=false) {
@@ -85,6 +85,7 @@ function rebuild(resetDate=false) {
   bars=Number(el('Interval').value)===3600?aggregateCashHours(group.candles):group.candles;
   if(!bars.length)throw new Error('Aucune bougie complète disponible.');
   const date=el('EndDate');date.min=bars[0].day;date.max=bars.at(-1).day;
+  el('DateRange').textContent=`Ce contrat : du ${date.min.split('-').reverse().join('/')} au ${date.max.split('-').reverse().join('/')}. La fin retenue est la dernière bougie disponible au plus tard ce jour-là.`;
   if(resetDate||!date.value||date.value<date.min||date.value>date.max)date.value=date.max;
   setDateEndpoint();
 }
@@ -99,8 +100,13 @@ function safely(action) { try {action();} catch(error) {clearResults(error.messa
 async function reload() {
   el('Reload').disabled=true;el('Inputs').disabled=true;
   clearResults('Chargement et vérification de l’historique…');
-  try { await window.Nykuto?.ready;groups=await loadAnalysisHistory();rebuild();el('Inputs').disabled=false; }
-  catch(error) { groups=[];bars=[];clearResults(error.message); }
+  el('Availability').textContent='Vérification de la dernière séance disponible…';
+  try {
+    await window.Nykuto?.ready;groups=await loadAnalysisHistory();rebuild();el('Inputs').disabled=false;
+    const latest=latestGroup().candles.at(-1);
+    el('Availability').textContent=`Historique disponible jusqu’au ${latest.day.split('-').reverse().join('/')} · séance américaine. Il n’y a pas de flux MNQ en direct : une journée plus récente ne peut pas encore être analysée ici. Recharger relit ce même historique vérifié.`;
+  }
+  catch(error) { groups=[];bars=[];clearResults(error.message);el('Availability').textContent='Historique indisponible : impossible de vérifier la dernière séance pour le moment.'; }
   finally {el('Reload').disabled=false;}
 }
 el('Form').addEventListener('submit',e=>{e.preventDefault();safely(()=>el('EndDate').value===bars[endIndex]?.day?render():setDateEndpoint());});
@@ -115,6 +121,18 @@ el('Count').addEventListener('input',()=>{
 el('EndIndex').addEventListener('input',()=>{endIndex=Number(el('EndIndex').value);render();});
 el('Previous').addEventListener('click',()=>{endIndex=Math.max(0,endIndex-1);render();});
 el('Next').addEventListener('click',()=>{endIndex=Math.min(bars.length-1,endIndex+1);render();});
-el('Fit').addEventListener('click',()=>chart?.timeScale().fitContent());
+function latestGroup(){return groups.reduce((latest,g)=>!latest||g.candles.at(-1).time>latest.candles.at(-1).time?g:latest,null);}
+el('Latest').addEventListener('click',()=>safely(()=>{el('Contract').value=latestGroup().ticker;rebuild(true);}));
+el('LayerInputs').addEventListener('change',event=>{
+  const input=event.target;
+  if(input.type==='checkbox'&&Object.hasOwn(layers,input.name)){layers[input.name]=input.checked;draw();}
+});
+function setLayers(values){
+  for(const key of Object.keys(layers)){layers[key]=!!values[key];el('LayerInputs').querySelector(`[name="${key}"]`).checked=layers[key];}
+  draw();
+}
+el('LayerReset').addEventListener('click',()=>setLayers(DEFAULT_LAYERS));
+el('LayerClear').addEventListener('click',()=>setLayers({}));
+el('Fit').addEventListener('click',()=>chart?.fit());
 el('Reload').addEventListener('click',reload);
 reload();

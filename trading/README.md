@@ -52,6 +52,12 @@ Journal entries, preparations, checklist state, calculator defaults and Strategy
 
 ## Compact workspace
 
+The Dashboard's dedicated density stylesheet reduces calendar and card spacing
+without reducing touch targets. The common menu exposes `Connexions`, linking to
+`/account/#connections`. This page explains the available personal TradingView
+webhook inbox and the unimplemented broker/history sync. Each user must configure
+their alert on TradingView; an internal test alone does not confirm delivery.
+
 The Dashboard now includes a personal monthly calendar, cumulative R curve, daily
 trade detail and mode/timezone filters. It uses the authenticated user's journal,
 with explicit data-quality and legacy-date notices. New entries carry closing
@@ -97,6 +103,11 @@ bars and an endpoint. A native chart and explanations use exactly that window:
 confirmed highs/lows, potential MSS/BOS, EMA direction and candle shapes. Data
 comes from the existing verified private Jeu 09 history; it is not live or taken
 from the TradingView widget. See `analysis/README.md` for rules, limits and checks.
+
+A chart menu now toggles trend EMAs, confirmed HH/HL/LH/LL, BOS, potential MSS,
+other breaks, engulfing and other candle shapes, pivot levels, RSI14, volume and
+Bollinger bands. Visibility does not change the analysis or reset the zoom.
+The last available historical session and per-contract date limits are explicit.
 
 ## Market Replay
 

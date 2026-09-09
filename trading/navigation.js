@@ -12,7 +12,7 @@
     [modules.length?'#plan':'/#plan','Plan'],
     ['/analysis/','Analyse'],['/replay/','Replay'],['/lab/','Lab'],
     ['/discipline/','Avant un trade'],['/alerts/','Alertes'],
-    ['/account/#feedback','Retours'],['/account/','Mon compte'],['/cdn-cgi/access/logout','Déconnexion']
+    ['/account/#connections','Connexions'],['/account/#feedback','Retours'],['/account/','Mon compte'],['/cdn-cgi/access/logout','Déconnexion']
   ];
   nav.replaceChildren(...entries.map(([href,label])=>{const a=document.createElement('a');a.href=href;a.textContent=label;return a;}));
   const menu=document.createElement('button');menu.type='button';menu.className='site-menu';menu.setAttribute('aria-controls',nav.id);
@@ -26,7 +26,7 @@
     nav.querySelectorAll('a').forEach(a=>{
       const url=new URL(a.href),path=location.pathname.replace(/\/$/,'')||'/';
       const active=modules.length?a.getAttribute('href')===`#${id}`
-        : (url.pathname.replace(/\/$/,'')||'/')===path && (path==='/account'?url.hash===(location.hash==='#feedback'?'#feedback':''):!url.hash);
+        : (url.pathname.replace(/\/$/,'')||'/')===path && (path==='/account'?url.hash===(['#feedback','#connections'].includes(location.hash)?location.hash:''):!url.hash);
       a.classList.toggle('is-active',active);
       if(active){a.setAttribute('aria-current',modules.length?'location':'page');label=a.textContent;}else a.removeAttribute('aria-current');
     });

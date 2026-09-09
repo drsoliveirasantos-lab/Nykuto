@@ -90,3 +90,31 @@ PR 83. Un ancien déploiement réussi ne valide pas cette correction.
 Les données privées, les protocoles du bot et les tâches de collecte/test MNQ
 restent inchangés. L’aperçu local, son journal fictif et l’historique de prix ne
 font pas partie des fichiers publiés.
+
+## Suivi demandé le 9 septembre : densité et compréhension
+
+Le Dashboard reçoit des marges réduites, une ligne de résumé plus compacte,
+des statistiques resserrées et des cases de calendrier de 62 px minimum.
+Les champs de 16 px et les cibles tactiles de 44 px sont préservés. Les couleurs
+personnelles, le mode liste mobile et les calculs du journal restent identiques.
+
+Analyse indique la dernière séance du fichier réellement vérifié et ajoute un
+raccourci vers cette séance. Le menu « Indicateurs et repères » explique et permet
+de masquer chaque famille de tracés. Le RSI a une échelle séparée ; les repères
+HH/HL sont placés à leur confirmation, jamais avant. Le compte rendu conserve
+le même périmètre même lorsqu'un indicateur est masqué.
+
+Le menu commun expose « Connexions ». La page distingue réception d'alertes
+TradingView, test interne et import courtier encore indisponible. Vérification
+en lecture seule des trois comptes actifs : configuration de réception présente,
+aucun événement TradingView enregistré dans les boîtes au moment du contrôle.
+Aucune alerte, donnée de compte ou donnée de trading n'a été modifiée pour ce test.
+
+Ce suivi comprend des contrôles de calcul et de code, sans nouvel audit visuel
+dans un navigateur. Les limites de l'audit précédent restent applicables.
+
+Validation de ce suivi : 78 tests de trading et 72 sélections sur le vrai
+historique MNQ validés. Build, hygiène sans anomalie, 25 Pages Functions,
+syntaxe JavaScript, références et ancres des quatre pages concernées réussis.
+Ces contrôles techniques ne prouvent pas la rentabilité d'un bot ni le rendu
+du moteur de graphique dans le navigateur des membres.

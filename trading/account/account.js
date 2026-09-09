@@ -13,6 +13,10 @@
     catch (error) { $('profileStatus').textContent = error.message; button.disabled = false; }
   });
   if (!user.complete) return;
+  // The private sections appear only after the session loads; restore deep links.
+  if (['#connections','#feedback'].includes(location.hash)) requestAnimationFrame(() => {
+    document.getElementById(location.hash.slice(1))?.scrollIntoView({block:'start'});
+  });
   $('profileIntro').textContent = 'Ton adresse e-mail vérifiée sert d’identifiant. Tu peux mettre à jour ton prénom et ton nom.';
   $('profileForm').querySelector('button').textContent = 'Enregistrer mon profil';
   const connections = app.read('connections', { tradingViewName: '', broker: '', mode: 'paper' });

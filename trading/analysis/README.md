@@ -19,6 +19,41 @@ The chart uses the same Lightweight Charts 4.2.0 standalone dependency as Replay
 The chart failure state preserves the independently calculated text. Both are
 rendered from the same selected array; no data is read from TradingView.
 
+## Display menu — September 9, 2026
+
+The chart menu independently toggles EMA9/21, confirmed HH/LH/HL/LL, BOS,
+potential MSS, other breaks, engulfing bodies, doji/hammer/upper-wick shapes,
+endpoint pivot levels, RSI14, candle volume and Bollinger bands. Essential view
+shows EMA, BOS, potential MSS and endpoint levels. Hide-all keeps the candles.
+Options live only in page memory; there is no new account persistence. H/L denote
+the first high/low, H=/L= equal levels. Swing labels sit on the confirming candle,
+two selected bars after the pivot, never on an unconfirmed historical pivot.
+Merged same-side labels preserve all selected observations at a shared timestamp.
+
+`chart-indicators.mjs` uses only the validated selected array. EMA initialization
+matches the existing structure reading. RSI14 averages the first 14 close changes
+then uses Wilder smoothing; its first value needs 15 candles. All-flat history is
+explicitly neutral (50); one-way gains/losses give 100/0. Bollinger uses a 20-close
+simple average plus/minus two population standard deviations, with no values
+before bar 20. Volume has its own overlay scale and is not added to the price axis.
+No VWAP, divergence detector, live data or new strategy filter is claimed.
+
+`chart-view.mjs` separates drawing from calculations. Visibility changes preserve
+the horizontal viewport and do not recalculate the analysis. A changed selection
+fits the chart. The optional RSI pane has a separate 0–100 scale, 30/70 reference
+lines, warm-up whitespace and the price chart's logical range. Pan/zoom the price
+chart to navigate both; its viewport still does not change the analysed window.
+
+The availability message derives the last session from the verified snapshot
+(August 31, 2026 for this delivery). The latest-session button selects its actual
+contract and endpoint. Reload does not imply obtaining today's prices. Per-contract
+date bounds and the actual endpoint remain explicit. No current prices are invented.
+
+Tests cover Wilder arithmetic, flat/one-way cases, Bollinger warm-up and deviation,
+prefix causality, selected-context independence, swing labels and confirmation,
+marker visibility, independent scales and viewport retention. The chart-adapter
+test is a programmatic API stub, not a browser rendering check.
+
 ## Defined observations
 
 - Strict swing: two lower highs / higher lows on each side. A pivot becomes known
