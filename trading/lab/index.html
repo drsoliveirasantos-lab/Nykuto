@@ -31,6 +31,7 @@
   <script src="./lab-admission-risk.mjs?v=1" type="module"></script>
   <script src="./lab-combined-context.mjs?v=1" type="module"></script>
   <script src="./lab-graded-risk.mjs?v=1" type="module"></script>
+  <script src="./lab-failed-breakout.mjs?v=1" type="module"></script>
   <link rel="stylesheet" href="./lab-market.css?v=2">
   <link rel="stylesheet" href="./lab-workspace.css?v=3">
   <script src="./lab-workspace.mjs?v=2" type="module"></script>
@@ -69,6 +70,23 @@
     </div>
     <noscript><p>Active JavaScript pour changer de vue et consulter le suivi.</p></noscript>
     <div id="view-current" class="lab-view" role="tabpanel" aria-labelledby="tab-current" tabindex="0">
+    <section class="panel independent-game market-game" id="failureGame" aria-labelledby="failureTitle">
+      <div class="panel-heading"><div><p class="panel-kicker">JEU 26 · CASSURE ÉCHOUÉE</p><h3 id="failureTitle">Attendre le retour dans la zone améliore-t-il les entrées ?</h3></div><span class="lab-status planned" id="failureStatus">Lecture du bilan…</span></div>
+      <div class="iv-content"><p class="iv-intro">Une nouvelle famille issue de la recherche publique : cassure clôturée, puis retour confirmé dans la zone d’ouverture. Stop derrière toute l’excursion, cible limitée par la borne opposée. Un microcontrat, plafond 150 $.</p><p class="iv-message" id="failureMessage" role="status" aria-live="polite">Chargement des résultats vérifiés.</p>
+        <div id="failureResults" hidden>
+          <div class="timeframe-filters"><div><label for="failureCosts">Hypothèse de coûts</label><select id="failureCosts"><option value="normal">Initiale · selon le contrat</option><option value="stress">Coûts doublés</option></select></div></div>
+          <div class="iv-table-wrap" role="region" aria-label="Résultats de la cassure échouée" tabindex="0"><table class="iv-table"><caption>Janvier–avril 2026, séances évaluables. L’ancien Jeu 23 est lu en archive au même plafond : ces colonnes ne sont pas des gains à additionner. Les huit critères de sélection comprennent les deux coûts.</caption><thead><tr><th scope="col">Contrat</th><th scope="col">Trades</th><th scope="col">Net $</th><th scope="col">Net R</th><th scope="col">Ancien Jeu 23</th><th scope="col">Drawdown $</th><th scope="col">Critères</th></tr></thead><tbody id="failureComparison"></tbody></table></div>
+          <details class="iv-help" open><summary>Pourquoi aucun marché n’est qualifié</summary><ul id="failureChecks"></ul><p>Un total positif ne suffit pas : MGC fait +672,50 $ en janvier–février, puis −36 $ en mars–avril. Aucune sélection ; réserve mai–août non calculée. Les données déjà vues restent du développement.</p></details>
+          <details class="iv-help" open><summary>Un rebond ne suffit pas à déclencher un trade</summary><p>Le bot attend une cassure clôturée puis une réintégration clôturée dans les 30 minutes. Une mèche, une bougie verte encore en formation ou une baisse qui reste hors de la zone ne suffit pas. La zone est construite de 09:30 à 10:00 New York ; aucune entrée avant sa formation.</p><p>Cette règle précise peut être testée. Elle ne signifie pas que le bot connaît toute l’actualité, lit un carnet d’ordres absent de ses données ou prévoit le marché avec certitude.</p></details>
+          <details class="iv-help"><summary>Pourquoi le stress donne parfois un meilleur total</summary><p>Les coûts interviennent aussi dans les refus d’entrée. MNQ conserve 34 des 36 trades : deux pertes sont refusées au plafond frais compris. MGC conserve 23 entrées, en retire quatre et en ajoute une. Le bilan détaille les sommes ; payer davantage n’améliore pas un même trade.</p></details>
+          <details class="iv-help"><summary>Les deux fenêtres et les comptes simulés</summary><div class="iv-table-wrap" role="region" aria-label="Fenêtres du Jeu 26" tabindex="0"><table class="iv-table"><thead><tr><th scope="col">Contrat</th><th scope="col">Période</th><th scope="col">Séances</th><th scope="col">Trades</th><th scope="col">Net $</th><th scope="col">Net R</th><th scope="col">Compte 25K</th></tr></thead><tbody id="failureWindows"></tbody></table></div></details>
+          <details class="iv-help"><summary>Journées et refus d’entrée</summary><ul id="failureActivity"></ul></details>
+          <details class="iv-help"><summary>Comparaison aux opérations archivées du Jeu 23</summary><div class="iv-table-wrap" role="region" aria-label="Rapprochement des trades" tabindex="0"><table class="iv-table"><thead><tr><th scope="col">Contrat</th><th scope="col">Identiques</th><th scope="col">Ajoutés</th><th scope="col">Retirés</th><th scope="col">Écart net</th></tr></thead><tbody id="failureChanges"></tbody></table></div></details>
+          <details class="iv-help"><summary>Sources, règles et limites</summary><p>La recherche a utilisé des contenus publics vidéo/transcription et des échanges publics d’une communauté ayant migré vers Discord. Aucun salon privé Discord consulté. Les règles testées sont notre adaptation explicite ; les gains annoncés par des formateurs ne sont pas une preuve.</p><p>Un microcontrat, plafond 150 $ frais compris, limite quotidienne interne 300 $, réserve 100 $. Aucune règle de qualification abaissée. Les interruptions restent signalées ; 57 configurations conservées. Paper, Shadow et exécution réelle restent désactivés.</p><p><a href="./JEU26_PROTOCOL.md">Sources et protocole</a> · <a href="./JEU26_RESULTS.md">Bilan détaillé</a> · <a href="./research-ledger.json">Registre des essais</a></p></details>
+        </div>
+      </div>
+    </section>
+    <details class="lab-archive"><summary><span class="archive-number">25</span><span class="archive-title"><strong>Risque gradué selon le contexte</strong><small>4 configurations rejetées · aucun candidat</small></span><span class="archive-state neutral">Historique</span><span class="archive-toggle" aria-hidden="true">+</span></summary>
     <section class="panel independent-game market-game" id="gradedGame" aria-labelledby="gradedTitle">
       <div class="panel-heading"><div><p class="panel-kicker">JEU 25 · RISQUE GRADUÉ</p><h3 id="gradedTitle">Adapter le plafond au contexte améliore-t-il le résultat ?</h3></div><span class="lab-status planned" id="gradedStatus">Lecture du bilan…</span></div>
       <div class="iv-content"><p class="iv-intro">Une politique par marché : 50 $ quand les confirmations sont faibles ou incomplètes, 75 $ quand 3 ou 4 familles concordent, 150 $ quand les 5 concordent. Les conditions indispensables de cassure et retour restent obligatoires.</p><p class="iv-message" id="gradedMessage" role="status" aria-live="polite">Chargement des résultats vérifiés.</p>
@@ -85,6 +103,7 @@
         </div>
       </div>
     </section>
+    </details>
     <details class="lab-archive"><summary><span class="archive-number">24</span><span class="archive-title"><strong>Toutes les analyses obligatoires</strong><small>16 configurations · seulement 0 à 2 trades chacune</small></span><span class="archive-state neutral">Historique</span><span class="archive-toggle" aria-hidden="true">+</span></summary>
     <section class="panel independent-game market-game" id="combinedGame" aria-labelledby="combinedTitle">
       <div class="panel-heading"><div><p class="panel-kicker">JEU 24 · ANALYSES COMBINÉES</p><h3 id="combinedTitle">Les signes réunis donnent-ils de meilleures entrées ?</h3></div><span class="lab-status planned" id="combinedStatus">Lecture du bilan…</span></div>

@@ -1,7 +1,7 @@
 {
   "schema": "research-ledger-v1",
-  "scope": "Jeux 19\u201325 only; earlier studies remain in their own reports",
-  "configurationCount": 53,
+  "scope": "Jeux 19–26 only; earlier studies remain in their own reports",
+  "configurationCount": 57,
   "independentConfirmations": 0,
   "entries": [
     {
@@ -973,7 +973,7 @@
       "dailyLoss": 300,
       "floorReserve": 100,
       "quantity": 1,
-      "context": "0\u20132 or missing:50;3\u20134:75;5:150;all indispensable ORB conditions retained",
+      "context": "0–2 or missing:50;3–4:75;5:150;all indispensable ORB conditions retained",
       "comparisons": "Archived Game23 fixed150 and Game24 strict150; not rerun or counted as new"
     },
     {
@@ -1000,7 +1000,7 @@
       "dailyLoss": 300,
       "floorReserve": 100,
       "quantity": 1,
-      "context": "0\u20132 or missing:50;3\u20134:75;5:150;all indispensable ORB conditions retained",
+      "context": "0–2 or missing:50;3–4:75;5:150;all indispensable ORB conditions retained",
       "comparisons": "Archived Game23 fixed150 and Game24 strict150; not rerun or counted as new"
     },
     {
@@ -1027,7 +1027,7 @@
       "dailyLoss": 300,
       "floorReserve": 100,
       "quantity": 1,
-      "context": "0\u20132 or missing:50;3\u20134:75;5:150;all indispensable ORB conditions retained",
+      "context": "0–2 or missing:50;3–4:75;5:150;all indispensable ORB conditions retained",
       "comparisons": "Archived Game23 fixed150 and Game24 strict150; not rerun or counted as new"
     },
     {
@@ -1054,8 +1054,108 @@
       "dailyLoss": 300,
       "floorReserve": 100,
       "quantity": 1,
-      "context": "0\u20132 or missing:50;3\u20134:75;5:150;all indispensable ORB conditions retained",
+      "context": "0–2 or missing:50;3–4:75;5:150;all indispensable ORB conditions retained",
       "comparisons": "Archived Game23 fixed150 and Game24 strict150; not rerun or counted as new"
+    },
+    {
+      "game": 26,
+      "id": "MNQ/failed-breakout150",
+      "executionKey": "e4acc06e2164e2a0b2d3bae24d731093b27f57d46c41b3758af3211e149fa3c6",
+      "freezeSha256": "292867f4d7457d0cf57fd680ad14f8ed3f281ec05874000788715849d6acc9cc",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "MNQ/failed-breakout150",
+      "phase": "train",
+      "start": "2026-01-01",
+      "end": "2026-05-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu26-report.json",
+      "riskCaps": [
+        150
+      ],
+      "dailyLoss": 300,
+      "floorReserve": 100,
+      "quantity": 1,
+      "context": "First closed re-entry within30min after closed OR30 breakout; whole excursion stop; target nearer1.5R/opposite bound",
+      "comparisons": "Archived Game23 fixed150; different signal family; no baseline rerun"
+    },
+    {
+      "game": 26,
+      "id": "MES/failed-breakout150",
+      "executionKey": "5ef75c5c87c29ee090b425ff60734044c11a7b7ac9b26406e032105cba5401fe",
+      "freezeSha256": "292867f4d7457d0cf57fd680ad14f8ed3f281ec05874000788715849d6acc9cc",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "MES/failed-breakout150",
+      "phase": "train",
+      "start": "2026-01-01",
+      "end": "2026-05-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu26-report.json",
+      "riskCaps": [
+        150
+      ],
+      "dailyLoss": 300,
+      "floorReserve": 100,
+      "quantity": 1,
+      "context": "First closed re-entry within30min after closed OR30 breakout; whole excursion stop; target nearer1.5R/opposite bound",
+      "comparisons": "Archived Game23 fixed150; different signal family; no baseline rerun"
+    },
+    {
+      "game": 26,
+      "id": "MYM/failed-breakout150",
+      "executionKey": "37c42aff95e585a760c761fe744358fddcf9e41cbb63a46f0dc13fdd66d9401b",
+      "freezeSha256": "292867f4d7457d0cf57fd680ad14f8ed3f281ec05874000788715849d6acc9cc",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "MYM/failed-breakout150",
+      "phase": "train",
+      "start": "2026-01-01",
+      "end": "2026-05-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu26-report.json",
+      "riskCaps": [
+        150
+      ],
+      "dailyLoss": 300,
+      "floorReserve": 100,
+      "quantity": 1,
+      "context": "First closed re-entry within30min after closed OR30 breakout; whole excursion stop; target nearer1.5R/opposite bound",
+      "comparisons": "Archived Game23 fixed150; different signal family; no baseline rerun"
+    },
+    {
+      "game": 26,
+      "id": "MGC/failed-breakout150",
+      "executionKey": "57aea67a01bab30645feb8b02563391143253771310ec03c2cbabb7f92990b31",
+      "freezeSha256": "292867f4d7457d0cf57fd680ad14f8ed3f281ec05874000788715849d6acc9cc",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "MGC/failed-breakout150",
+      "phase": "train",
+      "start": "2026-01-01",
+      "end": "2026-05-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu26-report.json",
+      "riskCaps": [
+        150
+      ],
+      "dailyLoss": 300,
+      "floorReserve": 100,
+      "quantity": 1,
+      "context": "First closed re-entry within30min after closed OR30 breakout; whole excursion stop; target nearer1.5R/opposite bound",
+      "comparisons": "Archived Game23 fixed150; different signal family; no baseline rerun"
     }
   ]
 }

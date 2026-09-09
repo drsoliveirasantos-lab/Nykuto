@@ -251,3 +251,20 @@ instruction for new and updated interfaces, including sites created from this
 repository. It defines role-based sizes, readable learning content and the
 instruction handoff to future repositories. Adding the instruction does not
 itself change the existing runtime styles.
+
+
+Game 26 introduces a separately frozen closed-failure entry after public
+video/transcript and community research. `jeu26-signals.mjs` requires a closed
+opening-range breakout and a first directional close back inside within 30
+minutes; `jeu26-terms.mjs` anchors the stop to the whole excursion and bounds
+the target at the opposite range edge. One microcontract, fixed150/daily300,
+the Game23 execution/account protections, source gaps and qualification gates
+are retained. All four configurations fail; reserve stays closed and the
+research ledger retains 57 configurations. `lab-failed-breakout.mjs` is the
+current checksum-pinned Lab panel; Game25 and all prior HTML IDs remain in
+expandable history. Private data and trades: `jeu26/failed-breakout-v1/manifest.json`.
+See `trading/lab/JEU26_PROTOCOL.md`, `JEU26_RESULTS.md`, `JEU26_ARCHIVE.md`.
+Public Discord-community archives are distinguished from inaccessible private
+Discord channels. No live, Paper or Shadow execution is enabled. Historical
+PR83 body is preserved in `docs/trading-pr83-history-through-game25.md` to
+allow a concise current PR description within GitHub's length limit.

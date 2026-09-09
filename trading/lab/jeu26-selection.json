@@ -1,0 +1,10 @@
+{
+  "schema": "jeu26-selection-v1",
+  "id": null,
+  "attempted": 4,
+  "cumulativeAttempts": 57,
+  "freezeSha256": "292867f4d7457d0cf57fd680ad14f8ed3f281ec05874000788715849d6acc9cc",
+  "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+  "trainEnd": "2026-05-01",
+  "createdAt": "2026-09-09T13:22:33.947Z"
+}
