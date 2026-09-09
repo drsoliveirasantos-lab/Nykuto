@@ -8,8 +8,8 @@ test('40 frozen market-filter replays reconcile, preserve 67 prior trials and re
   const r=await verifyMarketFilters(raw),freeze=JSON.parse(await readFile(new URL('../trading/lab/jeu31-freeze.json',import.meta.url)));
   for(const [path,sha]of Object.entries(freeze.files))assert.equal(createHash('sha256').update(await readFile(new URL('../'+path,import.meta.url))).digest('hex'),sha,path);
   const ledger=JSON.parse(await readFile(new URL('../trading/lab/research-ledger.json',import.meta.url)));
-  assert.equal(ledger.configurationCount,70);assert.equal(ledger.entries.length,70);assert.equal(ledger.entries.filter(x=>x.game<=30).length,67);
-  assert.equal(ledger.entries.filter(x=>x.game===31).length,3);assert.equal(new Set(ledger.entries.map(x=>x.executionKey)).size,70);
+  assert.equal(ledger.configurationCount,ledger.entries.length);assert.equal(ledger.entries.filter(x=>x.game<=31).length,70);assert.equal(ledger.entries.filter(x=>x.game<=30).length,67);
+  assert.equal(ledger.entries.filter(x=>x.game===31).length,3);assert.equal(new Set(ledger.entries.map(x=>x.executionKey)).size,ledger.entries.length);
   assert.ok(ledger.entries.filter(x=>x.game===31).every(x=>!x.selected&&!x.confirmed&&!x.executionAllowed));
   assert.deepEqual(r.audit,{baselineRuns:10,rsiPrefixes:49,replayPrefixes:1616,executedTrades:1658,passed:true});
   assert.ok(r.evaluations.every(x=>!x.diagnosticImprovementPassed&&!x.checks.find(c=>c.id==='positive-windows').pass));

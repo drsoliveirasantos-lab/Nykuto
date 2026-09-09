@@ -93,8 +93,8 @@
 .lab-archive .iv-content{padding:1.1rem 1.2rem}
 .lab-main .iv-content,.lab-main .iv-table,.lab-main .iv-intro,.lab-main .iv-message,.lab-main .iv-help{font-size:var(--lab-body)}
 .lab-main .iv-help p,.lab-main .iv-verdict p{font-size:var(--lab-body);line-height:1.65}
-#reentryGame,#protectionGame,#marketProfiles,#portfolioGame,#augustGame,#marketAudit,#marketFiltersGame{--lab-section:1.25rem;--lab-heading:1.125rem;--lab-card:1rem;--lab-body:.875rem;--lab-meta:.75rem}
-#reentryGame .iv-help summary,#protectionGame .iv-help summary,#marketProfiles .iv-help summary,#portfolioGame .iv-help summary,#augustGame .iv-help summary,#marketAudit .iv-help summary,#marketFiltersGame .iv-help summary{font-size:var(--lab-card)}
+#reentryGame,#protectionGame,#marketProfiles,#portfolioGame,#augustGame,#marketAudit,#marketFiltersGame,#summerTrendGame{--lab-section:1.25rem;--lab-heading:1.125rem;--lab-card:1rem;--lab-body:.875rem;--lab-meta:.75rem}
+#reentryGame .iv-help summary,#protectionGame .iv-help summary,#marketProfiles .iv-help summary,#portfolioGame .iv-help summary,#augustGame .iv-help summary,#marketAudit .iv-help summary,#marketFiltersGame .iv-help summary,#summerTrendGame .iv-help summary{font-size:var(--lab-card)}
 .lab-main .iv-launch{margin:.75rem 0;padding:1rem;gap:1rem}
 .lab-main .iv-launch h4,.lab-main .iv-verdict h4{font-size:var(--lab-heading)}
 .lab-main .iv-meta,.lab-main .iv-periods,.lab-main .iv-table caption{font-size:var(--lab-meta)}

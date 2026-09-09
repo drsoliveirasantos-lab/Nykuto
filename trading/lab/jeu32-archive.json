@@ -1,0 +1,50 @@
+{
+  "schema": "jeu32-archive-v1",
+  "prefix": "jeu32/summer-trend-sizing-v1/",
+  "namespace": "TRADING_DATASETS",
+  "files": [
+    {
+      "name": "report.json",
+      "bytes": 1412239,
+      "sha256": "0866d4c8b40493a5747ac5aa73251887e1272f2831c9d79f3c525604c4437035",
+      "encoding": "gzip+base64",
+      "parts": [
+        {
+          "key": "jeu32/summer-trend-sizing-v1/report.json.gz.b64.part-000",
+          "bytes": 120000,
+          "sha256": "71d2b67615a45931e6fb6fd33d6237b2bb4681778601588a814a6d639c67f3df"
+        },
+        {
+          "key": "jeu32/summer-trend-sizing-v1/report.json.gz.b64.part-001",
+          "bytes": 2200,
+          "sha256": "1e98283ac80f3975635b15c5b266aaf242beae571717162e084157d046ee8f37"
+        }
+      ]
+    },
+    {
+      "name": "runs-private.json",
+      "bytes": 1832894,
+      "sha256": "573437ac31efa133b6cef198546a7d6d0ae45d9c38fe84a4d0307dd0162feaf2",
+      "encoding": "gzip+base64",
+      "parts": [
+        {
+          "key": "jeu32/summer-trend-sizing-v1/runs-private.json.gz.b64.part-000",
+          "bytes": 120000,
+          "sha256": "7829cd905741e5fb6f4b628c7eda80371f450fc3932618f5150fe4744e6d5c68"
+        },
+        {
+          "key": "jeu32/summer-trend-sizing-v1/runs-private.json.gz.b64.part-001",
+          "bytes": 120000,
+          "sha256": "d7f45a0d42bb246031210689112760ea32c25a35bcd91325969c46cf06c2a592"
+        },
+        {
+          "key": "jeu32/summer-trend-sizing-v1/runs-private.json.gz.b64.part-002",
+          "bytes": 23268,
+          "sha256": "339e69298399b46860cb9fd51ce227a1878b780eef030b1083e15f28d0d61bd9"
+        }
+      ]
+    }
+  ],
+  "confirmed": false,
+  "executionAllowed": false
+}
