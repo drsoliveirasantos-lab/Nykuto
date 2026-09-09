@@ -188,7 +188,10 @@ collection procedure, data boundaries and limitations.
 
 The Lab interface separates `Suivi actuel`, `Tests précédents` and `Test manuel`
 with accessible tabs in `lab-workspace.mjs` and scoped `lab-workspace.css`.
-Jeu 11 opens by default with its separately scored April–May 2025 report.
+Jeux 12–13 open by default with 54 explicit timeframe/session/direction trials
+and the selected Pullback's separate June 2025 control (positive but only eight
+of twelve required trades). Jeu 11 remains available in a disclosure with its
+separately scored April–May 2025 report.
 Jeu 10 remains available in a disclosure with its 2026 exploratory comparison. Jeu 09 remains in a
 disclosure with its original six-month MNQ retrospective result.
 Jeu 08 retains its collection state, next action and three-step calendar in
@@ -209,6 +212,23 @@ are archived privately under `jeu11/` in TRADING_DATASETS, with no new public
 dataset route. See `trading/lab/JEU11_PROTOCOL.md` and `JEU11_RESULTS.md`.
 No new strategy or paper execution adapter is enabled. Existing prospective
 collection/test automations and their rules remain unchanged.
+
+Jeux 12–13 use `jeu12-engine.mjs` for closed 5/15/30-minute signals and a shared
+5-minute execution clock, with next-open entries, tick-rounded stops/targets,
+cash-session boundaries, daily brakes and fully resimulated doubled costs.
+`JEU12_PROTOCOL.md` freezes the first 27 EMA Cross trials; `JEU13_PROTOCOL.md`
+freezes the subsequent 27 Pullback trials and selection rule. The second family
+was formulated after the first failed; it is explicitly adaptive development.
+`JEU13_AVAILABILITY.md` documents a pre-performance June 2025 rollover amendment.
+Preparation/run scripts pin private snapshots, verify full coverage, compare
+every reconstructed 15-minute OHLCV bar with the prior reference, and audit
+signal/simulation prefixes. `lab-timeframes.mjs` renders aggregate-only
+`jeu12-report.json` and `jeu13-report.json`, including losing trials and every
+failed gate; UI filters never recompute or change the selected strategy.
+Raw captures remain in private TRADING_DATASETS under `jeu12/` and `jeu13/`.
+`TIMEFRAME_RESULTS.md` records results and reproducibility;
+`PULLBACK_FORWARD_PROTOCOL.md` fixes a separate future comparison without
+altering either existing MNQ task. No broker or paper execution is enabled.
 
 `trading/account/` adds required first/last-name onboarding, personal settings and
 feedback to the site owner. Cloudflare Access email PIN verifies identity;

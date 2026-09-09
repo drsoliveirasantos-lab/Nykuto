@@ -20,8 +20,9 @@
   <script src="./lab-six-months.mjs?v=1" type="module"></script>
   <script src="./lab-confluence.mjs?v=1" type="module"></script>
   <script src="./lab-jeu11.mjs?v=1" type="module"></script>
+  <script src="./lab-timeframes.mjs?v=1" type="module"></script>
   <link rel="stylesheet" href="./lab-market.css?v=2">
-  <link rel="stylesheet" href="./lab-workspace.css?v=2">
+  <link rel="stylesheet" href="./lab-workspace.css?v=3">
   <script src="./lab-workspace.mjs?v=2" type="module"></script>
 </head>
 <body>
@@ -58,6 +59,25 @@
     </div>
     <noscript><p>Active JavaScript pour changer de vue et consulter le suivi.</p></noscript>
     <div id="view-current" class="lab-view" role="tabpanel" aria-labelledby="tab-current" tabindex="0">
+    <section class="panel independent-game market-game" id="timeframesGame" aria-labelledby="timeframesTitle">
+      <div class="panel-heading"><div><p class="panel-kicker">JEUX 12–13 · MINUTES ET HORAIRES</p><h3 id="timeframesTitle">Pullback en 30 minutes : une piste à confirmer</h3></div><span class="lab-status planned" id="timeframesStatus">Lecture du bilan…</span></div>
+      <div class="iv-content">
+        <p class="iv-intro">54 configurations : 5, 15 et 30 min ; séance entière, Morning ou Afternoon ; Long, Short ou les deux. Deux familles de signaux, avec les mêmes limites de pertes.</p>
+        <p class="iv-message" id="timeframesMessage" role="status" aria-live="polite">Chargement des résultats vérifiés.</p>
+        <div id="timeframesResults" hidden>
+          <div class="mc-summary"><article><h4>Candidate · six mois 2026</h4><strong id="timeframesNet">—</strong><p id="timeframesTrades"></p></article><article><h4>Coûts doublés</h4><strong id="timeframesStress">—</strong><p>Positions et pauses recalculées</p></article><article><h4>Contrôle · juin 2025</h4><strong id="timeframesControl">—</strong><p id="timeframesControlCount"></p></article></div>
+          <div class="iv-verdict"><h4>Ce que le résultat permet de conclure</h4><p id="timeframesVerdict"></p><p>R = risque initial prévu au stop. Ces sommes de R ne sont pas un rendement de compte. Frais hypothétiques : 3,50 $ puis 7 $ par aller-retour et par contrat.</p></div>
+          <details class="iv-help"><summary>Les trois périodes et le contrôle séparé</summary><div class="iv-table-wrap" role="region" aria-label="Périodes de la candidate Pullback" tabindex="0"><table class="iv-table"><thead><tr><th scope="col">Période</th><th scope="col">Trades</th><th scope="col">Net</th><th scope="col">Coûts doublés</th></tr></thead><tbody id="timeframesPeriods"></tbody></table></div><ul id="timeframesControlChecks"></ul><p>Le contrôle sur juin conserve toutes les séances. Dix bougies de préparation de mai manquaient sur MNQU5 ; le passage de MNQM5 à MNQU5 au rollover du 16 juin a été fixé avant tout résultat de ce contrôle, avec une préparation complète par contrat. Aucun prix inventé ni jour évalué retiré.</p></details>
+          <div class="timeframe-filters"><div><label for="timeframesFamily">Famille de signaux</label><select id="timeframesFamily"><option value="pullback">Jeu 13 · Pullback</option><option value="cross">Jeu 12 · EMA Cross</option></select></div><div><label for="timeframesMinutes">Timeframe</label><select id="timeframesMinutes"><option value="all">Tous</option><option value="5">5 min</option><option value="15">15 min</option><option value="30" selected>30 min</option></select></div></div>
+          <p class="iv-meta" id="timeframesCount" role="status" aria-live="polite"></p>
+          <div class="iv-table-wrap" role="region" aria-label="Toutes les configurations testées" tabindex="0"><table class="iv-table"><caption>Les essais perdants restent disponibles. « 6/6 historiques » désigne les critères sur les trois périodes de 2026, sans confirmation prospective.</caption><thead><tr><th scope="col">Minutes</th><th scope="col">Entrées</th><th scope="col">Sens</th><th scope="col">Trades</th><th scope="col">Net</th><th scope="col">Coûts doublés</th><th scope="col">Profit factor</th><th scope="col">Drawdown</th><th scope="col">Critères et périodes</th></tr></thead><tbody id="timeframesRows"></tbody></table></div>
+          <p class="iv-meta" id="timeframesAudit"></p>
+        </div>
+        <details class="iv-help"><summary>Comment fonctionnent les entrées ?</summary><p>EMA Cross attend le croisement EMA 9/21. Pullback cherche un retour vers l’EMA 9 dans une tendance existante : en Long, EMA 9 au-dessus d’EMA 21, low touchant l’EMA 9 et bougie haussière clôturant au-dessus ; conditions inverses en Short. ADX 14 ≥ 20 reste obligatoire.</p><p>Signal sur une bougie entièrement close, exécution à l’open suivant sur les données 5 min. Stop ATR 14 × 1,25, target 1,5 R. Une position, trois entrées/jour maximum ; arrêt après deux pertes consécutives ou −2 R réalisés. Un gap peut dépasser le stop prévu.</p><p>Horaires New York : Full session 09:30–15:45, Morning 09:30–12:00, Afternoon 13:00–15:45, fin exclue. Une position peut rester ouverte après sa plage d’entrée ; sortie au plus tard 15 min avant clôture, y compris les séances raccourcies.</p></details>
+        <details class="iv-help"><summary>Limites et prochaine vérification</summary><p>Les dates 2026 avaient déjà été analysées. La famille Pullback a été formulée après l’échec de la grille EMA Cross : les 54 essais constituent du développement historique. Le choix de la candidate a été fixé avant le contrôle de juin 2025 ; aucune autre candidate n’est choisie après son résultat.</p><p>Le mois de juin 2025 avait déjà servi à préparer un ancien test ; ce contrôle séparé reste rétrospectif. La prochaine comparaison est fixée sur les nouvelles séances du 2 octobre au 30 novembre 2026, après préparation des indicateurs. Le Paper Trading automatique en direct reste à développer. Aucun ordre ni achat n’est activé.</p><p><a href="./JEU12_PROTOCOL.md">Protocole Jeu 12</a> · <a href="./JEU13_PROTOCOL.md">Protocole Jeu 13</a> · <a href="./JEU13_AVAILABILITY.md">Rollover du contrôle</a> · <a href="./PULLBACK_FORWARD_PROTOCOL.md">Prochain contrôle</a> · <a href="./TIMEFRAME_RESULTS.md">Bilan complet</a></p></details>
+      </div>
+    </section>
+    <details class="lab-archive"><summary><span class="archive-number">11</span><span class="archive-title"><strong>Les huit variantes sur avril–mai 2025</strong><small>Retrouver la confrontation précédente</small></span><span class="archive-state neutral">Historique</span><span class="archive-toggle" aria-hidden="true">+</span></summary>
     <section class="panel independent-game market-game" id="jeu11Game" aria-labelledby="jeu11Title">
       <div class="panel-heading"><div><p class="panel-kicker">JEU 11 · NOUVELLE PÉRIODE HISTORIQUE</p><h3 id="jeu11Title">Le bot tient-il sur d’autres dates ?</h3></div><span class="lab-status planned" id="jeu11Status">Lecture du bilan…</span></div>
       <div class="iv-content">
@@ -73,6 +93,7 @@
         <details class="iv-help"><summary>Pourquoi ces dates et quelles limites ?</summary><p>Le protocole et les huit variantes ont été fixés avant le calcul. Les horaires plus anciens sont incomplets chez la source disponible ; avril–mai 2025 a été choisi sur la disponibilité des données, sans consulter sa performance.</p><p>53 séances complètes : 11 de préparation et 42 évaluées. Les 18 avril et 26 mai sont exclus selon le calendrier NYSE. Filtre Events : NFP les 4 avril et 2 mai, CPI les 10 avril et 13 mai, décision FOMC le 7 mai. Ce filtre ne couvre pas toutes les actualités et n’utilise pas un calendrier archivé en temps réel.</p><p>Une seule fenêtre supplémentaire ne remplace pas les trois fenêtres requises. Un petit échantillon positif ne suffit pas. Aucun paramètre n’a été ajusté après ce bilan ; aucune version n’est activée.</p><p><a href="./JEU11_PROTOCOL.md">Protocole du Jeu 11</a> · <a href="https://www.bls.gov/schedule/2025/home.htm" target="_blank" rel="noopener noreferrer">BLS 2025</a> · <a href="https://www.federalreserve.gov/newsevents/pressreleases/monetary20250507a.htm" target="_blank" rel="noopener noreferrer">FOMC du 7 mai</a></p></details>
       </div>
     </section>
+    </details>
     <details class="lab-archive"><summary><span class="archive-number">10</span><span class="archive-title"><strong>Les huit confirmations sur 2026</strong><small>Comparer avec les résultats précédents</small></span><span class="archive-state neutral">Historique</span><span class="archive-toggle" aria-hidden="true">+</span></summary>
     <section class="panel independent-game market-game" id="confluenceGame" aria-labelledby="confluenceTitle">
       <div class="panel-heading"><div><p class="panel-kicker">JEU 10 · COMPRENDRE LES SIGNAUX</p><h3 id="confluenceTitle">Qu’est-ce qui aide vraiment le bot ?</h3></div><span id="confluenceStatus" class="lab-status planned">Vérification…</span></div>
