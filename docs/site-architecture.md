@@ -708,16 +708,16 @@ Reserve May–August remains unscored; no independent confirmation, collection
 change or live/Paper/Shadow activation.
 
 
-The current Lab starts at `#marketProfiles`, with four independent research
-focuses from existing equal-risk Game 23/26/27/28 reports. MNQ/MYM initially
+The market-profile section at `#marketProfiles` was introduced with four
+independent research focuses from existing equal-risk Game 23/26/27/28 reports. MNQ/MYM initially
 inspect Game 28 protection, MES Game 23 baseline, and MGC Game 26 closed failure.
 `market-profile-registry.mjs` verifies all source report hashes, creates immutable
 views and never authorizes execution; all execution strategy IDs remain null.
 `lab-market-profiles.mjs` provides per-market menus, both costs, criteria and
 partial-failure recovery without silent fallback. Choices are page-local, with
 no changes to existing account preferences. The latest Game 28 panel and all
-previous HTML IDs remain in expandable history. No new historical performance
-is calculated and the ledger stays at 65 trials.
+previous HTML IDs remain in expandable history. That profile-only step calculated
+no new historical performance and left the ledger at 65 trials.
 `account-risk-supervisor.mjs` computes contract-specific planned risk against
 one shared 150/300 USD research budget and 100 USD floor reserve. It allows
 at most one position or pending proposal and two daily entries, including
@@ -729,3 +729,24 @@ The Lab's clearly fictitious risk examples exercise this same module.
 See `trading/lab/MARKET_PROFILES.md` and the two market-profile test files.
 No frozen engine, raw history, collection, workflow or secret changes;
 Paper/Shadow/broker/live execution stay disabled.
+
+
+Game 29 is the current Lab panel at `#portfolioGame`, above the independent
+market-profile menus. `jeu29-engine.mjs` regenerates the frozen Game 23/26
+signals and uses Game 28 protection only for MNQ/MYM, with one shared position,
+two daily entries and the existing 150/300 USD budgets. Simultaneous candidates
+use a fixed alphabetical tie-break; a position occupies its whole exit bar.
+All four tapes must be synchronized and each scored session complete on every
+market. Missing sessions are excluded from the entire diagnostic and disclosed,
+never filled with zero or represented as a complete account evaluation.
+The single portfolio configuration returns +492.75 USD on 100 normal-cost
+trades, but March–April loses 190 USD and realized drawdown reaches 13.05R.
+Five criteria fail, no executable selection, no reserve evaluation and no
+independent confirmation. Thirty-seven dependencies were frozen in a local
+commit before performance; all earlier frozen files and 65 ledger entries are
+preserved, with one joint trial added for 66. `lab-portfolio.mjs` verifies the
+aggregate report before displaying both costs, market contributions, daily
+activity, windows and rejection reasons; failure hides old figures and retry
+retains the cost choice. `JEU29_PROTOCOL.md`, `JEU29_RESULTS.md` and
+`JEU29_ARCHIVE.md` document the method and private archive. No account, order,
+Paper/Shadow, source collection, workflow or secret change.

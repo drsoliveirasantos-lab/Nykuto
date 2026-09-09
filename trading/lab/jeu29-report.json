@@ -1,0 +1,800 @@
+{
+  "schema": "jeu29-report-v1",
+  "protocol": "jeu29-shared-portfolio-v1",
+  "generatedAt": "2026-09-09T16:09:43.649Z",
+  "prePerformanceCommit": "1d1c72df33c628a905beed3bf9e97545b8af298a",
+  "freezeSha256": "a4092388b447c49b2a381c6d60e71b630616cf8a7e33929ea25d34f2f2bacb8e",
+  "protocolSha256": "33d1a652bef17a3f79f2fc63357827dd2cce334c761532b3f22e5bd87d325377",
+  "source": {
+    "provider": "Massive",
+    "resolution": "5min",
+    "bytes": 4331838,
+    "sha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+    "mnqBytes": 2426693,
+    "mnqSha256": "028e914bb10ea38b73b6fcbc867c5d81937b967701448913fc88ca85746557cf",
+    "rawPublic": false,
+    "reusedSource": "Jeu19 MES/MYM/MGC and Jeu14 MNQ; previously observed development data",
+    "ledgerBefore": {
+      "configurations": 65,
+      "sha256": "6652b9f251f5315a531cb92a47a7bc0e544163fd070d30ce50ea6fbb55cb10cc"
+    },
+    "profilesCommit": "f11e47ba3ef0bcecb04a078491c1f3d24b0bd71a",
+    "newConfigurations": 1
+  },
+  "policy": {
+    "version": "jeu29-shared-portfolio-v1",
+    "id": "PORTFOLIO/shared150",
+    "from": "2026-01-01",
+    "trainEnd": "2026-05-01",
+    "priorAttempts": 65,
+    "riskPerTrade": 150,
+    "dailyLoss": 300,
+    "floorReserve": 100,
+    "maxTradesPerDay": 2,
+    "maxPositions": 1,
+    "quantity": 1,
+    "tieBreak": "MES,MGC,MNQ,MYM",
+    "coverage": "intersection-of-complete-sessions",
+    "maxDrawdownR": 8,
+    "minimumPF": 1.1,
+    "minimumTrades": 40,
+    "minimumWindowTrades": 12,
+    "independent": false,
+    "confirmed": false,
+    "executionAllowed": false,
+    "brokerEnabled": false,
+    "paperEnabled": false,
+    "shadowEnabled": false,
+    "liveFeed": false
+  },
+  "profiles": [
+    {
+      "symbol": "MES",
+      "strategy": "baseline",
+      "game": 23
+    },
+    {
+      "symbol": "MGC",
+      "strategy": "failure",
+      "game": 26
+    },
+    {
+      "symbol": "MNQ",
+      "strategy": "protection",
+      "game": 28
+    },
+    {
+      "symbol": "MYM",
+      "strategy": "protection",
+      "game": 28
+    }
+  ],
+  "coverage": {
+    "expected": 82,
+    "scored": 80,
+    "missing": [
+      {
+        "day": "2026-02-25",
+        "markets": [
+          "MGC"
+        ]
+      },
+      {
+        "day": "2026-03-06",
+        "markets": [
+          "MES",
+          "MGC",
+          "MNQ"
+        ]
+      }
+    ]
+  },
+  "diagnostic": {
+    "normal": {
+      "status": "diagnostic",
+      "terminalDay": null,
+      "trades": 100,
+      "net": 492.75,
+      "balance": 25492.75,
+      "floor": null,
+      "drawdown": 657.75,
+      "metrics": {
+        "count": 100,
+        "wins": 44,
+        "win": 0.44,
+        "total": 3.494242411596126,
+        "exp": 0.03494242411596126,
+        "pf": 1.0598818884144223,
+        "dd": 13.050877687352566,
+        "winInterval": [
+          0.34671865400968327,
+          0.537720722887437
+        ]
+      },
+      "fees": 403,
+      "daily": {
+        "observed": 80,
+        "positive": 32,
+        "negative": 36,
+        "flatActive": 2,
+        "noTrade": 10,
+        "worst": -237.5
+      },
+      "dailyMean": 6.16,
+      "activeDailyMean": 7.04,
+      "signalCount": 232,
+      "denied": {
+        "occupied": 42,
+        "dailyEntries": 24,
+        "netReward": 19,
+        "sideLimit": 20,
+        "simultaneous": 7,
+        "tradeRisk": 20
+      },
+      "ambiguous": 1,
+      "contributions": [
+        {
+          "symbol": "MES",
+          "strategy": "baseline",
+          "trades": 22,
+          "net": -303.75,
+          "fees": 110,
+          "signals": 41,
+          "denied": {
+            "occupied": 10,
+            "netReward": 4,
+            "sideLimit": 3,
+            "dailyEntries": 2
+          }
+        },
+        {
+          "symbol": "MGC",
+          "strategy": "failure",
+          "trades": 20,
+          "net": 208,
+          "fees": 90,
+          "signals": 78,
+          "denied": {
+            "occupied": 11,
+            "dailyEntries": 11,
+            "netReward": 13,
+            "tradeRisk": 18,
+            "sideLimit": 4,
+            "simultaneous": 1
+          }
+        },
+        {
+          "symbol": "MNQ",
+          "strategy": "protection",
+          "trades": 26,
+          "net": 724.5,
+          "fees": 91,
+          "signals": 54,
+          "denied": {
+            "occupied": 11,
+            "simultaneous": 5,
+            "sideLimit": 5,
+            "tradeRisk": 2,
+            "dailyEntries": 5
+          }
+        },
+        {
+          "symbol": "MYM",
+          "strategy": "protection",
+          "trades": 32,
+          "net": -136,
+          "fees": 112,
+          "signals": 59,
+          "denied": {
+            "dailyEntries": 6,
+            "occupied": 10,
+            "netReward": 2,
+            "sideLimit": 8,
+            "simultaneous": 1
+          }
+        }
+      ],
+      "executionAllowed": false
+    },
+    "stress": {
+      "status": "diagnostic",
+      "terminalDay": null,
+      "trades": 77,
+      "net": 591.75,
+      "balance": 25591.75,
+      "floor": null,
+      "drawdown": 676.5,
+      "metrics": {
+        "count": 77,
+        "wins": 35,
+        "win": 0.45454545454545453,
+        "total": 3.1634735911984135,
+        "exp": 0.04108407261296641,
+        "pf": 1.0706466931028484,
+        "dd": 10.295762190741065,
+        "winInterval": [
+          0.3481397836005049,
+          0.5652711335510607
+        ]
+      },
+      "fees": 622,
+      "daily": {
+        "observed": 80,
+        "positive": 29,
+        "negative": 31,
+        "flatActive": 2,
+        "noTrade": 18,
+        "worst": -246
+      },
+      "dailyMean": 7.4,
+      "activeDailyMean": 9.54,
+      "signalCount": 232,
+      "denied": {
+        "occupied": 38,
+        "dailyEntries": 14,
+        "netReward": 57,
+        "tradeRisk": 25,
+        "sideLimit": 14,
+        "simultaneous": 7
+      },
+      "ambiguous": 1,
+      "contributions": [
+        {
+          "symbol": "MES",
+          "strategy": "baseline",
+          "trades": 15,
+          "net": -273.75,
+          "fees": 150,
+          "signals": 41,
+          "denied": {
+            "occupied": 8,
+            "netReward": 16,
+            "sideLimit": 1,
+            "dailyEntries": 1
+          }
+        },
+        {
+          "symbol": "MGC",
+          "strategy": "failure",
+          "trades": 19,
+          "net": 364,
+          "fees": 171,
+          "signals": 78,
+          "denied": {
+            "occupied": 13,
+            "dailyEntries": 6,
+            "netReward": 14,
+            "tradeRisk": 23,
+            "simultaneous": 1,
+            "sideLimit": 2
+          }
+        },
+        {
+          "symbol": "MNQ",
+          "strategy": "protection",
+          "trades": 27,
+          "net": 800,
+          "fees": 189,
+          "signals": 54,
+          "denied": {
+            "sideLimit": 6,
+            "occupied": 9,
+            "tradeRisk": 2,
+            "simultaneous": 4,
+            "netReward": 1,
+            "dailyEntries": 5
+          }
+        },
+        {
+          "symbol": "MYM",
+          "strategy": "protection",
+          "trades": 16,
+          "net": -298.5,
+          "fees": 112,
+          "signals": 59,
+          "denied": {
+            "netReward": 26,
+            "occupied": 8,
+            "sideLimit": 5,
+            "simultaneous": 2,
+            "dailyEntries": 2
+          }
+        }
+      ],
+      "executionAllowed": false
+    }
+  },
+  "windows": [
+    {
+      "start": "2026-01-01",
+      "end": "2026-03-01",
+      "expected": 39,
+      "scored": 38,
+      "complete": false,
+      "diagnostic": {
+        "normal": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "trades": 49,
+          "net": 682.75,
+          "balance": 25682.75,
+          "floor": null,
+          "drawdown": 288.75,
+          "metrics": {
+            "count": 49,
+            "wins": 25,
+            "win": 0.5102040816326531,
+            "total": 9.872860190091219,
+            "exp": 0.20148694265492284,
+            "pf": 1.3906887666301713,
+            "dd": 5.662539736045748,
+            "winInterval": [
+              0.37467331533409215,
+              0.6442511684059913
+            ]
+          },
+          "fees": 197,
+          "daily": {
+            "observed": 38,
+            "positive": 17,
+            "negative": 17,
+            "flatActive": 1,
+            "noTrade": 3,
+            "worst": -237.5
+          },
+          "dailyMean": 17.97,
+          "activeDailyMean": 19.51,
+          "signalCount": 122,
+          "denied": {
+            "occupied": 26,
+            "dailyEntries": 14,
+            "netReward": 5,
+            "sideLimit": 13,
+            "simultaneous": 6,
+            "tradeRisk": 9
+          },
+          "ambiguous": 0,
+          "contributions": [
+            {
+              "symbol": "MES",
+              "strategy": "baseline",
+              "trades": 11,
+              "net": 18.75,
+              "fees": 55,
+              "signals": 22,
+              "denied": {
+                "occupied": 7,
+                "netReward": 1,
+                "sideLimit": 3
+              }
+            },
+            {
+              "symbol": "MGC",
+              "strategy": "failure",
+              "trades": 9,
+              "net": 158.5,
+              "fees": 40.5,
+              "signals": 42,
+              "denied": {
+                "occupied": 7,
+                "dailyEntries": 11,
+                "netReward": 3,
+                "tradeRisk": 8,
+                "sideLimit": 3,
+                "simultaneous": 1
+              }
+            },
+            {
+              "symbol": "MNQ",
+              "strategy": "protection",
+              "trades": 13,
+              "net": 598,
+              "fees": 45.5,
+              "signals": 26,
+              "denied": {
+                "occupied": 5,
+                "simultaneous": 5,
+                "sideLimit": 2,
+                "tradeRisk": 1
+              }
+            },
+            {
+              "symbol": "MYM",
+              "strategy": "protection",
+              "trades": 16,
+              "net": -92.5,
+              "fees": 56,
+              "signals": 32,
+              "denied": {
+                "dailyEntries": 3,
+                "occupied": 7,
+                "netReward": 1,
+                "sideLimit": 5
+              }
+            }
+          ],
+          "executionAllowed": false
+        },
+        "stress": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "trades": 39,
+          "net": 826.5,
+          "balance": 25826.5,
+          "floor": null,
+          "drawdown": 256,
+          "metrics": {
+            "count": 39,
+            "wins": 20,
+            "win": 0.5128205128205128,
+            "total": 6.9144795732100235,
+            "exp": 0.17729434803102626,
+            "pf": 1.3341689346677668,
+            "dd": 3.6191950464396285,
+            "winInterval": [
+              0.3619910864569657,
+              0.661350712168669
+            ]
+          },
+          "fees": 313,
+          "daily": {
+            "observed": 38,
+            "positive": 16,
+            "negative": 14,
+            "flatActive": 1,
+            "noTrade": 7,
+            "worst": -246
+          },
+          "dailyMean": 21.75,
+          "activeDailyMean": 26.66,
+          "signalCount": 122,
+          "denied": {
+            "occupied": 23,
+            "dailyEntries": 6,
+            "netReward": 30,
+            "tradeRisk": 12,
+            "sideLimit": 6,
+            "simultaneous": 6
+          },
+          "ambiguous": 0,
+          "contributions": [
+            {
+              "symbol": "MES",
+              "strategy": "baseline",
+              "trades": 6,
+              "net": 27.5,
+              "fees": 60,
+              "signals": 22,
+              "denied": {
+                "occupied": 5,
+                "netReward": 10,
+                "sideLimit": 1
+              }
+            },
+            {
+              "symbol": "MGC",
+              "strategy": "failure",
+              "trades": 11,
+              "net": 381,
+              "fees": 99,
+              "signals": 42,
+              "denied": {
+                "occupied": 9,
+                "dailyEntries": 6,
+                "netReward": 3,
+                "tradeRisk": 11,
+                "simultaneous": 1,
+                "sideLimit": 1
+              }
+            },
+            {
+              "symbol": "MNQ",
+              "strategy": "protection",
+              "trades": 14,
+              "net": 613.5,
+              "fees": 98,
+              "signals": 26,
+              "denied": {
+                "sideLimit": 2,
+                "occupied": 4,
+                "tradeRisk": 1,
+                "simultaneous": 4,
+                "netReward": 1
+              }
+            },
+            {
+              "symbol": "MYM",
+              "strategy": "protection",
+              "trades": 8,
+              "net": -195.5,
+              "fees": 56,
+              "signals": 32,
+              "denied": {
+                "netReward": 16,
+                "occupied": 5,
+                "sideLimit": 2,
+                "simultaneous": 1
+              }
+            }
+          ],
+          "executionAllowed": false
+        }
+      },
+      "account": null
+    },
+    {
+      "start": "2026-03-01",
+      "end": "2026-05-01",
+      "expected": 43,
+      "scored": 42,
+      "complete": false,
+      "diagnostic": {
+        "normal": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "trades": 51,
+          "net": -190,
+          "balance": 24810,
+          "floor": null,
+          "drawdown": 657.75,
+          "metrics": {
+            "count": 51,
+            "wins": 19,
+            "win": 0.37254901960784315,
+            "total": -6.378617778495095,
+            "exp": -0.12507093683323717,
+            "pf": 0.8071867557372138,
+            "dd": 13.050877687352568,
+            "winInterval": [
+              0.2532032972099011,
+              0.5097503729966575
+            ]
+          },
+          "fees": 206,
+          "daily": {
+            "observed": 42,
+            "positive": 15,
+            "negative": 19,
+            "flatActive": 1,
+            "noTrade": 7,
+            "worst": -209.5
+          },
+          "dailyMean": -4.52,
+          "activeDailyMean": -5.43,
+          "signalCount": 110,
+          "denied": {
+            "sideLimit": 7,
+            "netReward": 14,
+            "tradeRisk": 11,
+            "simultaneous": 1,
+            "occupied": 16,
+            "dailyEntries": 10
+          },
+          "ambiguous": 1,
+          "contributions": [
+            {
+              "symbol": "MES",
+              "strategy": "baseline",
+              "trades": 11,
+              "net": -322.5,
+              "fees": 55,
+              "signals": 19,
+              "denied": {
+                "netReward": 3,
+                "dailyEntries": 2,
+                "occupied": 3
+              }
+            },
+            {
+              "symbol": "MGC",
+              "strategy": "failure",
+              "trades": 11,
+              "net": 49.5,
+              "fees": 49.5,
+              "signals": 36,
+              "denied": {
+                "netReward": 10,
+                "tradeRisk": 10,
+                "occupied": 4,
+                "sideLimit": 1
+              }
+            },
+            {
+              "symbol": "MNQ",
+              "strategy": "protection",
+              "trades": 13,
+              "net": 126.5,
+              "fees": 45.5,
+              "signals": 28,
+              "denied": {
+                "sideLimit": 3,
+                "occupied": 6,
+                "tradeRisk": 1,
+                "dailyEntries": 5
+              }
+            },
+            {
+              "symbol": "MYM",
+              "strategy": "protection",
+              "trades": 16,
+              "net": -43.5,
+              "fees": 56,
+              "signals": 27,
+              "denied": {
+                "simultaneous": 1,
+                "dailyEntries": 3,
+                "occupied": 3,
+                "sideLimit": 3,
+                "netReward": 1
+              }
+            }
+          ],
+          "executionAllowed": false
+        },
+        "stress": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "trades": 38,
+          "net": -234.75,
+          "balance": 24765.25,
+          "floor": null,
+          "drawdown": 661.75,
+          "metrics": {
+            "count": 38,
+            "wins": 15,
+            "win": 0.39473684210526316,
+            "total": -3.7510059820116157,
+            "exp": -0.09871068373714778,
+            "pf": 0.8442740389714397,
+            "dd": 10.295762190741069,
+            "winInterval": [
+              0.25597859263618905,
+              0.5528241300130403
+            ]
+          },
+          "fees": 309,
+          "daily": {
+            "observed": 42,
+            "positive": 13,
+            "negative": 17,
+            "flatActive": 1,
+            "noTrade": 11,
+            "worst": -217.5
+          },
+          "dailyMean": -5.59,
+          "activeDailyMean": -7.57,
+          "signalCount": 110,
+          "denied": {
+            "sideLimit": 8,
+            "netReward": 27,
+            "tradeRisk": 13,
+            "simultaneous": 1,
+            "occupied": 15,
+            "dailyEntries": 8
+          },
+          "ambiguous": 1,
+          "contributions": [
+            {
+              "symbol": "MES",
+              "strategy": "baseline",
+              "trades": 9,
+              "net": -301.25,
+              "fees": 90,
+              "signals": 19,
+              "denied": {
+                "netReward": 6,
+                "dailyEntries": 1,
+                "occupied": 3
+              }
+            },
+            {
+              "symbol": "MGC",
+              "strategy": "failure",
+              "trades": 8,
+              "net": -17,
+              "fees": 72,
+              "signals": 36,
+              "denied": {
+                "netReward": 11,
+                "tradeRisk": 12,
+                "occupied": 4,
+                "sideLimit": 1
+              }
+            },
+            {
+              "symbol": "MNQ",
+              "strategy": "protection",
+              "trades": 13,
+              "net": 186.5,
+              "fees": 91,
+              "signals": 28,
+              "denied": {
+                "sideLimit": 4,
+                "occupied": 5,
+                "tradeRisk": 1,
+                "dailyEntries": 5
+              }
+            },
+            {
+              "symbol": "MYM",
+              "strategy": "protection",
+              "trades": 8,
+              "net": -103,
+              "fees": 56,
+              "signals": 27,
+              "denied": {
+                "simultaneous": 1,
+                "netReward": 10,
+                "dailyEntries": 2,
+                "occupied": 3,
+                "sideLimit": 3
+              }
+            }
+          ],
+          "executionAllowed": false
+        }
+      },
+      "account": null
+    }
+  ],
+  "checks": [
+    {
+      "id": "coverage",
+      "label": "Deux fenêtres entièrement couvertes",
+      "pass": false
+    },
+    {
+      "id": "count",
+      "label": "Au moins 40 trades au total",
+      "pass": true
+    },
+    {
+      "id": "windowCount",
+      "label": "Au moins 12 trades par fenêtre",
+      "pass": true
+    },
+    {
+      "id": "positive",
+      "label": "Chaque fenêtre positive en R et USD",
+      "pass": false
+    },
+    {
+      "id": "pf",
+      "label": "Profit factor R au moins 1,10",
+      "pass": false
+    },
+    {
+      "id": "dd",
+      "label": "Drawdown réalisé au plus 8 R",
+      "pass": false
+    },
+    {
+      "id": "stress",
+      "label": "Total positif en R et USD avec coûts doublés",
+      "pass": true
+    },
+    {
+      "id": "account",
+      "label": "Aucun seuil franchi dans deux comptes complets",
+      "pass": false
+    }
+  ],
+  "researchPassed": false,
+  "selection": {
+    "id": null,
+    "attempted": 1,
+    "cumulativeAttempts": 66
+  },
+  "holdout": {
+    "status": "not-opened",
+    "reason": "Research portfolio diagnostic only; reserve excluded by protocol"
+  },
+  "confirmed": false,
+  "executionAllowed": false,
+  "audit": {
+    "signalPrefixes": 24960,
+    "replayPrefixes": 320,
+    "trades": 354,
+    "passed": true
+  }
+}

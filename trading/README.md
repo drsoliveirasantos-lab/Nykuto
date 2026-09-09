@@ -2,21 +2,33 @@
 
 Private personal trading workspace intended for `trading.nykuto.com`.
 
+## Latest Lab comparison — Jeu 29
+
+The current Lab opens at `/lab/#portfolioGame`: four profiles are replayed
+chronologically with one position and two daily entries for the entire account.
+The 80 common complete sessions give +492.75 USD on 100 trades, but March–April
+loses 190 USD and realized drawdown reaches 13.05R. Five criteria fail. Both
+windows have missing sessions, so neither is a complete 25K account evaluation.
+The panel shows both costs, market contributions, daily activity and rejected
+candidates. One new joint configuration brings the ledger to 66 trials; reserve
+May–August remains closed and all execution remains disabled. See
+[JEU29_RESULTS.md](lab/JEU29_RESULTS.md) for results, method and limits.
+
 ## Market research profiles
 
-The current Lab opens at `/lab/#marketProfiles`. Four independent profiles
+The profile menus remain at `/lab/#marketProfiles`. Four independent profiles
 inspect existing strategies with separate menus, costs and qualification
 failures. Initial research focuses: Game 28 on MNQ/MYM, Game 23 on MES, Game 26
 on MGC. These are choices made after observing old results; none is independently
-confirmed or enabled for execution. No new market backtest is run, and the
-ledger remains at 65 trials. A shared research preflight models the common
+confirmed or enabled for execution. That interface step ran no new market backtest and left the
+ledger at 65 trials. A shared research preflight models the common
 risk budget, pending reservations and one simultaneous position across markets.
 Its examples are fictitious and no real account is connected. See
 [MARKET_PROFILES.md](lab/MARKET_PROFILES.md) for behavior, tests and limits.
 
-## Latest Lab comparison — Jeu 28
+## Archived Lab comparison — Jeu 28
 
-The latest exploratory experiment remains `/lab/#protectionGame`: a fee-covered
+The preceding exploratory experiment remains `/lab/#protectionGame`: a fee-covered
 stop moved only after a completed +1R bar, effective on the next bar. It keeps
 Game 23 fixed150 entries and excludes the Game 27 reentries. MNQ improves from
 +887.50 to +931.50 USD on the same 36 trades because one loss becomes zero;

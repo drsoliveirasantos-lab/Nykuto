@@ -1,7 +1,7 @@
 {
   "schema": "research-ledger-v1",
-  "scope": "Jeux 19–28 only; earlier studies remain in their own reports",
-  "configurationCount": 65,
+  "scope": "Jeux 19–29 only; earlier studies remain in their own reports",
+  "configurationCount": 66,
   "independentConfirmations": 0,
   "entries": [
     {
@@ -1356,6 +1356,50 @@
       "quantity": 1,
       "context": "closed-bar-1R-next-bar-fee-covered-stop",
       "comparisons": "Archived Game23 fixed150; matched entry and exit-change reconciliation; reference not rerun"
+    },
+    {
+      "game": 29,
+      "id": "PORTFOLIO/shared150",
+      "executionKey": "c4c3b1089bce242f9e58e53d802e2a37d9fd9904f6bdf731d956f0cb66b5c6f1",
+      "freezeSha256": "a4092388b447c49b2a381c6d60e71b630616cf8a7e33929ea25d34f2f2bacb8e",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "PORTFOLIO/shared150",
+      "phase": "train",
+      "start": "2026-01-01",
+      "end": "2026-05-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu29-report.json",
+      "riskPerTrade": 150,
+      "dailyLoss": 300,
+      "floorReserve": 100,
+      "quantity": 1,
+      "context": "Four observed profiles; shared chronological account; fixed alphabetical tie-break; complete-session intersection",
+      "profiles": [
+        {
+          "symbol": "MES",
+          "strategy": "baseline",
+          "game": 23
+        },
+        {
+          "symbol": "MGC",
+          "strategy": "failure",
+          "game": 26
+        },
+        {
+          "symbol": "MNQ",
+          "strategy": "protection",
+          "game": 28
+        },
+        {
+          "symbol": "MYM",
+          "strategy": "protection",
+          "game": 28
+        }
+      ]
     }
   ]
 }
