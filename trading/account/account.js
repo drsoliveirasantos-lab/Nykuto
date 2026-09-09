@@ -23,7 +23,7 @@
   $('tradingViewName').value = connections.tradingViewName; $('broker').value = connections.broker; $('tradingMode').value = connections.mode;
   $('connectionsForm').addEventListener('submit', async event => {
     event.preventDefault(); const button = event.submitter; button.disabled = true;
-    try { await app.set('connections', { tradingViewName: $('tradingViewName').value.trim(), broker: $('broker').value.trim(), mode: $('tradingMode').value }); $('connectionsStatus').textContent = 'Préférences sauvegardées. Le courtier reste non connecté.'; }
+    try { await app.set('connections', { tradingViewName: $('tradingViewName').value.trim(), broker: $('broker').value.trim(), mode: $('tradingMode').value }); $('connectionsStatus').textContent = 'Préférences sauvegardées. Le broker reste non connecté.'; }
     catch (error) { $('connectionsStatus').textContent = error.message; } finally { button.disabled = false; }
   });
   const statuses = { new: 'À examiner', reviewing: 'En cours', done: 'Traité' }, categories = { bug: 'Problème', confusing: 'Clarté', idea: 'Idée', connection: 'Connexion' };

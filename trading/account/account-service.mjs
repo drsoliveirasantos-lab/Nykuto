@@ -49,7 +49,7 @@ export function validateState(key, value) {
   if (key === 'connections') {
     if (Object.keys(value).some(k => !['tradingViewName', 'broker', 'mode'].includes(k))) throw new AccountError('Ne transmets aucun mot de passe ni clé API.');
     boundedText(value.tradingViewName, 80, 'Nom TradingView', false);
-    boundedText(value.broker, 80, 'Courtier', false);
+    boundedText(value.broker, 80, 'Broker', false);
     if (!['paper', 'manual'].includes(value.mode)) throw new AccountError('Mode invalide.');
   }
   const encoded = JSON.stringify(value);

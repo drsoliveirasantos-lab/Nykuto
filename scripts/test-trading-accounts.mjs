@@ -11,6 +11,7 @@ import { onRequest as inbox } from '../trading/functions/api/alerts/index.js';
 import { onRequest as setup } from '../trading/functions/api/alerts/setup.js';
 import worker from '../workers/trading-alerts/worker.mjs';
 import { hash, personalAlerts, readSetup } from '../trading/alerts/alert-service.mjs';
+import { matchingProviders, selectionFor, makePreference } from '../trading/connections/catalog.mjs';
 const origin = 'https://trading.nykuto.com', [owner, a, b] = users;
 const pair = await crypto.subtle.generateKey({ name: 'RSASSA-PKCS1-v1_5', modulusLength: 2048, publicExponent: new Uint8Array([1, 0, 1]), hash: 'SHA-256' }, true, ['sign', 'verify']);
 const jwk = { ...await crypto.subtle.exportKey('jwk', pair.publicKey), kid: 'accounts-test' };
@@ -73,9 +74,9 @@ test('feedback is attributed server-side, idempotent and private to author and o
   assert.equal((await (await feedback(await ctx(env,a,path))).json()).feedback[0].response,update.response);
   assert.equal((await feedback(await ctx(env,a,path,'POST',{...report,id:'new',page:'https://evil.example'}))).status,400);
 });
-test('middleware rejects inactive users, gates onboarding and marks authenticated HTML private', async () => {
+test('middleware rejects inactive users, gates connections onboarding and marks authenticated HTML private', async () => {
   const env={TRADING_USERS:accountDatabase()}; let called=false;
-  const context=await ctx(env,a,'/lab/'); context.next=async()=>{called=true;return new Response('html',{headers:{'Content-Type':'text/html'}});};
+  const context=await ctx(env,a,'/connections/'); context.next=async()=>{called=true;return new Response('html',{headers:{'Content-Type':'text/html'}});};
   env.TRADING_USERS.sql.prepare('UPDATE trading_users SET first_name = ? WHERE id = ?').run('',a.id);
   let response=await middleware(context); assert.equal(response.status,303); assert.equal(response.headers.get('Location'),'/account/'); assert.equal(called,false);
   const api=await ctx(env,a,'/api/replay');api.next=context.next;assert.equal((await middleware(api)).status,428);
@@ -112,4 +113,55 @@ test('browser account state waits for acknowledged writes and does not read anot
   fail=false;
   await Promise.all([app.update(key,current=>[...current,...journal('second')]),app.update(key,current=>[...current,...journal('third')])]);
   assert.deepEqual(Array.from(app.read(key,[]),v=>v.id),['a','second','third']);
+  await app.set('connections',{tradingViewName:'original',broker:'Old broker',mode:'manual'});
+  await Promise.all([
+    app.update('connections',current=>({...current,tradingViewName:'new-name'})),
+    app.update('connections',current=>makePreference(current,'lucid','','paper'))
+  ]);
+  assert.equal(app.read('connections',{}).tradingViewName,'new-name');
+  assert.equal(app.read('connections',{}).broker,'Lucid Trading');
+  fail=true;
+  await assert.rejects(app.update('connections',current=>makePreference(current,'tradovate','','paper')),/Conflict/);
+  assert.equal(app.read('connections',{}).broker,'Lucid Trading');
+});
+
+test('provider filtering distinguishes a prop firm from brokers and accepts accents and case', () => {
+  assert.deepEqual(matchingProviders(' LUCID ','prop').map(p=>p.id),['lucid']);
+  assert.equal(matchingProviders('lucid','broker').length,0);
+  assert.deepEqual(matchingProviders('simulation').map(p=>p.id),['paper']);
+  assert.deepEqual(matchingProviders('platefôrme','broker').map(p=>p.id),['tradovate','ninjatrader']);
+  assert.equal(matchingProviders('missing-provider').length,0);
+});
+
+test('broker preferences round-trip custom names without changing a TradingView name or authorizing orders', () => {
+  const initial={tradingViewName:'existing-name',broker:'My existing broker',mode:'manual'};
+  assert.equal(selectionFor(initial),'other');
+  assert.equal(selectionFor({broker:''}),'');
+  const next=makePreference(initial,'lucid','','manual');
+  assert.deepEqual(next,{tradingViewName:'existing-name',broker:'Lucid Trading',mode:'manual'});
+  assert.equal(selectionFor(next),'lucid');
+  assert.deepEqual(initial,{tradingViewName:'existing-name',broker:'My existing broker',mode:'manual'});
+  assert.equal(makePreference(initial,'other',' Custom broker ','paper').broker,'Custom broker');
+  assert.deepEqual(makePreference(undefined,'paper','','paper'),{tradingViewName:'',broker:'TradingView Paper Trading',mode:'paper'});
+});
+
+test('invalid provider selection, blank custom names and real execution modes are rejected', () => {
+  assert.throws(()=>makePreference({},'unknown','','paper'));
+  assert.throws(()=>makePreference({},'other','   ','paper'));
+  assert.throws(()=>makePreference({},'other','x'.repeat(81),'paper'));
+  assert.throws(()=>makePreference({},'lucid','','live'));
+});
+
+test('connection choices use isolated revision-checked storage and cannot carry broker credentials', async () => {
+  const env={TRADING_USERS:accountDatabase()},path='/api/account/state';
+  const value=makePreference({tradingViewName:'private-name'},'lucid','','paper');
+  const input={key:'connections',value,revision:0};
+  assert.equal((await state(await ctx(env,a,path,'PUT',input))).status,200);
+  assert.deepEqual((await (await state(await ctx(env,b,path))).json()).states,[]);
+  assert.deepEqual((await (await state(await ctx(env,owner,path))).json()).states,[]);
+  assert.deepEqual((await (await state(await ctx(env,a,path))).json()).states[0].value,value);
+  assert.equal((await state(await ctx(env,a,path,'PUT',input))).status,409);
+  assert.equal((await state(await ctx(env,a,path,'PUT',{...input,revision:1,value:{...value,password:'never-store'}}))).status,400);
+  assert.equal((await state(await ctx(env,a,path,'PUT',{...input,revision:1,value:{...value,connected:true}}))).status,400);
+  assert.equal((await state(await ctx(env,a,path,'PUT',{...input,revision:1},{'X-Nykuto-User':b.id}))).status,409);
 });

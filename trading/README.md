@@ -54,8 +54,11 @@ Journal entries, preparations, checklist state, calculator defaults and Strategy
 
 The Dashboard's dedicated density stylesheet reduces calendar and card spacing
 without reducing touch targets. The common menu exposes `Connexions`, linking to
-`/account/#connections`. This page explains the available personal TradingView
-webhook inbox and the unimplemented broker/history sync. Each user must configure
+`/connections/`. Its searchable gallery saves a broker/platform preference in the
+member's existing account state and explains the available personal TradingView
+webhook inbox and the unimplemented broker/history sync. The earlier
+`/account/#connections` form remains compatible. See `connections/README.md`.
+Each user must configure
 their alert on TradingView; an internal test alone does not confirm delivery.
 
 The Dashboard now includes a personal monthly calendar, cumulative R curve, daily

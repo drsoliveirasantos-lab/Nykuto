@@ -118,3 +118,21 @@ historique MNQ validés. Build, hygiène sans anomalie, 25 Pages Functions,
 syntaxe JavaScript, références et ancres des quatre pages concernées réussis.
 Ces contrôles techniques ne prouvent pas la rentabilité d'un bot ni le rendu
 du moteur de graphique dans le navigateur des membres.
+
+## Suivi — galerie Connexions et validation du bot, 9 septembre 2026
+
+La route `/connections/` remplace le simple lien de préférences dans le menu.
+Recherche, catégories, choix par carte, nom personnalisé et sauvegarde explicite
+réutilisent le compte et les révisions existants. Un choix enregistré n'est
+jamais affiché comme une authentification à un broker. L'ancien formulaire de
+compte reste utilisable ; les libellés concernés conservent le terme Broker.
+
+Le guide distingue Lucid (prop firm), ses plateformes, la simulation manuelle,
+les alertes et l'exécution automatique encore absente. Le parcours de validation
+reprend le verdict du Jeu 10 et le protocole prospectif sans changer les critères.
+La grille utilise quatre colonnes sur grand écran, puis trois, deux et une sur
+petit mobile ; descriptions 12 px, détails 11 px, titres plus grands, champs
+16 px et commandes d'au moins 44 px. Les états sauvegardé/erreur restent textuels.
+
+Vérification par tests de logique, API simulée et analyse du code. Aucun nouvel
+audit visuel dans un navigateur, aucune connexion ni sauvegarde de compte réel.
