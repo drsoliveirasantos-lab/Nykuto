@@ -2,7 +2,14 @@
 
 Private personal trading workspace intended for `trading.nykuto.com`.
 
-## Latest Lab comparison — Jeu 06
+## Latest Lab comparison — Jeu 10
+
+The latest exploratory comparison is `/lab/#confluenceGame`: eight fixed variants
+on the existing MNQ history, including trend, candles, volume, announcement days
+and long/short. None meets every research gate. See
+[CONFLUENCE_DIAGNOSTIC.md](lab/CONFLUENCE_DIAGNOSTIC.md).
+
+## Earlier comparison — Jeu 06
 
 `/lab/#marketGame` compares the unchanged session-close EMA + ADX strategy on
 SPY, MES and MNQ during July–December 2025, with normalized R, explicit per-unit
@@ -123,3 +130,15 @@ The general Nykuto typography hierarchy still applies, but this single-user trad
 The dashboard chart uses TradingView's official free Advanced Chart widget. TradingView data availability and widget behavior remain subject to TradingView's own service and market-data terms.
 
 The Replay chart is separate and uses a pinned open-source Lightweight Charts browser library; it does not unlock, wrap or bypass TradingView Premium functionality.
+
+## Ergonomics audit — September 8–9, 2026
+
+See [UX_AUDIT.md](UX_AUDIT.md) for findings, fixes and browser-test boundaries.
+Shared navigation now exposes the same routes including Replay, with a collapsible
+mobile menu, active-page semantics and working module history/focus. The risk
+calculator rejects blank prices and contradictory long/short levels; its scope
+is explicitly euro-denominated cash units, not futures contracts or Forex lots.
+Journal deletion asks confirmation, form closure restores focus and saves expose
+a local status. Global journal statistics reuse the same valid-record rules as
+the calendar. Color preferences have their own account state, separate from risk
+settings. No licensed prices or audit fixtures are published.

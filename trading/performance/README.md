@@ -67,3 +67,23 @@ branch, then a scheduled follow-up verifies its exact CI and Cloudflare commit.
 
 September 8 validation: 69 trading tests passed, including four new performance
 tests and the existing account, Replay-related and discipline checks.
+
+## Ergonomie et couleurs personnelles
+
+Le sélecteur Affichage propose le calendrier complet et une liste des seuls jours
+avec des trades. La liste est proposée par défaut sur une largeur ≤540px ; un
+choix explicite reste conservé pendant l'ouverture de la page. Les totaux et
+filtres sont identiques dans les deux vues. Sur mobile, sélectionner une journée
+amène à son détail. Un mois sans trade reste explicitement vide.
+
+« Personnaliser les couleurs du calendrier » règle les journées positives,
+négatives et le fond. L'aperçu est immédiat ; Enregistrer attend la confirmation
+du compte. Couleurs par défaut prépare un aperçu à enregistrer. Le texte devient
+noir ou blanc selon le meilleur contraste ; les signes des résultats subsistent.
+Le calendrier seul change de couleur, pas le graphique TradingView.
+
+La clé personnelle `nykuto-trading-appearance-v1` réutilise les contrôles
+d'appartenance et de révision existants. Le serveur exige exactement trois
+couleurs hexadécimales ; aucune chaîne CSS ni propriété supplémentaire n'est
+acceptée. Voir `appearance-core.mjs`, `appearance.mjs` et l'audit
+`../UX_AUDIT.md`. Aucun historique n'est modifié par ces réglages.

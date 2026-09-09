@@ -49,8 +49,8 @@ export async function onRequest(context) {
           `<link rel="icon" type="image/png" href="${MED_NYKUTO_ICON}">` +
           `<link rel="shortcut icon" type="image/png" href="${MED_NYKUTO_ICON}">` +
           `<link rel="apple-touch-icon" href="${MED_NYKUTO_ICON}">` +
-          `<link rel="stylesheet" href="/compact.css?v=1">` +
-          `<script src="/navigation.js?v=5" defer></script>` +
+          `<link rel="stylesheet" href="/compact.css?v=2">` +
+          `<script src="/navigation.js?v=6" defer></script>` +
           labScripts,
           { html: true }
         );

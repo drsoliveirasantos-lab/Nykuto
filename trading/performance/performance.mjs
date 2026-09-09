@@ -3,7 +3,13 @@ const el=id=>document.getElementById(`perf${id}`),key='nykuto-trading-trades-v1'
 const number=new Intl.NumberFormat('fr-FR',{maximumFractionDigits:2});
 const formatR=n=>`${n>0?'+':''}${number.format(n)} R`;
 const dayLabel=day=>new Intl.DateTimeFormat('fr-FR',{dateStyle:'full',timeZone:'UTC'}).format(new Date(`${day}T12:00:00Z`));
-let report=null,selection=null,prepared=null;
+let report=null,selection=null,prepared=null,viewChosen=false;
+const narrow=window.matchMedia('(max-width:540px)');
+function setView(){
+  const list=el('View').value==='list';
+  document.querySelector('.perf-calendar-panel').classList.toggle('perf-list-view',list);
+  el('CalendarHelp').textContent=list?'Jours avec des trades uniquement. Sélectionne une ligne pour ouvrir son détail.':'Sélectionne une journée pour voir ses trades. Sur petit écran, fais défiler le calendrier horizontalement ou choisis l’affichage Liste.';
+}
 function tone(node,n){node.classList.remove('perf-up','perf-down');if(n>0)node.classList.add('perf-up');else if(n<0)node.classList.add('perf-down');}
 function child(tag,text,cls){const n=document.createElement(tag);n.textContent=text;if(cls)n.className=cls;return n;}
 function showDay(day){
@@ -53,12 +59,12 @@ function render(){
     report.days.forEach(d=>{
       const b=child('button','',`perf-day${d.rows.length?' perf-has-trades':''}`);b.type='button';b.dataset.day=d.day;tone(b,d.total);
       b.setAttribute('aria-label',`${dayLabel(d.day)}, ${d.rows.length?`${d.rows.length} trades, ${formatR(d.total)}`:'aucun trade'}`);
-      b.append(child('span',String(Number(d.day.slice(-2))),'perf-day-number'),child('strong',d.rows.length?formatR(d.total):'—'),child('span',`${d.rows.length} trade${d.rows.length>1?'s':''}`,'perf-day-count'));
-      b.addEventListener('click',()=>showDay(d.day));cells.push(b);
+      b.append(child('span',dayLabel(d.day),'perf-list-date'),child('span',String(Number(d.day.slice(-2))),'perf-day-number'),child('strong',d.rows.length?formatR(d.total):'—'),child('span',`${d.rows.length} trade${d.rows.length>1?'s':''}`,'perf-day-count'));
+      b.addEventListener('click',()=>{showDay(d.day);if(narrow.matches){el('DayDetail').focus({preventScroll:true});el('DayDetail').scrollIntoView({block:'start'});}});cells.push(b);
     });
     el('Calendar').replaceChildren(...cells);curve();
     if(!selection?.startsWith(el('Month').value)||!report.days.some(d=>d.day===selection))selection=report.days.findLast(d=>d.rows.length)?.day||`${el('Month').value}-01`;
-    showDay(selection);
+    showDay(selection);setView();
   }catch(error){report=null;el('Content').hidden=true;el('Previous').disabled=true;el('Next').disabled=true;el('Status').textContent=error.message;}
 }
 function setMonth(value){try{monthInfo(value);el('Month').value=value;selection=null;render();}catch(error){el('Status').textContent=error.message;}}
@@ -69,6 +75,9 @@ try{
   prepared=prepareJournal(window.Nykuto.read(key,[]),zone);
   el('Month').value=(prepared.rows.at(-1)?.day||dateKey(Date.now(),zone)).slice(0,7);
   el('Inputs').disabled=false;
+  el('View').value=narrow.matches?'list':'calendar';
+  el('View').addEventListener('change',()=>{viewChosen=true;setView();});
+  narrow.addEventListener('change',()=>{if(!viewChosen){el('View').value=narrow.matches?'list':'calendar';setView();}});
   el('Month').addEventListener('change',()=>{selection=null;render();});el('Mode').addEventListener('change',render);
   el('Zone').addEventListener('change',()=>{selection=null;render();});
   el('Previous').addEventListener('click',()=>setMonth(shiftMonth(el('Month').value,-1)));
@@ -76,4 +85,4 @@ try{
   el('Today').addEventListener('click',()=>setMonth(dateKey(Date.now(),el('Zone').value).slice(0,7)));
   window.addEventListener('nykuto:journal-updated',render);
   render();
-}catch(error){el('Status').textContent=error.message;el('Content').hidden=true;}
+}catch{el('Status').textContent='Ton journal n’a pas pu être chargé. Recharge la page pour réessayer.';el('Content').hidden=true;}

@@ -71,3 +71,12 @@ then end the active turn while remote runs execute. The follow-up must check the
 specific commit, distinguish pending/missing runs from success, fix scoped failures
 when possible and report blockers. Do not merge main, change branch protection,
 activate any bot or alter the future MNQ collection to make a check appear green.
+
+## Ajustements de compréhension après audit
+
+Le caractère historique, sans flux direct, apparaît dès l'introduction. Pendant
+une saisie de nombre incomplète (hors 20–500), le graphique et sa lecture restent
+ceux de la dernière sélection valide, avec un message explicite. Une nouvelle
+erreur de chargement masque toujours les anciens résultats. Le contrôle
+d'intégrité exige Web Crypto : un contexte non sécurisé affiche désormais un
+message en français, sans désactiver ce contrôle.

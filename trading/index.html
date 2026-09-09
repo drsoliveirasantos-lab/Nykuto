@@ -9,9 +9,10 @@
   <title>Nykuto Trading HQ</title>
   <meta name="description" content="Tableau de bord privé de préparation, analyse et journal de trading.">
   <link rel="stylesheet" href="./styles.css">
-  <link rel="stylesheet" href="./performance/performance.css?v=1">
-  <script src="./app.js?v=4" defer></script>
-  <script src="./performance/performance.mjs?v=1" type="module"></script>
+  <link rel="stylesheet" href="./performance/performance.css?v=2">
+  <script src="./app.js?v=5" defer></script>
+  <script src="./performance/performance.mjs?v=2" type="module"></script>
+  <script src="./performance/appearance.mjs?v=1" type="module"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Aller au contenu</a>
@@ -62,12 +63,12 @@
         <article class="kpi-card">
           <p class="kpi-label">Trades journalisés</p>
           <p class="kpi-value" id="tradeCountKpi">0</p>
-          <p class="kpi-meta">Sauvegardés dans ton compte</p>
+          <p class="kpi-meta">Tout le journal · tous les modes</p>
         </article>
         <article class="kpi-card">
           <p class="kpi-label">R moyen</p>
           <p class="kpi-value" id="avgRKpi">—</p>
-          <p class="kpi-meta">Calculé depuis le journal</p>
+          <p class="kpi-meta">Tout le journal · toutes les dates</p>
         </article>
       </div>
 
@@ -77,8 +78,17 @@
           <label for="perfMonth">Mois<input id="perfMonth" type="month" min="1900-01" max="2100-12" required></label>
           <label for="perfMode">Trades<select id="perfMode"><option value="all">Tous les modes</option><option value="manual">Manuel</option><option value="paper">Simulation</option><option value="replay">Replay</option><option value="unknown">Non renseigné</option></select></label>
           <label for="perfZone">Fuseau horaire<select id="perfZone"></select></label>
+          <label for="perfView">Affichage<select id="perfView"><option value="calendar">Calendrier</option><option value="list">Liste des jours tradés</option></select></label>
           <div class="perf-filter-actions"><button id="perfPrevious" class="ghost-button" type="button" aria-label="Mois précédent">←</button><button id="perfToday" class="ghost-button" type="button">Ce mois</button><button id="perfNext" class="ghost-button" type="button" aria-label="Mois suivant">→</button></div>
         </fieldset>
+        <details class="perf-method"><summary>Personnaliser les couleurs du calendrier</summary>
+          <form id="perfColors"><fieldset disabled><legend>Mes couleurs</legend>
+            <label>Journées positives<input type="color" name="positive" value="#166d55"></label>
+            <label>Journées négatives<input type="color" name="negative" value="#8c3444"></label>
+            <label>Fond et journées sans gain ni perte<input type="color" name="background" value="#091321"></label>
+            <button type="submit" class="primary-button">Enregistrer les couleurs</button><button type="button" class="ghost-button" id="perfResetColors">Couleurs par défaut</button>
+          </fieldset><p id="perfColorStatus" role="status">Les couleurs concernent ton calendrier. Les signes + et − restent visibles ; la couleur du texte s’adapte au fond.</p></form>
+        </details>
         <p id="perfStatus" class="perf-status" role="status" aria-live="polite">Chargement de ton journal…</p>
         <div id="perfContent" hidden>
           <div class="perf-stats" aria-label="Statistiques du mois sélectionné">
@@ -90,14 +100,15 @@
             <article class="panel perf-stat"><h4>Baisse maximale</h4><strong id="perfDrawdown">—</strong><p>Depuis un sommet du mois, en R</p></article>
           </div>
           <div class="perf-layout">
-            <section class="panel perf-calendar-panel" aria-labelledby="perfMonthTitle"><h4 id="perfMonthTitle">Calendrier du mois</h4><div class="perf-calendar-scroll" tabindex="0" role="region" aria-label="Calendrier des résultats, sélectionner une journée"><div class="perf-weekdays" aria-hidden="true"><span>Lun.</span><span>Mar.</span><span>Mer.</span><span>Jeu.</span><span>Ven.</span><span>Sam.</span><span>Dim.</span></div><div id="perfCalendar" class="perf-calendar"></div></div></section>
+            <section class="panel perf-calendar-panel" aria-labelledby="perfMonthTitle"><h4 id="perfMonthTitle">Calendrier du mois</h4><p id="perfCalendarHelp" class="perf-status"></p><div class="perf-calendar-scroll" tabindex="0" role="region" aria-label="Calendrier des résultats, sélectionner une journée"><div class="perf-weekdays" aria-hidden="true"><span>Lun.</span><span>Mar.</span><span>Mer.</span><span>Jeu.</span><span>Ven.</span><span>Sam.</span><span>Dim.</span></div><div id="perfCalendar" class="perf-calendar"></div></div></section>
             <aside class="panel perf-curve-panel" aria-labelledby="perfCurveTitle"><h4 id="perfCurveTitle">Courbe du mois</h4><div><div id="perfCurve"></div><p id="perfCurveEmpty">La courbe apparaîtra avec tes premiers trades.</p><p>Résultat cumulé à la fin de chaque journée.</p></div><dl><dt>Plus longue série de pertes</dt><dd id="perfStreak">—</dd><dt>Historique affiché</dt><dd>Journal de ton compte Nykuto. La synchronisation avec un courtier n’est pas encore connectée.</dd></dl></aside>
           </div>
-          <section class="panel perf-day-detail" aria-labelledby="perfDayTitle"><h4 id="perfDayTitle">Détail de la journée</h4><p id="perfDaySummary" role="status" aria-live="polite"></p><div id="perfDayTable" class="perf-table-wrap" tabindex="0" role="region" aria-label="Trades de la journée"><table><thead><tr><th>Heure</th><th>Actif</th><th>Sens</th><th>Résultat</th><th>Mode</th><th>Setup</th><th>Note</th></tr></thead><tbody id="perfDayRows"></tbody></table></div></section>
+          <section id="perfDayDetail" class="panel perf-day-detail" aria-labelledby="perfDayTitle" tabindex="-1"><h4 id="perfDayTitle">Détail de la journée</h4><p id="perfDaySummary" role="status" aria-live="polite"></p><div id="perfDayTable" class="perf-table-wrap" tabindex="0" role="region" aria-label="Trades de la journée"><table><thead><tr><th>Heure</th><th>Actif</th><th>Sens</th><th>Résultat</th><th>Mode</th><th>Setup</th><th>Note</th></tr></thead><tbody id="perfDayRows"></tbody></table></div></section>
         </div>
         <details class="perf-method"><summary>Comprendre ces chiffres</summary><p>Le calendrier et les statistiques suivent le même mois et le même filtre. Les résultats sont ceux saisis dans ton journal ; l’inclusion des commissions dépend de ta saisie. Un trade à zéro compte dans le total, mais pas parmi les gagnants. Le rapport gains / pertes compare les sommes positives et négatives en R ; ce n’est pas un profit factor en euros ou dollars lorsque le risque monétaire varie.</p><p>La baisse maximale part de zéro au début du mois et mesure le recul maximal du cumul après chaque trade clôturé. Elle ne mesure ni les pertes latentes, ni une baisse de capital en pourcentage, ni un sommet situé avant le mois. La courbe regroupe les résultats par journée. À heure identique, l’ordre d’enregistrement départage les trades. Un gain ou un trade à zéro interrompt une série de pertes.</p><p>Les anciens trades sans date de clôture utilisent leur date d’enregistrement ; ceux sans mode restent « Non renseigné ». Les nouveaux trades du Replay utilisent leur date historique et le mode Replay. Ces statistiques décrivent ton historique enregistré ; aucun solde de courtier ni score de rentabilité future n’est déduit.</p></details>
       </section>
 
+      <p class="workspace-note">Le widget TradingView sert à consulter les marchés. L’analyse MNQ utilise son propre graphique historique et sa propre sélection ; changer ce widget ne change pas l’analyse. Si le widget indique qu’un symbole est indisponible, <a href="https://www.tradingview.com/chart/?symbol=NASDAQ%3ANDX" target="_blank" rel="noopener noreferrer">ouvre le Nasdaq sur TradingView</a> ou choisis un autre symbole dans le widget.</p>
       <div class="market-layout">
         <article class="panel chart-panel" aria-labelledby="chart-title">
           <div class="panel-heading">
@@ -169,34 +180,37 @@
         <div>
           <p class="eyebrow">RISK MANAGER</p>
           <h2 id="risk-title">Calculer avant de trader</h2>
-          <p>Tu renseignes le capital, l'entrée, le stop et l'objectif. Le site calcule la taille et le ratio R:R.</p>
+          <p>Choisis le sens, puis renseigne l’entrée, le stop et l’objectif. Le calcul ci-dessous concerne des unités au comptant en euros.</p>
         </div>
       </div>
 
       <div class="risk-layout">
-        <form class="panel form-panel" id="riskForm">
+        <form class="panel form-panel" id="riskForm" aria-describedby="riskLimits riskStatus">
+          <p class="workspace-note" id="riskLimits">Ce calculateur ne dimensionne pas les contrats futures (MNQ, MES…), ni les lots Forex : leur valeur du point, leur devise et leurs frais doivent être pris en compte séparément.</p>
           <div class="form-grid">
             <label>
               <span>Capital de référence (€)</span>
-              <input id="capitalInput" name="capital" type="number" min="0" step="0.01" value="1000" inputmode="decimal">
+              <input id="capitalInput" name="capital" type="number" required min="0.01" step="0.01" value="1000" inputmode="decimal">
             </label>
             <label>
               <span>Risque maximal (%)</span>
-              <input id="riskInput" name="risk" type="number" min="0.01" max="100" step="0.01" value="1" inputmode="decimal">
+              <input id="riskInput" required name="risk" type="number" min="0.01" max="100" step="0.01" value="1" inputmode="decimal">
             </label>
+            <label><span>Sens envisagé</span><select id="riskSide"><option value="Long">Long · achat</option><option value="Short">Short · vente à découvert</option></select></label>
             <label>
-              <span>Prix d'entrée</span>
+              <span>Prix d’entrée (€)</span>
               <input id="entryInput" name="entry" type="number" min="0" step="any" placeholder="Ex. 100" inputmode="decimal">
             </label>
             <label>
-              <span>Stop loss</span>
+              <span>Stop · prix d’invalidation (€)</span>
               <input id="stopInput" name="stop" type="number" min="0" step="any" placeholder="Ex. 98" inputmode="decimal">
             </label>
             <label class="wide-field">
-              <span>Take profit</span>
+              <span>Objectif · prix de sortie (€)</span>
               <input id="targetInput" name="target" type="number" min="0" step="any" placeholder="Ex. 106" inputmode="decimal">
             </label>
           </div>
+          <p id="riskStatus" class="workspace-note" role="status"></p>
         </form>
 
         <div class="risk-results" aria-live="polite">
@@ -231,14 +245,15 @@
           <h2 id="journal-title">Construire tes statistiques</h2>
           <p>Les entrées sont sauvegardées dans ton compte personnel. Les statistiques ci-dessous regroupent tous les modes enregistrés.</p>
         </div>
-        <button class="primary-button" type="button" id="toggleTradeForm">+ Ajouter un trade</button>
+        <button class="primary-button" type="button" id="toggleTradeForm" aria-controls="tradeForm">+ Ajouter un trade</button>
       </div>
 
+      <p id="journalStatus" class="workspace-note" role="status"></p>
       <form class="panel trade-form is-hidden" id="tradeForm">
         <div class="form-grid journal-grid">
           <label><span>Actif</span><input id="tradeAsset" required maxlength="24" placeholder="NASDAQ, BTC…"></label>
           <label><span>Direction</span><select id="tradeSide"><option value="Long">Long</option><option value="Short">Short</option></select></label>
-          <label><span>Résultat (R)</span><input id="tradeR" required type="number" step="0.01" placeholder="Ex. 1.8" inputmode="decimal"></label>
+          <label><span>Résultat net (R) · gain + / perte −</span><input id="tradeR" required type="number" step="0.01" placeholder="Ex. 1.8" inputmode="decimal"></label>
           <label><span>Date de clôture · heure de cet appareil</span><input id="tradeClosedAt" type="datetime-local" required></label>
           <label><span>Mode</span><select id="tradeMode"><option value="unknown">Non renseigné</option><option value="manual">Manuel</option><option value="paper">Simulation</option></select></label>
           <label><span>Setup</span><input id="tradeSetup" maxlength="50" placeholder="Breakout + retest"></label>
@@ -253,7 +268,7 @@
       <p><a class="ghost-button" href="./discipline/">Préparer mon état avant un trade</a></p>
       <div class="journal-stats" aria-label="Statistiques du journal">
         <article><span>Trades</span><strong id="journalCount">0</strong></article>
-        <article><span>Win rate</span><strong id="winRate">—</strong></article>
+        <article><span>Taux de réussite</span><strong id="winRate">—</strong></article>
         <article><span>R cumulé</span><strong id="totalR">—</strong></article>
         <article><span>R moyen</span><strong id="averageR">—</strong></article>
       </div>
@@ -263,9 +278,9 @@
           <strong>Aucun trade enregistré</strong>
           <p>Commence par du paper trading et consigne chaque décision. Les statistiques deviendront utiles avec l'échantillon.</p>
         </div>
-        <div class="table-wrap is-hidden" id="journalTableWrap">
+        <div class="table-wrap is-hidden" id="journalTableWrap" role="region" tabindex="0" aria-label="Historique personnel, faire défiler pour voir les colonnes">
           <table>
-            <thead><tr><th>Date</th><th>Actif</th><th>Direction</th><th>R</th><th>Setup</th><th>État avant → après</th><th>Mode</th><th><span class="sr-only">Action</span></th></tr></thead>
+            <thead><tr><th>Clôture / enregistrement</th><th>Actif</th><th>Direction</th><th>R</th><th>Setup</th><th>État avant → après</th><th>Mode</th><th><span class="sr-only">Action</span></th></tr></thead>
             <tbody id="journalBody"></tbody>
           </table>
         </div>

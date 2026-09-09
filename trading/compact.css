@@ -37,3 +37,30 @@
   .checklist{padding:.1rem .65rem}.checklist>label{padding:.58rem 0;gap:.55rem}.checklist>label input{width:16px;height:16px}.checklist>label strong{font-size:.78rem}.checklist>label small{font-size:.69rem}.checklist-footer{padding:.6rem 0}
   footer{display:none}
 }
+
+/* Shared navigation and controls: compact text, comfortable click/touch areas. */
+.section-nav{display:flex;gap:.2rem;overflow-x:auto;padding:.25rem 1rem;position:sticky;top:var(--topbar-height,67px);z-index:15;background:#07101bf5;border-bottom:1px solid var(--line)}
+.section-nav a{display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:.35rem .6rem;white-space:nowrap;font-size:.75rem;text-decoration:none;color:var(--muted);border:1px solid transparent;border-radius:7px}
+.site-menu{display:none}
+.topbar{flex-wrap:wrap}.topbar-actions{min-width:0}.status-pill{white-space:normal}
+.ghost-button,.primary-button{min-height:44px;min-width:44px;font-size:.75rem}
+.form-grid input,.form-grid select,.form-grid textarea{min-height:44px;font-size:1rem}
+.delete-trade{width:auto;min-width:44px;min-height:44px;height:auto;padding:.4rem .6rem;font-size:.75rem}
+.workspace-note{font-size:.75rem;line-height:1.5;color:var(--muted);max-width:85rem}
+.workspace-note:empty{display:none}
+#risk .result-card{min-width:0;overflow-wrap:anywhere}
+#journal .table-panel,#journal .table-wrap{max-height:none}
+#journal .table-wrap{max-height:60vh}
+.panel-heading{flex-wrap:wrap}
+button:disabled{opacity:.55;cursor:not-allowed}
+@media(max-width:720px){
+  :root{--body:.75rem;--meta:.6875rem}
+  .site-menu{display:flex;align-items:center;width:100%;min-height:44px;padding:.5rem 1rem;position:sticky;top:var(--topbar-height,61px);z-index:16;background:#0d1a2b;color:var(--text);border:0;border-bottom:1px solid var(--line);text-align:left;font-size:.75rem;font-weight:700}
+  .site-menu::after{content:'☰';margin-left:auto}.site-menu[aria-expanded=true]::after{content:'×'}
+  .section-nav{top:calc(var(--topbar-height,61px) + 44px);display:grid;grid-template-columns:1fr 1fr;max-height:calc(100dvh - var(--topbar-height,61px) - 44px);overflow:auto;padding:.4rem .7rem}
+  .section-nav.is-collapsed{display:none}.section-nav a{justify-content:flex-start;white-space:normal}
+  .page-section{padding:1rem}.section-heading{margin-bottom:.8rem}
+  .topbar{gap:.5rem}.topbar .brand-wrap h1{font-size:1rem}.topbar .status-pill{font-size:.625rem}
+  .kpi-meta{display:block!important;font-size:.6875rem}.kpi-value,.result-value{font-size:.95rem}
+  .kpi-label,.result-label{font-size:.75rem}.kpi-card{padding:.6rem}
+}

@@ -1,7 +1,8 @@
 (async () => {
   'use strict';
   await window.Nykuto.ready;
-  const { journalMode } = await import('./performance/performance-core.mjs');
+  const { journalMode, prepareJournal } = await import('./performance/performance-core.mjs');
+  const { numericInput: finite, calculateCashRisk } = await import('./risk-core.mjs');
 
   const KEYS = {
     settings: 'nykuto-trading-settings-v1',
@@ -20,17 +21,6 @@
   };
   const readLocal = (key, fallback) => window.Nykuto.read(key, fallback);
   const writeLocal = (key, value) => window.Nykuto.set(key, value);
-  const finite = value => Number.isFinite(Number(value)) ? Number(value) : null;
-
-  const sectionNav = document.querySelector('.section-nav');
-  if (sectionNav && !sectionNav.querySelector('[data-replay-link]')) {
-    const replayLink = document.createElement('a');
-    replayLink.href = './replay/';
-    replayLink.textContent = 'Replay';
-    replayLink.dataset.replayLink = 'true';
-    sectionNav.appendChild(replayLink);
-  }
-
   const riskForm = byId('riskForm');
   const capitalInput = byId('capitalInput');
   const riskInput = byId('riskInput');
@@ -47,55 +37,26 @@
   }
 
   function calculateRisk() {
-    const capital = finite(capitalInput.value);
-    const riskPct = finite(riskInput.value);
-    const entry = finite(entryInput.value);
-    const stop = finite(stopInput.value);
-    const target = finite(targetInput.value);
-
-    if (capital !== null && capital >= 0) byId('capitalKpi').textContent = euro.format(capital);
-    if (riskPct !== null && riskPct >= 0) byId('riskKpi').textContent = `${percent.format(riskPct)} %`;
-
-    const riskAmount = capital !== null && riskPct !== null && capital >= 0 && riskPct >= 0
-      ? capital * (riskPct / 100)
-      : null;
-    byId('riskAmountResult').textContent = riskAmount === null ? '—' : euro.format(riskAmount);
-
-    const stopDistance = entry !== null && stop !== null && entry > 0 ? Math.abs(entry - stop) : null;
-    const stopDistancePct = stopDistance !== null && entry > 0 ? (stopDistance / entry) * 100 : null;
-    byId('stopDistanceResult').textContent = stopDistancePct === null || stopDistancePct === 0 ? '—' : `${percent.format(stopDistancePct)} %`;
-
-    if (riskAmount !== null && stopDistance !== null && stopDistance > 0) {
-      const units = riskAmount / stopDistance;
-      const notional = units * entry;
-      byId('positionSizeResult').textContent = `${number.format(units)} unités`;
-      byId('positionMeta').textContent = `Notionnel ≈ ${euro.format(notional)}`;
-    } else {
-      byId('positionSizeResult').textContent = '—';
-      byId('positionMeta').textContent = 'Renseigne entrée et stop';
-    }
-
-    if (entry !== null && stop !== null && target !== null) {
-      const riskDistance = Math.abs(entry - stop);
-      const rewardDistance = Math.abs(target - entry);
-      if (riskDistance > 0) {
-        const rr = rewardDistance / riskDistance;
-        byId('rrResult').textContent = `1 : ${number.format(rr)}`;
-        byId('rrMeta').textContent = rr >= 2 ? 'Potentiel ≥ 2R' : 'Potentiel < 2R';
-      } else {
-        byId('rrResult').textContent = '—';
-        byId('rrMeta').textContent = 'Stop identique à l’entrée';
-      }
-    } else {
-      byId('rrResult').textContent = '—';
-      byId('rrMeta').textContent = 'Renseigne stop et objectif';
-    }
-
-
+    const result = calculateCashRisk({capital:capitalInput.value,risk:riskInput.value,entry:entryInput.value,stop:stopInput.value,target:targetInput.value,side:byId('riskSide').value});
+    const capital=finite(capitalInput.value),risk=finite(riskInput.value);
+    byId('capitalKpi').textContent=capital>0?euro.format(capital):'—';
+    byId('riskKpi').textContent=risk>0&&risk<=100?`${percent.format(risk)} %`:'—';
+    byId('riskAmountResult').textContent=result.riskAmount===null?'—':euro.format(result.riskAmount);
+    byId('positionSizeResult').textContent=result.units===null?'—':`${number.format(result.units)} unités`;
+    byId('positionMeta').textContent=result.notional===null?'Renseigne une entrée et un stop cohérents':`Notionnel théorique ≈ ${euro.format(result.notional)}`;
+    byId('stopDistanceResult').textContent=result.stopPct===null?'—':`${percent.format(result.stopPct)} %`;
+    byId('rrResult').textContent=result.ratio===null?'—':`1 : ${number.format(result.ratio)}`;
+    byId('rrMeta').textContent=result.ratio===null?'Vérifie le sens, le stop et l’objectif':`${number.format(result.ratio)} R potentiels, hors frais`;
+    byId('riskStatus').textContent=result.message;
   }
 
+  riskForm.addEventListener('submit', event => event.preventDefault());
   riskForm.addEventListener('input', calculateRisk);
-  riskForm.addEventListener('change', () => { persistRiskSettings().catch(() => {}); });
+  riskForm.addEventListener('change', async () => {
+    calculateRisk();
+    if (!capitalInput.checkValidity() || !riskInput.checkValidity()) return;
+    try { await persistRiskSettings(); } catch { byId('riskStatus').textContent='Réglages non sauvegardés. Vérifie ta connexion et réessaie ; les valeurs restent affichées.'; }
+  });
   calculateRisk();
 
   const toggleTradeForm = byId('toggleTradeForm');
@@ -114,7 +75,7 @@
         byId('tradeClosedAt').value = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0,16);
       }
       byId('tradeAsset').focus();
-    }
+    } else { toggleTradeForm.focus(); }
   }
 
   toggleTradeForm.setAttribute('aria-expanded', 'false');
@@ -125,12 +86,9 @@
   });
 
   function tradeStats() {
-    const validR = trades.map(t => Number(t.r)).filter(Number.isFinite);
-    const count = trades.length;
-    const winners = validR.filter(r => r > 0).length;
-    const total = validR.reduce((sum, r) => sum + r, 0);
-    const average = validR.length ? total / validR.length : null;
-    return { count, winners, total, average };
+    const valid = prepareJournal(trades, Intl.DateTimeFormat().resolvedOptions().timeZone).rows;
+    const count=valid.length,winners=valid.filter(t=>t.r>0).length,total=valid.reduce((sum,t)=>sum+t.r,0);
+    return {count,winners,total,average:count?total/count:null};
   }
 
   function renderJournal() {
@@ -142,20 +100,22 @@
     byId('averageR').textContent = average === null ? '—' : `${average >= 0 ? '+' : ''}${number.format(average)} R`;
     byId('avgRKpi').textContent = average === null ? '—' : `${average >= 0 ? '+' : ''}${number.format(average)} R`;
 
-    const hasTrades = count > 0;
+    const hasTrades = trades.length > 0;
     byId('emptyJournal').classList.toggle('is-hidden', hasTrades);
     byId('journalTableWrap').classList.toggle('is-hidden', !hasTrades);
     journalBody.replaceChildren();
 
     trades.slice().reverse().forEach(trade => {
       const tr = document.createElement('tr');
-      const r = Number(trade.r);
+      const r = typeof trade.r === 'number' && Number.isFinite(trade.r) ? trade.r : null;
+      const parsedDate = new Date(trade.closedAt || trade.createdAt);
+      const dateLabel = Number.isFinite(parsedDate.getTime()) ? dateFmt.format(parsedDate) : 'Date invalide';
       const rClass = r > 0 ? 'r-positive' : r < 0 ? 'r-negative' : '';
       const cells = [
-        dateFmt.format(new Date(trade.closedAt || trade.createdAt)),
+        dateLabel,
         trade.asset,
         trade.side,
-        `${r > 0 ? '+' : ''}${number.format(r)} R`,
+        r === null ? 'Résultat invalide' : `${r > 0 ? '+' : ''}${number.format(r)} R`,
         trade.setup || '—',
         trade.discipline ? `${({ calm: 'Calme', excited: 'Excité', anxious: 'Inquiet', frustrated: 'Frustré', tired: 'Fatigué', unsure: 'Indécis' })[trade.discipline.before] || '—'} → ${({ calm: 'Calme', excited: 'Excité', anxious: 'Inquiet', frustrated: 'Frustré', tired: 'Fatigué', unsure: 'Indécis' })[trade.discipline.after] || '—'}` : 'Non renseigné',
         ({manual:'Manuel',paper:'Simulation',replay:'Replay',unknown:'Non renseigné'})[journalMode(trade)]
@@ -171,12 +131,15 @@
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'delete-trade';
-      button.textContent = '×';
+      button.textContent = 'Supprimer';
       button.setAttribute('aria-label', `Supprimer le trade ${trade.asset}`);
       button.addEventListener('click', async () => {
+        if (!window.confirm(`Supprimer le trade ${trade.asset} du ${dateLabel} ? Cette action est définitive.`)) return;
         button.disabled = true;
-        try { await window.Nykuto.update(KEYS.trades, current => (current || []).filter(item => item.id !== trade.id)); trades = readLocal(KEYS.trades, []); } catch { button.disabled = false; return; }
+        try { await window.Nykuto.update(KEYS.trades, current => (current || []).filter(item => item.id !== trade.id)); trades = readLocal(KEYS.trades, []); } catch { button.disabled = false; byId('journalStatus').textContent='Suppression non confirmée. Recharge le journal avant de réessayer.'; return; }
+        byId('journalStatus').textContent='Trade supprimé du journal.';
         renderJournal();
+        toggleTradeForm.focus();
       });
       action.appendChild(button);
       tr.appendChild(action);
@@ -204,7 +167,8 @@
       note: byId('tradeNote').value.trim().slice(0, 300)
     };
     const button = tradeForm.querySelector('[type="submit"]'); button.disabled = true;
-    try { await window.Nykuto.update(KEYS.trades, current => [...(current || []), entry]); trades = readLocal(KEYS.trades, []); } catch { return; } finally { button.disabled = false; }
+    try { await window.Nykuto.update(KEYS.trades, current => [...(current || []), entry]); trades = readLocal(KEYS.trades, []); } catch { byId('journalStatus').textContent='Enregistrement non confirmé. Ta saisie reste affichée. Recharge pour vérifier la sauvegarde avant de réessayer.'; return; } finally { button.disabled = false; }
+    byId('journalStatus').textContent='Trade enregistré dans ton journal.';
     tradeForm.reset();
     setTradeForm(false);
     renderJournal();
@@ -236,4 +200,8 @@
     renderChecklist(true);
   });
   renderChecklist();
-})().catch(error => window.Nykuto.status(error.message));
+})().catch(() => {
+  const message='Ton compte n’a pas pu être chargé. Recharge la page pour réessayer.';
+  if (window.Nykuto?.status) window.Nykuto.status(message);
+  const status=document.getElementById('journalStatus');if(status)status.textContent=message;
+});

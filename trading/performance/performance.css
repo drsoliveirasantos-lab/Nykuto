@@ -6,3 +6,24 @@
 .perf-curve-panel{padding:.8rem;align-self:start}.perf-curve-panel svg{display:block;width:100%;height:auto}.perf-curve-panel p,.perf-day-detail p{font-size:var(--perf-body);color:var(--muted)}.perf-curve-panel dl{margin:0}.perf-curve-panel dt{font-size:.8125rem;font-weight:650;margin-top:.7rem}.perf-curve-panel dd{font-size:var(--perf-body);margin:.3rem 0}.perf-day-detail{margin-top:.65rem;padding:.8rem;min-width:0}.perf-table-wrap{overflow:auto;max-height:320px}.performance table{width:100%;font-size:var(--perf-body)}.performance th{font-size:var(--perf-meta)}.performance td,.performance th{padding:.5rem .6rem}.performance td:last-child{white-space:normal;min-width:150px;overflow-wrap:anywhere}.perf-status{font-size:var(--perf-meta);color:var(--muted);line-height:1.6;margin:.5rem 0}.perf-method{margin:.6rem 0;font-size:var(--perf-body);color:var(--muted)}.perf-method summary{min-height:44px;cursor:pointer;display:flex;align-items:center;font-size:.8125rem;color:var(--text);font-weight:650}.perf-method p{max-width:85rem;line-height:1.6}
 @media(max-width:1050px){.perf-stats{grid-template-columns:repeat(3,minmax(0,1fr))}.perf-layout{grid-template-columns:1fr}.perf-curve-panel{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 .8rem}.perf-curve-panel h4{grid-column:1/-1}}
 @media(max-width:600px){.performance .perf-heading{align-items:flex-start}.perf-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.performance fieldset{display:grid;grid-template-columns:1fr 1fr}.performance label:last-of-type,.perf-filter-actions{grid-column:1/-1}.perf-filter-actions>*{flex:1}.performance .perf-day{padding:.3rem;min-height:76px}.perf-curve-panel{display:block}.perf-heading h3{font-size:1rem}.perf-heading .ghost-button{max-width:120px}.performance select{width:100%}}
+
+/* Calendar customization stays local to this member's calendar, with contrasting text. */
+.performance{--calendar-positive:#166d55;--calendar-negative:#8c3444;--calendar-background:#091321;--calendar-positive-text:#ffffff;--calendar-negative-text:#ffffff;--calendar-background-text:#ffffff}
+.perf-calendar-scroll{background:var(--calendar-background);border-radius:8px;padding:.3rem}
+.perf-weekdays span{color:var(--calendar-background-text)}
+.performance .perf-day{background:var(--calendar-background);color:var(--calendar-background-text);border-color:var(--calendar-background-text)}
+.performance .perf-day.perf-up{background:var(--calendar-positive);color:var(--calendar-positive-text);border-color:var(--calendar-positive)}
+.performance .perf-day.perf-down{background:var(--calendar-negative);color:var(--calendar-negative-text);border-color:var(--calendar-negative)}
+.perf-day-number,.perf-day-count{color:inherit}
+.performance .perf-day[aria-pressed=true]{outline:2px solid currentColor;outline-offset:-4px}
+.performance .perf-day:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
+.perf-list-date{display:none}
+.perf-list-view .perf-weekdays,.perf-list-view .perf-blank,.perf-list-view .perf-day:not(.perf-has-trades){display:none}
+.perf-list-view .perf-calendar{grid-template-columns:1fr;min-width:0}
+.perf-list-view .perf-day{min-height:60px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;padding:.5rem;gap:.3rem .6rem}
+.perf-list-view .perf-day-number{display:none}.perf-list-view .perf-list-date{display:block;font-size:.75rem;text-align:left;grid-row:1/3}
+.perf-list-view .perf-day-count{grid-column:2;text-align:right}
+.perf-day-detail{scroll-margin-top:calc(var(--topbar-height,67px) + 110px)}
+#perfColors input[type=color]{width:80px;height:44px;padding:.2rem;cursor:pointer}
+#perfColors p{font-size:.75rem}#perfColors fieldset{margin-top:.5rem}
+.performance .perf-filter-actions button{min-width:44px}

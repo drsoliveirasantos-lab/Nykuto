@@ -7,18 +7,18 @@
   <meta name="description" content="Analyse explicable des bougies MNQ sélectionnées : tendance, structure, MSS potentiel et formes de bougies.">
   <link rel="stylesheet" href="../styles.css"><link rel="stylesheet" href="./analysis.css?v=1">
   <script src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js" defer></script>
-  <script src="./analysis.mjs?v=1" type="module"></script>
+  <script src="./analysis.mjs?v=2" type="module"></script>
 </head>
 <body class="analysis-page">
   <a class="skip-link" href="#main">Aller au contenu</a>
   <header class="topbar"><div class="brand-wrap"><div class="brand-mark" aria-hidden="true">N</div><div><p class="eyebrow">NYKUTO</p><h1>Trading HQ</h1></div></div><span class="status-pill">Analyse historique · aucun ordre</span></header>
   <nav class="section-nav" aria-label="Navigation du Trading HQ"><a href="/">Dashboard</a><a href="/analysis/" class="is-active" aria-current="page">Analyse</a><a href="/replay/">Replay</a><a href="/lab/">Lab</a></nav>
   <main id="main" class="analysis-main">
-    <div class="analysis-heading"><div><p class="eyebrow">LECTURE DU GRAPHIQUE</p><h2>Analyser les bougies</h2><p>Choisis une période. Le graphique et l’analyse utilisent exactement la même sélection.</p></div><button id="analysisReload" class="ghost-button" type="button">Recharger les données</button></div>
+    <div class="analysis-heading"><div><p class="eyebrow">LECTURE DU GRAPHIQUE</p><h2>Analyser les bougies</h2><p>Choisis une période. Le graphique et l’analyse utilisent exactement la même sélection. Données historiques : aucun flux en direct.</p></div><button id="analysisReload" class="ghost-button" type="button">Recharger les données</button></div>
     <form id="analysisForm" class="panel analysis-form"><fieldset id="analysisInputs" disabled><legend>Ta sélection</legend>
       <label for="analysisContract">Contrat MNQ<select id="analysisContract"><option value="MNQU6">MNQU6 · juin–août 2026</option><option value="MNQM6">MNQM6 · mars–mai 2026</option><option value="MNQH6">MNQH6 · déc. 2025–févr. 2026</option></select></label>
       <label for="analysisInterval">Unité de temps<select id="analysisInterval"><option value="900">15 minutes</option><option value="3600">1 heure</option></select></label>
-      <label for="analysisCount">Nombre de bougies<input id="analysisCount" type="number" min="20" max="500" step="1" value="100" required></label>
+      <label for="analysisCount">Nombre de bougies<input id="analysisCount" type="number" min="20" max="500" step="1" value="100" required aria-describedby="analysisCountHint"><small id="analysisCountHint" class="analysis-meta">Entre 20 et 500 bougies</small></label>
       <label for="analysisEndDate">Jusqu’au jour<input id="analysisEndDate" type="date" required></label>
       <button class="primary-button" type="submit">Analyser</button>
     </fieldset></form>

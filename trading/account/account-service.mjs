@@ -1,9 +1,10 @@
+import { APPEARANCE_KEY, validateAppearance } from '../performance/appearance-core.mjs';
 import { authenticate } from '../functions/api/lab/jeu04.js';
 export { json } from '../alerts/alert-service.mjs';
 export class AccountError extends Error {
   constructor(message, status = 400) { super(message); this.status = status; }
 }
-export const STATE_KEYS = new Set(['nykuto-trading-settings-v1', 'nykuto-trading-trades-v1', 'nykuto-trading-checklist-v1', 'nykuto-trading-preparations-v1', 'nykuto-trading-pause-until-v1', 'nykuto-trading-strategy-lab-v1', 'connections']);
+export const STATE_KEYS = new Set([APPEARANCE_KEY, 'nykuto-trading-settings-v1', 'nykuto-trading-trades-v1', 'nykuto-trading-checklist-v1', 'nykuto-trading-preparations-v1', 'nykuto-trading-pause-until-v1', 'nykuto-trading-strategy-lab-v1', 'connections']);
 export async function member(context, complete = true) {
   const claims = await authenticate(context.request);
   if (!claims || typeof claims.email !== 'string' || !claims.email.trim()) throw new AccountError('Reconnecte-toi au site.', 401);
@@ -42,6 +43,9 @@ export function validateState(key, value) {
     if (!Array.isArray(value) || value.length > 10000 || value.some(v => !v || typeof v !== 'object' || typeof v.id !== 'string' || v.id.length > 100 || !Number.isFinite(Date.parse(v.createdAt)))) throw new AccountError('Historique invalide.');
     if (new Set(value.map(v => v.id)).size !== value.length) throw new AccountError('Historique avec des doublons.');
   } else if (!value || typeof value !== 'object' || Array.isArray(value)) throw new AccountError('Réglages invalides.');
+  if (key === APPEARANCE_KEY) {
+    try { validateAppearance(value); } catch (error) { throw new AccountError(error.message); }
+  }
   if (key === 'connections') {
     if (Object.keys(value).some(k => !['tradingViewName', 'broker', 'mode'].includes(k))) throw new AccountError('Ne transmets aucun mot de passe ni clé API.');
     boundedText(value.tradingViewName, 80, 'Nom TradingView', false);

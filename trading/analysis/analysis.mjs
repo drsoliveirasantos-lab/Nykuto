@@ -107,7 +107,11 @@ el('Form').addEventListener('submit',e=>{e.preventDefault();safely(()=>el('EndDa
 el('Contract').addEventListener('change',()=>safely(()=>rebuild(true)));
 el('Interval').addEventListener('change',()=>safely(()=>rebuild()));
 el('EndDate').addEventListener('change',()=>safely(setDateEndpoint));
-el('Count').addEventListener('input',()=>safely(render));
+el('Count').addEventListener('input',()=>{
+  const valid=el('Count').checkValidity();el('Count').setAttribute('aria-invalid',String(!valid));
+  if(valid)safely(render);
+  else el('Status').textContent='Saisis un nombre entier entre 20 et 500. Le graphique et la lecture restent ceux de la dernière sélection valide.';
+});
 el('EndIndex').addEventListener('input',()=>{endIndex=Number(el('EndIndex').value);render();});
 el('Previous').addEventListener('click',()=>{endIndex=Math.max(0,endIndex-1);render();});
 el('Next').addEventListener('click',()=>{endIndex=Math.min(bars.length-1,endIndex+1);render();});

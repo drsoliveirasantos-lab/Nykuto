@@ -155,6 +155,12 @@ historical time. Existing records remain intact with visible legacy-date and
 unknown-mode treatment. It reuses account-scoped D1 state without new APIs or
 broker credentials. See `trading/performance/README.md` for exact definitions.
 
+The ergonomics audit in `trading/UX_AUDIT.md` records the shared mobile menu,
+calendar/list views, account-scoped calendar colors, journal feedback and
+cash-risk validation. `trading/performance/appearance-core.mjs` restricts the
+new appearance state to three hex colors; the existing member/revision gate
+remains authoritative. `trading/risk-core.mjs` only sizes euro cash units.
+
 `trading/analysis/` adds a native MNQ candle chart beside an explainable reading.
 The selected 20–500 closed candles determine both the chart and every measure;
 confirmed swing structure, potential MSS/BOS, EMA9/21 and candle bodies never use
