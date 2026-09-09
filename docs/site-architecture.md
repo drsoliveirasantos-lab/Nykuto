@@ -188,7 +188,8 @@ collection procedure, data boundaries and limitations.
 
 The Lab interface separates `Suivi actuel`, `Tests précédents` and `Test manuel`
 with accessible tabs in `lab-workspace.mjs` and scoped `lab-workspace.css`.
-Jeu 16 opens by default with one predeclared structural-stop comparison.
+Jeu 17 opens by default with the predeclared 2 × 2 stop/net-margin comparison.
+Jeu 16 remains in a disclosure with its original structural-stop comparison.
 Jeu 15 remains in a disclosure with its exploratory LucidFlex 25K risk replay.
 Jeu 14 remains in a disclosure with the fixed Pullback tested across all currently
 verifiable historical blocks (234 trades over 330 scored sessions).
@@ -273,6 +274,18 @@ unchanged reference, report integrity and four menu selections with a simulated
 DOM. This is not browser rendering QA or independent strategy confirmation.
 `JEU16_RESULTS.md` records the exact negative result. No broker, live feed,
 Paper/Shadow activation, account state or MNQ automation is modified.
+
+Jeu 17 separates the two factors changed together in Jeu 16: ATR/pivot stop
+and net-margin filter off/on. It adds only the two missing combinations, with
+unchanged source data, signals, risk budgets and evaluation windows. The frozen
+runner verifies the previous two cells against the Jeu 16 private archive,
+audits chronological prefixes and publishes every result and four paired
+policy contrasts. No strategy is automatically selected. `jeu17-freeze.json`
+pins 20 dependencies; `JEU17_PROTOCOL.md` and `JEU17_RESULTS.md` record scope
+and failure. `lab-ablation-report.mjs` verifies the aggregate report fingerprint
+before displaying all eight selections (four policies × two costs). Full trades
+remain private under `jeu17/ablation-v1/`; previous results, account state,
+MNQ tasks and execution activation remain unchanged. No browser QA is implied.
 
 `trading/account/` adds required first/last-name onboarding, personal settings and
 feedback to the site owner. Cloudflare Access email PIN verifies identity;
