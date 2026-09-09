@@ -23,6 +23,7 @@
   <script src="./lab-timeframes.mjs?v=1" type="module"></script>
   <script src="./lab-history.mjs?v=1" type="module"></script>
   <script src="./lab-lucid.mjs?v=1" type="module"></script>
+  <script src="./lab-structural.mjs?v=1" type="module"></script>
   <link rel="stylesheet" href="./lab-market.css?v=2">
   <link rel="stylesheet" href="./lab-workspace.css?v=3">
   <script src="./lab-workspace.mjs?v=2" type="module"></script>
@@ -61,6 +62,28 @@
     </div>
     <noscript><p>Active JavaScript pour changer de vue et consulter le suivi.</p></noscript>
     <div id="view-current" class="lab-view" role="tabpanel" aria-labelledby="tab-current" tabindex="0">
+    <section class="panel independent-game market-game" id="structuralGame" aria-labelledby="structuralTitle">
+      <div class="panel-heading"><div><p class="panel-kicker">JEU 16 · STOP STRUCTUREL</p><h3 id="structuralTitle">Un pivot confirmé améliore-t-il les résultats ?</h3></div><span class="lab-status planned" id="structuralStatus">Lecture du bilan…</span></div>
+      <div class="iv-content">
+        <p class="iv-intro">Même Pullback 5 min dans la tendance 30 min. Comparaison du stop ATR avec un stop derrière un pivot confirmé et un contrôle de marge après coûts.</p>
+        <p class="iv-message" id="structuralMessage" role="status" aria-live="polite">Chargement de la comparaison.</p>
+        <div id="structuralResults" hidden>
+          <div class="timeframe-filters"><div><label for="structuralScenario">Configuration à examiner</label><select id="structuralScenario"><option value="pivot5">Nouveau · pivot confirmé + marge nette</option><option value="atr5">Référence · stop ATR 5 min</option></select></div><div><label for="structuralCosts">Coûts par aller-retour</label><select id="structuralCosts"><option value="normal">3,50 $ · hypothèse initiale</option><option value="stress">7 $ · coûts doublés</option></select></div></div>
+          <p class="iv-meta">Ces menus affichent les résultats calculés ; ils ne changent aucune règle du bot.</p>
+          <div class="mc-summary"><article><h4>Résultat après coûts</h4><strong id="structuralNet">—</strong><p id="structuralGross"></p></article><article><h4>Activité observée</h4><strong id="structuralTrades">—</strong><p id="structuralDaily"></p></article><article><h4>Pire journée</h4><strong id="structuralWorst">—</strong><p id="structuralDD"></p></article></div>
+          <div class="iv-table-wrap" role="region" aria-label="Comparaison des deux stops" tabindex="0"><table class="iv-table"><caption>Mêmes 330 séances évaluables. Le total ne représente pas un compte continu ni un revenu prévu.</caption><thead><tr><th scope="col">Configuration</th><th scope="col">Trades</th><th scope="col">Net $</th><th scope="col">Net R</th><th scope="col">PF en $</th><th scope="col">PF en R</th></tr></thead><tbody id="structuralComparison"></tbody></table></div>
+          <p class="iv-meta">PF = gains divisés par pertes. Le calcul en R pondère chaque trade par son risque initial ; il peut différer du calcul en dollars. Les critères utilisent le PF en R, comme au Jeu 15.</p>
+          <p id="structuralFreshness"></p>
+          <details class="iv-help" open><summary>Le compte LucidFlex 25K aurait-il tenu ?</summary><p>Chaque fenêtre complète démarre une évaluation distincte. Arrêt au premier breach ou à l’objectif de 1 250 $ avec consistency satisfaite. Aucun funded ni payout n’est simulé comme obtenu.</p><div class="iv-table-wrap" role="region" aria-label="Comptes simulés du Jeu 16" tabindex="0"><table class="iv-table"><thead><tr><th scope="col">Période</th><th scope="col">Séances</th><th scope="col">Résultat du compte</th><th scope="col">Trades</th><th scope="col">Net à l’arrêt</th></tr></thead><tbody id="structuralAccounts"></tbody></table></div></details>
+          <details class="iv-help"><summary>Combien de trades par jour et pourquoi des refus ?</summary><p id="structuralActivity"></p><p id="structuralRejected"></p><p id="structuralExits"></p><p>Trois entrées maximum ne signifie pas trois entrées obligatoires. L’absence de signal admissible laisse la séance sans trade.</p></details>
+          <details class="iv-help"><summary>Critères et résultats sur les fenêtres entières</summary><p>Ces critères examinent l’ensemble des périodes et les deux coûts. Le diagnostic ci-dessous continue sans arrêt à l’objectif ; il réutilise les mêmes dates que les comptes simulés.</p><ul id="structuralChecks"></ul><div class="iv-table-wrap" role="region" aria-label="Fenêtres complètes du Jeu 16" tabindex="0"><table class="iv-table"><thead><tr><th scope="col">Période</th><th scope="col">Trades</th><th scope="col">Net $</th><th scope="col">Net R</th></tr></thead><tbody id="structuralWindows"></tbody></table></div></details>
+          <details class="iv-help"><summary>Comment fonctionne le nouveau stop ?</summary><p>Un creux ou sommet doit être confirmé par deux bougies clôturées de chaque côté. Le pivot n’existe pour le bot qu’après la clôture de la deuxième bougie à droite. Un pivot retouché est invalidé et les pivots sont remis à zéro à chaque séance.</p><p>Long : stop un tick sous le dernier creux confirmé encore intact. Short : un tick au-dessus du dernier sommet. L’entrée reste à l’open suivant le signal. Sans pivot valide ou si le risque dépasse 50 $ avec les coûts, le trade est refusé.</p><p>La target reste à 1,5 fois la distance du stop, arrondie au tick. La variante refuse aussi une target dont le gain après coûts serait inférieur à la perte prévue au stop après coûts. Cette marge minimale de 1:1 après frais ne change pas la target de prix en 1:1.</p><p>Un MNQ, une position, trois entrées maximum, budget de perte 100 $ par jour et réserve MLL 100 $. Les limites sont simulées ; un gap peut les dépasser. Aucun stop n’est rapproché artificiellement et aucune quantité n’est augmentée.</p></details>
+          <details class="iv-help"><summary>Ce que ce test permet de conclure</summary><p>La variante augmente l’activité, mais dégrade le résultat après coûts sur cet historique. Elle n’est pas retenue comme amélioration. Le stop et le contrôle de marge ont été testés ensemble : leur effet individuel n’est pas identifié.</p><p>Les cinq fenêtres complètes restent affichées et les trois autres restent bloquées pour données incomplètes. Les prix ont été récupérés après leur période ; les bougies 5 min ne prouvent pas le chemin tick par tick ni les fills réels.</p><ul id="structuralReadiness"></ul><p>Bot, Paper Bot, Shadow et broker restent désactivés. Aucun flux actuel, achat ou compte membre n’a été ajouté ou modifié.</p></details>
+          <details class="iv-help"><summary>Protocole, sources et contrôles</summary><p>Une variante fixée avant son premier calcul, sur un historique déjà examiné : recherche de développement, sans confirmation indépendante. Coûts hypothétiques 3,50 $ puis 7 $ ; les frais exacts de la plateforme restent à vérifier.</p><p id="structuralAudit"></p><p>Les tests logiciels et le rapport ne constituent pas un contrôle visuel du rendu dans un navigateur.</p><p><a href="./JEU16_PROTOCOL.md">Protocole</a> · <a href="./JEU16_RESULTS.md">Bilan détaillé</a> · <a href="#lucidGame">Revoir le Jeu 15</a></p></details>
+        </div>
+      </div>
+    </section>
+    <details class="lab-archive"><summary><span class="archive-number">15</span><span class="archive-title"><strong>Premiers contrôles LucidFlex 25K</strong><small>Trois configurations · résultats précédents conservés</small></span><span class="archive-state neutral">Historique</span><span class="archive-toggle" aria-hidden="true">+</span></summary>
     <section class="panel independent-game market-game" id="lucidGame" aria-labelledby="lucidTitle">
       <div class="panel-heading"><div><p class="panel-kicker">JEU 15 · LUCIDFLEX 25K</p><h3 id="lucidTitle">Tester le risque avant de payer une évaluation</h3></div><span class="lab-status planned" id="lucidStatus">Lecture du bilan…</span></div>
       <div class="iv-content">
@@ -80,6 +103,7 @@
         </div>
       </div>
     </section>
+    </details>
     <details class="lab-archive"><summary><span class="archive-number">14</span><span class="archive-title"><strong>Pullback sur l’historique élargi</strong><small>234 trades · résultat précédent conservé</small></span><span class="archive-state neutral">Historique</span><span class="archive-toggle" aria-hidden="true">+</span></summary>
     <section class="panel independent-game market-game" id="historyGame" aria-labelledby="historyTitle">
       <div class="panel-heading"><div><p class="panel-kicker">JEU 14 · HISTORIQUE ÉLARGI</p><h3 id="historyTitle">Le Pullback tient-il sur davantage de dates ?</h3></div><span class="lab-status planned" id="historyStatus">Lecture du bilan…</span></div>

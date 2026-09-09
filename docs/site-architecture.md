@@ -188,7 +188,8 @@ collection procedure, data boundaries and limitations.
 
 The Lab interface separates `Suivi actuel`, `Tests précédents` and `Test manuel`
 with accessible tabs in `lab-workspace.mjs` and scoped `lab-workspace.css`.
-Jeu 15 opens by default with an exploratory LucidFlex 25K risk replay.
+Jeu 16 opens by default with one predeclared structural-stop comparison.
+Jeu 15 remains in a disclosure with its exploratory LucidFlex 25K risk replay.
 Jeu 14 remains in a disclosure with the fixed Pullback tested across all currently
 verifiable historical blocks (234 trades over 330 scored sessions).
 Jeux 12–13 remain in a disclosure with 54 explicit timeframe/session/direction trials
@@ -257,6 +258,21 @@ are preserved. `JEU15_PROTOCOL.md`, `JEU15_RESULTS.md` and aggregate-only
 `jeu15-report.json` document failures, costs and daily results. The private
 `jeu15/` archive contains the replay details. No account API, live feed, Paper
 Trading, payout or order execution is added; readiness gates remain closed.
+
+Jeu 16 adds an isolated extension of the frozen account replay, strict same-session
+2-left/2-right pivots and a net target/stop margin check. It compares one new
+structural-stop hypothesis to the unchanged protected 5-minute reference.
+`JEU16_PROTOCOL.md`, `jeu16-freeze.json` and the local pre-result commit pin the
+rules and 18 dependencies. Both cost assumptions and all complete windows are
+reported, including the failed candidate; all earlier engines and results remain
+unchanged. The new aggregate report is checked by SHA256 before display through
+`lab-structural.mjs`; a malformed or unavailable report fails closed. The private
+`jeu16/structural-v1/` archive contains full trades and account days. Tests cover
+pivot confirmation/invalidation, cost and risk gates, replay causality, the
+unchanged reference, report integrity and four menu selections with a simulated
+DOM. This is not browser rendering QA or independent strategy confirmation.
+`JEU16_RESULTS.md` records the exact negative result. No broker, live feed,
+Paper/Shadow activation, account state or MNQ automation is modified.
 
 `trading/account/` adds required first/last-name onboarding, personal settings and
 feedback to the site owner. Cloudflare Access email PIN verifies identity;
