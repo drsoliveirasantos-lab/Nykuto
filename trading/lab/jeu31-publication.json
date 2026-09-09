@@ -1,0 +1,8 @@
+{
+  "schema": "jeu31-publication-v1",
+  "localPrePerformanceCommit": "d4ddfff0e4b4af64c9dda7c600fc4edf5178fb17",
+  "publishedDefinitionCommit": "a3bfc9ed7a0ad8bdc7d28a2fce875c030f5d25bb",
+  "definitionTree": "63499e08a0e037a568385076a741a5d28c006e7e",
+  "archiveManifestSha256": "94a992de7c54e9f4c55195ae28e928db4b5bd877dc245675e76dda5202082a04",
+  "note": "Local freeze preceded new calculations. GitHub publication follows them. Prior historical audit and August outcomes were observed."
+}

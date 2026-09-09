@@ -382,7 +382,7 @@ limitations and verified private archive. No live account or broker is linked;
 Paper/Shadow, collection schedules, workflows and secrets remain unchanged.
 
 
-The cross-market audit is the first current Lab panel at `#marketAudit`, above
+The cross-market audit remains at `#marketAudit`, below Game 31 and above
 Game 30. It reconciles all 67 Games 19–30 ledger entries and describes 126
 unique normal-cost diagnostic trades across January–April and August. It adds
 no strategy trial and does not modify the ledger, economic rules or frozen
@@ -430,3 +430,19 @@ differences are recorded in `trading/knowledge/INTEGRATION_AUDIT.md`.
 `scripts/build-trading-knowledge.mjs`; `--check` verifies reproducibility.
 Imported acceptance cases remain specifications, separate from executed
 integration tests. Existing frozen research and the 67-entry ledger are intact.
+
+
+## Game 31 — market filters, observed-period research
+
+The Lab now opens at `/lab/#marketFiltersGame`. Three fixed research variants
+(MES RSI extremes, MGC entries before 11:00 New York, and both) are replayed
+against the unchanged portfolio across five windows/modes and both costs.
+All 40 views include daily/weekly aggregates, market contributions and removed
+winners/losers plus new admissions. The combined normal-cost January–April
+net rises from 492.75 to 1,076.25 USD; August improves from −561.50 to −235.50
+USD but remains negative (−622 USD at doubled costs). Every candidate fails
+the frozen profitability criterion. These observed periods provide no independent
+confirmation and no execution is activated. The append-only ledger totals 70
+configurations; all 67 earlier entries and frozen reports are preserved.
+See [Game 31 results](trading/lab/JEU31_RESULTS.md), [protocol](trading/lab/JEU31_PROTOCOL.md)
+and [private archive manifest](trading/lab/jeu31-archive.json).

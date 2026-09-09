@@ -1,0 +1,64 @@
+{
+  "schema": "jeu31-archive-v1",
+  "prefix": "jeu31/market-filters-v1/",
+  "freezeSha256": "dcf7f29698cdb6d173aef5f8977ce5424be4042d487d5854ab7051f91518899b",
+  "prePerformanceCommit": "d4ddfff0e4b4af64c9dda7c600fc4edf5178fb17",
+  "sourceReferences": [
+    "jeu19/multimarket-v1/manifest.json",
+    "jeu14/available-history-v1.json",
+    "jeu29/shared-portfolio-v1/manifest.json",
+    "jeu30/august-v1/manifest.json"
+  ],
+  "files": [
+    {
+      "name": "report.json",
+      "bytes": 2221529,
+      "sha256": "4a8dfe0fd9689fcc6c0ac037d44624068763d8a5be1216acd5621aa8114419ef",
+      "encoding": "gzip+base64",
+      "encodedLength": 127600,
+      "parts": [
+        {
+          "key": "jeu31/market-filters-v1/report.json.gz.b64/part-000",
+          "bytes": 120000,
+          "sha256": "fb97e4b3bd40115f32f334441988db5b356c389079fbdffc85bda70a08958dcf"
+        },
+        {
+          "key": "jeu31/market-filters-v1/report.json.gz.b64/part-001",
+          "bytes": 7600,
+          "sha256": "64a36ecc4f0deb5a83d1b5691905d0f69710f60f988818eefdfeda4f61546a47"
+        }
+      ]
+    },
+    {
+      "name": "runs-private.json",
+      "bytes": 4008071,
+      "sha256": "6d12dea27613d09e99a39349d02f8d48fb81cb4f17537f8447d4fd01a16756db",
+      "encoding": "gzip+base64",
+      "encodedLength": 409048,
+      "parts": [
+        {
+          "key": "jeu31/market-filters-v1/runs-private.json.gz.b64/part-000",
+          "bytes": 120000,
+          "sha256": "bc915529a8638765c3333980c12bc696ed94883806b8425eab7cf89552b63178"
+        },
+        {
+          "key": "jeu31/market-filters-v1/runs-private.json.gz.b64/part-001",
+          "bytes": 120000,
+          "sha256": "ee75a4aa31de406f43fd70e86946fb53f36a9bc23e803d914cc9fa22de9c0758"
+        },
+        {
+          "key": "jeu31/market-filters-v1/runs-private.json.gz.b64/part-002",
+          "bytes": 120000,
+          "sha256": "07d295d463eba8c5e28e3cf24870528177e9bbccf087ed1ce59c5f27c2ca2eaf"
+        },
+        {
+          "key": "jeu31/market-filters-v1/runs-private.json.gz.b64/part-003",
+          "bytes": 49048,
+          "sha256": "814d928506354e01529ff32df437a0076242c22ab00e4b1f448f6708409b3800"
+        }
+      ]
+    }
+  ],
+  "researchOnly": true,
+  "executionAllowed": false
+}

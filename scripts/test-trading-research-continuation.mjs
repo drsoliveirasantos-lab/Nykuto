@@ -16,7 +16,7 @@ test('new reports preserve all eight failed configurations and their frozen prot
     const check=v=>{if(!v||typeof v!=='object')return;for(const [key,value] of Object.entries(v)){assert.ok(!['entry','exit','signalOpen','signalClose','trendClosedAt','open','high','low','close'].includes(key),'Raw prices or trades must remain private');if(key==='trades')assert.equal(typeof value,'number');check(value);}};check(r);
   }
   const ledger=JSON.parse(await readFile(new URL('../trading/lab/research-ledger.json',import.meta.url)));
-  assert.equal(ledger.configurationCount,67);assert.equal(ledger.entries.length,67);assert.equal(ledger.independentConfirmations,0);assert.equal(new Set(ledger.entries.map(x=>x.executionKey)).size,67);
+  assert.equal(ledger.configurationCount,ledger.entries.length);assert.equal(ledger.entries.filter(x=>x.game<=30).length,67);assert.equal(ledger.independentConfirmations,0);assert.equal(new Set(ledger.entries.map(x=>x.executionKey)).size,ledger.entries.length);
   assert.equal(ledger.entries.filter(x=>x.game<=28).length,65);
   assert.equal(ledger.entries.filter(x=>x.game<=26).length,57);assert.equal(ledger.entries.filter(x=>x.game<=27).length,61);
   assert.equal(ledger.entries.find(x=>x.game===20).holdoutPassed,false);

@@ -776,7 +776,7 @@ limitations and verified private archive. No live account or broker is linked;
 Paper/Shadow, collection schedules, workflows and secrets remain unchanged.
 
 
-The cross-market audit is the first current Lab panel at `#marketAudit`, above
+The cross-market audit remains at `#marketAudit`, below Game 31 and above
 Game 30. It reconciles all 67 Games 19–30 ledger entries and describes 126
 unique normal-cost diagnostic trades across January–April and August. It adds
 no strategy trial and does not modify the ledger, economic rules or frozen
@@ -824,3 +824,23 @@ differences are recorded in `trading/knowledge/INTEGRATION_AUDIT.md`.
 `scripts/build-trading-knowledge.mjs`; `--check` verifies reproducibility.
 Imported acceptance cases remain specifications, separate from executed
 integration tests. Existing frozen research and the 67-entry ledger are intact.
+
+
+## Trading Lab Game 31
+
+`trading/lab/index.html` opens the current view with `#marketFiltersGame`.
+`lab-market-filters.mjs` renders 40 choices from the SHA-pinned aggregate
+`jeu31-report.json`, verified by `jeu31-report-validation.mjs`. Failed refresh
+clears all old results and keeps menu selections for recovery. Existing panels
+and IDs remain. Typography reuses the Lab section/subtitle/body hierarchy and
+44px controls; DOM tests cover every choice, not a browser visual inspection.
+
+`jeu31-filters.mjs` applies the fixed MES RSI and MGC time rules to signal streams
+before the unchanged Games 29/30 simulators. `scripts/run-trading-jeu31.mjs`
+requires private, hash-checked source paths, verifies its 44-file freeze, compares
+10 reference runs exactly and checks signal/day prefixes for future leakage.
+`jeu31-publication.json` distinguishes the local pre-calculation commit from the
+later GitHub publication of the exact same tree. Private replay archives use
+`jeu31/market-filters-v1/`; only hashes and aggregates are public. The ledger has
+70 trials, preserving the first 67 byte-reconstructed audit-era entries.
+The three exploratory candidates fail profitability; execution remains disabled.
