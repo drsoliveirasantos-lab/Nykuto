@@ -12,7 +12,7 @@
     [modules.length?'#plan':'/#plan','Plan'],
     ['/analysis/','Analyse'],['/replay/','Replay'],['/lab/','Lab'],
     ['/discipline/','Avant un trade'],['/alerts/','Alertes'],
-    ['/connections/','Connexions'],['/account/#feedback','Retours'],['/account/','Mon compte'],['/cdn-cgi/access/logout','Déconnexion']
+    ['/connections/','Connexions'],['/live/','Flux Lucid'],['/account/#feedback','Retours'],['/account/','Mon compte'],['/cdn-cgi/access/logout','Déconnexion']
   ];
   nav.replaceChildren(...entries.map(([href,label])=>{const a=document.createElement('a');a.href=href;a.textContent=label;return a;}));
   const menu=document.createElement('button');menu.type='button';menu.className='site-menu';menu.setAttribute('aria-controls',nav.id);
