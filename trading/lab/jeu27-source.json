@@ -1,0 +1,36 @@
+{
+  "provider": "Massive",
+  "resolution": "5min",
+  "bytes": 4331838,
+  "sha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+  "retrievedAt": "2026-09-09T05:47:42.614820+00:00",
+  "contracts": [
+    "MESH6",
+    "MESM6",
+    "MESU6",
+    "MYMH6",
+    "MYMM6",
+    "MYMU6",
+    "MGCG6",
+    "MGCJ6",
+    "MGCM6",
+    "MGCQ6",
+    "MGCV6"
+  ],
+  "rawPublic": false,
+  "mnqSource": "Pinned Jeu 14 archive, reused observations",
+  "mnqBytes": 2426693,
+  "mnqSha256": "028e914bb10ea38b73b6fcbc867c5d81937b967701448913fc88ca85746557cf",
+  "reusedSource": "Jeu19 three markets and Jeu14 MNQ; no newly independent observations",
+  "reference": {
+    "game": 23,
+    "bytes": 3139653,
+    "sha256": "bce23d425464ef1735acc3fa9612c8f035dad08cf6666952c1476d5f9cd27239",
+    "usage": "Archived Game23 fixed150, same signals, stops, dates, costs and daily budget; new repeated-side admission only; reference not rerun"
+  },
+  "ledgerBefore": {
+    "configurations": 57,
+    "sha256": "4f51c8705d03dce8126a0caf29e0635b74a05b56ec897f7f291c927c6f8d7a7a",
+    "distinctHypothesis": "Second same-side executed ORB retest only if its breakout candle opens after prior same-side exit candle closes; maximum two entries per session"
+  }
+}
