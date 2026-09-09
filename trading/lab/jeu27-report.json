@@ -1,0 +1,2538 @@
+{
+  "schema": "jeu27-report-v1",
+  "protocol": "jeu27-fresh-reentry-v1",
+  "generatedAt": "2026-09-09T14:14:11.802Z",
+  "freezeSha256": "74a83011cae840824c08426d27c790d4d9f4e4a9b425ca1d5b4a5f58c4ca22dc",
+  "protocolSha256": "9deea102d46c45e243406d11e309ab7ea8287332b7400bba98695e2a808159f0",
+  "source": {
+    "provider": "Massive",
+    "resolution": "5min",
+    "bytes": 4331838,
+    "sha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+    "retrievedAt": "2026-09-09T05:47:42.614820+00:00",
+    "contracts": [
+      "MESH6",
+      "MESM6",
+      "MESU6",
+      "MYMH6",
+      "MYMM6",
+      "MYMU6",
+      "MGCG6",
+      "MGCJ6",
+      "MGCM6",
+      "MGCQ6",
+      "MGCV6"
+    ],
+    "rawPublic": false,
+    "mnqSource": "Pinned Jeu 14 archive, reused observations",
+    "mnqBytes": 2426693,
+    "mnqSha256": "028e914bb10ea38b73b6fcbc867c5d81937b967701448913fc88ca85746557cf",
+    "reusedSource": "Jeu19 three markets and Jeu14 MNQ; no newly independent observations",
+    "reference": {
+      "game": 23,
+      "bytes": 3139653,
+      "sha256": "bce23d425464ef1735acc3fa9612c8f035dad08cf6666952c1476d5f9cd27239",
+      "usage": "Archived Game23 fixed150, same signals, stops, dates, costs and daily budget; new repeated-side admission only; reference not rerun"
+    },
+    "ledgerBefore": {
+      "configurations": 57,
+      "sha256": "4f51c8705d03dce8126a0caf29e0635b74a05b56ec897f7f291c927c6f8d7a7a",
+      "distinctHypothesis": "Second same-side executed ORB retest only if its breakout candle opens after prior same-side exit candle closes; maximum two entries per session"
+    }
+  },
+  "policy": {
+    "version": "jeu27-fresh-reentry-v1",
+    "from": "2026-01-01",
+    "end": "2026-09-01",
+    "trainEnd": "2026-05-01",
+    "warmup30": 220,
+    "minNetRewardRisk": 1,
+    "minimumTrainTrades": 40,
+    "minimumWindowTrades": 12,
+    "minimumPF": 1.1,
+    "maxDrawdownR": 8,
+    "paperEnabled": false,
+    "shadowEnabled": false,
+    "brokerEnabled": false,
+    "confirmed": false,
+    "independent": false,
+    "liveFeed": false,
+    "priorAttempts": 57,
+    "openingMinutes": 30,
+    "latestEntryMinute": 720,
+    "retestBars": 6,
+    "maxSignalsPerSide": null,
+    "structuralStop": true,
+    "maxTradesPerSide": 2,
+    "consumeOn": "executed-entry",
+    "riskCaps": [
+      150
+    ],
+    "dailyRiskMultiple": 2,
+    "floorReserve": 100,
+    "riskAuthorized": true,
+    "riskPerTrade": 150,
+    "dailyLoss": 300,
+    "maxTradesPerDay": 2,
+    "quantity": 1,
+    "riskMode": "fixed-admission-cap",
+    "reentryMode": "breakout-open-at-or-after-previous-same-side-exit-bar-close"
+  },
+  "results": [
+    {
+      "id": "MNQ/fresh-reentry150",
+      "symbol": "MNQ",
+      "label": "Nouveau retour après sortie · plafond 150 $",
+      "riskPerTrade": 150,
+      "dailyLoss": 300,
+      "product": {
+        "symbol": "MNQ",
+        "label": "Micro Nasdaq",
+        "tick": 0.25,
+        "multiplier": 2,
+        "fees": 2.5,
+        "venue": "XCME",
+        "priorData": true
+      },
+      "diagnostic": {
+        "normal": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": 456.5,
+          "balance": 25456.5,
+          "drawdown": 643.5,
+          "daily": {
+            "observed": 81,
+            "positive": 19,
+            "negative": 16,
+            "flatActive": 1,
+            "noTrade": 45,
+            "worst": -263.5
+          },
+          "trades": 42,
+          "metrics": {
+            "count": 42,
+            "wins": 21,
+            "win": 0.5,
+            "total": 8.046438037089137,
+            "exp": 0.19158185802593183,
+            "pf": 1.3626191690811484,
+            "dd": 6.3813405882402865,
+            "winInterval": [
+              0.3552574591652803,
+              0.6447425408347197
+            ]
+          },
+          "grossDollars": 603.5,
+          "feesDollars": 147,
+          "pfDollars": 1.2590805902383655,
+          "signalCount": 46,
+          "denied": {
+            "tradeRisk": 4,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 0,
+            "invalidStop": 0,
+            "returnedInside": 0,
+            "staleRepeat": 2
+          },
+          "ambiguous": 1,
+          "recoveredAfterRefusal": 0,
+          "repeatedSideTrades": 6,
+          "repeatedSideNet": -431,
+          "dailyMean": 5.64,
+          "activeDailyMean": 12.68,
+          "referenceComparison": {
+            "oldNet": 887.5,
+            "newNet": 456.5,
+            "deltaNet": -431,
+            "unchangedCount": 36,
+            "addedCount": 6,
+            "removedCount": 0,
+            "addedNet": -431,
+            "removedNet": 0
+          },
+          "referenceDrawdown": 369
+        },
+        "stress": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": 365.5,
+          "balance": 25365.5,
+          "drawdown": 605.5,
+          "daily": {
+            "observed": 81,
+            "positive": 19,
+            "negative": 17,
+            "flatActive": 0,
+            "noTrade": 45,
+            "worst": -270.5
+          },
+          "trades": 40,
+          "metrics": {
+            "count": 40,
+            "wins": 20,
+            "win": 0.5,
+            "total": 5.6632889920242775,
+            "exp": 0.14158222480060695,
+            "pf": 1.2558684173121872,
+            "dd": 5.51672889931999,
+            "winInterval": [
+              0.35199278797099753,
+              0.6480072120290025
+            ]
+          },
+          "grossDollars": 645.5,
+          "feesDollars": 280,
+          "pfDollars": 1.2090363168430083,
+          "signalCount": 47,
+          "denied": {
+            "tradeRisk": 5,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 2,
+            "invalidStop": 0,
+            "returnedInside": 0,
+            "staleRepeat": 3
+          },
+          "ambiguous": 1,
+          "recoveredAfterRefusal": 2,
+          "repeatedSideTrades": 4,
+          "repeatedSideNet": -348.5,
+          "dailyMean": 4.51,
+          "activeDailyMean": 10.15,
+          "referenceComparison": {
+            "oldNet": 714,
+            "newNet": 365.5,
+            "deltaNet": -348.5,
+            "unchangedCount": 36,
+            "addedCount": 4,
+            "removedCount": 0,
+            "addedNet": -348.5,
+            "removedNet": 0
+          },
+          "referenceDrawdown": 455
+        }
+      },
+      "windows": [
+        {
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "phase": "train",
+          "expected": 39,
+          "scored": 39,
+          "complete": true,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 435.5,
+              "balance": 25435.5,
+              "drawdown": 348,
+              "daily": {
+                "observed": 39,
+                "positive": 10,
+                "negative": 8,
+                "flatActive": 0,
+                "noTrade": 21,
+                "worst": -263.5
+              },
+              "trades": 21,
+              "metrics": {
+                "count": 21,
+                "wins": 11,
+                "win": 0.5238095238095238,
+                "total": 5.3176283072982224,
+                "exp": 0.25322039558562964,
+                "pf": 1.5030862856702156,
+                "dd": 3.0979657546805033,
+                "winInterval": [
+                  0.32369217900266756,
+                  0.7165628770323705
+                ]
+              },
+              "grossDollars": 509,
+              "feesDollars": 73.5,
+              "pfDollars": 1.5120517342739566,
+              "signalCount": 24,
+              "denied": {
+                "tradeRisk": 3,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0,
+                "invalidStop": 0,
+                "returnedInside": 0,
+                "staleRepeat": 0
+              },
+              "ambiguous": 0,
+              "recoveredAfterRefusal": 0,
+              "repeatedSideTrades": 3,
+              "repeatedSideNet": -156.5,
+              "dailyMean": 11.17,
+              "activeDailyMean": 24.19,
+              "referenceComparison": {
+                "oldNet": 592,
+                "newNet": 435.5,
+                "deltaNet": -156.5,
+                "unchangedCount": 18,
+                "addedCount": 3,
+                "removedCount": 0,
+                "addedNet": -156.5,
+                "removedNet": 0
+              },
+              "referenceDrawdown": 209
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 331,
+              "balance": 25331,
+              "drawdown": 358.5,
+              "daily": {
+                "observed": 39,
+                "positive": 10,
+                "negative": 8,
+                "flatActive": 0,
+                "noTrade": 21,
+                "worst": -270.5
+              },
+              "trades": 20,
+              "metrics": {
+                "count": 20,
+                "wins": 10,
+                "win": 0.5,
+                "total": 2.945122303110818,
+                "exp": 0.14725611515554088,
+                "pf": 1.2643730444937944,
+                "dd": 3.5398612347181038,
+                "winInterval": [
+                  0.2992949144298199,
+                  0.7007050855701801
+                ]
+              },
+              "grossDollars": 471,
+              "feesDollars": 140,
+              "pfDollars": 1.3738001129305477,
+              "signalCount": 24,
+              "denied": {
+                "tradeRisk": 3,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 1,
+                "invalidStop": 0,
+                "returnedInside": 0,
+                "staleRepeat": 0
+              },
+              "ambiguous": 0,
+              "recoveredAfterRefusal": 0,
+              "repeatedSideTrades": 2,
+              "repeatedSideNet": -198,
+              "dailyMean": 8.49,
+              "activeDailyMean": 18.39,
+              "referenceComparison": {
+                "oldNet": 529,
+                "newNet": 331,
+                "deltaNet": -198,
+                "unchangedCount": 18,
+                "addedCount": 2,
+                "removedCount": 0,
+                "addedNet": -198,
+                "removedNet": 0
+              },
+              "referenceDrawdown": 216
+            }
+          },
+          "account": {
+            "normal": {
+              "status": "incomplete",
+              "terminalDay": null,
+              "net": 435.5,
+              "balance": 25435.5,
+              "drawdown": 348,
+              "daily": {
+                "observed": 39,
+                "positive": 10,
+                "negative": 8,
+                "flatActive": 0,
+                "noTrade": 21,
+                "worst": -263.5
+              },
+              "trades": 21,
+              "metrics": {
+                "count": 21,
+                "wins": 11,
+                "win": 0.5238095238095238,
+                "total": 5.3176283072982224,
+                "exp": 0.25322039558562964,
+                "pf": 1.5030862856702156,
+                "dd": 3.0979657546805033,
+                "winInterval": [
+                  0.32369217900266756,
+                  0.7165628770323705
+                ]
+              },
+              "grossDollars": 509,
+              "feesDollars": 73.5,
+              "pfDollars": 1.5120517342739566,
+              "signalCount": 24,
+              "denied": {
+                "tradeRisk": 3,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0,
+                "invalidStop": 0,
+                "returnedInside": 0,
+                "staleRepeat": 0
+              },
+              "ambiguous": 0,
+              "recoveredAfterRefusal": 0,
+              "repeatedSideTrades": 3,
+              "repeatedSideNet": -156.5,
+              "dailyMean": 11.17,
+              "activeDailyMean": 24.19,
+              "referenceComparison": {
+                "oldNet": 592,
+                "newNet": 435.5,
+                "deltaNet": -156.5,
+                "unchangedCount": 18,
+                "addedCount": 3,
+                "removedCount": 0,
+                "addedNet": -156.5,
+                "removedNet": 0
+              },
+              "referenceDrawdown": 209
+            },
+            "stress": {
+              "status": "incomplete",
+              "terminalDay": null,
+              "net": 331,
+              "balance": 25331,
+              "drawdown": 358.5,
+              "daily": {
+                "observed": 39,
+                "positive": 10,
+                "negative": 8,
+                "flatActive": 0,
+                "noTrade": 21,
+                "worst": -270.5
+              },
+              "trades": 20,
+              "metrics": {
+                "count": 20,
+                "wins": 10,
+                "win": 0.5,
+                "total": 2.945122303110818,
+                "exp": 0.14725611515554088,
+                "pf": 1.2643730444937944,
+                "dd": 3.5398612347181038,
+                "winInterval": [
+                  0.2992949144298199,
+                  0.7007050855701801
+                ]
+              },
+              "grossDollars": 471,
+              "feesDollars": 140,
+              "pfDollars": 1.3738001129305477,
+              "signalCount": 24,
+              "denied": {
+                "tradeRisk": 3,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 1,
+                "invalidStop": 0,
+                "returnedInside": 0,
+                "staleRepeat": 0
+              },
+              "ambiguous": 0,
+              "recoveredAfterRefusal": 0,
+              "repeatedSideTrades": 2,
+              "repeatedSideNet": -198,
+              "dailyMean": 8.49,
+              "activeDailyMean": 18.39,
+              "referenceComparison": {
+                "oldNet": 529,
+                "newNet": 331,
+                "deltaNet": -198,
+                "unchangedCount": 18,
+                "addedCount": 2,
+                "removedCount": 0,
+                "addedNet": -198,
+                "removedNet": 0
+              },
+              "referenceDrawdown": 216
+            }
+          }
+        },
+        {
+          "start": "2026-03-01",
+          "end": "2026-05-01",
+          "phase": "train",
+          "expected": 43,
+          "scored": 42,
+          "complete": false,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 21,
+              "balance": 25021,
+              "drawdown": 515.5,
+              "daily": {
+                "observed": 42,
+                "positive": 9,
+                "negative": 8,
+                "flatActive": 1,
+                "noTrade": 24,
+                "worst": -190.5
+              },
+              "trades": 21,
+              "metrics": {
+                "count": 21,
+                "wins": 10,
+                "win": 0.47619047619047616,
+                "total": 2.728809729790913,
+                "exp": 0.12994332046623397,
+                "pf": 1.2348421104805447,
+                "dd": 6.3813405882402865,
+                "winInterval": [
+                  0.28343712296762946,
+                  0.6763078209973324
+                ]
+              },
+              "grossDollars": 94.5,
+              "feesDollars": 73.5,
+              "pfDollars": 1.023038946791004,
+              "signalCount": 22,
+              "denied": {
+                "tradeRisk": 1,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0,
+                "invalidStop": 0,
+                "returnedInside": 0,
+                "staleRepeat": 2
+              },
+              "ambiguous": 1,
+              "recoveredAfterRefusal": 0,
+              "repeatedSideTrades": 3,
+              "repeatedSideNet": -274.5,
+              "dailyMean": 0.5,
+              "activeDailyMean": 1.17,
+              "referenceComparison": {
+                "oldNet": 295.5,
+                "newNet": 21,
+                "deltaNet": -274.5,
+                "unchangedCount": 18,
+                "addedCount": 3,
+                "removedCount": 0,
+                "addedNet": -274.5,
+                "removedNet": 0
+              },
+              "referenceDrawdown": 333.5
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 34.5,
+              "balance": 25034.5,
+              "drawdown": 449.5,
+              "daily": {
+                "observed": 42,
+                "positive": 9,
+                "negative": 9,
+                "flatActive": 0,
+                "noTrade": 24,
+                "worst": -197.5
+              },
+              "trades": 20,
+              "metrics": {
+                "count": 20,
+                "wins": 10,
+                "win": 0.5,
+                "total": 2.7181666889134597,
+                "exp": 0.135908334445673,
+                "pf": 1.2472504959304127,
+                "dd": 5.51672889931999,
+                "winInterval": [
+                  0.2992949144298199,
+                  0.7007050855701801
+                ]
+              },
+              "grossDollars": 174.5,
+              "feesDollars": 140,
+              "pfDollars": 1.0399768250289687,
+              "signalCount": 23,
+              "denied": {
+                "tradeRisk": 2,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 1,
+                "invalidStop": 0,
+                "returnedInside": 0,
+                "staleRepeat": 3
+              },
+              "ambiguous": 1,
+              "recoveredAfterRefusal": 2,
+              "repeatedSideTrades": 2,
+              "repeatedSideNet": -150.5,
+              "dailyMean": 0.82,
+              "activeDailyMean": 1.92,
+              "referenceComparison": {
+                "oldNet": 185,
+                "newNet": 34.5,
+                "deltaNet": -150.5,
+                "unchangedCount": 18,
+                "addedCount": 2,
+                "removedCount": 0,
+                "addedNet": -150.5,
+                "removedNet": 0
+              },
+              "referenceDrawdown": 395
+            }
+          },
+          "account": null
+        }
+      ],
+      "checks": [
+        {
+          "id": "coverage",
+          "label": "Deux fenêtres entièrement couvertes",
+          "pass": false
+        },
+        {
+          "id": "count",
+          "label": "Au moins 40 trades au total",
+          "pass": true
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par fenêtre",
+          "pass": true
+        },
+        {
+          "id": "positive",
+          "label": "Chaque fenêtre positive en R et dollars",
+          "pass": true
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor en R au moins 1,10",
+          "pass": true
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé au plus 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Total positif en R et dollars avec coûts doublés",
+          "pass": true
+        },
+        {
+          "id": "account",
+          "label": "Aucun franchissement du seuil dans les comptes complets",
+          "pass": false
+        }
+      ],
+      "researchPassed": false,
+      "confirmed": false
+    },
+    {
+      "id": "MES/fresh-reentry150",
+      "symbol": "MES",
+      "label": "Nouveau retour après sortie · plafond 150 $",
+      "riskPerTrade": 150,
+      "dailyLoss": 300,
+      "product": {
+        "symbol": "MES",
+        "label": "Micro S&P 500",
+        "tick": 0.25,
+        "multiplier": 5,
+        "fees": 2.5,
+        "venue": "XCME",
+        "priorData": false
+      },
+      "diagnostic": {
+        "normal": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": -247.5,
+          "balance": 24752.5,
+          "drawdown": 471.25,
+          "daily": {
+            "observed": 81,
+            "positive": 12,
+            "negative": 15,
+            "flatActive": 0,
+            "noTrade": 54,
+            "worst": -137.5
+          },
+          "trades": 29,
+          "metrics": {
+            "count": 29,
+            "wins": 12,
+            "win": 0.41379310344827586,
+            "total": -2.7272569017514217,
+            "exp": -0.09404334143970419,
+            "pf": 0.8566371790827478,
+            "dd": 6.019310337739528,
+            "winInterval": [
+              0.2551293527964552,
+              0.5926247152148476
+            ]
+          },
+          "grossDollars": -102.5,
+          "feesDollars": 145,
+          "pfDollars": 0.741851368970013,
+          "signalCount": 33,
+          "denied": {
+            "tradeRisk": 0,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 4,
+            "invalidStop": 0,
+            "returnedInside": 0,
+            "staleRepeat": 4
+          },
+          "ambiguous": 0,
+          "recoveredAfterRefusal": 1,
+          "repeatedSideTrades": 1,
+          "repeatedSideNet": -41.25,
+          "dailyMean": -3.06,
+          "activeDailyMean": -9.17,
+          "referenceComparison": {
+            "oldNet": -206.25,
+            "newNet": -247.5,
+            "deltaNet": -41.25,
+            "unchangedCount": 28,
+            "addedCount": 1,
+            "removedCount": 0,
+            "addedNet": -41.25,
+            "removedNet": 0
+          },
+          "referenceDrawdown": 471.25
+        },
+        "stress": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": -277.5,
+          "balance": 24722.5,
+          "drawdown": 456.25,
+          "daily": {
+            "observed": 81,
+            "positive": 7,
+            "negative": 12,
+            "flatActive": 0,
+            "noTrade": 62,
+            "worst": -142.5
+          },
+          "trades": 19,
+          "metrics": {
+            "count": 19,
+            "wins": 7,
+            "win": 0.3684210526315789,
+            "total": -4.980854058549595,
+            "exp": -0.26215021360787344,
+            "pf": 0.6487194573784737,
+            "dd": 7.736453074225879,
+            "winInterval": [
+              0.19149272376273843,
+              0.5896084250184328
+            ]
+          },
+          "grossDollars": -87.5,
+          "feesDollars": 190,
+          "pfDollars": 0.6754385964912281,
+          "signalCount": 38,
+          "denied": {
+            "tradeRisk": 0,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 19,
+            "invalidStop": 0,
+            "returnedInside": 0,
+            "staleRepeat": 2
+          },
+          "ambiguous": 0,
+          "recoveredAfterRefusal": 3,
+          "repeatedSideTrades": 0,
+          "repeatedSideNet": 0,
+          "dailyMean": -3.43,
+          "activeDailyMean": -14.61,
+          "referenceComparison": {
+            "oldNet": -277.5,
+            "newNet": -277.5,
+            "deltaNet": 0,
+            "unchangedCount": 19,
+            "addedCount": 0,
+            "removedCount": 0,
+            "addedNet": 0,
+            "removedNet": 0
+          },
+          "referenceDrawdown": 456.25
+        }
+      },
+      "windows": [
+        {
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "phase": "train",
+          "expected": 39,
+          "scored": 39,
+          "complete": true,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": -15,
+              "balance": 24985,
+              "drawdown": 201.25,
+              "daily": {
+                "observed": 39,
+                "positive": 8,
+                "negative": 7,
+                "flatActive": 0,
+                "noTrade": 24,
+                "worst": -137.5
+              },
+              "trades": 16,
+              "metrics": {
+                "count": 16,
+                "wins": 8,
+                "win": 0.5,
+                "total": 1.805171795654137,
+                "exp": 0.11282323722838357,
+                "pf": 1.200377718976609,
+                "dd": 4.433066993502566,
+                "winInterval": [
+                  0.2799923761135083,
+                  0.7200076238864916
+                ]
+              },
+              "grossDollars": 65,
+              "feesDollars": 80,
+              "pfDollars": 0.9663865546218487,
+              "signalCount": 17,
+              "denied": {
+                "tradeRisk": 0,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 1,
+                "invalidStop": 0,
+                "returnedInside": 0,
+                "staleRepeat": 2
+              },
+              "ambiguous": 0,
+              "recoveredAfterRefusal": 0,
+              "repeatedSideTrades": 1,
+              "repeatedSideNet": -41.25,
+              "dailyMean": -0.38,
+              "activeDailyMean": -1,
+              "referenceComparison": {
+                "oldNet": 26.25,
+                "newNet": -15,
+                "deltaNet": -41.25,
+                "unchangedCount": 15,
+                "addedCount": 1,
+                "removedCount": 0,
+                "addedNet": -41.25,
+                "removedNet": 0
+              },
+              "referenceDrawdown": 201.25
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": -27.5,
+              "balance": 24972.5,
+              "drawdown": 245,
+              "daily": {
+                "observed": 39,
+                "positive": 4,
+                "negative": 5,
+                "flatActive": 0,
+                "noTrade": 30,
+                "worst": -142.5
+              },
+              "trades": 9,
+              "metrics": {
+                "count": 9,
+                "wins": 4,
+                "win": 0.4444444444444444,
+                "total": -0.6430443629941021,
+                "exp": -0.07144937366601134,
+                "pf": 0.891483339299173,
+                "dd": 3.364193047910903,
+                "winInterval": [
+                  0.188775429471914,
+                  0.7333526542559703
+                ]
+              },
+              "grossDollars": 62.5,
+              "feesDollars": 90,
+              "pfDollars": 0.9264214046822743,
+              "signalCount": 21,
+              "denied": {
+                "tradeRisk": 0,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 12,
+                "invalidStop": 0,
+                "returnedInside": 0,
+                "staleRepeat": 1
+              },
+              "ambiguous": 0,
+              "recoveredAfterRefusal": 2,
+              "repeatedSideTrades": 0,
+              "repeatedSideNet": 0,
+              "dailyMean": -0.71,
+              "activeDailyMean": -3.06,
+              "referenceComparison": {
+                "oldNet": -27.5,
+                "newNet": -27.5,
+                "deltaNet": 0,
+                "unchangedCount": 9,
+                "addedCount": 0,
+                "removedCount": 0,
+                "addedNet": 0,
+                "removedNet": 0
+              },
+              "referenceDrawdown": 245
+            }
+          },
+          "account": {
+            "normal": {
+              "status": "incomplete",
+              "terminalDay": null,
+              "net": -15,
+              "balance": 24985,
+              "drawdown": 201.25,
+              "daily": {
+                "observed": 39,
+                "positive": 8,
+                "negative": 7,
+                "flatActive": 0,
+                "noTrade": 24,
+                "worst": -137.5
+              },
+              "trades": 16,
+              "metrics": {
+                "count": 16,
+                "wins": 8,
+                "win": 0.5,
+                "total": 1.805171795654137,
+                "exp": 0.11282323722838357,
+                "pf": 1.200377718976609,
+                "dd": 4.433066993502566,
+                "winInterval": [
+                  0.2799923761135083,
+                  0.7200076238864916
+                ]
+              },
+              "grossDollars": 65,
+              "feesDollars": 80,
+              "pfDollars": 0.9663865546218487,
+              "signalCount": 17,
+              "denied": {
+                "tradeRisk": 0,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 1,
+                "invalidStop": 0,
+                "returnedInside": 0,
+                "staleRepeat": 2
+              },
+              "ambiguous": 0,
+              "recoveredAfterRefusal": 0,
+              "repeatedSideTrades": 1,
+              "repeatedSideNet": -41.25,
+              "dailyMean": -0.38,
+              "activeDailyMean": -1,
+              "referenceComparison": {
+                "oldNet": 26.25,
+                "newNet": -15,
+                "deltaNet": -41.25,
+                "unchangedCount": 15,
+                "addedCount": 1,
+                "removedCount": 0,
+                "addedNet": -41.25,
+                "removedNet": 0
+              },
+              "referenceDrawdown": 201.25
+            },
+            "stress": {
+              "status": "incomplete",
+              "terminalDay": null,
+              "net": -27.5,
+              "balance": 24972.5,
+              "drawdown": 245,
+              "daily": {
+                "observed": 39,
+                "positive": 4,
+                "negative": 5,
+                "flatActive": 0,
+                "noTrade": 30,
+                "worst": -142.5
+              },
+              "trades": 9,
+              "metrics": {
+                "count": 9,
+                "wins": 4,
+                "win": 0.4444444444444444,
+                "total": -0.6430443629941021,
+                "exp": -0.07144937366601134,
+                "pf": 0.891483339299173,
+                "dd": 3.364193047910903,
+                "winInterval": [
+                  0.188775429471914,
+                  0.7333526542559703
+                ]
+              },
+              "grossDollars": 62.5,
+              "feesDollars": 90,
+              "pfDollars": 0.9264214046822743,
+              "signalCount": 21,
+              "denied": {
+                "tradeRisk": 0,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 12,
+                "invalidStop": 0,
+                "returnedInside": 0,
+                "staleRepeat": 1
+              },
+              "ambiguous": 0,
+              "recoveredAfterRefusal": 2,
+              "repeatedSideTrades": 0,
+              "repeatedSideNet": 0,
+              "dailyMean": -0.71,
+              "activeDailyMean": -3.06,
+              "referenceComparison": {
+                "oldNet": -27.5,
+                "newNet": -27.5,
+                "deltaNet": 0,
+                "unchangedCount": 9,
+                "addedCount": 0,
+                "removedCount": 0,
+                "addedNet": 0,
+                "removedNet": 0
+              },
+              "referenceDrawdown": 245
+            }
+          }
+        },
+        {
+          "start": "2026-03-01",
+          "end": "2026-05-01",
+          "phase": "train",
+          "expected": 43,
+          "scored": 42,
+          "complete": false,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": -232.5,
+              "balance": 24767.5,
+              "drawdown": 317.5,
+              "daily": {
+                "observed": 42,
+                "positive": 4,
+                "negative": 8,
+                "flatActive": 0,
+                "noTrade": 30,
+                "worst": -86.25
+              },
+              "trades": 13,
+              "metrics": {
+                "count": 13,
+                "wins": 4,
+                "win": 0.3076923076923077,
+                "total": -4.53242869740556,
+                "exp": -0.34864836133888927,
+                "pf": 0.5474185855842185,
+                "dd": 5.458189179241812,
+                "winInterval": [
+                  0.12680497161618087,
+                  0.5763111218666236
+                ]
+              },
+              "grossDollars": -167.5,
+              "feesDollars": 65,
+              "pfDollars": 0.5463414634146342,
+              "signalCount": 16,
+              "denied": {
+                "tradeRisk": 0,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 3,
+                "invalidStop": 0,
+                "returnedInside": 0,
+                "staleRepeat": 2
+              },
+              "ambiguous": 0,
+              "recoveredAfterRefusal": 1,
+              "repeatedSideTrades": 0,
+              "repeatedSideNet": 0,
+              "dailyMean": -5.54,
+              "activeDailyMean": -19.37,
+              "referenceComparison": {
+                "oldNet": -232.5,
+                "newNet": -232.5,
+                "deltaNet": 0,
+                "unchangedCount": 13,
+                "addedCount": 0,
+                "removedCount": 0,
+                "addedNet": 0,
+                "removedNet": 0
+              },
+              "referenceDrawdown": 317.5
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": -250,
+              "balance": 24750,
+              "drawdown": 352.5,
+              "daily": {
+                "observed": 42,
+                "positive": 3,
+                "negative": 7,
+                "flatActive": 0,
+                "noTrade": 32,
+                "worst": -91.25
+              },
+              "trades": 10,
+              "metrics": {
+                "count": 10,
+                "wins": 3,
+                "win": 0.3,
+                "total": -4.337809695555493,
+                "exp": -0.43378096955554934,
+                "pf": 0.4744194666258122,
+                "dd": 5.916378358483622,
+                "winInterval": [
+                  0.10778928748621183,
+                  0.6032267800204347
+                ]
+              },
+              "grossDollars": -150,
+              "feesDollars": 100,
+              "pfDollars": 0.4805194805194805,
+              "signalCount": 17,
+              "denied": {
+                "tradeRisk": 0,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 7,
+                "invalidStop": 0,
+                "returnedInside": 0,
+                "staleRepeat": 1
+              },
+              "ambiguous": 0,
+              "recoveredAfterRefusal": 1,
+              "repeatedSideTrades": 0,
+              "repeatedSideNet": 0,
+              "dailyMean": -5.95,
+              "activeDailyMean": -25,
+              "referenceComparison": {
+                "oldNet": -250,
+                "newNet": -250,
+                "deltaNet": 0,
+                "unchangedCount": 10,
+                "addedCount": 0,
+                "removedCount": 0,
+                "addedNet": 0,
+                "removedNet": 0
+              },
+              "referenceDrawdown": 352.5
+            }
+          },
+          "account": null
+        }
+      ],
+      "checks": [
+        {
+          "id": "coverage",
+          "label": "Deux fenêtres entièrement couvertes",
+          "pass": false
+        },
+        {
+          "id": "count",
+          "label": "Au moins 40 trades au total",
+          "pass": false
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par fenêtre",
+          "pass": true
+        },
+        {
+          "id": "positive",
+          "label": "Chaque fenêtre positive en R et dollars",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor en R au moins 1,10",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé au plus 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Total positif en R et dollars avec coûts doublés",
+          "pass": false
+        },
+        {
+          "id": "account",
+          "label": "Aucun franchissement du seuil dans les comptes complets",
+          "pass": false
+        }
+      ],
+      "researchPassed": false,
+      "confirmed": false
+    },
+    {
+      "id": "MYM/fresh-reentry150",
+      "symbol": "MYM",
+      "label": "Nouveau retour après sortie · plafond 150 $",
+      "riskPerTrade": 150,
+      "dailyLoss": 300,
+      "product": {
+        "symbol": "MYM",
+        "label": "Micro Dow Jones",
+        "tick": 1,
+        "multiplier": 0.5,
+        "fees": 2.5,
+        "venue": "XCBT",
+        "priorData": false
+      },
+      "diagnostic": {
+        "normal": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": -307,
+          "balance": 24693,
+          "drawdown": 416,
+          "daily": {
+            "observed": 82,
+            "positive": 14,
+            "negative": 23,
+            "flatActive": 0,
+            "noTrade": 45,
+            "worst": -100
+          },
+          "trades": 42,
+          "metrics": {
+            "count": 42,
+            "wins": 15,
+            "win": 0.35714285714285715,
+            "total": -9.956057927201718,
+            "exp": -0.23704899826670756,
+            "pf": 0.6718448823962879,
+            "dd": 14.200503106269778,
+            "winInterval": [
+              0.22988992501626865,
+              0.5083391071292063
+            ]
+          },
+          "grossDollars": -160,
+          "feesDollars": 147,
+          "pfDollars": 0.6585094549499444,
+          "signalCount": 47,
+          "denied": {
+            "tradeRisk": 0,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 5,
+            "invalidStop": 0,
+            "returnedInside": 0,
+            "staleRepeat": 4
+          },
+          "ambiguous": 0,
+          "recoveredAfterRefusal": 2,
+          "repeatedSideTrades": 5,
+          "repeatedSideNet": -18.5,
+          "dailyMean": -3.74,
+          "activeDailyMean": -8.3,
+          "referenceComparison": {
+            "oldNet": -288.5,
+            "newNet": -307,
+            "deltaNet": -18.5,
+            "unchangedCount": 37,
+            "addedCount": 5,
+            "removedCount": 0,
+            "addedNet": -18.5,
+            "removedNet": 0
+          },
+          "referenceDrawdown": 367.5
+        },
+        "stress": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": -358.5,
+          "balance": 24641.5,
+          "drawdown": 395,
+          "daily": {
+            "observed": 82,
+            "positive": 6,
+            "negative": 14,
+            "flatActive": 0,
+            "noTrade": 62,
+            "worst": -103.5
+          },
+          "trades": 20,
+          "metrics": {
+            "count": 20,
+            "wins": 6,
+            "win": 0.3,
+            "total": -8.414040662955431,
+            "exp": -0.42070203314777155,
+            "pf": 0.4817119270943363,
+            "dd": 9.672661352610604,
+            "winInterval": [
+              0.14547527396899385,
+              0.5189767762289793
+            ]
+          },
+          "grossDollars": -218.5,
+          "feesDollars": 140,
+          "pfDollars": 0.45267175572519086,
+          "signalCount": 56,
+          "denied": {
+            "tradeRisk": 0,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 36,
+            "invalidStop": 0,
+            "returnedInside": 0,
+            "staleRepeat": 2
+          },
+          "ambiguous": 0,
+          "recoveredAfterRefusal": 3,
+          "repeatedSideTrades": 0,
+          "repeatedSideNet": 0,
+          "dailyMean": -4.37,
+          "activeDailyMean": -17.92,
+          "referenceComparison": {
+            "oldNet": -358.5,
+            "newNet": -358.5,
+            "deltaNet": 0,
+            "unchangedCount": 20,
+            "addedCount": 0,
+            "removedCount": 0,
+            "addedNet": 0,
+            "removedNet": 0
+          },
+          "referenceDrawdown": 395
+        }
+      },
+      "windows": [
+        {
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "phase": "train",
+          "expected": 39,
+          "scored": 39,
+          "complete": true,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": -139.5,
+              "balance": 24860.5,
+              "drawdown": 287.5,
+              "daily": {
+                "observed": 39,
+                "positive": 7,
+                "negative": 11,
+                "flatActive": 0,
+                "noTrade": 21,
+                "worst": -100
+              },
+              "trades": 21,
+              "metrics": {
+                "count": 21,
+                "wins": 8,
+                "win": 0.38095238095238093,
+                "total": -3.365187993884433,
+                "exp": -0.16024704732783016,
+                "pf": 0.7648596618451986,
+                "dd": 7.685466506285827,
+                "winInterval": [
+                  0.20750767797982506,
+                  0.5912170418449848
+                ]
+              },
+              "grossDollars": -66,
+              "feesDollars": 73.5,
+              "pfDollars": 0.7016042780748664,
+              "signalCount": 24,
+              "denied": {
+                "tradeRisk": 0,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 3,
+                "invalidStop": 0,
+                "returnedInside": 0,
+                "staleRepeat": 4
+              },
+              "ambiguous": 0,
+              "recoveredAfterRefusal": 1,
+              "repeatedSideTrades": 3,
+              "repeatedSideNet": 44.5,
+              "dailyMean": -3.58,
+              "activeDailyMean": -7.75,
+              "referenceComparison": {
+                "oldNet": -184,
+                "newNet": -139.5,
+                "deltaNet": 44.5,
+                "unchangedCount": 18,
+                "addedCount": 3,
+                "removedCount": 0,
+                "addedNet": 44.5,
+                "removedNet": 0
+              },
+              "referenceDrawdown": 302
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": -208,
+              "balance": 24792,
+              "drawdown": 312.5,
+              "daily": {
+                "observed": 39,
+                "positive": 3,
+                "negative": 7,
+                "flatActive": 0,
+                "noTrade": 29,
+                "worst": -103.5
+              },
+              "trades": 10,
+              "metrics": {
+                "count": 10,
+                "wins": 3,
+                "win": 0.3,
+                "total": -3.8841950206359854,
+                "exp": -0.38841950206359854,
+                "pf": 0.5022059773226338,
+                "dd": 6.502815710291158,
+                "winInterval": [
+                  0.10778928748621183,
+                  0.6032267800204347
+                ]
+              },
+              "grossDollars": -138,
+              "feesDollars": 70,
+              "pfDollars": 0.41899441340782123,
+              "signalCount": 30,
+              "denied": {
+                "tradeRisk": 0,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 20,
+                "invalidStop": 0,
+                "returnedInside": 0,
+                "staleRepeat": 2
+              },
+              "ambiguous": 0,
+              "recoveredAfterRefusal": 2,
+              "repeatedSideTrades": 0,
+              "repeatedSideNet": 0,
+              "dailyMean": -5.33,
+              "activeDailyMean": -20.8,
+              "referenceComparison": {
+                "oldNet": -208,
+                "newNet": -208,
+                "deltaNet": 0,
+                "unchangedCount": 10,
+                "addedCount": 0,
+                "removedCount": 0,
+                "addedNet": 0,
+                "removedNet": 0
+              },
+              "referenceDrawdown": 312.5
+            }
+          },
+          "account": {
+            "normal": {
+              "status": "incomplete",
+              "terminalDay": null,
+              "net": -139.5,
+              "balance": 24860.5,
+              "drawdown": 287.5,
+              "daily": {
+                "observed": 39,
+                "positive": 7,
+                "negative": 11,
+                "flatActive": 0,
+                "noTrade": 21,
+                "worst": -100
+              },
+              "trades": 21,
+              "metrics": {
+                "count": 21,
+                "wins": 8,
+                "win": 0.38095238095238093,
+                "total": -3.365187993884433,
+                "exp": -0.16024704732783016,
+                "pf": 0.7648596618451986,
+                "dd": 7.685466506285827,
+                "winInterval": [
+                  0.20750767797982506,
+                  0.5912170418449848
+                ]
+              },
+              "grossDollars": -66,
+              "feesDollars": 73.5,
+              "pfDollars": 0.7016042780748664,
+              "signalCount": 24,
+              "denied": {
+                "tradeRisk": 0,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 3,
+                "invalidStop": 0,
+                "returnedInside": 0,
+                "staleRepeat": 4
+              },
+              "ambiguous": 0,
+              "recoveredAfterRefusal": 1,
+              "repeatedSideTrades": 3,
+              "repeatedSideNet": 44.5,
+              "dailyMean": -3.58,
+              "activeDailyMean": -7.75,
+              "referenceComparison": {
+                "oldNet": -184,
+                "newNet": -139.5,
+                "deltaNet": 44.5,
+                "unchangedCount": 18,
+                "addedCount": 3,
+                "removedCount": 0,
+                "addedNet": 44.5,
+                "removedNet": 0
+              },
+              "referenceDrawdown": 302
+            },
+            "stress": {
+              "status": "incomplete",
+              "terminalDay": null,
+              "net": -208,
+              "balance": 24792,
+              "drawdown": 312.5,
+              "daily": {
+                "observed": 39,
+                "positive": 3,
+                "negative": 7,
+                "flatActive": 0,
+                "noTrade": 29,
+                "worst": -103.5
+              },
+              "trades": 10,
+              "metrics": {
+                "count": 10,
+                "wins": 3,
+                "win": 0.3,
+                "total": -3.8841950206359854,
+                "exp": -0.38841950206359854,
+                "pf": 0.5022059773226338,
+                "dd": 6.502815710291158,
+                "winInterval": [
+                  0.10778928748621183,
+                  0.6032267800204347
+                ]
+              },
+              "grossDollars": -138,
+              "feesDollars": 70,
+              "pfDollars": 0.41899441340782123,
+              "signalCount": 30,
+              "denied": {
+                "tradeRisk": 0,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 20,
+                "invalidStop": 0,
+                "returnedInside": 0,
+                "staleRepeat": 2
+              },
+              "ambiguous": 0,
+              "recoveredAfterRefusal": 2,
+              "repeatedSideTrades": 0,
+              "repeatedSideNet": 0,
+              "dailyMean": -5.33,
+              "activeDailyMean": -20.8,
+              "referenceComparison": {
+                "oldNet": -208,
+                "newNet": -208,
+                "deltaNet": 0,
+                "unchangedCount": 10,
+                "addedCount": 0,
+                "removedCount": 0,
+                "addedNet": 0,
+                "removedNet": 0
+              },
+              "referenceDrawdown": 312.5
+            }
+          }
+        },
+        {
+          "start": "2026-03-01",
+          "end": "2026-05-01",
+          "phase": "train",
+          "expected": 43,
+          "scored": 43,
+          "complete": true,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": -167.5,
+              "balance": 24832.5,
+              "drawdown": 312,
+              "daily": {
+                "observed": 43,
+                "positive": 7,
+                "negative": 12,
+                "flatActive": 0,
+                "noTrade": 24,
+                "worst": -57
+              },
+              "trades": 21,
+              "metrics": {
+                "count": 21,
+                "wins": 7,
+                "win": 0.3333333333333333,
+                "total": -6.590869933317288,
+                "exp": -0.31385094920558515,
+                "pf": 0.5887924175541245,
+                "dd": 11.011050460322625,
+                "winInterval": [
+                  0.17194536432683688,
+                  0.5462692434278971
+                ]
+              },
+              "grossDollars": -94,
+              "feesDollars": 73.5,
+              "pfDollars": 0.6118192352259559,
+              "signalCount": 23,
+              "denied": {
+                "tradeRisk": 0,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 2,
+                "invalidStop": 0,
+                "returnedInside": 0,
+                "staleRepeat": 0
+              },
+              "ambiguous": 0,
+              "recoveredAfterRefusal": 1,
+              "repeatedSideTrades": 2,
+              "repeatedSideNet": -63,
+              "dailyMean": -3.9,
+              "activeDailyMean": -8.82,
+              "referenceComparison": {
+                "oldNet": -104.5,
+                "newNet": -167.5,
+                "deltaNet": -63,
+                "unchangedCount": 19,
+                "addedCount": 2,
+                "removedCount": 0,
+                "addedNet": -63,
+                "removedNet": 0
+              },
+              "referenceDrawdown": 249
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": -150.5,
+              "balance": 24849.5,
+              "drawdown": 255.5,
+              "daily": {
+                "observed": 43,
+                "positive": 3,
+                "negative": 7,
+                "flatActive": 0,
+                "noTrade": 33,
+                "worst": -57.5
+              },
+              "trades": 10,
+              "metrics": {
+                "count": 10,
+                "wins": 3,
+                "win": 0.3,
+                "total": -4.529845642319446,
+                "exp": -0.45298456423194466,
+                "pf": 0.4627459400894087,
+                "dd": 7.154554654624069,
+                "winInterval": [
+                  0.10778928748621183,
+                  0.6032267800204347
+                ]
+              },
+              "grossDollars": -80.5,
+              "feesDollars": 70,
+              "pfDollars": 0.49326599326599324,
+              "signalCount": 26,
+              "denied": {
+                "tradeRisk": 0,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 16,
+                "invalidStop": 0,
+                "returnedInside": 0,
+                "staleRepeat": 0
+              },
+              "ambiguous": 0,
+              "recoveredAfterRefusal": 1,
+              "repeatedSideTrades": 0,
+              "repeatedSideNet": 0,
+              "dailyMean": -3.5,
+              "activeDailyMean": -15.05,
+              "referenceComparison": {
+                "oldNet": -150.5,
+                "newNet": -150.5,
+                "deltaNet": 0,
+                "unchangedCount": 10,
+                "addedCount": 0,
+                "removedCount": 0,
+                "addedNet": 0,
+                "removedNet": 0
+              },
+              "referenceDrawdown": 255.5
+            }
+          },
+          "account": {
+            "normal": {
+              "status": "incomplete",
+              "terminalDay": null,
+              "net": -167.5,
+              "balance": 24832.5,
+              "drawdown": 312,
+              "daily": {
+                "observed": 43,
+                "positive": 7,
+                "negative": 12,
+                "flatActive": 0,
+                "noTrade": 24,
+                "worst": -57
+              },
+              "trades": 21,
+              "metrics": {
+                "count": 21,
+                "wins": 7,
+                "win": 0.3333333333333333,
+                "total": -6.590869933317288,
+                "exp": -0.31385094920558515,
+                "pf": 0.5887924175541245,
+                "dd": 11.011050460322625,
+                "winInterval": [
+                  0.17194536432683688,
+                  0.5462692434278971
+                ]
+              },
+              "grossDollars": -94,
+              "feesDollars": 73.5,
+              "pfDollars": 0.6118192352259559,
+              "signalCount": 23,
+              "denied": {
+                "tradeRisk": 0,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 2,
+                "invalidStop": 0,
+                "returnedInside": 0,
+                "staleRepeat": 0
+              },
+              "ambiguous": 0,
+              "recoveredAfterRefusal": 1,
+              "repeatedSideTrades": 2,
+              "repeatedSideNet": -63,
+              "dailyMean": -3.9,
+              "activeDailyMean": -8.82,
+              "referenceComparison": {
+                "oldNet": -104.5,
+                "newNet": -167.5,
+                "deltaNet": -63,
+                "unchangedCount": 19,
+                "addedCount": 2,
+                "removedCount": 0,
+                "addedNet": -63,
+                "removedNet": 0
+              },
+              "referenceDrawdown": 249
+            },
+            "stress": {
+              "status": "incomplete",
+              "terminalDay": null,
+              "net": -150.5,
+              "balance": 24849.5,
+              "drawdown": 255.5,
+              "daily": {
+                "observed": 43,
+                "positive": 3,
+                "negative": 7,
+                "flatActive": 0,
+                "noTrade": 33,
+                "worst": -57.5
+              },
+              "trades": 10,
+              "metrics": {
+                "count": 10,
+                "wins": 3,
+                "win": 0.3,
+                "total": -4.529845642319446,
+                "exp": -0.45298456423194466,
+                "pf": 0.4627459400894087,
+                "dd": 7.154554654624069,
+                "winInterval": [
+                  0.10778928748621183,
+                  0.6032267800204347
+                ]
+              },
+              "grossDollars": -80.5,
+              "feesDollars": 70,
+              "pfDollars": 0.49326599326599324,
+              "signalCount": 26,
+              "denied": {
+                "tradeRisk": 0,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 16,
+                "invalidStop": 0,
+                "returnedInside": 0,
+                "staleRepeat": 0
+              },
+              "ambiguous": 0,
+              "recoveredAfterRefusal": 1,
+              "repeatedSideTrades": 0,
+              "repeatedSideNet": 0,
+              "dailyMean": -3.5,
+              "activeDailyMean": -15.05,
+              "referenceComparison": {
+                "oldNet": -150.5,
+                "newNet": -150.5,
+                "deltaNet": 0,
+                "unchangedCount": 10,
+                "addedCount": 0,
+                "removedCount": 0,
+                "addedNet": 0,
+                "removedNet": 0
+              },
+              "referenceDrawdown": 255.5
+            }
+          }
+        }
+      ],
+      "checks": [
+        {
+          "id": "coverage",
+          "label": "Deux fenêtres entièrement couvertes",
+          "pass": true
+        },
+        {
+          "id": "count",
+          "label": "Au moins 40 trades au total",
+          "pass": true
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par fenêtre",
+          "pass": true
+        },
+        {
+          "id": "positive",
+          "label": "Chaque fenêtre positive en R et dollars",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor en R au moins 1,10",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé au plus 8 R",
+          "pass": false
+        },
+        {
+          "id": "stress",
+          "label": "Total positif en R et dollars avec coûts doublés",
+          "pass": false
+        },
+        {
+          "id": "account",
+          "label": "Aucun franchissement du seuil dans les comptes complets",
+          "pass": true
+        }
+      ],
+      "researchPassed": false,
+      "confirmed": false
+    },
+    {
+      "id": "MGC/fresh-reentry150",
+      "symbol": "MGC",
+      "label": "Nouveau retour après sortie · plafond 150 $",
+      "riskPerTrade": 150,
+      "dailyLoss": 300,
+      "product": {
+        "symbol": "MGC",
+        "label": "Micro Or",
+        "tick": 0.1,
+        "multiplier": 10,
+        "fees": 2.5,
+        "venue": "XCEC",
+        "priorData": false
+      },
+      "diagnostic": {
+        "normal": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": -320,
+          "balance": 24680,
+          "drawdown": 724.5,
+          "daily": {
+            "observed": 80,
+            "positive": 11,
+            "negative": 20,
+            "flatActive": 0,
+            "noTrade": 49,
+            "worst": -220
+          },
+          "trades": 36,
+          "metrics": {
+            "count": 36,
+            "wins": 13,
+            "win": 0.3611111111111111,
+            "total": -6.108939719699098,
+            "exp": -0.16969276999164162,
+            "pf": 0.7534212294622313,
+            "dd": 10.799691757306983,
+            "winInterval": [
+              0.2247538679218132,
+              0.5242521960916802
+            ]
+          },
+          "grossDollars": -158,
+          "feesDollars": 162,
+          "pfDollars": 0.8213787329053865,
+          "signalCount": 42,
+          "denied": {
+            "tradeRisk": 6,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 0,
+            "invalidStop": 0,
+            "returnedInside": 0,
+            "staleRepeat": 3
+          },
+          "ambiguous": 1,
+          "recoveredAfterRefusal": 0,
+          "repeatedSideTrades": 4,
+          "repeatedSideNet": 50,
+          "dailyMean": -4,
+          "activeDailyMean": -10.32,
+          "referenceComparison": {
+            "oldNet": -370,
+            "newNet": -320,
+            "deltaNet": 50,
+            "unchangedCount": 32,
+            "addedCount": 4,
+            "removedCount": 0,
+            "addedNet": 50,
+            "removedNet": 0
+          },
+          "referenceDrawdown": 772.5
+        },
+        "stress": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": -270,
+          "balance": 24730,
+          "drawdown": 625,
+          "daily": {
+            "observed": 80,
+            "positive": 11,
+            "negative": 19,
+            "flatActive": 0,
+            "noTrade": 50,
+            "worst": -168
+          },
+          "trades": 33,
+          "metrics": {
+            "count": 33,
+            "wins": 13,
+            "win": 0.3939393939393939,
+            "total": -4.736880676360097,
+            "exp": -0.1435418386775787,
+            "pf": 0.7905116179471271,
+            "dd": 9.645509188838554,
+            "winInterval": [
+              0.24682882231508207,
+              0.5631685719348962
+            ]
+          },
+          "grossDollars": 27,
+          "feesDollars": 297,
+          "pfDollars": 0.839572192513369,
+          "signalCount": 44,
+          "denied": {
+            "tradeRisk": 8,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 3,
+            "invalidStop": 0,
+            "returnedInside": 0,
+            "staleRepeat": 1
+          },
+          "ambiguous": 0,
+          "recoveredAfterRefusal": 1,
+          "repeatedSideTrades": 3,
+          "repeatedSideNet": 84,
+          "dailyMean": -3.37,
+          "activeDailyMean": -9,
+          "referenceComparison": {
+            "oldNet": -354,
+            "newNet": -270,
+            "deltaNet": 84,
+            "unchangedCount": 30,
+            "addedCount": 3,
+            "removedCount": 0,
+            "addedNet": 84,
+            "removedNet": 0
+          },
+          "referenceDrawdown": 716
+        }
+      },
+      "windows": [
+        {
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "phase": "train",
+          "expected": 39,
+          "scored": 38,
+          "complete": false,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": -590,
+              "balance": 24410,
+              "drawdown": 724.5,
+              "daily": {
+                "observed": 38,
+                "positive": 4,
+                "negative": 13,
+                "flatActive": 0,
+                "noTrade": 21,
+                "worst": -220
+              },
+              "trades": 20,
+              "metrics": {
+                "count": 20,
+                "wins": 5,
+                "win": 0.25,
+                "total": -8.941421482241804,
+                "exp": -0.4470710741120902,
+                "pf": 0.44543846841671014,
+                "dd": 10.799691757306983,
+                "winInterval": [
+                  0.11186005278940309,
+                  0.4687050099580636
+                ]
+              },
+              "grossDollars": -500,
+              "feesDollars": 90,
+              "pfDollars": 0.4880694143167028,
+              "signalCount": 25,
+              "denied": {
+                "tradeRisk": 5,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0,
+                "invalidStop": 0,
+                "returnedInside": 0,
+                "staleRepeat": 1
+              },
+              "ambiguous": 0,
+              "recoveredAfterRefusal": 0,
+              "repeatedSideTrades": 2,
+              "repeatedSideNet": 48,
+              "dailyMean": -15.53,
+              "activeDailyMean": -34.71,
+              "referenceComparison": {
+                "oldNet": -638,
+                "newNet": -590,
+                "deltaNet": 48,
+                "unchangedCount": 18,
+                "addedCount": 2,
+                "removedCount": 0,
+                "addedNet": 48,
+                "removedNet": 0
+              },
+              "referenceDrawdown": 772.5
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": -495,
+              "balance": 24505,
+              "drawdown": 625,
+              "daily": {
+                "observed": 38,
+                "positive": 4,
+                "negative": 13,
+                "flatActive": 0,
+                "noTrade": 21,
+                "worst": -145
+              },
+              "trades": 18,
+              "metrics": {
+                "count": 18,
+                "wins": 5,
+                "win": 0.2777777777777778,
+                "total": -7.923592294622173,
+                "exp": -0.44019957192345405,
+                "pf": 0.464943092001993,
+                "dd": 9.645509188838554,
+                "winInterval": [
+                  0.12499569146355474,
+                  0.5087307754619452
+                ]
+              },
+              "grossDollars": -333,
+              "feesDollars": 162,
+              "pfDollars": 0.5217391304347826,
+              "signalCount": 26,
+              "denied": {
+                "tradeRisk": 6,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 2,
+                "invalidStop": 0,
+                "returnedInside": 0,
+                "staleRepeat": 0
+              },
+              "ambiguous": 0,
+              "recoveredAfterRefusal": 1,
+              "repeatedSideTrades": 1,
+              "repeatedSideNet": 91,
+              "dailyMean": -13.03,
+              "activeDailyMean": -29.12,
+              "referenceComparison": {
+                "oldNet": -586,
+                "newNet": -495,
+                "deltaNet": 91,
+                "unchangedCount": 17,
+                "addedCount": 1,
+                "removedCount": 0,
+                "addedNet": 91,
+                "removedNet": 0
+              },
+              "referenceDrawdown": 716
+            }
+          },
+          "account": null
+        },
+        {
+          "start": "2026-03-01",
+          "end": "2026-05-01",
+          "phase": "train",
+          "expected": 43,
+          "scored": 42,
+          "complete": false,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 270,
+              "balance": 25270,
+              "drawdown": 331.5,
+              "daily": {
+                "observed": 42,
+                "positive": 7,
+                "negative": 7,
+                "flatActive": 0,
+                "noTrade": 28,
+                "worst": -159
+              },
+              "trades": 16,
+              "metrics": {
+                "count": 16,
+                "wins": 8,
+                "win": 0.5,
+                "total": 2.832481762542707,
+                "exp": 0.17703011015891917,
+                "pf": 1.3274018285751852,
+                "dd": 4.74787163561968,
+                "winInterval": [
+                  0.2799923761135083,
+                  0.7200076238864916
+                ]
+              },
+              "grossDollars": 342,
+              "feesDollars": 72,
+              "pfDollars": 1.4225352112676057,
+              "signalCount": 17,
+              "denied": {
+                "tradeRisk": 1,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0,
+                "invalidStop": 0,
+                "returnedInside": 0,
+                "staleRepeat": 2
+              },
+              "ambiguous": 1,
+              "recoveredAfterRefusal": 0,
+              "repeatedSideTrades": 2,
+              "repeatedSideNet": 2,
+              "dailyMean": 6.43,
+              "activeDailyMean": 19.29,
+              "referenceComparison": {
+                "oldNet": 268,
+                "newNet": 270,
+                "deltaNet": 2,
+                "unchangedCount": 14,
+                "addedCount": 2,
+                "removedCount": 0,
+                "addedNet": 2,
+                "removedNet": 0
+              },
+              "referenceDrawdown": 284.5
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 225,
+              "balance": 25225,
+              "drawdown": 345,
+              "daily": {
+                "observed": 42,
+                "positive": 7,
+                "negative": 6,
+                "flatActive": 0,
+                "noTrade": 29,
+                "worst": -168
+              },
+              "trades": 15,
+              "metrics": {
+                "count": 15,
+                "wins": 8,
+                "win": 0.5333333333333333,
+                "total": 3.186711618262075,
+                "exp": 0.21244744121747167,
+                "pf": 1.4084069370945518,
+                "dd": 3.985539189606709,
+                "winInterval": [
+                  0.3011663015105079,
+                  0.7519077474025355
+                ]
+              },
+              "grossDollars": 360,
+              "feesDollars": 135,
+              "pfDollars": 1.3472222222222223,
+              "signalCount": 18,
+              "denied": {
+                "tradeRisk": 2,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 1,
+                "invalidStop": 0,
+                "returnedInside": 0,
+                "staleRepeat": 1
+              },
+              "ambiguous": 0,
+              "recoveredAfterRefusal": 0,
+              "repeatedSideTrades": 2,
+              "repeatedSideNet": -7,
+              "dailyMean": 5.36,
+              "activeDailyMean": 17.31,
+              "referenceComparison": {
+                "oldNet": 232,
+                "newNet": 225,
+                "deltaNet": -7,
+                "unchangedCount": 13,
+                "addedCount": 2,
+                "removedCount": 0,
+                "addedNet": -7,
+                "removedNet": 0
+              },
+              "referenceDrawdown": 298
+            }
+          },
+          "account": null
+        }
+      ],
+      "checks": [
+        {
+          "id": "coverage",
+          "label": "Deux fenêtres entièrement couvertes",
+          "pass": false
+        },
+        {
+          "id": "count",
+          "label": "Au moins 40 trades au total",
+          "pass": false
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par fenêtre",
+          "pass": true
+        },
+        {
+          "id": "positive",
+          "label": "Chaque fenêtre positive en R et dollars",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor en R au moins 1,10",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé au plus 8 R",
+          "pass": false
+        },
+        {
+          "id": "stress",
+          "label": "Total positif en R et dollars avec coûts doublés",
+          "pass": false
+        },
+        {
+          "id": "account",
+          "label": "Aucun franchissement du seuil dans les comptes complets",
+          "pass": false
+        }
+      ],
+      "researchPassed": false,
+      "confirmed": false
+    }
+  ],
+  "selection": {
+    "schema": "jeu27-selection-v1",
+    "id": null,
+    "attempted": 4,
+    "cumulativeAttempts": 61,
+    "freezeSha256": "74a83011cae840824c08426d27c790d4d9f4e4a9b425ca1d5b4a5f58c4ca22dc",
+    "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+    "trainEnd": "2026-05-01",
+    "createdAt": "2026-09-09T14:14:11.801Z"
+  },
+  "selectionSha256": "d6ca907e98183ac398143b25dcefeb972d0cebb05fec6bfc987948ee5ed7c689",
+  "holdout": {
+    "status": "not-opened",
+    "reason": "No eligible development candidate"
+  },
+  "coverage": [
+    {
+      "symbol": "MNQ",
+      "expected": 166,
+      "scored": 165,
+      "unavailable": [
+        {
+          "ticker": "MNQH6",
+          "date": "2026-03-06",
+          "reason": "missing-data",
+          "missingMinutes": [
+            605,
+            610,
+            615,
+            620,
+            625,
+            630,
+            635,
+            640,
+            645,
+            650
+          ],
+          "missingSchedule": false
+        }
+      ],
+      "quality": [
+        {
+          "preparation": "same-day opening range, six complete 5-minute bars",
+          "sessions": 166
+        }
+      ]
+    },
+    {
+      "symbol": "MES",
+      "expected": 166,
+      "scored": 165,
+      "unavailable": [
+        {
+          "ticker": "MESH6",
+          "date": "2026-03-06",
+          "reason": "missing-data",
+          "missingMinutes": [
+            605,
+            610,
+            615,
+            620,
+            625,
+            630,
+            635,
+            640,
+            645,
+            650
+          ],
+          "missingSchedule": false
+        }
+      ],
+      "quality": [
+        {
+          "preparation": "same-day opening range, six complete 5-minute bars",
+          "sessions": 166
+        }
+      ]
+    },
+    {
+      "symbol": "MYM",
+      "expected": 166,
+      "scored": 166,
+      "unavailable": [],
+      "quality": [
+        {
+          "preparation": "same-day opening range, six complete 5-minute bars",
+          "sessions": 166
+        }
+      ]
+    },
+    {
+      "symbol": "MGC",
+      "expected": 166,
+      "scored": 164,
+      "unavailable": [
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-02-25",
+          "reason": "missing-data",
+          "missingMinutes": [
+            785,
+            790,
+            795,
+            800,
+            805,
+            810,
+            815,
+            820,
+            825,
+            830,
+            835,
+            840,
+            845,
+            850,
+            855,
+            860,
+            865,
+            870,
+            875,
+            880
+          ],
+          "missingSchedule": true
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-06",
+          "reason": "missing-data",
+          "missingMinutes": [
+            605,
+            610,
+            615,
+            620,
+            625,
+            630,
+            635
+          ],
+          "missingSchedule": false
+        }
+      ],
+      "quality": [
+        {
+          "preparation": "same-day opening range, six complete 5-minute bars",
+          "sessions": 166
+        }
+      ]
+    }
+  ],
+  "confirmed": false,
+  "audit": {
+    "signalPrefixes": 37362,
+    "accountPrefixes": 320,
+    "trades": 650,
+    "referencePairs": 32,
+    "passed": true
+  }
+}

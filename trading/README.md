@@ -2,13 +2,17 @@
 
 Private personal trading workspace intended for `trading.nykuto.com`.
 
-## Latest Lab comparison — Jeu 26
+## Latest Lab comparison — Jeu 27
 
-The latest exploratory comparison is `/lab/#failureGame`: closed opening-range
-failures on MNQ, MES, MYM and MGC. All four configurations fail qualification;
-the May–August reserve remains unscored. The ledger retains 57 configurations
-from Games 19–26, with no independent confirmation. See
-[JEU26_RESULTS.md](lab/JEU26_RESULTS.md).
+The latest exploratory comparison is `/lab/#reentryGame`: a fresh breakout and
+retest after a same-side exit, at most two trades per day and one microcontract.
+MNQ rises from 36 to 42 trades but falls from +887.50 to +456.50 USD net;
+the six additional entries lose 431 USD. All four configurations fail
+qualification; the May–August reserve remains unscored. The panel shows both
+cost assumptions, the archived Game 23 baseline and observed daily activity.
+The ledger retains 61 configurations from Games 19–27, with no independent
+confirmation. Game 26 and earlier comparisons remain in expandable history.
+See [JEU27_RESULTS.md](lab/JEU27_RESULTS.md).
 
 ## Earlier comparison — Jeu 06
 
