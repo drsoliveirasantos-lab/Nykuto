@@ -1,0 +1,11 @@
+{
+  "schema": "rsi-audit-definition-v1",
+  "purpose": "User clarification: fixed 30/70 zones, descriptive audit of already-observed trades",
+  "baseCommit": "88ca86a5629cfea779d4b3c12ac6a8f94beb3317",
+  "files": {
+    "scripts/audit-trading-rsi-zones.mjs": "33b4ecc8ff8e3011926cf232fb6b5624cd0155258b5be5bd31d5a3ecb0d550fc",
+    "scripts/test-trading-rsi-zones.mjs": "7765062f992e141c7bcbc52707171965361a52df1ae148e41c87d6350da3bf2b",
+    "trading/lab/rsi-zones.mjs": "1e19f07a1d633e7d55bcf6f4e66885439424f0d939b5225fbacd9769494fc8c1",
+    "trading/lab/RSI_ZONES_METHOD.md": "66d89ab2d11ee373f36d4244e48ee6ed110940fb36424d47d959418801f7756b"
+  }
+}
