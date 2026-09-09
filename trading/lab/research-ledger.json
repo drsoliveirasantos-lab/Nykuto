@@ -1,7 +1,7 @@
 {
   "schema": "research-ledger-v1",
-  "scope": "Jeux 19–26 only; earlier studies remain in their own reports",
-  "configurationCount": 57,
+  "scope": "Jeux 19–27 only; earlier studies remain in their own reports",
+  "configurationCount": 61,
   "independentConfirmations": 0,
   "entries": [
     {
@@ -1156,6 +1156,106 @@
       "quantity": 1,
       "context": "First closed re-entry within30min after closed OR30 breakout; whole excursion stop; target nearer1.5R/opposite bound",
       "comparisons": "Archived Game23 fixed150; different signal family; no baseline rerun"
+    },
+    {
+      "game": 27,
+      "id": "MNQ/fresh-reentry150",
+      "executionKey": "f7404fa67dff1419e5a8be5a2dfc7e4fcc86c1e952f477198560fd84823bb75d",
+      "freezeSha256": "74a83011cae840824c08426d27c790d4d9f4e4a9b425ca1d5b4a5f58c4ca22dc",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "MNQ/fresh-reentry150",
+      "phase": "train",
+      "start": "2026-01-01",
+      "end": "2026-05-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu27-report.json",
+      "riskCaps": [
+        150
+      ],
+      "dailyLoss": 300,
+      "floorReserve": 100,
+      "quantity": 1,
+      "context": "breakout-open-at-or-after-previous-same-side-exit-bar-close",
+      "comparisons": "Archived Game23 fixed150; no reference rerun or new counting"
+    },
+    {
+      "game": 27,
+      "id": "MES/fresh-reentry150",
+      "executionKey": "5a1b0d2dbedd60c1cad9371b6ba955129224e6daebe241e16850acf4bd972006",
+      "freezeSha256": "74a83011cae840824c08426d27c790d4d9f4e4a9b425ca1d5b4a5f58c4ca22dc",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "MES/fresh-reentry150",
+      "phase": "train",
+      "start": "2026-01-01",
+      "end": "2026-05-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu27-report.json",
+      "riskCaps": [
+        150
+      ],
+      "dailyLoss": 300,
+      "floorReserve": 100,
+      "quantity": 1,
+      "context": "breakout-open-at-or-after-previous-same-side-exit-bar-close",
+      "comparisons": "Archived Game23 fixed150; no reference rerun or new counting"
+    },
+    {
+      "game": 27,
+      "id": "MYM/fresh-reentry150",
+      "executionKey": "f1cb8b9fdba47c709b7126347c5b45872a89eb5a070fac6c77b97f2433470ab0",
+      "freezeSha256": "74a83011cae840824c08426d27c790d4d9f4e4a9b425ca1d5b4a5f58c4ca22dc",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "MYM/fresh-reentry150",
+      "phase": "train",
+      "start": "2026-01-01",
+      "end": "2026-05-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu27-report.json",
+      "riskCaps": [
+        150
+      ],
+      "dailyLoss": 300,
+      "floorReserve": 100,
+      "quantity": 1,
+      "context": "breakout-open-at-or-after-previous-same-side-exit-bar-close",
+      "comparisons": "Archived Game23 fixed150; no reference rerun or new counting"
+    },
+    {
+      "game": 27,
+      "id": "MGC/fresh-reentry150",
+      "executionKey": "d4fbfe85062eca202ca8f5c8cd87c79aff12c169bb6c29c17f3984044630e21c",
+      "freezeSha256": "74a83011cae840824c08426d27c790d4d9f4e4a9b425ca1d5b4a5f58c4ca22dc",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "MGC/fresh-reentry150",
+      "phase": "train",
+      "start": "2026-01-01",
+      "end": "2026-05-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu27-report.json",
+      "riskCaps": [
+        150
+      ],
+      "dailyLoss": 300,
+      "floorReserve": 100,
+      "quantity": 1,
+      "context": "breakout-open-at-or-after-previous-same-side-exit-bar-close",
+      "comparisons": "Archived Game23 fixed150; no reference rerun or new counting"
     }
   ]
 }

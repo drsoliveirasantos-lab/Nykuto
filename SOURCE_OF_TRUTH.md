@@ -260,8 +260,8 @@ minutes; `jeu26-terms.mjs` anchors the stop to the whole excursion and bounds
 the target at the opposite range edge. One microcontract, fixed150/daily300,
 the Game23 execution/account protections, source gaps and qualification gates
 are retained. All four configurations fail; reserve stays closed and the
-research ledger retains 57 configurations. `lab-failed-breakout.mjs` is the
-current checksum-pinned Lab panel; Game25 and all prior HTML IDs remain in
+research ledger then retained 57 configurations. `lab-failed-breakout.mjs`
+provides its checksum-pinned archived Lab panel; Game25 and all prior HTML IDs remain in
 expandable history. Private data and trades: `jeu26/failed-breakout-v1/manifest.json`.
 See `trading/lab/JEU26_PROTOCOL.md`, `JEU26_RESULTS.md`, `JEU26_ARCHIVE.md`.
 Public Discord-community archives are distinguished from inaccessible private
@@ -273,5 +273,23 @@ The exploratory manual Lab uses `trading/lab/manual-backtest.mjs`, loaded by
 `lab.js`. Its September 9 execution correction handles adverse opening gaps,
 isolates development/validation positions and brakes, and resets loss counters
 every UTC day. This is separate from all frozen research engines and does not
-change their results, selections or the 57-trial ledger. See
+change their results, selections or the research ledger. See
 `trading/lab/MANUAL_BACKTEST.md`; regression tests run in the existing npm suite.
+
+
+Game 27 isolates one fresh same-side reentry through `jeu27-engine.mjs` and
+`jeu27-policy.mjs`, using the unchanged Game 23 signal generator and fixed150
+execution policy. The new breakout candle must open at or after the previous
+same-side exit candle closes; at most two trades total per day, one position
+and one microcontract. Rules, 30 dependencies and eight synthetic tests were
+frozen and committed before performance. All four configurations fail; MNQ
+grows from 36 to 42 trades but falls from +887.50 to +456.50 USD net.
+`lab-fresh-reentry.mjs` is the current checksum-pinned panel, showing both costs,
+archived equal-risk comparisons, the impact of repeated entries and observed
+daily activity. The new panel uses scoped typography roles with 14px body,
+16px expandable titles, 20px section title and 12px brief metadata.
+Game 26 and every earlier HTML ID remain in expandable history. The ledger
+retains 61 configurations; reserve May–August stays unscored, with no independent
+confirmation or live/Paper/Shadow activation. Private executions are archived at
+`jeu27/fresh-reentry-v1/manifest.json`. See `trading/lab/JEU27_PROTOCOL.md`,
+`JEU27_RESULTS.md` and `JEU27_ARCHIVE.md`.

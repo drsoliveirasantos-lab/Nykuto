@@ -32,8 +32,9 @@
   <script src="./lab-combined-context.mjs?v=1" type="module"></script>
   <script src="./lab-graded-risk.mjs?v=1" type="module"></script>
   <script src="./lab-failed-breakout.mjs?v=1" type="module"></script>
+  <script src="./lab-fresh-reentry.mjs?v=1" type="module"></script>
   <link rel="stylesheet" href="./lab-market.css?v=2">
-  <link rel="stylesheet" href="./lab-workspace.css?v=3">
+  <link rel="stylesheet" href="./lab-workspace.css?v=4">
   <script src="./lab-workspace.mjs?v=2" type="module"></script>
 </head>
 <body>
@@ -70,6 +71,22 @@
     </div>
     <noscript><p>Active JavaScript pour changer de vue et consulter le suivi.</p></noscript>
     <div id="view-current" class="lab-view" role="tabpanel" aria-labelledby="tab-current" tabindex="0">
+    <section class="panel independent-game market-game" id="reentryGame" aria-labelledby="reentryTitle">
+      <div class="panel-heading"><div><p class="panel-kicker">JEU 27 · NOUVEAU SIGNAL APRÈS SORTIE</p><h3 id="reentryTitle">Un deuxième trade dans le même sens améliore-t-il le résultat ?</h3></div><span class="lab-status planned" id="reentryStatus">Lecture du bilan…</span></div>
+      <div class="iv-content"><p class="iv-intro">Après la sortie, une nouvelle cassure clôturée puis un nouveau retour peuvent autoriser une seconde entrée. Maximum deux trades par jour, un microcontrat, plafond 150 $ frais compris et limite quotidienne interne 300 $.</p><p class="iv-message" id="reentryMessage" role="status" aria-live="polite">Chargement des résultats vérifiés.</p>
+        <div id="reentryResults" hidden>
+          <div class="timeframe-filters"><div><label for="reentryCosts">Hypothèse de coûts</label><select id="reentryCosts"><option value="normal">Initiale · selon le contrat</option><option value="stress">Coûts doublés</option></select></div></div>
+          <div class="iv-table-wrap" role="region" aria-label="Résultats du deuxième retour" tabindex="0"><table class="iv-table"><caption>Janvier–avril 2026, séances évaluables, net après frais. Comparaison au Jeu 23 au même plafond ; les marchés sont des simulations séparées, sans portefeuille commun.</caption><thead><tr><th scope="col">Contrat</th><th scope="col">Trades</th><th scope="col">Net $</th><th scope="col">Trades gagnants</th><th scope="col">Ancien Jeu 23</th><th scope="col">Drawdown $</th><th scope="col">Critères</th></tr></thead><tbody id="reentryComparison"></tbody></table></div>
+          <details class="iv-help" open><summary>Plus de trades ne signifie pas plus de gains</summary><p>En coûts normaux, MNQ passe de 36 à 42 trades et de +887,50 $ à +456,50 $. Les six nouvelles entrées perdent 431 $. MGC progresse de 50 $, mais son total reste négatif. Cette variante n’est pas retenue comme amélioration validée.</p></details>
+          <details class="iv-help" open><summary>Jours gagnants, perdants et sans trade</summary><div class="iv-table-wrap" role="region" aria-label="Activité quotidienne du Jeu 27" tabindex="0"><table class="iv-table"><caption>La moyenne inclut toutes les séances observées, même sans trade. Les séances absentes ne sont ni des jours à zéro ni des jours gagnants.</caption><thead><tr><th scope="col">Contrat</th><th scope="col">Observées</th><th scope="col">Positives</th><th scope="col">Négatives</th><th scope="col">Actives à zéro</th><th scope="col">Sans trade</th><th scope="col">Moyenne / séance</th><th scope="col">Pire séance</th></tr></thead><tbody id="reentryActivity"></tbody></table></div></details>
+          <details class="iv-help" open><summary>Critères restant en échec</summary><ul id="reentryChecks"></ul><p>MNQ satisfait six critères sur huit, mais sa fenêtre incomplète empêche aussi de qualifier le compte simulé. Aucune sélection ; réserve mai–août non calculée. Ce sont des données de développement déjà vues, pas une confirmation indépendante.</p></details>
+          <details class="iv-help"><summary>Les deux fenêtres et les comptes simulés</summary><div class="iv-table-wrap" role="region" aria-label="Fenêtres du Jeu 27" tabindex="0"><table class="iv-table"><thead><tr><th scope="col">Contrat</th><th scope="col">Période</th><th scope="col">Séances</th><th scope="col">Trades</th><th scope="col">Net $</th><th scope="col">Net R</th><th scope="col">Compte 25K</th></tr></thead><tbody id="reentryWindows"></tbody></table></div></details>
+          <details class="iv-help"><summary>Effet exact des entrées supplémentaires</summary><div class="iv-table-wrap" role="region" aria-label="Comparaison aux trades archivés" tabindex="0"><table class="iv-table"><caption>Le témoin est lu dans son archive. Les frais doublés peuvent modifier les admissions, donc le nombre de trades.</caption><thead><tr><th scope="col">Contrat</th><th scope="col">Répétitions</th><th scope="col">Net répétitions</th><th scope="col">Identiques</th><th scope="col">Ajoutés</th><th scope="col">Retirés</th><th scope="col">Écart net</th></tr></thead><tbody id="reentryChanges"></tbody></table></div></details>
+          <details class="iv-help"><summary>Règle testée et limites</summary><p>La bougie de la nouvelle cassure doit commencer après la clôture de la bougie de sortie précédente ou exactement à cette clôture. Aucun signal préparé pendant la position n’est recyclé pour une nouvelle entrée du même sens. La première perte ne déclenche ni doublement de taille ni relèvement du budget.</p><p>Stop derrière la mèche du retour, cible 1,5R, frais et protections de compte conservés. Les gaps peuvent dépasser le risque prévu. Le registre conserve 61 configurations des Jeux 19–27 et aucune confirmation indépendante. Paper, Shadow et exécution réelle restent désactivés.</p><p><a href="./JEU27_PROTOCOL.md">Protocole</a> · <a href="./JEU27_RESULTS.md">Bilan détaillé</a> · <a href="./research-ledger.json">Registre</a></p></details>
+        </div>
+      </div>
+    </section>
+    <details class="lab-archive"><summary><span class="archive-number">26</span><span class="archive-title"><strong>Cassure échouée de la zone d’ouverture</strong><small>4 configurations rejetées · aucun candidat</small></span><span class="archive-state neutral">Historique</span><span class="archive-toggle" aria-hidden="true">+</span></summary>
     <section class="panel independent-game market-game" id="failureGame" aria-labelledby="failureTitle">
       <div class="panel-heading"><div><p class="panel-kicker">JEU 26 · CASSURE ÉCHOUÉE</p><h3 id="failureTitle">Attendre le retour dans la zone améliore-t-il les entrées ?</h3></div><span class="lab-status planned" id="failureStatus">Lecture du bilan…</span></div>
       <div class="iv-content"><p class="iv-intro">Une nouvelle famille issue de la recherche publique : cassure clôturée, puis retour confirmé dans la zone d’ouverture. Stop derrière toute l’excursion, cible limitée par la borne opposée. Un microcontrat, plafond 150 $.</p><p class="iv-message" id="failureMessage" role="status" aria-live="polite">Chargement des résultats vérifiés.</p>
@@ -86,6 +103,7 @@
         </div>
       </div>
     </section>
+    </details>
     <details class="lab-archive"><summary><span class="archive-number">25</span><span class="archive-title"><strong>Risque gradué selon le contexte</strong><small>4 configurations rejetées · aucun candidat</small></span><span class="archive-state neutral">Historique</span><span class="archive-toggle" aria-hidden="true">+</span></summary>
     <section class="panel independent-game market-game" id="gradedGame" aria-labelledby="gradedTitle">
       <div class="panel-heading"><div><p class="panel-kicker">JEU 25 · RISQUE GRADUÉ</p><h3 id="gradedTitle">Adapter le plafond au contexte améliore-t-il le résultat ?</h3></div><span class="lab-status planned" id="gradedStatus">Lecture du bilan…</span></div>
