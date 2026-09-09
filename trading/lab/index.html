@@ -26,6 +26,7 @@
   <script src="./lab-structural.mjs?v=1" type="module"></script>
   <script src="./lab-ablation-report.mjs?v=1" type="module"></script>
   <script src="./lab-vwap.mjs?v=1" type="module"></script>
+  <script src="./lab-multimarket.mjs?v=1" type="module"></script>
   <link rel="stylesheet" href="./lab-market.css?v=2">
   <link rel="stylesheet" href="./lab-workspace.css?v=3">
   <script src="./lab-workspace.mjs?v=2" type="module"></script>
@@ -64,6 +65,36 @@
     </div>
     <noscript><p>Active JavaScript pour changer de vue et consulter le suivi.</p></noscript>
     <div id="view-current" class="lab-view" role="tabpanel" aria-labelledby="tab-current" tabindex="0">
+    <section class="panel independent-game market-game" id="nativeGame" aria-labelledby="nativeTitle">
+      <div class="panel-heading"><div><p class="panel-kicker">JEU 20 · MICRO DOW JONES</p><h3 id="nativeTitle">La piste positive tient-elle sur les mois suivants ?</h3></div><span class="lab-status planned" id="nativeStatus">Lecture du bilan…</span></div>
+      <div class="iv-content">
+        <p class="iv-intro">MYM · un microcontrat. Préparation 5 min et 30 min vérifiée séparément ; toutes les 166 séances de janvier à août sont désormais couvertes.</p>
+        <p class="iv-message" id="nativeMessage" role="status" aria-live="polite">Chargement de la validation.</p>
+        <div id="nativeResults" hidden>
+          <div class="timeframe-filters"><div><label for="nativeCosts">Coûts hypothétiques par aller-retour</label><select id="nativeCosts"><option value="normal">3,50 $ · hypothèse initiale</option><option value="stress">7 $ · coûts doublés</option></select></div></div>
+          <div class="mc-summary"><article><h4>Résultat sur la réserve</h4><strong id="nativeNet">—</strong><p>Mai–août 2026, après fixation de la candidate.</p></article><article><h4>Activité observée</h4><strong id="nativeTrades">—</strong><p id="nativeDaily"></p></article><article><h4>Pire journée de réserve</h4><strong id="nativeWorst">—</strong><p id="nativeDrawdown"></p></article></div>
+          <div class="iv-table-wrap" role="region" aria-label="Développement et réserve MYM" tabindex="0"><table class="iv-table"><caption>Les quatre mois réservés n'ont pas servi à choisir la version testée. Ces simulations ne constituent pas une promesse de revenu.</caption><thead><tr><th scope="col">Étape</th><th scope="col">Séances</th><th scope="col">Trades</th><th scope="col">Net $</th><th scope="col">PF en R</th><th scope="col">Drawdown R</th><th scope="col">Verdict</th></tr></thead><tbody id="nativeComparison"></tbody></table></div>
+          <details class="iv-help" open><summary>Pourquoi cette piste est écartée</summary><p>Les critères étaient satisfaits sur janvier–avril. Sur mai–août, le total devient négatif, le profit factor insuffisant et la baisse maximale trop forte. Juillet–août concentre la dégradation. Les réglages n'ont pas été ajustés après cette vérification.</p><ul id="nativeChecks"></ul><p>Le bot reste non confirmé et désactivé.</p></details>
+          <details class="iv-help"><summary>Les quatre fenêtres et comptes simulés</summary><div class="iv-table-wrap" role="region" aria-label="Fenêtres de deux mois du MYM" tabindex="0"><table class="iv-table"><thead><tr><th scope="col">Période</th><th scope="col">Séances</th><th scope="col">Trades</th><th scope="col">Net $</th><th scope="col">Évaluation 25K</th></tr></thead><tbody id="nativeWindows"></tbody></table></div><p>Un compte distinct par fenêtre, sans reset pendant celle-ci. Aucun objectif atteint ni seuil de perte du compte franchi aux deux niveaux de coûts.</p></details>
+          <details class="iv-help"><summary>Améliorations et limites</summary><p>Les bougies natives 30 min concordent avec les bougies 5 min disponibles sur 3 202 intervalles. Chaque horizon reçoit ses 220 bougies de préparation ; une lacune réinitialise l'horizon concerné. Aucune bougie manquante n'est inventée.</p><p>Neuf essais déclarés aux Jeux 19–20. La réserve utilise le même fournisseur et des événements corrélés à des marchés déjà vus : une confirmation prospective et un test d'exécution restent nécessaires.</p><p>Les coûts sont hypothétiques et peuvent modifier les trades admissibles. Un microcontrat, 50 $ de perte prévue par trade, 100 $ par jour et trois entrées maximum. Aucun flux réel, broker ou compte membre testé.</p><p><a href="./JEU20_PROTOCOL.md">Protocole</a> · <a href="./JEU20_RESULTS.md">Bilan détaillé</a> · <a href="#multiGame">Comparer les quatre marchés</a></p></details>
+        </div>
+      </div>
+    </section>
+    <details class="lab-archive"><summary><span class="archive-number">19</span><span class="archive-title"><strong>Nasdaq, S&P 500, Dow Jones et or</strong><small>Quatre microcontrats · huit comparaisons conservées</small></span><span class="archive-state neutral">Historique</span><span class="archive-toggle" aria-hidden="true">+</span></summary>
+    <section class="panel independent-game market-game" id="multiGame" aria-labelledby="multiTitle">
+      <div class="panel-heading"><div><p class="panel-kicker">JEU 19 · QUATRE MARCHÉS</p><h3 id="multiTitle">Quel marché correspond aux limites de risque ?</h3></div><span class="lab-status planned" id="multiStatus">Lecture du bilan…</span></div>
+      <div class="iv-content">
+        <p class="iv-intro">MNQ, MES, MYM et MGC · un microcontrat. Pullback ou croisement 5 min dans la tendance 30 min, avec un calcul des montants propre à chaque contrat.</p>
+        <p class="iv-message" id="multiMessage" role="status" aria-live="polite">Chargement des comparaisons.</p>
+        <div id="multiResults" hidden>
+          <div class="timeframe-filters"><div><label for="multiCosts">Hypothèse de coûts</label><select id="multiCosts"><option value="normal">Initiale · selon le contrat</option><option value="stress">Coûts doublés</option></select></div></div>
+          <div class="iv-table-wrap" role="region" aria-label="Huit comparaisons de microcontrats" tabindex="0"><table class="iv-table"><caption>Janvier–avril 2026. Les séances exploitables diffèrent selon les lacunes ; aucun classement validé ni cumul des marchés. Les zéros sans trade ne sont pas des succès.</caption><thead><tr><th scope="col">Contrat</th><th scope="col">Méthode</th><th scope="col">Séances</th><th scope="col">Trades</th><th scope="col">Net $</th><th scope="col">PF en R</th><th scope="col">Critères</th></tr></thead><tbody id="multiComparison"></tbody></table></div>
+          <details class="iv-help"><summary>Contrats et limites</summary><p>Valeur d'un point : MNQ 2 $, MES 5 $, MYM 0,50 $, MGC 10 $. Coût aller-retour supposé : respectivement 3,50 $, 5 $, 3,50 $ et 4,50 $, puis le double en stress. Les tarifs réels du courtier restent à vérifier.</p><p>La sélection du Jeu 19 reste nulle : les fenêtres de développement sont incomplètes. Aucun résultat de mai–août n'a été calculé dans ce jeu. La piste MYM est ensuite étudiée séparément au Jeu 20.</p><p><a href="./JEU19_PROTOCOL.md">Protocole et sources</a> · <a href="./JEU19_RESULTS.md">Bilan des huit essais</a></p></details>
+        </div>
+      </div>
+    </section>
+    </details>
+    <details class="lab-archive"><summary><span class="archive-number">18</span><span class="archive-title"><strong>Filtre VWAP de séance</strong><small>Aucun trade amélioré · résultat conservé</small></span><span class="archive-state neutral">Historique</span><span class="archive-toggle" aria-hidden="true">+</span></summary>
     <section class="panel independent-game market-game" id="vwapGame" aria-labelledby="vwapTitle">
       <div class="panel-heading"><div><p class="panel-kicker">JEU 18 · FILTRE VWAP</p><h3 id="vwapTitle">Le prix moyen de séance améliore-t-il les entrées ?</h3></div><span class="lab-status planned" id="vwapStatus">Lecture du bilan…</span></div>
       <div class="iv-content">
@@ -80,6 +111,7 @@
         </div>
       </div>
     </section>
+    </details>
     <details class="lab-archive"><summary><span class="archive-number">17</span><span class="archive-title"><strong>Effets séparés du stop et de la marge</strong><small>Quatre combinaisons · résultats conservés</small></span><span class="archive-state neutral">Historique</span><span class="archive-toggle" aria-hidden="true">+</span></summary>
     <section class="panel independent-game market-game" id="ablationGame" aria-labelledby="ablationTitle">
       <div class="panel-heading"><div><p class="panel-kicker">JEU 17 · STOP ET MARGE SÉPARÉS</p><h3 id="ablationTitle">Quel changement aide, lequel pénalise ?</h3></div><span class="lab-status planned" id="ablationStatus">Lecture du bilan…</span></div>

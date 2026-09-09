@@ -188,7 +188,10 @@ collection procedure, data boundaries and limitations.
 
 The Lab interface separates `Suivi actuel`, `Tests précédents` and `Test manuel`
 with accessible tabs in `lab-workspace.mjs` and scoped `lab-workspace.css`.
-Jeu 18 opens as the default follow-up, with one frozen cash-session
+Jeu 20 opens as the default follow-up, comparing MYM development with the
+reserved months after separately verified 5- and 30-minute preparation.
+Jeu 19 preserves eight micro-futures comparisons; Jeu 18 remains in a disclosure
+with one frozen cash-session
 VWAP entry filter. Jeu 17 remains in a disclosure with its 2 × 2 stop/margin comparison.
 The owner explicitly authorized publication of the code and aggregate results for
 Jeux 17–18 on September 9, 2026, resolving the earlier publication hold. Raw market
@@ -302,6 +305,22 @@ record the frozen scope, result and limits. `lab-vwap.mjs` verifies the aggregat
 report before rendering the two cost views; raw signal contexts and trades
 remain private under `jeu18/vwap-v1/`. No new data endpoint, activation, account
 change or MNQ task change is made. Publication is authorized as described above.
+
+Jeux 19–20 extend the research engine to contract-specific MNQ, MES, MYM and
+MGC arithmetic without modifying earlier frozen engines. Jeu 19 declares eight
+configurations and keeps the May–August reserve unopened when development
+coverage fails. Jeu 20 tests one separate MYM preparation hypothesis using native
+30-minute bars reconciled against available 5-minute OHLCV, with no invented bars.
+All 166 sessions become eligible. Development passes all eight gates, but the
+candidate pinned before reserve evaluation loses money in May–August and is
+rejected. Both development and final reports, selection records, protocols and
+freezes remain under `trading/lab/`; `lab-multimarket.mjs` loads fingerprint-pinned
+aggregate reports and displays both costs, all attempted configurations and the
+negative reserve result. Raw sources and execution details remain private. No
+new endpoint, member access change, broker connection or bot activation is added.
+The local DOM fixture covers both report views and rejection of a corrupted file;
+no browser QA is performed. Research details are in `JEU19_RESULTS.md` and
+`JEU20_RESULTS.md`.
 
 `trading/account/` adds required first/last-name onboarding, personal settings and
 feedback to the site owner. Cloudflare Access email PIN verifies identity;

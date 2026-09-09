@@ -44,3 +44,5 @@ sera gelée dans un nouveau Jeu 20 avant ses résultats. La sélection du Jeu 19
 reste nulle dans `jeu19-selection.json` et les anciens résultats sont conservés.
 Les prix et trades individuels restent privés. Aucun ordre, bot, compte membre
 ni ancienne tâche de collecte n'est activé ou modifié.
+
+Archivage privé vérifié : voir [les manifestes et empreintes](JEU19_20_ARCHIVE.md).
