@@ -1,0 +1,21 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import { verifyRsiZones } from '../trading/lab/rsi-zone-validation.mjs';
+import { verifyMarketAudit } from '../trading/lab/market-audit-validation.mjs';
+test('RSI 30/70 extension preserves all parent outcomes, fixed definitions and no-execution status', async () => {
+  const raw = await readFile(new URL('../trading/lab/rsi-zone-report.json', import.meta.url));
+  const parent = await verifyMarketAudit(await readFile(new URL('../trading/lab/market-audit-report.json', import.meta.url)));
+  const r = await verifyRsiZones(raw, parent), definition = JSON.parse(await readFile(new URL('../trading/lab/rsi-audit-definition.json', import.meta.url)));
+  for (const [path, sha] of Object.entries(definition.files)) assert.equal(createHash('sha256').update(await readFile(new URL('../' + path, import.meta.url))).digest('hex'), sha, path);
+  assert.equal(r.primary.total.count, 126); assert.equal(r.primary.total.net, -68.75);
+  const mnq = r.primary.markets.find(m => m.symbol === 'MNQ');
+  assert.equal(mnq.zones.find(z => z.value === 'overbought').count, 4);
+  assert.equal(mnq.zones.find(z => z.value === 'overbought').wins, 3);
+  assert.equal(r.primary.markets.find(m => m.symbol === 'MYM').zones.find(z => z.value === 'unknown').count, 1);
+  const damaged = Buffer.from(raw); damaged[damaged.indexOf('primary')] = 88;
+  await assert.rejects(verifyRsiZones(damaged, parent), /fingerprint/);
+  const wrong = structuredClone(parent); wrong.views[0].costs.normal.markets[0].total.net++;
+  await assert.rejects(verifyRsiZones(raw, wrong), /Mismatched/);
+});
