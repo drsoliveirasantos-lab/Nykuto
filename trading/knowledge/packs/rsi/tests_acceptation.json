@@ -1,0 +1,197 @@
+{
+  "purpose": "Cahier de tests à implémenter lors de l’intégration. Aucune exécution de stratégie n’a eu lieu ici.",
+  "tests": [
+    {
+      "id": "T01",
+      "name": "Hausse monotone",
+      "category": "calcul",
+      "given": "n+1 clôtures strictement ascendantes.",
+      "expected": "RSI=100 après initialisation valide.",
+      "execution_status": "non_execute_sur_un_moteur_de_trading"
+    },
+    {
+      "id": "T02",
+      "name": "Baisse monotone",
+      "category": "calcul",
+      "given": "n+1 clôtures strictement descendantes.",
+      "expected": "RSI=0 après initialisation valide.",
+      "execution_status": "non_execute_sur_un_moteur_de_trading"
+    },
+    {
+      "id": "T03",
+      "name": "Série plate",
+      "category": "calcul",
+      "given": "Toutes les clôtures identiques.",
+      "expected": "Convention documentaire appliquée, sans division par zéro ; signal bloqué.",
+      "execution_status": "non_execute_sur_un_moteur_de_trading"
+    },
+    {
+      "id": "T04",
+      "name": "Initialisation courte",
+      "category": "calcul",
+      "given": "Moins de n variations.",
+      "expected": "RSI non disponible ; pas de signal exploitable.",
+      "execution_status": "non_execute_sur_un_moteur_de_trading"
+    },
+    {
+      "id": "T05",
+      "name": "Valeur absente",
+      "category": "donnees",
+      "given": "Une clôture manque.",
+      "expected": "Qualité dégradée, jamais un remplacement silencieux par zéro.",
+      "execution_status": "non_execute_sur_un_moteur_de_trading"
+    },
+    {
+      "id": "T06",
+      "name": "Parité Wilder",
+      "category": "calcul",
+      "given": "Même série et même historique initial dans les deux moteurs.",
+      "expected": "Valeurs identiques à la tolérance déclarée.",
+      "execution_status": "non_execute_sur_un_moteur_de_trading"
+    },
+    {
+      "id": "T07",
+      "name": "Échelle StochRSI",
+      "category": "calcul",
+      "given": "Un module produit 0–1 et un autre attend 0–100.",
+      "expected": "Conversion explicite ou rejet de configuration.",
+      "execution_status": "non_execute_sur_un_moteur_de_trading"
+    },
+    {
+      "id": "T08",
+      "name": "Plateau StochRSI",
+      "category": "calcul",
+      "given": "Maximum RSI égal au minimum RSI sur la fenêtre.",
+      "expected": "Aucune division par zéro, statut invalide ou convention documentée.",
+      "execution_status": "non_execute_sur_un_moteur_de_trading"
+    },
+    {
+      "id": "T09",
+      "name": "Bougie provisoire",
+      "category": "causalite",
+      "given": "RSI dépasse 70 pendant la barre puis clôture à 68.",
+      "expected": "Aucun événement de franchissement confirmé au-dessus de 70.",
+      "execution_status": "non_execute_sur_un_moteur_de_trading"
+    },
+    {
+      "id": "T10",
+      "name": "Pivot retardé",
+      "category": "causalite",
+      "given": "Pivot sur barre j avec trois barres requises à droite.",
+      "expected": "Détection pas avant clôture j+3 ; aucune entrée en j à partir de ce pivot.",
+      "execution_status": "non_execute_sur_un_moteur_de_trading"
+    },
+    {
+      "id": "T11",
+      "name": "Unité supérieure",
+      "category": "causalite",
+      "given": "À 10:07, agrégat de 15 minutes débutant à 10:00.",
+      "expected": "Sa clôture finale est inaccessible ; dernière barre supérieure confirmée seulement.",
+      "execution_status": "non_execute_sur_un_moteur_de_trading"
+    },
+    {
+      "id": "T12",
+      "name": "Préfixe invariant",
+      "category": "causalite",
+      "given": "Ajouter des bougies futures à une série déjà analysée.",
+      "expected": "Les décisions déjà publiées restent identiques, hors corrections de données explicitement versionnées.",
+      "execution_status": "non_execute_sur_un_moteur_de_trading"
+    },
+    {
+      "id": "T13",
+      "name": "Appariement de pivots",
+      "category": "causalite",
+      "given": "Plusieurs pivots RSI possibles autour d’un pivot de prix.",
+      "expected": "Choix déterministe parmi candidats connus ; aucun meilleur appariement choisi après résultat.",
+      "execution_status": "non_execute_sur_un_moteur_de_trading"
+    },
+    {
+      "id": "T14",
+      "name": "Sommets quasi égaux",
+      "category": "motifs",
+      "given": "Différence sous la tolérance prédéfinie.",
+      "expected": "Classe equal ; ne pas forcer higher ou lower.",
+      "execution_status": "non_execute_sur_un_moteur_de_trading"
+    },
+    {
+      "id": "T15",
+      "name": "Fausse séquence de failure swing",
+      "category": "motifs",
+      "given": "RSI 24→39→27→43.",
+      "expected": "Pas de failure swing haussier de la séquence proposée.",
+      "execution_status": "non_execute_sur_un_moteur_de_trading"
+    },
+    {
+      "id": "T16",
+      "name": "Surachat persistant",
+      "category": "motifs",
+      "given": "Tendance haussière, RSI>70 pendant plusieurs barres.",
+      "expected": "Aucune vente due au seul seuil ; comportement de la stratégie explicite.",
+      "execution_status": "non_execute_sur_un_moteur_de_trading"
+    },
+    {
+      "id": "T17",
+      "name": "Stop et objectif intrabar",
+      "category": "execution",
+      "given": "Les deux niveaux sont atteints selon H/L, ordre inconnu.",
+      "expected": "Résolution plus fine ou convention conservative identifiée et comptabilisée.",
+      "execution_status": "non_execute_sur_un_moteur_de_trading"
+    },
+    {
+      "id": "T18",
+      "name": "Frais nuls versus réalistes",
+      "category": "execution",
+      "given": "Mêmes trades, deux barèmes de coûts.",
+      "expected": "Le résultat net reflète tous les frais et le modèle de spread/slippage sans double comptage.",
+      "execution_status": "non_execute_sur_un_moteur_de_trading"
+    },
+    {
+      "id": "T19",
+      "name": "Rollover",
+      "category": "donnees",
+      "given": "Changement d’échéance ou de convention d’ajustement.",
+      "expected": "Traçabilité du contrat réel et recalcul cohérent ; aucun gain gratuit au raccordement.",
+      "execution_status": "non_execute_sur_un_moteur_de_trading"
+    },
+    {
+      "id": "T20",
+      "name": "Fuseau et changement d’heure",
+      "category": "donnees",
+      "given": "Deux dates de séances avec offset différent.",
+      "expected": "Construction des barres et reset du VWAP cohérents avec calendrier choisi.",
+      "execution_status": "non_execute_sur_un_moteur_de_trading"
+    },
+    {
+      "id": "T21",
+      "name": "Flux périmé",
+      "category": "risque",
+      "given": "Dernière barre au-delà de la latence maximale autorisée.",
+      "expected": "Décision bloquée avec motif DATA_STALE.",
+      "execution_status": "non_execute_sur_un_moteur_de_trading"
+    },
+    {
+      "id": "T22",
+      "name": "Unité minimale trop risquée",
+      "category": "risque",
+      "given": "Coût estimé d’un contrat au stop supérieur au budget.",
+      "expected": "Quantité zéro et refus, pas d’arrondi vers un contrat.",
+      "execution_status": "non_execute_sur_un_moteur_de_trading"
+    },
+    {
+      "id": "T23",
+      "name": "Score non calibré",
+      "category": "communication",
+      "given": "Cinq critères sur six satisfaits.",
+      "expected": "Pas d’affichage 83 % de chances de gagner.",
+      "execution_status": "non_execute_sur_un_moteur_de_trading"
+    },
+    {
+      "id": "T24",
+      "name": "Recherche documentaire seule",
+      "category": "gouvernance",
+      "given": "Base JSON chargée mais stratégie non testée.",
+      "expected": "Statut non_validated ; activation réelle interdite par le protocole.",
+      "execution_status": "non_execute_sur_un_moteur_de_trading"
+    }
+  ]
+}

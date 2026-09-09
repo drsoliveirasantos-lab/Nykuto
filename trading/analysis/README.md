@@ -115,3 +115,17 @@ ceux de la dernière sélection valide, avec un message explicite. Une nouvelle
 erreur de chargement masque toujours les anciens résultats. Le contrôle
 d'intégrité exige Web Crypto : un contexte non sécurisé affiche désormais un
 message en français, sans désactiver ce contrôle.
+
+
+## Documentary knowledge integration — September 9, 2026
+
+The analysis now retrieves relevant references from the three supplied research
+packs through `../knowledge/analysis-knowledge.mjs`. It describes the current
+RSI zone and attaches definitions for confirmed pivots and observed candle
+shapes. Examples and hypotheses stay distinct from calculated observations;
+MSS is not silently substituted with CHOCH. Numeric detectors remain unchanged.
+The optional knowledge panel clears on invalid analysis, rejects stale async
+responses and allows retry after a corpus failure. A corpus error does not
+remove the independent numerical analysis. The searchable `/knowledge/` page
+provides the remaining topics and the disconnected news directory. This is
+actual document retrieval, not training or a remote AI assistant.

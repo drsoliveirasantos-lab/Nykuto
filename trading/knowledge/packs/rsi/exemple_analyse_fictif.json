@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "mode": "research_only",
+  "synthetic": true,
+  "as_of": "2026-09-09T14:35:00Z",
+  "instrument": "DEMO_NON_NEGOCIABLE",
+  "timeframe": "5m",
+  "data_quality": {
+    "status": "valid",
+    "last_closed_bar_end": "2026-09-09T14:35:00Z",
+    "missing_fields": []
+  },
+  "rsi": {
+    "value": 54,
+    "period": 14,
+    "smoothing": "wilder",
+    "price_source": "close",
+    "confirmed": true,
+    "zone": "middle"
+  },
+  "regime": {
+    "direction": "uptrend",
+    "method": "exemple_fictif_de_structure_HH_HL_confirmee",
+    "volatility_state": "unknown"
+  },
+  "divergences": [],
+  "decision": {
+    "action": "WAIT",
+    "reason_codes": [
+      "NO_CONFIRMED_PRICE_TRIGGER",
+      "STRATEGY_NOT_VALIDATED"
+    ],
+    "calibrated_success_probability": null,
+    "live_enabled": false
+  },
+  "source_ids": [
+    "S01",
+    "S07",
+    "S18"
+  ]
+}

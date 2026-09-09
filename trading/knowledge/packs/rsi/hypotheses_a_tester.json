@@ -1,0 +1,164 @@
+{
+  "warning": "Ces fiches sont des protocoles à compléter, pas des stratégies exécutables ni des réglages conseillés en réel.",
+  "common_control": "Règle de prix comparable, mêmes dates, même budget, mêmes sorties et coûts.",
+  "all_live_disabled": true,
+  "hypotheses": [
+    {
+      "id": "H01",
+      "name": "Repli dans une tendance",
+      "status": "hypothese_non_validee",
+      "live_enabled": false,
+      "executable": false,
+      "context": "Structure haussière indépendante du RSI ; repli vers zone prédéfinie. Variante baissière séparée.",
+      "trigger_proposed": "Tester une reprise du RSI après passage dans une bande candidate 40–50, avec reprise du prix confirmée.",
+      "invalidation_proposed": "Cassure de la structure de référence ou expiration du motif.",
+      "comparison": "Comparer au même repli et même confirmation de prix sans filtre RSI.",
+      "source_ids": [
+        "S02",
+        "S07",
+        "S09"
+      ],
+      "configuration_required": [
+        "instrument et flux",
+        "unité de temps et séance",
+        "détection des pivots et tolérances",
+        "seuils et durée maximale du motif",
+        "modèle de remplissage et frais",
+        "stop, objectif ou règle de sortie, durée maximale de position",
+        "budget par trade et budget global",
+        "dates de développement, validation et test final"
+      ],
+      "results": null
+    },
+    {
+      "id": "H02",
+      "name": "Retour dans un range",
+      "status": "hypothese_non_validee",
+      "live_enabled": false,
+      "executable": false,
+      "context": "Range caractérisé avant la réaction ; proximité d’une borne.",
+      "trigger_proposed": "Après RSI<30, clôture de RSI au-dessus de 30 et réintégration de prix ; symétrique pour la borne haute.",
+      "invalidation_proposed": "Sortie confirmée du range ou expiration avant réintégration.",
+      "comparison": "Même réaction de prix sans seuil RSI ; analyser fausses cassures et tendances naissantes.",
+      "source_ids": [
+        "S02",
+        "S09"
+      ],
+      "configuration_required": [
+        "instrument et flux",
+        "unité de temps et séance",
+        "détection des pivots et tolérances",
+        "seuils et durée maximale du motif",
+        "modèle de remplissage et frais",
+        "stop, objectif ou règle de sortie, durée maximale de position",
+        "budget par trade et budget global",
+        "dates de développement, validation et test final"
+      ],
+      "results": null
+    },
+    {
+      "id": "H03",
+      "name": "Divergence régulière avec confirmation",
+      "status": "hypothese_non_validee",
+      "live_enabled": false,
+      "executable": false,
+      "context": "Deux pivots correspondants, tous confirmés ; zone et tendance documentées.",
+      "trigger_proposed": "Motif régulier puis rupture de microstructure de prix selon règle fixée.",
+      "invalidation_proposed": "Prix invalidant le niveau retenu avant entrée, divergence périmée, délai maximal dépassé.",
+      "comparison": "Même confirmation de prix avec et sans divergence ; distinguer utilisation en filtre, sortie et entrée.",
+      "source_ids": [
+        "S03",
+        "S18"
+      ],
+      "configuration_required": [
+        "instrument et flux",
+        "unité de temps et séance",
+        "détection des pivots et tolérances",
+        "seuils et durée maximale du motif",
+        "modèle de remplissage et frais",
+        "stop, objectif ou règle de sortie, durée maximale de position",
+        "budget par trade et budget global",
+        "dates de développement, validation et test final"
+      ],
+      "results": null
+    },
+    {
+      "id": "H04",
+      "name": "Continuation avec divergence cachée",
+      "status": "hypothese_non_validee",
+      "live_enabled": false,
+      "executable": false,
+      "context": "Tendance préalable, pivots de prix/RSI appariés sans futur.",
+      "trigger_proposed": "Motif caché confirmé et reprise du prix dans le sens du régime.",
+      "invalidation_proposed": "Rupture du dernier pivot structurel de référence.",
+      "comparison": "Comparer aux replis ordinaires dans le même régime ; ne pas compter deux fois le même mouvement.",
+      "source_ids": [
+        "S01",
+        "S07"
+      ],
+      "configuration_required": [
+        "instrument et flux",
+        "unité de temps et séance",
+        "détection des pivots et tolérances",
+        "seuils et durée maximale du motif",
+        "modèle de remplissage et frais",
+        "stop, objectif ou règle de sortie, durée maximale de position",
+        "budget par trade et budget global",
+        "dates de développement, validation et test final"
+      ],
+      "results": null
+    },
+    {
+      "id": "H05",
+      "name": "Failure swing confirmé",
+      "status": "hypothese_non_validee",
+      "live_enabled": false,
+      "executable": false,
+      "context": "Séquence RSI complète disponible sur clôtures.",
+      "trigger_proposed": "Dépassement du sommet RSI intermédiaire après échec au-dessus de 30 ; séquence inverse sous 70.",
+      "invalidation_proposed": "Retour en zone extrême avant dernière étape, ordre incohérent des étapes ou expiration.",
+      "comparison": "Comparer au simple retour de RSI dans 30–70 avec risque et sorties identiques.",
+      "source_ids": [
+        "S01"
+      ],
+      "configuration_required": [
+        "instrument et flux",
+        "unité de temps et séance",
+        "détection des pivots et tolérances",
+        "seuils et durée maximale du motif",
+        "modèle de remplissage et frais",
+        "stop, objectif ou règle de sortie, durée maximale de position",
+        "budget par trade et budget global",
+        "dates de développement, validation et test final"
+      ],
+      "results": null
+    },
+    {
+      "id": "H06",
+      "name": "Continuation après cassure",
+      "status": "hypothese_non_validee",
+      "live_enabled": false,
+      "executable": false,
+      "context": "Zone construite causalement, cassure de prix confirmée, contexte de volatilité connu.",
+      "trigger_proposed": "Tester une confirmation RSI>50 plutôt qu’un rejet mécanique de tout RSI>70 ; volume relatif comme ablation distincte.",
+      "invalidation_proposed": "Réintégration invalidante ou conditions d’exécution insuffisantes.",
+      "comparison": "Cassure prix seule, +RSI, puis +volume relatif séparément.",
+      "source_ids": [
+        "S04",
+        "S09",
+        "S16"
+      ],
+      "configuration_required": [
+        "instrument et flux",
+        "unité de temps et séance",
+        "détection des pivots et tolérances",
+        "seuils et durée maximale du motif",
+        "modèle de remplissage et frais",
+        "stop, objectif ou règle de sortie, durée maximale de position",
+        "budget par trade et budget global",
+        "dates de développement, validation et test final"
+      ],
+      "results": null
+    }
+  ]
+}
