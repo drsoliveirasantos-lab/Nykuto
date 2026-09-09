@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="../styles.css">
   <link rel="stylesheet" href="./lab.css">
   <link rel="stylesheet" href="./lab-validation.css?v=2">
-  <script src="./lab.js?v=2" defer></script>
+  <script src="./lab.js?v=3" defer></script>
   <script src="./lab-validation.mjs?v=2" type="module"></script>
   <script src="./lab-session.mjs?v=1" type="module"></script>
   <script src="./lab-market.mjs?v=1" type="module"></script>
@@ -598,7 +598,7 @@
             <label><span>Coût estimé / trade</span><div class="input-suffix"><input id="costPerTradeR" type="number" min="0" max="1" step="0.01" value="0.05"><b>R</b></div></label>
             <button class="primary-button run-backtest" type="button" id="runBacktest">Lancer</button>
           </div>
-          <p class="backtest-note" id="backtestNote">Entrée sur la bougie suivante · stop et target simulés · stop prioritaire si les deux sont touchés dans la même bougie.</p>
+          <p class="backtest-note" id="backtestNote">Entrée à l’ouverture suivante. Un gap peut dépasser le stop ; sinon, le stop prime si les deux niveaux sont touchés. Freins remis à zéro chaque jour UTC.</p>
         </article>
       </div>
     </section>
@@ -621,7 +621,7 @@
         <div class="test-split">
           <div><span>Développement 70 %</span><strong id="btTrainStats">—</strong></div>
           <div><span>Validation 30 %</span><strong id="btValidationStats">—</strong></div>
-          <p id="btInterpretation">Le résultat hors échantillon est affiché séparément pour limiter l'illusion d'une stratégie optimisée uniquement sur le passé.</p>
+          <p id="btInterpretation">Deux simulations séparées : la première se termine avant la validation, qui repart sans position ni signal en attente. Ce découpage temporel ne constitue pas une confirmation indépendante.</p>
         </div>
         <div class="trade-log-wrap">
           <table class="trade-log">
