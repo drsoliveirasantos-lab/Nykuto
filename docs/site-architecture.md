@@ -188,7 +188,11 @@ collection procedure, data boundaries and limitations.
 
 The Lab interface separates `Suivi actuel`, `Tests précédents` and `Test manuel`
 with accessible tabs in `lab-workspace.mjs` and scoped `lab-workspace.css`.
-Jeu 17 opens by default with the predeclared 2 × 2 stop/net-margin comparison.
+Jeu 18 is prepared locally as the default follow-up, with one frozen cash-session
+VWAP entry filter. Jeu 17 remains in a disclosure with its 2 × 2 stop/margin comparison.
+Public publishing of Jeux 17–18 is pending explicit approval after automatic
+review rejected disclosure to the public GitHub repository; the deployed Lab
+therefore remains on Jeu 16 until that separate approval is given.
 Jeu 16 remains in a disclosure with its original structural-stop comparison.
 Jeu 15 remains in a disclosure with its exploratory LucidFlex 25K risk replay.
 Jeu 14 remains in a disclosure with the fixed Pullback tested across all currently
@@ -286,6 +290,17 @@ and failure. `lab-ablation-report.mjs` verifies the aggregate report fingerprint
 before displaying all eight selections (four policies × two costs). Full trades
 remain private under `jeu17/ablation-v1/`; previous results, account state,
 MNQ tasks and execution activation remain unchanged. No browser QA is implied.
+
+Jeu 18 adds a causal HLC3/volume estimate anchored to 09:30 New York, using
+integer tick-volume sums and rejecting incomplete sessions. One direction filter
+is applied before the unchanged Jeu 17 ATR/margin replay; all entries and daily
+brakes are resimulated. The reference reproduces its archived trades/days/statuses.
+The added filter does not change any executed trade in this historical test and
+is not adopted. `JEU18_PROTOCOL.md`, `jeu18-freeze.json` and `JEU18_RESULTS.md`
+record the frozen scope, result and limits. `lab-vwap.mjs` verifies the aggregate
+report before rendering the two cost views; raw signal contexts and trades
+remain private under `jeu18/vwap-v1/`. No new data endpoint, activation, account
+change or MNQ task change is made. Publishing remains pending as described above.
 
 `trading/account/` adds required first/last-name onboarding, personal settings and
 feedback to the site owner. Cloudflare Access email PIN verifies identity;

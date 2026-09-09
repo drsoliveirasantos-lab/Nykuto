@@ -25,6 +25,7 @@
   <script src="./lab-lucid.mjs?v=1" type="module"></script>
   <script src="./lab-structural.mjs?v=1" type="module"></script>
   <script src="./lab-ablation-report.mjs?v=1" type="module"></script>
+  <script src="./lab-vwap.mjs?v=1" type="module"></script>
   <link rel="stylesheet" href="./lab-market.css?v=2">
   <link rel="stylesheet" href="./lab-workspace.css?v=3">
   <script src="./lab-workspace.mjs?v=2" type="module"></script>
@@ -63,6 +64,23 @@
     </div>
     <noscript><p>Active JavaScript pour changer de vue et consulter le suivi.</p></noscript>
     <div id="view-current" class="lab-view" role="tabpanel" aria-labelledby="tab-current" tabindex="0">
+    <section class="panel independent-game market-game" id="vwapGame" aria-labelledby="vwapTitle">
+      <div class="panel-heading"><div><p class="panel-kicker">JEU 18 · FILTRE VWAP</p><h3 id="vwapTitle">Le prix moyen de séance améliore-t-il les entrées ?</h3></div><span class="lab-status planned" id="vwapStatus">Lecture du bilan…</span></div>
+      <div class="iv-content">
+        <p class="iv-intro">MNQ · un microcontrat. Même Pullback 5 min, même tendance 30 min, mêmes budgets : seul le filtre de prix par rapport au VWAP de séance est ajouté.</p>
+        <p class="iv-message" id="vwapMessage" role="status" aria-live="polite">Chargement de la comparaison.</p>
+        <div id="vwapResults" hidden>
+          <div class="timeframe-filters"><div><label for="vwapCosts">Coûts hypothétiques par aller-retour</label><select id="vwapCosts"><option value="normal">3,50 $ · hypothèse initiale</option><option value="stress">7 $ · coûts doublés</option></select></div></div>
+          <div class="mc-summary"><article><h4>Résultat avec VWAP</h4><strong id="vwapNet">—</strong><p>Mêmes trades et résultat que la référence.</p></article><article><h4>Activité observée</h4><strong id="vwapTrades">—</strong><p id="vwapDaily"></p></article><article><h4>Pire journée</h4><strong id="vwapWorst">—</strong><p id="vwapDrawdown"></p></article></div>
+          <div class="iv-table-wrap" role="region" aria-label="Comparaison avec et sans VWAP" tabindex="0"><table class="iv-table"><caption>Mêmes 330 séances évaluables, du 9 avril 2025 au 4 septembre 2026. Les interruptions restent exclues : ce total n’est pas un compte continu ni un revenu attendu.</caption><thead><tr><th scope="col">Configuration</th><th scope="col">Trades</th><th scope="col">Avant coûts $</th><th scope="col">Coûts $</th><th scope="col">Net $</th><th scope="col">PF en R</th></tr></thead><tbody id="vwapComparison"></tbody></table></div>
+          <details class="iv-help" open><summary>Pourquoi le filtre ne change rien ici</summary><p id="vwapSignals"></p><p>Les signaux supprimés ne produisaient déjà aucun trade avec les autres règles. Les transactions, journées et statuts des comptes restent identiques dans les deux simulations. Le filtre n’est pas retenu comme amélioration.</p><p id="vwapRefusals"></p></details>
+          <details class="iv-help"><summary>Comment fonctionne le VWAP testé ?</summary><p>Depuis 09:30 New York, chaque bougie 5 min clôturée contribue par son prix moyen (haut + bas + clôture) / 3, pondéré par son volume. Le calcul repart à zéro à chaque séance.</p><p>Achat seulement si la clôture du signal est au-dessus de cette moyenne ; vente seulement en dessous. Égalité ou données manquantes : refus. Aucune bougie future n’est utilisée.</p><p>C’est une approximation depuis les bougies de la séance cash, pas le VWAP de toute la séance Globex ni un calcul transaction par transaction. Les entrées se font toujours à l’open suivant, avec stop ATR et filtre de marge du Jeu 17.</p><p>Un MNQ, trois entrées maximum, risque prévu avec coûts ≤50 $, budget de perte journalier 100 $. Ces protections sont simulées ; un gap peut dépasser le budget prévu.</p></details>
+          <details class="iv-help"><summary>Évaluations LucidFlex 25K et critères</summary><p>Chaque fenêtre complète démarre un compte distinct, sans reset pendant la fenêtre. Aucun compte n’atteint l’objectif ; aucun breach observé. Ces simulations réutilisent les mêmes séances et ne sont pas des confirmations indépendantes.</p><div class="iv-table-wrap" role="region" aria-label="Comptes du test VWAP" tabindex="0"><table class="iv-table"><thead><tr><th scope="col">Période</th><th scope="col">Séances</th><th scope="col">Statut</th><th scope="col">Trades</th><th scope="col">Net à l’arrêt</th></tr></thead><tbody id="vwapAccounts"></tbody></table></div><ul id="vwapChecks"></ul><p>Le profit factor en R est le rapport gains/pertes après division de chaque trade par son risque initial. Aucun critère ne suffit seul à valider le bot.</p></details>
+          <details class="iv-help"><summary>Sources et contrôles</summary><p>Hypothèse fixée avant calcul, sur un historique déjà examiné. Même source et mêmes fenêtres que le Jeu 17. Les coûts incluent des frais/slippage supposés, hors achat/reset, plateforme, payout et fiscalité ; ils ne sont pas les frais certifiés du courtier.</p><p id="vwapAudit"></p><p>La simulation ne teste ni l’exécution réelle, ni un flux live, ni le rendu visuel dans un navigateur. Aucun bot n’est activé.</p><p><a href="./JEU18_PROTOCOL.md">Protocole</a> · <a href="./JEU18_RESULTS.md">Bilan détaillé</a> · <a href="#ablationGame">Revoir le Jeu 17</a></p></details>
+        </div>
+      </div>
+    </section>
+    <details class="lab-archive"><summary><span class="archive-number">17</span><span class="archive-title"><strong>Effets séparés du stop et de la marge</strong><small>Quatre combinaisons · résultats conservés</small></span><span class="archive-state neutral">Historique</span><span class="archive-toggle" aria-hidden="true">+</span></summary>
     <section class="panel independent-game market-game" id="ablationGame" aria-labelledby="ablationTitle">
       <div class="panel-heading"><div><p class="panel-kicker">JEU 17 · STOP ET MARGE SÉPARÉS</p><h3 id="ablationTitle">Quel changement aide, lequel pénalise ?</h3></div><span class="lab-status planned" id="ablationStatus">Lecture du bilan…</span></div>
       <div class="iv-content">
@@ -85,6 +103,7 @@
         </div>
       </div>
     </section>
+    </details>
     <details class="lab-archive"><summary><span class="archive-number">16</span><span class="archive-title"><strong>Stop pivot et marge testés ensemble</strong><small>Comparaison précédente · résultat négatif conservé</small></span><span class="archive-state neutral">Historique</span><span class="archive-toggle" aria-hidden="true">+</span></summary>
     <section class="panel independent-game market-game" id="structuralGame" aria-labelledby="structuralTitle">
       <div class="panel-heading"><div><p class="panel-kicker">JEU 16 · STOP STRUCTUREL</p><h3 id="structuralTitle">Un pivot confirmé améliore-t-il les résultats ?</h3></div><span class="lab-status planned" id="structuralStatus">Lecture du bilan…</span></div>
