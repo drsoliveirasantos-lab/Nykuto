@@ -88,10 +88,13 @@ Reproduction :
 Le runner refuse une dépendance ou une source dont l’empreinte a changé.
 
 La comparaison est terminée. L’hypothèse n’est pas promue ; aucune pente,
-bande ou ancre alternative n’a été essayée après ce résultat. Les Jeux 17 et
-18 sont préparés localement. Leur publication publique reste en attente de
-l’accord explicite demandé après le refus du contrôle automatique. Le site
-déployé reste sur le Jeu 16. Aucun nouvel envoi public n’a été tenté.
+bande ou ancre alternative n’a été essayée après ce résultat. Le 9 septembre
+2026, le propriétaire a explicitement autorisé la publication du code et des
+statistiques agrégées des Jeux 17 et 18. Cette autorisation lève le blocage
+antérieur ; la PR #83 consigne la publication et la vérification du déploiement.
+Le protocole gelé et le manifeste privé conservent le statut historique qui
+précédait cet accord. Les données de marché brutes, les trades individuels et
+les contextes par signal restent privés.
 
 Validation finale : 133 tests de trading réussis, build réussi, hygiène sans
 anomalie, 25 Functions valides. Les 305 identifiants de page antérieurs sont
