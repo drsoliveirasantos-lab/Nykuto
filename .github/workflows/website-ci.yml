@@ -34,5 +34,7 @@ jobs:
         run: npm test
       - name: Run read-only market reception tests
         run: node --test scripts/test-trading-live.mjs
+      - name: Run human-confirmed assisted simulation tests
+        run: node --test scripts/test-trading-assist.mjs
       - name: Build website
         run: npm run build

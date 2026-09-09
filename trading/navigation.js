@@ -10,7 +10,7 @@
     [modules.length?'#risk':'/#risk','Risque'],
     [modules.length?'#journal':'/#journal','Journal'],
     [modules.length?'#plan':'/#plan','Plan'],
-    ['/analysis/','Analyse'],['/replay/','Replay'],['/lab/','Lab'],
+    ['/analysis/','Analyse'],['/assist/','Trade assisté'],['/replay/','Replay'],['/lab/','Lab'],
     ['/discipline/','Avant un trade'],['/alerts/','Alertes'],
     ['/connections/','Connexions'],['/live/','Flux Lucid'],['/account/#feedback','Retours'],['/account/','Mon compte'],['/cdn-cgi/access/logout','Déconnexion']
   ];

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Trade assisté · Nykuto</title>
+<link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/assist/assist.css?v=1">
+<script type="module" src="/assist/assist.mjs?v=1"></script>
+</head>
+<body>
+<a class="skip-link" href="#content">Aller au contenu</a>
+<header class="topbar"><a class="brand-wrap" href="/"><span class="brand-mark" aria-hidden="true">N</span><span><span class="eyebrow">NYKUTO</span><strong>Trading HQ</strong></span></a><a class="ghost-button" href="/lab/">Lab</a></header>
+<nav class="section-nav" aria-label="Navigation"><a href="/">Dashboard</a><a href="/assist/" aria-current="page">Trade assisté</a><a href="/connections/">Connexions</a></nav>
+<main id="content" class="assist-shell">
+<p class="eyebrow">TU ANALYSES · TU CONFIRMES · TU SIMULES</p><h1>Trade assisté</h1>
+<p>Une capture, un scénario et un ticket vérifié ensemble. Tout se fait dans le navigateur, sans Quantower ni Windows.</p>
+<p class="notice"><strong>Simulation uniquement · aucun broker connecté.</strong> Aucun ordre Lucid ni bot autonome. Les prix viennent de tes saisies ; aucune cotation live n’est inventée.</p>
+<p id="status" role="status">Chargement du journal privé…</p><p id="timezone" class="meta"></p>
+<form id="plan">
+<section class="assist-panel" aria-labelledby="captureTitle"><span class="step">01 · OBSERVER</span><h2 id="captureTitle">Capture et contexte</h2>
+<label class="upload">Ajouter jusqu’à 3 captures<input id="images" type="file" accept="image/png,image/jpeg,image/webp" multiple></label>
+<p class="meta">PNG, JPEG ou WebP, 8 Mo par image. Masque ton nom, numéro de compte et solde. Les captures restent dans cet onglet, sauf envoi IA explicite ; elles ne sont pas sauvegardées dans le journal.</p>
+<p id="imageStatus" role="status"></p><div id="previews" class="previews"></div>
+<div class="fields">
+<label>Microcontrat<select id="root"><option>MNQ</option><option>MES</option><option>MYM</option><option>MGC</option></select></label>
+<label>Échéance réelle<input id="contract" placeholder="MNQ-202609" maxlength="20" required autocomplete="off"><small>ROOT-YYYYMM, à vérifier. Pas MNQ1!.</small></label>
+<label>Unités de temps visibles<input id="timeframes" placeholder="15 min, 5 min, 1 min" maxlength="80" required></label>
+<label>Heure de la capture<input id="capturedAt" type="datetime-local" step="1" required></label>
+<label>Nature des données<select id="source"><option value="unknown">Non vérifiée</option><option value="declared-live">Temps réel déclaré par moi</option><option value="delayed">Données retardées</option><option value="historical">Historique / scénario</option></select></label>
+</div>
+<label>Contexte et indicateurs visibles<textarea id="notes" rows="3" maxlength="2000" placeholder="VWAP, EMA, RSI, niveaux, question à examiner… Ne donne aucune clé ni mot de passe."></textarea></label>
+</section>
+<section class="assist-panel" aria-labelledby="analysisTitle"><span class="step">02 · ANALYSER</span><h2 id="analysisTitle">Faire l’analyse ensemble</h2>
+<p>Sans API IA configurée, prépare la demande, copie-la dans notre conversation et joins les mêmes captures. Rapporte ensuite l’analyse ci-dessous.</p>
+<div class="actions"><button type="button" id="promptButton" class="ghost-button">Préparer la demande ChatGPT</button><button type="button" id="copyPrompt" class="ghost-button" disabled>Copier la demande</button></div>
+<textarea id="prompt" readonly rows="5" aria-label="Demande à copier dans ChatGPT" placeholder="La demande apparaîtra ici. Les images ne sont pas copiées avec le texte."></textarea>
+<details><summary>Analyse IA directement sur le site</summary><p id="aiStatus">Disponibilité non vérifiée.</p>
+<p class="meta">Activation serveur nécessaire. L’API est facturée séparément de l’abonnement ChatGPT. Trois tentatives maximum par jour UTC, échecs compris. Aucune requête à l’ouverture de la page.</p>
+<label class="check"><input id="consent" type="checkbox">J’accepte d’envoyer ces captures et ce contexte à OpenAI avec la facturation API du site.</label>
+<button type="button" id="askAI" class="ghost-button" disabled>Analyser les captures avec l’API</button><pre id="aiOutput" aria-live="polite"></pre>
+</details>
+<label>Analyse retenue / justification du scénario<textarea id="analysis" rows="5" maxlength="4000" required placeholder="Colle ou résume notre analyse. Précise le déclencheur, l’invalidation, les incertitudes et les raisons d’attendre."></textarea></label>
+<p class="meta">Une analyse n’est pas une probabilité de gain. Aucun niveau proposé par l’IA n’est automatiquement recopié dans un ordre.</p>
+</section>
+<section class="assist-panel" aria-labelledby="ticketTitle"><span class="step">03 · VÉRIFIER</span><h2 id="ticketTitle">Ton ticket de simulation</h2>
+<p>Recopie les niveaux que tu as vérifiés. L’entrée utilise le prix saisi, ajusté du slippage défavorable choisi. Ce n’est pas un ordre limite ou stop en attente chez un broker.</p>
+<div class="fields">
+<label>Décision<select id="side"><option value="wait">Attendre / pas de trade</option><option value="long">Achat · Long</option><option value="short">Vente · Short</option></select></label>
+<label>Nombre de micros<input id="quantity" type="number" min="1" max="20" step="1" value="1" required></label>
+<label>Prix d’entrée relevé<input id="entry" type="number" step="any" min="0.01" required></label>
+<label>Stop prévu<input id="stop" type="number" step="any" min="0.01" required></label>
+<label>Objectif prévu<input id="target" type="number" step="any" min="0.01" required></label>
+<label>Budget de risque · USD<input id="riskBudget" type="number" min="0.01" step="0.01" required></label>
+<label>Frais par contrat et par côté · USD<input id="feePerSide" type="number" min="0" max="100" step="0.01" required><small>Hypothèse à renseigner, pas un tarif Lucid imposé.</small></label>
+<label>Slippage par côté · ticks<input id="slippageTicks" type="number" min="0" max="100" step="1" value="1" required></label>
+<label>Heure du prix relevé<input id="quoteAt" type="datetime-local" step="1" required></label>
+</div>
+<div class="actions"><button type="button" class="ghost-button" id="quoteNow">Je viens de relever ce prix maintenant</button><button type="submit" class="primary-button">Calculer et vérifier le ticket</button></div>
+<p id="spec" class="meta"></p><div id="review" role="status"></div>
+<p class="notice"><strong>Le stop et l’objectif sont des repères, pas une surveillance automatique.</strong> Sans flux connecté, le site ignore ce qui se passe entre tes observations. Le risque calculé n’est pas une perte maximale garantie.</p>
+<label class="check"><input id="confirmed" type="checkbox">J’ai vérifié le contrat, les prix, les coûts et le scénario. Je confirme une simulation, sans ordre broker.</label>
+<div class="actions"><button id="openSimulation" type="button" class="primary-button" disabled>Ouvrir la simulation confirmée</button><button type="button" disabled class="ghost-button">Broker non connecté</button></div>
+</section>
+</form>
+<section class="assist-panel" aria-labelledby="journalTitle"><span class="step">04 · SUIVRE</span><h2 id="journalTitle">Mes simulations accompagnées</h2>
+<p>Journal séparé du Lab et de tes trades manuels existants. Aucun résultat ne valide le bot autonome ni les règles d’une prop firm.</p>
+<div class="actions"><button id="refresh" type="button" class="ghost-button">Actualiser le journal</button><button id="export" type="button" class="ghost-button" disabled>Exporter mes simulations</button></div>
+<p id="summary"></p><div id="trades" class="trade-list"></div>
+<form id="closeForm" hidden><h3>Clôturer la simulation ouverte</h3><p id="activeTrade"></p>
+<div class="fields"><label>Prix de sortie observé<input id="exit" type="number" min="0.01" step="any" required></label><label>Heure de sortie observée<input id="exitAt" type="datetime-local" step="1" required></label><label>Motif de clôture<input id="reason" maxlength="500" required placeholder="Sortie manuelle, stop observé, objectif observé…"></label></div>
+<label class="check"><input id="closeConfirmed" type="checkbox" required>Je confirme ce prix de sortie saisi manuellement, sans exécution broker.</label>
+<button id="closeButton" type="submit" class="primary-button">Clôturer et calculer le résultat</button>
+</form>
+<p class="meta">Les remplissages, frais et résultats sont simulés à partir de tes valeurs. Pas de cours en continu, de carnet, de marge broker ou de drawdown Lucid contrôlé ici.</p>
+</section>
+<p class="meta"><a href="/assist/README.md">Fonctionnement, calculs et limites</a> · Spécifications : <a href="https://www.cmegroup.com/articles/faqs/frequently-asked-questions-micro-e-mini-equity-index-futures.html" target="_blank" rel="noopener noreferrer">CME micro-indices</a> · <a href="https://www.cmegroup.com/markets/metals/precious/e-micro-gold.contractSpecs.html" target="_blank" rel="noopener noreferrer">Micro Gold</a></p>
+<noscript>Active JavaScript pour préparer et enregistrer une simulation. Aucun bot n’est actif.</noscript>
+</main>
+</body>
+</html>
