@@ -752,7 +752,7 @@ retains the cost choice. `JEU29_PROTOCOL.md`, `JEU29_RESULTS.md` and
 Paper/Shadow, source collection, workflow or secret change.
 
 
-Game 30 is the current Lab panel at `#augustGame`. At Diego's explicit request,
+Game 30 remains at `#augustGame`, below the cross-market audit. At Diego's explicit request,
 it evaluates August 2026 with the exact Game 29 economic rules, frozen in a
 local commit before performance. This is a separate authorized evaluation;
 the old reserve gates and frozen dependencies remain unchanged. August is now
@@ -774,3 +774,22 @@ no new economic configuration or executable selection. `JEU30_PROTOCOL.md`,
 `JEU30_RESULTS.md` and `JEU30_ARCHIVE.md` describe the authorization, figures,
 limitations and verified private archive. No live account or broker is linked;
 Paper/Shadow, collection schedules, workflows and secrets remain unchanged.
+
+
+The cross-market audit is the first current Lab panel at `#marketAudit`, above
+Game 30. It reconciles all 67 Games 19–30 ledger entries and describes 126
+unique normal-cost diagnostic trades across January–April and August. It adds
+no strategy trial and does not modify the ledger, economic rules or frozen
+results. `market-diagnostics.mjs` attaches causal pre-entry context, distinct
+unknown confirmations, winner/loser/flat classes, MFE/MAE bounds, direction,
+hour, weekday, exits and refusal counts. Cost differences are reconciled into
+matched-entry fees, matched gross exits, removed normal trades and added stress
+trades. The audit reproduced 264 recorded exits and verified 138 context prefixes;
+these checks reuse observations and are not independent trading samples.
+`lab-market-audit.mjs` exposes 32 market/window/cost views after verifying the
+pinned aggregate report. Failed refresh clears old figures and conclusions;
+retry retains all choices. `MARKET_AUDIT_PROTOCOL.md` and
+`MARKET_AUDIT_RESULTS.md` document the full review and research priorities.
+MGC's observed time-of-day split is a hypothesis for a separate future replay,
+not an active filter. The module is descriptive; no broker, live feed, paper
+execution, collection schedule, account rule or secret is changed.

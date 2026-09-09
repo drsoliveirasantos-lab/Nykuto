@@ -10,6 +10,11 @@ Le [Jeu 29](JEU29_RESULTS.md), réalisé ensuite, ajoute un replay commun :
 aux coûts initiaux, 67 essais au registre. Août est désormais observé pour ce
 portefeuille ; les profils restent non qualifiés.
 
+Le [nouvel audit transversal](MARKET_AUDIT_RESULTS.md) rapproche les 67 essais et
+compare les gagnants/perdants du portefeuille actuel sur janvier–avril et août.
+Il ajoute des priorités de recherche, sans modifier ces choix historiques ni
+activer un filtre ou une stratégie. Les hypothèses découvertes restent à tester.
+
 ## Pistes initiales
 
 Ces choix sont effectués après lecture des résultats existants. Ils indiquent
