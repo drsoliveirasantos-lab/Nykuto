@@ -828,7 +828,7 @@ integration tests. Existing frozen research and the 67-entry ledger are intact.
 
 ## Trading Lab Game 31
 
-`trading/lab/index.html` opens the current view with `#marketFiltersGame`.
+The historical Game 31 panel remains at `#marketFiltersGame`.
 `lab-market-filters.mjs` renders 40 choices from the SHA-pinned aggregate
 `jeu31-report.json`, verified by `jeu31-report-validation.mjs`. Failed refresh
 clears all old results and keeps menu selections for recovery. Existing panels
@@ -844,3 +844,25 @@ later GitHub publication of the exact same tree. Private replay archives use
 `jeu31/market-filters-v1/`; only hashes and aggregates are public. The ledger has
 70 trials, preserving the first 67 byte-reconstructed audit-era entries.
 The three exploratory candidates fail profitability; execution remains disabled.
+
+## Trading Lab Game 32
+
+`#summerTrendGame` now precedes historical Game 31 in the current Lab view.
+`lab-summer-trend.mjs` loads the pinned `jeu32-report.json` through
+`jeu32-report-validation.mjs`; an invalid refresh clears all stale figures and
+retains selected controls on recovery. Tables expose all 80 month/mode/variant/cost
+selections, daily results, complete versus partial/censored weeks, market attribution,
+planned quantities and risk, and descriptive cross-market measures.
+
+The separate frozen modules `jeu32-alignment.mjs`, `jeu32-risk.mjs`,
+`jeu32-engine.mjs` and `jeu32-study.mjs` preserve prior engines. The runner checks
+16 old August replays, 169 alignment contexts, 34 RSI contexts, 2,514 replay prefixes
+and 1,544 overlapping executed records. There are four new configurations and
+74 ledger records. The report remains unconfirmed with execution disabled.
+
+`jeu32-publication.json` records the local pre-calculation definition commit and
+identical tree published afterwards. `jeu32-archive.json` references verified private
+KV files under `jeu32/summer-trend-sizing-v1/`; public files contain aggregates and
+hashes only. The 20/16/14/12px compact hierarchy extends to the new panel and uses
+existing table overflow, control sizing and spacing. Validation uses source and
+DOM fixtures; no browser or deployment is performed for this change.

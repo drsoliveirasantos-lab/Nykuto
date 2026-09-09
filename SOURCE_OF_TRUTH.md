@@ -434,7 +434,7 @@ integration tests. Existing frozen research and the 67-entry ledger are intact.
 
 ## Game 31 — market filters, observed-period research
 
-The Lab now opens at `/lab/#marketFiltersGame`. Three fixed research variants
+The historical Game 31 panel remains at `/lab/#marketFiltersGame`. Three fixed research variants
 (MES RSI extremes, MGC entries before 11:00 New York, and both) are replayed
 against the unchanged portfolio across five windows/modes and both costs.
 All 40 views include daily/weekly aggregates, market contributions and removed
@@ -446,3 +446,24 @@ confirmation and no execution is activated. The append-only ledger totals 70
 configurations; all 67 earlier entries and frozen reports are preserved.
 See [Game 31 results](trading/lab/JEU31_RESULTS.md), [protocol](trading/lab/JEU31_PROTOCOL.md)
 and [private archive manifest](trading/lab/jeu31-archive.json).
+
+## Trading Lab — Jeu 32, June–August 2026
+
+The current research panel opens at `/lab/#summerTrendGame`, above historical
+Game 31. Five variants compare the existing market filters, fixed 2R exits,
+integer 150/500 USD sizing and closed cash-session M5/H1 alignment. June, July,
+August and continuous summer each have diagnostic/account and normal/doubled-cost
+views: 80 overlapping replays across 64 complete sessions, four new configurations,
+74 cumulative trials. No independent confirmation, selected strategy or execution.
+
+At normal costs, aligned 500 USD returns +1,531.50 / +894 / -785 USD on separately
+reset monthly accounts; the continuous summer account returns +223.50 USD, with
+zero of 13 full weeks reaching +1,000 USD. Its diagnostic returns -2,215.50 USD.
+The 150 USD 2R control reaches the evaluation objective on July 29, but continuous
+diagnostic results are only +395.50 USD and -98.50 USD at doubled costs.
+
+Sources: [protocol](trading/lab/JEU32_PROTOCOL.md),
+[results](trading/lab/JEU32_RESULTS.md), [market study](trading/lab/JEU32_MARKET_STUDY.md),
+[private archive manifest](trading/lab/jeu32-archive.json).
+Raw prices, positions and decisions remain private. Existing source archives and
+70 prior ledger records are preserved. No broker, Paper or Shadow activation.

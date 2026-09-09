@@ -1,7 +1,7 @@
 {
   "schema": "research-ledger-v1",
-  "scope": "Jeux 19–31 only; earlier studies remain in their own reports",
-  "configurationCount": 70,
+  "scope": "Jeux 19–32 only; earlier studies remain in their own reports",
+  "configurationCount": 74,
   "independentConfirmations": 0,
   "entries": [
     {
@@ -1483,6 +1483,78 @@
       "executionAllowed": false,
       "diagnosticImprovementPassed": false,
       "context": "Three fixed market-filter configurations; Jan–Apr and August replayed separately; no May–July data used; no independent confirmation"
+    },
+    {
+      "game": 32,
+      "id": "PORTFOLIO/game32-rr2-150",
+      "executionKey": "5a7f3b62bf2c02724194ca9695cc99a6d86de46d5fcdbfa09e8e4182fc9a65af",
+      "freezeSha256": "d7b8fc834fac8c5f068fe52232c16602ce3894582f1315c76b36a16717d9d93c",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "PORTFOLIO/game32-rr2-150",
+      "phase": "observed-period-research",
+      "start": "2026-06-01",
+      "end": "2026-09-01",
+      "selected": false,
+      "holdoutStatus": "already-observed",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu32-report.json",
+      "executionAllowed": false,
+      "context": "Fixed 2R and integer sizing; 150/500 USD planned cap, with/without closed cash M5/H1 alignment; separate months and continuous summer; no independent confirmation"
+    },
+    {
+      "game": 32,
+      "id": "PORTFOLIO/game32-aligned-150",
+      "executionKey": "9d8def71b32db8874e6ca62e8cdb46cd698b2c5987ba3e953e6da92727392970",
+      "freezeSha256": "d7b8fc834fac8c5f068fe52232c16602ce3894582f1315c76b36a16717d9d93c",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "PORTFOLIO/game32-aligned-150",
+      "phase": "observed-period-research",
+      "start": "2026-06-01",
+      "end": "2026-09-01",
+      "selected": false,
+      "holdoutStatus": "already-observed",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu32-report.json",
+      "executionAllowed": false,
+      "context": "Fixed 2R and integer sizing; 150/500 USD planned cap, with/without closed cash M5/H1 alignment; separate months and continuous summer; no independent confirmation"
+    },
+    {
+      "game": 32,
+      "id": "PORTFOLIO/game32-rr2-500",
+      "executionKey": "ae896673d517349bc4dd1e3e82b5c7951a9c4c0b2e1ac9a0887c55ed2a78430e",
+      "freezeSha256": "d7b8fc834fac8c5f068fe52232c16602ce3894582f1315c76b36a16717d9d93c",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "PORTFOLIO/game32-rr2-500",
+      "phase": "observed-period-research",
+      "start": "2026-06-01",
+      "end": "2026-09-01",
+      "selected": false,
+      "holdoutStatus": "already-observed",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu32-report.json",
+      "executionAllowed": false,
+      "context": "Fixed 2R and integer sizing; 150/500 USD planned cap, with/without closed cash M5/H1 alignment; separate months and continuous summer; no independent confirmation"
+    },
+    {
+      "game": 32,
+      "id": "PORTFOLIO/game32-aligned-500",
+      "executionKey": "c76df482894c107d4681377cdf9e69257a093a9d5e49f908b99bc33694aeab2b",
+      "freezeSha256": "d7b8fc834fac8c5f068fe52232c16602ce3894582f1315c76b36a16717d9d93c",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "PORTFOLIO/game32-aligned-500",
+      "phase": "observed-period-research",
+      "start": "2026-06-01",
+      "end": "2026-09-01",
+      "selected": false,
+      "holdoutStatus": "already-observed",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu32-report.json",
+      "executionAllowed": false,
+      "context": "Fixed 2R and integer sizing; 150/500 USD planned cap, with/without closed cash M5/H1 alignment; separate months and continuous summer; no independent confirmation"
     }
   ]
 }

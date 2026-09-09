@@ -1,0 +1,12 @@
+{"schema":"jeu32-selected-events-v1","checkedAt":"2026-09-09","scope":"Selected BLS and FOMC releases only; descriptive dates, no news trading filter, no consensus-surprise series","events":[
+{"day":"2026-06-05","timeNY":"08:30","label":"Emploi de mai","url":"https://www.bls.gov/schedule/2026/06_sched.htm"},
+{"day":"2026-06-10","timeNY":"08:30","label":"CPI de mai","url":"https://www.bls.gov/schedule/2026/06_sched.htm"},
+{"day":"2026-06-17","timeNY":"14:00","label":"Décision FOMC","url":"https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617a.htm"},
+{"day":"2026-07-02","timeNY":"08:30","label":"Emploi de juin","url":"https://www.bls.gov/schedule/2026/07_sched.htm"},
+{"day":"2026-07-08","timeNY":"14:00","label":"Minutes FOMC de juin","url":"https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"},
+{"day":"2026-07-14","timeNY":"08:30","label":"CPI de juin","url":"https://www.bls.gov/schedule/2026/07_sched.htm"},
+{"day":"2026-07-29","timeNY":"14:00","label":"Décision FOMC","url":"https://www.federalreserve.gov/newsevents/pressreleases/monetary20260729a.htm"},
+{"day":"2026-08-07","timeNY":"08:30","label":"Emploi de juillet","url":"https://www.bls.gov/news.release/archives/empsit_08072026.htm"},
+{"day":"2026-08-12","timeNY":"08:30","label":"CPI de juillet","url":"https://www.bls.gov/news.release/archives/cpi_08122026.htm"},
+{"day":"2026-08-19","timeNY":"14:00","label":"Minutes FOMC de juillet","url":"https://www.federalreserve.gov/monetarypolicy/fomcminutes20260729.htm"}
+]}

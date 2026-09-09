@@ -1,0 +1,9 @@
+{
+  "schema": "jeu32-publication-v1",
+  "localPrePerformanceCommit": "dee52db21a4ddf1f171680e3e6456269680016ae",
+  "publishedDefinitionCommit": "c88dc29d7ffb1ffe907dbe9d383be52f37683a56",
+  "definitionTree": "4d0a5aa68b35f7f2e7bb76b060cf400de03ebd9a",
+  "freezeSha256": "d7b8fc834fac8c5f068fe52232c16602ce3894582f1315c76b36a16717d9d93c",
+  "publicationAfterCalculation": true,
+  "note": "Local definition commit preceded performance calculation. The identical tree was published afterwards; this is not an external preregistration."
+}
