@@ -24,6 +24,8 @@
 .confluence-detail>select{display:block;max-width:100%;min-height:44px;font-size:1rem;padding:.4rem;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--text)}
 #confluenceDecisions td:last-child{min-width:15rem;white-space:normal}
 #confluenceDecisions details p{max-width:32rem;font-size:var(--lab-meta)}
+#jeu11Rows summary{min-height:44px;display:flex;align-items:center;cursor:pointer}
+#jeu11Rows ul{min-width:15rem;max-width:24rem;white-space:normal;padding-left:1.1rem}
 .collection-focus{margin:0;border-color:#2b4354;border-radius:14px;background:#091523}
 .collection-focus .iv-content{padding:1.25rem}
 .collection-overview{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:2rem;padding:.25rem 0 1.3rem;border-bottom:1px solid var(--line)}

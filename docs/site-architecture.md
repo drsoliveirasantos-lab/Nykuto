@@ -188,7 +188,8 @@ collection procedure, data boundaries and limitations.
 
 The Lab interface separates `Suivi actuel`, `Tests précédents` and `Test manuel`
 with accessible tabs in `lab-workspace.mjs` and scoped `lab-workspace.css`.
-Jeu 10 opens by default with the exploratory comparison. Jeu 09 remains in a
+Jeu 11 opens by default with its separately scored April–May 2025 report.
+Jeu 10 remains available in a disclosure with its 2026 exploratory comparison. Jeu 09 remains in a
 disclosure with its original six-month MNQ retrospective result.
 Jeu 08 retains its collection state, next action and three-step calendar in
 a collapsible disclosure. Older games remain available in collapsed native details;
@@ -196,6 +197,18 @@ their IDs and deep links are preserved, and navigation reveals the matching tab
 and disclosure. The manual strategy form is isolated visually and does not
 modify the frozen Jeu 08 protocol. No trading engine, data or automation changes
 are part of this presentation layer.
+
+Jeu 11 uses `jeu11-policy.mjs`, `jeu11-engine.mjs`, `jeu11-source.mjs` and
+`lab-jeu11.mjs`. `scripts/prepare-trading-jeu11.mjs` validates private captures;
+`scripts/run-trading-jeu11.mjs` checks the pinned snapshot, runs eight unchanged
+variants with two cost assumptions, checks every feature prefix and compares
+every completed-session simulation prefix. The aggregate-only
+`jeu11-report.json` is an explicitly generated, reproducible research report,
+not an alternative price source. Licensed prices, raw captures and their hashes
+are archived privately under `jeu11/` in TRADING_DATASETS, with no new public
+dataset route. See `trading/lab/JEU11_PROTOCOL.md` and `JEU11_RESULTS.md`.
+No new strategy or paper execution adapter is enabled. Existing prospective
+collection/test automations and their rules remain unchanged.
 
 `trading/account/` adds required first/last-name onboarding, personal settings and
 feedback to the site owner. Cloudflare Access email PIN verifies identity;

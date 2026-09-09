@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import { engulfing, confluenceFeatures, signalChecks, confluenceMetrics } from '../trading/lab/confluence-engine.mjs';
 import { CONFLUENCE_VARIANTS, CONFLUENCE_EVENTS } from '../trading/lab/confluence-policy.mjs';
 import { simulateMarket } from '../trading/lab/market-comparison.mjs';
+import { inspectJeu11, runJeu11 } from '../trading/lab/jeu11-engine.mjs';
+import { JEU11_POLICY, JEU11_DAYS, JEU11_EVENTS } from '../trading/lab/jeu11-policy.mjs';
 
 test('engulfing uses opposite nonzero bodies within one contiguous session', () => {
   const p={day:'2026-01-02',time:0,open:102,close:100},c={day:p.day,time:900,open:100,close:103};
@@ -58,4 +60,41 @@ test('direction breakdown is descriptive and duration includes losing and same-b
   const m=confluenceMetrics([{side:'Long',entryTime:0,exitTime:900,resultR:1},{side:'Short',entryTime:0,exitTime:0,resultR:-1}]);
   assert.equal(m.medianMinutes,7.5);assert.equal(m.bySide[0].total,1);assert.equal(m.bySide[1].total,-1);
   assert.equal(confluenceMetrics([]).medianMinutes,null);
+});
+
+function jeu11Fixture() {
+  const utc = day => Date.parse(`${day}T13:30:00Z`) / 1000;
+  return { schema: 'jeu11-data-v1', protocol: JEU11_POLICY.version, ticker: 'MNQM5', expiry: '2025-06-20', paginationComplete: true,
+    calendar: JEU11_DAYS.map(date => ({ date, open: `${date}T09:30:00`, close: `${date}T16:00:00` })),
+    bars: JEU11_DAYS.flatMap(day => Array.from({ length: 26 }, (_, i) => [utc(day) + i * 900, 100, 101, 99, 100, 20])),
+    scheduleEvents: JEU11_DAYS.flatMap(day => [
+      { event: 'open', timestamp: `${day}T00:00:00Z` }, { event: 'close', timestamp: `${day}T21:00:00Z` }
+    ].map(e => ({ ...e, product_code: 'MNQ', trading_venue: 'XCME', session_end_date: day }))) };
+}
+test('Jeu 11 preserves 42 scored sessions and 286 warmup bars without granting confirmation', () => {
+  const b = jeu11Fixture(), q = inspectJeu11(b);
+  assert.equal(q.ready, true); assert.equal(q.quality.scoredSessions, 42); assert.equal(q.quality.warmup, 286);
+  assert.equal(q.quality.bars, 1378);
+  const r = runJeu11(b);
+  assert.equal(r.calculated, true); assert.equal(r.paperEnabled, false); assert.equal(r.variants.length, 8);
+  assert.ok(r.variants.every(v => v.normal.count === 0 && !v.checks.find(c => c.id === 'windows').pass));
+  assert.equal(JEU11_DAYS.includes('2025-04-18'), false); assert.equal(JEU11_DAYS.includes('2025-05-26'), false);
+});
+test('Jeu 11 refuses missing candles, interruptions, modified contracts and partial pagination', () => {
+  let b = jeu11Fixture(); b.bars.splice(400, 1);
+  const missing = runJeu11(b); assert.equal(missing.calculated, false); assert.deepEqual(missing.variants, []);
+  b = jeu11Fixture(); b.scheduleEvents.push({ event: 'halt', timestamp: '2025-04-01T15:00:00Z', product_code: 'MNQ', trading_venue: 'XCME', session_end_date: '2025-04-01' });
+  assert.equal(runJeu11(b).calculated, false);
+  for (const change of [{ ticker: 'NQM5' }, { expiry: '2025-06-19' }, { paginationComplete: false }, { schema: 'jeu09-data-v1' }]) assert.throws(() => inspectJeu11({ ...jeu11Fixture(), ...change }), /invalide/);
+  b = jeu11Fixture(); b.calendar[0].close = '2025-03-17T15:00:00'; assert.throws(() => inspectJeu11(b), /invalide/);
+  b = jeu11Fixture(); b.bars[0][1] = 100.1; assert.throws(() => inspectJeu11(b), /Prix/);
+});
+test('Jeu 11 event filters use 2025 releases rather than the 2026 calendar', () => {
+  const candles = inspectJeu11(jeu11Fixture()).candles;
+  const features = confluenceFeatures(candles, JEU11_EVENTS);
+  assert.deepEqual(features.find(f => f.day === '2025-04-04').events, ['NFP']);
+  assert.deepEqual(features.find(f => f.day === '2025-04-10').events, ['CPI']);
+  assert.deepEqual(features.find(f => f.day === '2025-05-07').events, ['FOMC']);
+  assert.deepEqual(features.find(f => f.day === '2025-05-08').events, []);
+  assert.equal(signalChecks(features.find(f => f.day === '2025-04-04'), 'Long', ['events'])[0].pass, false);
 });

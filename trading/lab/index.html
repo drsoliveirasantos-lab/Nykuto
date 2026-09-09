@@ -19,6 +19,7 @@
   <script src="./lab-collection.mjs?v=2" type="module"></script>
   <script src="./lab-six-months.mjs?v=1" type="module"></script>
   <script src="./lab-confluence.mjs?v=1" type="module"></script>
+  <script src="./lab-jeu11.mjs?v=1" type="module"></script>
   <link rel="stylesheet" href="./lab-market.css?v=2">
   <link rel="stylesheet" href="./lab-workspace.css?v=2">
   <script src="./lab-workspace.mjs?v=2" type="module"></script>
@@ -57,6 +58,22 @@
     </div>
     <noscript><p>Active JavaScript pour changer de vue et consulter le suivi.</p></noscript>
     <div id="view-current" class="lab-view" role="tabpanel" aria-labelledby="tab-current" tabindex="0">
+    <section class="panel independent-game market-game" id="jeu11Game" aria-labelledby="jeu11Title">
+      <div class="panel-heading"><div><p class="panel-kicker">JEU 11 · NOUVELLE PÉRIODE HISTORIQUE</p><h3 id="jeu11Title">Le bot tient-il sur d’autres dates ?</h3></div><span class="lab-status planned" id="jeu11Status">Lecture du bilan…</span></div>
+      <div class="iv-content">
+        <p class="iv-intro">Avril–mai 2025 · MNQM5 · 15 min. Les huit versions du Jeu 10, avec les mêmes règles, sur une période MNQ encore non évaluée dans les jeux précédents.</p>
+        <p class="iv-message" id="jeu11Message" role="status" aria-live="polite">Chargement du bilan des simulations et de leurs contrôles.</p>
+        <div id="jeu11Results" hidden>
+          <div class="mc-summary"><article><h4>Référence</h4><strong id="jeu11Baseline">—</strong><p id="jeu11BaselineCount"></p></article><article><h4>Volume</h4><strong id="jeu11Volume">—</strong><p>Le filtre résiste-t-il au changement de période ?</p></article><article><h4>Long only</h4><strong id="jeu11Long">—</strong><p id="jeu11LongCount"></p></article></div>
+          <div class="iv-table-wrap" role="region" aria-label="Résultats des huit versions en avril et mai 2025" tabindex="0"><table class="iv-table"><caption>R = risque initial prévu au stop. 3,50 $ par aller-retour, puis 7 $. Hypothèses de frais, pas un rendement de compte.</caption><thead><tr><th scope="col">Version</th><th scope="col">Trades</th><th scope="col">Net</th><th scope="col">Coûts doublés</th><th scope="col">Profit factor</th><th scope="col">Drawdown</th><th scope="col">Critères</th></tr></thead><tbody id="jeu11Rows"></tbody></table></div>
+          <p id="jeu11Quality" class="iv-meta"></p>
+          <details class="iv-help"><summary>Ce qui a été vérifié</summary><p id="jeu11Audit"></p><p>Les signaux utilisent seulement des bougies closes. Entrée à l’ouverture suivante ; tick et calcul des gains/pertes contrôlés. Les coûts doublés relancent la simulation entière, y compris les pauses après pertes. Ces contrôles valident les calculs, pas la rentabilité.</p></details>
+        </div>
+        <div class="iv-verdict"><h4>La suite automatique</h4><p>Collecte MNQ prévue après chaque séance à partir du 10 septembre 2026. Septembre prépare les indicateurs ; octobre–novembre fournit la prochaine période de test. Analyse programmée le 3 décembre, après vérification des données reçues.</p><p>Tu n’as rien à télécharger pour cette collecte. Une séance manquante restera signalée. Le Paper Trading automatique en direct reste à développer ; les tâches actuelles collectent les données et réalisent des backtests.</p><a href="#collectionGame">Voir l’avancement de la collecte</a></div>
+        <details class="iv-help"><summary>Pourquoi ces dates et quelles limites ?</summary><p>Le protocole et les huit variantes ont été fixés avant le calcul. Les horaires plus anciens sont incomplets chez la source disponible ; avril–mai 2025 a été choisi sur la disponibilité des données, sans consulter sa performance.</p><p>53 séances complètes : 11 de préparation et 42 évaluées. Les 18 avril et 26 mai sont exclus selon le calendrier NYSE. Filtre Events : NFP les 4 avril et 2 mai, CPI les 10 avril et 13 mai, décision FOMC le 7 mai. Ce filtre ne couvre pas toutes les actualités et n’utilise pas un calendrier archivé en temps réel.</p><p>Une seule fenêtre supplémentaire ne remplace pas les trois fenêtres requises. Un petit échantillon positif ne suffit pas. Aucun paramètre n’a été ajusté après ce bilan ; aucune version n’est activée.</p><p><a href="./JEU11_PROTOCOL.md">Protocole du Jeu 11</a> · <a href="https://www.bls.gov/schedule/2025/home.htm" target="_blank" rel="noopener noreferrer">BLS 2025</a> · <a href="https://www.federalreserve.gov/newsevents/pressreleases/monetary20250507a.htm" target="_blank" rel="noopener noreferrer">FOMC du 7 mai</a></p></details>
+      </div>
+    </section>
+    <details class="lab-archive"><summary><span class="archive-number">10</span><span class="archive-title"><strong>Les huit confirmations sur 2026</strong><small>Comparer avec les résultats précédents</small></span><span class="archive-state neutral">Historique</span><span class="archive-toggle" aria-hidden="true">+</span></summary>
     <section class="panel independent-game market-game" id="confluenceGame" aria-labelledby="confluenceTitle">
       <div class="panel-heading"><div><p class="panel-kicker">JEU 10 · COMPRENDRE LES SIGNAUX</p><h3 id="confluenceTitle">Qu’est-ce qui aide vraiment le bot ?</h3></div><span id="confluenceStatus" class="lab-status planned">Vérification…</span></div>
       <div class="iv-content">
@@ -80,6 +97,7 @@
         <details class="iv-help"><summary>Quelles annonces sont prises en compte ?</summary><p>Calendrier historique consulté le 8 septembre 2026 ; les dates sont celles des publications. Ce n’est pas un suivi des actualités en direct. Les calendriers peuvent avoir été révisés et ne prouvent pas ce qui était connu à l’époque.</p><ul id="confluenceEventsList"></ul><p>Non couverts ici : PCE, PIB, résultats d’entreprises, discours, minutes FOMC, géopolitique et événements imprévus. Aucun calendrier ne peut annoncer toutes les nouvelles.</p></details>
       </div>
     </section>
+    </details>
     <details class="lab-archive"><summary><span class="archive-number">09</span><span class="archive-title"><strong>Référence sur six mois MNQ</strong><small>Retrouver le résultat avant ajout des confirmations</small></span><span class="archive-state neutral">Historique</span><span class="archive-toggle" aria-hidden="true">+</span></summary>
     <section class="panel independent-game market-game mnq-game" id="sixMonthsGame" aria-labelledby="sixTitle">
       <div class="panel-heading"><div><p class="panel-kicker">JEU 09 · RÉFÉRENCE</p><h3 id="sixTitle">MNQ · six mois de tests</h3></div><span id="sixStatus" class="lab-status planned">Vérification…</span></div>
