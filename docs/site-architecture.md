@@ -188,7 +188,8 @@ collection procedure, data boundaries and limitations.
 
 The Lab interface separates `Suivi actuel`, `Tests précédents` and `Test manuel`
 with accessible tabs in `lab-workspace.mjs` and scoped `lab-workspace.css`.
-Jeu 14 opens by default with the fixed Pullback tested across all currently
+Jeu 15 opens by default with an exploratory LucidFlex 25K risk replay.
+Jeu 14 remains in a disclosure with the fixed Pullback tested across all currently
 verifiable historical blocks (234 trades over 330 scored sessions).
 Jeux 12–13 remain in a disclosure with 54 explicit timeframe/session/direction trials
 and the selected Pullback's separate June 2025 control (positive but only eight
@@ -243,6 +244,19 @@ trades. The separate 2025 confirmation fails consistency and full coverage;
 weekly bootstrap intervals include zero. `JEU14_PROTOCOL.md`, `JEU14_RESULTS.md`
 and aggregate-only `jeu14-report.json` document the methods and limitations.
 Private captures remain under `jeu14/` in TRADING_DATASETS; no new API or bot.
+
+Jeu 15 adds `jeu15-policy.mjs`, `jeu15-engine.mjs`, a private-output runner,
+focused account-risk tests and `lab-lucid.mjs`. Three predeclared scenarios
+compare the unchanged 30-minute candidate, its budget-limited version and one
+new 5-minute pullback in a closed 30-minute trend. A simulated LucidFlex 25K
+evaluation enforces the EOD trailing floor, open-loss checks, terminal breach,
+profit target and strict consistency. Dollar budgets are internal research
+guards, not broker settings. Five fully covered two-month windows are used;
+three incomplete windows remain blocked. Existing source archives and reports
+are preserved. `JEU15_PROTOCOL.md`, `JEU15_RESULTS.md` and aggregate-only
+`jeu15-report.json` document failures, costs and daily results. The private
+`jeu15/` archive contains the replay details. No account API, live feed, Paper
+Trading, payout or order execution is added; readiness gates remain closed.
 
 `trading/account/` adds required first/last-name onboarding, personal settings and
 feedback to the site owner. Cloudflare Access email PIN verifies identity;
