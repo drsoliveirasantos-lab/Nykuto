@@ -27,6 +27,7 @@
   <script src="./lab-ablation-report.mjs?v=1" type="module"></script>
   <script src="./lab-vwap.mjs?v=1" type="module"></script>
   <script src="./lab-multimarket.mjs?v=1" type="module"></script>
+  <script src="./lab-research-continuation.mjs?v=1" type="module"></script>
   <link rel="stylesheet" href="./lab-market.css?v=2">
   <link rel="stylesheet" href="./lab-workspace.css?v=3">
   <script src="./lab-workspace.mjs?v=2" type="module"></script>
@@ -65,6 +66,35 @@
     </div>
     <noscript><p>Active JavaScript pour changer de vue et consulter le suivi.</p></noscript>
     <div id="view-current" class="lab-view" role="tabpanel" aria-labelledby="tab-current" tabindex="0">
+    <section class="panel independent-game market-game" id="openingGame" aria-labelledby="openingTitle">
+      <div class="panel-heading"><div><p class="panel-kicker">JEU 22 · RECHERCHE MULTICONTRATS</p><h3 id="openingTitle">Une cassure suivie d’un retour donne-t-elle de meilleures entrées ?</h3></div><span class="lab-status planned" id="openingStatus">Lecture du bilan…</span></div>
+      <div class="iv-content"><p class="iv-intro">MNQ, MES, MYM et MGC · quatre nouveaux essais. Zone des 30 premières minutes, retour confirmé sur le niveau cassé et stop derrière sa mèche.</p><p class="iv-message" id="openingMessage" role="status" aria-live="polite">Chargement des résultats vérifiés.</p>
+        <div id="openingResults" hidden>
+          <div class="timeframe-filters"><div><label for="openingCosts">Hypothèse de coûts</label><select id="openingCosts"><option value="normal">Initiale · selon le contrat</option><option value="stress">Coûts doublés</option></select></div></div>
+          <div class="iv-table-wrap" role="region" aria-label="Comparaisons du Jeu 22" tabindex="0"><table class="iv-table"><caption>Développement, janvier–avril 2026. Les zéros sans trade ne sont pas des réussites. Les résultats des marchés ne s’additionnent pas en portefeuille.</caption><thead><tr><th scope="col">Contrat</th><th scope="col">Méthode</th><th scope="col">Trades</th><th scope="col">Net $</th><th scope="col">PF en R</th><th scope="col">Drawdown R</th><th scope="col">Critères</th></tr></thead><tbody id="openingComparison"></tbody></table></div>
+          <details class="iv-help" open><summary>Pourquoi aucun essai n’est validé</summary><ul id="openingChecks"></ul><p>Aucune candidate sélectionnée ; aucune performance de mai–août calculée dans ce jeu. Le bot reste désactivé.</p></details>
+          <details class="iv-help"><summary>Journées positives, pertes et refus</summary><ul id="openingActivity"></ul><p>Les coûts doublés peuvent modifier les entrées admissibles. Une séance sans trade n’est pas une journée de gain.</p></details>
+          <details class="iv-help"><summary>Les fenêtres et les comptes simulés</summary><div class="iv-table-wrap" role="region" aria-label="Fenêtres du Jeu 22" tabindex="0"><table class="iv-table"><thead><tr><th scope="col">Essai</th><th scope="col">Période</th><th scope="col">Séances</th><th scope="col">Trades</th><th scope="col">Net $</th><th scope="col">Compte 25K</th></tr></thead><tbody id="openingWindows"></tbody></table></div></details>
+          <details class="iv-help"><summary>Règle testée et limites</summary><p>Entrées entre 10:00 et 12:00, heure New York. Une seule occasion par sens, donc deux maximum par jour. La cassure et le retour doivent être deux bougies clôturées distinctes. Cible de prix 1,5R ; refus si le gain net prévu est inférieur au risque net.</p><p>Un microcontrat ; 50 $ de risque prévu frais compris et 100 $ de limite quotidienne. Les gaps peuvent dépasser une perte prévue. Aucun flux réel ou broker testé. Historique déjà consulté ou corrélé : aucune confirmation indépendante.</p><p><a href="./JEU22_PROTOCOL.md">Protocole</a> · <a href="./JEU22_RESULTS.md">Bilan détaillé</a> · <a href="./research-ledger.json">Registre des essais 19–22</a></p></details>
+        </div>
+      </div>
+    </section>
+    <details class="lab-archive"><summary><span class="archive-number">21</span><span class="archive-title"><strong>Préparation native du S&P 500 et de l’or</strong><small>Quatre comparaisons · davantage de séances exploitables</small></span><span class="archive-state neutral">Historique</span><span class="archive-toggle" aria-hidden="true">+</span></summary>
+    <section class="panel independent-game market-game" id="expandedGame" aria-labelledby="expandedTitle">
+      <div class="panel-heading"><div><p class="panel-kicker">JEU 21 · RECHERCHE MULTICONTRATS</p><h3 id="expandedTitle">La préparation corrigée améliore-t-elle MES et MGC ?</h3></div><span class="lab-status planned" id="expandedStatus">Lecture du bilan…</span></div>
+      <div class="iv-content"><p class="iv-intro">La préparation 5 min et 30 min est maintenant vérifiée séparément sur MES et MGC. Deux méthodes comparées sur chacun des deux marchés.</p><p class="iv-message" id="expandedMessage" role="status" aria-live="polite">Chargement des résultats vérifiés.</p>
+        <div id="expandedResults" hidden>
+          <div class="timeframe-filters"><div><label for="expandedCosts">Hypothèse de coûts</label><select id="expandedCosts"><option value="normal">Initiale · selon le contrat</option><option value="stress">Coûts doublés</option></select></div></div>
+          <div class="iv-table-wrap" role="region" aria-label="Comparaisons du Jeu 21" tabindex="0"><table class="iv-table"><caption>Développement, janvier–avril 2026. Les zéros sans trade ne sont pas des réussites. Les résultats des marchés ne s’additionnent pas en portefeuille.</caption><thead><tr><th scope="col">Contrat</th><th scope="col">Méthode</th><th scope="col">Trades</th><th scope="col">Net $</th><th scope="col">PF en R</th><th scope="col">Drawdown R</th><th scope="col">Critères</th></tr></thead><tbody id="expandedComparison"></tbody></table></div>
+          <details class="iv-help" open><summary>Pourquoi aucun essai n’est validé</summary><ul id="expandedChecks"></ul><p>Aucune candidate sélectionnée ; aucune performance de mai–août calculée dans ce jeu. Le bot reste désactivé.</p></details>
+          <details class="iv-help"><summary>Journées positives, pertes et refus</summary><ul id="expandedActivity"></ul><p>Les coûts doublés peuvent modifier les entrées admissibles. Une séance sans trade n’est pas une journée de gain.</p></details>
+          <details class="iv-help"><summary>Les fenêtres et les comptes simulés</summary><div class="iv-table-wrap" role="region" aria-label="Fenêtres du Jeu 21" tabindex="0"><table class="iv-table"><thead><tr><th scope="col">Essai</th><th scope="col">Période</th><th scope="col">Séances</th><th scope="col">Trades</th><th scope="col">Net $</th><th scope="col">Compte 25K</th></tr></thead><tbody id="expandedWindows"></tbody></table></div></details>
+          <details class="iv-help"><summary>Règle testée et limites</summary><p>Les bougies natives 30 min sont rapprochées des observations 5 min sans fabriquer les bougies absentes. Couverture : MES 162/166 séances et MGC 145/166. Les indicateurs et stops restent ceux du Jeu 19.</p><p>Un microcontrat ; 50 $ de risque prévu frais compris et 100 $ de limite quotidienne. Les gaps peuvent dépasser une perte prévue. Aucun flux réel ou broker testé. Historique déjà consulté ou corrélé : aucune confirmation indépendante.</p><p><a href="./JEU21_PROTOCOL.md">Protocole</a> · <a href="./JEU21_RESULTS.md">Bilan détaillé</a> · <a href="./research-ledger.json">Registre des essais 19–22</a></p></details>
+        </div>
+      </div>
+    </section>
+    </details>
+    <details class="lab-archive"><summary><span class="archive-number">20</span><span class="archive-title"><strong>MYM : développement positif, réserve négative</strong><small>La candidate précédente reste écartée</small></span><span class="archive-state neutral">Historique</span><span class="archive-toggle" aria-hidden="true">+</span></summary>
     <section class="panel independent-game market-game" id="nativeGame" aria-labelledby="nativeTitle">
       <div class="panel-heading"><div><p class="panel-kicker">JEU 20 · MICRO DOW JONES</p><h3 id="nativeTitle">La piste positive tient-elle sur les mois suivants ?</h3></div><span class="lab-status planned" id="nativeStatus">Lecture du bilan…</span></div>
       <div class="iv-content">
@@ -80,6 +110,7 @@
         </div>
       </div>
     </section>
+    </details>
     <details class="lab-archive"><summary><span class="archive-number">19</span><span class="archive-title"><strong>Nasdaq, S&P 500, Dow Jones et or</strong><small>Quatre microcontrats · huit comparaisons conservées</small></span><span class="archive-state neutral">Historique</span><span class="archive-toggle" aria-hidden="true">+</span></summary>
     <section class="panel independent-game market-game" id="multiGame" aria-labelledby="multiTitle">
       <div class="panel-heading"><div><p class="panel-kicker">JEU 19 · QUATRE MARCHÉS</p><h3 id="multiTitle">Quel marché correspond aux limites de risque ?</h3></div><span class="lab-status planned" id="multiStatus">Lecture du bilan…</span></div>

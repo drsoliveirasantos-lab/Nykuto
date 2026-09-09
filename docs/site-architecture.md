@@ -188,7 +188,7 @@ collection procedure, data boundaries and limitations.
 
 The Lab interface separates `Suivi actuel`, `Tests précédents` and `Test manuel`
 with accessible tabs in `lab-workspace.mjs` and scoped `lab-workspace.css`.
-Jeu 20 opens as the default follow-up, comparing MYM development with the
+Jeu 22 opens as the default follow-up, comparing four opening-range retest experiments. Jeux 21 and 20 remain in disclosures; Jeu 20 compares MYM development with the
 reserved months after separately verified 5- and 30-minute preparation.
 Jeu 19 preserves eight micro-futures comparisons; Jeu 18 remains in a disclosure
 with one frozen cash-session
@@ -598,3 +598,16 @@ hierarchy for page, section, category, item, description/price and metadata role
 AGENTS and Copilot require it before UI work and require its inclusion in future
 site repositories. Compact interface text and long-form learning text have
 different readability needs; both keep details subordinate to their own heading.
+
+Jeux 21–22 continue immediate research. Jeu 21 extends independently reconciled
+native preparation to MES/MGC for four frozen comparisons. Jeu 22 introduces
+one opening-range breakout/retest family across four microcontracts, with a
+causal stop behind the retest wick, fixed 10:00–12:00 New York entries and at
+most one signal per direction. All eight new configurations fail selection;
+no reserve performance is computed. Existing frozen code remains unchanged.
+`lab-research-continuation.mjs` displays checksum-pinned aggregate reports,
+both cost assumptions, all failed gates, daily counts and incomplete windows.
+`research-ledger.json` records all 17 configurations from Games 19–22, including
+the Game 20 failed reserve, to support avoiding identical research repeats.
+Licensed sources and individual trades remain in private TRADING_DATASETS.
+See `JEU21_RESULTS.md`, `JEU22_RESULTS.md` and `JEU21_22_ARCHIVE.md`.
