@@ -1,5 +1,9 @@
 # Prochain contrôle Pullback — règle fixée avant les séances
 
+**Statut du 9 septembre 2026 : suivi désactivé à la demande de Diego.**
+Le Jeu 14 exploite immédiatement l'historique disponible. Ce document conserve
+le protocole proposé ; il ne représente plus une tâche programmée.
+
 Candidate du Jeu13 : `30-full-both`, signaux `pullback` dans
 `jeu12-engine.mjs`. La sélection reste fixée ; ne pas passer au Short5min
 ou à une autre variante si cette candidate échoue.

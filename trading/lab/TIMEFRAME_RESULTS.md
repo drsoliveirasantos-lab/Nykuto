@@ -85,6 +85,10 @@ la sélection 2026 n'a pas changé après le contrôle de juin 2025.
 
 ## Suite
 
+Mise à jour du 9 septembre 2026 : le suivi futur ci-dessous a été désactivé
+à la demande de Diego. Voir `JEU14_RESULTS.md` pour le test immédiatement
+réalisé sur 234 trades et 330 séances de l'historique disponible.
+
 La piste est positive mais le contrôle séparé manque encore de trades.
 `PULLBACK_FORWARD_PROTOCOL.md` fige la prochaine confrontation sur les séances
 du2octobre au30novembre2026. Elle ne modifie pas les deux tâches MNQ existantes.

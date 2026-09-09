@@ -188,7 +188,9 @@ collection procedure, data boundaries and limitations.
 
 The Lab interface separates `Suivi actuel`, `Tests précédents` and `Test manuel`
 with accessible tabs in `lab-workspace.mjs` and scoped `lab-workspace.css`.
-Jeux 12–13 open by default with 54 explicit timeframe/session/direction trials
+Jeu 14 opens by default with the fixed Pullback tested across all currently
+verifiable historical blocks (234 trades over 330 scored sessions).
+Jeux 12–13 remain in a disclosure with 54 explicit timeframe/session/direction trials
 and the selected Pullback's separate June 2025 control (positive but only eight
 of twelve required trades). Jeu 11 remains available in a disclosure with its
 separately scored April–May 2025 report.
@@ -227,8 +229,20 @@ signal/simulation prefixes. `lab-timeframes.mjs` renders aggregate-only
 failed gate; UI filters never recompute or change the selected strategy.
 Raw captures remain in private TRADING_DATASETS under `jeu12/` and `jeu13/`.
 `TIMEFRAME_RESULTS.md` records results and reproducibility;
-`PULLBACK_FORWARD_PROTOCOL.md` fixes a separate future comparison without
-altering either existing MNQ task. No broker or paper execution is enabled.
+`PULLBACK_FORWARD_PROTOCOL.md` preserves a proposed future comparison whose
+separate automation was disabled at the owner’s request; both earlier MNQ tasks
+are unchanged. No broker or paper execution is enabled.
+
+Jeu 14 adds `jeu14-policy.mjs`, `jeu14-history.mjs`, a pinned private source,
+prepare/run scripts and `lab-history.mjs`. Its predeclared coverage policy forms
+maximal consecutive complete-session blocks and requires 220 fresh 30-minute
+warmup bars after any gap. Every expected day belongs exactly once to scored,
+warmup or unavailable coverage. The unchanged Jeu 12 execution engine runs
+only the selected Pullback; monthly/window/direction tables aggregate the same
+trades. The separate 2025 confirmation fails consistency and full coverage;
+weekly bootstrap intervals include zero. `JEU14_PROTOCOL.md`, `JEU14_RESULTS.md`
+and aggregate-only `jeu14-report.json` document the methods and limitations.
+Private captures remain under `jeu14/` in TRADING_DATASETS; no new API or bot.
 
 `trading/account/` adds required first/last-name onboarding, personal settings and
 feedback to the site owner. Cloudflare Access email PIN verifies identity;
