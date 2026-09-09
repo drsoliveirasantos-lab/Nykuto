@@ -1,5 +1,6 @@
 (async () => {
   'use strict';
+  const { backtest } = await import('./manual-backtest.mjs?v=1');
   await window.Nykuto.ready;
 
   const KEY = 'nykuto-trading-strategy-lab-v1';
@@ -7,7 +8,6 @@
   const byId = id => document.getElementById(id);
   const safe = (value, fallback) => { try { return JSON.parse(value) ?? fallback; } catch { return fallback; } };
   const finite = value => value !== '' && Number.isFinite(Number(value)) ? Number(value) : null;
-  const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
   const money = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 2 });
   const number = new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 2 });
   const percent = new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 1 });
@@ -110,215 +110,6 @@
     setSuggestedDate();
   }
 
-  function ema(values, period) {
-    const output = new Array(values.length).fill(null);
-    const alpha = 2 / (period + 1);
-    let current = null;
-    for (let i = 0; i < values.length; i += 1) {
-      const value = Number(values[i]);
-      if (!Number.isFinite(value)) continue;
-      current = current === null ? value : (value * alpha) + (current * (1 - alpha));
-      output[i] = current;
-    }
-    return output;
-  }
-
-  function atr(candles, period = 14) {
-    const output = new Array(candles.length).fill(null);
-    let current = null;
-    for (let i = 0; i < candles.length; i += 1) {
-      const candle = candles[i];
-      const previousClose = i > 0 ? candles[i - 1].close : candle.close;
-      const trueRange = Math.max(
-        candle.high - candle.low,
-        Math.abs(candle.high - previousClose),
-        Math.abs(candle.low - previousClose)
-      );
-      current = current === null ? trueRange : ((current * (period - 1)) + trueRange) / period;
-      output[i] = current;
-    }
-    return output;
-  }
-
-  function rsi(values, period = 14) {
-    const output = new Array(values.length).fill(null);
-    let avgGain = 0;
-    let avgLoss = 0;
-    for (let i = 1; i < values.length; i += 1) {
-      const change = values[i] - values[i - 1];
-      const gain = Math.max(change, 0);
-      const loss = Math.max(-change, 0);
-      if (i <= period) {
-        avgGain += gain / period;
-        avgLoss += loss / period;
-        if (i < period) continue;
-      } else {
-        avgGain = ((avgGain * (period - 1)) + gain) / period;
-        avgLoss = ((avgLoss * (period - 1)) + loss) / period;
-      }
-      output[i] = avgLoss === 0 ? 100 : 100 - (100 / (1 + (avgGain / avgLoss)));
-    }
-    return output;
-  }
-
-  function average(values, start, end) {
-    let sum = 0;
-    let count = 0;
-    for (let i = start; i <= end; i += 1) {
-      const value = Number(values[i]);
-      if (!Number.isFinite(value)) continue;
-      sum += value;
-      count += 1;
-    }
-    return count ? sum / count : null;
-  }
-
-  function utcDay(timestamp) {
-    return new Date(timestamp * 1000).toISOString().slice(0, 10);
-  }
-
-  function createSignalReader(candles, config) {
-    const closes = candles.map(c => c.close);
-    const volumes = candles.map(c => c.volume || 0);
-    const atrValues = atr(candles, 14);
-    const model = config.signalModel;
-    const paramA = config.paramA;
-    const paramB = config.paramB;
-    const fast = model === 'ema' ? ema(closes, Math.max(2, Math.round(paramA))) : null;
-    const slow = model === 'ema' ? ema(closes, Math.max(3, Math.round(paramB))) : null;
-    const rsiValues = model === 'rsi' ? rsi(closes, 14) : null;
-
-    function allowed(side) {
-      return config.direction === 'both' || config.direction === side.toLowerCase();
-    }
-
-    function signalAt(i) {
-      if (i < 2) return null;
-      if (model === 'ema') {
-        if (!Number.isFinite(fast[i - 1]) || !Number.isFinite(slow[i - 1]) || !Number.isFinite(fast[i]) || !Number.isFinite(slow[i])) return null;
-        if (fast[i - 1] <= slow[i - 1] && fast[i] > slow[i] && allowed('Long')) return 'Long';
-        if (fast[i - 1] >= slow[i - 1] && fast[i] < slow[i] && allowed('Short')) return 'Short';
-        return null;
-      }
-      if (model === 'rsi') {
-        const low = clamp(paramA, 5, 50);
-        const high = clamp(paramB, 50, 95);
-        if (!Number.isFinite(rsiValues[i - 1]) || !Number.isFinite(rsiValues[i])) return null;
-        if (rsiValues[i - 1] < low && rsiValues[i] >= low && allowed('Long')) return 'Long';
-        if (rsiValues[i - 1] > high && rsiValues[i] <= high && allowed('Short')) return 'Short';
-        return null;
-      }
-      const lookback = Math.max(3, Math.round(paramA));
-      if (i < lookback) return null;
-      const start = i - lookback;
-      let maxHigh = -Infinity;
-      let minLow = Infinity;
-      for (let j = start; j < i; j += 1) {
-        maxHigh = Math.max(maxHigh, candles[j].high);
-        minLow = Math.min(minLow, candles[j].low);
-      }
-      const avgVolume = average(volumes, start, i - 1);
-      const volumeOk = avgVolume === null || avgVolume <= 0 || candles[i].volume >= avgVolume * Math.max(0, paramB);
-      if (volumeOk && candles[i].close > maxHigh && allowed('Long')) return 'Long';
-      if (volumeOk && candles[i].close < minLow && allowed('Short')) return 'Short';
-      return null;
-    }
-
-    return { signalAt, atrValues };
-  }
-
-  function backtest(candles, config) {
-    const { signalAt, atrValues } = createSignalReader(candles, config);
-    const trades = [];
-    const daily = new Map();
-    const splitIndex = Math.floor(candles.length * 0.70);
-    let pending = null;
-    let position = null;
-    let consecutiveLosses = 0;
-    let blockedDay = null;
-
-    function dayState(day) {
-      if (!daily.has(day)) daily.set(day, { trades: 0, realizedR: 0 });
-      return daily.get(day);
-    }
-
-    function closePosition(exitPrice, candle, reason, index) {
-      if (!position) return;
-      const rawR = position.side === 'Long'
-        ? (exitPrice - position.entry) / position.riskDistance
-        : (position.entry - exitPrice) / position.riskDistance;
-      const resultR = rawR - config.costR;
-      const trade = {
-        side: position.side,
-        entry: position.entry,
-        exit: exitPrice,
-        resultR,
-        reason,
-        entryTime: position.entryTime,
-        exitTime: candle.time,
-        entryIndex: position.entryIndex,
-        exitIndex: index,
-        validation: position.entryIndex >= splitIndex
-      };
-      trades.push(trade);
-      const exitDay = utcDay(candle.time);
-      dayState(exitDay).realizedR += resultR;
-      if (resultR < 0) consecutiveLosses += 1; else consecutiveLosses = 0;
-      if (consecutiveLosses >= config.lossStreak) blockedDay = exitDay;
-      position = null;
-    }
-
-    const warmup = Math.max(30, config.signalModel === 'ema' ? Math.round(Math.max(config.paramA, config.paramB)) + 5 : Math.round(config.paramA) + 5);
-
-    for (let i = warmup; i < candles.length; i += 1) {
-      const candle = candles[i];
-      const day = utcDay(candle.time);
-      const state = dayState(day);
-      if (blockedDay && blockedDay !== day) {
-        blockedDay = null;
-        consecutiveLosses = 0;
-      }
-
-      if (!position && pending) {
-        const atrValue = atrValues[pending.signalIndex];
-        const canEnter = Number.isFinite(atrValue) && atrValue > 0 && state.trades < config.maxTrades && state.realizedR > -config.maxDailyLoss && blockedDay !== day;
-        if (canEnter) {
-          const entry = candle.open;
-          const riskDistance = atrValue * config.atrMultiple;
-          const side = pending.side;
-          const stop = side === 'Long' ? entry - riskDistance : entry + riskDistance;
-          const target = side === 'Long' ? entry + riskDistance * config.rr : entry - riskDistance * config.rr;
-          position = { side, entry, stop, target, riskDistance, entryTime: candle.time, entryIndex: i };
-          state.trades += 1;
-        }
-        pending = null;
-      }
-
-      if (position) {
-        const stopHit = position.side === 'Long' ? candle.low <= position.stop : candle.high >= position.stop;
-        const targetHit = position.side === 'Long' ? candle.high >= position.target : candle.low <= position.target;
-        if (stopHit && targetHit) closePosition(position.stop, candle, 'Stop prioritaire', i);
-        else if (stopHit) closePosition(position.stop, candle, 'Stop', i);
-        else if (targetHit) closePosition(position.target, candle, 'Target', i);
-      }
-
-      if (!position && !pending && i < candles.length - 1) {
-        const currentState = dayState(day);
-        if (currentState.trades < config.maxTrades && currentState.realizedR > -config.maxDailyLoss && blockedDay !== day) {
-          const signal = signalAt(i);
-          if (signal) pending = { side: signal, signalIndex: i };
-        }
-      }
-    }
-
-    if (position) {
-      const last = candles[candles.length - 1];
-      closePosition(last.close, last, 'Fin des données', candles.length - 1);
-    }
-
-    return { trades, splitIndex };
-  }
-
   function metrics(trades) {
     if (!trades.length) return { count: 0, winRate: null, totalR: 0, expectancy: null, profitFactor: null, drawdown: 0, lossStreak: 0 };
     const results = trades.map(t => t.resultR).filter(Number.isFinite);
@@ -396,6 +187,7 @@
   }
 
   function renderResults(payload, result) {
+    byId('backtestResults').hidden = false;
     const all = metrics(result.trades);
     const trainTrades = result.trades.filter(t => !t.validation);
     const validationTrades = result.trades.filter(t => t.validation);
@@ -477,6 +269,7 @@
     const asset = byId('strategyAsset').value;
     const interval = byId('strategyTimeframe').value;
     const date = byId('backtestDate').value;
+    byId('backtestResults').hidden = true;
     if (!date) return;
 
     let config;
@@ -501,14 +294,15 @@
       if (!response.ok) throw new Error(payload.error || 'Historique indisponible.');
       const candles = Array.isArray(payload.candles) ? payload.candles.map(item => ({
         time: Number(item.time), open: Number(item.open), high: Number(item.high), low: Number(item.low), close: Number(item.close), volume: Number(item.volume || 0)
-      })).filter(c => [c.time, c.open, c.high, c.low, c.close].every(Number.isFinite)).sort((a, b) => a.time - b.time) : [];
+      })) : [];
       if (candles.length < 60) throw new Error('Pas assez de bougies pour un backtest exploitable avec ces paramètres.');
       payload.candles = candles;
       const result = backtest(candles, config);
       renderResults(payload, result);
-      note.textContent = `${candles.length} bougies · ${payload.source || 'source historique'} · ${result.trades.length} trades simulés. Les 30 % finaux sont gardés comme validation temporelle.`;
+      note.textContent = `${candles.length} bougies · ${payload.source || 'source historique'} · ${result.trades.length} trades simulés. Deux simulations séparées : développement 70 %, validation temporelle 30 %. Positions et freins sont remis à zéro à la séparation ; les indicateurs conservent seulement leur historique passé.`;
       note.className = 'backtest-note is-success';
     } catch (error) {
+      byId('backtestResults').hidden = true;
       note.textContent = error instanceof Error ? error.message : 'Impossible de terminer le backtest.';
       note.className = 'backtest-note is-error';
     } finally {

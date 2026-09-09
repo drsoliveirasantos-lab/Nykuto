@@ -268,3 +268,10 @@ Public Discord-community archives are distinguished from inaccessible private
 Discord channels. No live, Paper or Shadow execution is enabled. Historical
 PR83 body is preserved in `docs/trading-pr83-history-through-game25.md` to
 allow a concise current PR description within GitHub's length limit.
+
+The exploratory manual Lab uses `trading/lab/manual-backtest.mjs`, loaded by
+`lab.js`. Its September 9 execution correction handles adverse opening gaps,
+isolates development/validation positions and brakes, and resets loss counters
+every UTC day. This is separate from all frozen research engines and does not
+change their results, selections or the 57-trial ledger. See
+`trading/lab/MANUAL_BACKTEST.md`; regression tests run in the existing npm suite.
