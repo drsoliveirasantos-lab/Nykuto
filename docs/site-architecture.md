@@ -214,6 +214,17 @@ and disclosure. The manual strategy form is isolated visually and does not
 modify the frozen Jeu 08 protocol. No trading engine, data or automation changes
 are part of this presentation layer.
 
+The manual form's exploratory execution engine is now the pure
+`trading/lab/manual-backtest.mjs`, imported by `lab.js`. It resolves opening gaps
+before intrabar stop/target ambiguity, closes development positions before the
+70/30 split, starts validation with fresh positions/signals/brakes, and resets
+daily counters unconditionally on UTC date changes. Invalid candle order or
+OHLC data blocks the manual calculation instead of being silently filtered.
+`scripts/test-trading-manual-backtest.mjs` covers execution and temporal isolation
+through the existing npm test command. All frozen engines, archived results,
+private data and prospective collection remain unchanged. See
+`trading/lab/MANUAL_BACKTEST.md` for limits and synthetic examples.
+
 Jeu 11 uses `jeu11-policy.mjs`, `jeu11-engine.mjs`, `jeu11-source.mjs` and
 `lab-jeu11.mjs`. `scripts/prepare-trading-jeu11.mjs` validates private captures;
 `scripts/run-trading-jeu11.mjs` checks the pinned snapshot, runs eight unchanged

@@ -2,12 +2,13 @@
 
 Private personal trading workspace intended for `trading.nykuto.com`.
 
-## Latest Lab comparison — Jeu 10
+## Latest Lab comparison — Jeu 26
 
-The latest exploratory comparison is `/lab/#confluenceGame`: eight fixed variants
-on the existing MNQ history, including trend, candles, volume, announcement days
-and long/short. None meets every research gate. See
-[CONFLUENCE_DIAGNOSTIC.md](lab/CONFLUENCE_DIAGNOSTIC.md).
+The latest exploratory comparison is `/lab/#failureGame`: closed opening-range
+failures on MNQ, MES, MYM and MGC. All four configurations fail qualification;
+the May–August reserve remains unscored. The ledger retains 57 configurations
+from Games 19–26, with no independent confirmation. See
+[JEU26_RESULTS.md](lab/JEU26_RESULTS.md).
 
 ## Earlier comparison — Jeu 06
 
@@ -86,9 +87,21 @@ Backtest V1 is active. It reuses the allow-listed historical endpoint used by Re
 
 Signals are generated only from information available at the close of a candle and simulated entries occur at the following candle's open to avoid same-bar look-ahead. Stops use ATR multiples; targets use the configured R:R. Only one simulated position can be open at a time. The daily trade limit, daily maximum realized loss and pause-after-consecutive-losses rules are enforced during the simulation. A configurable per-trade cost in R is subtracted from results.
 
-If stop and target both fall inside one OHLC candle, V1 conservatively records the stop first because the intrabar path is unknown. An open position at the end of the sample is closed at the final close.
+The manual simulator first handles the observed open: adverse stop gaps fill
+at that open, while favorable target gaps receive no improvement over the target.
+Otherwise, if stop and target both fall inside one OHLC candle, it records the
+stop first because the intrabar path is unknown. Daily brakes reset each UTC day.
 
-The result surface reports trades, win rate, total R, expectancy, profit factor, maximum drawdown and longest losing streak. The last 30% of chronological candles are treated as a validation segment and displayed separately from the first 70%. This is a basic out-of-sample guardrail, not proof of robustness. Small samples are explicitly labelled.
+The result surface reports trades, win rate, total R, expectancy, profit factor,
+maximum drawdown and longest losing streak. The 70/30 chronological split runs
+two separate simulations. Development closes any remaining position at its own
+final close; validation starts flat with fresh brakes and no pending signal.
+Indicators retain past observations only. The combined total joins these two
+simulations rather than representing one continuous account. Small samples are
+explicitly labelled; repeated manual trials are not independent confirmation.
+See [MANUAL_BACKTEST.md](lab/MANUAL_BACKTEST.md) for the September 9 corrections,
+synthetic regression cases and remaining source/calendar limits. Frozen Games
+and their results are unchanged.
 
 Paper Bot and Shadow remain visibly OFF. They must not be presented as active until live-market ingestion, scheduling, persistence and monitoring have been implemented and validated. Broker execution remains explicitly out of scope.
 
