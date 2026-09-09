@@ -626,3 +626,18 @@ now retains 49 configurations from Games 19–24. Private contexts and individua
 trades are archived in TRADING_DATASETS at `jeu24/combined-context-v1/manifest.json`.
 See `trading/lab/JEU24_PROTOCOL.md`, `JEU24_RESULTS.md` and `JEU24_ARCHIVE.md`.
 No live/Paper/Shadow activation, collection change or independent confirmation.
+
+
+Game 25 introduces one graded admission-cap policy per microcontract through
+`jeu25-risk.mjs` and `jeu25-engine.mjs`. It reuses Game 24 causal context, assigns
+50/75/150 USD by the frozen score and preserves a fixed 300 USD daily envelope,
+one microcontract and structural stops. Four configurations fail; reserve stays
+closed. Game 23 fixed150 and Game 24 strict150 are read from private archived
+executions, not resimulated or counted as new trials. `lab-graded-risk.mjs` is the
+current checksum-pinned Lab panel, showing both costs, archived comparisons,
+risk tiers and mean planned risk. It explains that repeated PnL across caps can
+represent the same historical trade, rather than additional gains. Game 24 and
+all previous IDs remain in expandable history. The ledger retains 53 trials.
+Private sources and individual decisions/trades remain in TRADING_DATASETS at
+`jeu25/graded-risk-v1/manifest.json`. See `trading/lab/JEU25_PROTOCOL.md`,
+`JEU25_RESULTS.md` and `JEU25_ARCHIVE.md`. No live, Paper or Shadow activation.

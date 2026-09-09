@@ -1,7 +1,7 @@
 {
   "schema": "research-ledger-v1",
-  "scope": "Jeux 19\u201324 only; earlier studies remain in their own reports",
-  "configurationCount": 49,
+  "scope": "Jeux 19\u201325 only; earlier studies remain in their own reports",
+  "configurationCount": 53,
   "independentConfirmations": 0,
   "entries": [
     {
@@ -948,6 +948,114 @@
       "floorReserve": 100,
       "quantity": 1,
       "context": "trend-structure-rsi-volume-pattern-all-required"
+    },
+    {
+      "game": 25,
+      "id": "MNQ/graded-50-75-150",
+      "executionKey": "994557bf09a12814cc629ac8e1de7fd42625dac43cca267f44d4390c2035ba1c",
+      "freezeSha256": "1b8758d5364c68d4e2058c49a18c9347e4c4340b8439cc24ce79622441ee2b4d",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "MNQ/graded-50-75-150",
+      "phase": "train",
+      "start": "2026-01-01",
+      "end": "2026-05-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu25-report.json",
+      "riskCaps": [
+        50,
+        75,
+        150
+      ],
+      "dailyLoss": 300,
+      "floorReserve": 100,
+      "quantity": 1,
+      "context": "0\u20132 or missing:50;3\u20134:75;5:150;all indispensable ORB conditions retained",
+      "comparisons": "Archived Game23 fixed150 and Game24 strict150; not rerun or counted as new"
+    },
+    {
+      "game": 25,
+      "id": "MES/graded-50-75-150",
+      "executionKey": "9ec2b0f60621ab4eb10cfee8720e8516f4099e2eea84b941295f1a794b306b69",
+      "freezeSha256": "1b8758d5364c68d4e2058c49a18c9347e4c4340b8439cc24ce79622441ee2b4d",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "MES/graded-50-75-150",
+      "phase": "train",
+      "start": "2026-01-01",
+      "end": "2026-05-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu25-report.json",
+      "riskCaps": [
+        50,
+        75,
+        150
+      ],
+      "dailyLoss": 300,
+      "floorReserve": 100,
+      "quantity": 1,
+      "context": "0\u20132 or missing:50;3\u20134:75;5:150;all indispensable ORB conditions retained",
+      "comparisons": "Archived Game23 fixed150 and Game24 strict150; not rerun or counted as new"
+    },
+    {
+      "game": 25,
+      "id": "MYM/graded-50-75-150",
+      "executionKey": "cbde6238abd18d8ee4fd030c427577a15a87701b5cd910162e3820315038cc39",
+      "freezeSha256": "1b8758d5364c68d4e2058c49a18c9347e4c4340b8439cc24ce79622441ee2b4d",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "MYM/graded-50-75-150",
+      "phase": "train",
+      "start": "2026-01-01",
+      "end": "2026-05-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu25-report.json",
+      "riskCaps": [
+        50,
+        75,
+        150
+      ],
+      "dailyLoss": 300,
+      "floorReserve": 100,
+      "quantity": 1,
+      "context": "0\u20132 or missing:50;3\u20134:75;5:150;all indispensable ORB conditions retained",
+      "comparisons": "Archived Game23 fixed150 and Game24 strict150; not rerun or counted as new"
+    },
+    {
+      "game": 25,
+      "id": "MGC/graded-50-75-150",
+      "executionKey": "15a2157e17b325c0c3d35f762d49d9199fea53f3f1e10bef69f2756b7ffcae0d",
+      "freezeSha256": "1b8758d5364c68d4e2058c49a18c9347e4c4340b8439cc24ce79622441ee2b4d",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "MGC/graded-50-75-150",
+      "phase": "train",
+      "start": "2026-01-01",
+      "end": "2026-05-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu25-report.json",
+      "riskCaps": [
+        50,
+        75,
+        150
+      ],
+      "dailyLoss": 300,
+      "floorReserve": 100,
+      "quantity": 1,
+      "context": "0\u20132 or missing:50;3\u20134:75;5:150;all indispensable ORB conditions retained",
+      "comparisons": "Archived Game23 fixed150 and Game24 strict150; not rerun or counted as new"
     }
   ]
 }
