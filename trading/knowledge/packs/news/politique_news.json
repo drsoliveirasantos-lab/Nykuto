@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "status": "design_proposal_unvalidated",
+  "mode": "shadow_only",
+  "production_enabled": false,
+  "order_execution_enabled": false,
+  "assets": [
+    "MNQ",
+    "MES",
+    "MYM",
+    "MGC"
+  ],
+  "time_storage": "UTC",
+  "display_timezones": [
+    "America/New_York",
+    "America/Chicago",
+    "America/Asuncion"
+  ],
+  "principles": {
+    "no_headline_only_directional_trade": true,
+    "no_community_only_trade_trigger": true,
+    "no_inference_of_safety_from_missing_news": true,
+    "never_cancel_protective_orders_due_only_to_news_feed_failure": true,
+    "llm_has_no_broker_credentials_or_order_tool": true,
+    "untrusted_source_text_is_data_not_instructions": true,
+    "syndicated_copies_do_not_count_as_independent_confirmation": true,
+    "license_review_required_before_enabling_source": true,
+    "keep_first_release_and_corrections_separate": true,
+    "point_in_time_index_membership_required": true
+  },
+  "state_proposals": {
+    "NORMAL": "Conditions techniques et de qualité contrôlées; ce statut n’est pas un signal d’achat.",
+    "CAUTION": "Information ambiguë ou événement pertinent; demander corroboration, pas de direction automatique.",
+    "EVENT_LOCK": "Bloquer de nouvelles entrées selon une politique testée; conserver la gestion protectrice.",
+    "FEED_DEGRADED": "Bloquer les nouvelles entrées dépendantes du flux critique; alerter et conserver les protections.",
+    "EXCHANGE_HALT": "Suivre les états officiels du marché; une instruction de sortie peut ne pas pouvoir être exécutée."
+  },
+  "timing_parameters": {
+    "pre_release_lock_seconds": null,
+    "post_release_minimum_observation_seconds": null,
+    "maximum_accepted_news_age_seconds": null,
+    "maximum_critical_feed_silence_seconds": null,
+    "note": "Paramètres volontairement non fixés; calibrer hors échantillon par marché et type d’événement."
+  },
+  "reopen_requirements": [
+    "event_episode_finished_or_policy_reassessment",
+    "critical_feeds_healthy",
+    "exchange_session_open",
+    "spread_and_volatility_within_validated_bounds"
+  ],
+  "fomc_episode": "Décision, projections éventuelles et conférence/questions-réponses doivent être modélisées séparément.",
+  "runtime_note": "Ce JSON décrit une politique proposée; il ne la fait pas appliquer dans le site."
+}

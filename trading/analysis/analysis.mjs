@@ -1,9 +1,11 @@
+import { createAnalysisKnowledge } from '../knowledge/analysis-knowledge.mjs';
 import { loadAnalysisHistory } from './analysis-source.mjs';
 import { selectAnalysisWindow, aggregateCashHours, analyzeCandles } from './structure-core.mjs';
 import { calculateIndicators, DEFAULT_LAYERS } from './chart-indicators.mjs';
 import { createAnalysisChart } from './chart-view.mjs';
 
 const el = id => document.getElementById(`analysis${id}`);
+const knowledgePanel=createAnalysisKnowledge({panel:el('KnowledgePanel'),status:el('KnowledgeStatus'),records:el('KnowledgeRecords'),retry:el('KnowledgeRetry')});
 const price = n => new Intl.NumberFormat('fr-FR', { minimumFractionDigits:2, maximumFractionDigits:2 }).format(n);
 const stamp = t => new Intl.DateTimeFormat('fr-FR', { timeZone:'America/New_York', day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' }).format(new Date(t * 1000));
 const tickStamp = (t, type) => new Intl.DateTimeFormat('fr-FR', { timeZone:'America/New_York', ...(type===0?{year:'numeric'}:type===1?{month:'short'}:type===2?{day:'2-digit',month:'2-digit'}:{hour:'2-digit',minute:'2-digit'}) }).format(new Date(t * 1000));
@@ -12,6 +14,7 @@ const layers={...DEFAULT_LAYERS};
 const layerLabels={ema:'EMA 9 jaune / 21 bleue',pivots:'HH / LH / HL / LL',bos:'BOS',mss:'MSS ?',breaks:'Autres ruptures',engulfing:'Englobantes',patterns:'Doji / mèches',levels:'Niveaux',rsi:'RSI 14',volume:'Volume',bands:'Bollinger 20'};
 
 function clearResults(message) {
+  knowledgePanel.clear();
   el('Status').textContent = message;
   el('Results').hidden = true;
   el('EventsPanel').hidden = true;
@@ -77,6 +80,7 @@ function render() {
     el('EndDate').value=bars[endIndex].day;
     current={candles,result:r,indicators:calculateIndicators(candles),interval,key:`${el('Contract').value}:${interval}:${r.first}:${r.last}:${r.count}`};
     draw();
+    knowledgePanel.show(r,current.indicators);
   } catch(error) { clearResults(error.message); }
 }
 function rebuild(resetDate=false) {

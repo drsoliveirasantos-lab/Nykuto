@@ -1,0 +1,269 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Nykuto — événement de marché normalisé",
+  "type": "object",
+  "additionalProperties": false,
+  "description": "Contrat de données proposé. Dates RFC 3339; le validateur applicatif doit imposer UTC et la cohérence chronologique.",
+  "required": [
+    "event_id",
+    "source_id",
+    "canonical_url",
+    "is_synthetic",
+    "status",
+    "event_type",
+    "published_at",
+    "received_at",
+    "scheduled_at",
+    "source_timezone",
+    "upstream_origin_id",
+    "headline_original",
+    "affected_assets",
+    "measurements",
+    "rights_status"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "canonical_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "is_synthetic": {
+      "type": "boolean"
+    },
+    "status": {
+      "enum": [
+        "scheduled",
+        "confirmed",
+        "unverified",
+        "correction",
+        "withdrawn",
+        "postponed",
+        "cancelled"
+      ]
+    },
+    "event_type": {
+      "enum": [
+        "economic_release",
+        "central_bank",
+        "company_release",
+        "trade_policy",
+        "geopolitics",
+        "exchange_notice",
+        "earnings_call",
+        "community_claim",
+        "other"
+      ]
+    },
+    "published_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "received_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "scheduled_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "source_timezone": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "upstream_origin_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "supersedes_event_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "headline_original": {
+      "type": "string"
+    },
+    "original_language": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "headline_translation": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "affected_assets": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "issuer_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "index_membership_as_of": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "evidence_urls": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uri"
+      }
+    },
+    "measurements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "indicator_id",
+          "reference_period",
+          "actual_first_release",
+          "consensus",
+          "previous_as_known",
+          "previous_revised",
+          "unit",
+          "transformation",
+          "seasonal_adjustment"
+        ],
+        "properties": {
+          "indicator_id": {
+            "type": "string"
+          },
+          "reference_period": {
+            "type": "string"
+          },
+          "actual_first_release": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "actual_revised": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "consensus": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "consensus_source_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "consensus_as_of": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "provider_model_forecast": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "previous_as_known": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "previous_revised": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "unit": {
+            "type": "string"
+          },
+          "transformation": {
+            "enum": [
+              "level",
+              "mom",
+              "yoy",
+              "qoq",
+              "qoq_annualized",
+              "change",
+              "other",
+              "unknown"
+            ]
+          },
+          "seasonal_adjustment": {
+            "enum": [
+              "adjusted",
+              "unadjusted",
+              "unknown"
+            ]
+          }
+        }
+      }
+    },
+    "rights_status": {
+      "enum": [
+        "not_validated",
+        "approved_for_this_use",
+        "prohibited"
+      ]
+    },
+    "source_timestamp_precision": {
+      "enum": [
+        "millisecond",
+        "second",
+        "minute",
+        "day",
+        "unknown"
+      ]
+    },
+    "notes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

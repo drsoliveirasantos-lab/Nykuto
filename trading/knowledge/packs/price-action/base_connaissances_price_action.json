@@ -1,0 +1,1061 @@
+{
+  "schema_version": "1.0.0",
+  "title": "Bougies et structure du marché — base documentaire pour bot",
+  "language": "fr",
+  "created_on": "2026-09-09",
+  "mode": "RESEARCH_ONLY",
+  "asset_universe": "Aucun marché validé ; notions génériques, paramètres propres à chaque instrument et flux.",
+  "scope": {
+    "internet_research": true,
+    "historical_market_backtest": false,
+    "live_market_analysis": false,
+    "website_deployed": false,
+    "model_trained": false,
+    "executable_detector_included": false
+  },
+  "research_access": {
+    "web": "Textes publics et passages originaux consultés",
+    "reddit": "Messages publics, témoignages non audités",
+    "youtube": "Titres et descriptions indexés ; pas de visionnage complet revendiqué",
+    "discord": "Aucun message interne consulté"
+  },
+  "definitions": {
+    "O": "ouverture",
+    "H": "haut",
+    "L": "bas",
+    "C": "clôture",
+    "p": "bougie précédente",
+    "t": "bougie courante",
+    "body": "abs(C-O)",
+    "range": "H-L",
+    "upper_wick": "H-max(O,C)",
+    "lower_wick": "min(O,C)-L",
+    "epsilon": "tolérance de comparaison choisie et versionnée",
+    "buffer": "marge de cassure choisie et versionnée"
+  },
+  "input_contract": {
+    "required": [
+      "instrument",
+      "timeframe",
+      "session_definition",
+      "timestamp_open",
+      "timestamp_close",
+      "available_at",
+      "open",
+      "high",
+      "low",
+      "close",
+      "is_final",
+      "price_type",
+      "data_provider"
+    ],
+    "optional": [
+      "volume",
+      "volume_type",
+      "tick_size",
+      "point_value",
+      "contract_id",
+      "roll_adjustment",
+      "feed_latency_ms"
+    ],
+    "checks": [
+      "OHLC numériques finis",
+      "low <= min(open,close) <= max(open,close) <= high",
+      "timestamps ordonnés et uniques par instrument/unité",
+      "timestamp_close > timestamp_open",
+      "available_at <= decision_time pour toute donnée utilisée",
+      "is_final true pour signaux définitifs",
+      "grille de tick vérifiée avant comparaisons",
+      "données manquantes conservées et signalées",
+      "Pour une bougie finale, available_at >= timestamp_close."
+    ],
+    "zero_range_policy": "Ratios null ; ZERO_RANGE ; aucune division par zéro.",
+    "missing_volume_policy": "null et VOLUME_UNAVAILABLE, jamais zéro imputé.",
+    "synthetic_price_policy": "Ne pas utiliser de prix synthétiques comme prix exécutables sans modèle explicite."
+  },
+  "illustrative_parameters_not_optimized": {
+    "doji_ratio_max": 0.1,
+    "marubozu_ratio_min": 0.9,
+    "long_wick_body_multiple": 2,
+    "left_pivot_bars": 2,
+    "right_pivot_bars": 2,
+    "median_body_lookback_excluding_current": 20,
+    "mandatory_warning": "Paramètres illustratifs ; aucune validation de marché."
+  },
+  "concepts": [
+    {
+      "id": "DOJI",
+      "label_fr": "Doji",
+      "family": "single",
+      "definition": "corps/amplitude <= doji_ratio_max, amplitude > 0",
+      "context_requirements": "Toute tendance ; description seulement",
+      "limitations": [
+        "Indécision est une interprétation, pas une prédiction.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S02",
+        "S03"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "LONG_LEGGED_DOJI",
+      "label_fr": "Doji longues jambes",
+      "family": "single",
+      "definition": "DOJI et deux mèches longues selon seuils déclarés",
+      "context_requirements": "Toute tendance",
+      "limitations": [
+        "Pas de seuil universel ; séparer amplitude et déplacement net.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S02"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "DRAGONFLY_DOJI",
+      "label_fr": "Doji dragonfly",
+      "family": "single",
+      "definition": "DOJI ; corps dans le haut ; mèche basse dominante",
+      "context_requirements": "Contexte à documenter",
+      "limitations": [
+        "Ne pas confondre avec un marteau à corps non négligeable.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S02",
+        "S03"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "GRAVESTONE_DOJI",
+      "label_fr": "Doji gravestone",
+      "family": "single",
+      "definition": "DOJI ; corps dans le bas ; mèche haute dominante",
+      "context_requirements": "Contexte à documenter",
+      "limitations": [
+        "Ne prouve pas une inversion baissière.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S02",
+        "S03"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "SPINNING_TOP",
+      "label_fr": "Toupie",
+      "family": "single",
+      "definition": "Petit corps relatif ; deux mèches présentes",
+      "context_requirements": "Contexte à documenter",
+      "limitations": [
+        "Une pause peut précéder une continuation.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S03"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "MARUBOZU",
+      "label_fr": "Marubozu ou quasi-marubozu",
+      "family": "single",
+      "definition": "corps/amplitude >= marubozu_ratio_min, amplitude > 0",
+      "context_requirements": "Direction de la bougie, pas du futur",
+      "limitations": [
+        "La variante exacte sans mèches est distincte de la variante tolérante.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S02",
+        "S03"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "HAMMER",
+      "label_fr": "Marteau",
+      "family": "single",
+      "definition": "Petit corps dans le haut ; longue mèche basse ; petite mèche haute",
+      "context_requirements": "Baisse préalable selon règle versionnée",
+      "limitations": [
+        "Sans tendance préalable : LONG_LOWER_WICK, pas retournement confirmé.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S07"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "HANGING_MAN",
+      "label_fr": "Pendu",
+      "family": "single",
+      "definition": "Morphologie à longue mèche basse et corps dans le haut",
+      "context_requirements": "Hausse préalable selon règle versionnée",
+      "limitations": [
+        "Même forme qu’un marteau, contexte différent.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S03",
+        "S27"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "INVERTED_HAMMER",
+      "label_fr": "Marteau inversé",
+      "family": "single",
+      "definition": "Petit corps dans le bas ; longue mèche haute",
+      "context_requirements": "Baisse préalable",
+      "limitations": [
+        "Tentative de reprise non confirmée par sa seule présence.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S03",
+        "S26"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "SHOOTING_STAR",
+      "label_fr": "Étoile filante",
+      "family": "single",
+      "definition": "Petit corps dans le bas ; longue mèche haute",
+      "context_requirements": "Hausse préalable",
+      "limitations": [
+        "Un rejet supérieur n’interdit pas une nouvelle hausse.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S05",
+        "S27"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "BULLISH_BODY_ENGULF_BOUNDARY_V1",
+      "label_fr": "Englobante haussière, corps, frontière admise",
+      "family": "double",
+      "definition": "Cp<Op AND Ct>Ot AND Ot<=Cp AND Ct>=Op AND (Ot<Cp OR Ct>Op)",
+      "context_requirements": "Forme indépendante du régime ; retournement potentiel seulement après baisse définie",
+      "limitations": [
+        "Les mèches ne sont pas obligatoirement englobées.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S04"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "geometry_specified_not_implemented",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "BEARISH_BODY_ENGULF_BOUNDARY_V1",
+      "label_fr": "Englobante baissière, corps, frontière admise",
+      "family": "double",
+      "definition": "Cp>Op AND Ct<Ot AND Ot>=Cp AND Ct<=Op AND (Ot>Cp OR Ct<Op)",
+      "context_requirements": "Forme indépendante du régime ; retournement potentiel seulement après hausse définie",
+      "limitations": [
+        "Ne pas appeler toute bougie rouge large une englobante.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S05"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "geometry_specified_not_implemented",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "BULLISH_BODY_ENGULF_STRICT_V1",
+      "label_fr": "Englobante haussière, stricte",
+      "family": "double",
+      "definition": "Cp<Op AND Ct>Ot AND Ot<Cp AND Ct>Op",
+      "context_requirements": "Même séparation forme/contexte",
+      "limitations": [
+        "Exclut l’ouverture exactement égale à la clôture précédente.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S04"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "geometry_specified_not_implemented",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "BEARISH_BODY_ENGULF_STRICT_V1",
+      "label_fr": "Englobante baissière, stricte",
+      "family": "double",
+      "definition": "Cp>Op AND Ct<Ot AND Ot>Cp AND Ct<Op",
+      "context_requirements": "Même séparation forme/contexte",
+      "limitations": [
+        "Ne pas fusionner ses statistiques avec la variante boundary.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S05"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "geometry_specified_not_implemented",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "HARAMI",
+      "label_fr": "Harami",
+      "family": "double",
+      "definition": "Corps courant petit et contenu dans le corps précédent, selon ratio fixé",
+      "context_requirements": "Sens traditionnel selon tendance préalable",
+      "limitations": [
+        "Couleurs : conventions divergentes, paramètre explicite requis.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S02",
+        "S04",
+        "S05"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "HARAMI_CROSS",
+      "label_fr": "Harami cross",
+      "family": "double",
+      "definition": "HARAMI et bougie courante DOJI",
+      "context_requirements": "Sens traditionnel selon tendance préalable",
+      "limitations": [
+        "Conserver le seuil doji et le critère de contenance.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S02"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "PIERCING",
+      "label_fr": "Pénétrante",
+      "family": "double",
+      "definition": "Premier corps baissier ; second haussier ; clôture au-delà du milieu du premier corps",
+      "context_requirements": "Après baisse ; politique de gap obligatoire",
+      "limitations": [
+        "Si le second dépasse tout le corps, distinguer la classe englobante selon priorité.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S04"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "DARK_CLOUD",
+      "label_fr": "Couverture en nuage noir",
+      "family": "double",
+      "definition": "Premier corps haussier ; second baissier ; clôture sous le milieu du premier corps",
+      "context_requirements": "Après hausse ; politique de gap obligatoire",
+      "limitations": [
+        "Version intraday sans gap séparée de la convention classique.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S05"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "INSIDE_BAR_STRICT_V1",
+      "label_fr": "Inside bar stricte",
+      "family": "double",
+      "definition": "Ht < Hp AND Lt > Lp",
+      "context_requirements": "Contraction locale sans direction présumée",
+      "limitations": [
+        "Les corps et les couleurs ne sont pas les critères.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S01"
+      ],
+      "rule_origin": "Définition géométrique opérationnelle originale à partir des extrêmes OHLC.",
+      "implementation_status": "geometry_specified_not_implemented",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "OUTSIDE_BAR_STRICT_V1",
+      "label_fr": "Outside bar stricte",
+      "family": "double",
+      "definition": "Ht > Hp AND Lt < Lp",
+      "context_requirements": "Expansion locale sans direction présumée",
+      "limitations": [
+        "Pas nécessairement englobante de corps ; ordre intrabougie inconnu.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S04",
+        "S05"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "geometry_specified_not_implemented",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "TWEEZER_TOP",
+      "label_fr": "Pinces au sommet",
+      "family": "double",
+      "definition": "abs(Ht-Hp) <= tolerance_prix ; morphologie complémentaire à spécifier",
+      "context_requirements": "Sommet potentiel selon contexte",
+      "limitations": [
+        "Tolérance, distance temporelle et contexte doivent être fixés.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S28"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "TWEEZER_BOTTOM",
+      "label_fr": "Pinces au creux",
+      "family": "double",
+      "definition": "abs(Lt-Lp) <= tolerance_prix ; morphologie complémentaire à spécifier",
+      "context_requirements": "Creux potentiel selon contexte",
+      "limitations": [
+        "Deux bas proches ne garantissent pas un support.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S28"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "MORNING_STAR_CLASSIC",
+      "label_fr": "Étoile du matin classique",
+      "family": "triple",
+      "definition": "Corps baissier ; petite étoile séparée ; reprise pénétrant le premier corps",
+      "context_requirements": "Baisse préalable ; gaps définis séparément",
+      "limitations": [
+        "Règle descriptive incomplète tant que les seuils et gaps ne sont pas chiffrés.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S04"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "EVENING_STAR_CLASSIC",
+      "label_fr": "Étoile du soir classique",
+      "family": "triple",
+      "definition": "Corps haussier ; petite étoile séparée ; repli pénétrant le premier corps",
+      "context_requirements": "Hausse préalable ; gaps définis séparément",
+      "limitations": [
+        "Une figure achevée ne garantit pas la poursuite.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S05"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "MORNING_STAR_NOGAP_EXPERIMENTAL",
+      "label_fr": "Séquence de reprise trois bougies sans gap",
+      "family": "triple",
+      "definition": "C0<O0 AND body1<=0.4*body0 AND C2>O2 AND C2>(O0+C0)/2",
+      "context_requirements": "Filtre de baisse préalable optionnel versionné",
+      "limitations": [
+        "Spécification originale, pas équivalence avec étoile classique.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S04"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "geometry_specified_not_implemented",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "EVENING_STAR_NOGAP_EXPERIMENTAL",
+      "label_fr": "Séquence de repli trois bougies sans gap",
+      "family": "triple",
+      "definition": "C0>O0 AND body1<=0.4*body0 AND C2<O2 AND C2<(O0+C0)/2",
+      "context_requirements": "Filtre de hausse préalable optionnel versionné",
+      "limitations": [
+        "Seuil 0.4 proposé pour expérimentation, non optimisé.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S05"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "geometry_specified_not_implemented",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "THREE_WHITE_SOLDIERS",
+      "label_fr": "Trois soldats blancs",
+      "family": "triple",
+      "definition": "Trois corps haussiers avec progression des clôtures ; ouvertures et mèches à contraindre",
+      "context_requirements": "Reprise ou progression à contextualiser",
+      "limitations": [
+        "Une version basée sur trois seules couleurs serait trop large.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S02"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "THREE_BLACK_CROWS",
+      "label_fr": "Trois corbeaux noirs",
+      "family": "triple",
+      "definition": "Trois corps baissiers avec recul des clôtures ; ouvertures et mèches à contraindre",
+      "context_requirements": "Repli à contextualiser",
+      "limitations": [
+        "Distance au stop et extension du mouvement restent à mesurer.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S02"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "THREE_INSIDE",
+      "label_fr": "Three inside up/down",
+      "family": "triple",
+      "definition": "Harami suivi d’une confirmation directionnelle précisément définie",
+      "context_requirements": "Contexte préalable requis pour interprétation",
+      "limitations": [
+        "Définir la ligne franchie et la clôture requise.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S12"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "THREE_OUTSIDE",
+      "label_fr": "Three outside up/down",
+      "family": "triple",
+      "definition": "Englobante suivie d’une confirmation directionnelle précisément définie",
+      "context_requirements": "Contexte préalable requis pour interprétation",
+      "limitations": [
+        "Le sens de confirmation varie : ne pas supposer une implémentation universelle.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S12"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "ABANDONED_BABY",
+      "label_fr": "Bébé abandonné, haussier ou baissier",
+      "family": "triple",
+      "definition": "Doji central séparé par gaps de ses voisins, y compris extrêmes dans version classique",
+      "context_requirements": "Après mouvement préalable opposé",
+      "limitations": [
+        "Ne pas enlever les gaps tout en conservant le même nom.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S04",
+        "S05"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "RISING_THREE_METHODS",
+      "label_fr": "Méthodes ascendantes",
+      "family": "sequence",
+      "definition": "Impulsion haussière ; consolidation contenue ; reprise haussière",
+      "context_requirements": "Continuation potentielle",
+      "limitations": [
+        "Nombre de bougies, contenance et seuil de reprise à formaliser.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S02"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "FALLING_THREE_METHODS",
+      "label_fr": "Méthodes descendantes",
+      "family": "sequence",
+      "definition": "Impulsion baissière ; consolidation contenue ; reprise baissière",
+      "context_requirements": "Continuation potentielle",
+      "limitations": [
+        "Consolidation ne signifie pas reprise garantie.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S02"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "HH",
+      "label_fr": "Higher High",
+      "family": "structure",
+      "definition": "current_confirmed_high > previous_comparable_confirmed_high + epsilon",
+      "context_requirements": "Même échelle et méthode de swing",
+      "limitations": [
+        "Comparer des sommets, pas un sommet à un creux.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S06"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "HL",
+      "label_fr": "Higher Low",
+      "family": "structure",
+      "definition": "current_confirmed_low > previous_comparable_confirmed_low + epsilon",
+      "context_requirements": "Même échelle et méthode de swing",
+      "limitations": [
+        "Un creux candidat n’est pas encore un pivot confirmé.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S06",
+        "S09"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "LH",
+      "label_fr": "Lower High",
+      "family": "structure",
+      "definition": "current_confirmed_high < previous_comparable_confirmed_high - epsilon",
+      "context_requirements": "Même échelle et méthode de swing",
+      "limitations": [
+        "Ne pas changer de sensibilité de pivot entre comparaisons.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S06"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "LL",
+      "label_fr": "Lower Low",
+      "family": "structure",
+      "definition": "current_confirmed_low < previous_comparable_confirmed_low - epsilon",
+      "context_requirements": "Même échelle et méthode de swing",
+      "limitations": [
+        "Un simple plus bas intrabougie n’établit pas tout un régime.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S06"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "EQH_EQL",
+      "label_fr": "Sommets ou creux équivalents",
+      "family": "structure",
+      "definition": "abs(current_pivot - previous_same_type_pivot) <= epsilon",
+      "context_requirements": "Tolérance déclarée en prix ou ticks",
+      "limitations": [
+        "Équivalent n’est pas identique ; fixer la politique des égalités.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S06"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "BOS_V1",
+      "label_fr": "Rupture de continuation par clôture",
+      "family": "structure",
+      "definition": "Régime connu et clôture au-delà d’un swing pertinent disponible avant la bougie, marge > buffer",
+      "context_requirements": "UPTREND pour cassure haute ; DOWNTREND pour cassure basse",
+      "limitations": [
+        "Convention proposée ; la mèche seule ne suffit pas.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S13"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "CHOCH_V1",
+      "label_fr": "Rupture opposée de la structure protégée",
+      "family": "structure",
+      "definition": "Clôture contre le régime sous/au-dessus du pivot protégé connu, selon sens",
+      "context_requirements": "Pivot protégé et instant de sélection enregistrés",
+      "limitations": [
+        "État TRANSITION ; pas retournement certain.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S13"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "WICK_BREACH_RECLAIM",
+      "label_fr": "Dépassement et réintégration",
+      "family": "event",
+      "definition": "H>P+buffer et C<P ; ou L<P-buffer et C>P",
+      "context_requirements": "Niveau P connu auparavant",
+      "limitations": [
+        "Aucune preuve directe de chasse institutionnelle aux stops.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S26",
+        "S27"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "descriptive_or_parameterized_spec_requires_completion",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "BULLISH_FVG_GEOMETRY",
+      "label_fr": "FVG haussier géométrique",
+      "family": "zone",
+      "definition": "H[t-2] < L[t] ; zone [H[t-2], L[t]]",
+      "context_requirements": "Disponible à clôture de t ; filtre central séparé",
+      "limitations": [
+        "Ne prouve ni absence de transactions, ni comblement futur.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S14"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "geometry_specified_not_implemented",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    },
+    {
+      "id": "BEARISH_FVG_GEOMETRY",
+      "label_fr": "FVG baissier géométrique",
+      "family": "zone",
+      "definition": "L[t-2] > H[t] ; zone [H[t], L[t-2]]",
+      "context_requirements": "Disponible à clôture de t ; filtre central séparé",
+      "limitations": [
+        "Conserver les instants de création, invalidation et observation.",
+        "Aucune probabilité universelle ni rentabilité validée dans ce dossier."
+      ],
+      "source_ids": [
+        "S14"
+      ],
+      "rule_origin": "Spécification originale inspirée des définitions citées ; seuils à versionner.",
+      "implementation_status": "geometry_specified_not_implemented",
+      "requires_closed_bars": true,
+      "empirical_validation": "NOT_RUN",
+      "execution_authorized": false,
+      "probability_of_success": null
+    }
+  ],
+  "causality_rules": [
+    "Un pivot en i avec r bougies à droite devient connaissable au plus tôt à la clôture de i+r.",
+    "Stocker pivot_time et known_at séparément.",
+    "La chronologie de simulation utilise available_at, pas le placement graphique.",
+    "Utiliser uniquement les bougies supérieures clôturées et disponibles.",
+    "Ne pas ajouter une zone après avoir observé le résultat à expliquer.",
+    "Conserver les événements provisoires séparément des événements confirmés.",
+    "Une bougie pouvant être pivot haut et bas produit DUAL_PIVOT_AMBIGUOUS sans ordre supposé."
+  ],
+  "state_machine_spec": {
+    "status": "PROPOSED_NOT_IMPLEMENTED",
+    "states": [
+      "UPTREND",
+      "DOWNTREND",
+      "RANGE",
+      "CONTRACTION",
+      "EXPANSION",
+      "TRANSITION",
+      "UNKNOWN"
+    ],
+    "up": "HH et HL selon swings comparables disponibles",
+    "down": "LH et LL selon swings comparables disponibles",
+    "contraction": "LH et HL, géométrie de resserrement à confirmer par critères dédiés",
+    "expansion": "HH et LL",
+    "range": "Critères de bornes horizontales, durée et largeur à spécifier ; pas état par défaut",
+    "unknown": "Historique ou paramètres insuffisants",
+    "after_choch": "TRANSITION ; confirmation ultérieure requise selon convention"
+  },
+  "risk_spec": {
+    "status": "PROPOSED_NOT_IMPLEMENTED",
+    "risk_per_contract": "abs(entry-stop)*point_value + roundtrip_fees_per_contract + slippage_allowance_per_contract",
+    "contracts": "floor(risk_budget/risk_per_contract)",
+    "additional_controls": [
+      "limites de marge",
+      "exposition cumulée",
+      "règles de compte",
+      "risque de données/exécution",
+      "plafond de contrats"
+    ],
+    "slippage_warning": "La provision ne borne pas la perte réelle.",
+    "no_fit_policy": "Nombre < 1 => NO_TRADE"
+  },
+  "output_contract": {
+    "schema_version": "1.0.0",
+    "mode": "RESEARCH_ONLY",
+    "observation_time": null,
+    "knowledge_cutoff_time": null,
+    "pattern_ids": [],
+    "confirmed_structure": "UNKNOWN",
+    "provisional_structure": null,
+    "supporting_facts": [],
+    "missing_information": [],
+    "scenario_status": "WAIT",
+    "invalidation": null,
+    "risk_status": "NOT_EVALUATED",
+    "probability_of_success": null,
+    "execution_authorized": false,
+    "source_ids": []
+  },
+  "prohibited_inferences": [
+    "Bougie présente => achat ou vente obligatoires",
+    "HH candidat => HH confirmé",
+    "Mèche sous un niveau => cassure par clôture",
+    "Figure connue => taux universel de réussite",
+    "Note de qualité => probabilité calibrée",
+    "FVG => aucun échange dans la zone",
+    "FVG => comblement garanti",
+    "OHLC => identité ou intention des intervenants",
+    "Échec de tendance => range automatique",
+    "Contenu du site => entraînement automatique du modèle",
+    "Témoignage Reddit/YouTube/Discord => preuve statistique"
+  ],
+  "evaluation_spec": {
+    "status": "NOT_RUN",
+    "detector_tests_file": "cas_evaluation_bot.json",
+    "backtest_requirements": [
+      "séparation chronologique",
+      "règles gelées",
+      "journal de toutes les variantes",
+      "coûts et glissement",
+      "données et contrats documentés",
+      "pas de fuite temporelle",
+      "gestion conservatrice des chemins intrabougie inconnus",
+      "résultats par régime, session et instrument",
+      "incertitude et dépendance des observations",
+      "observation prospective en simulation"
+    ],
+    "metrics": [
+      "net_expectancy_R",
+      "profit_factor",
+      "maximum_drawdown",
+      "trade_count",
+      "session_count",
+      "MAE",
+      "MFE",
+      "cost_sensitivity",
+      "uncertainty_interval"
+    ],
+    "promotion_policy": "Aucune promotion live autorisée par ce document."
+  },
+  "sources_file": "sources.json"
+}

@@ -1,0 +1,254 @@
+[
+  {
+    "id": "S01",
+    "title": "CME Group — Chart Types: Candlestick, Line and Bar",
+    "url": "https://www.cmegroup.com/education/courses/technical-analysis/chart-types-candlestick-line-bar",
+    "kind": "documentation_pedagogique",
+    "access": "texte_public_consulte",
+    "accessed_on": "2026-09-09",
+    "limitations": "Anatomie OHLC; ne prouve aucune rentabilité."
+  },
+  {
+    "id": "S02",
+    "title": "StockCharts ChartSchool — Candlestick Pattern Dictionary",
+    "url": "https://chartschool.stockcharts.com/table-of-contents/chart-analysis/candlestick-charts/candlestick-pattern-dictionary",
+    "kind": "documentation_pedagogique",
+    "access": "texte_public_consulte",
+    "accessed_on": "2026-09-09",
+    "limitations": "Nomenclature; certains critères diffèrent entre sources."
+  },
+  {
+    "id": "S03",
+    "title": "StockCharts ChartSchool — Introduction to Candlesticks",
+    "url": "https://chartschool.stockcharts.com/table-of-contents/chart-analysis/candlestick-charts/introduction-to-candlesticks",
+    "kind": "documentation_pedagogique",
+    "access": "texte_public_consulte",
+    "accessed_on": "2026-09-09",
+    "limitations": "Formes et interprétations traditionnelles, non probabilités calibrées."
+  },
+  {
+    "id": "S04",
+    "title": "StockCharts ChartSchool — Candlestick Bullish Reversal Patterns",
+    "url": "https://chartschool.stockcharts.com/table-of-contents/chart-analysis/candlestick-charts/candlestick-bullish-reversal-patterns",
+    "kind": "documentation_pedagogique",
+    "access": "texte_public_consulte",
+    "accessed_on": "2026-09-09",
+    "limitations": "Englobante haussière et contexte; exemples illustratifs sélectionnés."
+  },
+  {
+    "id": "S05",
+    "title": "StockCharts ChartSchool — Candlestick Bearish Reversal Patterns",
+    "url": "https://chartschool.stockcharts.com/table-of-contents/chart-analysis/candlestick-charts/candlestick-bearish-reversal-patterns",
+    "kind": "documentation_pedagogique",
+    "access": "texte_public_consulte",
+    "accessed_on": "2026-09-09",
+    "limitations": "Englobante baissière et variantes; pas de taux universel de réussite."
+  },
+  {
+    "id": "S06",
+    "title": "Fidelity — Basic Concepts of Trend",
+    "url": "https://www.fidelity.com/learning-center/trading-investing/technical-analysis/basic-concepts-trend",
+    "kind": "documentation_pedagogique",
+    "access": "texte_public_consulte",
+    "accessed_on": "2026-09-09",
+    "limitations": "Comparaison des sommets et creux; plusieurs échelles de tendance."
+  },
+  {
+    "id": "S07",
+    "title": "Schwab thinkorswim — Hammer",
+    "url": "https://toslc.thinkorswim.com/center/reference/Patterns/candlestick-patterns-library/bullish-only/Hammer",
+    "kind": "documentation_implementation",
+    "access": "texte_public_consulte",
+    "accessed_on": "2026-09-09",
+    "limitations": "Critères paramétrables de corps, mèche et tendance."
+  },
+  {
+    "id": "S08",
+    "title": "CME Group — Trend and Continuation Patterns",
+    "url": "https://www.cmegroup.com/education/courses/technical-analysis/trend-and-continuation-patterns",
+    "kind": "documentation_pedagogique",
+    "access": "texte_public_consulte",
+    "accessed_on": "2026-09-09",
+    "limitations": "Triangles, rectangles, drapeaux; continuation non garantie."
+  },
+  {
+    "id": "S09",
+    "title": "TradingView Pine Script — Repainting",
+    "url": "https://www.tradingview.com/pine-script-docs/concepts/repainting/",
+    "kind": "documentation_implementation",
+    "access": "texte_public_consulte",
+    "accessed_on": "2026-09-09",
+    "limitations": "Pivots affichés dans le passé et valeurs non confirmées."
+  },
+  {
+    "id": "S10",
+    "title": "TradingView Pine Script — Other Timeframes and Data",
+    "url": "https://www.tradingview.com/pine-script-docs/concepts/other-timeframes-and-data/",
+    "kind": "documentation_implementation",
+    "access": "texte_public_consulte",
+    "accessed_on": "2026-09-09",
+    "limitations": "Dernière valeur supérieure confirmée; différence historique/temps réel."
+  },
+  {
+    "id": "S11",
+    "title": "TradingView Pine Script — Strategies",
+    "url": "https://www.tradingview.com/pine-script-docs/concepts/strategies/",
+    "kind": "documentation_implementation",
+    "access": "texte_public_consulte",
+    "accessed_on": "2026-09-09",
+    "limitations": "Simulation, prix synthétiques, commissions, glissement et limites non exécutées."
+  },
+  {
+    "id": "S12",
+    "title": "TA-Lib Python — Pattern Recognition Functions",
+    "url": "https://ta-lib.github.io/ta-lib-python/func_groups/pattern_recognition.html",
+    "kind": "documentation_implementation",
+    "access": "texte_public_consulte",
+    "accessed_on": "2026-09-09",
+    "limitations": "Catalogue de détecteurs; un code de signal ne représente pas une probabilité."
+  },
+  {
+    "id": "S13",
+    "title": "LuxAlgo — Market Structure CHoCH/BOS (Fractal), publication TradingView",
+    "url": "https://fr.tradingview.com/script/ZpHqSrBK-Market-Structure-CHoCH-BOS-Fractal-LuxAlgo/?amp=",
+    "kind": "implementation_praticien",
+    "access": "texte_public_consulte",
+    "accessed_on": "2026-09-09",
+    "limitations": "Implémentation expérimentale spécifique; ne valide pas la théorie institutionnelle."
+  },
+  {
+    "id": "S14",
+    "title": "TrendSpider — Fair Value Gap Basics",
+    "url": "https://trendspider.com/blog/fair-value-gap-basics/",
+    "kind": "documentation_praticien",
+    "access": "texte_public_indexe",
+    "accessed_on": "2026-09-09",
+    "limitations": "Définition de zone sur trois bougies; hypothèses économiques non démontrées par OHLC."
+  },
+  {
+    "id": "S15",
+    "title": "Fidelity — Relative Strength Index",
+    "url": "https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/RSI",
+    "kind": "documentation_pedagogique",
+    "access": "texte_public_consulte",
+    "accessed_on": "2026-09-09",
+    "limitations": "RSI et persistance possible dans les zones extrêmes."
+  },
+  {
+    "id": "S16",
+    "title": "Tharavanij, Siraprapasiri & Rajchamaha (2017) — Profitability of Candlestick Charting Patterns in the Stock Exchange of Thailand",
+    "url": "https://journals.sagepub.com/doi/full/10.1177/2158244017736799",
+    "kind": "etude_originale",
+    "access": "texte_integral_consultable_passages_et_conclusion_lus",
+    "accessed_on": "2026-09-09",
+    "limitations": "Résultats principalement négatifs sur SET50, 2006–2016; tendance/support/résistance non étudiés."
+  },
+  {
+    "id": "S17",
+    "title": "Lin et al. (2021) — Improving stock trading decisions based on pattern recognition using machine learning technology",
+    "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0255558",
+    "kind": "etude_originale",
+    "access": "texte_integral_consultable_resume_methode_conclusion_lus",
+    "accessed_on": "2026-09-09",
+    "limitations": "Résultats favorables rapportés sur actions chinoises, protocole particulier; non répliqués ici."
+  },
+  {
+    "id": "S18",
+    "title": "David H. Bailey — FAQs on Backtest Overfitting",
+    "url": "https://mathinvestor.org/2014/04/faqs-on-backtest-overfitting/",
+    "kind": "auteur_recherche_methodologique",
+    "access": "texte_public_consulte",
+    "accessed_on": "2026-09-09",
+    "limitations": "Nombre d’essais et réutilisation du jeu de test; FAQ liée aux recherches des auteurs."
+  },
+  {
+    "id": "S19",
+    "title": "Reddit r/algotrading — Need help backtesting price action strategies",
+    "url": "https://www.reddit.com/r/algotrading/comments/1m5glei/need_help_backtesting_price_action_strategies/",
+    "kind": "discussion_communautaire",
+    "access": "messages_publics_consultes",
+    "accessed_on": "2026-09-09",
+    "limitations": "Questions pratiques sur les définitions programmables; témoignages non audités."
+  },
+  {
+    "id": "S20",
+    "title": "Reddit r/algotrading — Dashboard for playing with candlestick patterns using Dash, TA-Lib and vectorbt",
+    "url": "https://www.reddit.com/r/algotrading/comments/j03mn0/i_made_a_dashboard_for_playing_with_candlestick/",
+    "kind": "discussion_communautaire",
+    "access": "messages_publics_consultes",
+    "accessed_on": "2026-09-09",
+    "limitations": "Projet d’exploration de figures et comparaisons; aucune garantie de rentabilité."
+  },
+  {
+    "id": "S21",
+    "title": "Reddit r/algotrading — Backtesting strategies on Heikin Ashi candlesticks",
+    "url": "https://www.reddit.com/r/algotrading/comments/1813qrh/am_i_ever_supposed_to_testbase_my_strategy_on/",
+    "kind": "discussion_communautaire",
+    "access": "messages_publics_consultes",
+    "accessed_on": "2026-09-09",
+    "limitations": "Alerte pratique sur prix synthétiques; justification technique dans S11."
+  },
+  {
+    "id": "S22",
+    "title": "StockCharts TV / David Keller — From Hammer to Harami: Using StockCharts to Crack the Candlestick Code",
+    "url": "https://www.youtube.com/watch?v=ykD18QMBmxc",
+    "kind": "video_pedagogique",
+    "access": "titre_description_indexes_uniquement",
+    "accessed_on": "2026-09-09",
+    "limitations": "Vidéo repérée; pas de visionnage intégral ni de transcription complète vérifiée."
+  },
+  {
+    "id": "S23",
+    "title": "CME Group — Technical Analysis, playlist YouTube",
+    "url": "https://www.youtube.com/playlist?list=PLkJQh4MWlJksvfjIFozNAT3LJ1M_DBBD9",
+    "kind": "playlist_pedagogique",
+    "access": "titres_indexes_uniquement",
+    "accessed_on": "2026-09-09",
+    "limitations": "Repérage de cours; contenu textuel CME utilisé séparément."
+  },
+  {
+    "id": "S24",
+    "title": "CME Group — Micro E-mini Equity Index Futures Products Overview",
+    "url": "https://www.cmegroup.com/education/courses/micro-e-mini-futures/micro-e-mini-futures-products-overview",
+    "kind": "specification_emetteur_marche",
+    "access": "texte_public_consulte",
+    "accessed_on": "2026-09-09",
+    "limitations": "Multiplicateurs des microcontrats; vérifier la fiche exacte avant usage opérationnel."
+  },
+  {
+    "id": "S25",
+    "title": "CME Group — Micro Gold Futures Contract Specifications",
+    "url": "https://www.cmegroup.com/markets/metals/precious/e-micro-gold.contractSpecs.html",
+    "kind": "specification_emetteur_marche",
+    "access": "texte_public_consulte",
+    "accessed_on": "2026-09-09",
+    "limitations": "Contrat MGC et valeur du tick; pas de frais de courtage inclus."
+  },
+  {
+    "id": "S26",
+    "title": "StockCharts ChartSchool — Candlesticks and Support",
+    "url": "https://chartschool.stockcharts.com/table-of-contents/chart-analysis/candlestick-charts/candlesticks-and-support",
+    "kind": "documentation_pedagogique",
+    "access": "texte_public_consulte",
+    "accessed_on": "2026-09-09",
+    "limitations": "Contexte de support; les exemples ne constituent pas un backtest."
+  },
+  {
+    "id": "S27",
+    "title": "StockCharts ChartSchool — Candlesticks and Resistance",
+    "url": "https://chartschool.stockcharts.com/table-of-contents/chart-analysis/candlestick-charts/candlesticks-and-resistance",
+    "kind": "documentation_pedagogique",
+    "access": "texte_public_consulte",
+    "accessed_on": "2026-09-09",
+    "limitations": "Contexte de résistance; pas de probabilité de retournement universelle."
+  },
+  {
+    "id": "S28",
+    "title": "IG Academy — Candlestick Patterns",
+    "url": "https://www.ig.com/sg/ig-academy/the-basics-of-technical-analysis/candlestick-patterns",
+    "kind": "documentation_pedagogique_courtier",
+    "access": "texte_public_indexe",
+    "accessed_on": "2026-09-09",
+    "limitations": "Nomenclature des tweezers et gaps ; assertions de puissance des signaux non retenues comme preuves."
+  }
+]

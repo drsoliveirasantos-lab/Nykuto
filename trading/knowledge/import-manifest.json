@@ -1,0 +1,163 @@
+{
+  "version": 1,
+  "imported_on": "2026-09-09",
+  "baseline_commit": "991db96eb85522e0006fc070f26f8076add47781",
+  "files": [
+    {
+      "path": "packs/rsi/README.md",
+      "sha256": "dbb0f182efec7f3b1844fa4cc21ea3d05aabe4c7e1d097a561120f31b507b211",
+      "bytes": 1801
+    },
+    {
+      "path": "packs/rsi/catalogue_charts.json",
+      "sha256": "dbc904e5b053178f0646dd0f52eef057d8c07f302c458b0257ab9e703a91dfe3",
+      "bytes": 8374
+    },
+    {
+      "path": "packs/rsi/connaissances.json",
+      "sha256": "b81d6421865cbee6376b44539e1c1f322a0afbcbf50b07c9c2a0a645123cb0fa",
+      "bytes": 32940
+    },
+    {
+      "path": "packs/rsi/contrat_analyse.schema.json",
+      "sha256": "15f889d8bca0568ab6414faefd52ea63fdfeb8b49e51a46f8a48dabba91b3c7e",
+      "bytes": 5505
+    },
+    {
+      "path": "packs/rsi/dossier_recherche.md",
+      "sha256": "859400f49d38e8db2a241dd789a478254f989cca88a58a6fd069ff269b010420",
+      "bytes": 44239
+    },
+    {
+      "path": "packs/rsi/exemple_analyse_fictif.json",
+      "sha256": "aec34a72b9450b2ef72a88f2a5e56c46089ea0299a07d1714c6b0c4e95228db7",
+      "bytes": 877
+    },
+    {
+      "path": "packs/rsi/hypotheses_a_tester.json",
+      "sha256": "48f282d655e328a54834cc3f26ad14e780cec7db2090cb362b56b2e0602dd0fc",
+      "bytes": 7037
+    },
+    {
+      "path": "packs/rsi/sources.json",
+      "sha256": "6760fd1b63ba5b13400b77c36a3a8f27b122e986bb0ef9eee364c1547b7db2fa",
+      "bytes": 14908
+    },
+    {
+      "path": "packs/rsi/tests_acceptation.json",
+      "sha256": "1caa1cb3f3beaccc7cf19fe5b3a69eb0525f26ac2f2904734b08d4ba37409c69",
+      "bytes": 7748
+    },
+    {
+      "path": "packs/price-action/INTEGRATION.md",
+      "sha256": "823d41634279519bb1233a019411522f86bcae5699c3ec2481af661b4cac44eb",
+      "bytes": 7444
+    },
+    {
+      "path": "packs/price-action/base_connaissances_price_action.json",
+      "sha256": "67d4c5f8d7b1ba77aa4613fc10f31c925177497e7c9d862649d176af1e00c2a2",
+      "bytes": 43253
+    },
+    {
+      "path": "packs/price-action/cas_evaluation_bot.json",
+      "sha256": "707233a901c313a42989ea00e09b2c993152acc2f4a4cd6fcbd2ec22593374cc",
+      "bytes": 18119
+    },
+    {
+      "path": "packs/price-action/cours_bougies_structure_marche.md",
+      "sha256": "87a8a0061b220bf9dc61a6971f89d6956ecc95c7e3d39e0804a82e55366946e4",
+      "bytes": 50256
+    },
+    {
+      "path": "packs/price-action/documents_price_action.jsonl",
+      "sha256": "83e28860e28beb5b5f3f99591646145213439e2348c869d86854e3d5cf6eb487",
+      "bytes": 29584
+    },
+    {
+      "path": "packs/price-action/sources.json",
+      "sha256": "fcbd857d1a924e64e95e4db26afb28397ef1e6719c205eafa6e560711907e42a",
+      "bytes": 11799
+    },
+    {
+      "path": "packs/news/README.md",
+      "sha256": "fc87b531e80477f9902c9332a56e719b316a3d05dfb157f1257d605b07e51db9",
+      "bytes": 2118
+    },
+    {
+      "path": "packs/news/consignes_bot.md",
+      "sha256": "b25bdbde77b559324734a5b6b3b815f8fcb20e68fa91483112268228cc1e9b1c",
+      "bytes": 3301
+    },
+    {
+      "path": "packs/news/evenement.schema.json",
+      "sha256": "87499a64431823fa261d6334bda7f2c54e7915b3f83f9e1fb632b48e5fe73e24",
+      "bytes": 5337
+    },
+    {
+      "path": "packs/news/politique_news.json",
+      "sha256": "674bc96016b6432a79d9e2a15b4f3e70e92a4901bd04dbb6b10f206f6ef1c59b",
+      "bytes": 2349
+    },
+    {
+      "path": "packs/news/rapport_recherche.md",
+      "sha256": "7b721aeac18fcadf64ffe73c1bc63717c6a156befb351a4fbcaa57186e039656",
+      "bytes": 19272
+    },
+    {
+      "path": "packs/news/registre_sources.md",
+      "sha256": "7067c982cbcacf9b3f9c2668c6045cadb58de5fa29561083ed50478347e2b2c8",
+      "bytes": 23979
+    },
+    {
+      "path": "packs/news/sources.json",
+      "sha256": "a53eace09234fe9b98ffcfb76b4cdd57b735e54daf25378564e144ee52f2e153",
+      "bytes": 92198
+    },
+    {
+      "path": "packs/news/tests_acceptation.md",
+      "sha256": "96f481a85716da9d32b3eb4f14b71cb1f9e1dd3b52c5d84418408feeedc27897",
+      "bytes": 4158
+    }
+  ],
+  "omitted": [
+    {
+      "pack": "rsi",
+      "name": "controle_structure.json",
+      "reason": "Redundant presentation or original pack-only verification; original ZIP retained in the supplied attachments."
+    },
+    {
+      "pack": "rsi",
+      "name": "dossier_recherche.html",
+      "reason": "Redundant presentation or original pack-only verification; original ZIP retained in the supplied attachments."
+    },
+    {
+      "pack": "rsi",
+      "name": "manifest_sha256.json",
+      "reason": "Redundant presentation or original pack-only verification; original ZIP retained in the supplied attachments."
+    },
+    {
+      "pack": "price-action",
+      "name": "CONTROLES_DU_DOSSIER.json",
+      "reason": "Redundant presentation or original pack-only verification; original ZIP retained in the supplied attachments."
+    },
+    {
+      "pack": "price-action",
+      "name": "cours_bougies_structure_marche.html",
+      "reason": "Redundant presentation or original pack-only verification; original ZIP retained in the supplied attachments."
+    }
+  ],
+  "archives": [
+    {
+      "name": "Nykuto_recherche_news_2026-09-09(1).zip",
+      "sha256": "9fbc186812cdca5306d9f67236ee87b1522d24463d7f8ba26ccaaf2c0a39aedc"
+    },
+    {
+      "name": "pack_price_action_bot(1).zip",
+      "sha256": "63ee6f9fbec0953c23cc89146f35cd18ccb802ec97fa639731b542da781d1437"
+    },
+    {
+      "name": "Nykuto_RSI_Tendances_Base_Recherche(1).zip",
+      "sha256": "f947d68f16ef3ae754c2670eeef337211f5858817d47d158d9a2a10571d39c4a"
+    }
+  ]
+}

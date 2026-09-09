@@ -1,0 +1,222 @@
+{
+  "purpose": "Spécifications d’un futur atlas pédagogique et de jeux de tests ; pas une collection d’images recopiées.",
+  "drawing_policy": "Chaque motif doit être accompagné d’un contre-exemple et des heures de disponibilité.",
+  "charts": [
+    {
+      "id": "C01",
+      "name": "Surachat en tendance haussière",
+      "definition": "Prix ascendant avec RSI au-dessus de 70.",
+      "confirmation_proposed": "Aucune entrée automatique.",
+      "counterexample_to_include": "Le prix continue à monter longtemps malgré le premier passage au-dessus de 70.",
+      "source_ids": [
+        "S02"
+      ],
+      "third_party_images_included": false,
+      "profitable_strategy_proven": false
+    },
+    {
+      "id": "C02",
+      "name": "Survente en tendance baissière",
+      "definition": "Prix descendant avec RSI sous 30.",
+      "confirmation_proposed": "Aucune entrée automatique.",
+      "counterexample_to_include": "Chaque nouveau seuil bas est suivi d’un autre plus bas.",
+      "source_ids": [
+        "S04"
+      ],
+      "third_party_images_included": false,
+      "profitable_strategy_proven": false
+    },
+    {
+      "id": "C03",
+      "name": "Divergence régulière haussière",
+      "definition": "Prix LL ; oscillateur HL.",
+      "confirmation_proposed": "Pivots connus, puis éventuelle confirmation de prix définie avant test.",
+      "counterexample_to_include": "Divergence suivie d’une poursuite de la baisse.",
+      "source_ids": [
+        "S03"
+      ],
+      "third_party_images_included": false,
+      "profitable_strategy_proven": false
+    },
+    {
+      "id": "C04",
+      "name": "Divergence régulière baissière",
+      "definition": "Prix HH ; oscillateur LH.",
+      "confirmation_proposed": "Pivots connus, puis éventuelle confirmation de prix définie avant test.",
+      "counterexample_to_include": "Divergence suivie d’une poursuite de la hausse.",
+      "source_ids": [
+        "S03"
+      ],
+      "third_party_images_included": false,
+      "profitable_strategy_proven": false
+    },
+    {
+      "id": "C05",
+      "name": "Divergence cachée haussière",
+      "definition": "Prix HL ; oscillateur LL.",
+      "confirmation_proposed": "Tendance haussière préalable, pivots connus.",
+      "counterexample_to_include": "Dernier creux de prix ensuite invalidé.",
+      "source_ids": [
+        "S01"
+      ],
+      "third_party_images_included": false,
+      "profitable_strategy_proven": false
+    },
+    {
+      "id": "C06",
+      "name": "Divergence cachée baissière",
+      "definition": "Prix LH ; oscillateur HH.",
+      "confirmation_proposed": "Tendance baissière préalable, pivots connus.",
+      "counterexample_to_include": "Cassure du dernier sommet de prix.",
+      "source_ids": [
+        "S01"
+      ],
+      "third_party_images_included": false,
+      "profitable_strategy_proven": false
+    },
+    {
+      "id": "C07",
+      "name": "Extrêmes égaux",
+      "definition": "Double sommet/creux dans une tolérance de prix ou RSI.",
+      "confirmation_proposed": "Tolérances séparées et versionnées.",
+      "counterexample_to_include": "Un écart de moins d’un tick est faussement traité comme un nouveau sommet.",
+      "source_ids": [
+        "S03"
+      ],
+      "third_party_images_included": false,
+      "profitable_strategy_proven": false
+    },
+    {
+      "id": "C08",
+      "name": "Failure swing du RSI",
+      "definition": "Extrême, retour, échec du retest, rupture du pivot RSI intermédiaire.",
+      "confirmation_proposed": "Dernière étape seulement.",
+      "counterexample_to_include": "Retest qui retourne en zone extrême avant la rupture.",
+      "source_ids": [
+        "S01"
+      ],
+      "third_party_images_included": false,
+      "profitable_strategy_proven": false
+    },
+    {
+      "id": "C09",
+      "name": "Tendance, repli et reprise",
+      "definition": "Structure HH/HL puis correction locale.",
+      "confirmation_proposed": "Reprise définie sur barres closes.",
+      "counterexample_to_include": "Le repli devient une rupture de structure.",
+      "source_ids": [
+        "S07"
+      ],
+      "third_party_images_included": false,
+      "profitable_strategy_proven": false
+    },
+    {
+      "id": "C10",
+      "name": "Range",
+      "definition": "Oscillation entre deux zones construites sans futur.",
+      "confirmation_proposed": "Réaction ou sortie observée, selon la stratégie testée.",
+      "counterexample_to_include": "Le troisième contact traverse le niveau au lieu de rebondir.",
+      "source_ids": [
+        "S09"
+      ],
+      "third_party_images_included": false,
+      "profitable_strategy_proven": false
+    },
+    {
+      "id": "C11",
+      "name": "Cassure et retest",
+      "definition": "Franchissement d’une zone, puis retour vers celle-ci.",
+      "confirmation_proposed": "Clôture et délai de retest spécifiés.",
+      "counterexample_to_include": "Fausse cassure avec retour durable dans le range.",
+      "source_ids": [
+        "S09"
+      ],
+      "third_party_images_included": false,
+      "profitable_strategy_proven": false
+    },
+    {
+      "id": "C12",
+      "name": "Drapeau ou fanion",
+      "definition": "Consolidation après déplacement directionnel.",
+      "confirmation_proposed": "Cassure d’une géométrie définie numériquement.",
+      "counterexample_to_include": "Sortie opposée au déplacement précédent.",
+      "source_ids": [
+        "S10"
+      ],
+      "third_party_images_included": false,
+      "profitable_strategy_proven": false
+    },
+    {
+      "id": "C13",
+      "name": "Triangle",
+      "definition": "Resserrement entre limites convergentes.",
+      "confirmation_proposed": "Sortie confirmée, sans supposer son sens.",
+      "counterexample_to_include": "Première sortie avortée.",
+      "source_ids": [
+        "S10"
+      ],
+      "third_party_images_included": false,
+      "profitable_strategy_proven": false
+    },
+    {
+      "id": "C14",
+      "name": "Double sommet ou double creux",
+      "definition": "Deux tests de zone séparés par un mouvement intermédiaire.",
+      "confirmation_proposed": "Rupture du niveau intermédiaire selon une convention fixée.",
+      "counterexample_to_include": "Deux sommets qui précèdent une accélération haussière.",
+      "source_ids": [
+        "S11"
+      ],
+      "third_party_images_included": false,
+      "profitable_strategy_proven": false
+    },
+    {
+      "id": "C15",
+      "name": "Épaules-tête-épaules et inverse",
+      "definition": "Trois extrêmes structurés autour d’un central plus marqué.",
+      "confirmation_proposed": "Rupture de la ligne de cou construite avec pivots connus.",
+      "counterexample_to_include": "Ligne de cou jamais rompue, ou rupture immédiatement invalidée.",
+      "source_ids": [
+        "S11"
+      ],
+      "third_party_images_included": false,
+      "profitable_strategy_proven": false
+    },
+    {
+      "id": "C16",
+      "name": "Compression des bandes",
+      "definition": "Réduction de la largeur de l’enveloppe de volatilité.",
+      "confirmation_proposed": "Expansion puis règle de direction indépendante.",
+      "counterexample_to_include": "Compression prolongée sans départ exploitable.",
+      "source_ids": [
+        "S29"
+      ],
+      "third_party_images_included": false,
+      "profitable_strategy_proven": false
+    },
+    {
+      "id": "C17",
+      "name": "Rejet par mèche",
+      "definition": "Grande mèche relativement au corps et à l’étendue.",
+      "confirmation_proposed": "Seuils et position dans la structure fixés.",
+      "counterexample_to_include": "Mèche identique dans une zone sans intérêt ou avant continuation.",
+      "source_ids": [
+        "S08"
+      ],
+      "third_party_images_included": false,
+      "profitable_strategy_proven": false
+    },
+    {
+      "id": "C18",
+      "name": "Piège du pivot rétrospectif",
+      "definition": "Marqueur placé sur la bougie du pivot après confirmation tardive.",
+      "confirmation_proposed": "Afficher aussi l’heure de détection réelle.",
+      "counterexample_to_include": "Backtest qui achète au pivot avant les bougies nécessaires pour le connaître.",
+      "source_ids": [
+        "S18"
+      ],
+      "third_party_images_included": false,
+      "profitable_strategy_proven": false
+    }
+  ]
+}
