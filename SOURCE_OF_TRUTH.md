@@ -268,3 +268,13 @@ Public Discord-community archives are distinguished from inaccessible private
 Discord channels. No live, Paper or Shadow execution is enabled. Historical
 PR83 body is preserved in `docs/trading-pr83-history-through-game25.md` to
 allow a concise current PR description within GitHub's length limit.
+
+
+Game 27 adds a bounded filter diagnostic: twelve January–April configurations,
+all below qualification. The existing Game23 engine and all earlier freezes
+remain unchanged. The public aggregate report and current Lab panel show both
+cost paths, the MNQ trend-only comparison, an archived Game20 monthly breakdown,
+and the official LucidFlex 25K/50K differences. This is not an H1/M5 strategy
+or a 50K account backtest. No new holdout is opened; 69 trials remain recorded.
+Private executions are in `jeu27/filter-diagnostic-v1/manifest.json`.
+See `trading/lab/JEU27_PROTOCOL.md`, `JEU27_RESULTS.md`, and `JEU27_ARCHIVE.md`.
