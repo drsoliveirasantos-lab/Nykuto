@@ -1,4 +1,10 @@
-# Jeu 27 — moins de filtres, mais toujours aucun bot validé
+# Audit F1 des filtres — moins de filtres, mais toujours aucun bot validé
+
+**Mise à jour de contexte :** les Jeux 27–32 ont été retrouvés sur une autre
+branche. Le numéro 27 de cet audit est provisoire et ne remplace pas leur Jeu 27.
+Le H1/M5 a déjà été testé au Jeu 32. Pour la décision actuelle et les prochains
+tests, lire d’abord la [synthèse consolidée](RESEARCH_SYNTHESIS_2026-09-09.md).
+Les résultats et le gel ci-dessous restent inchangés.
 
 Le 9 septembre 2026, douze configurations ont été exécutées après le gel
 `64088f436a4c8113b1c310aae906c4dd4c09280c`. Les douze échouent aux critères.
@@ -142,7 +148,7 @@ prématuré au vu de ces résultats.
 
 ## Prochaine expérimentation justifiée
 
-Priorité de recherche : MNQ retour après cassure, comparer la tendance actuelle
+Piste formulée avant la découverte de la branche Jeu 32 : MNQ retour après cassure, comparer la tendance actuelle
 au H1/M5 correctement défini. Puis ajouter séparément pivots, open de séance et
 FVG ; comparer 1,5R et 2R. Identifier auparavant si l'open/pivot voulu est cash
 ou futures : les archives cash ne permettent pas de fabriquer l'overnight.

@@ -668,3 +668,13 @@ and the official LucidFlex 25K/50K differences. This is not an H1/M5 strategy
 or a 50K account backtest. No new holdout is opened; 69 trials remain recorded.
 Private executions are in `jeu27/filter-diagnostic-v1/manifest.json`.
 See `trading/lab/JEU27_PROTOCOL.md`, `JEU27_RESULTS.md`, and `JEU27_ARCHIVE.md`.
+
+
+Research continuation must also consult `trading/lab/research-catalog.json`.
+The branch `research/trading-game32-trend500` at `9df4d691122ff6b2137da4bc93e30a4ddf1aac31`
+contains the latest Games27–32. The filter diagnostic provisionally named Game27
+in this checkout is audit F1, with distinct frozen files and private archive;
+it must not overwrite the research branch's Game27 reentry experiment. The
+current Lab synopsis links both histories. Their 57 shared configuration keys
+are deduplicated in a catalog of 86 keys, with zero independent confirmations.
+See `trading/lab/RESEARCH_SYNTHESIS_2026-09-09.md` before new work.

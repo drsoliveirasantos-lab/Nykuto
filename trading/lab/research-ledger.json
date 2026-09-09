@@ -1,6 +1,6 @@
 {
   "schema": "research-ledger-v1",
-  "scope": "Jeux 19\u201327 only; earlier studies remain in their own reports",
+  "scope": "Published Games 19\u201326 plus audit F1 (provisional game27 filenames); see research-catalog.json for research Games 27\u201332",
   "configurationCount": 69,
   "independentConfirmations": 0,
   "entries": [
