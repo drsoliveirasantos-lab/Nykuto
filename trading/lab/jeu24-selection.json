@@ -1,0 +1,10 @@
+{
+  "schema": "jeu24-selection-v1",
+  "id": null,
+  "attempted": 16,
+  "cumulativeAttempts": 49,
+  "freezeSha256": "6f762afc85b4ef830449ad5481963f6c4171e35da42494bd422fcdfc30cb453c",
+  "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+  "trainEnd": "2026-05-01",
+  "createdAt": "2026-09-09T12:27:57.852Z"
+}

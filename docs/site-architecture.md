@@ -611,3 +611,18 @@ both cost assumptions, all failed gates, daily counts and incomplete windows.
 the Game 20 failed reserve, to support avoiding identical research repeats.
 Licensed sources and individual trades remain in private TRADING_DATASETS.
 See `JEU21_RESULTS.md`, `JEU22_RESULTS.md` and `JEU21_22_ARCHIVE.md`.
+
+
+Game 24 adds a frozen combined-context entry gate to the Game 23 retest engine.
+`jeu24-context.mjs` joins causal EMA/VWAP trend, confirmed swings, Wilder RSI,
+same-time previous-session volume and alternative candle shapes;
+`jeu24-engine.mjs` enforces that gate before the unchanged one-contract simulator.
+All 16 new configurations fail; 6 of 209 candidate signals survive and each
+profile executes at most two trades. No reserve is opened.
+`lab-combined-context.mjs` displays the checksum-pinned aggregates, equal-risk
+Game 23 comparison and fixed-order signal funnel as the current Lab panel;
+Game 23 and all earlier IDs remain in expandable archives. The research ledger
+now retains 49 configurations from Games 19–24. Private contexts and individual
+trades are archived in TRADING_DATASETS at `jeu24/combined-context-v1/manifest.json`.
+See `trading/lab/JEU24_PROTOCOL.md`, `JEU24_RESULTS.md` and `JEU24_ARCHIVE.md`.
+No live/Paper/Shadow activation, collection change or independent confirmation.
