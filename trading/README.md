@@ -2,9 +2,24 @@
 
 Private personal trading workspace intended for `trading.nykuto.com`.
 
+## Current Lab — cross-market audit
+
+The Lab opens with `/lab/#marketAudit`: 126 distinct normal-cost diagnostic
+trades, all 67 archived trials reconciled, 264 exit checks and 138 causal context
+prefix checks. Thirty-two views compare winners, losers, unknown confirmations,
+pre-entry features, price-path bounds, sides, hours, weekdays, exits and refusals.
+Initial and doubled costs use explicit matched/unmatched-trade attribution.
+The report distinguishes the August diagnostic from its account model.
+
+MGC's time-of-day split is a future test hypothesis; MNQ's August losing trades
+never reached +1R, and MES/MYM remain weak. No strategy is newly qualified, no
+filter is activated and the ledger remains unchanged. See the complete
+[market audit](lab/MARKET_AUDIT_RESULTS.md) and its
+[method](lab/MARKET_AUDIT_PROTOCOL.md).
+
 ## Latest Lab comparison — Jeu 30, August 2026
 
-The current Lab opens at `/lab/#augustGame`. Diego explicitly requested August;
+The August panel remains at `/lab/#augustGame`. Diego explicitly requested August;
 the same Game 29 economic rules were frozen locally before calculating it.
 All four markets have 21 complete sessions. The continuous 25K account model
 loses 561.50 USD on 26 trades at initial costs and 887 USD on 17 trades with

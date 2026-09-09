@@ -9,7 +9,8 @@ const states = { positive: 'Positive', negative: 'Négative', 'flat-active': 'Ac
   'missing-data': 'Données absentes', 'stopped-target': 'Arrêt après objectif', 'stopped-breach': 'Arrêt après seuil' };
 const reasons = { occupied: 'Compte occupé', netReward: 'Gain potentiel net insuffisant', dailyEntries: 'Deux entrées déjà utilisées',
   sideLimit: 'Sens déjà utilisé', simultaneous: 'Autre signal simultané admis', tradeRisk: 'Plafond par trade',
-  dailyBudget: 'Budget quotidien', dailyBrake: 'Frein quotidien', floorReserve: 'Réserve du seuil' };
+  dailyBudget: 'Budget quotidien', dailyBrake: 'Frein quotidien', floorReserve: 'Réserve du seuil',
+  invalidStop: 'Stop non admissible', returnedInside: 'Retour dans la zone', outsideRange: 'Entrée hors de la zone' };
 let report = null, loading = false;
 function clear() { for (const id of ['Summary', 'Weeks', 'Days', 'Contributions', 'Refusals']) $(id).replaceChildren(); $('Activity').textContent = ''; }
 function show() {
