@@ -1,0 +1,25 @@
+{
+  "provider": "Massive",
+  "resolution": "5min",
+  "bytes": 4331838,
+  "sha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+  "mnqBytes": 2426693,
+  "mnqSha256": "028e914bb10ea38b73b6fcbc867c5d81937b967701448913fc88ca85746557cf",
+  "rawPublic": false,
+  "reusedSource": "Same pinned Jeu19/Jeu14 history; August explicitly requested; not independently unseen across prior studies",
+  "ledgerBefore": {
+    "configurations": 66,
+    "sha256": "221704492c9c4e06226fc0599dc99c33bba39d7cce53cdc839686d2a90847725"
+  },
+  "profilesCommit": "df9e141cb787589b55f0490f832ef799d8052ce3",
+  "newConfigurations": 1,
+  "authorization": {
+    "date": "2026-09-09",
+    "period": {
+      "start": "2026-08-01",
+      "end": "2026-09-01"
+    },
+    "scope": "User explicitly requested August day-by-day and week-by-week tests; separately versioned exception to the old reserve protocol"
+  },
+  "economicRulesChanged": false
+}

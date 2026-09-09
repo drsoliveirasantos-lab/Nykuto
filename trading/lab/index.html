@@ -36,8 +36,9 @@
   <script src="./lab-break-even.mjs?v=1" type="module"></script>
   <script src="./lab-market-profiles.mjs?v=1" type="module"></script>
   <script src="./lab-portfolio.mjs?v=1" type="module"></script>
+  <script src="./lab-august.mjs?v=1" type="module"></script>
   <link rel="stylesheet" href="./lab-market.css?v=2">
-  <link rel="stylesheet" href="./lab-workspace.css?v=7">
+  <link rel="stylesheet" href="./lab-workspace.css?v=8">
   <script src="./lab-workspace.mjs?v=2" type="module"></script>
 </head>
 <body>
@@ -74,6 +75,25 @@
     </div>
     <noscript><p>Active JavaScript pour changer de vue et consulter le suivi.</p></noscript>
     <div id="view-current" class="lab-view" role="tabpanel" aria-labelledby="tab-current" tabindex="0">
+    <section class="panel independent-game market-game" id="augustGame" aria-labelledby="augustTitle">
+      <div class="panel-heading"><div><p class="panel-kicker">JEU 30 · AOÛT 2026</p><h3 id="augustTitle">Le mois d’août, jour par jour</h3></div><span class="lab-status planned" id="augustStatus" role="status" aria-live="polite">Vérification du bilan…</span></div>
+      <div class="iv-content"><p class="iv-intro">Les quatre profils du Jeu 29 sont testés sur août avec les mêmes règles. Une position, deux entrées par jour au total, plafond 150 $ frais compris et budget quotidien 300 $.</p><p class="iv-message" id="augustMessage" role="status" aria-live="polite">Lecture du rapport d’août.</p>
+        <div class="timeframe-filters"><div><label for="augustMode">Lecture du mois</label><select id="augustMode" disabled><option value="account">Compte simulé 25K</option><option value="diagnostic">Diagnostic du mois complet</option></select></div><div><label for="augustCosts">Coûts pour les détails</label><select id="augustCosts" disabled><option value="normal">Initiaux</option><option value="stress">Doublés</option></select></div></div>
+        <button type="button" id="augustRetry">Revérifier le bilan</button>
+        <div id="augustResults" hidden>
+          <div class="iv-table-wrap" role="region" aria-label="Bilan mensuel d’août" tabindex="0"><table class="iv-table"><caption>Même mois, deux coûts entièrement resimulés. Net après frais ; capital initial 25 000 $.</caption><thead><tr><th scope="col">Coûts</th><th scope="col">Trades</th><th scope="col">Net $</th><th scope="col">Solde final $</th><th scope="col">Drawdown $</th><th scope="col">Trades positifs</th><th scope="col">Résultat du mode</th></tr></thead><tbody id="augustSummary"></tbody></table></div>
+          <p id="augustActivity"></p>
+          <details class="iv-help" open><summary>Semaine par semaine</summary><div class="iv-table-wrap" role="region" aria-label="Semaines d’août" tabindex="0"><table class="iv-table"><caption>Le capital reste continu : aucune remise à zéro hebdomadaire. La semaine du 31 août ne contient qu’une séance dans ce mois.</caption><thead><tr><th scope="col">Semaine</th><th scope="col">Séances simulées</th><th scope="col">Trades</th><th scope="col">Net $</th><th scope="col">Cumul du mois $</th><th scope="col">Solde $</th></tr></thead><tbody id="augustWeeks"></tbody></table></div></details>
+          <details class="iv-help" open><summary>Les 21 séances d’août</summary><div class="iv-table-wrap" role="region" aria-label="Résultats quotidiens d’août" tabindex="0"><table class="iv-table"><caption>Dates des séances à New York. Les journées sans trade restent visibles. Un résultat non calculé après arrêt n’est pas remplacé par zéro.</caption><thead><tr><th scope="col">Date</th><th scope="col">Trades</th><th scope="col">Net du jour $</th><th scope="col">Cumul $</th><th scope="col">Solde $</th><th scope="col">Journée</th></tr></thead><tbody id="augustDays"></tbody></table></div></details>
+          <details class="iv-help"><summary>Contribution des quatre marchés</summary><div class="iv-table-wrap" role="region" aria-label="Contributions d’août" tabindex="0"><table class="iv-table"><thead><tr><th scope="col">Marché</th><th scope="col">Trades</th><th scope="col">Net $</th><th scope="col">Coûts $</th></tr></thead><tbody id="augustContributions"></tbody></table></div></details>
+          <details class="iv-help"><summary>Motifs de refus</summary><div class="iv-table-wrap" role="region" aria-label="Refus du mois d’août" tabindex="0"><table class="iv-table"><thead><tr><th scope="col">Motif</th><th scope="col">Candidats</th></tr></thead><tbody id="augustRefusals"></tbody></table></div></details>
+        </div>
+        <details class="iv-help"><summary>Ce que signifient les deux lectures</summary><p>Le diagnostic conserve les budgets quotidiens mais ignore le seuil et l’objectif de compte. Le compte 25K applique le modèle historique du Lab, avec seuil ajusté en fin de journée, réserve 100 $ et arrêt à l’objectif ou au franchissement du seuil. Il ne certifie pas les règles actuelles d’un fournisseur.</p><p>Le drawdown mensuel est calculé trade par trade ; il peut dépasser la baisse visible entre deux soldes de fin de journée. Les coûts doublés peuvent modifier les admissions et la suite des trades.</p></details>
+        <p>Août est évalué à ta demande. Aucune règle n’a été ajustée sur ses résultats ; ce mois est désormais consommé pour ce portefeuille. 67 essais conservés, aucune confirmation indépendante et aucun ordre autorisé.</p>
+        <p><a href="./JEU30_PROTOCOL.md">Protocole d’août</a> · <a href="./JEU30_RESULTS.md">Bilan quotidien et hebdomadaire</a> · <a href="./research-ledger.json">Registre</a></p>
+      </div>
+    </section>
+    <details class="lab-archive"><summary><span class="archive-number">29</span><span class="archive-title"><strong>Quatre profils sur un compte commun</strong><small>Janvier–avril · cinq critères en échec</small></span><span class="archive-state neutral">Historique</span><span class="archive-toggle" aria-hidden="true">+</span></summary>
     <section class="panel independent-game market-game" id="portfolioGame" aria-labelledby="portfolioTitle">
       <div class="panel-heading"><div><p class="panel-kicker">JEU 29 · COMPTE COMMUN</p><h3 id="portfolioTitle">Que donnent les quatre profils ensemble ?</h3></div><span class="lab-status planned" id="portfolioStatus" role="status" aria-live="polite">Vérification du bilan…</span></div>
       <div class="iv-content"><p class="iv-intro">Les signaux sont rejoués dans le temps avec une seule position et deux entrées par jour pour l’ensemble des marchés. MNQ/MYM : protection après +1R ; MES : référence ; MGC : cassure échouée.</p><p class="iv-message" id="portfolioMessage" role="status" aria-live="polite">Lecture du rapport du compte commun.</p>
@@ -91,6 +111,7 @@
         <p><a href="./JEU29_PROTOCOL.md">Protocole du test</a> · <a href="./JEU29_RESULTS.md">Résultats et limites</a> · <a href="./research-ledger.json">Registre des essais</a></p>
       </div>
     </section>
+    </details>
     <section class="panel independent-game market-game" id="marketProfiles" aria-labelledby="profilesTitle">
       <div class="panel-heading"><div><p class="panel-kicker">STRATÉGIES PAR MARCHÉ</p><h3 id="profilesTitle">Quatre profils de recherche, un risque commun</h3></div><span class="lab-status planned" id="profilesStatus" role="status" aria-live="polite">Vérification des bilans…</span></div>
       <div class="iv-content"><p class="iv-intro">Chaque marché conserve sa piste et ses critères. Les menus permettent de consulter une autre stratégie pour ce marché seulement. Au rechargement, les pistes initiales reviennent ; aucun choix ne lance de trade.</p><p>Ces pistes sont choisies après lecture des résultats existants. Elles ne sont pas qualifiées et ne constituent pas un nouveau backtest. Janvier–avril 2026, plafond 150 $ par trade et marchés simulés séparément : les gains ne s’additionnent pas en portefeuille.</p>

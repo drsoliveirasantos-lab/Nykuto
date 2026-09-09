@@ -1,7 +1,7 @@
 {
   "schema": "research-ledger-v1",
-  "scope": "Jeux 19–29 only; earlier studies remain in their own reports",
-  "configurationCount": 66,
+  "scope": "Jeux 19–30 only; earlier studies remain in their own reports",
+  "configurationCount": 67,
   "independentConfirmations": 0,
   "entries": [
     {
@@ -1400,6 +1400,29 @@
           "game": 28
         }
       ]
+    },
+    {
+      "game": 30,
+      "id": "PORTFOLIO/august-shared150",
+      "executionKey": "9ffec90bc803a5f802d3fd7222de7e9f4f080df38efaf3b48172a65dbd558f6e",
+      "freezeSha256": "b53c6709bf99a182dca1dd14a8f82db305d85ca1e1f16129e9bd7b94bf53e709",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "PORTFOLIO/august-shared150",
+      "phase": "requested-august-evaluation",
+      "start": "2026-08-01",
+      "end": "2026-09-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "evaluated-by-request",
+      "holdoutPassed": false,
+      "confirmed": false,
+      "report": "jeu30-report.json",
+      "riskPerTrade": 150,
+      "dailyLoss": 300,
+      "floorReserve": 100,
+      "quantity": 1,
+      "economicRulesChanged": false,
+      "context": "User-requested August review of unchanged Game29 profiles; no automatic qualification; month consumed for this portfolio"
     }
   ]
 }

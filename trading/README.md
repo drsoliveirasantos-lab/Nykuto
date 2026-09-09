@@ -2,16 +2,35 @@
 
 Private personal trading workspace intended for `trading.nykuto.com`.
 
-## Latest Lab comparison — Jeu 29
+## Latest Lab comparison — Jeu 30, August 2026
 
-The current Lab opens at `/lab/#portfolioGame`: four profiles are replayed
+The current Lab opens at `/lab/#augustGame`. Diego explicitly requested August;
+the same Game 29 economic rules were frozen locally before calculating it.
+All four markets have 21 complete sessions. The continuous 25K account model
+loses 561.50 USD on 26 trades at initial costs and 887 USD on 17 trades with
+costs doubled. Neither objective nor floor is reached. The full diagnostic,
+without account floor/target checks, loses 975 USD on 18 stress trades.
+
+The panel shows 21 daily rows, five weekly groups (August 31 is partial),
+continuous balances, market contributions and refusal reasons for both modes
+and both costs. It distinguishes missing data and stopped days from no-trade
+days and clears stale results on a failed refresh. No August optimization was
+performed. August is now observed for this portfolio; the 66 old ledger entries
+remain intact and the requested evaluation brings the total to 67 trials.
+The portfolio remains unqualified and execution remains disabled. See
+[JEU30_RESULTS.md](lab/JEU30_RESULTS.md) for the complete daily and weekly tables.
+
+## Archived Lab comparison — Jeu 29
+
+The archived panel at `/lab/#portfolioGame` shows how four profiles are replayed
 chronologically with one position and two daily entries for the entire account.
 The 80 common complete sessions give +492.75 USD on 100 trades, but March–April
 loses 190 USD and realized drawdown reaches 13.05R. Five criteria fail. Both
 windows have missing sessions, so neither is a complete 25K account evaluation.
 The panel shows both costs, market contributions, daily activity and rejected
-candidates. One new joint configuration brings the ledger to 66 trials; reserve
-May–August remains closed and all execution remains disabled. See
+candidates. At that stage, one new joint configuration brought the ledger to
+66 trials and reserve May–August remained closed. Game 30 subsequently evaluates
+August by request. All execution remains disabled. See
 [JEU29_RESULTS.md](lab/JEU29_RESULTS.md) for results, method and limits.
 
 ## Market research profiles
@@ -34,8 +53,8 @@ Game 23 fixed150 entries and excludes the Game 27 reentries. MNQ improves from
 +887.50 to +931.50 USD on the same 36 trades because one loss becomes zero;
 MES/MGC deteriorate and MYM remains negative. All four fail qualification.
 The panel shows both costs, matched-entry effects, daily activity and limits.
-The ledger retains 65 trials with no independent confirmation; the May–August
-reserve remains unscored. Game 27 and earlier comparisons remain archived.
+At that stage the ledger retained 65 trials with no independent confirmation;
+the May–August reserve was unscored. Game 27 and earlier comparisons remain archived.
 See [JEU28_RESULTS.md](lab/JEU28_RESULTS.md).
 
 ## Earlier comparison — Jeu 06
