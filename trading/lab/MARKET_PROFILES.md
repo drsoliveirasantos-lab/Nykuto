@@ -3,7 +3,9 @@
 Le 9 septembre 2026, Diego a demandé de poursuivre la spécialisation du bot
 par marché. Cette évolution organise des profils indépendants et ajoute un
 contrôle partagé du risque. Elle ne calcule aucune nouvelle performance et
-ne qualifie aucune stratégie. Le registre reste à 65 essais, sans modification.
+ne qualifie aucune stratégie. À cette étape, le registre restait à 65 essais, sans modification.
+Le [Jeu 29](JEU29_RESULTS.md), réalisé ensuite, ajoute un replay commun :
+66 essais au registre, profils toujours non qualifiés.
 
 ## Pistes initiales
 
