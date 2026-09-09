@@ -1,0 +1,10 @@
+{
+  "schema": "jeu23-selection-v1",
+  "id": null,
+  "attempted": 16,
+  "cumulativeAttempts": 33,
+  "freezeSha256": "75909f9fc39b9d4b58e6628695ca0a5b2f4fa2388c78782481879cedb37b59f5",
+  "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+  "trainEnd": "2026-05-01",
+  "createdAt": "2026-09-09T11:39:01.560Z"
+}
