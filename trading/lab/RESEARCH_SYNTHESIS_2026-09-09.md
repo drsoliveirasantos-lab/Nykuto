@@ -1,4 +1,6 @@
-# Nykuto — bilan consolidé avant les prochains tests
+# Nykuto — bilan consolidé avant le Jeu 33
+
+**Mise à jour : le comparatif 25K/50K a été exécuté.** Le 50K termine juin–août à +691,25 $ aux coûts normaux et +265,50 $ au stress, sans atteindre l’objectif. [Bilan actuel du Jeu 33](JEU33_RESULTS.md). Le texte ci-dessous conserve le raisonnement antérieur au test.
 
 **Le 50K offre davantage de marge à risque identique, mais les tests ne justifient
 pas encore l'achat d'un compte pour faire tourner le bot.** Aucun scénario de

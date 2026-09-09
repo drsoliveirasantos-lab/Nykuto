@@ -288,3 +288,16 @@ it must not overwrite the research branch's Game27 reentry experiment. The
 current Lab synopsis links both histories. Their 57 shared configuration keys
 are deduplicated in a catalog of 86 keys, with zero independent confirmations.
 See `trading/lab/RESEARCH_SYNTHESIS_2026-09-09.md` before new work.
+
+
+Game 33 executes the owner-selected LucidFlex 50K comparison at fixed100 and
+reduced100/50/25 risk, with 25K controls: four configurations, 32 summer
+replays, all exploratory. The 50K continuous result is +691.25 USD normal /
++265.50 stress; August remains negative and the evaluation target is not met.
+The published Lab now includes account/period comparison, market contributions,
+and an evaluation-versus-funded consistency calculator. No broker execution.
+Eleven missing pure dependencies are imported unchanged from research commit
+9df4d691122ff6b2137da4bc93e30a4ddf1aac31; historical freezes remain intact.
+The published ledger holds 73 entries and the cross-history catalog 90 unique
+configuration keys. See trading/lab/JEU33_PROTOCOL.md and JEU33_RESULTS.md.
+Private archive: jeu33/account-sizing-v1/manifest.json, fully read back.

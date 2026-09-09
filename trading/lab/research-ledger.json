@@ -1,7 +1,7 @@
 {
   "schema": "research-ledger-v1",
-  "scope": "Published Games 19\u201326 plus audit F1 (provisional game27 filenames); see research-catalog.json for research Games 27\u201332",
-  "configurationCount": 69,
+  "scope": "Published Games 19\u201326, audit F1 and Game 33; research-catalog.json also preserves research Games 27\u201332",
+  "configurationCount": 73,
   "independentConfirmations": 0,
   "entries": [
     {
@@ -1360,6 +1360,74 @@
       "holdoutPassed": null,
       "confirmed": false,
       "report": "jeu27-report.json"
+    },
+    {
+      "game": 33,
+      "id": "PORTFOLIO/25k-fixed100",
+      "executionKey": "9121e49b20467776752e633c26db864e2edf2533d402d44ca02dc50aae2fcbb0",
+      "freezeSha256": "1a5b0543852dcbbfe5883139aa8e54063fbca66543fe3c86284da3b0f4cc5022",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "25k-fixed100",
+      "phase": "diagnostic",
+      "start": "2026-06-01",
+      "end": "2026-09-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu33-report.json"
+    },
+    {
+      "game": 33,
+      "id": "PORTFOLIO/25k-reduced100",
+      "executionKey": "72603c459aeaf200eb510d460eb7f0026049e78e92b8b1afe33d9ecde8f5b1fd",
+      "freezeSha256": "1a5b0543852dcbbfe5883139aa8e54063fbca66543fe3c86284da3b0f4cc5022",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "25k-reduced100",
+      "phase": "diagnostic",
+      "start": "2026-06-01",
+      "end": "2026-09-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu33-report.json"
+    },
+    {
+      "game": 33,
+      "id": "PORTFOLIO/50k-fixed100",
+      "executionKey": "a82b27d17a0934d54277337a631d497ab5bbcf0359eba00a77ed0ad60291ea48",
+      "freezeSha256": "1a5b0543852dcbbfe5883139aa8e54063fbca66543fe3c86284da3b0f4cc5022",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "50k-fixed100",
+      "phase": "diagnostic",
+      "start": "2026-06-01",
+      "end": "2026-09-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu33-report.json"
+    },
+    {
+      "game": 33,
+      "id": "PORTFOLIO/50k-reduced100",
+      "executionKey": "20acaffa1c9cb2e67e00919c06df6e6b1b4fec2a5a3fe56f463e4c48ab364ea8",
+      "freezeSha256": "1a5b0543852dcbbfe5883139aa8e54063fbca66543fe3c86284da3b0f4cc5022",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "50k-reduced100",
+      "phase": "diagnostic",
+      "start": "2026-06-01",
+      "end": "2026-09-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu33-report.json"
     }
   ]
 }

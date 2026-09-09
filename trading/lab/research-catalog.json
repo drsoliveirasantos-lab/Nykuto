@@ -2,7 +2,7 @@
   "schema": "research-catalog-v1",
   "checkedAt": "2026-09-09",
   "independentConfirmations": 0,
-  "uniqueConfigurationKeys": 86,
+  "uniqueConfigurationKeys": 90,
   "sharedConfigurationKeys": 57,
   "countIsNotIndependentTrials": true,
   "sources": [
@@ -21,6 +21,14 @@
       "configurationCount": 74,
       "reportSha256": "0866d4c8b40493a5747ac5aa73251887e1272f2831c9d79f3c525604c4437035",
       "note": "Latest H1/M5 and summer research; consult before new strategy decisions."
+    },
+    {
+      "namespace": "game33-account-comparison",
+      "ref": "c8fa2449db65bbf988eb6d0051cec1e8b867cd68",
+      "ledger": "research-ledger.json",
+      "configurationCount": 4,
+      "reportSha256": "6650ae7ea8061e94d1c24142d516cd29aabd8d03cfb91a71da08c05092392a57",
+      "note": "Four exploratory account configurations; 32 replays are not independent trials."
     }
   ],
   "entries": [
@@ -595,6 +603,30 @@
       "sources": [
         "published-site-plus-filter-audit-F1",
         "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "9121e49b20467776752e633c26db864e2edf2533d402d44ca02dc50aae2fcbb0",
+      "sources": [
+        "game33-account-comparison"
+      ]
+    },
+    {
+      "executionKey": "72603c459aeaf200eb510d460eb7f0026049e78e92b8b1afe33d9ecde8f5b1fd",
+      "sources": [
+        "game33-account-comparison"
+      ]
+    },
+    {
+      "executionKey": "a82b27d17a0934d54277337a631d497ab5bbcf0359eba00a77ed0ad60291ea48",
+      "sources": [
+        "game33-account-comparison"
+      ]
+    },
+    {
+      "executionKey": "20acaffa1c9cb2e67e00919c06df6e6b1b4fec2a5a3fe56f463e4c48ab364ea8",
+      "sources": [
+        "game33-account-comparison"
       ]
     }
   ]
