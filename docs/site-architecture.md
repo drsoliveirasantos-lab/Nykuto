@@ -793,3 +793,15 @@ retry retains all choices. `MARKET_AUDIT_PROTOCOL.md` and
 MGC's observed time-of-day split is a hypothesis for a separate future replay,
 not an active filter. The module is descriptive; no broker, live feed, paper
 execution, collection schedule, account rule or secret is changed.
+
+
+The RSI clarification adds a separate 30/70 supplement to `#marketAudit`.
+The earlier RSI confirmation is now explicitly labeled as >50 for buys / <50
+for sells. `rsi-zones.mjs` classifies raw RSI14 values at the closed signal as
+below30, between30 and70, above70 or unknown, and distinguishes crossings out
+of extremes on the latest closed bar. The supplement preserves trade direction,
+wins/losses/zero outcomes and all 32 market/window/cost views. It reuses the same
+126 primary observations and changes no strategy rule or ledger entry.
+`RSI_ZONES_METHOD.md` and `RSI_ZONES_RESULTS.md` document the user clarification,
+small samples and fixed thresholds. The original audit report stays immutable;
+the separate aggregate is checked against its parent totals before rendering.

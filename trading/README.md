@@ -17,6 +17,11 @@ filter is activated and the ledger remains unchanged. See the complete
 [market audit](lab/MARKET_AUDIT_RESULTS.md) and its
 [method](lab/MARKET_AUDIT_PROTOCOL.md).
 
+The RSI supplement explicitly separates the previous 50-level momentum test
+from oversold/overbought zones below30/above70, their latest-bar exit crossings
+and trade direction. It adds no strategy filter. See
+[RSI zones](lab/RSI_ZONES_RESULTS.md).
+
 ## Latest Lab comparison — Jeu 30, August 2026
 
 The August panel remains at `/lab/#augustGame`. Diego explicitly requested August;

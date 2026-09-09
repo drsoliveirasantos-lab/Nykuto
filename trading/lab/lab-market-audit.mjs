@@ -1,17 +1,18 @@
 import { verifyMarketAudit } from './market-audit-validation.mjs';
+import { verifyRsiZones } from './rsi-zone-validation.mjs';
 import { MARKET_AUDIT_FINDINGS, AUDIT_REASON_LABELS } from './market-audit-findings.mjs';
 const $ = id => document.getElementById('audit' + id);
 const num = (n, d = 2) => n === null ? '—' : n === 'Infinity' ? '∞' : new Intl.NumberFormat('fr-FR', { maximumFractionDigits: d, minimumFractionDigits: d }).format(n);
 const money = n => n === null ? '—' : `${n > 0 ? '+' : ''}${num(n)} $`;
 const el = (tag, text) => { const n = document.createElement(tag); n.textContent = text; return n; };
 const row = (body, values) => { const tr = el('tr', ''); values.forEach(v => tr.append(el('td', String(v)))); body.append(tr); };
-const tableIds = ['Overview', 'Outcomes', 'Confirmations', 'Features', 'Groups', 'Refusals', 'CostEffects'];
-const labels = { trend: 'EMA + VWAP alignés au sens', structure: 'Swings confirmés alignés', momentum: 'RSI du côté du trade', volume: 'Volume relatif ≥ 1', pattern: 'Forme directionnelle définie' };
+const tableIds = ['Overview', 'Outcomes', 'Confirmations', 'Features', 'Groups', 'Refusals', 'CostEffects', 'RsiZones', 'RsiEvents', 'RsiSides'];
+const labels = { trend: 'EMA + VWAP alignés au sens', structure: 'Swings confirmés alignés', momentum: 'RSI > 50 à l’achat / < 50 à la vente', volume: 'Volume relatif ≥ 1', pattern: 'Forme directionnelle définie' };
 const features = { plannedRiskUSD: 'Risque initial frais compris ($)', costRiskRatio: 'Coûts / risque de prix', netRewardRisk: 'Gain / risque net prévu',
   rangeWidthR: 'Largeur de zone (R)', breakoutDelayMinutes: 'Délai depuis cassure (min)', emaGapR: 'Écart EMA orienté (R)',
   vwapDistanceR: 'Écart VWAP orienté (R)', rsi: 'RSI brut (sens à considérer)', relativeVolume: 'Volume relatif', signalBodyRatio: 'Corps / amplitude du signal' };
 const exits = { Stop: 'Stop', Target: 'Objectif', 'Break-even stop': 'Protection à zéro', 'Session close': 'Clôture de séance' };
-let report = null, loading = false;
+let report = null, rsiReport = null, loading = false;
 function clear() { tableIds.forEach(id => $(id).replaceChildren()); ['Summary', 'Finding', 'Sample'].forEach(id => { $(id).textContent = ''; }); }
 function show() {
   if (!report) return;
@@ -31,6 +32,12 @@ function show() {
     `${c.path.oneRConfirmed} / ${c.path.oneRUnknown} / ${c.path.oneRNotReached}`, c.path.closedOneRBeforeExit,
     c.count ? `${num(c.path.meanMfeLowerR)}–${num(c.path.meanMfeUpperR)}` : '—',
     c.count ? `${num(c.path.meanMaeLowerR)}–${num(c.path.meanMaeUpperR)}` : '—', c.path.protectionActivated]);
+  const rsi = rsiReport.views.find(x => x.id === v.id && x.mode === v.mode).costs[cost].markets.find(x => x.symbol === m.symbol);
+  const zones = { oversold: 'Survente : RSI < 30', middle: 'Intermédiaire : 30 ≤ RSI ≤ 70', overbought: 'Surachat : RSI > 70', unknown: 'RSI inconnu' };
+  const events = { 'leave-oversold': 'Remontée depuis < 30 vers ≥ 30', 'leave-overbought': 'Repli depuis > 70 vers ≤ 70', none: 'Aucune sortie de zone', unknown: 'Franchissement inconnu' };
+  for (const g of rsi.zones) row($('RsiZones'), [zones[g.value], g.count, g.wins, g.losses, g.flat, money(g.net)]);
+  for (const g of rsi.events) row($('RsiEvents'), [events[g.value], g.count, g.wins, g.losses, g.flat, money(g.net)]);
+  for (const side of rsi.bySide) for (const g of side.zones) row($('RsiSides'), [side.side === 'Long' ? 'Achat' : 'Vente', zones[g.value], g.count, g.wins, g.losses, money(g.net)]);
   const win = m.classes.find(c => c.outcome === 'win'), loss = m.classes.find(c => c.outcome === 'loss');
   const check = a => `${a.yes}/${a.yes + a.no} connus · ${a.unknown} inconnus`;
   for (const k of Object.keys(labels)) row($('Confirmations'), [labels[k], check(win.checks[k]), check(loss.checks[k])]);
@@ -46,14 +53,17 @@ function show() {
   $('Results').hidden = false;
 }
 async function load() {
-  if (loading) return; loading = true; report = null; clear(); $('Results').hidden = true;
+  if (loading) return; loading = true; report = null; rsiReport = null; clear(); $('Results').hidden = true;
   ['Retry', 'Market', 'View', 'Costs'].forEach(id => { $(id).disabled = true; }); $('Status').textContent = 'Vérification de l’audit…';
   try {
     const res = await fetch('./market-audit-report.json', { credentials: 'same-origin', cache: 'no-store', redirect: 'error', signal: AbortSignal.timeout(15000) });
     if (!res.ok || !res.headers.get('Content-Type')?.includes('application/json')) throw new Error('Unavailable');
-    report = await verifyMarketAudit(await res.arrayBuffer()); show(); $('Status').textContent = 'Audit descriptif · bot non qualifié';
+    report = await verifyMarketAudit(await res.arrayBuffer());
+    const rsiResponse = await fetch('./rsi-zone-report.json', { credentials: 'same-origin', cache: 'no-store', redirect: 'error', signal: AbortSignal.timeout(15000) });
+    if (!rsiResponse.ok || !rsiResponse.headers.get('Content-Type')?.includes('application/json')) throw new Error('RSI unavailable');
+    rsiReport = await verifyRsiZones(await rsiResponse.arrayBuffer(), report); show(); $('Status').textContent = 'Audit descriptif · bot non qualifié';
     ['Market', 'View', 'Costs'].forEach(id => { $(id).disabled = false; });
-  } catch { report = null; clear(); $('Results').hidden = true; $('Status').textContent = 'Audit indisponible. Revérifie pour réessayer.'; }
+  } catch { report = null; rsiReport = null; clear(); $('Results').hidden = true; $('Status').textContent = 'Audit indisponible. Revérifie pour réessayer.'; }
   finally { loading = false; $('Retry').disabled = false; }
 }
 ['Market', 'View', 'Costs'].forEach(id => $(id).addEventListener('change', show)); $('Retry').addEventListener('click', load); load();

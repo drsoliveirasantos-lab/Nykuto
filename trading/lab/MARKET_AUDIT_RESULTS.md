@@ -46,6 +46,12 @@ Le taux d’équilibre du JSON utilise les gains/pertes moyens **hors trades à 
 Il s’agit d’une décomposition descriptive, pas d’une probabilité future. Le taux
 de réussite publié, lui, compte tous les trades et conserve les zéros au dénominateur.
 
+**Précision RSI après la demande de Diego :** le contrôle ci-dessous porte sur
+le niveau50. L’étude distincte des zones de survente/surachat30/70 et de leurs
+franchissements est maintenant disponible dans le [complément RSI](RSI_ZONES_RESULTS.md).
+Le constat initial sur le RSI directionnel ne constitue pas une conclusion sur
+les zones extrêmes.
+
 ## Ce qui était présent chez les gagnants et les perdants
 
 Les confirmations ci-dessous sont calculées sur les bougies déjà closes. Le
