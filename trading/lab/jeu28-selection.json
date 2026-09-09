@@ -1,0 +1,10 @@
+{
+  "schema": "jeu28-selection-v1",
+  "id": null,
+  "attempted": 4,
+  "cumulativeAttempts": 65,
+  "freezeSha256": "1b7e6df2a381d4b6b2f8908ed53c20bc9eb8dba97417a09438fe0245a097c6af",
+  "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+  "trainEnd": "2026-05-01",
+  "createdAt": "2026-09-09T14:39:19.844Z"
+}

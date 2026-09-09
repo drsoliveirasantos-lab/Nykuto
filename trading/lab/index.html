@@ -33,8 +33,9 @@
   <script src="./lab-graded-risk.mjs?v=1" type="module"></script>
   <script src="./lab-failed-breakout.mjs?v=1" type="module"></script>
   <script src="./lab-fresh-reentry.mjs?v=1" type="module"></script>
+  <script src="./lab-break-even.mjs?v=1" type="module"></script>
   <link rel="stylesheet" href="./lab-market.css?v=2">
-  <link rel="stylesheet" href="./lab-workspace.css?v=4">
+  <link rel="stylesheet" href="./lab-workspace.css?v=5">
   <script src="./lab-workspace.mjs?v=2" type="module"></script>
 </head>
 <body>
@@ -71,6 +72,22 @@
     </div>
     <noscript><p>Active JavaScript pour changer de vue et consulter le suivi.</p></noscript>
     <div id="view-current" class="lab-view" role="tabpanel" aria-labelledby="tab-current" tabindex="0">
+    <section class="panel independent-game market-game" id="protectionGame" aria-labelledby="protectionTitle">
+      <div class="panel-heading"><div><p class="panel-kicker">JEU 28 · PROTECTION APRÈS +1R</p><h3 id="protectionTitle">Rapprocher le stop protège-t-il les résultats ?</h3></div><span class="lab-status planned" id="protectionStatus">Lecture du bilan…</span></div>
+      <div class="iv-content"><p class="iv-intro">Après une clôture à +1R, le stop se rapproche du prix d’entrée en couvrant les frais prévus. Il prend effet à la bougie suivante. Une seule entrée par sens, deux au total par jour, un microcontrat et plafond 150 $.</p><p class="iv-message" id="protectionMessage" role="status" aria-live="polite">Chargement des résultats vérifiés.</p>
+        <div id="protectionResults" hidden>
+          <div class="timeframe-filters"><div><label for="protectionCosts">Hypothèse de coûts</label><select id="protectionCosts"><option value="normal">Initiale · selon le contrat</option><option value="stress">Coûts doublés</option></select></div></div>
+          <div class="iv-table-wrap" role="region" aria-label="Résultats de la protection après +1R" tabindex="0"><table class="iv-table"><caption>Janvier–avril 2026, séances évaluables, net après frais. Témoin Jeu 23 au même plafond. Marchés simulés séparément. Les huit critères comprennent les deux coûts.</caption><thead><tr><th scope="col">Contrat</th><th scope="col">Trades</th><th scope="col">Net $</th><th scope="col">Trades gagnants</th><th scope="col">Ancien Jeu 23</th><th scope="col">Drawdown $</th><th scope="col">Critères</th></tr></thead><tbody id="protectionComparison"></tbody></table></div>
+          <details class="iv-help" open><summary>Une petite amélioration MNQ, fondée sur un seul trade</summary><p>MNQ passe de +887,50 $ à +931,50 $ sur les mêmes 36 entrées. Une perte de 44 $ devient une sortie à zéro ; le drawdown passe de 369 $ à 325 $. Cela ne démontre pas une protection robuste : les trois critères de nombre total, couverture complète et compte restent en échec.</p></details>
+          <details class="iv-help" open><summary>Les pertes évitées et les gains coupés trop tôt</summary><div class="iv-table-wrap" role="region" aria-label="Effet apparié des stops déplacés" tabindex="0"><table class="iv-table"><caption>Comparaison des mêmes entrées avec le témoin. « Activations » : stop déplacé après +1R ; « Sorties » : protection effectivement déclenchée. Les montants réconcilient l’écart net.</caption><thead><tr><th scope="col">Contrat</th><th scope="col">Activations</th><th scope="col">Sorties</th><th scope="col">Améliorés</th><th scope="col">Dégradés</th><th scope="col">Améliorations $</th><th scope="col">Dégradations $</th><th scope="col">Écart net $</th></tr></thead><tbody id="protectionChanges"></tbody></table></div><p>En coûts normaux, MYM évite deux pertes. MES coupe un gain et MGC en réduit trois : le stop plus proche peut donc dégrader le résultat. Sur MGC, trois sorties à +0,50 $ remplacent des gains bien plus grands ; un trade « gagnant » ne suffit pas à juger la méthode.</p></details>
+          <details class="iv-help" open><summary>Jours gagnants, perdants et sans trade</summary><div class="iv-table-wrap" role="region" aria-label="Activité quotidienne du Jeu 28" tabindex="0"><table class="iv-table"><caption>Moyenne sur toutes les séances observées, même sans trade. Les journées absentes ne sont pas remplacées par zéro.</caption><thead><tr><th scope="col">Contrat</th><th scope="col">Observées</th><th scope="col">Positives</th><th scope="col">Négatives</th><th scope="col">Actives à zéro</th><th scope="col">Sans trade</th><th scope="col">Moyenne / séance</th><th scope="col">Pire séance</th></tr></thead><tbody id="protectionActivity"></tbody></table></div></details>
+          <details class="iv-help"><summary>Pourquoi aucun marché n’est qualifié</summary><ul id="protectionChecks"></ul><p>MNQ reste sous 40 trades et manque une séance. Le bénéfice observé repose sur une seule sortie différente. Aucune candidate sélectionnée ; réserve mai–août non calculée et aucune confirmation indépendante.</p></details>
+          <details class="iv-help"><summary>Les deux fenêtres et les comptes simulés</summary><div class="iv-table-wrap" role="region" aria-label="Fenêtres du Jeu 28" tabindex="0"><table class="iv-table"><thead><tr><th scope="col">Contrat</th><th scope="col">Période</th><th scope="col">Séances</th><th scope="col">Trades</th><th scope="col">Net $</th><th scope="col">Net R</th><th scope="col">Compte 25K</th></tr></thead><tbody id="protectionWindows"></tbody></table></div></details>
+          <details class="iv-help"><summary>Règles et analyses retenues</summary><p>R est le risque de prix initial. Le stop ne change qu’après une clôture à +1R, jamais sur une mèche seule. La cible reste à 1,5R et un gap peut encore produire une perte. Les coûts doublés peuvent modifier les admissions.</p><p>Le bilan examine les mêmes entrées, les sorties modifiées, les deux périodes, le drawdown et l’activité quotidienne. Les données disponibles ne fournissent ni carnet d’ordres ni actualités historiques horodatées. Le registre conserve 65 configurations. Paper, Shadow et réel restent désactivés.</p><p><a href="./JEU28_PROTOCOL.md">Protocole et sources</a> · <a href="./JEU28_RESULTS.md">Bilan détaillé</a> · <a href="./research-ledger.json">Registre</a></p></details>
+        </div>
+      </div>
+    </section>
+    <details class="lab-archive"><summary><span class="archive-number">27</span><span class="archive-title"><strong>Nouveau signal après sortie</strong><small>4 configurations rejetées · aucune candidate</small></span><span class="archive-state neutral">Historique</span><span class="archive-toggle" aria-hidden="true">+</span></summary>
     <section class="panel independent-game market-game" id="reentryGame" aria-labelledby="reentryTitle">
       <div class="panel-heading"><div><p class="panel-kicker">JEU 27 · NOUVEAU SIGNAL APRÈS SORTIE</p><h3 id="reentryTitle">Un deuxième trade dans le même sens améliore-t-il le résultat ?</h3></div><span class="lab-status planned" id="reentryStatus">Lecture du bilan…</span></div>
       <div class="iv-content"><p class="iv-intro">Après la sortie, une nouvelle cassure clôturée puis un nouveau retour peuvent autoriser une seconde entrée. Maximum deux trades par jour, un microcontrat, plafond 150 $ frais compris et limite quotidienne interne 300 $.</p><p class="iv-message" id="reentryMessage" role="status" aria-live="polite">Chargement des résultats vérifiés.</p>
@@ -86,6 +103,7 @@
         </div>
       </div>
     </section>
+    </details>
     <details class="lab-archive"><summary><span class="archive-number">26</span><span class="archive-title"><strong>Cassure échouée de la zone d’ouverture</strong><small>4 configurations rejetées · aucun candidat</small></span><span class="archive-state neutral">Historique</span><span class="archive-toggle" aria-hidden="true">+</span></summary>
     <section class="panel independent-game market-game" id="failureGame" aria-labelledby="failureTitle">
       <div class="panel-heading"><div><p class="panel-kicker">JEU 26 · CASSURE ÉCHOUÉE</p><h3 id="failureTitle">Attendre le retour dans la zone améliore-t-il les entrées ?</h3></div><span class="lab-status planned" id="failureStatus">Lecture du bilan…</span></div>
