@@ -1,0 +1,10 @@
+{
+  "schema": "jeu20-selection-v1",
+  "id": "MYM/pullback",
+  "attempted": 1,
+  "cumulativeAttempts": 9,
+  "freezeSha256": "dd0a9ac7c458c60e43ecb7af9ad3f8854417ab67cc55061d404dbb6a6d214609",
+  "sourceSha256": "3d5d75c8efd50f6db55d28c1d9d93f7bace1d58f2912c963701674e3a7aad21f",
+  "trainEnd": "2026-05-01",
+  "createdAt": "2026-09-09T06:01:11.693Z"
+}
