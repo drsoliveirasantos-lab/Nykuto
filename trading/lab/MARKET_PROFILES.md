@@ -5,7 +5,10 @@ par marché. Cette évolution organise des profils indépendants et ajoute un
 contrôle partagé du risque. Elle ne calcule aucune nouvelle performance et
 ne qualifie aucune stratégie. À cette étape, le registre restait à 65 essais, sans modification.
 Le [Jeu 29](JEU29_RESULTS.md), réalisé ensuite, ajoute un replay commun :
-66 essais au registre, profils toujours non qualifiés.
+66 essais au registre, profils toujours non qualifiés. Le [Jeu 30](JEU30_RESULTS.md)
+évalue ensuite août à la demande de Diego, sans changer les règles : −561,50 USD
+aux coûts initiaux, 67 essais au registre. Août est désormais observé pour ce
+portefeuille ; les profils restent non qualifiés.
 
 ## Pistes initiales
 
@@ -121,9 +124,10 @@ modèle ; elle n'est pas une estimation de corrélation ni un backtest de
 portefeuille. Un gap peut dépasser la perte prévue. Le seuil de compte est
 un paramètre d'exemple, pas une certification des règles commerciales actuelles.
 
-Les moteurs, protocoles et résultats gelés restent inchangés. La réserve
-mai–août n'est pas ouverte, les collectes prospectives ne changent pas,
-Paper/Shadow/broker/réel restent désactivés. Les profils ne sont pas un Jeu 29.
+À cette étape des profils, les moteurs, protocoles et résultats gelés restaient
+inchangés et la réserve mai–août n'était pas ouverte. Le Jeu 30 évalue ensuite
+août sur demande explicite. Les collectes prospectives restent inchangées et
+Paper/Shadow/broker/réel désactivés. Les profils seuls ne sont pas un backtest.
 
 ## Validation
 

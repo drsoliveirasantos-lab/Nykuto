@@ -1,0 +1,3615 @@
+{
+  "schema": "jeu30-report-v1",
+  "protocol": "jeu30-august-review-v1",
+  "generatedAt": "2026-09-09T16:37:29.776Z",
+  "prePerformanceCommit": "fc0f4772c6685e314d814bf8df90555f71a100d5",
+  "freezeSha256": "b53c6709bf99a182dca1dd14a8f82db305d85ca1e1f16129e9bd7b94bf53e709",
+  "protocolSha256": "810d58877382525f9f7b81382b953d4c4303717f3cc927d051cfc904a3a5bba4",
+  "source": {
+    "provider": "Massive",
+    "resolution": "5min",
+    "bytes": 4331838,
+    "sha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+    "mnqBytes": 2426693,
+    "mnqSha256": "028e914bb10ea38b73b6fcbc867c5d81937b967701448913fc88ca85746557cf",
+    "rawPublic": false,
+    "reusedSource": "Same pinned Jeu19/Jeu14 history; August explicitly requested; not independently unseen across prior studies",
+    "ledgerBefore": {
+      "configurations": 66,
+      "sha256": "221704492c9c4e06226fc0599dc99c33bba39d7cce53cdc839686d2a90847725"
+    },
+    "profilesCommit": "df9e141cb787589b55f0490f832ef799d8052ce3",
+    "newConfigurations": 1,
+    "authorization": {
+      "date": "2026-09-09",
+      "period": {
+        "start": "2026-08-01",
+        "end": "2026-09-01"
+      },
+      "scope": "User explicitly requested August day-by-day and week-by-week tests; separately versioned exception to the old reserve protocol"
+    },
+    "economicRulesChanged": false
+  },
+  "policy": {
+    "version": "jeu30-august-review-v1",
+    "id": "PORTFOLIO/august-shared150",
+    "from": "2026-08-01",
+    "trainEnd": "2026-05-01",
+    "priorAttempts": 66,
+    "riskPerTrade": 150,
+    "dailyLoss": 300,
+    "floorReserve": 100,
+    "maxTradesPerDay": 2,
+    "maxPositions": 1,
+    "quantity": 1,
+    "tieBreak": "MES,MGC,MNQ,MYM",
+    "coverage": "intersection-of-complete-sessions",
+    "maxDrawdownR": 8,
+    "minimumPF": 1.1,
+    "minimumTrades": 40,
+    "minimumWindowTrades": 12,
+    "independent": false,
+    "confirmed": false,
+    "executionAllowed": false,
+    "brokerEnabled": false,
+    "paperEnabled": false,
+    "shadowEnabled": false,
+    "liveFeed": false,
+    "end": "2026-09-01",
+    "authorization": "User requested August daily and weekly replay on 2026-09-09",
+    "economicRulesChanged": false,
+    "reserveStatus": "august-consumed-by-request"
+  },
+  "profiles": [
+    {
+      "symbol": "MES",
+      "strategy": "baseline",
+      "game": 23
+    },
+    {
+      "symbol": "MGC",
+      "strategy": "failure",
+      "game": 26
+    },
+    {
+      "symbol": "MNQ",
+      "strategy": "protection",
+      "game": 28
+    },
+    {
+      "symbol": "MYM",
+      "strategy": "protection",
+      "game": 28
+    }
+  ],
+  "coverage": {
+    "expected": 21,
+    "scored": 21,
+    "missing": []
+  },
+  "diagnostic": {
+    "normal": {
+      "status": "diagnostic",
+      "terminalDay": null,
+      "net": -561.5,
+      "balance": 24438.5,
+      "floor": null,
+      "trades": 26,
+      "drawdown": 839.5,
+      "metrics": {
+        "count": 26,
+        "wins": 8,
+        "win": 0.3076923076923077,
+        "total": -8.697476009494553,
+        "exp": -0.3345183080574828,
+        "pf": 0.5591113830764997,
+        "dd": 11.276466449019013,
+        "winInterval": [
+          0.16501120939792674,
+          0.49988611514231246
+        ]
+      },
+      "fees": 101.5,
+      "daily": {
+        "observed": 21,
+        "positive": 5,
+        "negative": 12,
+        "flatActive": 0,
+        "noTrade": 4,
+        "worst": -248.5
+      },
+      "dailyMean": -26.74,
+      "contributions": [
+        {
+          "symbol": "MES",
+          "strategy": "baseline",
+          "game": 23,
+          "trades": 1,
+          "net": -25,
+          "fees": 5,
+          "signals": 8,
+          "denied": {
+            "occupied": 4,
+            "netReward": 2,
+            "dailyEntries": 1
+          }
+        },
+        {
+          "symbol": "MGC",
+          "strategy": "failure",
+          "game": 26,
+          "trades": 9,
+          "net": -194.5,
+          "fees": 40.5,
+          "signals": 14,
+          "denied": {
+            "occupied": 2,
+            "tradeRisk": 1,
+            "netReward": 1,
+            "dailyEntries": 1
+          }
+        },
+        {
+          "symbol": "MNQ",
+          "strategy": "protection",
+          "game": 28,
+          "trades": 8,
+          "net": -289,
+          "fees": 28,
+          "signals": 13,
+          "denied": {
+            "occupied": 1,
+            "dailyEntries": 3,
+            "simultaneous": 1
+          }
+        },
+        {
+          "symbol": "MYM",
+          "strategy": "protection",
+          "game": 28,
+          "trades": 8,
+          "net": -53,
+          "fees": 28,
+          "signals": 15,
+          "denied": {
+            "netReward": 2,
+            "sideLimit": 2,
+            "occupied": 1,
+            "dailyEntries": 2
+          }
+        }
+      ],
+      "signalCount": 50,
+      "denied": {
+        "occupied": 8,
+        "netReward": 5,
+        "dailyEntries": 7,
+        "tradeRisk": 1,
+        "sideLimit": 2,
+        "simultaneous": 1
+      },
+      "calendar": {
+        "daily": [
+          {
+            "day": "2026-08-03",
+            "week": "2026-08-03",
+            "state": "negative",
+            "trades": 2,
+            "net": -107,
+            "cumulative": -107,
+            "balance": 24893,
+            "floor": null,
+            "eodDrawdown": 107,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": -79.5
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 1,
+                "net": -27.5
+              }
+            ]
+          },
+          {
+            "day": "2026-08-04",
+            "week": "2026-08-03",
+            "state": "negative",
+            "trades": 1,
+            "net": -31,
+            "cumulative": -138,
+            "balance": 24862,
+            "floor": null,
+            "eodDrawdown": 138,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 1,
+                "net": -31
+              }
+            ]
+          },
+          {
+            "day": "2026-08-05",
+            "week": "2026-08-03",
+            "state": "positive",
+            "trades": 1,
+            "net": 216,
+            "cumulative": 78,
+            "balance": 25078,
+            "floor": null,
+            "eodDrawdown": 0,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": 216
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-06",
+            "week": "2026-08-03",
+            "state": "positive",
+            "trades": 2,
+            "net": 179.5,
+            "cumulative": 257.5,
+            "balance": 25257.5,
+            "floor": null,
+            "eodDrawdown": 0,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": 151.5
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 1,
+                "net": 28
+              }
+            ]
+          },
+          {
+            "day": "2026-08-07",
+            "week": "2026-08-03",
+            "state": "negative",
+            "trades": 2,
+            "net": -66.5,
+            "cumulative": 191,
+            "balance": 25191,
+            "floor": null,
+            "eodDrawdown": 66.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": 65.5
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": -132
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-10",
+            "week": "2026-08-10",
+            "state": "no-trade",
+            "trades": 0,
+            "net": 0,
+            "cumulative": 191,
+            "balance": 25191,
+            "floor": null,
+            "eodDrawdown": 66.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-11",
+            "week": "2026-08-10",
+            "state": "negative",
+            "trades": 2,
+            "net": -77,
+            "cumulative": 114,
+            "balance": 25114,
+            "floor": null,
+            "eodDrawdown": 143.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": -51.5
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 1,
+                "net": -25.5
+              }
+            ]
+          },
+          {
+            "day": "2026-08-12",
+            "week": "2026-08-10",
+            "state": "positive",
+            "trades": 2,
+            "net": 99,
+            "cumulative": 213,
+            "balance": 25213,
+            "floor": null,
+            "eodDrawdown": 44.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": 119.5
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 1,
+                "net": -20.5
+              }
+            ]
+          },
+          {
+            "day": "2026-08-13",
+            "week": "2026-08-10",
+            "state": "negative",
+            "trades": 1,
+            "net": -89.5,
+            "cumulative": 123.5,
+            "balance": 25123.5,
+            "floor": null,
+            "eodDrawdown": 134,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": -89.5
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-14",
+            "week": "2026-08-10",
+            "state": "negative",
+            "trades": 2,
+            "net": -59,
+            "cumulative": 64.5,
+            "balance": 25064.5,
+            "floor": null,
+            "eodDrawdown": 193,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": -87.5
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": 28.5
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-17",
+            "week": "2026-08-17",
+            "state": "no-trade",
+            "trades": 0,
+            "net": 0,
+            "cumulative": 64.5,
+            "balance": 25064.5,
+            "floor": null,
+            "eodDrawdown": 193,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-18",
+            "week": "2026-08-17",
+            "state": "negative",
+            "trades": 1,
+            "net": -128,
+            "cumulative": -63.5,
+            "balance": 24936.5,
+            "floor": null,
+            "eodDrawdown": 321,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": -128
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-19",
+            "week": "2026-08-17",
+            "state": "negative",
+            "trades": 1,
+            "net": -23.5,
+            "cumulative": -87,
+            "balance": 24913,
+            "floor": null,
+            "eodDrawdown": 344.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 1,
+                "net": -23.5
+              }
+            ]
+          },
+          {
+            "day": "2026-08-20",
+            "week": "2026-08-17",
+            "state": "negative",
+            "trades": 1,
+            "net": -77,
+            "cumulative": -164,
+            "balance": 24836,
+            "floor": null,
+            "eodDrawdown": 421.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": -77
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-21",
+            "week": "2026-08-17",
+            "state": "negative",
+            "trades": 2,
+            "net": -248.5,
+            "cumulative": -412.5,
+            "balance": 24587.5,
+            "floor": null,
+            "eodDrawdown": 670,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": -139.5
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": -109
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-24",
+            "week": "2026-08-24",
+            "state": "no-trade",
+            "trades": 0,
+            "net": 0,
+            "cumulative": -412.5,
+            "balance": 24587.5,
+            "floor": null,
+            "eodDrawdown": 670,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-25",
+            "week": "2026-08-24",
+            "state": "negative",
+            "trades": 2,
+            "net": -71.5,
+            "cumulative": -484,
+            "balance": 24516,
+            "floor": null,
+            "eodDrawdown": 741.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 1,
+                "net": -25
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": -46.5
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-26",
+            "week": "2026-08-24",
+            "state": "positive",
+            "trades": 1,
+            "net": 26.5,
+            "cumulative": -457.5,
+            "balance": 24542.5,
+            "floor": null,
+            "eodDrawdown": 715,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 1,
+                "net": 26.5
+              }
+            ]
+          },
+          {
+            "day": "2026-08-27",
+            "week": "2026-08-24",
+            "state": "negative",
+            "trades": 2,
+            "net": -124.5,
+            "cumulative": -582,
+            "balance": 24418,
+            "floor": null,
+            "eodDrawdown": 839.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": -83.5
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": -41
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-28",
+            "week": "2026-08-24",
+            "state": "positive",
+            "trades": 1,
+            "net": 20.5,
+            "cumulative": -561.5,
+            "balance": 24438.5,
+            "floor": null,
+            "eodDrawdown": 819,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 1,
+                "net": 20.5
+              }
+            ]
+          },
+          {
+            "day": "2026-08-31",
+            "week": "2026-08-31",
+            "state": "no-trade",
+            "trades": 0,
+            "net": 0,
+            "cumulative": -561.5,
+            "balance": 24438.5,
+            "floor": null,
+            "eodDrawdown": 819,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          }
+        ],
+        "weeks": [
+          {
+            "week": "2026-08-03",
+            "first": "2026-08-03",
+            "last": "2026-08-07",
+            "expectedSessions": 5,
+            "simulatedSessions": 5,
+            "missingSessions": 0,
+            "stoppedSessions": 0,
+            "trades": 8,
+            "net": 191,
+            "cumulative": 191,
+            "balance": 25191,
+            "positive": 2,
+            "negative": 3
+          },
+          {
+            "week": "2026-08-10",
+            "first": "2026-08-10",
+            "last": "2026-08-14",
+            "expectedSessions": 5,
+            "simulatedSessions": 5,
+            "missingSessions": 0,
+            "stoppedSessions": 0,
+            "trades": 7,
+            "net": -126.5,
+            "cumulative": 64.5,
+            "balance": 25064.5,
+            "positive": 1,
+            "negative": 3
+          },
+          {
+            "week": "2026-08-17",
+            "first": "2026-08-17",
+            "last": "2026-08-21",
+            "expectedSessions": 5,
+            "simulatedSessions": 5,
+            "missingSessions": 0,
+            "stoppedSessions": 0,
+            "trades": 5,
+            "net": -477,
+            "cumulative": -412.5,
+            "balance": 24587.5,
+            "positive": 0,
+            "negative": 4
+          },
+          {
+            "week": "2026-08-24",
+            "first": "2026-08-24",
+            "last": "2026-08-28",
+            "expectedSessions": 5,
+            "simulatedSessions": 5,
+            "missingSessions": 0,
+            "stoppedSessions": 0,
+            "trades": 6,
+            "net": -149,
+            "cumulative": -561.5,
+            "balance": 24438.5,
+            "positive": 2,
+            "negative": 2
+          },
+          {
+            "week": "2026-08-31",
+            "first": "2026-08-31",
+            "last": "2026-08-31",
+            "expectedSessions": 1,
+            "simulatedSessions": 1,
+            "missingSessions": 0,
+            "stoppedSessions": 0,
+            "trades": 0,
+            "net": 0,
+            "cumulative": -561.5,
+            "balance": 24438.5,
+            "positive": 0,
+            "negative": 0
+          }
+        ]
+      },
+      "executionAllowed": false
+    },
+    "stress": {
+      "status": "diagnostic",
+      "terminalDay": null,
+      "net": -975,
+      "balance": 24025,
+      "floor": null,
+      "trades": 18,
+      "drawdown": 1038,
+      "metrics": {
+        "count": 18,
+        "wins": 3,
+        "win": 0.16666666666666666,
+        "total": -12.691719622949226,
+        "exp": -0.7050955346082903,
+        "pf": 0.24402732235417957,
+        "dd": 12.985181161410765,
+        "winInterval": [
+          0.05836470400465757,
+          0.39222499638359243
+        ]
+      },
+      "fees": 146,
+      "daily": {
+        "observed": 21,
+        "positive": 2,
+        "negative": 10,
+        "flatActive": 0,
+        "noTrade": 9,
+        "worst": -256.5
+      },
+      "dailyMean": -46.43,
+      "contributions": [
+        {
+          "symbol": "MES",
+          "strategy": "baseline",
+          "game": 23,
+          "trades": 0,
+          "net": 0,
+          "fees": 0,
+          "signals": 8,
+          "denied": {
+            "occupied": 4,
+            "netReward": 4
+          }
+        },
+        {
+          "symbol": "MGC",
+          "strategy": "failure",
+          "game": 26,
+          "trades": 10,
+          "net": -321,
+          "fees": 90,
+          "signals": 14,
+          "denied": {
+            "occupied": 2,
+            "tradeRisk": 1,
+            "netReward": 1
+          }
+        },
+        {
+          "symbol": "MNQ",
+          "strategy": "protection",
+          "game": 28,
+          "trades": 8,
+          "net": -654,
+          "fees": 56,
+          "signals": 13,
+          "denied": {
+            "tradeRisk": 1,
+            "occupied": 1,
+            "netReward": 1,
+            "sideLimit": 1,
+            "dailyEntries": 1
+          }
+        },
+        {
+          "symbol": "MYM",
+          "strategy": "protection",
+          "game": 28,
+          "trades": 0,
+          "net": 0,
+          "fees": 0,
+          "signals": 15,
+          "denied": {
+            "netReward": 13,
+            "dailyEntries": 2
+          }
+        }
+      ],
+      "signalCount": 50,
+      "denied": {
+        "netReward": 19,
+        "occupied": 7,
+        "tradeRisk": 2,
+        "dailyEntries": 3,
+        "sideLimit": 1
+      },
+      "calendar": {
+        "daily": [
+          {
+            "day": "2026-08-03",
+            "week": "2026-08-03",
+            "state": "negative",
+            "trades": 1,
+            "net": -84,
+            "cumulative": -84,
+            "balance": 24916,
+            "floor": null,
+            "eodDrawdown": 84,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": -84
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-04",
+            "week": "2026-08-03",
+            "state": "no-trade",
+            "trades": 0,
+            "net": 0,
+            "cumulative": -84,
+            "balance": 24916,
+            "floor": null,
+            "eodDrawdown": 84,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-05",
+            "week": "2026-08-03",
+            "state": "no-trade",
+            "trades": 0,
+            "net": 0,
+            "cumulative": -84,
+            "balance": 24916,
+            "floor": null,
+            "eodDrawdown": 84,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-06",
+            "week": "2026-08-03",
+            "state": "positive",
+            "trades": 2,
+            "net": 88,
+            "cumulative": 4,
+            "balance": 25004,
+            "floor": null,
+            "eodDrawdown": 0,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": 147
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": -59
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-07",
+            "week": "2026-08-03",
+            "state": "negative",
+            "trades": 2,
+            "net": -74.5,
+            "cumulative": -70.5,
+            "balance": 24929.5,
+            "floor": null,
+            "eodDrawdown": 74.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": 61
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": -135.5
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-10",
+            "week": "2026-08-10",
+            "state": "no-trade",
+            "trades": 0,
+            "net": 0,
+            "cumulative": -70.5,
+            "balance": 24929.5,
+            "floor": null,
+            "eodDrawdown": 74.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-11",
+            "week": "2026-08-10",
+            "state": "negative",
+            "trades": 1,
+            "net": -56,
+            "cumulative": -126.5,
+            "balance": 24873.5,
+            "floor": null,
+            "eodDrawdown": 130.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": -56
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-12",
+            "week": "2026-08-10",
+            "state": "positive",
+            "trades": 2,
+            "net": 74.5,
+            "cumulative": -52,
+            "balance": 24948,
+            "floor": null,
+            "eodDrawdown": 56,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": 115
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": -40.5
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-13",
+            "week": "2026-08-10",
+            "state": "negative",
+            "trades": 1,
+            "net": -94,
+            "cumulative": -146,
+            "balance": 24854,
+            "floor": null,
+            "eodDrawdown": 150,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": -94
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-14",
+            "week": "2026-08-10",
+            "state": "negative",
+            "trades": 1,
+            "net": -92,
+            "cumulative": -238,
+            "balance": 24762,
+            "floor": null,
+            "eodDrawdown": 242,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": -92
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-17",
+            "week": "2026-08-17",
+            "state": "no-trade",
+            "trades": 0,
+            "net": 0,
+            "cumulative": -238,
+            "balance": 24762,
+            "floor": null,
+            "eodDrawdown": 242,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-18",
+            "week": "2026-08-17",
+            "state": "negative",
+            "trades": 1,
+            "net": -131.5,
+            "cumulative": -369.5,
+            "balance": 24630.5,
+            "floor": null,
+            "eodDrawdown": 373.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": -131.5
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-19",
+            "week": "2026-08-17",
+            "state": "no-trade",
+            "trades": 0,
+            "net": 0,
+            "cumulative": -369.5,
+            "balance": 24630.5,
+            "floor": null,
+            "eodDrawdown": 373.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-20",
+            "week": "2026-08-17",
+            "state": "negative",
+            "trades": 1,
+            "net": -80.5,
+            "cumulative": -450,
+            "balance": 24550,
+            "floor": null,
+            "eodDrawdown": 454,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": -80.5
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-21",
+            "week": "2026-08-17",
+            "state": "negative",
+            "trades": 2,
+            "net": -256.5,
+            "cumulative": -706.5,
+            "balance": 24293.5,
+            "floor": null,
+            "eodDrawdown": 710.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": -144
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": -112.5
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-24",
+            "week": "2026-08-24",
+            "state": "no-trade",
+            "trades": 0,
+            "net": 0,
+            "cumulative": -706.5,
+            "balance": 24293.5,
+            "floor": null,
+            "eodDrawdown": 710.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-25",
+            "week": "2026-08-24",
+            "state": "negative",
+            "trades": 2,
+            "net": -136,
+            "cumulative": -842.5,
+            "balance": 24157.5,
+            "floor": null,
+            "eodDrawdown": 846.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": -86
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": -50
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-26",
+            "week": "2026-08-24",
+            "state": "no-trade",
+            "trades": 0,
+            "net": 0,
+            "cumulative": -842.5,
+            "balance": 24157.5,
+            "floor": null,
+            "eodDrawdown": 846.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-27",
+            "week": "2026-08-24",
+            "state": "negative",
+            "trades": 2,
+            "net": -132.5,
+            "cumulative": -975,
+            "balance": 24025,
+            "floor": null,
+            "eodDrawdown": 979,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": -88
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": -44.5
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-28",
+            "week": "2026-08-24",
+            "state": "no-trade",
+            "trades": 0,
+            "net": 0,
+            "cumulative": -975,
+            "balance": 24025,
+            "floor": null,
+            "eodDrawdown": 979,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-31",
+            "week": "2026-08-31",
+            "state": "no-trade",
+            "trades": 0,
+            "net": 0,
+            "cumulative": -975,
+            "balance": 24025,
+            "floor": null,
+            "eodDrawdown": 979,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          }
+        ],
+        "weeks": [
+          {
+            "week": "2026-08-03",
+            "first": "2026-08-03",
+            "last": "2026-08-07",
+            "expectedSessions": 5,
+            "simulatedSessions": 5,
+            "missingSessions": 0,
+            "stoppedSessions": 0,
+            "trades": 5,
+            "net": -70.5,
+            "cumulative": -70.5,
+            "balance": 24929.5,
+            "positive": 1,
+            "negative": 2
+          },
+          {
+            "week": "2026-08-10",
+            "first": "2026-08-10",
+            "last": "2026-08-14",
+            "expectedSessions": 5,
+            "simulatedSessions": 5,
+            "missingSessions": 0,
+            "stoppedSessions": 0,
+            "trades": 5,
+            "net": -167.5,
+            "cumulative": -238,
+            "balance": 24762,
+            "positive": 1,
+            "negative": 3
+          },
+          {
+            "week": "2026-08-17",
+            "first": "2026-08-17",
+            "last": "2026-08-21",
+            "expectedSessions": 5,
+            "simulatedSessions": 5,
+            "missingSessions": 0,
+            "stoppedSessions": 0,
+            "trades": 4,
+            "net": -468.5,
+            "cumulative": -706.5,
+            "balance": 24293.5,
+            "positive": 0,
+            "negative": 3
+          },
+          {
+            "week": "2026-08-24",
+            "first": "2026-08-24",
+            "last": "2026-08-28",
+            "expectedSessions": 5,
+            "simulatedSessions": 5,
+            "missingSessions": 0,
+            "stoppedSessions": 0,
+            "trades": 4,
+            "net": -268.5,
+            "cumulative": -975,
+            "balance": 24025,
+            "positive": 0,
+            "negative": 2
+          },
+          {
+            "week": "2026-08-31",
+            "first": "2026-08-31",
+            "last": "2026-08-31",
+            "expectedSessions": 1,
+            "simulatedSessions": 1,
+            "missingSessions": 0,
+            "stoppedSessions": 0,
+            "trades": 0,
+            "net": 0,
+            "cumulative": -975,
+            "balance": 24025,
+            "positive": 0,
+            "negative": 0
+          }
+        ]
+      },
+      "executionAllowed": false
+    }
+  },
+  "account": {
+    "normal": {
+      "status": "incomplete",
+      "terminalDay": null,
+      "net": -561.5,
+      "balance": 24438.5,
+      "floor": 24257.5,
+      "trades": 26,
+      "drawdown": 839.5,
+      "metrics": {
+        "count": 26,
+        "wins": 8,
+        "win": 0.3076923076923077,
+        "total": -8.697476009494553,
+        "exp": -0.3345183080574828,
+        "pf": 0.5591113830764997,
+        "dd": 11.276466449019013,
+        "winInterval": [
+          0.16501120939792674,
+          0.49988611514231246
+        ]
+      },
+      "fees": 101.5,
+      "daily": {
+        "observed": 21,
+        "positive": 5,
+        "negative": 12,
+        "flatActive": 0,
+        "noTrade": 4,
+        "worst": -248.5
+      },
+      "dailyMean": -26.74,
+      "contributions": [
+        {
+          "symbol": "MES",
+          "strategy": "baseline",
+          "game": 23,
+          "trades": 1,
+          "net": -25,
+          "fees": 5,
+          "signals": 8,
+          "denied": {
+            "occupied": 4,
+            "netReward": 2,
+            "dailyEntries": 1
+          }
+        },
+        {
+          "symbol": "MGC",
+          "strategy": "failure",
+          "game": 26,
+          "trades": 9,
+          "net": -194.5,
+          "fees": 40.5,
+          "signals": 14,
+          "denied": {
+            "occupied": 2,
+            "tradeRisk": 1,
+            "netReward": 1,
+            "dailyEntries": 1
+          }
+        },
+        {
+          "symbol": "MNQ",
+          "strategy": "protection",
+          "game": 28,
+          "trades": 8,
+          "net": -289,
+          "fees": 28,
+          "signals": 13,
+          "denied": {
+            "occupied": 1,
+            "dailyEntries": 3,
+            "simultaneous": 1
+          }
+        },
+        {
+          "symbol": "MYM",
+          "strategy": "protection",
+          "game": 28,
+          "trades": 8,
+          "net": -53,
+          "fees": 28,
+          "signals": 15,
+          "denied": {
+            "netReward": 2,
+            "sideLimit": 2,
+            "occupied": 1,
+            "dailyEntries": 2
+          }
+        }
+      ],
+      "signalCount": 50,
+      "denied": {
+        "occupied": 8,
+        "netReward": 5,
+        "dailyEntries": 7,
+        "tradeRisk": 1,
+        "sideLimit": 2,
+        "simultaneous": 1
+      },
+      "calendar": {
+        "daily": [
+          {
+            "day": "2026-08-03",
+            "week": "2026-08-03",
+            "state": "negative",
+            "trades": 2,
+            "net": -107,
+            "cumulative": -107,
+            "balance": 24893,
+            "floor": 24000,
+            "eodDrawdown": 107,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": -79.5
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 1,
+                "net": -27.5
+              }
+            ]
+          },
+          {
+            "day": "2026-08-04",
+            "week": "2026-08-03",
+            "state": "negative",
+            "trades": 1,
+            "net": -31,
+            "cumulative": -138,
+            "balance": 24862,
+            "floor": 24000,
+            "eodDrawdown": 138,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 1,
+                "net": -31
+              }
+            ]
+          },
+          {
+            "day": "2026-08-05",
+            "week": "2026-08-03",
+            "state": "positive",
+            "trades": 1,
+            "net": 216,
+            "cumulative": 78,
+            "balance": 25078,
+            "floor": 24078,
+            "eodDrawdown": 0,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": 216
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-06",
+            "week": "2026-08-03",
+            "state": "positive",
+            "trades": 2,
+            "net": 179.5,
+            "cumulative": 257.5,
+            "balance": 25257.5,
+            "floor": 24257.5,
+            "eodDrawdown": 0,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": 151.5
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 1,
+                "net": 28
+              }
+            ]
+          },
+          {
+            "day": "2026-08-07",
+            "week": "2026-08-03",
+            "state": "negative",
+            "trades": 2,
+            "net": -66.5,
+            "cumulative": 191,
+            "balance": 25191,
+            "floor": 24257.5,
+            "eodDrawdown": 66.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": 65.5
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": -132
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-10",
+            "week": "2026-08-10",
+            "state": "no-trade",
+            "trades": 0,
+            "net": 0,
+            "cumulative": 191,
+            "balance": 25191,
+            "floor": 24257.5,
+            "eodDrawdown": 66.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-11",
+            "week": "2026-08-10",
+            "state": "negative",
+            "trades": 2,
+            "net": -77,
+            "cumulative": 114,
+            "balance": 25114,
+            "floor": 24257.5,
+            "eodDrawdown": 143.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": -51.5
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 1,
+                "net": -25.5
+              }
+            ]
+          },
+          {
+            "day": "2026-08-12",
+            "week": "2026-08-10",
+            "state": "positive",
+            "trades": 2,
+            "net": 99,
+            "cumulative": 213,
+            "balance": 25213,
+            "floor": 24257.5,
+            "eodDrawdown": 44.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": 119.5
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 1,
+                "net": -20.5
+              }
+            ]
+          },
+          {
+            "day": "2026-08-13",
+            "week": "2026-08-10",
+            "state": "negative",
+            "trades": 1,
+            "net": -89.5,
+            "cumulative": 123.5,
+            "balance": 25123.5,
+            "floor": 24257.5,
+            "eodDrawdown": 134,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": -89.5
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-14",
+            "week": "2026-08-10",
+            "state": "negative",
+            "trades": 2,
+            "net": -59,
+            "cumulative": 64.5,
+            "balance": 25064.5,
+            "floor": 24257.5,
+            "eodDrawdown": 193,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": -87.5
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": 28.5
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-17",
+            "week": "2026-08-17",
+            "state": "no-trade",
+            "trades": 0,
+            "net": 0,
+            "cumulative": 64.5,
+            "balance": 25064.5,
+            "floor": 24257.5,
+            "eodDrawdown": 193,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-18",
+            "week": "2026-08-17",
+            "state": "negative",
+            "trades": 1,
+            "net": -128,
+            "cumulative": -63.5,
+            "balance": 24936.5,
+            "floor": 24257.5,
+            "eodDrawdown": 321,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": -128
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-19",
+            "week": "2026-08-17",
+            "state": "negative",
+            "trades": 1,
+            "net": -23.5,
+            "cumulative": -87,
+            "balance": 24913,
+            "floor": 24257.5,
+            "eodDrawdown": 344.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 1,
+                "net": -23.5
+              }
+            ]
+          },
+          {
+            "day": "2026-08-20",
+            "week": "2026-08-17",
+            "state": "negative",
+            "trades": 1,
+            "net": -77,
+            "cumulative": -164,
+            "balance": 24836,
+            "floor": 24257.5,
+            "eodDrawdown": 421.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": -77
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-21",
+            "week": "2026-08-17",
+            "state": "negative",
+            "trades": 2,
+            "net": -248.5,
+            "cumulative": -412.5,
+            "balance": 24587.5,
+            "floor": 24257.5,
+            "eodDrawdown": 670,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": -139.5
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": -109
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-24",
+            "week": "2026-08-24",
+            "state": "no-trade",
+            "trades": 0,
+            "net": 0,
+            "cumulative": -412.5,
+            "balance": 24587.5,
+            "floor": 24257.5,
+            "eodDrawdown": 670,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-25",
+            "week": "2026-08-24",
+            "state": "negative",
+            "trades": 2,
+            "net": -71.5,
+            "cumulative": -484,
+            "balance": 24516,
+            "floor": 24257.5,
+            "eodDrawdown": 741.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 1,
+                "net": -25
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": -46.5
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-26",
+            "week": "2026-08-24",
+            "state": "positive",
+            "trades": 1,
+            "net": 26.5,
+            "cumulative": -457.5,
+            "balance": 24542.5,
+            "floor": 24257.5,
+            "eodDrawdown": 715,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 1,
+                "net": 26.5
+              }
+            ]
+          },
+          {
+            "day": "2026-08-27",
+            "week": "2026-08-24",
+            "state": "negative",
+            "trades": 2,
+            "net": -124.5,
+            "cumulative": -582,
+            "balance": 24418,
+            "floor": 24257.5,
+            "eodDrawdown": 839.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": -83.5
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": -41
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-28",
+            "week": "2026-08-24",
+            "state": "positive",
+            "trades": 1,
+            "net": 20.5,
+            "cumulative": -561.5,
+            "balance": 24438.5,
+            "floor": 24257.5,
+            "eodDrawdown": 819,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 1,
+                "net": 20.5
+              }
+            ]
+          },
+          {
+            "day": "2026-08-31",
+            "week": "2026-08-31",
+            "state": "no-trade",
+            "trades": 0,
+            "net": 0,
+            "cumulative": -561.5,
+            "balance": 24438.5,
+            "floor": 24257.5,
+            "eodDrawdown": 819,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          }
+        ],
+        "weeks": [
+          {
+            "week": "2026-08-03",
+            "first": "2026-08-03",
+            "last": "2026-08-07",
+            "expectedSessions": 5,
+            "simulatedSessions": 5,
+            "missingSessions": 0,
+            "stoppedSessions": 0,
+            "trades": 8,
+            "net": 191,
+            "cumulative": 191,
+            "balance": 25191,
+            "positive": 2,
+            "negative": 3
+          },
+          {
+            "week": "2026-08-10",
+            "first": "2026-08-10",
+            "last": "2026-08-14",
+            "expectedSessions": 5,
+            "simulatedSessions": 5,
+            "missingSessions": 0,
+            "stoppedSessions": 0,
+            "trades": 7,
+            "net": -126.5,
+            "cumulative": 64.5,
+            "balance": 25064.5,
+            "positive": 1,
+            "negative": 3
+          },
+          {
+            "week": "2026-08-17",
+            "first": "2026-08-17",
+            "last": "2026-08-21",
+            "expectedSessions": 5,
+            "simulatedSessions": 5,
+            "missingSessions": 0,
+            "stoppedSessions": 0,
+            "trades": 5,
+            "net": -477,
+            "cumulative": -412.5,
+            "balance": 24587.5,
+            "positive": 0,
+            "negative": 4
+          },
+          {
+            "week": "2026-08-24",
+            "first": "2026-08-24",
+            "last": "2026-08-28",
+            "expectedSessions": 5,
+            "simulatedSessions": 5,
+            "missingSessions": 0,
+            "stoppedSessions": 0,
+            "trades": 6,
+            "net": -149,
+            "cumulative": -561.5,
+            "balance": 24438.5,
+            "positive": 2,
+            "negative": 2
+          },
+          {
+            "week": "2026-08-31",
+            "first": "2026-08-31",
+            "last": "2026-08-31",
+            "expectedSessions": 1,
+            "simulatedSessions": 1,
+            "missingSessions": 0,
+            "stoppedSessions": 0,
+            "trades": 0,
+            "net": 0,
+            "cumulative": -561.5,
+            "balance": 24438.5,
+            "positive": 0,
+            "negative": 0
+          }
+        ]
+      },
+      "executionAllowed": false
+    },
+    "stress": {
+      "status": "incomplete",
+      "terminalDay": null,
+      "net": -887,
+      "balance": 24113,
+      "floor": 24004,
+      "trades": 17,
+      "drawdown": 950,
+      "metrics": {
+        "count": 17,
+        "wins": 3,
+        "win": 0.17647058823529413,
+        "total": -11.577795572316314,
+        "exp": -0.6810467983715478,
+        "pf": 0.2613691786924743,
+        "dd": 11.871257110777853,
+        "winInterval": [
+          0.0619101371254899,
+          0.41029929017375777
+        ]
+      },
+      "fees": 137,
+      "daily": {
+        "observed": 21,
+        "positive": 2,
+        "negative": 10,
+        "flatActive": 0,
+        "noTrade": 9,
+        "worst": -256.5
+      },
+      "dailyMean": -42.24,
+      "contributions": [
+        {
+          "symbol": "MES",
+          "strategy": "baseline",
+          "game": 23,
+          "trades": 0,
+          "net": 0,
+          "fees": 0,
+          "signals": 8,
+          "denied": {
+            "occupied": 4,
+            "netReward": 4
+          }
+        },
+        {
+          "symbol": "MGC",
+          "strategy": "failure",
+          "game": 26,
+          "trades": 9,
+          "net": -233,
+          "fees": 81,
+          "signals": 14,
+          "denied": {
+            "occupied": 2,
+            "tradeRisk": 1,
+            "netReward": 1,
+            "floorReserve": 1
+          }
+        },
+        {
+          "symbol": "MNQ",
+          "strategy": "protection",
+          "game": 28,
+          "trades": 8,
+          "net": -654,
+          "fees": 56,
+          "signals": 13,
+          "denied": {
+            "tradeRisk": 1,
+            "occupied": 1,
+            "netReward": 1,
+            "sideLimit": 1,
+            "dailyEntries": 1
+          }
+        },
+        {
+          "symbol": "MYM",
+          "strategy": "protection",
+          "game": 28,
+          "trades": 0,
+          "net": 0,
+          "fees": 0,
+          "signals": 15,
+          "denied": {
+            "netReward": 13,
+            "dailyEntries": 2
+          }
+        }
+      ],
+      "signalCount": 50,
+      "denied": {
+        "netReward": 19,
+        "occupied": 7,
+        "tradeRisk": 2,
+        "dailyEntries": 3,
+        "sideLimit": 1,
+        "floorReserve": 1
+      },
+      "calendar": {
+        "daily": [
+          {
+            "day": "2026-08-03",
+            "week": "2026-08-03",
+            "state": "negative",
+            "trades": 1,
+            "net": -84,
+            "cumulative": -84,
+            "balance": 24916,
+            "floor": 24000,
+            "eodDrawdown": 84,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": -84
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-04",
+            "week": "2026-08-03",
+            "state": "no-trade",
+            "trades": 0,
+            "net": 0,
+            "cumulative": -84,
+            "balance": 24916,
+            "floor": 24000,
+            "eodDrawdown": 84,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-05",
+            "week": "2026-08-03",
+            "state": "no-trade",
+            "trades": 0,
+            "net": 0,
+            "cumulative": -84,
+            "balance": 24916,
+            "floor": 24000,
+            "eodDrawdown": 84,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-06",
+            "week": "2026-08-03",
+            "state": "positive",
+            "trades": 2,
+            "net": 88,
+            "cumulative": 4,
+            "balance": 25004,
+            "floor": 24004,
+            "eodDrawdown": 0,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": 147
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": -59
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-07",
+            "week": "2026-08-03",
+            "state": "negative",
+            "trades": 2,
+            "net": -74.5,
+            "cumulative": -70.5,
+            "balance": 24929.5,
+            "floor": 24004,
+            "eodDrawdown": 74.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": 61
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": -135.5
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-10",
+            "week": "2026-08-10",
+            "state": "no-trade",
+            "trades": 0,
+            "net": 0,
+            "cumulative": -70.5,
+            "balance": 24929.5,
+            "floor": 24004,
+            "eodDrawdown": 74.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-11",
+            "week": "2026-08-10",
+            "state": "negative",
+            "trades": 1,
+            "net": -56,
+            "cumulative": -126.5,
+            "balance": 24873.5,
+            "floor": 24004,
+            "eodDrawdown": 130.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": -56
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-12",
+            "week": "2026-08-10",
+            "state": "positive",
+            "trades": 2,
+            "net": 74.5,
+            "cumulative": -52,
+            "balance": 24948,
+            "floor": 24004,
+            "eodDrawdown": 56,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": 115
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": -40.5
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-13",
+            "week": "2026-08-10",
+            "state": "negative",
+            "trades": 1,
+            "net": -94,
+            "cumulative": -146,
+            "balance": 24854,
+            "floor": 24004,
+            "eodDrawdown": 150,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": -94
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-14",
+            "week": "2026-08-10",
+            "state": "negative",
+            "trades": 1,
+            "net": -92,
+            "cumulative": -238,
+            "balance": 24762,
+            "floor": 24004,
+            "eodDrawdown": 242,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": -92
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-17",
+            "week": "2026-08-17",
+            "state": "no-trade",
+            "trades": 0,
+            "net": 0,
+            "cumulative": -238,
+            "balance": 24762,
+            "floor": 24004,
+            "eodDrawdown": 242,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-18",
+            "week": "2026-08-17",
+            "state": "negative",
+            "trades": 1,
+            "net": -131.5,
+            "cumulative": -369.5,
+            "balance": 24630.5,
+            "floor": 24004,
+            "eodDrawdown": 373.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": -131.5
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-19",
+            "week": "2026-08-17",
+            "state": "no-trade",
+            "trades": 0,
+            "net": 0,
+            "cumulative": -369.5,
+            "balance": 24630.5,
+            "floor": 24004,
+            "eodDrawdown": 373.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-20",
+            "week": "2026-08-17",
+            "state": "negative",
+            "trades": 1,
+            "net": -80.5,
+            "cumulative": -450,
+            "balance": 24550,
+            "floor": 24004,
+            "eodDrawdown": 454,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": -80.5
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-21",
+            "week": "2026-08-17",
+            "state": "negative",
+            "trades": 2,
+            "net": -256.5,
+            "cumulative": -706.5,
+            "balance": 24293.5,
+            "floor": 24004,
+            "eodDrawdown": 710.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": -144
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": -112.5
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-24",
+            "week": "2026-08-24",
+            "state": "no-trade",
+            "trades": 0,
+            "net": 0,
+            "cumulative": -706.5,
+            "balance": 24293.5,
+            "floor": 24004,
+            "eodDrawdown": 710.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-25",
+            "week": "2026-08-24",
+            "state": "negative",
+            "trades": 2,
+            "net": -136,
+            "cumulative": -842.5,
+            "balance": 24157.5,
+            "floor": 24004,
+            "eodDrawdown": 846.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 1,
+                "net": -86
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": -50
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-26",
+            "week": "2026-08-24",
+            "state": "no-trade",
+            "trades": 0,
+            "net": 0,
+            "cumulative": -842.5,
+            "balance": 24157.5,
+            "floor": 24004,
+            "eodDrawdown": 846.5,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-27",
+            "week": "2026-08-24",
+            "state": "negative",
+            "trades": 1,
+            "net": -44.5,
+            "cumulative": -887,
+            "balance": 24113,
+            "floor": 24004,
+            "eodDrawdown": 891,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 1,
+                "net": -44.5
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-28",
+            "week": "2026-08-24",
+            "state": "no-trade",
+            "trades": 0,
+            "net": 0,
+            "cumulative": -887,
+            "balance": 24113,
+            "floor": 24004,
+            "eodDrawdown": 891,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          },
+          {
+            "day": "2026-08-31",
+            "week": "2026-08-31",
+            "state": "no-trade",
+            "trades": 0,
+            "net": 0,
+            "cumulative": -887,
+            "balance": 24113,
+            "floor": 24004,
+            "eodDrawdown": 891,
+            "contributions": [
+              {
+                "symbol": "MES",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MGC",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MNQ",
+                "trades": 0,
+                "net": 0
+              },
+              {
+                "symbol": "MYM",
+                "trades": 0,
+                "net": 0
+              }
+            ]
+          }
+        ],
+        "weeks": [
+          {
+            "week": "2026-08-03",
+            "first": "2026-08-03",
+            "last": "2026-08-07",
+            "expectedSessions": 5,
+            "simulatedSessions": 5,
+            "missingSessions": 0,
+            "stoppedSessions": 0,
+            "trades": 5,
+            "net": -70.5,
+            "cumulative": -70.5,
+            "balance": 24929.5,
+            "positive": 1,
+            "negative": 2
+          },
+          {
+            "week": "2026-08-10",
+            "first": "2026-08-10",
+            "last": "2026-08-14",
+            "expectedSessions": 5,
+            "simulatedSessions": 5,
+            "missingSessions": 0,
+            "stoppedSessions": 0,
+            "trades": 5,
+            "net": -167.5,
+            "cumulative": -238,
+            "balance": 24762,
+            "positive": 1,
+            "negative": 3
+          },
+          {
+            "week": "2026-08-17",
+            "first": "2026-08-17",
+            "last": "2026-08-21",
+            "expectedSessions": 5,
+            "simulatedSessions": 5,
+            "missingSessions": 0,
+            "stoppedSessions": 0,
+            "trades": 4,
+            "net": -468.5,
+            "cumulative": -706.5,
+            "balance": 24293.5,
+            "positive": 0,
+            "negative": 3
+          },
+          {
+            "week": "2026-08-24",
+            "first": "2026-08-24",
+            "last": "2026-08-28",
+            "expectedSessions": 5,
+            "simulatedSessions": 5,
+            "missingSessions": 0,
+            "stoppedSessions": 0,
+            "trades": 3,
+            "net": -180.5,
+            "cumulative": -887,
+            "balance": 24113,
+            "positive": 0,
+            "negative": 2
+          },
+          {
+            "week": "2026-08-31",
+            "first": "2026-08-31",
+            "last": "2026-08-31",
+            "expectedSessions": 1,
+            "simulatedSessions": 1,
+            "missingSessions": 0,
+            "stoppedSessions": 0,
+            "trades": 0,
+            "net": 0,
+            "cumulative": -887,
+            "balance": 24113,
+            "positive": 0,
+            "negative": 0
+          }
+        ]
+      },
+      "executionAllowed": false
+    }
+  },
+  "selection": {
+    "id": null,
+    "attempted": 1,
+    "cumulativeAttempts": 67
+  },
+  "holdout": {
+    "status": "evaluated-by-request",
+    "consumed": {
+      "start": "2026-08-01",
+      "end": "2026-09-01"
+    },
+    "qualified": false
+  },
+  "confirmed": false,
+  "executionAllowed": false,
+  "audit": {
+    "signalPrefixes": 6552,
+    "replayPrefixes": 84,
+    "trades": 87,
+    "passed": true
+  }
+}

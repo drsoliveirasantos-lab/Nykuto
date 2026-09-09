@@ -731,7 +731,7 @@ No frozen engine, raw history, collection, workflow or secret changes;
 Paper/Shadow/broker/live execution stay disabled.
 
 
-Game 29 is the current Lab panel at `#portfolioGame`, above the independent
+Game 29 is archived at `#portfolioGame`, above the independent
 market-profile menus. `jeu29-engine.mjs` regenerates the frozen Game 23/26
 signals and uses Game 28 protection only for MNQ/MYM, with one shared position,
 two daily entries and the existing 150/300 USD budgets. Simultaneous candidates
@@ -750,3 +750,27 @@ activity, windows and rejection reasons; failure hides old figures and retry
 retains the cost choice. `JEU29_PROTOCOL.md`, `JEU29_RESULTS.md` and
 `JEU29_ARCHIVE.md` document the method and private archive. No account, order,
 Paper/Shadow, source collection, workflow or secret change.
+
+
+Game 30 is the current Lab panel at `#augustGame`. At Diego's explicit request,
+it evaluates August 2026 with the exact Game 29 economic rules, frozen in a
+local commit before performance. This is a separate authorized evaluation;
+the old reserve gates and frozen dependencies remain unchanged. August is now
+observed for this portfolio and cannot be reused as an untouched confirmation.
+All four markets have 21/21 complete sessions. The continuous 25K account model
+returns -561.50 USD on 26 normal-cost trades and -887 USD on 17 doubled-cost
+trades. Neither reaches the objective or breaches its modeled floor. Normal
+realized drawdown is 839.50 USD; all four normal market contributions lose.
+The diagnostic, which ignores account floor and target, returns -975 USD on
+18 stress trades; the account model refuses one additional near-floor proposal.
+The panel verifies a pinned aggregate report, then shows 21 daily rows and five
+weeks, including the partial week of August 31, for both modes and both costs.
+Balances never reset at a week boundary. Missing or terminal-stopped days stay
+unknown, distinct from a complete day with no trade. A failed refresh clears
+old values and retry retains both choices. Game 29 remains in a disclosure at
+`#portfolioGame`, retaining all prior IDs and deep links. The ledger preserves
+all 66 previous entries and adds this requested evaluation for 67 trials, with
+no new economic configuration or executable selection. `JEU30_PROTOCOL.md`,
+`JEU30_RESULTS.md` and `JEU30_ARCHIVE.md` describe the authorization, figures,
+limitations and verified private archive. No live account or broker is linked;
+Paper/Shadow, collection schedules, workflows and secrets remain unchanged.

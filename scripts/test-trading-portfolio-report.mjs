@@ -13,7 +13,7 @@ test('portfolio report verifies frozen dependencies, one retained trial, missing
   assert.ok(r.windows.every(w => !w.complete && w.account === null)); assert.equal(r.researchPassed, false);
   assert.equal(r.selection.id, null); assert.equal(r.holdout.status, 'not-opened');
   const ledger = JSON.parse(await readFile(new URL('../trading/lab/research-ledger.json', import.meta.url)));
-  assert.equal(ledger.configurationCount, ledger.entries.length); assert.equal(ledger.configurationCount, 66);
+  assert.equal(ledger.configurationCount, ledger.entries.length); assert.equal(ledger.entries.filter(x => x.game <= 29).length, 66);
   const entries = ledger.entries.filter(x => x.game === 29); assert.equal(entries.length, 1);
   assert.equal(entries[0].id, r.policy.id); assert.equal(entries[0].freezeSha256, r.freezeSha256);
   assert.equal(entries[0].selected, false); assert.equal(entries[0].confirmed, false);
