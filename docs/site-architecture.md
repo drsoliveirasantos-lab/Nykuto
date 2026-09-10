@@ -874,3 +874,13 @@ prospective collection changes or main merge. Original protocol remains frozen.
 BOT_PROFILE_REVIEW_2026-09-10.md documents actual active profiles, mandatory
 versus informative confirmations, costs/entry weaknesses and five proposed
 research priorities. No new hypothesis execution or threshold selection.
+
+Game42 preparation follows the owner-authorized video-method research. The only
+candidate vetoes MES when the mean relative volume of strictly opposite closed
+bars between the original breakout and confirmation is not below breakout
+relative volume. Confirmation volume is diagnostic only; unobservable phases
+keep the reference and receive explicit reasons. Fixed100/2R/stops, other
+markets and Game40 preparation remain unchanged. Thirty-two replays and sixteen
+whole Game40 controls are planned, not calculated at this preparation stage.
+See trading/lab/JEU42_PROTOCOL.md and JEU42_RESEARCH.md. One future configuration,
+no automatic selection, new inference, activation or collection change.
