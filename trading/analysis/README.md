@@ -115,3 +115,10 @@ ceux de la dernière sélection valide, avec un message explicite. Une nouvelle
 erreur de chargement masque toujours les anciens résultats. Le contrôle
 d'intégrité exige Web Crypto : un contexte non sécurisé affiche désormais un
 message en français, sans désactiver ce contrôle.
+
+
+September 10: model handoff and documentation are described in
+[Models and sources](../models/README.md). Assisted prompts now distinguish
+confirmed RSI divergences and timestamped primary news from missing information.
+Analysis offers an explicit local JSON export of the current selected window
+for a separate Kronos calculation. No hosted inference or automatic order.

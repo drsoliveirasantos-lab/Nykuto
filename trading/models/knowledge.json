@@ -1,0 +1,693 @@
+{
+  "version": "1.0.0",
+  "compiled_on": "2026-09-09",
+  "language": "fr",
+  "trading_validation": "non_effectuee",
+  "items": [
+    {
+      "id": "K01",
+      "category": "RSI",
+      "title": "Ce que le RSI mesure",
+      "evidence_type": "definition",
+      "explanation": "Oscillateur borné de momentum construit à partir de variations de prix. Sa valeur n’est ni un pourcentage d’acheteurs, ni une probabilité de hausse.",
+      "source_ids": [
+        "S01"
+      ],
+      "implementation_proposal": "Afficher séparément la valeur observée, son contexte et une éventuelle hypothèse de trading.",
+      "limitations": null
+    },
+    {
+      "id": "K02",
+      "category": "RSI",
+      "title": "Formule",
+      "evidence_type": "definition_mathematique",
+      "explanation": "Pour ΔC=C[t]−C[t−1], G=max(ΔC,0) et L=max(−ΔC,0). Avec U et D leurs moyennes lissées : RSI=100×U/(U+D), lorsque U+D>0.",
+      "source_ids": [
+        "S01"
+      ],
+      "implementation_proposal": "Conserver prix source, période, lissage et état de validité. Un RSI de 75 correspond à U=3D, pas à 75 % de chances de gain.",
+      "limitations": null
+    },
+    {
+      "id": "K03",
+      "category": "RSI",
+      "title": "Lissage de Wilder",
+      "evidence_type": "definition_mathematique",
+      "explanation": "Initialiser U et D par les moyennes des n premières variations. Puis U[t]=((n−1)U[t−1]+G[t])/n, idem pour D. Il faut n+1 clôtures pour n variations.",
+      "source_ids": [
+        "S03"
+      ],
+      "implementation_proposal": "Tester la parité avec un calcul de référence. Ne pas remplacer discrètement ce lissage par une moyenne mobile simple. L’initialisation doit être identique en historique et en direct.",
+      "limitations": null
+    },
+    {
+      "id": "K04",
+      "category": "RSI",
+      "title": "Cas limites et données absentes",
+      "evidence_type": "proposition_ingenierie",
+      "explanation": "Si D=0 et U>0, le résultat est 100 ; si U=0 et D>0, il est 0. Lorsque les deux sont nuls, la formule est indéterminée. Une donnée absente ne représente pas une variation nulle.",
+      "source_ids": [
+        "S01"
+      ],
+      "implementation_proposal": "Convention proposée : RSI indisponible pour série entièrement plate ou historique incomplet, avec motif explicite. Toute convention différente doit être documentée et testée.",
+      "limitations": null
+    },
+    {
+      "id": "K05",
+      "category": "RSI",
+      "title": "Période et mémoire",
+      "evidence_type": "deduction_mathematique",
+      "explanation": "14 désigne 14 périodes de calcul et non obligatoirement 14 jours. La récurrence conserve une mémoire décroissante au-delà des 14 dernières variations. Réduire n augmente le poids de la dernière variation.",
+      "source_ids": [
+        "S01",
+        "S03"
+      ],
+      "implementation_proposal": "Commencer par une référence fixe, puis comparer un petit nombre de périodes prédéclarées, sans chercher le meilleur résultat parmi des centaines de réglages.",
+      "limitations": null
+    },
+    {
+      "id": "K06",
+      "category": "RSI",
+      "title": "Surachat et survente",
+      "evidence_type": "heuristique_chartiste",
+      "explanation": "70 et 30 sont des seuils conventionnels, pas des plafonds ou planchers de prix. Un oscillateur peut rester extrême en tendance.",
+      "source_ids": [
+        "S02",
+        "S04"
+      ],
+      "implementation_proposal": "Enregistrer entrée dans la zone, durée, sortie et contexte ; ne pas transformer la seule présence en zone en ordre.",
+      "limitations": null
+    },
+    {
+      "id": "K07",
+      "category": "RSI",
+      "title": "Plages liées à la tendance",
+      "evidence_type": "heuristique_chartiste",
+      "explanation": "Repères publiés : en hausse, RSI souvent 40–90 avec replis vers 40–50 ; en baisse, souvent 10–60 avec rebonds vers 50–60. Ces plages varient.",
+      "source_ids": [
+        "S02"
+      ],
+      "implementation_proposal": "Les traiter comme hypothèses, avec statistiques conditionnelles par instrument et horizon, jamais comme définition certaine du régime.",
+      "limitations": null
+    },
+    {
+      "id": "K08",
+      "category": "RSI",
+      "title": "Ligne 50",
+      "evidence_type": "deduction_mathematique",
+      "explanation": "Quand U=D>0, RSI=50. Cela décrit l’équilibre des variations lissées, pas nécessairement l’absence de tendance de prix.",
+      "source_ids": [
+        "S01"
+      ],
+      "implementation_proposal": "Distinguer être au-dessus de 50, franchir 50 à la clôture et persister au-dessus pendant plusieurs barres.",
+      "limitations": null
+    },
+    {
+      "id": "K09",
+      "category": "RSI",
+      "title": "Caractéristiques temporelles",
+      "evidence_type": "proposition_ingenierie",
+      "explanation": "Une valeur isolée perd l’information de trajectoire. Propositions : pente sur k barres, durée au-dessus de 70, dernier franchissement, minimum depuis un repli, maximum depuis un rebond.",
+      "source_ids": [
+        "S01"
+      ],
+      "implementation_proposal": "Pour chaque mesure, enregistrer fenêtre, bougies utilisées et date de disponibilité. Ne pas multiplier les paramètres sans mesure d’apport.",
+      "limitations": null
+    },
+    {
+      "id": "K10",
+      "category": "Divergences",
+      "title": "Régulière haussière",
+      "evidence_type": "heuristique_chartiste",
+      "explanation": "Deux creux de prix : le second est plus bas ; creux de RSI correspondant plus haut. Désaccord entre progression du prix et momentum, souvent interprété comme avertissement de faiblesse de la baisse.",
+      "source_ids": [
+        "S03"
+      ],
+      "implementation_proposal": "Exemple fictif : prix 100→98, RSI 22→31. Ce motif seul n’autorise pas une entrée.",
+      "limitations": "La baisse peut se poursuivre malgré plusieurs divergences."
+    },
+    {
+      "id": "K11",
+      "category": "Divergences",
+      "title": "Régulière baissière",
+      "evidence_type": "heuristique_chartiste",
+      "explanation": "Deux sommets de prix : le second est plus haut ; sommet de RSI correspondant plus bas. Avertissement potentiel, pas preuve de retournement.",
+      "source_ids": [
+        "S03"
+      ],
+      "implementation_proposal": "Exemple fictif : prix 100→103, RSI 79→68. Tester séparément alerte, sortie et entrée vendeuse.",
+      "limitations": "Une simple consolidation peut suffire à résorber le désaccord."
+    },
+    {
+      "id": "K12",
+      "category": "Divergences",
+      "title": "Cachée haussière",
+      "evidence_type": "heuristique_chartiste",
+      "explanation": "Prix : creux plus haut ; RSI : creux plus bas. Motif couramment utilisé pour étudier une continuation haussière.",
+      "source_ids": [
+        "S01",
+        "S03"
+      ],
+      "implementation_proposal": "Exiger que la tendance haussière soit caractérisée avant le motif, avec une règle indépendante.",
+      "limitations": "La nomenclature et l’alignement des pivots doivent être explicites."
+    },
+    {
+      "id": "K13",
+      "category": "Divergences",
+      "title": "Cachée baissière",
+      "evidence_type": "heuristique_chartiste",
+      "explanation": "Prix : sommet plus bas ; RSI : sommet plus haut. Motif étudié comme continuation dans une tendance baissière préexistante.",
+      "source_ids": [
+        "S01",
+        "S03"
+      ],
+      "implementation_proposal": "Ne pas le mélanger au motif régulier baissier ; conserver des résultats séparés.",
+      "limitations": null
+    },
+    {
+      "id": "K14",
+      "category": "Divergences",
+      "title": "Extrêmes égaux et tolérances",
+      "evidence_type": "proposition_ingenierie",
+      "explanation": "Classer explicitement les écarts : hausse, baisse, égalité dans une tolérance. Éviter d’imposer higher high à deux sommets pratiquement identiques.",
+      "source_ids": [
+        "S03"
+      ],
+      "implementation_proposal": "Proposition : égalité de prix si |P2−P1|≤εprix, avec εprix défini en ticks ou ATR ; égalité RSI avec εRSI séparé. Fixer les paramètres avant évaluation.",
+      "limitations": null
+    },
+    {
+      "id": "K15",
+      "category": "Divergences",
+      "title": "Failure swing",
+      "evidence_type": "heuristique_chartiste",
+      "explanation": "Motif propre au RSI. Exemple haussier : passage sous 30, retour au-dessus, repli maintenu au-dessus, puis dépassement du sommet RSI intermédiaire. Inverse autour de 70.",
+      "source_ids": [
+        "S01"
+      ],
+      "implementation_proposal": "Séquences fictives : 24→39→33→43 et 77→61→67→57. L’événement n’existe qu’à la confirmation de la dernière étape.",
+      "limitations": null
+    },
+    {
+      "id": "K16",
+      "category": "Divergences",
+      "title": "Figures sur le RSI",
+      "evidence_type": "heuristique_chartiste",
+      "explanation": "Des lignes de tendance ou doubles sommets/creux peuvent être tracés sur l’oscillateur lui-même. Ce n’est pas automatiquement la même figure sur le prix.",
+      "source_ids": [
+        "S02"
+      ],
+      "implementation_proposal": "Préférer des règles numériques de pivots à une ligne dessinée discrétionnairement. Tester ce module après les motifs simples.",
+      "limitations": null
+    },
+    {
+      "id": "K17",
+      "category": "Variantes",
+      "title": "Stochastic RSI",
+      "evidence_type": "definition_mathematique",
+      "explanation": "StochRSI=(RSI−minimum RSI sur m)/(maximum RSI sur m−minimum RSI sur m). Forme brute sur 0–1, parfois affichée sur 0–100, puis lissée en K/D.",
+      "source_ids": [
+        "S05"
+      ],
+      "implementation_proposal": "Versionner n, m, K, D et échelle. Si le dénominateur est nul, produire un état non valide ou une convention documentée.",
+      "limitations": "Un extrême de StochRSI ne veut pas dire que le RSI lui-même dépasse 70 ou passe sous 30."
+    },
+    {
+      "id": "K18",
+      "category": "Variantes",
+      "title": "Connors RSI",
+      "evidence_type": "definition",
+      "explanation": "Moyenne de trois composantes : RSI du prix, RSI de la longueur signée de la série de hausses/baisses, rang percentile de la variation sur une période. Réglage usuel : 3, 2, 100.",
+      "source_ids": [
+        "S06"
+      ],
+      "implementation_proposal": "Ne pas utiliser le ROC brut à la place de son rang percentile. Garder ce candidat séparé du RSI de Wilder.",
+      "limitations": null
+    },
+    {
+      "id": "K19",
+      "category": "Variantes",
+      "title": "RSI lissé versus lissage interne",
+      "evidence_type": "proposition_ingenierie",
+      "explanation": "Le lissage utilisé pour calculer U/D et une moyenne mobile ajoutée au RSI sont deux opérations différentes. Croiser RSI et sa moyenne n’est pas la formule du RSI.",
+      "source_ids": [
+        "S01"
+      ],
+      "implementation_proposal": "Noms distincts : rsi_smoothing_method, rsi_signal_ma_type, rsi_signal_ma_length. Toute moyenne ajoutée doit montrer son apport net.",
+      "limitations": null
+    },
+    {
+      "id": "K20",
+      "category": "Tendances",
+      "title": "Structure des sommets et creux",
+      "evidence_type": "definition_chartiste",
+      "explanation": "Hausse : sommets et creux ascendants. Baisse : sommets et creux descendants. Une structure latérale ne présente pas cette progression directionnelle.",
+      "source_ids": [
+        "S07"
+      ],
+      "implementation_proposal": "Utiliser uniquement les pivots déjà confirmés. Conserver leur sensibilité et l’âge de la dernière confirmation.",
+      "limitations": null
+    },
+    {
+      "id": "K21",
+      "category": "Tendances",
+      "title": "Horizons superposés",
+      "evidence_type": "definition_chartiste",
+      "explanation": "Une baisse courte peut être un repli dans une hausse plus longue. Des unités différentes peuvent décrire des tendances opposées sans contradiction.",
+      "source_ids": [
+        "S07"
+      ],
+      "implementation_proposal": "Proposition de recherche, non réglage optimal : 15 min pour le contexte, 5 min pour le motif, 1 min pour l’exécution.",
+      "limitations": null
+    },
+    {
+      "id": "K22",
+      "category": "Tendances",
+      "title": "Transition et incertitude",
+      "evidence_type": "proposition_ingenierie",
+      "explanation": "Ne pas imposer un choix binaire hausse/baisse lorsque la structure est mixte ou les données insuffisantes.",
+      "source_ids": [
+        "S07"
+      ],
+      "implementation_proposal": "États proposés : uptrend, downtrend, range, transition, unknown. Autoriser l’abstention et garder la volatilité dans un champ indépendant.",
+      "limitations": null
+    },
+    {
+      "id": "K23",
+      "category": "Tendances",
+      "title": "Moyennes mobiles",
+      "evidence_type": "definition",
+      "explanation": "Une EMA pondère davantage les observations récentes et conserve une mémoire décroissante. Elle aide à décrire le mouvement mais réagit avec retard.",
+      "source_ids": [
+        "S28"
+      ],
+      "implementation_proposal": "Étudier pente normalisée par ATR et position du prix ; ne pas assimiler tout croisement à une nouvelle tendance durable.",
+      "limitations": null
+    },
+    {
+      "id": "K24",
+      "category": "Tendances",
+      "title": "ADX et direction",
+      "evidence_type": "definition",
+      "explanation": "ADX décrit l’intensité directionnelle, pas le sens. Les lignes DI+ et DI− sont distinctes. Les repères 20 et 25 sont conventionnels.",
+      "source_ids": [
+        "S12"
+      ],
+      "implementation_proposal": "Un ADX en baisse n’implique pas une baisse de prix. Ne pas déclarer automatiquement un range dès qu’ADX<20.",
+      "limitations": "Les seuils et l’efficacité doivent être évalués sur le marché choisi."
+    },
+    {
+      "id": "K25",
+      "category": "Contexte",
+      "title": "ATR et unités comparables",
+      "evidence_type": "definition_mathematique",
+      "explanation": "TR=max(H−L, |H−Cprécédent|, |L−Cprécédent|). L’ATR en lisse les valeurs. Il mesure l’amplitude, sans indiquer le sens futur.",
+      "source_ids": [
+        "S13"
+      ],
+      "implementation_proposal": "Proposition : distance d’un niveau / ATR, amplitude d’une cassure / ATR. ATR nul ou indisponible interdit ces divisions.",
+      "limitations": null
+    },
+    {
+      "id": "K26",
+      "category": "Contexte",
+      "title": "VWAP et ancrage",
+      "evidence_type": "definition_mathematique",
+      "explanation": "Le VWAP pondère les prix par les volumes depuis un ancrage. Une approximation par barres emploie Σ(hlc3×V)/ΣV ; les transactions individuelles donnent une mesure différente.",
+      "source_ids": [
+        "S14"
+      ],
+      "implementation_proposal": "Enregistrer prix source, volume, ancrage et horaire de séance. Être au-dessus ne suffit pas à prouver une hausse.",
+      "limitations": null
+    },
+    {
+      "id": "K27",
+      "category": "Contexte",
+      "title": "Volume relatif à heure comparable",
+      "evidence_type": "definition",
+      "explanation": "Le volume relatif à l’heure compare le volume à des moments comparables de séances passées. La séance et le caractère cumulatif ou par barre comptent.",
+      "source_ids": [
+        "S15",
+        "S16"
+      ],
+      "implementation_proposal": "Ne pas comparer une première minute de séance à une moyenne arbitraire de minutes creuses. Vérifier la qualité du volume et la clôture de la barre.",
+      "limitations": null
+    },
+    {
+      "id": "K28",
+      "category": "Contexte",
+      "title": "Bandes de Bollinger",
+      "evidence_type": "definition",
+      "explanation": "Enveloppe autour d’une moyenne, élargie ou resserrée selon l’écart-type. Paramètres habituels : 20 périodes et 2 écarts-types. Le prix peut longer une bande en tendance.",
+      "source_ids": [
+        "S29"
+      ],
+      "implementation_proposal": "Étudier la largeur comme caractéristique de compression. Un contact de bande associé à un RSI extrême ne prouve pas un retournement.",
+      "limitations": null
+    },
+    {
+      "id": "K29",
+      "category": "Contexte",
+      "title": "VWMA n’est pas VWAP",
+      "evidence_type": "definition",
+      "explanation": "La VWMA utilise une fenêtre mobile pondérée par les volumes, tandis qu’un VWAP ancré cumule depuis son origine.",
+      "source_ids": [
+        "S17",
+        "S14"
+      ],
+      "implementation_proposal": "Ne pas réutiliser le même nom de variable ni les mêmes règles de remise à zéro.",
+      "limitations": null
+    },
+    {
+      "id": "K30",
+      "category": "Figures",
+      "title": "Supports et résistances",
+      "evidence_type": "heuristique_chartiste",
+      "explanation": "Des zones associées à des réactions antérieures peuvent servir de support ou résistance ; leur rôle peut changer après une cassure.",
+      "source_ids": [
+        "S09"
+      ],
+      "implementation_proposal": "Définir largeur, ancienneté, nombre de réactions et moment de disponibilité. Éviter de sélectionner uniquement les niveaux qui ont ensuite fonctionné.",
+      "limitations": null
+    },
+    {
+      "id": "K31",
+      "category": "Figures",
+      "title": "Cassure et retest",
+      "evidence_type": "proposition_ingenierie",
+      "explanation": "Définir une cassure par un événement mesurable, puis un retour éventuel vers la zone. Le retest n’est pas obligatoire dans la réalité.",
+      "source_ids": [
+        "S09"
+      ],
+      "implementation_proposal": "Variante à tester : clôture au-delà d’une zone avec marge en ticks, puis retest confirmé dans un délai fixé. Ne pas introduire ce délai après observation du résultat.",
+      "limitations": null
+    },
+    {
+      "id": "K32",
+      "category": "Figures",
+      "title": "Figures de continuation",
+      "evidence_type": "heuristique_chartiste",
+      "explanation": "Rectangles, drapeaux, fanions et triangles décrivent des consolidations. Leur géométrie ne garantit pas le sens de sortie.",
+      "source_ids": [
+        "S10"
+      ],
+      "implementation_proposal": "Définir nombre de points, pente, durée et tolérance. Étiqueter figure en formation séparément de cassure confirmée.",
+      "limitations": null
+    },
+    {
+      "id": "K33",
+      "category": "Figures",
+      "title": "Figures de retournement",
+      "evidence_type": "heuristique_chartiste",
+      "explanation": "Doubles sommets/creux et épaules-tête-épaules sont étudiés avec une rupture de niveau intermédiaire ou de ligne de cou.",
+      "source_ids": [
+        "S11"
+      ],
+      "implementation_proposal": "Deux sommets seuls ne constituent pas un ordre de vente. Conserver un état provisoire jusqu’à l’événement défini de confirmation.",
+      "limitations": null
+    },
+    {
+      "id": "K34",
+      "category": "Figures",
+      "title": "Bougies et mèches",
+      "evidence_type": "definition",
+      "explanation": "Les bougies représentent ouverture, plus haut, plus bas et clôture. Le corps et les mèches décrivent la période, sans raconter à eux seuls les intentions des intervenants.",
+      "source_ids": [
+        "S08"
+      ],
+      "implementation_proposal": "Mesures proposées : corps/étendue, mèche haute/étendue, mèche basse/étendue, position de clôture. Définir le cas H=L.",
+      "limitations": null
+    },
+    {
+      "id": "K35",
+      "category": "Donnees",
+      "title": "Graphiques synthétiques",
+      "evidence_type": "contrainte_technique",
+      "explanation": "Des graphiques construits ou lissés peuvent contenir des niveaux non assimilables à des prix d’exécution réels.",
+      "source_ids": [
+        "S21"
+      ],
+      "implementation_proposal": "Pour le backtest de base, utiliser des OHLC réels. Tout signal sur série synthétique doit être exécuté sur des données négociables séparées.",
+      "limitations": null
+    },
+    {
+      "id": "K36",
+      "category": "Donnees",
+      "title": "Disponibilité des pivots",
+      "evidence_type": "contrainte_technique",
+      "explanation": "Un pivot qui exige r bougies à droite n’est identifiable qu’après leur clôture. Une flèche replacée sur le pivot passé peut masquer ce délai.",
+      "source_ids": [
+        "S18"
+      ],
+      "implementation_proposal": "Enregistrer pivot_time et confirmed_at. Pour r=3, un pivot sur la barre j n’est exploitable qu’à j+3 au plus tôt. Aucun ordre rétroactif.",
+      "limitations": null
+    },
+    {
+      "id": "K37",
+      "category": "Donnees",
+      "title": "Unité supérieure incomplète",
+      "evidence_type": "contrainte_technique",
+      "explanation": "Une bougie d’unité supérieure en formation peut changer. Utiliser sa valeur finale avant clôture introduit du futur dans le test.",
+      "source_ids": [
+        "S19"
+      ],
+      "implementation_proposal": "À 10:07, ne pas utiliser la clôture finale de la bougie 10:00–10:15. Documenter les conventions d’ouverture/fermeture des timestamps.",
+      "limitations": null
+    },
+    {
+      "id": "K38",
+      "category": "Execution",
+      "title": "Détection et prix d’entrée",
+      "evidence_type": "contrainte_technique",
+      "explanation": "Un ordre ne peut être rempli avant que son signal et sa soumission n’existent. Le simulateur doit décrire le délai et le type d’ordre.",
+      "source_ids": [
+        "S20"
+      ],
+      "implementation_proposal": "En stratégie sur clôture, modéliser la prochaine occasion d’exécution disponible ; ne pas choisir après coup le meilleur prix de la bougie du signal.",
+      "limitations": null
+    },
+    {
+      "id": "K39",
+      "category": "Execution",
+      "title": "Stop et objectif touchés dans la même barre",
+      "evidence_type": "proposition_ingenierie",
+      "explanation": "Des OHLC seuls ne donnent pas toujours l’ordre des événements internes. Un stop et un objectif inclus dans l’étendue de la même barre créent une ambiguïté.",
+      "source_ids": [
+        "S20"
+      ],
+      "implementation_proposal": "Utiliser des données plus fines, sinon publier une convention conservatrice et le nombre de trades concernés ; ne pas sélectionner le résultat favorable.",
+      "limitations": null
+    },
+    {
+      "id": "K40",
+      "category": "Donnees",
+      "title": "Futures continus et rollover",
+      "evidence_type": "contrainte_technique",
+      "explanation": "Une série continue assemble des échéances. Le rétro-ajustement modifie l’historique pour réduire certains écarts de raccordement.",
+      "source_ids": [
+        "S22",
+        "S23"
+      ],
+      "implementation_proposal": "Conserver le contrat négociable, la politique de rollover et celle d’ajustement. Tester la cohérence des indicateurs et des remplissages autour des raccordements.",
+      "limitations": null
+    },
+    {
+      "id": "K41",
+      "category": "Donnees",
+      "title": "Séance, calendrier et qualité",
+      "evidence_type": "proposition_ingenierie",
+      "explanation": "Un indicateur n’est reproductible que si les données, la construction des barres et les conventions sont connues.",
+      "source_ids": [
+        "S15",
+        "S16",
+        "S19"
+      ],
+      "implementation_proposal": "Contrôler tri, doublons, trous, fuseau, changements d’heure, dernière bougie complète, latence et corrections du fournisseur. Les données absentes ne sont pas inventées.",
+      "limitations": null
+    },
+    {
+      "id": "K42",
+      "category": "Validation",
+      "title": "Essais multiples",
+      "evidence_type": "recherche_methodologique",
+      "explanation": "Sélectionner le meilleur résultat parmi de nombreux backtests favorise les découvertes dues au bruit. Réutiliser un test final pour choisir des règles le contamine.",
+      "source_ids": [
+        "S24",
+        "S27"
+      ],
+      "implementation_proposal": "Tenir le registre de toutes les variantes, y compris perdantes ; réserver une nouvelle période intacte après toute modification issue du test.",
+      "limitations": null
+    },
+    {
+      "id": "K43",
+      "category": "Validation",
+      "title": "Résultats RSI favorables mais circonscrits",
+      "evidence_type": "recherche_empirique",
+      "explanation": "Chong, Ng et Liew rapportent des résultats favorables à certaines règles RSI/MACD dans des marchés historiques particuliers. Cela ne démontre pas leur efficacité actuelle sur un autre instrument.",
+      "source_ids": [
+        "S25"
+      ],
+      "implementation_proposal": "Ne transférer aucun taux de réussite ou paramètre réputé optimal sans réplication adaptée.",
+      "limitations": "La présente base ne réplique pas les expériences de l’article."
+    },
+    {
+      "id": "K44",
+      "category": "Validation",
+      "title": "Les frais peuvent effacer le résultat",
+      "evidence_type": "recherche_empirique",
+      "explanation": "Zhu et collègues étudient des règles de moyennes mobiles et de cassure sur des indices chinois ; dans leur analyse, les coûts éliminent la rentabilité observée avant frais. Ce n’est pas une étude RSI.",
+      "source_ids": [
+        "S26"
+      ],
+      "implementation_proposal": "Utiliser l’exemple comme avertissement méthodologique, non comme preuve que toute analyse technique échoue.",
+      "limitations": null
+    },
+    {
+      "id": "K45",
+      "category": "Validation",
+      "title": "Découpage chronologique",
+      "evidence_type": "proposition_recherche",
+      "explanation": "Séparer construction, validation et test final ; figer la règle avant le test final. Répéter des fenêtres glissantes peut examiner différentes périodes sans mélanger passé et futur.",
+      "source_ids": [
+        "S24",
+        "S27"
+      ],
+      "implementation_proposal": "Définir les dates avant les essais, laisser les préchauffages utiliser uniquement le passé et purger les positions/étiquettes chevauchant les frontières selon le protocole.",
+      "limitations": null
+    },
+    {
+      "id": "K46",
+      "category": "Validation",
+      "title": "Nombre de trades et incertitude",
+      "evidence_type": "proposition_recherche",
+      "explanation": "Un résultat agrégé ne résume ni la variabilité, ni la dépendance entre trades d’une séance. Il n’existe pas de nombre universel de trades garantissant la validité.",
+      "source_ids": [
+        "S24"
+      ],
+      "implementation_proposal": "Publier effectif, séances, intervalles d’incertitude et sensibilité aux périodes. Étudier un rééchantillonnage par blocs de séances plutôt qu’une indépendance supposée des trades.",
+      "limitations": null
+    },
+    {
+      "id": "K47",
+      "category": "Validation",
+      "title": "Apport propre d’un indicateur",
+      "evidence_type": "proposition_recherche",
+      "explanation": "Comparer une règle témoin et la même règle enrichie d’une seule information permet d’étudier ce que cet ajout change réellement.",
+      "source_ids": [
+        "S24"
+      ],
+      "implementation_proposal": "À risque, coûts et sorties comparables : témoin prix seul, +RSI, +divergence, puis combinaison. Analyser aussi les bons trades supprimés et les nouveaux mauvais trades.",
+      "limitations": null
+    },
+    {
+      "id": "K48",
+      "category": "Risque",
+      "title": "Risque séparé du signal",
+      "evidence_type": "proposition_ingenierie",
+      "explanation": "Une figure convaincante ne doit pas pouvoir désactiver un plafond de risque ou une contrainte d’exécution.",
+      "source_ids": [
+        "S20"
+      ],
+      "implementation_proposal": "Dimensionner selon distance au stop, valeur du point, coûts et marge de sécurité ; refuser si une unité minimale dépasse le budget. Un stop ne garantit pas son prix de remplissage.",
+      "limitations": null
+    },
+    {
+      "id": "K49",
+      "category": "Architecture",
+      "title": "Moteur numérique et explication",
+      "evidence_type": "proposition_ingenierie",
+      "explanation": "Séparer calculs déterministes, classification, décision candidate, contrôle de risque et explication en langage naturel.",
+      "source_ids": [
+        "S18",
+        "S20"
+      ],
+      "implementation_proposal": "L’IA reçoit les valeurs observées et les raisons de refus. Les documents enrichissent ses explications ; ils ne constituent pas à eux seuls un modèle statistique entraîné.",
+      "limitations": null
+    },
+    {
+      "id": "K50",
+      "category": "Architecture",
+      "title": "Score et probabilité",
+      "evidence_type": "proposition_ingenierie",
+      "explanation": "Un score construit en additionnant des critères n’est pas automatiquement une probabilité de réussite.",
+      "source_ids": [
+        "S24"
+      ],
+      "implementation_proposal": "Sans calibration hors échantillon, afficher score heuristique ou hypothèse, jamais 82 % de chances de gain. Probabilité absente dans l’exemple fourni.",
+      "limitations": null
+    },
+    {
+      "id": "K51",
+      "category": "Contexte",
+      "title": "Événements et facteurs externes",
+      "evidence_type": "guide_contextuel",
+      "explanation": "Les indicateurs de prix n’expliquent pas à eux seuls les facteurs fondamentaux et les événements susceptibles d’affecter les futures.",
+      "source_ids": [
+        "S30"
+      ],
+      "implementation_proposal": "Ajouter un contexte d’événements daté provenant d’un flux vérifié ; lorsqu’il manque, indiquer inconnu. Ne pas inventer le motif économique d’une bougie.",
+      "limitations": null
+    },
+    {
+      "id": "K52",
+      "category": "Architecture",
+      "title": "Éviter une validation circulaire",
+      "evidence_type": "proposition_recherche",
+      "explanation": "Définir une tendance seulement par RSI>50, puis conclure que RSI>50 prédit la tendance, ne teste pas un apport prédictif indépendant.",
+      "source_ids": [
+        "S24"
+      ],
+      "implementation_proposal": "Définir d’abord le régime avec la structure/prix ; évaluer ensuite si le RSI améliore une décision ou un résultat futur explicitement défini.",
+      "limitations": null
+    },
+    {
+      "id": "K53",
+      "category": "Validation",
+      "title": "Rapport quotidien et hebdomadaire",
+      "evidence_type": "proposition_recherche",
+      "explanation": "L’analyse doit distinguer les jours sans signal, les jours bloqués par qualité/risque et les jours avec trades.",
+      "source_ids": [
+        "S20",
+        "S24"
+      ],
+      "implementation_proposal": "Exporter net, coûts, nombre de trades, séries de pertes, drawdown, excursions favorable/défavorable et motif de chaque refus. Ne pas forcer un trade pour remplir une journée.",
+      "limitations": null
+    },
+    {
+      "id": "K54",
+      "category": "Risque",
+      "title": "Plusieurs marchés, risque total",
+      "evidence_type": "proposition_ingenierie",
+      "explanation": "Des modules évalués séparément peuvent proposer des positions simultanées. Le risque doit aussi être mesuré au niveau du portefeuille.",
+      "source_ids": [
+        "S20"
+      ],
+      "implementation_proposal": "Tester chaque instrument, puis la combinaison temporelle ; plafonner expositions simultanées et pertes globales. Ne pas simplement additionner les meilleurs backtests indépendants.",
+      "limitations": null
+    },
+    {
+      "id": "K55",
+      "category": "Architecture",
+      "title": "Traçabilité de la connaissance",
+      "evidence_type": "proposition_ingenierie",
+      "explanation": "Associer chaque règle à ses références et à son statut : définition, usage chartiste, hypothèse interne ou résultat validé.",
+      "source_ids": [
+        "S24"
+      ],
+      "implementation_proposal": "Conserver version du code, du protocole, des paramètres et des données. Les sources servent à justifier la définition, pas à certifier le profit.",
+      "limitations": null
+    },
+    {
+      "id": "K56",
+      "category": "Donnees",
+      "title": "Provisoire versus confirmé",
+      "evidence_type": "contrainte_technique",
+      "explanation": "Sur une bougie en cours, le prix et les indicateurs calculés à partir de lui évoluent. Une condition vraie temporairement peut disparaître avant la clôture.",
+      "source_ids": [
+        "S18"
+      ],
+      "implementation_proposal": "Afficher deux états distincts. Les alertes sur clôture ne doivent pas se déclencher depuis une mesure provisoire.",
+      "limitations": null
+    }
+  ]
+}

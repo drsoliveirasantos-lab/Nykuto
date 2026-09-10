@@ -1,3 +1,4 @@
+import {createRequest,downloadJson} from '../models/bridge.mjs';
 import { loadAnalysisHistory } from './analysis-source.mjs';
 import { selectAnalysisWindow, aggregateCashHours, analyzeCandles } from './structure-core.mjs';
 import { calculateIndicators, DEFAULT_LAYERS } from './chart-indicators.mjs';
@@ -136,3 +137,16 @@ el('LayerClear').addEventListener('click',()=>setLayers({}));
 el('Fit').addEventListener('click',()=>chart?.fit());
 el('Reload').addEventListener('click',reload);
 reload();
+
+// Explicit local export only; no data is sent to an external model provider.
+el('ExportModel').addEventListener('click',async()=>{
+  const selected=current;
+  try {
+    if(!selected)throw Error('Charge une sélection valide avant export.');
+    const contract=el('Contract').value;
+    const request=await createRequest({symbol:'MNQ',contract,intervalSeconds:selected.interval,candles:selected.candles});
+    if(current!==selected)throw Error('La sélection a changé ; réessaie.');
+    downloadJson(request,`Nykuto-Kronos-${contract}-${selected.candles.at(-1).time}.json`);
+    el('ModelStatus').textContent='Sélection exportée. Aucun calcul ni envoi extérieur effectué par cette page.';
+  }catch(e){el('ModelStatus').textContent=e.message;}
+});

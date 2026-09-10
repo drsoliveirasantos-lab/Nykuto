@@ -370,3 +370,14 @@ All three private archive parts and manifest read back under
 jeu37/confidence-risk-v1/. Broker optional daily loss choice remains unknown;
 only internal daily limits are modeled. No activation, order, payout request,
 new collection or independent validation. Earlier reports and freezes persist.
+
+
+`trading/models/` integrates the recovered RSI/news documentation and a separate
+Kronos-mini experimental import/export boundary. The pinned CPU model was tested
+on 24 predeclared MNQU6 windows (K1): MAE 78.9543 points versus last-close
+persistence 67.875, with two invalid OHLC forecast windows; no trading adoption.
+Analysis exports the selected closed bars; assisted prompts use source-aware RSI
+and news guidance. No hosted inference, strategy filter, training, news feed or
+order execution is enabled. Frozen research and ledgers remain unchanged. See
+`trading/models/README.md` and `PROTOCOL.md`; model weights and individual private
+data/results stay outside Git.

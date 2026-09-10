@@ -1,0 +1,136 @@
+{
+  "schema": "nykuto-model-registry-v1",
+  "checkedAt": "2026-09-10",
+  "model": "NeoQuasar/Kronos-mini",
+  "modelRevision": "f4e68697d9d5aed55cef5c96aabc3376bcad9f81",
+  "tokenizerRevision": "26966d0035065a0cae0ebad7af8ece35bc1fb51c",
+  "codeRevision": "67b630e67f6a18c9e9be918d9b4337c960db1e9a",
+  "license": "MIT",
+  "summary": "Téléchargé et testé sur CPU. Conservé pour expérimentation : aucun avantage démontré sur le diagnostic MNQ, aucune utilisation par le moteur de trading.",
+  "executionEnabled": false,
+  "hostedInferenceEnabled": false,
+  "trainingPerformed": false,
+  "assets": [
+    {
+      "file": "kronos-code.zip",
+      "url": "https://codeload.github.com/shiyu-coder/Kronos/zip/67b630e67f6a18c9e9be918d9b4337c960db1e9a",
+      "bytes": 9458415,
+      "sha256": "5ef8e3d01d1076bb208cc5035eec13afee48dd8fc1bbe6347913a2a5d7b07b9d"
+    },
+    {
+      "file": "Kronos-mini/config.json",
+      "url": "https://huggingface.co/NeoQuasar/Kronos-mini/resolve/f4e68697d9d5aed55cef5c96aabc3376bcad9f81/config.json",
+      "bytes": 225,
+      "sha256": "70daca2cb11e3a979dd6b8ac12ee08e2aace877acf28f5b8dfb4fe5609736201"
+    },
+    {
+      "file": "Kronos-mini/model.safetensors",
+      "url": "https://huggingface.co/NeoQuasar/Kronos-mini/resolve/f4e68697d9d5aed55cef5c96aabc3376bcad9f81/model.safetensors",
+      "bytes": 16440776,
+      "sha256": "a7d5f37e2e9fbd9891f7d7d4f72574512dd1f704fee14223e0a8cd0fbf54197c"
+    },
+    {
+      "file": "Kronos-mini/README.md",
+      "url": "https://huggingface.co/NeoQuasar/Kronos-mini/resolve/f4e68697d9d5aed55cef5c96aabc3376bcad9f81/README.md",
+      "bytes": 8841,
+      "sha256": "73fccc29fd1cda62e7e2b0467c0d2b6f5b551b46a4f4cac0c7bca51c0a0b4697"
+    },
+    {
+      "file": "Kronos-Tokenizer-2k/config.json",
+      "url": "https://huggingface.co/NeoQuasar/Kronos-Tokenizer-2k/resolve/26966d0035065a0cae0ebad7af8ece35bc1fb51c/config.json",
+      "bytes": 301,
+      "sha256": "0b30a443affb03e05a876a083857de9164f899feb7b4d261da02c485c9a3e3b6"
+    },
+    {
+      "file": "Kronos-Tokenizer-2k/model.safetensors",
+      "url": "https://huggingface.co/NeoQuasar/Kronos-Tokenizer-2k/resolve/26966d0035065a0cae0ebad7af8ece35bc1fb51c/model.safetensors",
+      "bytes": 15842376,
+      "sha256": "b97ec46b3b72160509e289183eaf7bdf5f0dac5bb9b49522f6d46638a99a8717"
+    },
+    {
+      "file": "Kronos-Tokenizer-2k/README.md",
+      "url": "https://huggingface.co/NeoQuasar/Kronos-Tokenizer-2k/resolve/26966d0035065a0cae0ebad7af8ece35bc1fb51c/README.md",
+      "bytes": 8861,
+      "sha256": "4fedbedb718884f0bb39182511a000e37b298440743817b0458bf6666263ef70"
+    }
+  ],
+  "runtime": {
+    "device": "cpu",
+    "threads": 2,
+    "torch": "2.8.0+cpu",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "modelParameters": 4108032,
+    "tokenizerParameters": 3958042,
+    "strictStateDictLoad": true
+  },
+  "diagnostic": {
+    "id": "K1",
+    "status": "completed",
+    "protocolCommit": "81b35a2",
+    "modelAdoptedAsFilter": false,
+    "sampleCount": 24,
+    "ohlcvValidWindows": 22,
+    "invalidOhlcvWindows": 2,
+    "forecastClosesFinite": true,
+    "periods": [
+      {
+        "period": "2026-06",
+        "count": 8,
+        "mae": 113.12109375,
+        "naiveMae": 89.15625,
+        "finalMae": 151.1953125,
+        "finalNaiveMae": 114.8125,
+        "directionMatches": 3,
+        "invalidOhlcvWindows": 2
+      },
+      {
+        "period": "2026-07",
+        "count": 8,
+        "mae": 81.9942626953125,
+        "naiveMae": 82.8359375,
+        "finalMae": 100.59912109375,
+        "finalNaiveMae": 114.0625,
+        "directionMatches": 6,
+        "invalidOhlcvWindows": 0
+      },
+      {
+        "period": "2026-08",
+        "count": 8,
+        "mae": 41.74749755859375,
+        "naiveMae": 31.6328125,
+        "finalMae": 51.190673828125,
+        "finalNaiveMae": 33.1875,
+        "directionMatches": 4,
+        "invalidOhlcvWindows": 0
+      },
+      {
+        "period": "total",
+        "count": 24,
+        "mae": 78.95428466796875,
+        "naiveMae": 67.875,
+        "finalMae": 100.99503580729167,
+        "finalNaiveMae": 87.35416666666667,
+        "directionMatches": 13,
+        "invalidOhlcvWindows": 2
+      }
+    ],
+    "relativeMaeVsNaive": 0.1632307133402393,
+    "summary": "24 fenêtres MNQ M15, juin–août 2026 : erreur globale 16,3 % plus élevée que le témoin dernière clôture constante. Deux fenêtres contiennent des bougies incohérentes et sont refusées à l’import. Leurs clôtures finies restent dans le calcul d’erreur ; aucun essai n’est retiré. Le critère de progrès dans chacun des trois mois échoue.",
+    "inferenceSeconds": {
+      "min": 0.035791946000244934,
+      "median": 0.04333963349745318,
+      "max": 0.07675738999751047,
+      "total": 1.1071048279918614
+    },
+    "loadSeconds": 1.4231727180012967,
+    "independentConfirmation": false,
+    "tradingPnlCalculated": false
+  },
+  "sources": {
+    "model": "https://huggingface.co/NeoQuasar/Kronos-mini",
+    "code": "https://github.com/shiyu-coder/Kronos/tree/67b630e67f6a18c9e9be918d9b4337c960db1e9a",
+    "paper": "https://arxiv.org/html/2508.02739v1",
+    "ffm": "https://huggingface.co/johnamcruz/futures-foundation-model"
+  }
+}

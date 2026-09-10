@@ -1,0 +1,402 @@
+{
+  "compiled_on": "2026-09-09",
+  "scope": "RSI, tendances, figures et fiabilité de la recherche pour un bot",
+  "exhaustive": false,
+  "sources": [
+    {
+      "source_id": "S01",
+      "title": "Relative Strength Index (RSI)",
+      "publisher": "TradingView",
+      "url": "https://www.tradingview.com/support/solutions/43000502338-relative-strength-index-rsi/",
+      "source_type": "documentation_plateforme",
+      "topics": [
+        "RSI",
+        "divergences",
+        "failure_swings"
+      ],
+      "limitations": "Définitions et usages usuels ; aucune validation de notre stratégie.",
+      "consulted_on": "2026-09-09"
+    },
+    {
+      "source_id": "S02",
+      "title": "Relative Strength Index",
+      "publisher": "Fidelity",
+      "url": "https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/RSI",
+      "source_type": "guide_institutionnel",
+      "topics": [
+        "RSI",
+        "regimes"
+      ],
+      "limitations": "Les plages de RSI par tendance sont des repères variables, pas des lois.",
+      "consulted_on": "2026-09-09"
+    },
+    {
+      "source_id": "S03",
+      "title": "Relative Strength Index (RSI)",
+      "publisher": "StockCharts ChartSchool",
+      "url": "https://chartschool.stockcharts.com/table-of-contents/technical-indicators-and-overlays/technical-indicators/relative-strength-index-rsi",
+      "source_type": "documentation_plateforme",
+      "topics": [
+        "calcul",
+        "Wilder",
+        "divergences"
+      ],
+      "limitations": "Référence de calcul et interprétations chartistes ; pas une preuve de gains.",
+      "consulted_on": "2026-09-09"
+    },
+    {
+      "source_id": "S04",
+      "title": "Oscillators: MACD, RSI, Stochastics",
+      "publisher": "CME Group",
+      "url": "https://www.cmegroup.com/education/courses/technical-analysis/oscillators-macd-rsi-stochastics",
+      "source_type": "guide_bourse",
+      "topics": [
+        "oscillateurs",
+        "tendance"
+      ],
+      "limitations": "Retenir les limites des oscillateurs en tendance ; vérifier les formules dans les documentations propres à chaque indicateur.",
+      "consulted_on": "2026-09-09"
+    },
+    {
+      "source_id": "S05",
+      "title": "Stochastic RSI (STOCH RSI)",
+      "publisher": "TradingView",
+      "url": "https://www.tradingview.com/support/solutions/43000502333-stochastic-rsi-stoch-rsi/",
+      "source_type": "documentation_plateforme",
+      "topics": [
+        "StochRSI"
+      ],
+      "limitations": "Transformation du RSI ; sensibilité accrue ne signifie pas meilleure précision.",
+      "consulted_on": "2026-09-09"
+    },
+    {
+      "source_id": "S06",
+      "title": "Connors RSI (CRSI)",
+      "publisher": "TradingView",
+      "url": "https://www.tradingview.com/support/solutions/43000502017-connors-rsi-crsi/",
+      "source_type": "documentation_plateforme",
+      "topics": [
+        "ConnorsRSI"
+      ],
+      "limitations": "Indicateur distinct : ne pas substituer ses seuils à ceux du RSI de Wilder.",
+      "consulted_on": "2026-09-09"
+    },
+    {
+      "source_id": "S07",
+      "title": "Basic concepts of trend",
+      "publisher": "Fidelity",
+      "url": "https://www.fidelity.com/learning-center/trading-investing/technical-analysis/basic-concepts-trend",
+      "source_type": "guide_institutionnel",
+      "topics": [
+        "structure",
+        "tendances"
+      ],
+      "limitations": "Définition chartiste, non prédiction garantie.",
+      "consulted_on": "2026-09-09"
+    },
+    {
+      "source_id": "S08",
+      "title": "Chart Types: Candlestick, Line, Bar",
+      "publisher": "CME Group",
+      "url": "https://www.cmegroup.com/education/courses/technical-analysis/chart-types-candlestick-line-bar",
+      "source_type": "guide_bourse",
+      "topics": [
+        "OHLC",
+        "chandeliers",
+        "charts"
+      ],
+      "limitations": "Différencier le mode d’affichage et les données effectivement négociables.",
+      "consulted_on": "2026-09-09"
+    },
+    {
+      "source_id": "S09",
+      "title": "Support and Resistance",
+      "publisher": "CME Group",
+      "url": "https://www.cmegroup.com/education/courses/trading-and-analysis/support-and-resistance",
+      "source_type": "guide_bourse",
+      "topics": [
+        "supports",
+        "resistances"
+      ],
+      "limitations": "Niveaux interprétés comme zones, susceptibles de casser.",
+      "consulted_on": "2026-09-09"
+    },
+    {
+      "source_id": "S10",
+      "title": "Trend and Continuation Patterns",
+      "publisher": "CME Group",
+      "url": "https://www.cmegroup.com/education/courses/technical-analysis/trend-and-continuation-patterns",
+      "source_type": "guide_bourse",
+      "topics": [
+        "triangles",
+        "drapeaux",
+        "rectangles"
+      ],
+      "limitations": "Figures candidates ; aucune probabilité universelle utilisable pour le bot.",
+      "consulted_on": "2026-09-09"
+    },
+    {
+      "source_id": "S11",
+      "title": "Technical Patterns: Reversals",
+      "publisher": "CME Group",
+      "url": "https://www.cmegroup.com/education/courses/technical-analysis/technical-patterns-reversals",
+      "source_type": "guide_bourse",
+      "topics": [
+        "double_top",
+        "double_bottom",
+        "head_shoulders"
+      ],
+      "limitations": "Distinguer formation et confirmation par le prix.",
+      "consulted_on": "2026-09-09"
+    },
+    {
+      "source_id": "S12",
+      "title": "Average directional index (ADX)",
+      "publisher": "Fidelity",
+      "url": "https://www.fidelity.com/viewpoints/active-investor/average-directional-index-ADX",
+      "source_type": "guide_institutionnel",
+      "topics": [
+        "ADX",
+        "force_tendance"
+      ],
+      "limitations": "Utiliser la définition de l’indicateur, pas le commentaire de marché daté de la page.",
+      "consulted_on": "2026-09-09"
+    },
+    {
+      "source_id": "S13",
+      "title": "Average True Range (ATR)",
+      "publisher": "Fidelity",
+      "url": "https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/atr",
+      "source_type": "guide_institutionnel",
+      "topics": [
+        "ATR",
+        "volatilite"
+      ],
+      "limitations": "Mesure non directionnelle ; un multiple d’ATR ne garantit pas la perte maximale.",
+      "consulted_on": "2026-09-09"
+    },
+    {
+      "source_id": "S14",
+      "title": "Volume Weighted Average Price (VWAP)",
+      "publisher": "TradingView",
+      "url": "https://www.tradingview.com/support/solutions/43000502018-volume-weighted-average-price-vwap/",
+      "source_type": "documentation_plateforme",
+      "topics": [
+        "VWAP",
+        "session"
+      ],
+      "limitations": "Préciser source de prix et ancrage. La formule par bougies approxime le VWAP des transactions.",
+      "consulted_on": "2026-09-09"
+    },
+    {
+      "source_id": "S15",
+      "title": "Volume",
+      "publisher": "TradingView",
+      "url": "https://www.tradingview.com/support/solutions/43000591617-volume/",
+      "source_type": "documentation_plateforme",
+      "topics": [
+        "volume"
+      ],
+      "limitations": "La signification de l’unité dépend du marché et du flux.",
+      "consulted_on": "2026-09-09"
+    },
+    {
+      "source_id": "S16",
+      "title": "Relative Volume at Time",
+      "publisher": "TradingView",
+      "url": "https://www.tradingview.com/support/solutions/43000705489-relative-volume-at-time/",
+      "source_type": "documentation_plateforme",
+      "topics": [
+        "RVOL",
+        "session"
+      ],
+      "limitations": "Comparer des instants comparables ; une bougie en formation est incomplète.",
+      "consulted_on": "2026-09-09"
+    },
+    {
+      "source_id": "S17",
+      "title": "Volume Weighted Moving Average (VWMA)",
+      "publisher": "TradingView",
+      "url": "https://www.tradingview.com/support/solutions/43000592293-volume-weighted-moving-average-vwma/",
+      "source_type": "documentation_plateforme",
+      "topics": [
+        "VWMA"
+      ],
+      "limitations": "Fenêtre mobile, différente de l’ancrage du VWAP.",
+      "consulted_on": "2026-09-09"
+    },
+    {
+      "source_id": "S18",
+      "title": "Repainting",
+      "publisher": "TradingView Pine Script",
+      "url": "https://www.tradingview.com/pine-script-docs/concepts/repainting/",
+      "source_type": "documentation_technique",
+      "topics": [
+        "causalite",
+        "pivots",
+        "repainting"
+      ],
+      "limitations": "Référence pour distinguer un dessin rétrospectif d’un signal disponible en direct.",
+      "consulted_on": "2026-09-09"
+    },
+    {
+      "source_id": "S19",
+      "title": "Other timeframes and data",
+      "publisher": "TradingView Pine Script",
+      "url": "https://www.tradingview.com/pine-script-docs/concepts/other-timeframes-and-data/",
+      "source_type": "documentation_technique",
+      "topics": [
+        "multi_timeframe",
+        "alignement"
+      ],
+      "limitations": "Respecter l’heure de disponibilité des données de chaque unité de temps.",
+      "consulted_on": "2026-09-09"
+    },
+    {
+      "source_id": "S20",
+      "title": "Strategies",
+      "publisher": "TradingView Pine Script",
+      "url": "https://www.tradingview.com/pine-script-docs/concepts/strategies/",
+      "source_type": "documentation_technique",
+      "topics": [
+        "execution",
+        "backtest",
+        "frais"
+      ],
+      "limitations": "Documentation d’un simulateur, pas preuve de fidélité de notre moteur non audité.",
+      "consulted_on": "2026-09-09"
+    },
+    {
+      "source_id": "S21",
+      "title": "Strategy produces unrealistically good results by peeking into the future",
+      "publisher": "TradingView",
+      "url": "https://www.tradingview.com/support/solutions/43000614705-strategy-produces-unrealistically-good-results-by-peeking-into-the-future/",
+      "source_type": "documentation_technique",
+      "topics": [
+        "lookahead",
+        "prix_synthetiques"
+      ],
+      "limitations": "Éviter l’accès au futur et les prix artificiels d’exécution.",
+      "consulted_on": "2026-09-09"
+    },
+    {
+      "source_id": "S22",
+      "title": "What are 1! and 2! continuous futures contracts?",
+      "publisher": "TradingView",
+      "url": "https://www.tradingview.com/support/solutions/43000483493-what-are-1-and-2-continuous-futures-contracts/",
+      "source_type": "documentation_plateforme",
+      "topics": [
+        "futures",
+        "continu"
+      ],
+      "limitations": "Une série continue assemble plusieurs échéances.",
+      "consulted_on": "2026-09-09"
+    },
+    {
+      "source_id": "S23",
+      "title": "How can I enable backadjustment for continuous futures?",
+      "publisher": "TradingView",
+      "url": "https://www.tradingview.com/support/solutions/43000685266-how-can-i-enable-backadjustment-for-continuous-futures/",
+      "source_type": "documentation_plateforme",
+      "topics": [
+        "futures",
+        "rollover",
+        "ajustement"
+      ],
+      "limitations": "Le choix d’ajustement doit être versionné et rapproché des contrats réellement exécutés.",
+      "consulted_on": "2026-09-09"
+    },
+    {
+      "source_id": "S24",
+      "title": "The Probability of Backtest Overfitting",
+      "publisher": "Bailey, Borwein, López de Prado et Zhu",
+      "url": "https://www.davidhbailey.com/dhbpapers/backtest-prob.pdf",
+      "source_type": "recherche_originale",
+      "topics": [
+        "surapprentissage",
+        "essais_multiples"
+      ],
+      "limitations": "Recherche méthodologique. Ne fournit pas de performance attendue pour un RSI particulier.",
+      "consulted_on": "2026-09-09"
+    },
+    {
+      "source_id": "S25",
+      "title": "Revisiting the Performance of MACD and RSI Oscillators",
+      "publisher": "Chong, Ng et Liew — archive universitaire MPRA",
+      "url": "https://mpra.ub.uni-muenchen.de/54149/",
+      "source_type": "recherche_originale",
+      "topics": [
+        "RSI",
+        "preuve_empirique"
+      ],
+      "limitations": "Résultats historiques propres aux marchés, paramètres et protocole étudiés ; non transférables automatiquement à l’intraday actuel.",
+      "consulted_on": "2026-09-09"
+    },
+    {
+      "source_id": "S26",
+      "title": "Profitability of simple technical trading rules of Chinese stock exchange indexes",
+      "publisher": "Zhu, Jiang, Li et Zhou — arXiv",
+      "url": "https://arxiv.org/abs/1504.04254",
+      "source_type": "recherche_originale",
+      "topics": [
+        "couts",
+        "regles_techniques"
+      ],
+      "limitations": "Étude de moyennes mobiles et cassures, pas du RSI ; exemple de disparition des profits après coûts dans cet échantillon.",
+      "consulted_on": "2026-09-09"
+    },
+    {
+      "source_id": "S27",
+      "title": "How Backtest Overfitting in Finance Leads to False Discoveries",
+      "publisher": "Bailey et López de Prado — Significance",
+      "url": "https://academic.oup.com/jrssig/article/18/6/22/7038278",
+      "source_type": "article_auteurs",
+      "topics": [
+        "surapprentissage",
+        "validation"
+      ],
+      "limitations": "Complément méthodologique sur les découvertes trompeuses issues d’optimisations historiques.",
+      "consulted_on": "2026-09-09"
+    },
+    {
+      "source_id": "S28",
+      "title": "Exponential Moving Average (EMA)",
+      "publisher": "Fidelity",
+      "url": "https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/ema",
+      "source_type": "guide_institutionnel",
+      "topics": [
+        "EMA",
+        "tendance"
+      ],
+      "limitations": "Lissage réactif mais retardé ; le croisement ne localise pas parfaitement un retournement.",
+      "consulted_on": "2026-09-09"
+    },
+    {
+      "source_id": "S29",
+      "title": "Bollinger Bands",
+      "publisher": "Fidelity",
+      "url": "https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/bollinger-bands",
+      "source_type": "guide_institutionnel",
+      "topics": [
+        "Bollinger",
+        "compression"
+      ],
+      "limitations": "Un contact de bande n’impose pas de retour à la moyenne.",
+      "consulted_on": "2026-09-09"
+    },
+    {
+      "source_id": "S30",
+      "title": "Futures: Looking Beyond Technical Analysis",
+      "publisher": "CME Group",
+      "url": "https://www.cmegroup.com/articles/2026/futures-looking-beyond-technical-analysis.html",
+      "source_type": "guide_bourse",
+      "topics": [
+        "contexte",
+        "futures",
+        "fondamentaux"
+      ],
+      "limitations": "Le contexte fondamental et les événements ne sont pas entièrement expliqués par les indicateurs de prix.",
+      "consulted_on": "2026-09-09"
+    }
+  ]
+}
