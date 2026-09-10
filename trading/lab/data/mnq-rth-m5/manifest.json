@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "datasetId": "mnq1-tradingview-rth-m5-2026-05-25_2026-09-10",
+  "symbol": "CME_MINI:MNQ1!",
+  "instrument": "Micro E-mini Nasdaq-100 continuous futures",
+  "timezone": "UTC",
+  "session": {
+    "name": "US cash/RTH research window",
+    "timezone": "America/New_York",
+    "open": "09:30",
+    "close": "16:00"
+  },
+  "source": {
+    "provider": "TradingView",
+    "method": "Manual Download chart data CSV exports supplied by the repository owner; merged and deduplicated at M1, then resampled to M5.",
+    "feedObserved": "CME_MINI_DL",
+    "nativeInterval": "1m",
+    "storedInterval": "5m",
+    "notes": "Research/backtest corpus only. Normal candlesticks, not Heikin-Ashi. No automated TradingView extraction."
+  },
+  "coverage": {
+    "sourceM1Start": "2026-05-25T04:08:00Z",
+    "sourceM1End": "2026-09-10T17:48:00Z",
+    "sourceM1UniqueBars": 107491,
+    "storedRthM5Start": "2026-05-25T13:30:00Z",
+    "storedRthM5End": "2026-09-10T17:45:00Z",
+    "storedRthM5Bars": 5992,
+    "acceptedSourceGap": {
+      "after": "2026-09-08T03:59:00Z",
+      "before": "2026-09-08T04:10:00Z",
+      "missingMinutes": 10,
+      "impactOnStoredRthM5": "none; gap is outside the 09:30-16:00 America/New_York research window"
+    },
+    "expectedMarketClosures": "Daily maintenance, weekends and exchange holidays are not synthesized."
+  },
+  "encoding": {
+    "format": "delta-varint-v1",
+    "compression": "gzip",
+    "transport": "base64",
+    "priceScale": 4,
+    "firstRow": "time,open,high,low,close,volume absolute unsigned varints",
+    "nextRows": "time delta unsigned varint; OHLCV deltas zigzag varints"
+  },
+  "parts": [
+    "mnq-rth-m5.bin.gz.b64.part-01",
+    "mnq-rth-m5.bin.gz.b64.part-02",
+    "mnq-rth-m5.bin.gz.b64.part-03",
+    "mnq-rth-m5.bin.gz.b64.part-04",
+    "mnq-rth-m5.bin.gz.b64.part-05"
+  ],
+  "sha256Gzip": "417318f032911779b5aadd9460af8ee1ccaa85f1ca1d4296beb39b993e7dbabc"
+}
