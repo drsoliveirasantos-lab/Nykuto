@@ -2,7 +2,7 @@
   "schema": "research-catalog-v1",
   "checkedAt": "2026-09-10",
   "independentConfirmations": 0,
-  "uniqueConfigurationKeys": 106,
+  "uniqueConfigurationKeys": 107,
   "sharedConfigurationKeys": 57,
   "countIsNotIndependentTrials": true,
   "sources": [
@@ -65,6 +65,14 @@
       "newRiskPolicies": 4,
       "reportSha256": "7b6aab05fccfcd86d397d03c8295fc8643e3ac22bfa2bd8d5dbfad0f1c07713f",
       "note": "36 diagnostic replays include 6 exact controls; no configuration meets the frozen monthly target and drawdown gate. No independent confirmation."
+    },
+    {
+      "namespace": "game38-structure-obstacle",
+      "ref": "563ab6eff9e475ddcc40058b9fb9b2342ef4618a",
+      "ledger": "research-ledger.json",
+      "configurationCount": 1,
+      "reportSha256": "dc6ea2f52b3f69f0f5dd9e8cd6534ba6498c10b21e96d6fa001244affb4f221f",
+      "note": "12 bounded diagnostic replays, six exact controls. Two vetoed signals already failed planned risk; no executed trade changes and no strict PnL improvement. No independent confirmation."
     }
   ],
   "entries": [
@@ -763,6 +771,13 @@
       "executionKey": "781be09cde63db7171764254e44ccb9f61b3eda793582aae9fb362dd84713d84",
       "sources": [
         "game37-confidence-risk"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "b4fb9f567429d4e31c2b2f0f60b412110ced33577f8410e8287d0d84fa495d71",
+      "sources": [
+        "game38-structure-obstacle"
       ],
       "confirmed": false
     }

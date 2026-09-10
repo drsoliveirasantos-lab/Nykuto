@@ -1,0 +1,33 @@
+#historyCalendarGame{--history-section:1.5rem;--history-heading:1.25rem;--history-total:1.125rem;--history-body:1rem;--history-meta:.875rem}
+#historyCalendarGame .panel-heading h3{font-size:var(--history-section)}
+#historyCalendarGame h4{font-size:var(--history-heading);line-height:1.4;margin:1.25rem 0 .5rem}
+#historyCalendarGame p,#historyCalendarGame .iv-content,#historyCalendarGame .iv-table{font-size:var(--history-body);line-height:1.6}
+#historyCalendarGame .history-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,14rem),1fr));gap:1rem;margin:1rem 0}
+#historyCalendarGame label span{display:block;margin-bottom:.4rem;font-size:var(--history-body)}
+#historyCalendarGame select{width:100%;min-width:0;min-height:44px;font-size:var(--history-body);padding:.6rem;color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:8px}
+#historyCalendarGame .history-actions{display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
+#historyCalendarGame .history-actions button,#historyCalendarGame .history-actions a{min-height:44px;display:inline-flex;align-items:center;font-size:var(--history-body)}
+#historyCalendarGame .history-calendars{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,24rem),1fr));gap:1rem;margin:1.25rem 0}
+#historyCalendarGame .history-month{min-width:0;border:1px solid var(--line);border-radius:12px;padding:1rem;background:var(--surface)}
+#historyCalendarGame .history-month h4{margin:0}
+#historyCalendarGame .history-month-total{font-size:var(--history-total);font-weight:700;margin:.35rem 0}
+#historyCalendarGame .history-month-note{margin:.5rem 0 1rem}
+#historyCalendarGame .history-calendar-scroll{overflow-x:auto;padding:3px;max-width:100%}
+#historyCalendarGame .history-calendar-weekdays,#historyCalendarGame .history-calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(44px,1fr));gap:3px;min-width:326px}
+#historyCalendarGame .history-calendar-weekdays{font-size:var(--history-meta);text-align:center;margin-bottom:.5rem;color:var(--muted)}
+#historyCalendarGame .history-day{min-width:44px;min-height:76px;display:flex;flex-direction:column;align-items:center;gap:.35rem;padding:.45rem 0;border:1px solid var(--line);border-radius:6px;background:transparent;color:var(--text);cursor:pointer;font:inherit}
+#historyCalendarGame .history-day-number{font-size:var(--history-meta);color:var(--text)}
+#historyCalendarGame .history-day-value{font-size:var(--history-meta);font-weight:650;max-width:100%;overflow-wrap:anywhere;line-height:1.15}
+#historyCalendarGame .history-day-payout{font-size:var(--history-meta);overflow-wrap:anywhere}
+#historyCalendarGame .is-gain{color:#8be8b5}
+#historyCalendarGame .is-loss{color:#ffaca7}
+#historyCalendarGame .history-day.is-gain{background:rgba(60,175,113,.12)}
+#historyCalendarGame .history-day.is-loss{background:rgba(229,92,92,.12)}
+#historyCalendarGame .is-inactive{color:var(--muted)}
+#historyCalendarGame .history-day[aria-pressed="true"]{outline:2px solid #9cc6ff;outline-offset:1px}
+#historyCalendarGame button:focus-visible,#historyCalendarGame select:focus-visible,#historyCalendarGame .history-calendar-scroll:focus-visible{outline:3px solid #9cc6ff;outline-offset:2px}
+#historyCalendarGame .history-day-detail{padding:1rem;border-left:3px solid #9cc6ff;background:rgba(156,198,255,.06)}
+#historyCalendarGame .history-day-detail h4{margin-top:0}
+#historyCalendarGame .iv-table{min-width:26rem}
+#historyCalendarGame .history-legend{font-size:var(--history-meta)}
+@media(max-width:400px){#historyCalendarGame .history-month{padding:.65rem}}

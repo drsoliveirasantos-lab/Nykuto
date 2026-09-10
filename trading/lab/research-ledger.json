@@ -1,7 +1,7 @@
 {
   "schema": "research-ledger-v1",
-  "scope": "Published Games 19–26, audit F1 and Game 33; research-catalog.json also preserves research Games 27–32; Game 34 monthly payout comparison",
-  "configurationCount": 89,
+  "scope": "Published Games 19–26, audit F1 and Games 33–38; research-catalog.json also preserves research Games 27–32",
+  "configurationCount": 90,
   "independentConfirmations": 0,
   "entries": [
     {
@@ -1700,6 +1700,23 @@
       "holdoutPassed": null,
       "confirmed": false,
       "report": "jeu37-report.json"
+    },
+    {
+      "game": 38,
+      "id": "PORTFOLIO/mnq-obstacle/funded",
+      "executionKey": "b4fb9f567429d4e31c2b2f0f60b412110ced33577f8410e8287d0d84fa495d71",
+      "freezeSha256": "77263ba226df486c38565ebd8f06ea639a1037523ba9937a7074d35dd7ea8128",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "mnq-obstacle/funded",
+      "phase": "diagnostic",
+      "start": "2026-06-01",
+      "end": "2026-09-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu38-report.json"
     }
   ]
 }

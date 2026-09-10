@@ -6,7 +6,7 @@ Dernière revue : 10 septembre 2026. Lire ce document, le catalogue et les derni
 
 - Référence de recherche : Jeu 37 `fixed100`, cibles 2R, portefeuille sans MYM, profils MES/MGC/MNQ conservés. Bot réel, Paper et Shadow désactivés.
 - Objectif étudié : 4 000 USD de PnL mensuel. Objectif personnel distinct : premier versement simulé équivalent à 1 000 EUR. Compte 50K neuf chaque mois, pas un été continu.
-- 89 configurations dans le registre, 106 clés dans le catalogue croisé, **zéro confirmation indépendante**. Le Jeu 38 préparé ne sera compté qu’après exécution.
+- 90 configurations dans le registre, 107 clés dans le catalogue croisé, **zéro confirmation indépendante**. Le Jeu 38 exécuté ajoute une seule configuration, non retenue.
 - Le modèle Kronos-mini téléchargé est expérimental : K1 ne bat pas la prévision constante ; aucune adoption comme filtre ou modèle entraîné sur notre stratégie.
 
 ## Leçons et preuves
@@ -52,14 +52,16 @@ MES juillet et MGC sur ces trois petits échantillons contribuent positivement. 
 
 Le dimensionnement part du stop et du budget de perte, conformément au principe expliqué par le [CME](https://www.cmegroup.com/education/courses/trade-and-risk-management/proper-position-size). Les pourcentages génériques de capital ne doivent pas être appliqués sans tenir compte du seuil de perte spécifique au compte prop. La [NFA rappelle les limites des résultats hypothétiques](https://www.nfa.futures.org/rulebooksql/rules.aspx?RuleID=9025&Section=9), notamment le bénéfice du recul et les différences de liquidité/glissement. Ces sources n’attestent pas l’efficacité de notre stratégie.
 
-## Prochain essai et limites de la mémoire
+## Résultat du test après audit et limites de la mémoire
 
-[Jeu 38](./JEU38_PROTOCOL.md) : veto MNQ seulement, lorsque structure M5 explicitement opposée et pivot confirmé avant la cible se cumulent. Pas de modification du risque, de la sortie, des autres profils ou de la préparation. Le filtre est codé et contrôlé sur des données synthétiques ; aucune performance de cette nouvelle règle n’a encore été calculée.
+[Jeu 38 exécuté](./JEU38_RESULTS.md) : veto MNQ seulement lorsque structure M5 explicitement opposée et pivot confirmé avant la cible se cumulent. La campagne prévue de 12 relectures est terminée : six témoins exacts, 256 préfixes du compte et 256 du filtre. Aucun changement des trades, du net ou du drawdown dans les six cellules. Deux signaux d’août sont filtrés, mais ils étaient déjà refusés pour risque planifié excessif. Le filtre échoue donc à l’exigence d’au moins une amélioration stricte ; il n’est pas retenu.
 
-Le prochain rendez-vous doit exécuter une seule campagne de 12 relectures, conserver les six témoins exacts, les gagnants supprimés, les perdants évités et les nouvelles entrées. Les mois déjà vus resteront du développement. La collecte prospective et son audit du 3 décembre sont conservés pour de nouvelles observations ; ils ne doivent pas être recyclés comme une réserve vierge après consultation.
+**L13 — Un signal bloqué n’est pas une perte évitée.** Vérifier si le moteur aurait réellement exécuté ce signal, puis compter les gagnants retirés, perdants évités et nouvelles admissions. Ici : zéro dans les trois catégories. Aucun seuil n’est élargi après lecture pour produire artificiellement un effet. Le protocole original conserve son statut de préparation au moment du gel ; le bilan séparé atteste l’exécution ultérieure.
+
+Les mois déjà vus restent du développement. La collecte prospective et son audit du 3 décembre sont conservés pour de nouvelles observations ; ils ne doivent pas être recyclés comme une réserve vierge après consultation. Cette campagne bornée est close, sans boucle d’optimisation.
 
 Cette mémoire améliore la continuité des décisions du projet et oblige les prochaines reprises à consulter les échecs. Elle ne garantit ni que ChatGPT sera réentraîné par cette conversation, ni que le bot produira 4 000 $ chaque mois.
 
-## Contrôle avant le prochain calcul
+## Contrôle conservé de la préparation avant performance
 
 La revue de préparation du Jeu 38 a détecté deux défauts avant toute performance : le nouveau test unitaire manquait à la première liste de fichiers à figer, et les préfixes quotidiens ne reconstruisaient pas encore le filtre. Les deux sont corrigés dans le gel publié : 49 fichiers, dont le test du filtre, et reconstruction/comparaison des décisions pour chaque préfixe. Les 236 tests logiciels passent ; build, hygiène et 25 modules Functions sont validés. Les 493 identifiants HTML précédents sont conservés parmi 495. Ces vérifications ne chiffrent pas la rentabilité du nouveau filtre.

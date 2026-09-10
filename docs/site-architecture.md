@@ -784,3 +784,25 @@ controls are required. No new configuration is counted before execution.
 The Lab #learning38Game exposes the lessons and pending experiment. Existing
 model integration, 493 HTML IDs, freezes and prospective collection are preserved.
 No weights retrained, live/Paper/Shadow activation, new data or main merge.
+
+
+Game 38 is now executed once after the published freeze 563ab6eff9e475ddcc40058b9fb9b2342ef4618a.
+The MNQ opposed-structure/obstacle veto changes no executed trades or monthly
+results: its two August signals were already denied for planned risk. No strict
+PnL improvement, so the filter is not retained; fixed100 remains the research
+reference. Twelve replays, six exact controls, 256 account prefixes and 256
+filter prefixes; one added configuration, ledger90/catalog107, no independent
+confirmation. See trading/lab/JEU38_RESULTS.md and RESEARCH_LESSONS.md.
+The original 49-file freeze and protocol retain their pre-performance wording.
+Private archive jeu38/structure-obstacle-v1/ was written and fully read back.
+
+The shared Lab #historyCalendarGame adds a game/profile/mode/cost selector for
+monthly-reset June/July/August2026 views from Games33–38. Immutable reports stay
+checksum-verified by their original validators. history-calendar-manifest.json,
+history-calendar-view.mjs and lab-calendar-history.mjs/css are presentation
+sources only; changing a selection does not rerun or tune strategies. Game33
+continuous-summer views are excluded from this monthly calendar; early-stop
+nulls and unavailable daily market/risk details remain explicit. Preferences
+can persist locally; actual result history is versioned with its reports.
+Earlier panels/HTML IDs, Kronos/RSI/news integration, historical freezes and
+prospective collection remain intact; no execution, payout request or main merge.
