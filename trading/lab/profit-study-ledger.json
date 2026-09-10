@@ -1,0 +1,44 @@
+{
+  "schema": "research-execution-supplement-v1",
+  "namespace": "mnq-profit-study-v1",
+  "frozenCommit": "b0bd4bcfdcad50aa85bd7e5173df0837f290e1ba",
+  "completedAt": "2026-09-10T19:37:30.791Z",
+  "historicalBase": {
+    "catalogPath": "research-catalog.json",
+    "catalogBlobSha": "0de9d6bad8aba71e8ffc10c5fe313ac38ff10d36",
+    "ledgerConfigurations": 111,
+    "catalogKeys": 128,
+    "unchangedSnapshot": true
+  },
+  "newExecutedConfigurations": 4,
+  "newHypotheses": 3,
+  "fullAccountReplays": 24,
+  "causalPrefixReplays": 512,
+  "observedCashSessions": 64,
+  "missingCashSessions": [],
+  "independentConfirmations": 0,
+  "countIsNotIndependentTrials": true,
+  "coverage": {"from":"2026-06-01","endExclusive":"2026-09-01","market":"MNQ","executionMinutes":5,"accountReset":"monthly","accountInitialUSD":50000,"dailyLossUSD":200},
+  "datasetId": "mnq1-tradingview-rth-m5-2026-05-25_2026-09-10",
+  "resultsPath": "PROFIT_STUDY_RESULTS.md",
+  "artifact": {
+    "workflowRunId": 34521475105,
+    "artifactId": 10169820719,
+    "zipSha256": "1933376a3c4307e54d1c2466a85ff1f1cab6385c86ca22575b716d91862391e3",
+    "reportBytesSha256": "e37c6e949f000965bea0b5389689ef89e8b104bf2994071aa6380c5e2dfa1a5e",
+    "reportCanonicalSha256": "96673def890e8574e52b4aa62e3f6bf36c6bc209797dad86a3868b33048954f9",
+    "retentionDays": 30,
+    "durableAggregateCopy": "PROFIT_STUDY_RESULTS.md"
+  },
+  "configurations": [
+    {"executionKey":"mnq-profit-study-v1/reference100","role":"new-source-single-market-reference","maxRiskUSD":100,"minimumNetTargetUSD":0,"normalNetUSD":92.5,"stressNetUSD":-59,"normalTrades":23,"stressTrades":23,"normalMeanAllUSD":4.02,"stressMeanAllUSD":-2.57,"maxMonthlyRealizedDrawdownNormalUSD":252,"maxMonthlyRealizedDrawdownStressUSD":301.5,"verdict":"reference-not-independently-confirmed"},
+    {"executionKey":"mnq-profit-study-v1/risk150","role":"new-risk-hypothesis","maxRiskUSD":150,"minimumNetTargetUSD":0,"normalNetUSD":-303.5,"stressNetUSD":-273,"normalTrades":31,"stressTrades":29,"normalMeanAllUSD":-9.79,"stressMeanAllUSD":-9.41,"maxMonthlyRealizedDrawdownNormalUSD":656.5,"maxMonthlyRealizedDrawdownStressUSD":662.5,"verdict":"rejected-monthly-net-and-drawdown-degradation"},
+    {"executionKey":"mnq-profit-study-v1/risk200","role":"new-risk-hypothesis","maxRiskUSD":200,"minimumNetTargetUSD":0,"normalNetUSD":265,"stressNetUSD":-70,"normalTrades":32,"stressTrades":32,"normalMeanAllUSD":8.28,"stressMeanAllUSD":-2.19,"maxMonthlyRealizedDrawdownNormalUSD":779,"maxMonthlyRealizedDrawdownStressUSD":872.5,"verdict":"rejected-monthly-net-and-drawdown-degradation"},
+    {"executionKey":"mnq-profit-study-v1/net100-risk100","role":"new-net-target-admission-hypothesis","maxRiskUSD":100,"minimumNetTargetUSD":100,"normalNetUSD":92.5,"stressNetUSD":0,"normalTrades":23,"stressTrades":22,"normalMeanAllUSD":4.02,"stressMeanAllUSD":0,"maxMonthlyRealizedDrawdownNormalUSD":252,"maxMonthlyRealizedDrawdownStressUSD":269.5,"verdict":"not-retained-no-strict-normal-improvement"}
+  ],
+  "totalsAreSumOfMonthlyResetAccounts": true,
+  "selection": null,
+  "confirmed": false,
+  "executionAllowed": false,
+  "rerun": false
+}
