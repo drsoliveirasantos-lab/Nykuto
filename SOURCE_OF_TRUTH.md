@@ -526,3 +526,15 @@ Game44 completed once at freeze aaf31a02a1c97718d06ada443a665f066144c2ba:112 rep
 Game45 preparation: six isolated London cash-clock/time-exit variants on MNQ/MES, unchanged Game40 risk and 2R. See trading/lab/JEU45_PROTOCOL.md and JEU45_RESEARCH.md. Conventional London clock with frozen official UK holidays; no observed European price feed or new entries outside the US morning. A one-time net-nonpositive check after six closed M5 bars schedules next-open exit. 112 replays,16 exact controls,2296 chronological prefixes per layer planned; no performance read before freeze. Ledger103/catalog120 remain completed history. Historical freezes, models, collection and activation remain intact. Launch once and stop monitoring until Diego requests verification.
 
 Game45 completed once at freeze aee222ff039721c7e6d50188cb6ed2c0d21ec8c0:112 replays,16 whole controls,2296 prefixes per layer,119 frozen dependencies and1473 trade records verified. MNQ time-exit30 alone passes the descriptive gate: two reduced losses add91 USD at each cost; other five variants rejected. No independent confirmation, automatic selection or activation; Game40 remains the reference. See trading/lab/JEU45_RESULTS.md, jeu45-summary.json and jeu45-execution-audit.json. Private full outputs archived. Ledger109/catalog126 preserve prior103/120; no new performance run at readback.
+
+
+The post-Game45 development adapter is `trading/lab/research-bot.mjs`. It reuses
+the frozen MNQ-only 30-minute exit, native Game40 preparation and mandatory
+reference/normal/stress comparisons. `research-execution-diagnostics.mjs`
+reconciles costs and entry changes and reports concentration without selection.
+`research-bot-evidence.json` is the canonical aggregate-only readback, regenerated
+from the SHA-pinned private Game45 archive by `scripts/audit-trading-research-bot.mjs`.
+The optional `scripts/check-trading-research-bot-month.mjs` reproduces one existing
+month against four whole archived accounts after a clean commit. No new strategy,
+independent observation, UI deployment, broker route or activation is introduced.
+Ledger109/catalog126 remain unchanged. See `trading/lab/RESEARCH_BOT.md`.

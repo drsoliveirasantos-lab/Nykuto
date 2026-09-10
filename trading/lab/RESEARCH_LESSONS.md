@@ -4,9 +4,9 @@ Dernière revue : 10 septembre 2026. Lire ce document, le catalogue et les derni
 
 ## État à conserver
 
-- Référence de recherche : Jeu 37 `fixed100`, cibles 2R, portefeuille sans MYM, profils MES/MGC/MNQ conservés. Bot réel, Paper et Shadow désactivés.
+- Référence de recherche : Jeu 40 `fixed100` (mécanique Jeu37), cibles 2R, portefeuille sans MYM, profils MES/MGC/MNQ conservés. Bot réel, Paper et Shadow désactivés.
 - Objectif étudié : 4 000 USD de PnL mensuel. Objectif personnel distinct : premier versement simulé équivalent à 1 000 EUR. Compte 50K neuf chaque mois, pas un été continu.
-- 97 configurations dans le registre, 114 clés dans le catalogue croisé, **zéro confirmation indépendante**. Le Jeu 40 ajoute une extension de période sans nouvelle stratégie ; les variantes 38/39/41/42/43 restent non retenues.
+- 109 configurations dans le registre, 126 clés dans le catalogue croisé, **zéro confirmation indépendante**. Le Jeu45 conserve uniquement MNQ `time-exit30` comme candidate de développement ; référence inchangée. Les filtres 38/39/41/42/43/44, les horaires45 et la sortie MES45 restent non retenus.
 - Le modèle Kronos-mini téléchargé est expérimental : K1 ne bat pas la prévision constante ; aucune adoption comme filtre ou modèle entraîné sur notre stratégie.
 
 ## Leçons et preuves
@@ -129,3 +129,8 @@ Diego autorise désormais des propositions issues de recherches et du diagnostic
 - **L36 — Généraliser une sortie utile peut sacrifier des gagnants lents.** MES sortie30min réduit deux pertes mais abandonne des gagnants : −35USD normal, −187,50 doublé. C'est pourquoi la candidate MNQ n'est pas appliquée au S&P, à l'or ou combinée à d'autres filtres après lecture.
 
 [Bilan45](./JEU45_RESULTS.md) · [Résumé](./jeu45-summary.json).112relectures/16témoins exacts/2296préfixes par couche terminés en4min27s.119fichiers gelés et1473enregistrements de trades vérifiés,11sorties rapprochées avec les prix natifs, zéro nouvelle simulation. Registre109/catalogue126, anciennes103/120 intactes ; une candidate descriptive non sélectionnée, cinq rejets, zéro confirmation indépendante.
+
+
+## Intégration après le Jeu45
+
+**L37 — Intégrer une candidate ne la confirme pas.** Le [profil de développement](./RESEARCH_BOT.md) réutilise la sortie MNQ30 minutes gelée, avec témoin et deux coûts obligatoires. Son diagnostic réconcilie frais, pertes précoces, gagnants sacrifiés et effets sur les admissions ; les mêmes trades sous deux coûts ne deviennent pas quatre observations indépendantes. Les agrégats relus ne constituent pas un nouvel essai : registre109/catalogue126 conservés, aucune sélection, aucune activation.
