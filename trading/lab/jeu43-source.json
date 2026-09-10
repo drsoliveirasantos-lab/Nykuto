@@ -1,0 +1,28 @@
+{
+  "schema": "jeu43-source-v1",
+  "baseCommit": "f815b33d78e8a24e556c1d83a8958674687e37c0",
+  "inputs": {
+    "prices": {
+      "bytes": 4331838,
+      "sha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09"
+    },
+    "mnq": {
+      "bytes": 2426693,
+      "sha256": "028e914bb10ea38b73b6fcbc867c5d81937b967701448913fc88ca85746557cf"
+    },
+    "prior": {
+      "bytes": 557662,
+      "sha256": "63f9f1e819e3affff761a3ae4e3ad12bb3a5e2eb43ee91f125ace5c22dd006ff"
+    },
+    "priorReport": {
+      "bytes": 329827,
+      "sha256": "fd57be160b7fd20f60449f13f379da138687acc1174f2c01d25889c7475fa6b0"
+    }
+  },
+  "priorArchive": "jeu40/eight-months-v1/manifest.json",
+  "newConfigurations": 2,
+  "privateSourceLocations": {
+    "pricesManifest": "jeu19/multimarket-v1/manifest.json",
+    "mnqKey": "jeu14/available-history-v1.json"
+  }
+}

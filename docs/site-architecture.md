@@ -898,3 +898,6 @@ extend the Lab and shared calendar to33–42,72selections/266monthly cost views.
 One executed configuration added:ledger95/catalog112; old94/111entries intact.
 No inference, automatic selection, activation, collection change or main merge.
 The original preparation protocol remains frozen as a historical record.
+
+
+Game43 adds a reusable past-window normalization module and two isolated entry-extension hypotheses (MNQ / MES). Kronos-style scaling is reimplemented, not model inference. See trading/lab/JEU43_PROTOCOL.md and JEU43_RESEARCH.md. Forty-eight January-August replays are planned, including sixteen exact Game40 controls; no performance is claimed at freeze. Private progress/results stay outside Git, and the user requested launch then stop monitoring. Historical freezes, models, RSI/news, risk and collection remain intact. No automatic selection or activation.
