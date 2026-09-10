@@ -13,7 +13,7 @@ pas à une route d'ordres ou une activation du site publié.
 - `.github/workflows/trading-profit-study.yml` : tests à chaque modification pertinente ; campagne uniquement à la première ouverture de PR, tentative1.
 
 `quoteResearchBotMnqTrade()` fournit une estimation de quantité, perte au stop
-et gain net possible à 2R, sans vérifier la marge personnelle d'un courtier
+et gain net possible à2R, sans vérifier la marge personnelle d'un courtier
 ni soumettre un ordre. `simulateResearchBotMnqProfitStudy()` est un point
 d'entrée explicite du bot pour l'étude. Son défaut est `reference100`.
 
@@ -31,3 +31,18 @@ Validation complète en CI : ajouter `scripts/test-trading-profit-engine.mjs`.
 Le runner exige un SHA exact, un checkout propre et un dossier résultat neuf.
 Les artefacts ne contiennent que des agrégats/empreintes. Un résultat descriptif
 ne sélectionne pas de stratégie ; registres historiques inchangés au gel.
+
+## Exécution terminée — 10 septembre 2026
+
+Lire `trading/lab/PROFIT_STUDY_RESULTS.md` et
+`trading/lab/profit-study-ledger.json` AVANT toute nouvelle tentative de
+hausse de risque. Le registre complémentaire contient4configurations
+exécutées, dont3hypothèses ; il s'ajoute au catalogue historique figé,
+qu'il ne réécrit pas. Ce ne sont pas4confirmations indépendantes.
+
+Run34521475105, gelb0bd4bcfdcad50aa85bd7e5173df0837f290e1ba :
+16tests,24comptes et512préfixes réussis. Aucune hypothèse ne passe le
+critère financier descriptif. Risque100 reste le défaut ; pas d'activation.
+Sommes normales des trois comptes : référence92,50USD ; risque150-303,50 ;
+risque200+265 ; filtre net100+92,50. En stress : -59/-273/-70/0USD.
+Le dernier commit de résultats n'exécute pas une nouvelle campagne.
