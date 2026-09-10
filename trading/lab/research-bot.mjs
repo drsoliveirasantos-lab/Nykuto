@@ -26,6 +26,14 @@ export function loadResearchBotMnqHistory() {
   return loadMnqResearchStream();
 }
 
+// Explicit, research-only profit study. The original default and archived comparisons stay unchanged.
+export { quoteMnqTrade as quoteResearchBotMnqTrade } from './profit-study-policy.mjs';
+export async function simulateResearchBotMnqProfitStudy(prepared, period, variantId = 'reference100', costFactor = 1) {
+  const {loadProfitStudyEngine} = await import('./profit-study-engine.mjs');
+  const {simulateConfidencePortfolio: simulate} = await loadProfitStudyEngine();
+  return simulate([prepared.stream], prepared.contexts, period, costFactor, 'fixed100', 'MNQ', variantId);
+}
+
 // Lower-level seam for already prepared streams; research callers should use
 // compareResearchBotMonth so the original MES/MGC filters cannot be forgotten.
 export function comparePreparedResearchBot(streams, contexts, period) {

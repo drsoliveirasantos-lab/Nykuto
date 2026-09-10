@@ -1,0 +1,46 @@
+name: MNQ profit study
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'trading/lab/profit-study-*.mjs'
+      - 'trading/lab/PROFIT_STUDY_PROTOCOL.md'
+      - 'scripts/*trading-profit-*.mjs'
+      - '.github/workflows/trading-profit-study.yml'
+permissions:
+  contents: read
+concurrency:
+  group: mnq-profit-study-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+jobs:
+  historical-study:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Policy tests and native engine parity
+        run: node --test scripts/test-trading-profit-policy.mjs scripts/test-trading-profit-engine.mjs
+      - name: Run the frozen historical comparison once
+        if: github.event.action == 'opened' && github.run_attempt == 1
+        env:
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha }}
+        run: node scripts/run-trading-profit-study.mjs --expected-commit "$EXPECTED_SHA" --out "$RUNNER_TEMP/mnq-profit-study-v1"
+      - name: Publish aggregate summary only
+        if: always() && github.event.action == 'opened' && github.run_attempt == 1
+        run: |
+          if [ -f "$RUNNER_TEMP/mnq-profit-study-v1/REPORT.md" ]; then
+            cat "$RUNNER_TEMP/mnq-profit-study-v1/REPORT.md" >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always() && github.event.action == 'opened' && github.run_attempt == 1
+        with:
+          name: mnq-profit-study-${{ github.run_id }}
+          path: ${{ runner.temp }}/mnq-profit-study-v1/
+          retention-days: 30
+          if-no-files-found: warn
