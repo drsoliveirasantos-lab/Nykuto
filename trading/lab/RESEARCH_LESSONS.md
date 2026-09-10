@@ -6,7 +6,7 @@ Dernière revue : 10 septembre 2026. Lire ce document, le catalogue et les derni
 
 - Référence de recherche : Jeu 37 `fixed100`, cibles 2R, portefeuille sans MYM, profils MES/MGC/MNQ conservés. Bot réel, Paper et Shadow désactivés.
 - Objectif étudié : 4 000 USD de PnL mensuel. Objectif personnel distinct : premier versement simulé équivalent à 1 000 EUR. Compte 50K neuf chaque mois, pas un été continu.
-- 92 configurations dans le registre, 109 clés dans le catalogue croisé, **zéro confirmation indépendante**. Le Jeu 38 ajoute une configuration non retenue ; le Jeu 39 en ajoute deux, également non retenues.
+- 93 configurations dans le registre, 110 clés dans le catalogue croisé, **zéro confirmation indépendante**. Le Jeu 40 ajoute une extension de période sans nouvelle stratégie ; les variantes 38/39 restent non retenues.
 - Le modèle Kronos-mini téléchargé est expérimental : K1 ne bat pas la prévision constante ; aucune adoption comme filtre ou modèle entraîné sur notre stratégie.
 
 ## Leçons et preuves

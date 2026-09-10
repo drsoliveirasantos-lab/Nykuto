@@ -847,3 +847,11 @@ and202 monthly views. Missing dates are crossed out/null with partial weeks and
 month totals explicit. historyCalendarTotalsHead supports dynamic month columns.
 Ledger93/catalog110, one period extension, no strategy/inference/activation or
 prospective-collection change. The original52-file freeze remains unchanged.
+
+Game41 preparation isolates jeu41-net-reward.mjs before the unchanged Game40
+engine. Only MES can be vetoed for (2R-cost)/(R+cost)<1.5, using current open and
+closed signal; quantity/risk/stops remain unchanged. jeu41-preparation.mjs copies
+the two Game40 preparation functions exactly, verified by source identity test.
+jeu41-diagnostic.mjs will compare32 full accounts and16 whole archived controls,
+preserving partial-day calendars; no performance at preparation time. Source
+audit aggregates are public, private executions/prices stay outside Git.

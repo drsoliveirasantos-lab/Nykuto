@@ -460,3 +460,12 @@ One period-extension configuration, no strategy added: ledger93/catalog110.
 Lab study40Game and shared calendar40 show Jan–Aug; games33–39 stay June–Aug.
 The published protocol/freeze and all old results stay immutable. No model
 inference, automatic selection, activation, prospective changes or main merge.
+
+Game41 is prepared before performance: one MES-only minimum net reward/risk1.5
+veto against exact Game40 fixed100. The existing232 trades were audited with no
+new arithmetic discrepancy. MES44 trades produce576.25 gross less535 costs,
+net41.25; see jeu41-entry-audit.json and JEU41_RESEARCH.md. New ratio gate uses
+only next open/closed signal and integer cents, never entry-bar future extremes.
+32 planned replays,16 whole controls,656 account/filter/context prefixes each,
+same8 monthly resets and2 missing dates. No ledger addition before execution.
+All52 Game40 dependencies remain immutable; no new model inference or activation.
