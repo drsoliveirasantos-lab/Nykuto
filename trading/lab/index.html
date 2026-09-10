@@ -39,6 +39,8 @@
   <script src="./lab-account50.mjs?v=1" type="module"></script>
   <link rel="stylesheet" href="./lab-monthly-goal.css?v=1">
   <script src="./lab-monthly-goal.mjs?v=1" type="module"></script>
+  <link rel="stylesheet" href="./lab-exits.css?v=1">
+  <script src="./lab-exits.mjs?v=1" type="module"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Aller au contenu</a>
@@ -74,6 +76,30 @@
     </div>
     <noscript><p>Active JavaScript pour changer de vue et consulter le suivi.</p></noscript>
     <div id="view-current" class="lab-view" role="tabpanel" aria-labelledby="tab-current" tabindex="0">
+    <section class="panel independent-game market-game" id="exit35Game" aria-labelledby="exit35Title">
+      <div class="panel-heading"><div><p class="panel-kicker">JEU 35 · SORTIES PAR MARCHÉ</p><h3 id="exit35Title">Viser plus loin augmente-t-il les profits ?</h3></div><span class="lab-status planned">2R conservé</span></div>
+      <div class="iv-content">
+        <p class="iv-intro">Le Nasdaq à 3R dégrade juin et août. L’or à 3R améliore ces deux mois, mais dégrade juillet et sa baisse maximale. Les entrées, stops et risques restent identiques ; aucune des deux modifications n’est retenue.</p>
+        <p id="exit35Message" role="status">Chargement de la comparaison vérifiée…</p>
+        <div id="exit35Results" hidden>
+          <div class="exit-controls">
+            <label for="exit35Variant"><span>Sortie étudiée</span><select id="exit35Variant"><option value="baseline">2R partout · référence conservée</option><option value="mnq-3r">Nasdaq à 3R · test non retenu</option><option value="mgc-3r">Or à 3R · test non retenu</option></select></label>
+            <label for="exit35Month"><span>Mois neuf</span><select id="exit35Month"><option value="june">Juin 2026</option><option value="july">Juillet 2026</option><option value="august">Août 2026</option></select></label>
+            <label for="exit35Mode"><span>Étape du compte</span><select id="exit35Mode"><option value="funded">Funded déjà obtenu · hypothèse</option><option value="evaluation">Évaluation · aucun retrait</option></select></label>
+            <label for="exit35Cost"><span>Coûts</span><select id="exit35Cost"><option value="normal">Normaux</option><option value="stress">Doublés</option></select></label>
+          </div>
+          <p id="exit35Note"></p><p id="exit35Result" aria-live="polite"></p>
+          <h4>Comparaison des trois mois</h4><div class="iv-table-wrap" role="region" aria-label="Comparaison des cibles par mois" tabindex="0"><table class="iv-table"><caption>Portefeuille sans MYM, bénéfices après coûts en dollars. Chaque mois repart de 50 000 $ ; les totaux ne décrivent pas un compte continu.</caption><thead><tr><th scope="col">Mois</th><th scope="col">Référence 2R</th><th scope="col">MNQ 3R seul</th><th scope="col">MGC 3R seul</th></tr></thead><tbody id="exit35Months"></tbody></table></div>
+          <h4>Ce que fait chaque marché</h4><div class="iv-table-wrap" role="region" aria-label="Contributions par marché et sortie" tabindex="0"><table class="iv-table"><caption>Les marchés partagent une seule place. Une sortie plus tardive peut empêcher une autre entrée, même si son profil reste identique.</caption><thead><tr><th scope="col">Marché</th><th scope="col">Trades étudiés</th><th scope="col">Net à 2R</th><th scope="col">Net étudié</th><th scope="col">Moyenne par trade</th></tr></thead><tbody id="exit35Markets"></tbody></table></div>
+          <h4>Gains, pertes et durée</h4><div class="iv-table-wrap" role="region" aria-label="Statistiques de sortie du mois" tabindex="0"><table class="iv-table"><caption>Durées minimales estimées par bougies M5 ; l’heure exacte de sortie à l’intérieur d’une bougie est inconnue. Baisse réalisée entre trades, sans mesure complète du risque latent.</caption><thead><tr><th scope="col">Mesure</th><th scope="col">Référence 2R</th><th scope="col">Sortie étudiée</th></tr></thead><tbody id="exit35Stats"></tbody></table></div>
+          <h4>Résultat par semaine</h4><div class="iv-table-wrap" role="region" aria-label="Résultats hebdomadaires comparés" tabindex="0"><table class="iv-table"><caption>* Portion de semaine à la limite du mois. Le bénéfice du compte et le versement personnel restent séparés.</caption><thead><tr><th scope="col">Dates</th><th scope="col">Net à 2R</th><th scope="col">Net étudié</th><th scope="col">Cumul étudié</th><th scope="col">Versement simulé</th></tr></thead><tbody id="exit35Weeks"></tbody></table></div>
+        </div>
+        <details class="iv-help"><summary>Ce que nous conservons par profil</summary><ul><li>MGC : cassure échouée, entrée avant 11 h New York, stop structurel et 2R. Positif sur ces trois mois, mais seulement 11 trades dans la référence.</li><li>MNQ : retour après cassure et 2R. Juillet/août restent fragiles ; la cible 3R n’améliore pas la régularité.</li><li>MES : profil actuel avec filtre RSI conservé. Aucun changement de cible testé sur ce marché dans le Jeu 35.</li><li>MYM : absent de cette variante de recherche ; sa référence à quatre marchés reste disponible dans le Jeu 34. Son exclusion n’est pas une validation indépendante.</li></ul></details>
+        <details class="iv-help"><summary>Comment augmenter les profits sans confondre taille et qualité ?</summary><p>Résultat = gains des gagnants − pertes des perdants − coûts. Viser 3R peut augmenter le gain d’un gagnant, mais diminuer le nombre de gagnants. Ici, sur le Nasdaq, trois gagnants à 2R deviennent perdants en attendant 3R aux coûts normaux.</p><p>Une bougie M15 regroupe quinze minutes de prix. Elle ne produit pas davantage de bénéfice qu’une M5 par elle-même. Le bot peut déjà conserver une position jusqu’à quinze minutes avant la clôture cash ; il n’y a pas de minuterie courte à supprimer.</p><p>Plafond prévu 100 $ frais compris, une position et deux entrées par jour au total. Augmenter la taille amplifierait aussi les pertes. La priorité reste la qualité des entrées et la confirmation sur de nouvelles données.</p></details>
+        <p>Objectif personnel inchangé : un retrait équivalent à 1 000 € après partage, puis arrêt du mois. Référence de change fixe 1 € = 1,1652 $, avant impôts et frais de conversion. Aucun objectif atteint dans ces simulations.</p>
+        <p><a href="./JEU35_RESULTS.md">Bilan, profils et toutes les semaines</a> · <a href="./JEU35_PROTOCOL.md">Règles de la comparaison</a> · <a href="#monthlyGoalGame">Référence du Jeu 34</a></p>
+      </div>
+    </section>
     <section class="panel independent-game market-game" id="associateMethod" aria-labelledby="associateMethodTitle">
       <div class="panel-heading"><div><p class="panel-kicker">MÉTHODE · TRANSCRIPTION REÇUE LE 10 SEPTEMBRE</p><h3 id="associateMethodTitle">Comprendre la tendance, puis attendre une réaction</h3></div><span class="lab-status planned">Règles à préciser</span></div>
       <div class="iv-content">

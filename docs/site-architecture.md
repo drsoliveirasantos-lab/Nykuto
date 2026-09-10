@@ -711,3 +711,16 @@ H1 20/50 and level reactions from the historical H1 EMA9/21 experiment, records
 unknown indicator/session settings and the cash-only data limit, and separates
 the two speakers' optional confirmations. This is a method audit, with no new
 performance run or ledger entry; frozen research remains unchanged.
+
+
+Game 35 compares unchanged Game34-without-MYM entries with one target extension
+per variant: MNQ 3R or MGC 3R. Neither meets the predeclared non-degradation
+criterion; 2R remains the reference. MNQ worsens June/August; MGC worsens July
+and raises normal realized drawdown from 312.50 to 536.50 USD. The 50K monthly
+reset and EUR1000 withdrawal objective remain; no goal achieved. The Lab shows
+weekly results, market contributions, duration lower bounds and reconciled
+common/removed/new entries. See trading/lab/JEU35_PROTOCOL.md and JEU35_RESULTS.md.
+36 replays include 12 exact controls; 4 new configurations, 2 strategy variants,
+80 ledger entries and 97 cross-history keys; zero independent confirmations.
+All private archive parts read back under jeu35/market-exits-v1/. Historical
+freezes, entry rules, live/Paper/Shadow inactivity and collection stay intact.

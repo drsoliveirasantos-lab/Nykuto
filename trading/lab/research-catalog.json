@@ -2,7 +2,7 @@
   "schema": "research-catalog-v1",
   "checkedAt": "2026-09-10",
   "independentConfirmations": 0,
-  "uniqueConfigurationKeys": 93,
+  "uniqueConfigurationKeys": 97,
   "sharedConfigurationKeys": 57,
   "countIsNotIndependentTrials": true,
   "sources": [
@@ -38,6 +38,15 @@
       "newStrategyVariants": 1,
       "reportSha256": "ec751379ed0416e2895ca989e3f449d0144727f57582da51c08ee1920cdec349",
       "note": "24 replays include 6 existing controls; monthly accounts reset independently."
+    },
+    {
+      "namespace": "game35-market-exits",
+      "ref": "71eb5adb79cf63e189fbe11bc40a4710c439c2da",
+      "ledger": "research-ledger.json",
+      "configurationCount": 4,
+      "newStrategyVariants": 2,
+      "reportSha256": "ff5f836855229d88fba31d22fd3d2717d67a19dfa0c7dc0659724f59f0044311",
+      "note": "36 replays include 12 Game34 controls; both 3R extensions rejected by the frozen research gate."
     }
   ],
   "entries": [
@@ -654,6 +663,30 @@
       "executionKey": "f317118dcc4dd2ee22bf6c8a57571aa74e6cf08f96678613e649c227993913bb",
       "sources": [
         "game34-monthly-payout"
+      ]
+    },
+    {
+      "executionKey": "0fdd26f32beffcdcb052ecca41c221b003d691d09497bd92801107d5c4b7fbb8",
+      "sources": [
+        "game35-market-exits"
+      ]
+    },
+    {
+      "executionKey": "7470b3423d4cafa48110a4447ed59c395a44ecb19e19bd43fbcd622d7e05288c",
+      "sources": [
+        "game35-market-exits"
+      ]
+    },
+    {
+      "executionKey": "a8355c93bb8de0dd886da1a4567836c23b41c100b18c93f8f11041ccc3ab7e0e",
+      "sources": [
+        "game35-market-exits"
+      ]
+    },
+    {
+      "executionKey": "79cf0ca376efad1ea7cd05398d7a29707daa0428b7c1ab5684477911ca5f39e0",
+      "sources": [
+        "game35-market-exits"
       ]
     }
   ]

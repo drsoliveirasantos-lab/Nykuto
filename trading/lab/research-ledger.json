@@ -1,7 +1,7 @@
 {
   "schema": "research-ledger-v1",
-  "scope": "Published Games 19\u201326, audit F1 and Game 33; research-catalog.json also preserves research Games 27\u201332; Game 34 monthly payout comparison",
-  "configurationCount": 76,
+  "scope": "Published Games 19–26, audit F1 and Game 33; research-catalog.json also preserves research Games 27–32; Game 34 monthly payout comparison",
+  "configurationCount": 80,
   "independentConfirmations": 0,
   "entries": [
     {
@@ -973,7 +973,7 @@
       "dailyLoss": 300,
       "floorReserve": 100,
       "quantity": 1,
-      "context": "0\u20132 or missing:50;3\u20134:75;5:150;all indispensable ORB conditions retained",
+      "context": "0–2 or missing:50;3–4:75;5:150;all indispensable ORB conditions retained",
       "comparisons": "Archived Game23 fixed150 and Game24 strict150; not rerun or counted as new"
     },
     {
@@ -1000,7 +1000,7 @@
       "dailyLoss": 300,
       "floorReserve": 100,
       "quantity": 1,
-      "context": "0\u20132 or missing:50;3\u20134:75;5:150;all indispensable ORB conditions retained",
+      "context": "0–2 or missing:50;3–4:75;5:150;all indispensable ORB conditions retained",
       "comparisons": "Archived Game23 fixed150 and Game24 strict150; not rerun or counted as new"
     },
     {
@@ -1027,7 +1027,7 @@
       "dailyLoss": 300,
       "floorReserve": 100,
       "quantity": 1,
-      "context": "0\u20132 or missing:50;3\u20134:75;5:150;all indispensable ORB conditions retained",
+      "context": "0–2 or missing:50;3–4:75;5:150;all indispensable ORB conditions retained",
       "comparisons": "Archived Game23 fixed150 and Game24 strict150; not rerun or counted as new"
     },
     {
@@ -1054,7 +1054,7 @@
       "dailyLoss": 300,
       "floorReserve": 100,
       "quantity": 1,
-      "context": "0\u20132 or missing:50;3\u20134:75;5:150;all indispensable ORB conditions retained",
+      "context": "0–2 or missing:50;3–4:75;5:150;all indispensable ORB conditions retained",
       "comparisons": "Archived Game23 fixed150 and Game24 strict150; not rerun or counted as new"
     },
     {
@@ -1479,6 +1479,74 @@
       "holdoutPassed": null,
       "confirmed": false,
       "report": "jeu34-report.json"
+    },
+    {
+      "game": 35,
+      "id": "PORTFOLIO/mnq-3r/evaluation",
+      "executionKey": "0fdd26f32beffcdcb052ecca41c221b003d691d09497bd92801107d5c4b7fbb8",
+      "freezeSha256": "da773e37c366fe187debc940dc7349913671427583b1e806c19f7bb3e20a05f2",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "mnq-3r/evaluation",
+      "phase": "diagnostic",
+      "start": "2026-06-01",
+      "end": "2026-09-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu35-report.json"
+    },
+    {
+      "game": 35,
+      "id": "PORTFOLIO/mnq-3r/funded",
+      "executionKey": "7470b3423d4cafa48110a4447ed59c395a44ecb19e19bd43fbcd622d7e05288c",
+      "freezeSha256": "da773e37c366fe187debc940dc7349913671427583b1e806c19f7bb3e20a05f2",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "mnq-3r/funded",
+      "phase": "diagnostic",
+      "start": "2026-06-01",
+      "end": "2026-09-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu35-report.json"
+    },
+    {
+      "game": 35,
+      "id": "PORTFOLIO/mgc-3r/evaluation",
+      "executionKey": "a8355c93bb8de0dd886da1a4567836c23b41c100b18c93f8f11041ccc3ab7e0e",
+      "freezeSha256": "da773e37c366fe187debc940dc7349913671427583b1e806c19f7bb3e20a05f2",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "mgc-3r/evaluation",
+      "phase": "diagnostic",
+      "start": "2026-06-01",
+      "end": "2026-09-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu35-report.json"
+    },
+    {
+      "game": 35,
+      "id": "PORTFOLIO/mgc-3r/funded",
+      "executionKey": "79cf0ca376efad1ea7cd05398d7a29707daa0428b7c1ab5684477911ca5f39e0",
+      "freezeSha256": "da773e37c366fe187debc940dc7349913671427583b1e806c19f7bb3e20a05f2",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "mgc-3r/funded",
+      "phase": "diagnostic",
+      "start": "2026-06-01",
+      "end": "2026-09-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu35-report.json"
     }
   ]
 }
