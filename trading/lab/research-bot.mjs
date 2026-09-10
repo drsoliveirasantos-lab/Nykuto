@@ -8,6 +8,7 @@ import { historyCalendar } from './jeu14-policy.mjs';
 import { contexts40, filtered40 } from './jeu41-preparation.mjs';
 import { simulateConfidencePortfolio } from './jeu45-engine.mjs';
 import { compareExecutionDiagnostics } from './research-execution-diagnostics.mjs';
+import { loadMnqResearchStream } from './mnq-data.mjs';
 
 export const RESEARCH_BOT = Object.freeze({
   version: 'research-bot-evidence-v1', reference: 'jeu40-fixed100',
@@ -15,8 +16,15 @@ export const RESEARCH_BOT = Object.freeze({
   candidateSource: 'jeu45', riskMaximumUSD: 100, dailyLossUSD: 200, targetR: 2,
   timeExitSymbol: 'MNQ', timeExitMinutes: 30,
   periodScope: 'already-observed-January-August-2026',
+  historicalMnqSource: 'mnq1-tradingview-rth-m5-2026-05-25_2026-09-10',
   selection: null, confirmed: false, executionAllowed: false,
 });
+
+// Repository-owned MNQ historical input for new research runs. This is deliberately
+// separate from the frozen archived fixtures used to reproduce Games 40-46.
+export function loadResearchBotMnqHistory() {
+  return loadMnqResearchStream();
+}
 
 // Lower-level seam for already prepared streams; research callers should use
 // compareResearchBotMonth so the original MES/MGC filters cannot be forgotten.
