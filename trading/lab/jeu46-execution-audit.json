@@ -1,0 +1,42 @@
+{
+  "schema": "jeu46-readback-audit-v1",
+  "verifiedAt": "2026-09-10T18:30:15.400441+00:00",
+  "sourceOutputs": {
+    "report.json": {
+      "bytes": 2243716,
+      "sha256": "f32b71dd8ab2013bc6baf341d41d754fc96b5c3df8f14a96f1f7b084c55de906"
+    },
+    "runs-private.json": {
+      "bytes": 1830020,
+      "sha256": "0b12e0eccfa3f501352b96f11bab7b19e78a9fa7f482305d9869db0e4fb2bd03"
+    }
+  },
+  "freezeFilesVerified": 132,
+  "wholeArchivedControls": 32,
+  "checkedTradeRecords": 928,
+  "independentNativeExitChecks": 13,
+  "cashflowsDrawdownsMeansAndReviewsReconciled": true,
+  "newPerformanceRuns": 0,
+  "selection": null,
+  "executionAllowed": false,
+  "githubChecksAtFreeze": {
+    "Website CI": {
+      "id": 34503809643,
+      "conclusion": "success"
+    },
+    "Repository hygiene": {
+      "id": 34503809637,
+      "conclusion": "success"
+    }
+  },
+  "preservedPrefixes": {
+    "ledger": "7ff3306d1f0691dc5b25f1a4de209e328657278aef1064d9bf06e008cb4d405a",
+    "catalog": "26107402d6a005b819e3e4c0fdaf6cf5221a316455450aa98e39f8eecb5e8f4e",
+    "sources": "0666e97075ad2bd33439334ad2f7e6ca42deda588b18d8d4ec6f61555e05a51e"
+  },
+  "previousLedgerCount": 109,
+  "previousCatalogCount": 126,
+  "ledgerCount": 111,
+  "catalogCount": 128,
+  "archiveFile": "Nykuto_Jeu46_resultats_verifies_2026-09-10.zip"
+}

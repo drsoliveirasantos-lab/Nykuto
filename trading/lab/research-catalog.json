@@ -1,8 +1,8 @@
 {
   "schema": "research-catalog-v1",
-  "checkedAt": "2026-09-10",
+  "checkedAt": "2026-09-10T18:32:21.027091+00:00",
   "independentConfirmations": 0,
-  "uniqueConfigurationKeys": 126,
+  "uniqueConfigurationKeys": 128,
   "sharedConfigurationKeys": 57,
   "countIsNotIndependentTrials": true,
   "sources": [
@@ -138,6 +138,16 @@
       "newStrategyVariants": 6,
       "reportSha256": "564a837abd39bbbf7ce575f7ee720aa64f7567b0a25d503ef15f8ee31e2688c9",
       "note": "Six isolated London-clock/time-exit variants;112 replays,16 whole controls,2296 prefixes per layer. MNQ time-exit30 alone passes the descriptive gate, from two reduced losses (+91 USD at each cost); five rejected, no selection, independent confirmation or activation."
+    },
+    {
+      "namespace": "game46-closed-invalidation",
+      "ref": "700eb159a8398572edd1e2b5d52d464e2ac3672d",
+      "branch": "research/trading-game46-invalidation",
+      "ledger": "research-ledger.json",
+      "configurationCount": 2,
+      "newStrategyVariants": 2,
+      "reportSha256": "3d74eb5be6ca7c2711c6903705a22b3593a48894d95d7b900c5320474170c9ce",
+      "note": "Two isolated structural exits;64 replays,32 exact archived controls. Both pass against Game40 but fail progression against MNQ30. MES improves aggregate net51.50/54USD vsMNQ30 but loses37.50USD in July at both costs. No promotion, independent confirmation or activation."
     }
   ],
   "entries": [
@@ -976,6 +986,20 @@
       "executionKey": "0bb982af1779ee70d6487ecc49e9c468501e889d554c40e98f67e64d120a956e",
       "sources": [
         "game45-sessions-time-exit"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "ede8b142999fe76593c118e386e57de0d604010443b9f9e48a4f6662440fa081",
+      "sources": [
+        "game46-closed-invalidation"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "d88a263a240bbd92ec2ad182e9efc19b7b383e2cfa8bb4ef6b5da01e4032ee8e",
+      "sources": [
+        "game46-closed-invalidation"
       ],
       "confirmed": false
     }

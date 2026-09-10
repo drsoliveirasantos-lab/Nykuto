@@ -1,0 +1,28 @@
+{
+  "schema": "jeu46-source-v1",
+  "baseCommit": "361487a6e4721e93df7adc02f641fdf654a046a3",
+  "inputs": {
+    "prices": {
+      "bytes": 4331838,
+      "sha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09"
+    },
+    "mnq": {
+      "bytes": 2426693,
+      "sha256": "028e914bb10ea38b73b6fcbc867c5d81937b967701448913fc88ca85746557cf"
+    },
+    "prior": {
+      "bytes": 3914488,
+      "sha256": "2a92527f3bad54ac05b7874e4f13b8f95fa2dbfb77b3f3418fb4bc148bf9e902"
+    },
+    "priorReport": {
+      "bytes": 3036210,
+      "sha256": "6e1edf6ef86b08569ff86af0140ba43412af22432150b22cb5a7d5dcd44a4828"
+    }
+  },
+  "priorArchive": "Nykuto_Jeu45_resultats_verifies_2026-09-10.zip",
+  "newConfigurations": 2,
+  "privateSourceLocations": {
+    "pricesManifest": "jeu19/multimarket-v1/manifest.json",
+    "mnqKey": "jeu14/available-history-v1.json"
+  }
+}
