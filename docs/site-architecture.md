@@ -924,3 +924,15 @@ The optional `scripts/check-trading-research-bot-month.mjs` reproduces one exist
 month against four whole archived accounts after a clean commit. No new strategy,
 independent observation, UI deployment, broker route or activation is introduced.
 Ledger109/catalog126 remain unchanged. See `trading/lab/RESEARCH_BOT.md`.
+
+
+Game46 preparation adds two isolated closed-range invalidation exits (MNQ/MES).
+A surviving M5 close strictly back through the original breakout boundary
+schedules the next opening exit, retaining stop/gap/account/target priorities
+and the occupied exit slot. Game40 and MNQ30 are exact archived controls;64
+replays,32 controls and1312 prefixes per layer are planned. Progress requires
+separate unchanged Game45 gates against both controls. Fixed100,2R, native
+preparation and historical freezes remain. See trading/lab/JEU46_PROTOCOL.md,
+JEU46_RESEARCH.md and jeu46-* modules/scripts. No performance is claimed at
+preparation; ledger109/catalog126 remain completed history until readback.
+Launch once, estimate duration, then stop monitoring as requested by Diego.
