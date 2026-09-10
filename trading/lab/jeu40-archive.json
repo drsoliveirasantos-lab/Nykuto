@@ -1,0 +1,55 @@
+{
+  "schema": "jeu40-private-archive-v1",
+  "namespace": "TRADING_DATASETS",
+  "prefix": "jeu40/eight-months-v1/",
+  "prePerformanceCommit": "e0eb36dc7c787d9071e32882846c647f1088f04c",
+  "freezeSha256": "13a326db6ac356775f27aac6be4b28f74fbfd7f47838fd1b9a41e07d3da43704",
+  "files": [
+    {
+      "name": "source-probes.json",
+      "bytes": 75120,
+      "sha256": "47f836abf86100a2d72fe416e794ebb4a5f3b11d0a8a5272fe8c7086227bc4ec",
+      "encoding": "gzip+base64",
+      "parts": [
+        {
+          "key": "jeu40/eight-months-v1/source-probes.json.gz.b64.000",
+          "bytes": 27252,
+          "sha256": "2acc4405c956e4231f7acd379807562cd623c8944a729d4ae3f2a36348e924a8"
+        }
+      ]
+    },
+    {
+      "name": "report.json",
+      "bytes": 329827,
+      "sha256": "fd57be160b7fd20f60449f13f379da138687acc1174f2c01d25889c7475fa6b0",
+      "encoding": "gzip+base64",
+      "parts": [
+        {
+          "key": "jeu40/eight-months-v1/report.json.gz.b64.000",
+          "bytes": 23820,
+          "sha256": "9ad5956489b0ee396092e2f8dff04b387eae800739713a48eea4cd9fd6767561"
+        }
+      ]
+    },
+    {
+      "name": "runs-private.json",
+      "bytes": 557662,
+      "sha256": "63f9f1e819e3affff761a3ae4e3ad12bb3a5e2eb43ee91f125ace5c22dd006ff",
+      "encoding": "gzip+base64",
+      "parts": [
+        {
+          "key": "jeu40/eight-months-v1/runs-private.json.gz.b64.000",
+          "bytes": 60000,
+          "sha256": "ae1265e6c12b7df43ba5d89b681b5e36702154e8062581506a30efb440f374bb"
+        },
+        {
+          "key": "jeu40/eight-months-v1/runs-private.json.gz.b64.001",
+          "bytes": 5648,
+          "sha256": "611c66977f6885c7988572d4b5aaff0890f60cc8c2f6e057ed04666056ff6395"
+        }
+      ]
+    }
+  ],
+  "confirmed": false,
+  "executionAllowed": false
+}

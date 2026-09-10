@@ -47,6 +47,7 @@
   <script src="./lab-confidence.mjs?v=1" type="module"></script>
   <link rel="stylesheet" href="./lab-learning.css?v=1">
   <link rel="stylesheet" href="./lab-study39.css?v=1">
+  <link rel="stylesheet" href="./lab-study40.css?v=1">
   <link rel="stylesheet" href="./lab-calendar-history.css?v=1">
   <script src="./lab-calendar-history.mjs?v=1" type="module"></script>
 </head>
@@ -85,20 +86,20 @@
     <noscript><p>Active JavaScript pour changer de vue et consulter le suivi.</p></noscript>
     <div id="view-current" class="lab-view" role="tabpanel" aria-labelledby="tab-current" tabindex="0">
     <section class="panel independent-game market-game" id="historyCalendarGame" aria-labelledby="historyCalendarTitle">
-      <div class="panel-heading"><div><p class="panel-kicker">HISTORIQUE · JUIN, JUILLET ET AOÛT 2026</p><h3 id="historyCalendarTitle">Un calendrier pour chaque jeu</h3></div><span class="lab-status planned">Simulations enregistrées</span></div>
+      <div class="panel-heading"><div><p class="panel-kicker">HISTORIQUE · JANVIER À AOÛT 2026</p><h3 id="historyCalendarTitle">Un calendrier pour chaque jeu</h3></div><span class="lab-status planned">Simulations enregistrées</span></div>
       <div class="iv-content">
-        <p>Choisis un jeu parmi les Jeux 33 à 39 pour retrouver ses journées, ses semaines et ses profils. Chaque essai reste conservé : le nouveau jeu ne remplace pas les précédents.</p>
+        <p>Choisis un jeu parmi les Jeux 33 à 40 pour retrouver ses journées, ses semaines et ses profils. Le Jeu 40 couvre janvier à août ; les anciens jeux gardent leurs trois mois. Chaque essai reste conservé.</p>
         <div class="history-controls">
-          <label for="historyCalendarGameSelect"><span>Jeu enregistré</span><select id="historyCalendarGameSelect"><option value="39">Jeu 39 · Chargement…</option></select></label>
+          <label for="historyCalendarGameSelect"><span>Jeu enregistré</span><select id="historyCalendarGameSelect"><option value="40">Jeu 40 · Chargement…</option></select></label>
           <label for="historyCalendarVariant"><span>Variante ou profil</span><select id="historyCalendarVariant" disabled><option>Chargement…</option></select></label>
           <label for="historyCalendarMode"><span>Étape du compte</span><select id="historyCalendarMode" disabled><option>Chargement…</option></select></label>
           <label for="historyCalendarCost"><span>Coûts de transaction</span><select id="historyCalendarCost" disabled><option value="normal">Coûts normaux</option><option value="stress">Coûts doublés</option></select></label>
         </div>
         <p id="historyCalendarMessage" role="status">Chargement des calendriers enregistrés…</p>
-        <div class="history-actions"><button type="button" class="ghost-button" id="historyCalendarRetry">Réessayer le chargement</button><a id="historyCalendarReport" href="./jeu39-report.json">Rapport du jeu sélectionné</a></div>
+        <div class="history-actions"><button type="button" class="ghost-button" id="historyCalendarRetry">Réessayer le chargement</button><a id="historyCalendarReport" href="./jeu40-report.json">Rapport du jeu sélectionné</a></div>
         <div id="historyCalendarResults" hidden>
           <p id="historyCalendarSelection"></p><p id="historyCalendarPolicy"></p>
-          <p class="history-legend">Cases en dollars, arrondies à l’unité. Sélectionne une date pour voir les centimes. Vert : gain · rouge : perte · 0 : résultat nul observé. « Non étudié » et « Arrêt » ne valent pas zéro. Sur petit écran, les calendriers peuvent défiler horizontalement.</p>
+          <p class="history-legend">Cases en dollars, arrondies à l’unité. Sélectionne une date pour voir les centimes. Vert : gain · rouge : perte · 0 : résultat nul observé. Date barrée : données non correspondantes, résultat inconnu. « Non étudié » et « Arrêt » ne valent pas zéro. Sur petit écran, les calendriers peuvent défiler horizontalement.</p>
           <div class="history-calendars" id="historyCalendarCalendars"></div>
           <div class="history-day-detail" aria-live="polite">
             <h4 id="historyCalendarDayTitle">Détail de la journée</h4><p id="historyCalendarDaySummary"></p><p id="historyCalendarDayExtra"></p><p id="historyCalendarDayMissing"></p>
@@ -107,9 +108,40 @@
           <h4>Résultat par semaine</h4>
           <div class="iv-table-wrap" role="region" aria-label="Semaines du jeu sélectionné" tabindex="0"><table class="iv-table"><caption>* Portion de semaine à la limite du mois. Le cumul repart à zéro chaque mois ; le versement personnel reste distinct du bénéfice de trading.</caption><thead><tr><th scope="col">Mois</th><th scope="col">Dates</th><th scope="col">Trades</th><th scope="col">Net de la semaine</th><th scope="col">Cumul du mois</th><th scope="col">Versement personnel simulé</th></tr></thead><tbody id="historyCalendarWeeks"></tbody></table></div>
           <h4>Résultat mensuel par marché</h4>
-          <div class="iv-table-wrap" role="region" aria-label="Marchés du jeu sélectionné" tabindex="0"><table class="iv-table"><caption>Montants nets en dollars pour la variante et les coûts sélectionnés.</caption><thead><tr><th scope="col">Marché</th><th scope="col">Juin</th><th scope="col">Juillet</th><th scope="col">Août</th></tr></thead><tbody id="historyCalendarTotals"></tbody></table></div>
+          <div class="iv-table-wrap" role="region" aria-label="Marchés du jeu sélectionné" tabindex="0"><table class="iv-table"><caption>Montants nets en dollars pour la variante et les coûts sélectionnés.</caption><thead><tr id="historyCalendarTotalsHead"><th scope="col">Marché</th><th scope="col">Juin</th><th scope="col">Juillet</th><th scope="col">Août</th></tr></thead><tbody id="historyCalendarTotals"></tbody></table></div>
           <p>Ces mois déjà étudiés servent à comparer les essais. Ils ne constituent pas une nouvelle validation indépendante. Les rapports d’origine restent inchangés ; seul ton choix d’affichage est mémorisé sur cet appareil.</p>
         </div>
+      </div>
+    </section>
+    <section class="panel independent-game market-game" id="study40Game" aria-labelledby="study40Title">
+      <div class="panel-heading"><div><p class="panel-kicker">JEU 40 · JANVIER À AOÛT 2026</p><h3 id="study40Title">Huit mois observés, deux journées manquantes</h3></div><span class="lab-status planned">Référence 100 $ inchangée</span></div>
+      <div class="iv-content">
+        <p>Le bot garde ses entrées, ses sorties à 2R et son risque maximal de 100 $. Chaque mois repart avec un compte simulé de 50 000 $. Les journées disponibles de février et mars sont calculées ; seuls le 25 février et le 6 mars sont exclus et barrés dans le calendrier.</p>
+        <p class="study-decision"><strong>Moyenne mensuelle observée : 240,41 $</strong> avec les coûts normaux, 144,25 $ avec les coûts doublés. Aucun des huit mois n’atteint 4 000 $, et aucun retrait personnel n’est obtenu.</p>
+        <h4>Résultats des huit comptes mensuels</h4>
+        <div class="iv-table-wrap" role="region" aria-label="Résultats janvier à août" tabindex="0"><table class="iv-table"><caption>Montants nets en USD. Février et mars sont partiels. Le drawdown mesure le plus grand recul réalisé dans chaque compte mensuel.</caption><thead><tr><th scope="col">Mois</th><th scope="col">Séances disponibles</th><th scope="col">Net · coûts normaux</th><th scope="col">Net · coûts doublés</th><th scope="col">Trades · normaux</th><th scope="col">Drawdown · normaux</th></tr></thead><tbody>
+<tr data-study40-month="january"><th scope="row">Janvier</th><td>20/20</td><td>511,00 $</td><td>48,00 $</td><td>17</td><td>227,00 $</td></tr>
+<tr data-study40-month="february"><th scope="row">Février · partiel</th><td>18/19</td><td>663,25 $</td><td>616,75 $</td><td>10</td><td>88,50 $</td></tr>
+<tr data-study40-month="march"><th scope="row">Mars · partiel</th><td>21/22</td><td>−297,50 $</td><td>−250,50 $</td><td>11</td><td>330,00 $</td></tr>
+<tr data-study40-month="april"><th scope="row">Avril</th><td>21/21</td><td>323,75 $</td><td>216,25 $</td><td>16</td><td>263,00 $</td></tr>
+<tr data-study40-month="may"><th scope="row">Mai</th><td>20/20</td><td>−256,50 $</td><td>−197,50 $</td><td>20</td><td>730,25 $</td></tr>
+<tr data-study40-month="june"><th scope="row">Juin</th><td>21/21</td><td>1 048,75 $</td><td>785,50 $</td><td>16</td><td>172,50 $</td></tr>
+<tr data-study40-month="july"><th scope="row">Juillet</th><td>22/22</td><td>176,00 $</td><td>164,00 $</td><td>21</td><td>312,50 $</td></tr>
+<tr data-study40-month="august"><th scope="row">Août</th><td>21/21</td><td>−245,50 $</td><td>−228,50 $</td><td>11</td><td>442,00 $</td></tr>
+        </tbody></table></div>
+        <p>Total observé : <strong>1 923,25 $</strong> sur 164 séances disponibles sur 166. La moyenne divise ce total par huit et comprend deux mois partiels. Le résultat de huit mois entièrement couverts reste inconnu. Les dates exclues représentent une pause forcée du compte ; leurs gains ou pertes possibles ne sont pas inventés.</p>
+        <h4>Ce que cette mesure apprend</h4>
+        <p>Avec les coûts normaux : 122 trades, 53 gagnants et 69 perdants, soit 43,44 % de réussite et 15,76 $ nets par trade. Le pire drawdown mensuel est de 730,25 $ en mai. Trois mois perdent : mars, mai et août. Un seul août ne permet pas de conclure que ce mois est mauvais chaque année.</p>
+        <p>Augmenter le risque sur cette seule base amplifierait aussi les pertes. La référence reste un outil de recherche ; aucune nouvelle règle n’est adoptée. Sur les six témoins estivaux, aucun gagnant n’est supprimé et aucune nouvelle entrée n’apparaît. Sur les deux journées manquantes, ces nombres sont inconnus.</p>
+        <details><summary>Contributions des marchés et méthodes inspectées</summary>
+          <div class="iv-table-wrap" role="region" aria-label="Contributions sur les journées disponibles" tabindex="0"><table class="iv-table"><caption>Somme des huit mois observés ; ce n’est pas un compte continu.</caption><thead><tr><th scope="col">Marché</th><th scope="col">Coûts normaux</th><th scope="col">Coûts doublés</th></tr></thead><tbody><tr><th scope="row">MNQ</th><td>1 464,00 $</td><td>897,00 $</td></tr>
+<tr><th scope="row">MES</th><td>41,25 $</td><td>35,00 $</td></tr>
+<tr><th scope="row">MGC</th><td>418,00 $</td><td>222,00 $</td></tr>
+<tr><th scope="row">MYM</th><td>0,00 $</td><td>0,00 $</td></tr></tbody></table></div>
+          <p>L’audit du code téléchargé a identifié la normalisation des fenêtres et la représentation du temps comme méthodes à examiner. Leur efficacité propre n’est pas démontrée par ce test. Aucun modèle n’est lancé ici. Le tableau des paramètres est désormais généré depuis le code et vérifié avant chaque gel.</p>
+        </details>
+        <p class="study-note">Une seule campagne : 16 relectures, six témoins exacts, 328 vérifications de préfixes pour les comptes, les filtres et les contextes. Ces historiques déjà étudiés ne sont pas une validation indépendante. Aucun ordre, Paper, Shadow ou entraînement automatique.</p>
+        <nav class="study-links" aria-label="Preuves du Jeu 40"><a href="#historyCalendarGame">Calendrier par jeu</a><a href="./JEU40_RESULTS.md">Bilan détaillé</a><a href="./jeu40-report.json">Agrégats vérifiés</a><a href="./JEU40_PROTOCOL.md">Protocole figé</a><a href="./MODEL_METHODS_AND_SEASONS.md">Méthodes et saisonnalité</a><a href="./RESEARCH_LESSONS.md">Leçons conservées</a></nav>
       </div>
     </section>
     <section class="panel independent-game market-game" id="study39Game" aria-labelledby="study39Title">

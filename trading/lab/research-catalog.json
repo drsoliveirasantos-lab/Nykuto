@@ -2,7 +2,7 @@
   "schema": "research-catalog-v1",
   "checkedAt": "2026-09-10",
   "independentConfirmations": 0,
-  "uniqueConfigurationKeys": 109,
+  "uniqueConfigurationKeys": 110,
   "sharedConfigurationKeys": 57,
   "countIsNotIndependentTrials": true,
   "sources": [
@@ -82,6 +82,15 @@
       "newStrategyVariants": 2,
       "reportSha256": "c1520169a547acf65805f9f1197d1bf137181292f72e747207c52bac4c4b8326",
       "note": "18 replays; six whole Game37 controls. Both variants rejected. Kronos textual top-p conflict disclosed in JEU39_RESULTS.md; no independent confirmation."
+    },
+    {
+      "namespace": "game40-eight-months",
+      "ref": "e0eb36dc7c787d9071e32882846c647f1088f04c",
+      "ledger": "research-ledger.json",
+      "configurationCount": 1,
+      "newStrategyVariants": 0,
+      "reportSha256": "fd57be160b7fd20f60449f13f379da138687acc1174f2c01d25889c7475fa6b0",
+      "note": "Unchanged fixed100 period extension; 16 replays, six whole controls; 164/166 sessions. Two partial months, no independent confirmation or new strategy."
     }
   ],
   "entries": [
@@ -801,6 +810,13 @@
       "executionKey": "21db11926cf1c3ed3ccccc22a0d725829c80a069d3dd999f98848fd1e3bf14b3",
       "sources": [
         "game39-model-hours"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "263b52acb6cf972f914793534f181160efbab65505e8ffbced7e5a59bb20be93",
+      "sources": [
+        "game40-eight-months"
       ],
       "confirmed": false
     }

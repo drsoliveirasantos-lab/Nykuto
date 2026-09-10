@@ -5,9 +5,17 @@ export const HISTORY_MONTHS=Object.freeze([
  {id:'july',label:'Juillet',start:'2026-07-01',end:'2026-08-01'},
  {id:'august',label:'Août',start:'2026-08-01',end:'2026-09-01'}
 ]);
+export const HISTORY_EIGHT_MONTHS=Object.freeze([
+ {id:'january',label:'Janvier',start:'2026-01-01',end:'2026-02-01'},
+ {id:'february',label:'Février',start:'2026-02-01',end:'2026-03-01'},
+ {id:'march',label:'Mars',start:'2026-03-01',end:'2026-04-01'},
+ {id:'april',label:'Avril',start:'2026-04-01',end:'2026-05-01'},
+ {id:'may',label:'Mai',start:'2026-05-01',end:'2026-06-01'},
+ ...HISTORY_MONTHS
+]);
 export const HISTORY_STORAGE_KEY='nykuto.lab.calendar.selection.v1';
 const cents=n=>Math.round(n*100)/100;
-const validDay=day=>typeof day==='string'&&/^2026-(06|07|08)-\d{2}$/.test(day)&&Number.isFinite(Date.parse(day+'T00:00:00Z'))&&new Date(day+'T00:00:00Z').toISOString().slice(0,10)===day;
+const validDay=day=>typeof day==='string'&&/^2026-0[1-8]-\d{2}$/.test(day)&&Number.isFinite(Date.parse(day+'T00:00:00Z'))&&new Date(day+'T00:00:00Z').toISOString().slice(0,10)===day;
 
 export function readHistoryPreferences(storage){
  try{const p=JSON.parse(storage?.getItem(HISTORY_STORAGE_KEY)??'null');if(p?.version!==1)return {};
@@ -21,11 +29,11 @@ export function saveHistoryPreferences(storage,state){
 // Display adapter only. Archived results, dates and amounts remain untouched.
 export function adaptHistoryReport(report,game){
  if(!report.audit?.passed||report.executionAllowed!==false||report.confirmed!==false)throw Error('Unverified history');
- const is33=game.id==='33',is38=game.id==='38';
+ const is33=game.id==='33',is38=game.id==='38',months=game.id==='40'?HISTORY_EIGHT_MONTHS:HISTORY_MONTHS;
  const variants=is33?report.accountProfiles.map(p=>({id:p.id,label:`${p.initial===25000?'25K':'50K'} · ${p.dynamic?'risque réduit après pertes':'risque fixe 100 $'}`,initial:p.initial})):(report.variants??game.variants).map(v=>({id:v.id,label:v.label,initial:50000}));
- const source=report.views.filter(v=>HISTORY_MONTHS.some(m=>m.id===(v.month??v.id)));
+ const source=report.views.filter(v=>months.some(m=>m.id===(v.month??v.id)));
  const views=source.map(v=>{
-  const month=v.month??v.id,m=HISTORY_MONTHS.find(m=>m.id===month),variant=v.variant??v.profileId,mode=v.mode??(is33?'evaluation':is38?'funded':null);
+  const month=v.month??v.id,m=months.find(m=>m.id===month),variant=v.variant??v.profileId,mode=v.mode??(is33?'evaluation':is38?'funded':null);
   if(!mode||(!is38&&v.resetAtStart!==true)||v.period.start!==m.start||v.period.end!==m.end||!variants.some(x=>x.id===variant))throw Error('Unsupported calendar view');
   const costs=Object.fromEntries(['normal','stress'].map(cost=>{
    const c=v.costs[cost];if(!c||!Number.isFinite(c.net)||!Array.isArray(c.calendar?.daily)||!Array.isArray(c.calendar?.weeks))throw Error('Missing archived calendar');
@@ -38,15 +46,15 @@ export function adaptHistoryReport(report,game){
  });
  const modes=[...new Set(views.map(v=>v.mode))];
  if(new Set(views.map(v=>`${v.month}/${v.variant}/${v.mode}`)).size!==views.length)throw Error('Duplicate history view');
- for(const variant of variants)for(const mode of modes)for(const m of HISTORY_MONTHS)if(!views.some(v=>v.variant===variant.id&&v.mode===mode&&v.month===m.id))throw Error('Incomplete history view');
- return {game,variants,modes,views};
+ for(const variant of variants)for(const mode of modes)for(const m of months)if(!views.some(v=>v.variant===variant.id&&v.mode===mode&&v.month===m.id))throw Error('Incomplete history view');
+ return {game,variants,modes,views,months};
 }
 
 export function selectHistory(model,preference={}){
  const variant=model.variants.some(v=>v.id===preference.variant)?preference.variant:model.game.defaultVariant;
  const mode=model.modes.includes(preference.mode)?preference.mode:model.modes.includes('funded')?'funded':model.modes[0];
- const cost=preference.cost==='stress'?'stress':'normal',day=validDay(preference.day)?preference.day:'2026-06-01';
- const months=HISTORY_MONTHS.map(m=>{const v=model.views.find(v=>v.month===m.id&&v.variant===variant&&v.mode===mode);if(!v)throw Error('Unknown archived selection');return {...v,result:v.costs[cost]};});
+ const cost=preference.cost==='stress'?'stress':'normal',day=validDay(preference.day)&&model.months.some(m=>preference.day>=m.start&&preference.day<m.end)?preference.day:model.months[0].start;
+ const months=model.months.map(m=>{const v=model.views.find(v=>v.month===m.id&&v.variant===variant&&v.mode===mode);if(!v)throw Error('Unknown archived selection');return {...v,result:v.costs[cost]};});
  const goalMode=mode==='evaluation'?'evaluation':model.game.id==='37'&&variant==='control'?'personal':model.game.goalMode;
  return {game:model.game.id,variant,mode,cost,day,months,goalMode};
 }
@@ -54,6 +62,6 @@ export function selectHistory(model,preference={}){
 export function historyCells(month){return calendarCells37(month.period,month.result.calendar.daily);}
 export function historyDay(selection){return selection.months.flatMap(historyCells).find(d=>d.day===selection.day);}
 export function historyDayState(d){
- if(d.state==='weekend')return 'Week-end';if(d.state==='not-studied')return 'Non étudié';if(d.state==='missing-data')return 'Données absentes';
+ if(d.state==='weekend')return 'Week-end';if(d.state==='not-studied')return 'Non étudié';if(d.state==='missing-data')return 'Données non correspondantes';
  if(d.state.startsWith('stopped-'))return 'Arrêt';return d.trades===0?'Sans trade':`${d.trades} trade(s)`;
 }

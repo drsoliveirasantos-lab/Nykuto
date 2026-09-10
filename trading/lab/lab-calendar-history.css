@@ -24,6 +24,7 @@
 #historyCalendarGame .history-day.is-gain{background:rgba(60,175,113,.12)}
 #historyCalendarGame .history-day.is-loss{background:rgba(229,92,92,.12)}
 #historyCalendarGame .is-inactive{color:var(--muted)}
+#historyCalendarGame .history-day.is-missing-data .history-day-number{text-decoration:line-through;text-decoration-thickness:2px}
 #historyCalendarGame .history-day[aria-pressed="true"]{outline:2px solid #9cc6ff;outline-offset:1px}
 #historyCalendarGame button:focus-visible,#historyCalendarGame select:focus-visible,#historyCalendarGame .history-calendar-scroll:focus-visible{outline:3px solid #9cc6ff;outline-offset:2px}
 #historyCalendarGame .history-day-detail{padding:1rem;border-left:3px solid #9cc6ff;background:rgba(156,198,255,.06)}

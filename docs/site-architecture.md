@@ -836,3 +836,14 @@ dates. The protocol parameter table is generated from inherited code policies.
 Private source-probes evidence is checksum-pinned outside Git. No performance
 or new model inference at this preparation stage; missing dates must be explicit
 nulls in the eventual shared calendar, with the rest of each month calculated.
+
+Game40 completed after published freeze e0eb36dc7c787d9071e32882846c647f1088f04c:
+16 replays,6 whole controls,328 account/filter/context prefixes each. Immutable
+jeu40-report.json is checksum-verified by jeu40-report-validation.mjs; its private
+archive holds3 exactly reconstructed files. JEU40_RESULTS.md and the scoped
+study40Game/lab-study40.css panel show observed totals and partial-data limits.
+Shared history calendar uses8 months only for40,3 for older games;64 selections
+and202 monthly views. Missing dates are crossed out/null with partial weeks and
+month totals explicit. historyCalendarTotalsHead supports dynamic month columns.
+Ledger93/catalog110, one period extension, no strategy/inference/activation or
+prospective-collection change. The original52-file freeze remains unchanged.

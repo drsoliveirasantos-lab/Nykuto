@@ -1,7 +1,8 @@
 {
   "schema": "history-calendar-manifest-v1",
-  "defaultGame": "39",
+  "defaultGame": "40",
   "games": [
+    {"id":"40","label":"Jeu 40 · Référence de janvier à août","report":"jeu40-report.json","defaultVariant":"fixed100","goalMode":"profit"},
     {"id":"39","label":"Jeu 39 · Kronos et horaires Nasdaq","report":"jeu39-report.json","defaultVariant":"mnq-kronos","goalMode":"profit"},
     {"id":"38","label":"Jeu 38 · Filtre des entrées Nasdaq","report":"jeu38-report.json","defaultVariant":"mnq-obstacle","goalMode":"profit","variants":[{"id":"baseline","label":"Référence · risque 100 $"},{"id":"mnq-obstacle","label":"Nasdaq · structure opposée et obstacle"}]},
     {"id":"37","label":"Jeu 37 · Montants selon les confirmations","report":"jeu37-report.json","defaultVariant":"fixed100","goalMode":"profit"},

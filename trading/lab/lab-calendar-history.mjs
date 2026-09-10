@@ -5,9 +5,10 @@ import {verifyEntryReport} from './jeu36-report-validation.mjs';
 import {verifyConfidenceReport} from './jeu37-report-validation.mjs';
 import {verifyObstacleReport} from './jeu38-report-validation.mjs';
 import {verifyStudyReport} from './jeu39-report-validation.mjs';
+import {verifyEightMonthReport} from './jeu40-report-validation.mjs';
 import {adaptHistoryReport,selectHistory,historyCells,historyDay,historyDayState,readHistoryPreferences,saveHistoryPreferences} from './history-calendar-view.mjs';
 
-const verifiers={'33':verifyAccountReport,'34':verifyMonthlyReport,'35':verifyExitReport,'36':verifyEntryReport,'37':verifyConfidenceReport,'38':verifyObstacleReport,'39':verifyStudyReport};
+const verifiers={'33':verifyAccountReport,'34':verifyMonthlyReport,'35':verifyExitReport,'36':verifyEntryReport,'37':verifyConfidenceReport,'38':verifyObstacleReport,'39':verifyStudyReport,'40':verifyEightMonthReport};
 const money=(n,currency='USD')=>typeof n!=='number'?'—':new Intl.NumberFormat('fr-FR',{style:'currency',currency}).format(n);
 const date=d=>d.slice(8,10)+'/'+d.slice(5,7),modeLabel=m=>m==='funded'?'Funded simulé':'Évaluation simulée';
 const statusLabel=s=>({incomplete:'Fin de la période',profitTargetMet:'Arrêt : objectif 4 000 $ atteint',personalGoalMet:'Arrêt : objectif personnel atteint',targetMet:'Arrêt : évaluation réussie',breached:'Arrêt : limite du compte atteinte'})[s]??s;
@@ -43,13 +44,14 @@ export async function initHistoryCalendar(options={}){
    const c=month.result,card=node('article',undefined,'history-month');card.append(node('h4',month.label+' 2026'));
    card.append(node('p',money(c.net),'history-month-total '+(c.net<0?'is-loss':c.net>0?'is-gain':'')));
    const goal=state.goalMode==='profit'?`4 000 $ : ${c.profitGoalAchieved?'atteints':'non atteints'}. `:'';
-   card.append(node('p',`${goal}${statusLabel(c.status)}. ${state.mode==='evaluation'?'Retrait non applicable.':`Versement personnel simulé : ${money(c.receiptEUR,'EUR')}.`}`,'history-month-note'));
+   const missing=c.calendar.daily.filter(d=>d.state==='missing-data'),coverage=missing.length?` Somme des séances disponibles ; ${missing.length} séance(s) exclue(s) pour données non correspondantes.`:'';
+   card.append(node('p',`${goal}${statusLabel(c.status)}. ${state.mode==='evaluation'?'Retrait non applicable.':`Versement personnel simulé : ${money(c.receiptEUR,'EUR')}.`}${coverage}`,'history-month-note'));
    const scroll=node('div',undefined,'history-calendar-scroll');scroll.setAttribute('role','region');scroll.setAttribute('aria-label','Calendrier de '+month.label+' 2026');scroll.tabIndex=0;
    const weekdays=node('div',undefined,'history-calendar-weekdays');for(const name of ['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'])weekdays.append(node('span',name));scroll.append(weekdays);
    const grid=node('div',undefined,'history-calendar-grid');
    for(const d of historyCells(month)){
     if(d.state==='padding'){grid.append(node('span',undefined,'history-day-padding'));continue;}
-    const active=typeof d.net==='number',tile=node('button',undefined,'history-day '+(active?(d.net>0?'is-gain':d.net<0?'is-loss':'is-flat'):'is-inactive'));
+    const active=typeof d.net==='number',tile=node('button',undefined,'history-day '+(active?(d.net>0?'is-gain':d.net<0?'is-loss':'is-flat'):'is-inactive')+(d.state==='missing-data'?' is-missing-data':''));
     tile.type='button';tile.setAttribute('aria-pressed',String(d.day===state.day));tile.setAttribute('aria-label',`${date(d.day)} : ${historyDayState(d)}${active?', '+money(d.net):''}`);tile.setAttribute('data-day',d.day);
     tile.append(node('span',Number(d.day.slice(8)),'history-day-number'));
     tile.append(node('span',active?(d.net>0?'+':'')+Math.round(d.net):historyDayState(d),'history-day-value'));
@@ -60,13 +62,14 @@ export async function initHistoryCalendar(options={}){
   }
   const d=historyDay(state),active=typeof d?.net==='number';
   el('historyCalendarDayTitle').textContent=date(state.day)+'/2026 · '+historyDayState(d);
-  el('historyCalendarDaySummary').textContent=active?`Résultat : ${money(d.net)} · cumul du mois : ${money(d.cumulative)} · ${d.trades} trade(s) · solde après les mouvements du jour : ${money(d.balance)}.`:'Aucun résultat calculé pour cette date. Cette case ne représente pas un gain nul.';
+  el('historyCalendarDaySummary').textContent=active?`Résultat : ${money(d.net)} · cumul du mois : ${money(d.cumulative)} · ${d.trades} trade(s) · solde après les mouvements du jour : ${money(d.balance)}.`:d.state==='missing-data'?'Données non correspondantes : cette séance est exclue du total observé. Aucun résultat n’est calculé pour cette date ; ce n’est pas un gain nul.':'Aucun résultat calculé pour cette date. Cette case ne représente pas un gain nul.';
   el('historyCalendarDayExtra').textContent=active?`${state.mode==='evaluation'?'Retrait non applicable.':`Versement simulé ce jour : ${money(d.receiptEUR,'EUR')}.`} ${d.averageRiskUSD===null?'Risque moyen de la journée non enregistré dans ce rapport.':`Risque planifié moyen : ${money(d.averageRiskUSD)}.`}`:'';
   const marketRows=active&&Array.isArray(d.markets)?d.markets:null;
   el('historyCalendarDayTable').hidden=marketRows===null;rows('historyCalendarDayMarkets',marketRows?.map(m=>[m.symbol,m.trades,money(m.net)])??[]);
   el('historyCalendarDayMissing').textContent=active&&!marketRows?'La répartition par marché n’a pas été enregistrée pour cette journée. Les totaux mensuels restent disponibles ci-dessous.':'';
+  el('historyCalendarTotalsHead').replaceChildren();for(const label of ['Marché',...state.months.map(m=>m.label)]){const th=node('th',label);th.setAttribute('scope','col');el('historyCalendarTotalsHead').append(th);}
   rows('historyCalendarTotals',['MNQ','MES','MGC','MYM'].map(symbol=>[symbol,...state.months.map(m=>money(m.result.contributions.find(c=>c.symbol===symbol)?.net))]));
-  rows('historyCalendarWeeks',state.months.flatMap(m=>m.result.calendar.weeks.map(w=>[m.label,`${date(w.start)}–${date(w.end)}${w.partialMonth?' *':''}`,w.trades??'—',money(w.net),money(w.cumulative),state.mode==='evaluation'?'Non applicable':money(w.receiptEUR,'EUR')])));
+  rows('historyCalendarWeeks',state.months.flatMap(m=>m.result.calendar.weeks.map(w=>[m.label,`${date(w.start)}–${date(w.end)}${w.partialMonth?' *':''}${w.missing?' · données partielles':''}`,w.trades??'—',money(w.net),money(w.cumulative),state.mode==='evaluation'?'Non applicable':money(w.receiptEUR,'EUR')])));
   el('historyCalendarResults').hidden=false;el('historyCalendarMessage').textContent=`Historique conservé : ${model.game.label}. La sélection change l’affichage, sans modifier les résultats enregistrés.`;
   saveHistoryPreferences(storage,state);if(focusDay)selectedButton?.focus?.({preventScroll:true});
  }

@@ -438,7 +438,7 @@ study39Game and sharedcalendar include results; self-review is deterministic,
 no self-training/autotuning/activation. Old freezes/models/RSI/news and
 prospectivecollection preserved. No merge main.
 
-Game 40 is prepared, with no performance calculated yet. It extends unchanged
+At its published freeze, Game40 was prepared with no performance calculated. It extends unchanged
 Game37 fixed100 to January–August2026: 16 monthly-reset replays, normal/doubled
 costs, six exact summer controls. Only February25 and March6 are jointly omitted
 for incomplete data; other dates in these months remain eligible. The future
@@ -448,3 +448,15 @@ remains unknown. See JEU40_PROTOCOL.md and MODEL_METHODS_AND_SEASONS.md. A code-
 generated parameter table is checked before freeze/execution. No new model
 inference, strategy rule, risk tuning or independent validation; no executed
 configuration added before success. Existing freezes and collection unchanged.
+
+Game40 is now executed once after freeze e0eb36dc7c787d9071e32882846c647f1088f04c.
+All16 replays and6 whole controls pass;328 account/filter/context prefixes each.
+Observed normal net1923.25 USD, monthly mean240.41; doubled costs1154/144.25.
+Two partial months,164/166 sessions, no4K month or personal payout. See
+JEU40_RESULTS.md; missing-day outcomes and full-eight-month mean stay unknown.
+Private archive jeu40/eight-months-v1 has3 files reconstructed exactly, manifest
+573daabef7a3c620f6171249906e17ef1a50461c34777d4e877d307d6c2c94d8.
+One period-extension configuration, no strategy added: ledger93/catalog110.
+Lab study40Game and shared calendar40 show Jan–Aug; games33–39 stay June–Aug.
+The published protocol/freeze and all old results stay immutable. No model
+inference, automatic selection, activation, prospective changes or main merge.
