@@ -827,3 +827,12 @@ Ledger92/catalog109,2addedconfigurations,0independentconfirmations. New Lab
 study39Game and sharedcalendar include results; self-review is deterministic,
 no self-training/autotuning/activation. Old freezes/models/RSI/news and
 prospectivecollection preserved. No merge main.
+
+Game40 preparation: jeu40-engine.mjs copies the Game37 account engine with only
+the authorized start-date guard and its error text widened to January. A source
+identity test checks this restriction. jeu40-diagnostic.mjs prepares the eight
+monthly accounts; jeu40-policy.mjs declares expected coverage and two incomplete
+dates. The protocol parameter table is generated from inherited code policies.
+Private source-probes evidence is checksum-pinned outside Git. No performance
+or new model inference at this preparation stage; missing dates must be explicit
+nulls in the eventual shared calendar, with the rest of each month calculated.

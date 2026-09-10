@@ -437,3 +437,14 @@ Ledger92/catalog109,2addedconfigurations,0independentconfirmations. New Lab
 study39Game and sharedcalendar include results; self-review is deterministic,
 no self-training/autotuning/activation. Old freezes/models/RSI/news and
 prospectivecollection preserved. No merge main.
+
+Game 40 is prepared, with no performance calculated yet. It extends unchanged
+Game37 fixed100 to January–August2026: 16 monthly-reset replays, normal/doubled
+costs, six exact summer controls. Only February25 and March6 are jointly omitted
+for incomplete data; other dates in these months remain eligible. The future
+calendar must show these dates crossed out with null results, and February/March
+as partial. Observed eight-month mean divides by eight; complete-period outcome
+remains unknown. See JEU40_PROTOCOL.md and MODEL_METHODS_AND_SEASONS.md. A code-
+generated parameter table is checked before freeze/execution. No new model
+inference, strategy rule, risk tuning or independent validation; no executed
+configuration added before success. Existing freezes and collection unchanged.

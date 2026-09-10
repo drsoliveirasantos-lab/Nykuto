@@ -1,0 +1,28 @@
+{
+  "schema": "jeu40-source-v1",
+  "baseCommit": "60291d06d5034fe4fe1ded5334fa297bb75f22a4",
+  "inputs": {
+    "prices": {
+      "bytes": 4331838,
+      "sha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09"
+    },
+    "mnq": {
+      "bytes": 2426693,
+      "sha256": "028e914bb10ea38b73b6fcbc867c5d81937b967701448913fc88ca85746557cf"
+    },
+    "prior": {
+      "bytes": 1068424,
+      "sha256": "d96d279d13a819d9cf58b575218897b43f3279a749c4aa5ba8e7aabee632e44b"
+    },
+    "probes": {
+      "bytes": 75120,
+      "sha256": "47f836abf86100a2d72fe416e794ebb4a5f3b11d0a8a5272fe8c7086227bc4ec"
+    }
+  },
+  "priorArchive": "jeu37/confidence-risk-v1/manifest.json",
+  "newConfigurations": 1,
+  "privateSourceLocations": {
+    "pricesManifest": "jeu19/multimarket-v1/manifest.json",
+    "mnqKey": "jeu14/available-history-v1.json"
+  }
+}
