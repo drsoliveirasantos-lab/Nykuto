@@ -113,3 +113,11 @@ mesures non arrondies, hashes et versions. Les requêtes, sorties et réalisatio
 détaillées sont archivées dans `Nykuto_Kronos_K1_diagnostic_prive_2026-09-10.zip`,
 jamais dans le dépôt public. Ces mesures ne remplacent pas un backtest comparatif
 de stratégie avec commissions, slippage, drawdown et test prospectif.
+
+
+Le [Jeu39](../lab/JEU39_RESULTS.md) applique ensuite les poids déjà téléchargés
+comme veto d’admission MNQ dans une relecture isolée. Deux variantes séparées
+(horaire ou Kronos) sont non retenues. Trois nouvelles prévisions invalides sur43 ;
+aucune activation ni nouveau poids. Le conflit top-p entre prose du protocole
+et code gelé est déclaré dans son bilan. Le registre K1 reste l’archive immuable
+de son propre diagnostic, dont les chiffres ne sont pas remplacés par ceux duJeu39.

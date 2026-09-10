@@ -4,9 +4,10 @@ import {verifyExitReport} from './jeu35-report-validation.mjs';
 import {verifyEntryReport} from './jeu36-report-validation.mjs';
 import {verifyConfidenceReport} from './jeu37-report-validation.mjs';
 import {verifyObstacleReport} from './jeu38-report-validation.mjs';
+import {verifyStudyReport} from './jeu39-report-validation.mjs';
 import {adaptHistoryReport,selectHistory,historyCells,historyDay,historyDayState,readHistoryPreferences,saveHistoryPreferences} from './history-calendar-view.mjs';
 
-const verifiers={'33':verifyAccountReport,'34':verifyMonthlyReport,'35':verifyExitReport,'36':verifyEntryReport,'37':verifyConfidenceReport,'38':verifyObstacleReport};
+const verifiers={'33':verifyAccountReport,'34':verifyMonthlyReport,'35':verifyExitReport,'36':verifyEntryReport,'37':verifyConfidenceReport,'38':verifyObstacleReport,'39':verifyStudyReport};
 const money=(n,currency='USD')=>typeof n!=='number'?'—':new Intl.NumberFormat('fr-FR',{style:'currency',currency}).format(n);
 const date=d=>d.slice(8,10)+'/'+d.slice(5,7),modeLabel=m=>m==='funded'?'Funded simulé':'Évaluation simulée';
 const statusLabel=s=>({incomplete:'Fin de la période',profitTargetMet:'Arrêt : objectif 4 000 $ atteint',personalGoalMet:'Arrêt : objectif personnel atteint',targetMet:'Arrêt : évaluation réussie',breached:'Arrêt : limite du compte atteinte'})[s]??s;
@@ -79,7 +80,7 @@ export async function initHistoryCalendar(options={}){
  }
  try{
   if(options.manifest)manifest=options.manifest;else{const response=await fetcher(new URL('./history-calendar-manifest.json',import.meta.url),{cache:'no-store'});if(!response.ok)throw Error('Manifest unavailable');manifest=await response.json();}
-  if(manifest.schema!=='history-calendar-manifest-v1'||manifest.games.length!==6||new Set(manifest.games.map(g=>g.id)).size!==6||manifest.games.some(g=>!verifiers[g.id]||g.report!==`jeu${g.id}-report.json`)||!manifest.games.some(g=>g.id===manifest.defaultGame))throw Error('Invalid manifest');
+  if(manifest.schema!=='history-calendar-manifest-v1'||manifest.games.length!==Object.keys(verifiers).length||new Set(manifest.games.map(g=>g.id)).size!==manifest.games.length||manifest.games.some(g=>!verifiers[g.id]||g.report!==`jeu${g.id}-report.json`)||!manifest.games.some(g=>g.id===manifest.defaultGame))throw Error('Invalid manifest');
   const game=manifest.games.some(g=>g.id===saved.game)?saved.game:manifest.defaultGame;selectOptions('historyCalendarGameSelect',manifest.games,game);
   el('historyCalendarGameSelect').addEventListener('change',()=>chooseGame(el('historyCalendarGameSelect').value,{mode:state?.mode,cost:state?.cost,day:state?.day??saved.day}));
   for(const id of ['historyCalendarVariant','historyCalendarMode','historyCalendarCost'])el(id).addEventListener('change',()=>{if(!model||el(id).disabled)return;state={...state,variant:el('historyCalendarVariant').value,mode:el('historyCalendarMode').value,cost:el('historyCalendarCost').value};render();});

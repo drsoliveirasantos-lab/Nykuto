@@ -424,3 +424,16 @@ Eighteen replays are planned; request preparation is causal and frozen before
 inference. research-self-review.mjs checks six cells without tuning, selection
 or execution. See JEU39_PROTOCOL.md and JEU39_RESEARCH.md. No new weights or
 prospective data; old models/RSI/news, freezes and work remain intact.
+
+Game 39 completed once after published freeze2fc700dfb385f92b001a63fcb642603be51f7bf8.
+Both isolated MNQ variants are rejected: before11h harmsJune and June stressDD;
+Kronos harmsJune/August normal and has3invalidOHLC forecasts. Textual protocol
+conflict disclosed: top-p0 in original prose versus0.9 in frozen code/pack and
+execution. Do not edit freeze or rerun. See JEU39_RESULTS.md and
+jeu39-execution-audit.json. Eighteen replays,6exactwholecontrols,384account and
+384filterprefixes,64modelinputprefixes. Four private files durably archived and
+read back, manifest90e3290567fbc376daeca2300261a02dd7fd1c0b0c5295e59e3f5709469729de.
+Ledger92/catalog109,2addedconfigurations,0independentconfirmations. New Lab
+study39Game and sharedcalendar include results; self-review is deterministic,
+no self-training/autotuning/activation. Old freezes/models/RSI/news and
+prospectivecollection preserved. No merge main.

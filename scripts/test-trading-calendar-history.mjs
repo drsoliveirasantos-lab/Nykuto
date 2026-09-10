@@ -10,7 +10,7 @@ const fetcher=async url=>{const filename=new URL(url).pathname.split('/').at(-1)
 const load=createHistoryLoader(fetcher),models=new Map(await Promise.all(manifest.games.map(async g=>[g.id,await load(g)])));
 const money=n=>new Intl.NumberFormat('fr-FR',{style:'currency',currency:'USD'}).format(n);
 
-test('shared history keeps all 168 monthly cost views exact, includes six games and excludes the continuous summer account',()=>{
+test('shared history keeps all 186 monthly cost views exact, includes seven games and excludes the continuous summer account',()=>{
  let count=0;
  for(const g of manifest.games){
   const source=JSON.parse(raw.get(g.id)),original=JSON.stringify(source),model=adaptHistoryReport(source,g);
@@ -20,11 +20,12 @@ test('shared history keeps all 168 monthly cost views exact, includes six games 
    for(const month of selection.months){count++;const v=source.views.find(v=>(v.month??v.id)===month.month&&(v.variant??v.profileId)===variant.id&&(v.mode??(g.id==='33'?'evaluation':'funded'))===mode),c=v.costs[cost],d=month.result.calendar.daily;
     assert.equal(month.result.net,c.net);assert.equal(cents(d.reduce((n,r)=>n+(r.net??0),0)),c.net);assert.equal(cents(month.result.calendar.weeks.reduce((n,w)=>n+(w.net??0),0)),c.net);
     assert.deepEqual(d.map(r=>[r.day,r.net,r.trades,r.cumulative,r.balance]),c.calendar.daily.map(r=>[r.day,r.net,r.trades,r.cumulative,r.balance]));
+    if(g.id==='39')assert.deepEqual(d.map(r=>[r.markets,r.averageRiskUSD]),c.calendar.daily.map(r=>[r.markets,r.averageRiskUSD]));
     assert.equal(month.period.start,v.period.start);assert.equal(month.period.end,v.period.end);
    }
   }
  }
- assert.equal(count,168);assert.equal(models.get('33').views.length,12);assert.ok(models.get('33').views.every(v=>v.month!=='summer'));
+ assert.equal(count,186);assert.equal(manifest.games.length,7);assert.equal(models.get('39').views.length,9);assert.equal(selectHistory(models.get('39')).variant,'mnq-kronos');assert.equal(models.get('33').views.length,12);assert.ok(models.get('33').views.every(v=>v.month!=='summer'));
  assert.equal(selectHistory(models.get('37'),{variant:'control'}).goalMode,'personal');assert.equal(selectHistory(models.get('37'),{variant:'fixed100'}).goalMode,'profit');
  assert.equal(selectHistory(models.get('35'),{mode:'evaluation'}).goalMode,'evaluation');
  assert.equal(selectHistory(models.get('33')).months[0].result.receiptEUR,null);
@@ -57,8 +58,9 @@ async function fixture(options={}){
  return {el,tiles,controller,storage};
 }
 
-test('all 56 selectable histories render their own three calendars, retain selected dates and persist only display choices',async()=>{
+test('all 62 selectable histories render their own three calendars, retain selected dates and persist only display choices',async()=>{
  const {el,tiles,controller,storage}=await fixture();assert.equal(el('historyCalendarResults').hidden,false);
+ assert.equal(controller.getSelection().game,'39');assert.equal(controller.getSelection().variant,'mnq-kronos');
  tiles().find(t=>t.attributes['data-day']==='2026-07-14').listeners.click();let combinations=0;
  for(const g of manifest.games){
   el('historyCalendarGameSelect').value=g.id;await el('historyCalendarGameSelect').listeners.change();assert.equal(controller.getSelection().day,'2026-07-14');
@@ -72,7 +74,7 @@ test('all 56 selectable histories render their own three calendars, retain selec
    assert.equal(el('historyCalendarWeeks').children.length,selection.months.reduce((n,m)=>n+m.result.calendar.weeks.length,0));
   }
  }
- assert.equal(combinations,56);
+ assert.equal(combinations,62);
  await controller.chooseGame('37',{variant:'fixed500',day:'2026-06-29'});assert.equal(el('historyCalendarDayTable').hidden,true);assert.ok(el('historyCalendarDayTitle').textContent.includes('Arrêt'));
  await controller.chooseGame('38',{day:'2026-06-29'});assert.ok(el('historyCalendarDayTitle').textContent.includes('Sans trade'));assert.ok(el('historyCalendarDaySummary').textContent.includes(money(0)));
  tiles().find(t=>t.attributes['data-day']==='2026-06-19').listeners.click();assert.ok(el('historyCalendarDayTitle').textContent.includes('Non étudié'));assert.equal(el('historyCalendarDayTable').hidden,true);
@@ -85,7 +87,7 @@ test('failed or stale report loads never reuse another game, retry verifies byte
  const game=manifest.games.find(g=>g.id==='37');let calls=0,valid=false;
  const loader=createHistoryLoader(async()=>{calls++;return new Response(valid?raw.get('37'):'<html>Login</html>');});
  await assert.rejects(()=>loader(game));valid=true;assert.equal((await loader(game)).game.id,'37');await loader(game);assert.equal(calls,2);
- let fail=true;const one=await fixture({loadReport:async g=>{if(g.id==='38'&&fail)throw Error('Unavailable');return models.get(g.id);}});
+ let fail=true;const one=await fixture({loadReport:async g=>{if(g.id===manifest.defaultGame&&fail)throw Error('Unavailable');return models.get(g.id);}});
  assert.equal(one.el('historyCalendarResults').hidden,true);assert.equal(one.el('historyCalendarCalendars').children.length,0);assert.ok(one.el('historyCalendarMessage').textContent.includes('indisponible'));
  fail=false;await one.el('historyCalendarRetry').listeners.click();assert.equal(one.el('historyCalendarResults').hidden,false);
  let release;const delayed=new Promise(resolve=>{release=resolve;}),two=await fixture({loadReport:g=>g.id==='33'?delayed:Promise.resolve(models.get(g.id))});

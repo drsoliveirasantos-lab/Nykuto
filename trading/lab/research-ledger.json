@@ -1,7 +1,7 @@
 {
   "schema": "research-ledger-v1",
-  "scope": "Published Games 19–26, audit F1 and Games 33–38; research-catalog.json also preserves research Games 27–32",
-  "configurationCount": 90,
+  "scope": "Published Games 19–26, audit F1 and Games 33–39; research-catalog.json also preserves research Games 27–32",
+  "configurationCount": 92,
   "independentConfirmations": 0,
   "entries": [
     {
@@ -1717,6 +1717,40 @@
       "holdoutPassed": null,
       "confirmed": false,
       "report": "jeu38-report.json"
+    },
+    {
+      "game": 39,
+      "id": "PORTFOLIO/mnq-before-11/funded",
+      "executionKey": "0639aff83db3c86449027a839d0629f30ea595eeea8eb00db1660f84df7b7eff",
+      "freezeSha256": "659c654b38ccdeec2b3a43702b46c398305ecf15c2147ee076b9e927611fee6e",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "mnq-before-11/funded",
+      "phase": "diagnostic",
+      "start": "2026-06-01",
+      "end": "2026-09-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu39-report.json"
+    },
+    {
+      "game": 39,
+      "id": "PORTFOLIO/mnq-kronos/funded",
+      "executionKey": "21db11926cf1c3ed3ccccc22a0d725829c80a069d3dd999f98848fd1e3bf14b3",
+      "freezeSha256": "659c654b38ccdeec2b3a43702b46c398305ecf15c2147ee076b9e927611fee6e",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "mnq-kronos/funded",
+      "phase": "diagnostic",
+      "start": "2026-06-01",
+      "end": "2026-09-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu39-report.json"
     }
   ]
 }

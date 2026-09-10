@@ -46,6 +46,7 @@
   <link rel="stylesheet" href="./lab-confidence.css?v=1">
   <script src="./lab-confidence.mjs?v=1" type="module"></script>
   <link rel="stylesheet" href="./lab-learning.css?v=1">
+  <link rel="stylesheet" href="./lab-study39.css?v=1">
   <link rel="stylesheet" href="./lab-calendar-history.css?v=1">
   <script src="./lab-calendar-history.mjs?v=1" type="module"></script>
 </head>
@@ -86,15 +87,15 @@
     <section class="panel independent-game market-game" id="historyCalendarGame" aria-labelledby="historyCalendarTitle">
       <div class="panel-heading"><div><p class="panel-kicker">HISTORIQUE · JUIN, JUILLET ET AOÛT 2026</p><h3 id="historyCalendarTitle">Un calendrier pour chaque jeu</h3></div><span class="lab-status planned">Simulations enregistrées</span></div>
       <div class="iv-content">
-        <p>Choisis un jeu pour retrouver ses journées, ses semaines et ses profils. Chaque essai reste conservé : le nouveau jeu ne remplace pas les précédents.</p>
+        <p>Choisis un jeu parmi les Jeux 33 à 39 pour retrouver ses journées, ses semaines et ses profils. Chaque essai reste conservé : le nouveau jeu ne remplace pas les précédents.</p>
         <div class="history-controls">
-          <label for="historyCalendarGameSelect"><span>Jeu enregistré</span><select id="historyCalendarGameSelect"><option value="38">Jeu 38 · Chargement…</option></select></label>
+          <label for="historyCalendarGameSelect"><span>Jeu enregistré</span><select id="historyCalendarGameSelect"><option value="39">Jeu 39 · Chargement…</option></select></label>
           <label for="historyCalendarVariant"><span>Variante ou profil</span><select id="historyCalendarVariant" disabled><option>Chargement…</option></select></label>
           <label for="historyCalendarMode"><span>Étape du compte</span><select id="historyCalendarMode" disabled><option>Chargement…</option></select></label>
           <label for="historyCalendarCost"><span>Coûts de transaction</span><select id="historyCalendarCost" disabled><option value="normal">Coûts normaux</option><option value="stress">Coûts doublés</option></select></label>
         </div>
         <p id="historyCalendarMessage" role="status">Chargement des calendriers enregistrés…</p>
-        <div class="history-actions"><button type="button" class="ghost-button" id="historyCalendarRetry">Réessayer le chargement</button><a id="historyCalendarReport" href="./jeu38-report.json">Rapport du jeu sélectionné</a></div>
+        <div class="history-actions"><button type="button" class="ghost-button" id="historyCalendarRetry">Réessayer le chargement</button><a id="historyCalendarReport" href="./jeu39-report.json">Rapport du jeu sélectionné</a></div>
         <div id="historyCalendarResults" hidden>
           <p id="historyCalendarSelection"></p><p id="historyCalendarPolicy"></p>
           <p class="history-legend">Cases en dollars, arrondies à l’unité. Sélectionne une date pour voir les centimes. Vert : gain · rouge : perte · 0 : résultat nul observé. « Non étudié » et « Arrêt » ne valent pas zéro. Sur petit écran, les calendriers peuvent défiler horizontalement.</p>
@@ -111,13 +112,69 @@
         </div>
       </div>
     </section>
+    <section class="panel independent-game market-game" id="study39Game" aria-labelledby="study39Title">
+      <div class="panel-heading"><div><p class="panel-kicker">JEU 39 · HORAIRES ET MODÈLE TÉLÉCHARGÉ</p><h3 id="study39Title">Deux pistes testées, aucune retenue</h3></div><span class="lab-status planned">Référence 100 $ conservée</span></div>
+      <div class="iv-content">
+        <p class="iv-intro">Le filtre horaire Nasdaq améliore juillet et août, mais supprime des gagnants de juin. Le veto du modèle Kronos-mini ne fait pas mieux dans l’ensemble. Ces deux essais restent dans l’historique ; ils ne remplacent pas la référence.</p>
+        <p>Les variantes sont testées séparément sur MNQ : soit refuser les nouvelles entrées à partir de 11 h New York, soit refuser une entrée lorsque la quatrième clôture prévue par Kronos-mini va dans le sens opposé. Le risque maximal reste à 100 $, la cible à 2R et les autres profils conservent leurs règles. Chaque mois commence avec un compte funded 50K hypothétique neuf, supposé déjà qualifié.</p>
+        <h4>Résultat mensuel après coûts normaux</h4>
+        <div class="iv-table-wrap" role="region" aria-label="Comparaison mensuelle du Jeu 39 aux coûts normaux" tabindex="0"><table class="iv-table"><caption>Bénéfice net simulé en dollars. Juin, juillet et août 2026 sont des historiques déjà étudiés ; ces mois ne représentent pas un compte continu.</caption><thead><tr><th scope="col">Variante</th><th scope="col">Juin</th><th scope="col">Juillet</th><th scope="col">Août</th></tr></thead><tbody>
+            <tr data-study39-summary="baseline"><th scope="row">Référence · risque 100 $</th><td>+1 048,75 $</td><td>+176,00 $</td><td>−245,50 $</td></tr>
+            <tr data-study39-summary="mnq-before-11"><th scope="row">Nasdaq · entrées avant 11 h NY</th><td>+758,75 $</td><td>+426,50 $</td><td>−31,00 $</td></tr>
+            <tr data-study39-summary="mnq-kronos"><th scope="row">Nasdaq · veto Kronos-mini</th><td>+802,75 $</td><td>+186,00 $</td><td>−259,50 $</td></tr>
+          </tbody></table></div>
+        <p class="study-decision"><strong>Décision : les deux variantes sont non retenues.</strong> Aucun des 18 scénarios n’atteint 4 000 $ de bénéfice mensuel ni le retrait personnel simulé de 1 000 €. Tous les versements simulés restent à zéro. La référence à 100 $ est conservée pour la recherche ; aucun ordre, Paper ou Shadow n’est activé.</p>
+        <details>
+          <summary>Coûts doublés et baisse maximale du compte</summary>
+          <p>La baisse maximale (« drawdown ») mesure le recul depuis un sommet du résultat réalisé. Plus faible est préférable. Le filtre horaire dégrade juin aux deux coûts ; au stress, sa baisse maximale atteint 222 $ contre 145 $ pour la référence. Kronos dégrade juin et août aux coûts normaux ; en août, sa baisse maximale atteint 451 $ contre 442 $.</p>
+          <div class="iv-table-wrap" role="region" aria-label="Net au stress et drawdowns du Jeu 39" tabindex="0"><table class="iv-table"><caption>Le stress double les coûts de transaction ; il ne change pas la cible 2R. Les règles de risque peuvent alors admettre d’autres trades.</caption><thead><tr><th scope="col">Mois</th><th scope="col">Variante</th><th scope="col">Net · coûts doublés</th><th scope="col">Baisse maximale · coûts normaux</th><th scope="col">Baisse maximale · coûts doublés</th></tr></thead><tbody>
+              <tr data-study39-risk="june/baseline"><th scope="row">Juin</th><td>Référence · risque 100 $</td><td>+785,50 $</td><td>172,50 $</td><td>145,00 $</td></tr>
+              <tr data-study39-risk="june/mnq-before-11"><th scope="row">Juin</th><td>Nasdaq · entrées avant 11 h NY</td><td>+516,50 $</td><td>172,50 $</td><td>222,00 $</td></tr>
+              <tr data-study39-risk="june/mnq-kronos"><th scope="row">Juin</th><td>Nasdaq · veto Kronos-mini</td><td>+659,50 $</td><td>172,50 $</td><td>145,00 $</td></tr>
+              <tr data-study39-risk="july/baseline"><th scope="row">Juillet</th><td>Référence · risque 100 $</td><td>+164,00 $</td><td>312,50 $</td><td>330,50 $</td></tr>
+              <tr data-study39-risk="july/mnq-before-11"><th scope="row">Juillet</th><td>Nasdaq · entrées avant 11 h NY</td><td>+428,50 $</td><td>312,50 $</td><td>330,50 $</td></tr>
+              <tr data-study39-risk="july/mnq-kronos"><th scope="row">Juillet</th><td>Nasdaq · veto Kronos-mini</td><td>+188,00 $</td><td>312,50 $</td><td>330,50 $</td></tr>
+              <tr data-study39-risk="august/baseline"><th scope="row">Août</th><td>Référence · risque 100 $</td><td>−228,50 $</td><td>442,00 $</td><td>359,50 $</td></tr>
+              <tr data-study39-risk="august/mnq-before-11"><th scope="row">Août</th><td>Nasdaq · entrées avant 11 h NY</td><td>0,00 $</td><td>283,00 $</td><td>190,00 $</td></tr>
+              <tr data-study39-risk="august/mnq-kronos"><th scope="row">Août</th><td>Nasdaq · veto Kronos-mini</td><td>−183,00 $</td><td>451,00 $</td><td>340,00 $</td></tr>
+            </tbody></table></div>
+        </details>
+        <details>
+          <summary>Gagnants supprimés, perdants évités et nouvelles entrées</summary>
+          <p>En juin aux coûts normaux, le filtre horaire supprime trois gagnants et évite un perdant ; Kronos supprime deux gagnants sans éviter de perdant. En août, un refus MNQ par Kronos libère aussi une nouvelle entrée sur l’or, perdante de 81,50 $ aux coûts normaux et de 86 $ au stress. Une règle inchangée sur un autre marché peut donc produire une admission différente dans le portefeuille.</p>
+          <div class="iv-table-wrap" role="region" aria-label="Effet des variantes du Jeu 39 sur les entrées de référence" tabindex="0"><table class="iv-table"><caption>Comptes de trades comparés à la référence du même mois et du même coût. Les scénarios normaux et doublés ne sont pas additionnés.</caption><thead><tr><th scope="col">Mois</th><th scope="col">Variante</th><th scope="col">Coûts</th><th scope="col">Gagnants supprimés</th><th scope="col">Perdants évités</th><th scope="col">Nouvelles entrées</th></tr></thead><tbody>
+              <tr data-study39-comparison="june/mnq-before-11/normal"><th scope="row">Juin</th><td>Nasdaq · entrées avant 11 h NY</td><td>Normaux</td><td>3</td><td>1</td><td>0</td></tr>
+              <tr data-study39-comparison="june/mnq-before-11/stress"><th scope="row">Juin</th><td>Nasdaq · entrées avant 11 h NY</td><td>Doublés</td><td>3</td><td>1</td><td>0</td></tr>
+              <tr data-study39-comparison="june/mnq-kronos/normal"><th scope="row">Juin</th><td>Nasdaq · veto Kronos-mini</td><td>Normaux</td><td>2</td><td>0</td><td>0</td></tr>
+              <tr data-study39-comparison="june/mnq-kronos/stress"><th scope="row">Juin</th><td>Nasdaq · veto Kronos-mini</td><td>Doublés</td><td>1</td><td>0</td><td>0</td></tr>
+              <tr data-study39-comparison="july/mnq-before-11/normal"><th scope="row">Juillet</th><td>Nasdaq · entrées avant 11 h NY</td><td>Normaux</td><td>0</td><td>3</td><td>0</td></tr>
+              <tr data-study39-comparison="july/mnq-before-11/stress"><th scope="row">Juillet</th><td>Nasdaq · entrées avant 11 h NY</td><td>Doublés</td><td>0</td><td>3</td><td>0</td></tr>
+              <tr data-study39-comparison="july/mnq-kronos/normal"><th scope="row">Juillet</th><td>Nasdaq · veto Kronos-mini</td><td>Normaux</td><td>1</td><td>2</td><td>0</td></tr>
+              <tr data-study39-comparison="july/mnq-kronos/stress"><th scope="row">Juillet</th><td>Nasdaq · veto Kronos-mini</td><td>Doublés</td><td>1</td><td>2</td><td>0</td></tr>
+              <tr data-study39-comparison="august/mnq-before-11/normal"><th scope="row">Août</th><td>Nasdaq · entrées avant 11 h NY</td><td>Normaux</td><td>0</td><td>3</td><td>0</td></tr>
+              <tr data-study39-comparison="august/mnq-before-11/stress"><th scope="row">Août</th><td>Nasdaq · entrées avant 11 h NY</td><td>Doublés</td><td>0</td><td>3</td><td>0</td></tr>
+              <tr data-study39-comparison="august/mnq-kronos/normal"><th scope="row">Août</th><td>Nasdaq · veto Kronos-mini</td><td>Normaux</td><td>1</td><td>3</td><td>1</td></tr>
+              <tr data-study39-comparison="august/mnq-kronos/stress"><th scope="row">Août</th><td>Nasdaq · veto Kronos-mini</td><td>Doublés</td><td>1</td><td>3</td><td>1</td></tr>
+            </tbody></table></div>
+        </details>
+        <h4>Une autoévaluation qui garde les échecs</h4>
+        <p>Le bilan applique les critères fixés avant calcul : net au moins égal et baisse maximale au plus égale à la référence dans chacun des six couples mois/coûts, aucune rupture du compte et au moins une amélioration stricte du net. Kronos doit en plus produire des prévisions valides sans erreur. Les deux variantes échouent. Ce contrôle applique des règles déterministes ; il ne retouche aucun seuil après résultat, ne choisit pas automatiquement une stratégie et ne réentraîne pas les modèles.</p>
+        <details>
+          <summary>Ce que Kronos a réellement fait et la limite de conformité</summary>
+          <p>Le modèle téléchargé a réellement calculé 43 requêtes uniques pour cet essai, avec trois prévisions OHLC incohérentes et aucune erreur d’inférence. Il n’a reçu aucun nouveau poids appris. Les sorties invalides et les contextes insuffisants n’ajoutent pas de veto : les règles de référence restent applicables. Les trois sorties invalides font aussi échouer son critère de qualité.</p>
+          <p>Un écart documentaire est conservé : le protocole gelé écrit <code>top-p = 0</code>, alors que le code, la politique, le pack de requêtes et les prévisions utilisent <code>top-p = 0,9</code>. La conformité à cette ligne du protocole Kronos n’est donc pas établie. Le gel original reste intact ; aucun recalcul n’est utilisé pour remplacer ce résultat. Cet écart et le résultat négatif restent enregistrés.</p>
+          <p>La campagne comprend 18 relectures, six témoins entiers identiques et des contrôles chronologiques du compte, du filtre et des entrées du modèle. Ces vérifications contrôlent la relecture et ses données ; elles ne démontrent pas une rentabilité. Ces mois déjà consultés ne constituent pas une validation indépendante.</p>
+        </details>
+        <div class="study-links"><a href="#historyCalendarGame">Ouvrir le calendrier des Jeux 33 à 39</a><a href="./JEU39_RESULTS.md">Bilan complet du Jeu 39</a><a href="./JEU39_RESEARCH.md">Recherche et sources</a><a href="./JEU39_PROTOCOL.md">Protocole original</a><a href="./jeu39-report.json">Rapport chiffré</a><a href="./jeu39-execution-audit.json">Audit de l’exécution</a></div>
+      </div>
+    </section>
     <section class="panel independent-game market-game" id="learning38Game" aria-labelledby="learning38Title">
       <div class="panel-heading"><div><p class="panel-kicker">AUDIT · LEÇONS DES ESSAIS</p><h3 id="learning38Title">Corriger les entrées avant d’augmenter les montants</h3></div><span class="lab-status planned">Jeu 38 terminé · filtre non retenu</span></div>
       <div class="iv-content">
         <p class="iv-intro">Le Jeu 37 modifiait le risque, pas les signaux. Il ne pouvait donc pas améliorer la sélection des entrées de juillet. L’audit montre une baisse du taux de réussite, surtout sur le Nasdaq ; les gains moyens des gagnants augmentent pourtant.</p>
         <div class="iv-table-wrap" role="region" aria-label="Pourquoi les mois ne rapportent pas quatre mille dollars" tabindex="0"><table class="iv-table"><caption>Référence à 100 $, compte neuf chaque mois, coûts normaux. Résultats simulés déjà observés.</caption><thead><tr><th scope="col">Mois 2026</th><th scope="col">Gagnants / trades</th><th scope="col">Net</th><th scope="col">Moyenne par trade</th><th scope="col">Moyenne nécessaire pour 4 000 $</th></tr></thead><tbody><tr><td>Juin</td><td>11 / 16</td><td>+1 048,75 $</td><td>+65,55 $</td><td>250 $</td></tr><tr><td>Juillet</td><td>8 / 21</td><td>+176 $</td><td>+8,38 $</td><td>190,48 $</td></tr><tr><td>Août</td><td>3 / 11</td><td>−245,50 $</td><td>−22,32 $</td><td>363,64 $</td></tr></tbody></table></div>
         <h4>Ce que nous avons appris</h4>
-        <ul><li>Juillet : Nasdaq −228 $, S&amp;P +315 $, or +89 $. Le problème n’est pas identique sur tous les marchés.</li><li>Le nombre de « points verts » n’est pas une probabilité validée. Le risque modulé avait déjà été testé et ne justifie pas encore les gros montants.</li><li>25 des 26 pertes de la référence touchent le stop. Tenir plus longtemps après ce stop changerait le risque, pas seulement la durée.</li><li>Attendre une M5 supplémentaire et viser 3R ont déjà supprimé des gagnants. Ces idées ne seront pas présentées à nouveau comme des solutions inédites.</li><li>Les erreurs de préparation des données et de reprise entre branches ont été corrigées. Aucun nouveau bug de calcul expliquant juillet n’a été trouvé dans cet audit.</li><li>Le modèle Kronos téléchargé ne bat pas son témoin simple et ne pilote pas les entrées. Ajouter un modèle n’est pas une preuve de rentabilité.</li></ul>
+        <ul><li>Juillet : Nasdaq −228 $, S&amp;P +315 $, or +89 $. Le problème n’est pas identique sur tous les marchés.</li><li>Le nombre de « points verts » n’est pas une probabilité validée. Le risque modulé avait déjà été testé et ne justifie pas encore les gros montants.</li><li>25 des 26 pertes de la référence touchent le stop. Tenir plus longtemps après ce stop changerait le risque, pas seulement la durée.</li><li>Attendre une M5 supplémentaire et viser 3R ont déjà supprimé des gagnants. Ces idées ne seront pas présentées à nouveau comme des solutions inédites.</li><li>Les erreurs de préparation des données et de reprise entre branches ont été corrigées. Aucun nouveau bug de calcul expliquant juillet n’a été trouvé dans cet audit.</li><li>Le diagnostic K1 du modèle Kronos téléchargé ne bat pas son témoin simple. Son veto d’entrée a ensuite été testé séparément au <a href="#study39Game">Jeu 39</a>, sans être retenu. Ajouter un modèle n’est pas une preuve de rentabilité.</li></ul>
         <h4>Correction testée : aucun effet sur les trades</h4>
         <p>Sur le Nasdaq seulement, refuser le trade si la structure M5 confirmée est opposée <strong>et</strong> si un pivot déjà confirmé se trouve avant la cible 2R. Le plafond de risque reste à 100 $, les stops et les autres profils restent identiques. Les deux conditions sont connues à l’entrée. La référence est conservée ; aucun ordre n’est activé.</p>
         <p>Les 12 relectures sont terminées et les six témoins sont identiques. Le filtre bloque deux signaux en août, mais ils étaient déjà refusés par le plafond de risque. Aucun gagnant supprimé, aucun perdant évité, aucune nouvelle admission : net et baisse maximale inchangés sur les six couples mois/coûts. Le critère demandait une amélioration stricte ; le filtre n’est donc pas retenu. Ces données déjà vues ne constituent pas une confirmation indépendante.</p>

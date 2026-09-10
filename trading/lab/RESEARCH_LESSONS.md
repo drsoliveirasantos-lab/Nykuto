@@ -6,7 +6,7 @@ Dernière revue : 10 septembre 2026. Lire ce document, le catalogue et les derni
 
 - Référence de recherche : Jeu 37 `fixed100`, cibles 2R, portefeuille sans MYM, profils MES/MGC/MNQ conservés. Bot réel, Paper et Shadow désactivés.
 - Objectif étudié : 4 000 USD de PnL mensuel. Objectif personnel distinct : premier versement simulé équivalent à 1 000 EUR. Compte 50K neuf chaque mois, pas un été continu.
-- 90 configurations dans le registre, 107 clés dans le catalogue croisé, **zéro confirmation indépendante**. Le Jeu 38 exécuté ajoute une seule configuration, non retenue.
+- 92 configurations dans le registre, 109 clés dans le catalogue croisé, **zéro confirmation indépendante**. Le Jeu 38 ajoute une configuration non retenue ; le Jeu 39 en ajoute deux, également non retenues.
 - Le modèle Kronos-mini téléchargé est expérimental : K1 ne bat pas la prévision constante ; aucune adoption comme filtre ou modèle entraîné sur notre stratégie.
 
 ## Leçons et preuves
@@ -65,3 +65,15 @@ Cette mémoire améliore la continuité des décisions du projet et oblige les p
 ## Contrôle conservé de la préparation avant performance
 
 La revue de préparation du Jeu 38 a détecté deux défauts avant toute performance : le nouveau test unitaire manquait à la première liste de fichiers à figer, et les préfixes quotidiens ne reconstruisaient pas encore le filtre. Les deux sont corrigés dans le gel publié : 49 fichiers, dont le test du filtre, et reconstruction/comparaison des décisions pour chaque préfixe. Les 236 tests logiciels passent ; build, hygiène et 25 modules Functions sont validés. Les 493 identifiants HTML précédents sont conservés parmi 495. Ces vérifications ne chiffrent pas la rentabilité du nouveau filtre.
+
+
+## Jeu 39 — Ce que les horaires et le modèle changent réellement
+
+Diego autorise désormais des propositions issues de recherches et du diagnostic du bot, sans obligation de reproduire exactement ses associés. Chaque idée conserve un protocole borné ; cette autonomie ne permet pas de modifier les seuils après résultat ou d’activer une stratégie.
+
+- **L13 — Un meilleur juillet ne suffit pas.** MNQ avant11h retire3gagnants et7perdants aux coûts normaux. Net juin758,75 contre1 048,75 ; juillet426,50 contre176 ; août−31 contre−245,50. Juin à coûts doublés dégrade aussi le drawdown145→222. Le filtre ne passe pas les six cellules ; ne pas le présenter comme optimal ni déplacer maintenant11h vers10h45.
+- **L14 — Modèle réellement appliqué, avantage non établi.** Kronos-mini a produit43prévisions pour49signaux. Trois OHLC invalides, sans erreur d’inférence ; le filtre s’abstient. Il supprime4gagnants et5perdants en normal, puis permet une entrée MGC perdante en août. Juin et août normal se dégradent. Prévision correcte, signal filtré et gain de portefeuille sont trois mesures distinctes.
+- **L15 — Une erreur de protocole reste une erreur.** Le texte gelé indiquait top-p0 alors que code, politique et pack publiés fixaient0,9. Valeur exécutée0,9. Le conflit a été détecté après résultat et déclaré, sans modification rétroactive ou répétition de la campagne. Le prochain gel doit contrôler la concordance des paramètres textuels avec sa politique ; un SHA prouve une identité de fichier, pas sa justesse sémantique.
+- **L16 — Auto-évaluer ne signifie pas auto-promouvoir.** `research-self-review.mjs` conserve les raisons d’échec sur les six cellules. Sélection nulle, poids inchangés, aucune activation, même si une cellule est meilleure. Une évaluation logicielle n’est pas une validation indépendante de performance.
+
+[Résultats complets](./JEU39_RESULTS.md), [recherche préalable](./JEU39_RESEARCH.md), [audit avec écart déclaré](./jeu39-execution-audit.json). Les92/109configurations ne sont pas92/109observations indépendantes. Les18relectures sont closes, les quatre fichiers privés archivés et relus exactement. Aucune réaffectation de la collecteJeu08 ou du rendez-vous du3décembre. Prochaine priorité : qualité des sorties et latence mesurée, puis données réellement réservées à un protocole futur ; aucun nouveau test implicite.
