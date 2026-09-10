@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "datasetId": "mnq1-tradingview-m1-2026-05-25_2026-09-10",
+  "symbol": "CME_MINI:MNQ1!",
+  "instrument": "Micro E-mini Nasdaq-100 continuous futures",
+  "nativeInterval": "1m",
+  "timezone": "UTC",
+  "source": {
+    "provider": "TradingView",
+    "method": "manual Download chart data CSV exports supplied by repository owner",
+    "feedObserved": "CME_MINI_DL",
+    "notes": "Research/backtest corpus only. Normal candlesticks; not Heikin-Ashi. No automated extraction from TradingView."
+  },
+  "coverage": {
+    "start": "2026-05-25T04:08:00Z",
+    "end": "2026-09-10T17:48:00Z",
+    "uniqueM1Bars": 107491,
+    "acceptedMissingIntervals": [
+      {
+        "after": "2026-09-08T03:59:00Z",
+        "before": "2026-09-08T04:10:00Z",
+        "missingMinutes": 10,
+        "reason": "Accepted source gap; immaterial for current research"
+      }
+    ],
+    "expectedMarketClosures": "Daily maintenance, weekends and exchange holidays are not synthesized."
+  },
+  "columns": [
+    "time",
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume"
+  ],
+  "chunks": [
+    {
+      "file": "mnq-m1-2026-05-16-end.csv",
+      "rows": 6412,
+      "start": "2026-05-25T04:08:00Z",
+      "end": "2026-05-31T23:59:00Z",
+      "sha256": "711620fc06b2d1a311ab7e5caafcc5a60363c7a1c128076fae74e8d88212f57b"
+    },
+    {
+      "file": "mnq-m1-2026-06-01-15.csv",
+      "rows": 15180,
+      "start": "2026-06-01T00:00:00Z",
+      "end": "2026-06-15T23:59:00Z",
+      "sha256": "70aac350b8460c3cc83f292f3efbbea4592744087d8ca5750342c530a5726d9d"
+    },
+    {
+      "file": "mnq-m1-2026-06-16-end.csv",
+      "rows": 14940,
+      "start": "2026-06-16T00:00:00Z",
+      "end": "2026-06-30T23:59:00Z",
+      "sha256": "472e625337abd544d63c375b272ac18512952063c375d326816b6aec624ae2d1"
+    },
+    {
+      "file": "mnq-m1-2026-07-01-15.csv",
+      "rows": 14940,
+      "start": "2026-07-01T00:00:00Z",
+      "end": "2026-07-15T23:59:00Z",
+      "sha256": "7d0e631599671c48810acccfaafee1aab0c61ab793f7208b8361839d905f1157"
+    },
+    {
+      "file": "mnq-m1-2026-07-16-end.csv",
+      "rows": 16440,
+      "start": "2026-07-16T00:00:00Z",
+      "end": "2026-07-31T20:59:00Z",
+      "sha256": "65168861a7f258346f9471ee2512e77b495705bdb7255acd6dfd388b238b96b8"
+    },
+    {
+      "file": "mnq-m1-2026-08-01-15.csv",
+      "rows": 13800,
+      "start": "2026-08-02T22:00:00Z",
+      "end": "2026-08-14T20:59:00Z",
+      "sha256": "f97df7c8cdd29ef79c3dfc8cbf55c6b0970276e548c51d987e07e010d4d95137"
+    },
+    {
+      "file": "mnq-m1-2026-08-16-end.csv",
+      "rows": 15300,
+      "start": "2026-08-16T22:00:00Z",
+      "end": "2026-08-31T23:59:00Z",
+      "sha256": "962aaf61547cf9b76206606fdb27e7426aba5f91ee267ac567470e792097e9e1"
+    },
+    {
+      "file": "mnq-m1-2026-09-01-15.csv",
+      "rows": 10479,
+      "start": "2026-09-01T00:00:00Z",
+      "end": "2026-09-10T17:48:00Z",
+      "sha256": "84bc311e25451c7d34e3e4c7fb6e382dc1211e7784c4ab32152bc79fac4df145"
+    }
+  ]
+}
