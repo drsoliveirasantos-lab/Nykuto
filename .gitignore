@@ -28,3 +28,7 @@ pnpm-debug.log*
 
 # reports generated locally
 /reports/
+
+# local model weights and external research runtimes
+/.models/
+/.venv-kronos/
