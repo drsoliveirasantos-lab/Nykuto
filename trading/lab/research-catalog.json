@@ -2,7 +2,7 @@
   "schema": "research-catalog-v1",
   "checkedAt": "2026-09-10",
   "independentConfirmations": 0,
-  "uniqueConfigurationKeys": 114,
+  "uniqueConfigurationKeys": 120,
   "sharedConfigurationKeys": 57,
   "countIsNotIndependentTrials": true,
   "sources": [
@@ -118,6 +118,16 @@
       "newStrategyVariants": 2,
       "reportSha256": "5182ba3d2f966534ed66854beca4f5e808694ac5fc8ff60288a10bb8ecd426c9",
       "note": "Two isolated normalized-entry vetoes; 48 replays,16 controls; no signals vetoed, all full accounts unchanged. Not retained; no strict improvement or independent confirmation."
+    },
+    {
+      "namespace": "game44-video-context",
+      "ref": "aaf31a02a1c97718d06ada443a665f066144c2ba",
+      "branch": "research/trading-game44-videos",
+      "ledger": "research-ledger.json",
+      "configurationCount": 6,
+      "newStrategyVariants": 6,
+      "reportSha256": "b89767dad1e95f4c5b5dae0b6a674140c493488f3bd0dae71a5d5e4a0dae4648",
+      "note": "Six isolated video-derived index-context/AVWAP variants;112 replays,16 exact controls,2296 prefixes per layer. Two MES variants improve aggregate net at both costs but all six fail the frozen monthly gate. No independent confirmation or activation."
     }
   ],
   "entries": [
@@ -872,6 +882,48 @@
       "executionKey": "e5a75cb6ab58f14e29b76630a3b493efa59b743ff08250f9084d1b3bf5617582",
       "sources": [
         "game43-normalized-entry"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "f3419ec6d4c9ca16e2c388bbdf38b710d6910eb0b9d5cf76d5042c4cd34f2d0b",
+      "sources": [
+        "game44-video-context"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "841b9f2e85867fe71a12ceb5edfa75d58f8181405e5fb3554c24a48a52cd8ef1",
+      "sources": [
+        "game44-video-context"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "29330c47f0bc7be4356d9afdf71625a4a57debda128cc22eca198ec1790d4261",
+      "sources": [
+        "game44-video-context"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "d0e527d4aba7e138f34ce3f6c9672fecef95d943ae5a96d9dfb94a1123c9a573",
+      "sources": [
+        "game44-video-context"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "fc42a1917087fb189cd28d1d2f602bb25972ddd9765ea92a46d4a187f88a130a",
+      "sources": [
+        "game44-video-context"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "da36a02c928bd3972bdbeef9e2fa8314b1e6f5ed18bb409709a427330cfa8115",
+      "sources": [
+        "game44-video-context"
       ],
       "confirmed": false
     }

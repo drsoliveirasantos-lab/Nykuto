@@ -112,3 +112,12 @@ Diego autorise désormais des propositions issues de recherches et du diagnostic
 - **L30 — Réutiliser un mécanisme ne transfère pas un avantage appris.** La normalisation past-window et le diagnostic temporel fonctionnent ; ce ne sont ni un entraînement des poids ni une preuve de rentabilité.8/118 signauxMNQ et3/68MES manquent de contexte complet, explicitement signalé.
 
 [Bilan43](./JEU43_RESULTS.md) · [Résumé vérifié](./jeu43-summary.json).48 relectures,16 témoins exacts,984 préfixes par couche. Rapport et runs privés archivés ; aucune campagne relancée à la vérification. Registre97/catalogue114, anciennes95/112 entrées conservées, zéro confirmation indépendante.
+
+
+## Jeu44 — Un meilleur total peut cacher un mois plus fragile
+
+- **L31 — Un gain agrégé ne remplace pas les critères arrêtés avant le test.** MES direction : +153,75 USD normal / +142,50 doublé, mais juillet perd 165 /77,50 USD et son drawdown augmente. MES AVWAP : +302,75 /+98 USD, mais janvier aux deux coûts et juin normal se dégradent. Ces deux pistes descriptives ne sont pas retenues ; ne pas les activer ni les combiner après coup.
+- **L32 — Les créneaux libérés font partie du mécanisme.** MNQ AVWAP retire un ensemble de trades valant −179 USD en normal, puis admet cinq perdants supplémentaires valant −358 USD. Résultat global −179 USD par rapport à la référence. Une analyse des seules pertes retirées donnerait la mauvaise conclusion.
+- **L33 — Vingt vidéos ne donnent pas vingt avantages indépendants.** Niveaux d’accès documentés : neuf ensembles de passages de transcriptions, un article complet, huit résumés et deux descriptions. Trois adaptations originales, six variantes ; quatre variantes réduisent le net total aux deux coûts. Le filtre de force relative MES réduit le pire drawdown mensuel, mais dégrade le net et augmente les mois négatifs. Aucun paramètre repris d’un titre promotionnel.
+
+[Bilan44](./JEU44_RESULTS.md) · [Résumé vérifié](./jeu44-summary.json).112 relectures,16 témoins entiers,2 296 préfixes par couche ; calcul terminé en4min39s. Sorties et arithmétique vérifiées sans nouvelle simulation. Registre103/catalogue120, antérieures97/114 préservées, zéro confirmation indépendante, aucune activation. Les six critères descriptifs échouent ; la référence40 demeure. Les statistiques de performance appartiennent au développement déjà vu.
