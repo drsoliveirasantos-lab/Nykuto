@@ -6,7 +6,7 @@ Dernière revue : 10 septembre 2026. Lire ce document, le catalogue et les derni
 
 - Référence de recherche : Jeu 40 `fixed100` (mécanique Jeu37), cibles 2R, portefeuille sans MYM, profils MES/MGC/MNQ conservés. Bot réel, Paper et Shadow désactivés.
 - Objectif étudié : 4 000 USD de PnL mensuel. Objectif personnel distinct : premier versement simulé équivalent à 1 000 EUR. Compte 50K neuf chaque mois, pas un été continu.
-- 109 configurations dans le registre, 126 clés dans le catalogue croisé, **zéro confirmation indépendante**. Le Jeu45 conserve uniquement MNQ `time-exit30` comme candidate de développement ; référence inchangée. Les filtres 38/39/41/42/43/44, les horaires45 et la sortie MES45 restent non retenus.
+- 111 configurations dans le registre, 128 clés dans le catalogue croisé, **zéro confirmation indépendante**. Le Jeu45 conserve uniquement MNQ `time-exit30` comme candidate de développement ; référence inchangée. Les filtres 38/39/41/42/43/44, les horaires45 et la sortie MES45 restent non retenus.
 - Le modèle Kronos-mini téléchargé est expérimental : K1 ne bat pas la prévision constante ; aucune adoption comme filtre ou modèle entraîné sur notre stratégie.
 
 ## Leçons et preuves
@@ -134,3 +134,8 @@ Diego autorise désormais des propositions issues de recherches et du diagnostic
 ## Intégration après le Jeu45
 
 **L37 — Intégrer une candidate ne la confirme pas.** Le [profil de développement](./RESEARCH_BOT.md) réutilise la sortie MNQ30 minutes gelée, avec témoin et deux coûts obligatoires. Son diagnostic réconcilie frais, pertes précoces, gagnants sacrifiés et effets sur les admissions ; les mêmes trades sous deux coûts ne deviennent pas quatre observations indépendantes. Les agrégats relus ne constituent pas un nouvel essai : registre109/catalogue126 conservés, aucune sélection, aucune activation.
+
+
+## Jeu46 — Les pertes diminuent sans hausse des gains moyens des gagnants
+
+**L38 — Comparer aussi au dernier progrès.** Les sorties par clôture invalidée MNQ/MES passent contre40, mais échouent contreMNQ30. MES gagne51,50/54USD de total par rapport àMNQ30 et réduit le pire drawdown de15USD, tout en perdant37,50USD en juillet aux deux coûts. Les gains moyens des gagnants sont identiques ; cinq/six pertes MES réduites améliorent légèrement la moyenne. Aucun cumul des sorties après lecture : ce serait une nouvelle hypothèse à figer. [Bilan46](./JEU46_RESULTS.md).64 simulations,32témoins exacts,132fichiers gelés et928trades vérifiés ; registre111/catalogue128, zéro confirmation indépendante, aucune activation.

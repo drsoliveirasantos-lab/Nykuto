@@ -550,3 +550,13 @@ preparation and historical freezes remain. See trading/lab/JEU46_PROTOCOL.md,
 JEU46_RESEARCH.md and jeu46-* modules/scripts. No performance is claimed at
 preparation; ledger109/catalog126 remain completed history until readback.
 Launch once, estimate duration, then stop monitoring as requested by Diego.
+
+
+Game46 completed once at freeze700eb159a8398572edd1e2b5d52d464e2ac3672d in167.861s:
+64 replays,32 exact controls,1312 prefixes per layer,132 frozen files and928
+trade records verified;13 structural exits independently checked on native prices.
+Both variants pass against Game40 but fail progression against MNQ30. MES adds
+51.50/54USD aggregate versus MNQ30 while losing37.50USD in July at each cost.
+No replacement, combination, promotion or activation. See trading/lab/JEU46_RESULTS.md
+and jeu46-summary.json. Ledger111/catalog128 preserve prior109/126. Results
+are archived privately; no new performance run at verification.

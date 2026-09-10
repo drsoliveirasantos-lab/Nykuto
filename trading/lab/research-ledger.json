@@ -1,7 +1,7 @@
 {
   "schema": "research-ledger-v1",
   "scope": "Published Games 19–26, audit F1 and Games 33–45; research-catalog.json also preserves research Games 27–32",
-  "configurationCount": 109,
+  "configurationCount": 111,
   "independentConfirmations": 0,
   "entries": [
     {
@@ -2046,6 +2046,46 @@
       "holdoutPassed": null,
       "confirmed": false,
       "report": "jeu45-summary.json"
+    },
+    {
+      "game": 46,
+      "id": "PORTFOLIO/mnq-closed-invalidation/eight-months/funded",
+      "executionKey": "ede8b142999fe76593c118e386e57de0d604010443b9f9e48a4f6662440fa081",
+      "freezeSha256": "dc6c4a82ab76b4443e7fdb627e19ed191d56dcbf179f445b8ab5889958697625",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "mnq-closed-invalidation/eight-months/funded",
+      "phase": "diagnostic",
+      "start": "2026-01-01",
+      "end": "2026-09-01",
+      "developmentPassed": false,
+      "referenceGatePassed": true,
+      "priorCandidateGatePassed": false,
+      "developmentResultKind": "two-comparator-descriptive-gate-on-already-seen-data",
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu46-summary.json"
+    },
+    {
+      "game": 46,
+      "id": "PORTFOLIO/mes-closed-invalidation/eight-months/funded",
+      "executionKey": "d88a263a240bbd92ec2ad182e9efc19b7b383e2cfa8bb4ef6b5da01e4032ee8e",
+      "freezeSha256": "dc6c4a82ab76b4443e7fdb627e19ed191d56dcbf179f445b8ab5889958697625",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "mes-closed-invalidation/eight-months/funded",
+      "phase": "diagnostic",
+      "start": "2026-01-01",
+      "end": "2026-09-01",
+      "developmentPassed": false,
+      "referenceGatePassed": true,
+      "priorCandidateGatePassed": false,
+      "developmentResultKind": "two-comparator-descriptive-gate-on-already-seen-data",
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu46-summary.json"
     }
   ]
 }
