@@ -16,11 +16,15 @@ test('new reports preserve all eight failed configurations and their frozen prot
     const check=v=>{if(!v||typeof v!=='object')return;for(const [key,value] of Object.entries(v)){assert.ok(!['entry','exit','signalOpen','signalClose','trendClosedAt','open','high','low','close'].includes(key),'Raw prices or trades must remain private');if(key==='trades')assert.equal(typeof value,'number');check(value);}};check(r);
   }
   const ledger=JSON.parse(await readFile(new URL('../trading/lab/research-ledger.json',import.meta.url)));
-  assert.equal(ledger.configurationCount,103);assert.equal(ledger.entries.length,103);assert.equal(ledger.independentConfirmations,0);assert.equal(new Set(ledger.entries.map(x=>x.executionKey)).size,103);
+  assert.equal(ledger.configurationCount,109);assert.equal(ledger.entries.length,109);assert.equal(ledger.independentConfirmations,0);assert.equal(new Set(ledger.entries.map(x=>x.executionKey)).size,109);
   assert.equal(ledger.entries.filter(x=>x.game<39).length,90);
   assert.deepEqual(ledger.entries.filter(x=>x.game===39).map(x=>x.configuration),['mnq-before-11/funded','mnq-kronos/funded']);
   assert.equal(ledger.entries.find(x=>x.game===20).holdoutPassed,false);
-  assert.ok(ledger.entries.filter(x=>x.game>=21).every(x=>x.developmentPassed===false&&x.holdoutStatus==='not-opened'));
+  assert.ok(ledger.entries.filter(x=>x.game>=21&&x.game<=44).every(x=>x.developmentPassed===false&&x.holdoutStatus==='not-opened'));
+  const game45=JSON.parse(await readFile(new URL('../trading/lab/jeu45-summary.json',import.meta.url)));
+  const recent=ledger.entries.filter(x=>x.game===45);assert.equal(recent.length,6);
+  for(const e of recent){assert.equal(e.developmentPassed,game45.reviews[e.configuration.split('/')[0]].descriptiveGatePassed);assert.equal(e.selected,false);assert.equal(e.confirmed,false);assert.equal(e.holdoutStatus,'not-opened');}
+  assert.deepEqual(recent.filter(e=>e.developmentPassed).map(e=>e.configuration),['mnq-time-exit30/eight-months/funded']);
 
 });
 class Element{
