@@ -1,0 +1,47 @@
+{
+  "schema": "jeu44-readback-audit-v1",
+  "sourceOutputs": {
+    "report.json": {
+      "bytes": 2465270,
+      "sha256": "3bf4995540935c857bd5c4e2fcd4dceaf82ffb1abca36d9794f0d1d64f36fab6"
+    },
+    "runs-private.json": {
+      "bytes": 6211278,
+      "sha256": "ee67bd0168505b9e1b664fecbbd937bd0d61a1bafa69aa3d9b34be81199c14ab"
+    }
+  },
+  "verifiedAt": "2026-09-10T14:00:27.025486+00:00",
+  "freezeFilesVerified": 105,
+  "wholeArchivedControls": 16,
+  "checkedTradeRecords": 1529,
+  "netAndDailySumsReconciled": true,
+  "tradeCashflowsAndDrawdownsReconciled": true,
+  "tradeComparisonsReconciled": true,
+  "costInvariantFilterDecisions": true,
+  "reviewsReconciled": true,
+  "profitFactorCalculatedAtReadback": true,
+  "newPerformanceRuns": 0,
+  "newInferences": 0,
+  "selection": null,
+  "executionAllowed": false,
+  "preservedPrefixes": {
+    "ledger": "e652f3f803c60a8658c93bfc1d81f9411b3fbc357e942885c93e6a6df871296c",
+    "catalog": "0af50b94f6f715d6bd349fa9067610941600bef3a99b3666395c56687a5de883",
+    "sources": "f789ed07ee4adc9245836f99f6e71e6744cb97c2ea57a2ae50670327d9a98792"
+  },
+  "previousLedgerCount": 97,
+  "previousCatalogCount": 114,
+  "ledgerCount": 103,
+  "catalogCount": 120,
+  "archiveFile": "Nykuto_Jeu44_resultats_verifies_2026-09-10.zip",
+  "githubChecksAtFreeze": {
+    "Website CI": {
+      "id": 34485209884,
+      "conclusion": "success"
+    },
+    "Repository hygiene": {
+      "id": 34485209859,
+      "conclusion": "success"
+    }
+  }
+}
