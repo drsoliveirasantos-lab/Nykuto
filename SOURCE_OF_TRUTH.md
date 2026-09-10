@@ -416,3 +416,11 @@ nulls and unavailable daily market/risk details remain explicit. Preferences
 can persist locally; actual result history is versioned with its reports.
 Earlier panels/HTML IDs, Kronos/RSI/news integration, historical freezes and
 prospective collection remain intact; no execution, payout request or main merge.
+
+Game 39 is prepared, not yet calculated. Two isolated MNQ admission variants
+(before 11 h New York and actual pinned Kronos-mini directional veto) compare
+against exact Game37 fixed100 across June/July/August2026 and two cost levels.
+Eighteen replays are planned; request preparation is causal and frozen before
+inference. research-self-review.mjs checks six cells without tuning, selection
+or execution. See JEU39_PROTOCOL.md and JEU39_RESEARCH.md. No new weights or
+prospective data; old models/RSI/news, freezes and work remain intact.
