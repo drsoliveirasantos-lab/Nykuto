@@ -6,7 +6,7 @@ Dernière revue : 10 septembre 2026. Lire ce document, le catalogue et les derni
 
 - Référence de recherche : Jeu 37 `fixed100`, cibles 2R, portefeuille sans MYM, profils MES/MGC/MNQ conservés. Bot réel, Paper et Shadow désactivés.
 - Objectif étudié : 4 000 USD de PnL mensuel. Objectif personnel distinct : premier versement simulé équivalent à 1 000 EUR. Compte 50K neuf chaque mois, pas un été continu.
-- 94 configurations dans le registre, 111 clés dans le catalogue croisé, **zéro confirmation indépendante**. Le Jeu 40 ajoute une extension de période sans nouvelle stratégie ; les variantes 38/39/41 restent non retenues.
+- 95 configurations dans le registre, 112 clés dans le catalogue croisé, **zéro confirmation indépendante**. Le Jeu 40 ajoute une extension de période sans nouvelle stratégie ; les variantes 38/39/41/42 restent non retenues.
 - Le modèle Kronos-mini téléchargé est expérimental : K1 ne bat pas la prévision constante ; aucune adoption comme filtre ou modèle entraîné sur notre stratégie.
 
 ## Leçons et preuves
@@ -96,3 +96,11 @@ Diego autorise désormais des propositions issues de recherches et du diagnostic
 - **L25 — Corriger les conditions d’observation avant de multiplier les variantes.** Les historiques sont déjà vus, avec deux journées absentes et une préparation non uniforme. Les32relectures/16témoins/656préfixes chacun et434trades contrôlés prouvent la reproduction, pas la rentabilité. Les prochaines pistes doivent d’abord préciser le mécanisme visé et ce qui les distingue des essais précédents ; aucune nouvelle campagne n’est implicite.
 
 [Bilan41](./JEU41_RESULTS.md), [audit préalable](./JEU41_RESEARCH.md), [audit arithmétique](./jeu41-execution-audit.json). Une configuration ajoutée ; registre94/catalogue111, anciennes entrées conservées, zéro confirmation indépendante. Trois fichiers privés archivés et relus exactement. Les anciennes règles, modèles/RSI/news, collecteJeu08 et rendez-vous du3décembre restent intacts.
+
+## Jeu42 — Distinguer les phases ne garantit pas un meilleur portefeuille
+
+- **L26 — Un principe vidéo doit être testé avec ses limites d'observation.** Parmi68signaux MES,33n'ont pas de bougie opposée séparée et5manquent de volume relatif ;30phases sont exploitables et15veto émises. L'absence de phase identifiable enM5 n'est ni un mauvais signal démontré, ni une confirmation favorable. La confirmation elle-même est exclue du volume du retour.
+- **L27 — Un filtre ciblé peut coûter davantage sur un autre marché.** Le30janvier, une perte MES évitée libère un MNQ perdant qui consomme le quota d'un MNQ gagnant. Au total normal,4gagnants/6perdants retirés et2ajouts perdants donnent−334USD ; doublé,2gagnants/6perdants retirés et3ajouts perdants donnent−22,75USD. Aucun trade commun ne change. Ne pas confondre15signaux veto et15pertes évitées.
+- **L28 — Conserver une hypothèse rejetée est une amélioration de la recherche.** La règle de volume échoue dans5/16cellules : janvier aux deux coûts, juin/juillet/août normaux. Net total1589,25normal/1131,25doublé, aucun4Kmensuel ni retrait. Le seuil n'est pas déplacé ; la référence fixed100 reste inchangée. Cela n'invalide pas toutes les utilisations du volume ni ne démontre une saisonnalité d'août.
+
+[Bilan42](./JEU42_RESULTS.md), [protocole](./JEU42_PROTOCOL.md), [recherche vidéo](./JEU42_RESEARCH.md), [audit](./jeu42-execution-audit.json). Une campagne32relectures,16témoins exacts,656préfixes compte/filtre/contexte chacun,451trades et272enregistrements de phase contrôlés. Quatre fichiers privés archivés et relus exactement. Une configuration ajoutée :registre95/catalogue112, anciennes entrées préservées. Zéro confirmation indépendante, aucune activation, aucun nouveau modèle/ordre/achat, collecteJeu08/3décembre inchangée.

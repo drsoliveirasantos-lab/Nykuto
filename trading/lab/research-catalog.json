@@ -2,7 +2,7 @@
   "schema": "research-catalog-v1",
   "checkedAt": "2026-09-10",
   "independentConfirmations": 0,
-  "uniqueConfigurationKeys": 111,
+  "uniqueConfigurationKeys": 112,
   "sharedConfigurationKeys": 57,
   "countIsNotIndependentTrials": true,
   "sources": [
@@ -100,6 +100,15 @@
       "newStrategyVariants": 1,
       "reportSha256": "57126d9f313c03b63e73be2e531a07670e2cd62d1b04fe49467e45f297f6b559",
       "note": "One bounded MES net reward/risk1.5 variant; 32 replays,16 whole controls. Rejected in7/16 cells; no independent confirmation or automatic selection."
+    },
+    {
+      "namespace": "game42-mes-pullback-volume",
+      "ref": "39904d4a5f16d2ce71880c6d127766bca649a9aa",
+      "ledger": "research-ledger.json",
+      "configurationCount": 1,
+      "newStrategyVariants": 1,
+      "reportSha256": "efc3a4338458ccac4d7a1a32e3b317fa8646bea1b6e4b49515eb581599344bdc",
+      "note": "One bounded MES pullback-volume veto. 32 replays,16 whole controls; rejected in5/16 cells. No independent confirmation, inference or automatic selection."
     }
   ],
   "entries": [
@@ -833,6 +842,13 @@
       "executionKey": "54f6b4eec44fe43dda5c11a6eb134d2b810ef9e70bfc2904df00d3bcc3d811b7",
       "sources": [
         "game41-mes-net-reward"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "89f2a96c0490b1512a93d87646b92b098ac6ec540843aca85b5eaf51d586d0c7",
+      "sources": [
+        "game42-mes-pullback-volume"
       ],
       "confirmed": false
     }

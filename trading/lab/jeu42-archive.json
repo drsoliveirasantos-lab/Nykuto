@@ -1,0 +1,73 @@
+{
+  "schema": "jeu42-private-archive-v1",
+  "namespace": "TRADING_DATASETS",
+  "prefix": "jeu42/mes-pullback-volume-v1/",
+  "prePerformanceCommit": "39904d4a5f16d2ce71880c6d127766bca649a9aa",
+  "freezeSha256": "d5538160bdf5897baa2e90b150bf3b4f5f7fa90816272b16a2b653c3caf0fb96",
+  "files": [
+    {
+      "name": "report.json",
+      "bytes": 703710,
+      "sha256": "efc3a4338458ccac4d7a1a32e3b317fa8646bea1b6e4b49515eb581599344bdc",
+      "encoding": "gzip+base64",
+      "parts": [
+        {
+          "key": "jeu42/mes-pullback-volume-v1/report.json.gz.b64.000",
+          "bytes": 45208,
+          "sha256": "0481ff323e6dca382710f8c6ac3b16b5014438b80ac5c360bb421e01ed41529e"
+        }
+      ]
+    },
+    {
+      "name": "runs-private.json",
+      "bytes": 1118242,
+      "sha256": "dd197ce7c07b73a154b98c403ead94979af281e54a0fb01acb873ea4596d5476",
+      "encoding": "gzip+base64",
+      "parts": [
+        {
+          "key": "jeu42/mes-pullback-volume-v1/runs-private.json.gz.b64.000",
+          "bytes": 60000,
+          "sha256": "0b3da4a5009c3681ce8feb12804455fc063a56ab942c3fc767e17fc2ec8f2ced"
+        },
+        {
+          "key": "jeu42/mes-pullback-volume-v1/runs-private.json.gz.b64.001",
+          "bytes": 60000,
+          "sha256": "e606f272929e95fca97b4fb677bf727490fd804a36b98502ea54d092f8431928"
+        },
+        {
+          "key": "jeu42/mes-pullback-volume-v1/runs-private.json.gz.b64.002",
+          "bytes": 9408,
+          "sha256": "9dff6c1647344d6b5e4a843e2e2e5478461e53ece947a386fa988a11a85b97da"
+        }
+      ]
+    },
+    {
+      "name": "arithmetic-audit.json",
+      "bytes": 135083,
+      "sha256": "24ad73b47e43763d2500854fd03f7f4ee7b0f81c1458309401c108c5eae372cb",
+      "encoding": "gzip+base64",
+      "parts": [
+        {
+          "key": "jeu42/mes-pullback-volume-v1/arithmetic-audit.json.gz.b64.000",
+          "bytes": 6872,
+          "sha256": "49e43198d7f70c16e68fda491219bef76a776c4c5d2900adadc5610780b7bfb1"
+        }
+      ]
+    },
+    {
+      "name": "phase-input-audit.json",
+      "bytes": 607,
+      "sha256": "b0287f49bc400425f1cb5157d0cdb81f43d7d610f1ae197ffcaad0c3df344dee",
+      "encoding": "gzip+base64",
+      "parts": [
+        {
+          "key": "jeu42/mes-pullback-volume-v1/phase-input-audit.json.gz.b64.000",
+          "bytes": 528,
+          "sha256": "543a92d2050f5e4dea919c83ecdd66cf89cbff8fb4229963d7b038314567bc14"
+        }
+      ]
+    }
+  ],
+  "confirmed": false,
+  "executionAllowed": false
+}

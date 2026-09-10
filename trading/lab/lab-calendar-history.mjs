@@ -5,11 +5,12 @@ import {verifyEntryReport} from './jeu36-report-validation.mjs';
 import {verifyConfidenceReport} from './jeu37-report-validation.mjs';
 import {verifyObstacleReport} from './jeu38-report-validation.mjs';
 import {verifyStudyReport} from './jeu39-report-validation.mjs';
+import {verifyPullbackVolumeReport} from './jeu42-report-validation.mjs';
 import {verifyNetRewardReport} from './jeu41-report-validation.mjs';
 import {verifyEightMonthReport} from './jeu40-report-validation.mjs';
 import {adaptHistoryReport,selectHistory,historyCells,historyDay,historyDayState,readHistoryPreferences,saveHistoryPreferences} from './history-calendar-view.mjs';
 
-const verifiers={'33':verifyAccountReport,'34':verifyMonthlyReport,'35':verifyExitReport,'36':verifyEntryReport,'37':verifyConfidenceReport,'38':verifyObstacleReport,'39':verifyStudyReport,'40':verifyEightMonthReport,'41':verifyNetRewardReport};
+const verifiers={'33':verifyAccountReport,'34':verifyMonthlyReport,'35':verifyExitReport,'36':verifyEntryReport,'37':verifyConfidenceReport,'38':verifyObstacleReport,'39':verifyStudyReport,'40':verifyEightMonthReport,'41':verifyNetRewardReport,'42':verifyPullbackVolumeReport};
 const money=(n,currency='USD')=>typeof n!=='number'?'—':new Intl.NumberFormat('fr-FR',{style:'currency',currency}).format(n);
 const date=d=>d.slice(8,10)+'/'+d.slice(5,7),modeLabel=m=>m==='funded'?'Funded simulé':'Évaluation simulée';
 const statusLabel=s=>({incomplete:'Fin de la période',profitTargetMet:'Arrêt : objectif 4 000 $ atteint',personalGoalMet:'Arrêt : objectif personnel atteint',targetMet:'Arrêt : évaluation réussie',breached:'Arrêt : limite du compte atteinte'})[s]??s;

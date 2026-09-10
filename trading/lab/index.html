@@ -49,8 +49,9 @@
   <link rel="stylesheet" href="./lab-study39.css?v=1">
   <link rel="stylesheet" href="./lab-study40.css?v=1">
   <link rel="stylesheet" href="./lab-study41.css?v=1">
+  <link rel="stylesheet" href="./lab-study42.css?v=1">
   <link rel="stylesheet" href="./lab-calendar-history.css?v=1">
-  <script src="./lab-calendar-history.mjs?v=2" type="module"></script>
+  <script src="./lab-calendar-history.mjs?v=3" type="module"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Aller au contenu</a>
@@ -91,7 +92,7 @@
       <div class="iv-content">
         <p>Choisis un jeu parmi les Jeux 33 à 41 pour retrouver ses journées, ses semaines et ses profils. Les Jeux 40 et 41 couvrent janvier à août ; les anciens jeux gardent leurs trois mois. Chaque essai reste conservé.</p>
         <div class="history-controls">
-          <label for="historyCalendarGameSelect"><span>Jeu enregistré</span><select id="historyCalendarGameSelect"><option value="41">Jeu 41 · Chargement…</option></select></label>
+          <label for="historyCalendarGameSelect"><span>Jeu enregistré</span><select id="historyCalendarGameSelect"><option value="42">Jeu 42 · Chargement…</option></select></label>
           <label for="historyCalendarVariant"><span>Variante ou profil</span><select id="historyCalendarVariant" disabled><option>Chargement…</option></select></label>
           <label for="historyCalendarMode"><span>Étape du compte</span><select id="historyCalendarMode" disabled><option>Chargement…</option></select></label>
           <label for="historyCalendarCost"><span>Coûts de transaction</span><select id="historyCalendarCost" disabled><option value="normal">Coûts normaux</option><option value="stress">Coûts doublés</option></select></label>
@@ -112,6 +113,30 @@
           <div class="iv-table-wrap" role="region" aria-label="Marchés du jeu sélectionné" tabindex="0"><table class="iv-table"><caption>Montants nets en dollars pour la variante et les coûts sélectionnés.</caption><thead><tr id="historyCalendarTotalsHead"><th scope="col">Marché</th><th scope="col">Juin</th><th scope="col">Juillet</th><th scope="col">Août</th></tr></thead><tbody id="historyCalendarTotals"></tbody></table></div>
           <p>Ces mois déjà étudiés servent à comparer les essais. Ils ne constituent pas une nouvelle validation indépendante. Les rapports d’origine restent inchangés ; seul ton choix d’affichage est mémorisé sur cet appareil.</p>
         </div>
+      </div>
+    </section>
+    <section class="panel independent-game market-game" id="study42Game" aria-labelledby="study42Title">
+      <div class="panel-heading"><div><p class="panel-kicker">JEU 42 · VOLUME DU RETOUR MES · JANVIER À AOÛT 2026</p><h3 id="study42Title">Le filtre retire aussi des gagnants</h3></div><span class="lab-status planned">Non retenu</span></div>
+      <div class="iv-content">
+        <p>Le test refuse uniquement les retours MES dont les bougies opposées ont une activité relative au moins aussi forte que la cassure. La confirmation est séparée du retour. Risque maximal 100 $, stops et cible 2R conservés.</p>
+        <p class="study-decision"><strong>La référence est conservée.</strong> Le total observé baisse de 1 923,25 à 1 589,25 $ en normal, et de 1 154,00 à 1 131,25 $ avec les coûts doublés. Cinq comparaisons mensuelles échouent. Aucun objectif de 4 000 $ ou retrait personnel obtenu.</p>
+        <h4>Les huit mois, avant et après le filtre</h4>
+        <div class="iv-table-wrap" role="region" aria-label="Résultats mensuels du Jeu 42" tabindex="0"><table class="iv-table"><caption>Net en USD, compte neuf chaque mois. Février et mars sont partiels.</caption><thead><tr><th scope="col">Mois</th><th scope="col">Référence normale</th><th scope="col">Filtre normal</th><th scope="col">Référence doublée</th><th scope="col">Filtre doublé</th></tr></thead><tbody>
+<tr data-study42-month="january"><th scope="row">Janvier</th><td>511,00 $</td><td>330,75 $</td><td>48,00 $</td><td>−136,00 $</td></tr>
+<tr data-study42-month="february"><th scope="row">Février · partiel</th><td>663,25 $</td><td>663,25 $</td><td>616,75 $</td><td>616,75 $</td></tr>
+<tr data-study42-month="march"><th scope="row">Mars · partiel</th><td>−297,50 $</td><td>−297,50 $</td><td>−250,50 $</td><td>−250,50 $</td></tr>
+<tr data-study42-month="april"><th scope="row">Avril</th><td>323,75 $</td><td>477,50 $</td><td>216,25 $</td><td>280,00 $</td></tr>
+<tr data-study42-month="may"><th scope="row">Mai</th><td>−256,50 $</td><td>−174,00 $</td><td>−197,50 $</td><td>−105,00 $</td></tr>
+<tr data-study42-month="june"><th scope="row">Juin</th><td>1 048,75 $</td><td>918,75 $</td><td>785,50 $</td><td>785,50 $</td></tr>
+<tr data-study42-month="july"><th scope="row">Juillet</th><td>176,00 $</td><td>41,00 $</td><td>164,00 $</td><td>169,00 $</td></tr>
+<tr data-study42-month="august"><th scope="row">Août</th><td>−245,50 $</td><td>−370,50 $</td><td>−228,50 $</td><td>−228,50 $</td></tr>
+        </tbody></table></div>
+        <p>Moyenne observée : 198,66 $ par mois en normal, 141,41 $ en doublé. Les 25 février et 6 mars restent barrés dans le calendrier : leurs résultats sont inconnus.</p>
+        <h4>Pourquoi l'amélioration n'est pas retenue</h4>
+        <p>En normal, le filtre retire 4 gagnants et 6 perdants, puis admet 2 nouvelles pertes. En doublé, il retire 2 gagnants et 6 perdants, puis admet 3 nouvelles pertes. Le drawdown de juillet normal augmente de 312,50 à 422,50 $.</p>
+        <details><summary>Ce que les données et le portefeuille expliquent</summary><p>Sur 68 signaux MES, 30 ont un retour exploitable selon cette définition : 15 sont refusés. Les 38 autres manquent d'une phase séparée ou d'un volume relatif utilisable ; leur comportement de référence est conservé.</p><p>Le 30 janvier, refuser une perte MES libère un MNQ perdant qui empêche ensuite un MNQ gagnant. Une amélioration apparente d'un marché peut donc dégrader le compte commun. Aucun trade commun ne change de résultat.</p><p>32 relectures, 16 témoins exacts, 451 trades et 272 observations de phase contrôlés. Ces vérifications établissent la reproduction du test, pas une rentabilité future.</p></details>
+        <p class="study-note">Une seule campagne terminée. La règle rejetée reste archivée ; aucun seuil retouché, aucune activation. Tous les anciens jeux sont conservés.</p>
+        <nav class="study-links" aria-label="Preuves du Jeu 42"><a href="#historyCalendarGame">Calendrier par jeu</a><a href="./JEU42_RESULTS.md">Bilan et semaines</a><a href="./JEU42_RESEARCH.md">Recherche et vidéos</a><a href="./JEU42_PROTOCOL.md">Protocole figé</a><a href="./RESEARCH_LESSONS.md">Leçons</a></nav>
       </div>
     </section>
     <section class="panel independent-game market-game" id="study41Game" aria-labelledby="study41Title">

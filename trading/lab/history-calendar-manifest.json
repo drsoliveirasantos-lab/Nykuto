@@ -1,7 +1,14 @@
 {
   "schema": "history-calendar-manifest-v1",
-  "defaultGame": "41",
+  "defaultGame": "42",
   "games": [
+    {
+      "id": "42",
+      "label": "Jeu 42 · Volume du retour MES",
+      "report": "jeu42-report.json",
+      "defaultVariant": "mes-pullback-volume",
+      "goalMode": "profit"
+    },
     {
       "id": "41",
       "label": "Jeu 41 · Marge nette des entrées MES",

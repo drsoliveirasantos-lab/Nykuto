@@ -884,3 +884,17 @@ markets and Game40 preparation remain unchanged. Thirty-two replays and sixteen
 whole Game40 controls are planned, not calculated at this preparation stage.
 See trading/lab/JEU42_PROTOCOL.md and JEU42_RESEARCH.md. One future configuration,
 no automatic selection, new inference, activation or collection change.
+
+Game42 completed once after published freeze39904d4a5f16d2ce71880c6d127766bca649a9aa,
+79 dependencies preserved. The MES phase-volume veto is not retained:5/16 cells
+fail. Normal total1923.25→1589.25 USD; doubled1154→1131.25. Four/two winners
+removed and two/three new losses for normal/stress; no common trade changes.
+32 replays,16 exact whole controls,656 account/filter/context prefixes each,
+451 trades and272 recorded phase observations audited. Four private files
+archived/recomposed exactly from6parts/33chunks under jeu42/mes-pullback-volume-v1/.
+See trading/lab/JEU42_RESULTS.md and jeu42-execution-audit.json. Immutable
+report checked by jeu42-report-validation.mjs; study42Game/lab-study42.css
+extend the Lab and shared calendar to33–42,72selections/266monthly cost views.
+One executed configuration added:ledger95/catalog112; old94/111entries intact.
+No inference, automatic selection, activation, collection change or main merge.
+The original preparation protocol remains frozen as a historical record.
