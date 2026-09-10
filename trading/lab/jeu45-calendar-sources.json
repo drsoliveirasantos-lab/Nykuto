@@ -1,0 +1,45 @@
+{
+  "schema": "jeu45-calendar-sources-v1",
+  "checkedAt": "2026-09-10",
+  "sourcePerformanceVerified": false,
+  "sources": [
+    {
+      "url": "https://www.gov.uk/bank-holidays",
+      "publisher": "UK Government",
+      "access": "full-text",
+      "scope": "England and Wales bank holidays January-August 2026",
+      "dates": [
+        "2026-01-01",
+        "2026-04-03",
+        "2026-04-06",
+        "2026-05-04",
+        "2026-05-25",
+        "2026-08-31"
+      ]
+    },
+    {
+      "url": "https://www.nyse.com/trade/hours-calendars",
+      "publisher": "NYSE",
+      "access": "full-text-earlier-this-session",
+      "scope": "US core session 09:30-16:00 Eastern and early closes"
+    },
+    {
+      "url": "https://www.londonstockexchange.com/trade/trading-access/business-days",
+      "publisher": "London Stock Exchange",
+      "access": "no-extractable-body",
+      "scope": "Not used as verified calendar evidence"
+    },
+    {
+      "url": "https://www.cmegroup.com/education/courses/trade-and-risk-management/proper-position-size",
+      "publisher": "CME",
+      "access": "full-text",
+      "scope": "Position size depends on stop and risk budget, not a proof of our time exit"
+    }
+  ],
+  "modelAssumptions": [
+    "London cash clock is a conventional proxy: 08:00-16:30 Europe/London, excluding weekends and the frozen England/Wales bank holidays.",
+    "No complete machine-readable LSE trading calendar was verified. Unexpected closures, auction extensions and actual European participation are unobserved.",
+    "This is not a measurement of Forex session overlap or a synchronized LSE price feed.",
+    "No Asia/Europe opening prices exist in the current US cash-session archives."
+  ]
+}

@@ -2,7 +2,7 @@
   "schema": "research-catalog-v1",
   "checkedAt": "2026-09-10",
   "independentConfirmations": 0,
-  "uniqueConfigurationKeys": 120,
+  "uniqueConfigurationKeys": 126,
   "sharedConfigurationKeys": 57,
   "countIsNotIndependentTrials": true,
   "sources": [
@@ -128,6 +128,16 @@
       "newStrategyVariants": 6,
       "reportSha256": "b89767dad1e95f4c5b5dae0b6a674140c493488f3bd0dae71a5d5e4a0dae4648",
       "note": "Six isolated video-derived index-context/AVWAP variants;112 replays,16 exact controls,2296 prefixes per layer. Two MES variants improve aggregate net at both costs but all six fail the frozen monthly gate. No independent confirmation or activation."
+    },
+    {
+      "namespace": "game45-sessions-time-exit",
+      "ref": "aee222ff039721c7e6d50188cb6ed2c0d21ec8c0",
+      "branch": "research/trading-game45-sessions",
+      "ledger": "research-ledger.json",
+      "configurationCount": 6,
+      "newStrategyVariants": 6,
+      "reportSha256": "564a837abd39bbbf7ce575f7ee720aa64f7567b0a25d503ef15f8ee31e2688c9",
+      "note": "Six isolated London-clock/time-exit variants;112 replays,16 whole controls,2296 prefixes per layer. MNQ time-exit30 alone passes the descriptive gate, from two reduced losses (+91 USD at each cost); five rejected, no selection, independent confirmation or activation."
     }
   ],
   "entries": [
@@ -924,6 +934,48 @@
       "executionKey": "da36a02c928bd3972bdbeef9e2fa8314b1e6f5ed18bb409709a427330cfa8115",
       "sources": [
         "game44-video-context"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "e37b1a4ce52910e4f7578c5e813f3a312555138adcbdbae4b9ba5dda9cdbab41",
+      "sources": [
+        "game45-sessions-time-exit"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "4c0aefff73467b1e7133e791fecf0ea9d7718afbaa834a2b20fdef3d6de9b89c",
+      "sources": [
+        "game45-sessions-time-exit"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "5f91f03d2ec6222fb8ac02cb27c5cc0d7529713df30b725ffee57a050c7b8b01",
+      "sources": [
+        "game45-sessions-time-exit"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "69c5d400606c5435463220fe2bf4e4b63193b93959f75e284c7e14f54aee1605",
+      "sources": [
+        "game45-sessions-time-exit"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "ac064cb04651d78bd5632d39ac78d32971423f54183706fa8cb81ef53061619f",
+      "sources": [
+        "game45-sessions-time-exit"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "0bb982af1779ee70d6487ecc49e9c468501e889d554c40e98f67e64d120a956e",
+      "sources": [
+        "game45-sessions-time-exit"
       ],
       "confirmed": false
     }
