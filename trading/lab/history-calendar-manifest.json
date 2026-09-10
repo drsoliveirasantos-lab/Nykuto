@@ -1,14 +1,79 @@
 {
   "schema": "history-calendar-manifest-v1",
-  "defaultGame": "40",
+  "defaultGame": "41",
   "games": [
-    {"id":"40","label":"Jeu 40 · Référence de janvier à août","report":"jeu40-report.json","defaultVariant":"fixed100","goalMode":"profit"},
-    {"id":"39","label":"Jeu 39 · Kronos et horaires Nasdaq","report":"jeu39-report.json","defaultVariant":"mnq-kronos","goalMode":"profit"},
-    {"id":"38","label":"Jeu 38 · Filtre des entrées Nasdaq","report":"jeu38-report.json","defaultVariant":"mnq-obstacle","goalMode":"profit","variants":[{"id":"baseline","label":"Référence · risque 100 $"},{"id":"mnq-obstacle","label":"Nasdaq · structure opposée et obstacle"}]},
-    {"id":"37","label":"Jeu 37 · Montants selon les confirmations","report":"jeu37-report.json","defaultVariant":"fixed100","goalMode":"profit"},
-    {"id":"36","label":"Jeu 36 · Attendre une confirmation M5","report":"jeu36-report.json","defaultVariant":"baseline","goalMode":"personal"},
-    {"id":"35","label":"Jeu 35 · Comparer les cibles 2R et 3R","report":"jeu35-report.json","defaultVariant":"baseline","goalMode":"personal"},
-    {"id":"34","label":"Jeu 34 · Avec ou sans le Dow Jones","report":"jeu34-report.json","defaultVariant":"without-mym","goalMode":"personal"},
-    {"id":"33","label":"Jeu 33 · Comptes 25K et 50K","report":"jeu33-report.json","defaultVariant":"50k-reduced100","goalMode":"evaluation"}
+    {
+      "id": "41",
+      "label": "Jeu 41 · Marge nette des entrées MES",
+      "report": "jeu41-report.json",
+      "defaultVariant": "mes-net15",
+      "goalMode": "profit"
+    },
+    {
+      "id": "40",
+      "label": "Jeu 40 · Référence de janvier à août",
+      "report": "jeu40-report.json",
+      "defaultVariant": "fixed100",
+      "goalMode": "profit"
+    },
+    {
+      "id": "39",
+      "label": "Jeu 39 · Kronos et horaires Nasdaq",
+      "report": "jeu39-report.json",
+      "defaultVariant": "mnq-kronos",
+      "goalMode": "profit"
+    },
+    {
+      "id": "38",
+      "label": "Jeu 38 · Filtre des entrées Nasdaq",
+      "report": "jeu38-report.json",
+      "defaultVariant": "mnq-obstacle",
+      "goalMode": "profit",
+      "variants": [
+        {
+          "id": "baseline",
+          "label": "Référence · risque 100 $"
+        },
+        {
+          "id": "mnq-obstacle",
+          "label": "Nasdaq · structure opposée et obstacle"
+        }
+      ]
+    },
+    {
+      "id": "37",
+      "label": "Jeu 37 · Montants selon les confirmations",
+      "report": "jeu37-report.json",
+      "defaultVariant": "fixed100",
+      "goalMode": "profit"
+    },
+    {
+      "id": "36",
+      "label": "Jeu 36 · Attendre une confirmation M5",
+      "report": "jeu36-report.json",
+      "defaultVariant": "baseline",
+      "goalMode": "personal"
+    },
+    {
+      "id": "35",
+      "label": "Jeu 35 · Comparer les cibles 2R et 3R",
+      "report": "jeu35-report.json",
+      "defaultVariant": "baseline",
+      "goalMode": "personal"
+    },
+    {
+      "id": "34",
+      "label": "Jeu 34 · Avec ou sans le Dow Jones",
+      "report": "jeu34-report.json",
+      "defaultVariant": "without-mym",
+      "goalMode": "personal"
+    },
+    {
+      "id": "33",
+      "label": "Jeu 33 · Comptes 25K et 50K",
+      "report": "jeu33-report.json",
+      "defaultVariant": "50k-reduced100",
+      "goalMode": "evaluation"
+    }
   ]
 }

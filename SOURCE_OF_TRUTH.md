@@ -461,7 +461,7 @@ Lab study40Game and shared calendar40 show Jan–Aug; games33–39 stay June–A
 The published protocol/freeze and all old results stay immutable. No model
 inference, automatic selection, activation, prospective changes or main merge.
 
-Game41 is prepared before performance: one MES-only minimum net reward/risk1.5
+At its published freeze, Game41 was prepared before performance: one MES-only minimum net reward/risk1.5
 veto against exact Game40 fixed100. The existing232 trades were audited with no
 new arithmetic discrepancy. MES44 trades produce576.25 gross less535 costs,
 net41.25; see jeu41-entry-audit.json and JEU41_RESEARCH.md. New ratio gate uses
@@ -469,3 +469,22 @@ only next open/closed signal and integer cents, never entry-bar future extremes.
 32 planned replays,16 whole controls,656 account/filter/context prefixes each,
 same8 monthly resets and2 missing dates. No ledger addition before execution.
 All52 Game40 dependencies remain immutable; no new model inference or activation.
+
+Game41 completed once after published freeze73aa1a6208a85f5a622e5d81f2675cd561ca0bb2.
+The MES net reward/risk1.5 veto is not retained:7/16 comparison cells fail.
+Observed normal total1923.25→2337 USD; doubled1154→807.75. Removed winners4/12,
+removed losers11/15, new admissions4/8 for normal/stress. No common trade changes.
+32 replays,16 whole Game40 controls,656 account/filter/context prefixes each;
+434 trades reconciled. Three private files archived and exactly reconstructed,
+manifest312d0a56709698f6372507496131a32746347252c788947e0487a50dad0485f5.
+See JEU41_RESULTS.md and jeu41-execution-audit.json. The immutable report is
+verified by jeu41-report-validation.mjs. study41Game and lab-study41.css extend
+the existing Lab. Shared calendar33–41 has68 selections/234 monthly cost views;
+40/41 use eight months, older games retain three; missing dates remain null.
+One configuration added:ledger94/catalog111, all prior entries and67 frozen
+dependencies preserved. No new inference, automatic selection, activation,
+prospective collection changes or main merge. Original protocol remains frozen.
+
+BOT_PROFILE_REVIEW_2026-09-10.md documents actual active profiles, mandatory
+versus informative confirmations, costs/entry weaknesses and five proposed
+research priorities. No new hypothesis execution or threshold selection.

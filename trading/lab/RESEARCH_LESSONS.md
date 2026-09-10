@@ -6,7 +6,7 @@ Dernière revue : 10 septembre 2026. Lire ce document, le catalogue et les derni
 
 - Référence de recherche : Jeu 37 `fixed100`, cibles 2R, portefeuille sans MYM, profils MES/MGC/MNQ conservés. Bot réel, Paper et Shadow désactivés.
 - Objectif étudié : 4 000 USD de PnL mensuel. Objectif personnel distinct : premier versement simulé équivalent à 1 000 EUR. Compte 50K neuf chaque mois, pas un été continu.
-- 93 configurations dans le registre, 110 clés dans le catalogue croisé, **zéro confirmation indépendante**. Le Jeu 40 ajoute une extension de période sans nouvelle stratégie ; les variantes 38/39 restent non retenues.
+- 94 configurations dans le registre, 111 clés dans le catalogue croisé, **zéro confirmation indépendante**. Le Jeu 40 ajoute une extension de période sans nouvelle stratégie ; les variantes 38/39/41 restent non retenues.
 - Le modèle Kronos-mini téléchargé est expérimental : K1 ne bat pas la prévision constante ; aucune adoption comme filtre ou modèle entraîné sur notre stratégie.
 
 ## Leçons et preuves
@@ -87,3 +87,12 @@ Diego autorise désormais des propositions issues de recherches et du diagnostic
 - **L21 — Mesurer la sensibilité des admissions aux frais.** Le doublement des coûts réduit le total et change aussi les tailles et trades admissibles (122 vers 110). Janvier passe de 511 à 48 USD. Les contributions d’un marché dans le portefeuille ne prédisent pas le résultat de son retrait : les créneaux libérés pourraient admettre d’autres trades.
 
 [Bilan du Jeu 40](./JEU40_RESULTS.md) : une extension de période exécutée, zéro nouvelle stratégie, 16 relectures, six témoins entiers identiques et 328 préfixes compte/filtre/contexte. Aucun gagnant supprimé ni nouvelle admission sur les témoins estivaux ; gains et pertes des deux jours absents inconnus. Trois fichiers privés archivés et reconstruits exactement. Registre93/catalogue110, zéro confirmation indépendante, sélection nulle et aucune activation. Les moyennes complètes et le drawdown continu restent inconnus. La préparation historique non uniforme et les petits effectifs restent des limites. Aucun nouvel essai implicite, aucune modification de la collecte Jeu08 ou du 3 décembre.
+
+## Jeu 41 — Le ratio net ne suffit pas à reconnaître les bonnes entrées
+
+- **L22 — Une faible contribution n’est pas nécessairement un mauvais calcul.** Les232trades de référence concordent sur les contrôles réalisés. MES est le plus faible profil actif :576,25USD de solde brut,535 de coûts,41,25 nets. Les coûts absorbent92,84% du solde brut agrégé, pas de chaque trade. Ne pas annoncer la correction d’un bug inexistant.
+- **L23 — Un meilleur ratio théorique peut retirer des gagnants.** Le minimum net1,5 MES améliore le total normal de413,75USD mais dégrade celui à coûts doublés de346,25USD. Juillet doublé perd ses4gagnants MES, sans perte évitée. La variante échoue dans7/16cellules et n’est pas retenue ; ne pas déplacer le seuil après coup.
+- **L24 — Le portefeuille doit être entièrement rapproché.** Normal :4gagnants/11perdants retirés,4ajouts dont3perdants. Doublé :12gagnants/15perdants retirés,8ajouts dont6perdants. Une nouvelle entrée peut occuper la place ou consommer le quota d’un autre marché. Ne pas attribuer tout l’écart aux seuls signaux MES bloqués.
+- **L25 — Corriger les conditions d’observation avant de multiplier les variantes.** Les historiques sont déjà vus, avec deux journées absentes et une préparation non uniforme. Les32relectures/16témoins/656préfixes chacun et434trades contrôlés prouvent la reproduction, pas la rentabilité. Les prochaines pistes doivent d’abord préciser le mécanisme visé et ce qui les distingue des essais précédents ; aucune nouvelle campagne n’est implicite.
+
+[Bilan41](./JEU41_RESULTS.md), [audit préalable](./JEU41_RESEARCH.md), [audit arithmétique](./jeu41-execution-audit.json). Une configuration ajoutée ; registre94/catalogue111, anciennes entrées conservées, zéro confirmation indépendante. Trois fichiers privés archivés et relus exactement. Les anciennes règles, modèles/RSI/news, collecteJeu08 et rendez-vous du3décembre restent intacts.

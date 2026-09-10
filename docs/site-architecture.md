@@ -855,3 +855,22 @@ the two Game40 preparation functions exactly, verified by source identity test.
 jeu41-diagnostic.mjs will compare32 full accounts and16 whole archived controls,
 preserving partial-day calendars; no performance at preparation time. Source
 audit aggregates are public, private executions/prices stay outside Git.
+
+Game41 completed once after published freeze73aa1a6208a85f5a622e5d81f2675cd561ca0bb2.
+The MES net reward/risk1.5 veto is not retained:7/16 comparison cells fail.
+Observed normal total1923.25→2337 USD; doubled1154→807.75. Removed winners4/12,
+removed losers11/15, new admissions4/8 for normal/stress. No common trade changes.
+32 replays,16 whole Game40 controls,656 account/filter/context prefixes each;
+434 trades reconciled. Three private files archived and exactly reconstructed,
+manifest312d0a56709698f6372507496131a32746347252c788947e0487a50dad0485f5.
+See JEU41_RESULTS.md and jeu41-execution-audit.json. The immutable report is
+verified by jeu41-report-validation.mjs. study41Game and lab-study41.css extend
+the existing Lab. Shared calendar33–41 has68 selections/234 monthly cost views;
+40/41 use eight months, older games retain three; missing dates remain null.
+One configuration added:ledger94/catalog111, all prior entries and67 frozen
+dependencies preserved. No new inference, automatic selection, activation,
+prospective collection changes or main merge. Original protocol remains frozen.
+
+BOT_PROFILE_REVIEW_2026-09-10.md documents actual active profiles, mandatory
+versus informative confirmations, costs/entry weaknesses and five proposed
+research priorities. No new hypothesis execution or threshold selection.

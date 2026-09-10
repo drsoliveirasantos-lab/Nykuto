@@ -29,7 +29,7 @@ export function saveHistoryPreferences(storage,state){
 // Display adapter only. Archived results, dates and amounts remain untouched.
 export function adaptHistoryReport(report,game){
  if(!report.audit?.passed||report.executionAllowed!==false||report.confirmed!==false)throw Error('Unverified history');
- const is33=game.id==='33',is38=game.id==='38',months=game.id==='40'?HISTORY_EIGHT_MONTHS:HISTORY_MONTHS;
+ const is33=game.id==='33',is38=game.id==='38',months=['40','41'].includes(game.id)?HISTORY_EIGHT_MONTHS:HISTORY_MONTHS;
  const variants=is33?report.accountProfiles.map(p=>({id:p.id,label:`${p.initial===25000?'25K':'50K'} · ${p.dynamic?'risque réduit après pertes':'risque fixe 100 $'}`,initial:p.initial})):(report.variants??game.variants).map(v=>({id:v.id,label:v.label,initial:50000}));
  const source=report.views.filter(v=>months.some(m=>m.id===(v.month??v.id)));
  const views=source.map(v=>{

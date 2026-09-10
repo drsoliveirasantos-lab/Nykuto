@@ -1,0 +1,616 @@
+{
+  "schema": "jeu41-independent-arithmetic-audit-v1",
+  "sourceReportSha256": "57126d9f313c03b63e73be2e531a07670e2cd62d1b04fe49467e45f297f6b559",
+  "sourceRunsSha256": "06db6f39fae5c0009b5e55da69310863fe4f8eb03b2d6cd2ea530d2749e9516c",
+  "prePerformanceCommit": "73aa1a6208a85f5a622e5d81f2675cd561ca0bb2",
+  "checkedTrades": 434,
+  "checkedDays": 656,
+  "checkedWeeks": 156,
+  "exactWholeControls": 16,
+  "newReplays": 0,
+  "newInferences": 0,
+  "passed": true,
+  "failedCriterionCells": [
+    {
+      "month": "january",
+      "cost": "normal",
+      "netDelta": -23.75,
+      "drawdownDelta": 110.0
+    },
+    {
+      "month": "january",
+      "cost": "stress",
+      "netDelta": -136.5,
+      "drawdownDelta": -95.0
+    },
+    {
+      "month": "february",
+      "cost": "stress",
+      "netDelta": -105.0,
+      "drawdownDelta": 0.0
+    },
+    {
+      "month": "june",
+      "cost": "normal",
+      "netDelta": -38.75,
+      "drawdownDelta": -5.0
+    },
+    {
+      "month": "june",
+      "cost": "stress",
+      "netDelta": -22.0,
+      "drawdownDelta": -48.0
+    },
+    {
+      "month": "july",
+      "cost": "stress",
+      "netDelta": -467.5,
+      "drawdownDelta": 138.5
+    },
+    {
+      "month": "august",
+      "cost": "stress",
+      "netDelta": -2.0,
+      "drawdownDelta": -4.0
+    }
+  ],
+  "attribution": [
+    {
+      "cost": "normal",
+      "common": 107,
+      "commonDelta": 0.0,
+      "commonModified": 0,
+      "delta": 413.75,
+      "removed": {
+        "count": 15,
+        "wins": 4,
+        "losses": 11,
+        "net": -492.75
+      },
+      "added": {
+        "count": 4,
+        "wins": 1,
+        "losses": 3,
+        "net": -79.0
+      },
+      "removedMarkets": {
+        "MES": 14,
+        "MNQ": 1
+      },
+      "addedMarkets": {
+        "MES": 2,
+        "MGC": 2
+      }
+    },
+    {
+      "cost": "stress",
+      "common": 83,
+      "commonDelta": 0.0,
+      "commonModified": 0,
+      "delta": -346.25,
+      "removed": {
+        "count": 27,
+        "wins": 12,
+        "losses": 15,
+        "net": 177.0
+      },
+      "added": {
+        "count": 8,
+        "wins": 2,
+        "losses": 6,
+        "net": -169.25
+      },
+      "removedMarkets": {
+        "MES": 26,
+        "MNQ": 1
+      },
+      "addedMarkets": {
+        "MNQ": 6,
+        "MES": 1,
+        "MGC": 1
+      }
+    }
+  ],
+  "attributionByCell": [
+    {
+      "month": "january",
+      "cost": "normal",
+      "comparison": {
+        "common": 15,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 2,
+          "wins": 1,
+          "losses": 1,
+          "net": 23.75
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": -23.75,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {
+        "MES": 2
+      },
+      "addedMarkets": {},
+      "commonModified": 0
+    },
+    {
+      "month": "january",
+      "cost": "stress",
+      "comparison": {
+        "common": 10,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 6,
+          "wins": 2,
+          "losses": 4,
+          "net": -25.5
+        },
+        "added": {
+          "count": 2,
+          "wins": 0,
+          "losses": 2,
+          "net": -162.0
+        },
+        "delta": -136.5,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {
+        "MES": 5,
+        "MNQ": 1
+      },
+      "addedMarkets": {
+        "MNQ": 2
+      },
+      "commonModified": 0
+    },
+    {
+      "month": "february",
+      "cost": "normal",
+      "comparison": {
+        "common": 10,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 0.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {},
+      "addedMarkets": {},
+      "commonModified": 0
+    },
+    {
+      "month": "february",
+      "cost": "stress",
+      "comparison": {
+        "common": 9,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 1,
+          "wins": 1,
+          "losses": 0,
+          "net": 105
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": -105.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {
+        "MES": 1
+      },
+      "addedMarkets": {},
+      "commonModified": 0
+    },
+    {
+      "month": "march",
+      "cost": "normal",
+      "comparison": {
+        "common": 11,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 0.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {},
+      "addedMarkets": {},
+      "commonModified": 0
+    },
+    {
+      "month": "march",
+      "cost": "stress",
+      "comparison": {
+        "common": 9,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 1,
+          "wins": 0,
+          "losses": 1,
+          "net": -57.5
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 57.5,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {
+        "MES": 1
+      },
+      "addedMarkets": {},
+      "commonModified": 0
+    },
+    {
+      "month": "april",
+      "cost": "normal",
+      "comparison": {
+        "common": 14,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 2,
+          "wins": 0,
+          "losses": 2,
+          "net": -195
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 195.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {
+        "MES": 2
+      },
+      "addedMarkets": {},
+      "commonModified": 0
+    },
+    {
+      "month": "april",
+      "cost": "stress",
+      "comparison": {
+        "common": 11,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 3,
+          "wins": 1,
+          "losses": 2,
+          "net": -87.5
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 87.5,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {
+        "MES": 3
+      },
+      "addedMarkets": {},
+      "commonModified": 0
+    },
+    {
+      "month": "may",
+      "cost": "normal",
+      "comparison": {
+        "common": 17,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 3,
+          "wins": 1,
+          "losses": 2,
+          "net": -32.75
+        },
+        "added": {
+          "count": 1,
+          "wins": 1,
+          "losses": 0,
+          "net": 170
+        },
+        "delta": 202.75,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {
+        "MES": 2,
+        "MNQ": 1
+      },
+      "addedMarkets": {
+        "MES": 1
+      },
+      "commonModified": 0
+    },
+    {
+      "month": "may",
+      "cost": "stress",
+      "comparison": {
+        "common": 11,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 7,
+          "wins": 2,
+          "losses": 5,
+          "net": -185.0
+        },
+        "added": {
+          "count": 3,
+          "wins": 1,
+          "losses": 2,
+          "net": 56.75
+        },
+        "delta": 241.75,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {
+        "MES": 7
+      },
+      "addedMarkets": {
+        "MNQ": 2,
+        "MES": 1
+      },
+      "commonModified": 0
+    },
+    {
+      "month": "june",
+      "cost": "normal",
+      "comparison": {
+        "common": 12,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 4,
+          "wins": 1,
+          "losses": 3,
+          "net": -128.75
+        },
+        "added": {
+          "count": 2,
+          "wins": 0,
+          "losses": 2,
+          "net": -167.5
+        },
+        "delta": -38.75,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {
+        "MES": 4
+      },
+      "addedMarkets": {
+        "MGC": 1,
+        "MES": 1
+      },
+      "commonModified": 0
+    },
+    {
+      "month": "june",
+      "cost": "stress",
+      "comparison": {
+        "common": 10,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 3,
+          "wins": 2,
+          "losses": 1,
+          "net": 125.0
+        },
+        "added": {
+          "count": 1,
+          "wins": 1,
+          "losses": 0,
+          "net": 103
+        },
+        "delta": -22.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {
+        "MES": 3
+      },
+      "addedMarkets": {
+        "MNQ": 1
+      },
+      "commonModified": 0
+    },
+    {
+      "month": "july",
+      "cost": "normal",
+      "comparison": {
+        "common": 21,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 0.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {},
+      "addedMarkets": {},
+      "commonModified": 0
+    },
+    {
+      "month": "july",
+      "cost": "stress",
+      "comparison": {
+        "common": 17,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 4,
+          "wins": 4,
+          "losses": 0,
+          "net": 467.5
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": -467.5,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {
+        "MES": 4
+      },
+      "addedMarkets": {},
+      "commonModified": 0
+    },
+    {
+      "month": "august",
+      "cost": "normal",
+      "comparison": {
+        "common": 7,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 4,
+          "wins": 1,
+          "losses": 3,
+          "net": -160
+        },
+        "added": {
+          "count": 1,
+          "wins": 0,
+          "losses": 1,
+          "net": -81.5
+        },
+        "delta": 78.5,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {
+        "MES": 4
+      },
+      "addedMarkets": {
+        "MGC": 1
+      },
+      "commonModified": 0
+    },
+    {
+      "month": "august",
+      "cost": "stress",
+      "comparison": {
+        "common": 6,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 2,
+          "wins": 0,
+          "losses": 2,
+          "net": -165
+        },
+        "added": {
+          "count": 2,
+          "wins": 0,
+          "losses": 2,
+          "net": -167
+        },
+        "delta": -2.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {
+        "MES": 2
+      },
+      "addedMarkets": {
+        "MNQ": 1,
+        "MGC": 1
+      },
+      "commonModified": 0
+    }
+  ],
+  "limitations": [
+    "Descriptive observed history, two omitted dates, not independent validation.",
+    "This audit recomputes arithmetic from recorded trades, not strategy outcomes or causal prefixes.",
+    "Prefix counts are verified metadata; no prefix replay was rerun."
+  ],
+  "archiveManifestSha256": "312d0a56709698f6372507496131a32746347252c788947e0487a50dad0485f5",
+  "archiveReadback": {
+    "files": 3,
+    "parts": 4,
+    "chunks": 16,
+    "exact": true
+  },
+  "preservedRegistryPrefixes": {
+    "ledgerCount": 93,
+    "ledgerSha256": "3fec3cc3ac11965fa111f6f360e680aa856475d21361d7b9e1c40bc36ba2a823",
+    "catalogCount": 110,
+    "catalogSha256": "11f382bf779d927cb22192aee730acefab93d5261b5424ae3f4f41fa11cc4dcf",
+    "sourcesCount": 10,
+    "sourcesSha256": "7c6c3573e0b0c534af52b67d8ab35cf85944a02c2c5e9234503b7915c5739d99"
+  },
+  "configurationAdded": 1,
+  "ledgerCount": 94,
+  "catalogCount": 111
+}

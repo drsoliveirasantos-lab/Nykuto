@@ -1,7 +1,7 @@
 {
   "schema": "research-ledger-v1",
-  "scope": "Published Games 19–26, audit F1 and Games 33–40; research-catalog.json also preserves research Games 27–32",
-  "configurationCount": 93,
+  "scope": "Published Games 19–26, audit F1 and Games 33–41; research-catalog.json also preserves research Games 27–32",
+  "configurationCount": 94,
   "independentConfirmations": 0,
   "entries": [
     {
@@ -1768,6 +1768,23 @@
       "holdoutPassed": null,
       "confirmed": false,
       "report": "jeu40-report.json"
+    },
+    {
+      "game": 41,
+      "id": "PORTFOLIO/mes-net15/eight-months/funded",
+      "executionKey": "54f6b4eec44fe43dda5c11a6eb134d2b810ef9e70bfc2904df00d3bcc3d811b7",
+      "freezeSha256": "4103b44c49687f32310f9f46d7ff3579fca8f1edc48c2c392df3d4f6d8019722",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "mes-net15/eight-months/funded",
+      "phase": "diagnostic",
+      "start": "2026-01-01",
+      "end": "2026-09-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu41-report.json"
     }
   ]
 }

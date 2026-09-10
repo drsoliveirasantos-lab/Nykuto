@@ -48,8 +48,9 @@
   <link rel="stylesheet" href="./lab-learning.css?v=1">
   <link rel="stylesheet" href="./lab-study39.css?v=1">
   <link rel="stylesheet" href="./lab-study40.css?v=1">
+  <link rel="stylesheet" href="./lab-study41.css?v=1">
   <link rel="stylesheet" href="./lab-calendar-history.css?v=1">
-  <script src="./lab-calendar-history.mjs?v=1" type="module"></script>
+  <script src="./lab-calendar-history.mjs?v=2" type="module"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Aller au contenu</a>
@@ -88,15 +89,15 @@
     <section class="panel independent-game market-game" id="historyCalendarGame" aria-labelledby="historyCalendarTitle">
       <div class="panel-heading"><div><p class="panel-kicker">HISTORIQUE · JANVIER À AOÛT 2026</p><h3 id="historyCalendarTitle">Un calendrier pour chaque jeu</h3></div><span class="lab-status planned">Simulations enregistrées</span></div>
       <div class="iv-content">
-        <p>Choisis un jeu parmi les Jeux 33 à 40 pour retrouver ses journées, ses semaines et ses profils. Le Jeu 40 couvre janvier à août ; les anciens jeux gardent leurs trois mois. Chaque essai reste conservé.</p>
+        <p>Choisis un jeu parmi les Jeux 33 à 41 pour retrouver ses journées, ses semaines et ses profils. Les Jeux 40 et 41 couvrent janvier à août ; les anciens jeux gardent leurs trois mois. Chaque essai reste conservé.</p>
         <div class="history-controls">
-          <label for="historyCalendarGameSelect"><span>Jeu enregistré</span><select id="historyCalendarGameSelect"><option value="40">Jeu 40 · Chargement…</option></select></label>
+          <label for="historyCalendarGameSelect"><span>Jeu enregistré</span><select id="historyCalendarGameSelect"><option value="41">Jeu 41 · Chargement…</option></select></label>
           <label for="historyCalendarVariant"><span>Variante ou profil</span><select id="historyCalendarVariant" disabled><option>Chargement…</option></select></label>
           <label for="historyCalendarMode"><span>Étape du compte</span><select id="historyCalendarMode" disabled><option>Chargement…</option></select></label>
           <label for="historyCalendarCost"><span>Coûts de transaction</span><select id="historyCalendarCost" disabled><option value="normal">Coûts normaux</option><option value="stress">Coûts doublés</option></select></label>
         </div>
         <p id="historyCalendarMessage" role="status">Chargement des calendriers enregistrés…</p>
-        <div class="history-actions"><button type="button" class="ghost-button" id="historyCalendarRetry">Réessayer le chargement</button><a id="historyCalendarReport" href="./jeu40-report.json">Rapport du jeu sélectionné</a></div>
+        <div class="history-actions"><button type="button" class="ghost-button" id="historyCalendarRetry">Réessayer le chargement</button><a id="historyCalendarReport" href="./jeu41-report.json">Rapport du jeu sélectionné</a></div>
         <div id="historyCalendarResults" hidden>
           <p id="historyCalendarSelection"></p><p id="historyCalendarPolicy"></p>
           <p class="history-legend">Cases en dollars, arrondies à l’unité. Sélectionne une date pour voir les centimes. Vert : gain · rouge : perte · 0 : résultat nul observé. Date barrée : données non correspondantes, résultat inconnu. « Non étudié » et « Arrêt » ne valent pas zéro. Sur petit écran, les calendriers peuvent défiler horizontalement.</p>
@@ -111,6 +112,42 @@
           <div class="iv-table-wrap" role="region" aria-label="Marchés du jeu sélectionné" tabindex="0"><table class="iv-table"><caption>Montants nets en dollars pour la variante et les coûts sélectionnés.</caption><thead><tr id="historyCalendarTotalsHead"><th scope="col">Marché</th><th scope="col">Juin</th><th scope="col">Juillet</th><th scope="col">Août</th></tr></thead><tbody id="historyCalendarTotals"></tbody></table></div>
           <p>Ces mois déjà étudiés servent à comparer les essais. Ils ne constituent pas une nouvelle validation indépendante. Les rapports d’origine restent inchangés ; seul ton choix d’affichage est mémorisé sur cet appareil.</p>
         </div>
+      </div>
+    </section>
+    <section class="panel independent-game market-game" id="study41Game" aria-labelledby="study41Title">
+      <div class="panel-heading"><div><p class="panel-kicker">JEU 41 · ENTRÉES MES · JANVIER À AOÛT 2026</p><h3 id="study41Title">Moins de frais relatifs, mais des gagnants perdus</h3></div><span class="lab-status planned">Filtre non retenu</span></div>
+      <div class="iv-content">
+        <p>MES est le profil actif le plus faible de la référence : 41,25 $ nets sur huit mois, après 535 $ de coûts. Le test refuse uniquement ses entrées lorsque le gain net prévu à 2R est inférieur à 1,5 fois la perte prévue. Le risque maximal reste à 100 $, les stops et les autres profils gardent leurs règles.</p>
+        <p class="study-decision"><strong>La référence est conservée.</strong> La moyenne observée monte de 240,41 à 292,13 $ avec les coûts normaux, mais descend de 144,25 à 100,97 $ avec les coûts doublés. Sept comparaisons mensuelles échouent au critère fixé. Aucun objectif de 4 000 $ ou retrait personnel obtenu.</p>
+        <h4>Résultats mensuels avant et après le filtre</h4>
+        <div class="iv-table-wrap" role="region" aria-label="Comparaison des huit mois du Jeu 41" tabindex="0"><table class="iv-table"><caption>Montants nets en USD. Comptes mensuels neufs ; février et mars sont partiels.</caption><thead><tr><th scope="col">Mois</th><th scope="col">Référence normale</th><th scope="col">Filtre normal</th><th scope="col">Référence doublée</th><th scope="col">Filtre doublé</th></tr></thead><tbody>
+<tr data-study41-month="january"><th scope="row">Janvier</th><td>511,00 $</td><td>487,25 $</td><td>48,00 $</td><td>−88,50 $</td></tr>
+<tr data-study41-month="february"><th scope="row">Février · partiel</th><td>663,25 $</td><td>663,25 $</td><td>616,75 $</td><td>511,75 $</td></tr>
+<tr data-study41-month="march"><th scope="row">Mars · partiel</th><td>−297,50 $</td><td>−297,50 $</td><td>−250,50 $</td><td>−193,00 $</td></tr>
+<tr data-study41-month="april"><th scope="row">Avril</th><td>323,75 $</td><td>518,75 $</td><td>216,25 $</td><td>303,75 $</td></tr>
+<tr data-study41-month="may"><th scope="row">Mai</th><td>−256,50 $</td><td>−53,75 $</td><td>−197,50 $</td><td>44,25 $</td></tr>
+<tr data-study41-month="june"><th scope="row">Juin</th><td>1 048,75 $</td><td>1 010,00 $</td><td>785,50 $</td><td>763,50 $</td></tr>
+<tr data-study41-month="july"><th scope="row">Juillet</th><td>176,00 $</td><td>176,00 $</td><td>164,00 $</td><td>−303,50 $</td></tr>
+<tr data-study41-month="august"><th scope="row">Août</th><td>−245,50 $</td><td>−167,00 $</td><td>−228,50 $</td><td>−230,50 $</td></tr>
+        </tbody></table></div>
+        <p>Le total observé passe de 1 923,25 à 2 337,00 $ en normal, et de 1 154,00 à 807,75 $ avec les coûts doublés. Couverture : 164 séances sur 166. Les 25 février et 6 mars restent barrés dans le calendrier ; leurs gains ou pertes sont inconnus.</p>
+        <h4>Les gains auxquels le filtre renonce</h4>
+        <p>Avec les coûts normaux : 4 gagnants et 11 perdants retirés, puis 4 nouvelles entrées dont 3 perdantes. Avec les coûts doublés : 12 gagnants et 15 perdants retirés, puis 8 nouvelles entrées dont 6 perdantes. Aucun trade commun ne change de résultat.</p>
+        <p>En juillet avec les coûts doublés, le filtre retire quatre gagnants MES et aucune perte : le mois passe de +164,00 à −303,50 $. Son plus grand recul réalisé augmente de 330,50 à 469,00 $. Une entrée moins coûteuse par rapport au stop n’est donc pas forcément une meilleure entrée.</p>
+        <details><summary>Décision, contrôles et effets sur les autres marchés</summary>
+          <p>La règle devait préserver le net et le drawdown de chacune des seize comparaisons mensuelles. Elle échoue en janvier aux deux coûts, février doublé, juin aux deux coûts, juillet doublé et août doublé. Le seuil reste inchangé ; aucun second essai n’est lancé.</p>
+          <p>Un créneau libéré peut accueillir une autre entrée MES, MNQ ou MGC et modifier les quotas suivants. Les règles MNQ et MGC sont inchangées, mais leurs résultats peuvent varier indirectement. Le bilan détaille ces écarts et les contributions de tous les marchés.</p>
+          <p>Une campagne de 32 relectures, 16 témoins exacts et 656 vérifications chronologiques pour les comptes, les filtres et les contextes. L’audit arithmétique des 434 trades concorde ; il ne constitue pas une validation indépendante de rentabilité.</p>
+        </details>
+        <p class="study-note">Le bot reste un outil de recherche. Aucun ordre, entraînement automatique, Paper ou Shadow. Les anciens jeux restent accessibles dans le calendrier.</p>
+        <details><summary>Analyse complète : profils et priorités d’amélioration</summary>
+          <p>Le calcul de référence impose une cassure puis un retour sur le range d’ouverture pour MNQ et MES. MES ajoute le RSI ; l’or cherche une réintégration avant 11 h New York. MYM est exclu. Les moyennes mobiles et les autres confirmations enregistrées ne sont pas toutes des conditions obligatoires d’entrée.</p>
+          <div class="iv-table-wrap" role="region" aria-label="Profils de référence" tabindex="0"><table class="iv-table"><caption>Référence conservée, janvier–août observés, coûts normaux. Contributions dans le même portefeuille.</caption><thead><tr><th scope="col">Profil</th><th scope="col">Trades</th><th scope="col">Net</th><th scope="col">Point à examiner</th></tr></thead><tbody><tr><th scope="row">MNQ · Nasdaq</th><td>52</td><td>1 464,00 $</td><td>14 pertes au stop dans la M5 d’entrée</td></tr><tr><th scope="row">MES · S&amp;P 500</th><td>44</td><td>41,25 $</td><td>Fausses cassures/retests et poids des frais</td></tr><tr><th scope="row">MGC · Or</th><td>26</td><td>418,00 $</td><td>Petit effectif ; 54 refus pour risque trop élevé</td></tr><tr><th scope="row">MYM · Dow</th><td>0</td><td>Exclu</td><td>Conserver son historique, sans réactivation</td></tr></tbody></table></div>
+          <p>Priorité proposée : examiner la distance au niveau, la forme du rejet et la position du stop par rapport à la volatilité déjà observée. Ensuite, préciser les coûts d’exécution et les créneaux bloqués entre marchés. Aucun nouveau seuil ou essai n’est choisi dans cette analyse.</p>
+          <p>La référence produit en moyenne 15,25 trades par mois, à 15,76 $ nets par trade. Augmenter les montants ne démontre pas une meilleure entrée. Les essais de risque supérieur, de cible 3R et d’attente uniforme d’une M5 ont déjà échoué à leurs critères.</p>
+          <p><a href="./BOT_PROFILE_REVIEW_2026-09-10.md">Lire l’analyse approfondie des profils, des limites et des cinq priorités</a></p>
+        </details>
+        <nav class="study-links" aria-label="Preuves du Jeu 41"><a href="#historyCalendarGame">Calendrier par jeu</a><a href="./JEU41_RESULTS.md">Bilan détaillé</a><a href="./BOT_PROFILE_REVIEW_2026-09-10.md">Analyse des profils</a><a href="./jeu41-report.json">Agrégats vérifiés</a><a href="./JEU41_PROTOCOL.md">Protocole figé</a><a href="./RESEARCH_LESSONS.md">Leçons conservées</a></nav>
       </div>
     </section>
     <section class="panel independent-game market-game" id="study40Game" aria-labelledby="study40Title">
