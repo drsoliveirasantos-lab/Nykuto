@@ -37,6 +37,8 @@
   <script src="./lab-workspace.mjs?v=2" type="module"></script>
   <link rel="stylesheet" href="./lab-account50.css?v=1">
   <script src="./lab-account50.mjs?v=1" type="module"></script>
+  <link rel="stylesheet" href="./lab-monthly-goal.css?v=1">
+  <script src="./lab-monthly-goal.mjs?v=1" type="module"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Aller au contenu</a>
@@ -72,6 +74,39 @@
     </div>
     <noscript><p>Active JavaScript pour changer de vue et consulter le suivi.</p></noscript>
     <div id="view-current" class="lab-view" role="tabpanel" aria-labelledby="tab-current" tabindex="0">
+    <section class="panel independent-game market-game" id="associateMethod" aria-labelledby="associateMethodTitle">
+      <div class="panel-heading"><div><p class="panel-kicker">MÉTHODE · TRANSCRIPTION REÇUE LE 10 SEPTEMBRE</p><h3 id="associateMethodTitle">Comprendre la tendance, puis attendre une réaction</h3></div><span class="lab-status planned">Règles à préciser</span></div>
+      <div class="iv-content">
+        <p class="iv-intro">Le socle expliqué : biais H1 avec les moyennes 20/50, puis entrée M5 sur une réaction au Daily Open ou à un pivot. La moyenne 9 peut confirmer l’entrée. La réintégration d’un range avec divergence RSI constitue un autre modèle.</p>
+        <p>L’ancien essai H1/M5 utilisait des EMA 9/21. Il ne reproduit pas les 20/50 décrites ici. Les résultats ci-dessous restent ceux des règles historiques ; ils ne mesurent pas encore la méthode exacte de l’appel.</p>
+        <p>À préciser : type de moyenne, séance et fuseau du graphique, paramètres des pivots et du nuage personnel. Les données américaines cash disponibles ne reconstruisent pas les niveaux nocturnes. Plusieurs confirmations ne donnent pas une probabilité chiffrée sans test.</p>
+        <p><a href="./ASSOCIATE_METHOD_2026-09-10.md">Méthode, écarts avec le bot et prochaine étape</a></p>
+      </div>
+    </section>
+    <section class="panel independent-game market-game" id="monthlyGoalGame" aria-labelledby="monthlyGoalTitle">
+      <div class="panel-heading"><div><p class="panel-kicker">JEU 34 · NOUVEAU DÉPART CHAQUE MOIS</p><h3 id="monthlyGoalTitle">Objectif personnel : un retrait de 1 000 €</h3></div><span class="lab-status planned">Simulation · bot non validé</span></div>
+      <div class="iv-content">
+        <p class="iv-intro">Chaque mois repart de 50 000 $, de zéro bénéfice et de zéro journée qualifiante. La nouvelle variante sans MYM améliore juin et réduit la perte d’août, mais dégrade juillet. Aucun des trois mois n’atteint le retrait personnel.</p>
+        <p>Pour recevoir l’équivalent de 1 000 € après le partage 90/10, le modèle attend une demande brute de 1 294,67 $, soit au moins 2 589,34 $ de bénéfice et cinq journées à au moins 150 $. Il arrête ensuite le mois. Ce serait un objectif simulé ; aucun retrait réel n’est demandé.</p>
+        <p id="monthlyGoalMessage" role="status">Chargement du suivi hebdomadaire vérifié…</p>
+        <div id="monthlyGoalResults" hidden>
+          <div class="monthly-goal-controls">
+            <label for="monthlyGoalMonth"><span>Mois</span><select id="monthlyGoalMonth"><option value="june">Juin 2026</option><option value="july">Juillet 2026</option><option value="august">Août 2026</option></select></label>
+            <label for="monthlyGoalVariant"><span>Profil analysé</span><select id="monthlyGoalVariant"><option value="without-mym">Sans MYM · nouvelle piste</option><option value="four-markets">Quatre marchés · référence</option></select></label>
+            <label for="monthlyGoalMode"><span>Étape du compte</span><select id="monthlyGoalMode"><option value="funded">Funded déjà obtenu · hypothèse</option><option value="evaluation">Évaluation · aucun retrait</option></select></label>
+            <label for="monthlyGoalCost"><span>Coûts</span><select id="monthlyGoalCost"><option value="normal">Normaux</option><option value="stress">Doublés</option></select></label>
+          </div>
+          <p id="monthlyGoalNote" class="monthly-goal-note"></p><p id="monthlyGoalResult" aria-live="polite"></p>
+          <h4>Résultat semaine par semaine</h4>
+          <div class="iv-table-wrap" role="region" aria-label="Résultats par semaine du mois" tabindex="0"><table class="iv-table"><caption>Résultats après coûts de trading. La capacité de retrait est une photographie en fin de semaine : elle ne s’additionne pas. * Portion de semaine à la limite du mois.</caption><thead><tr><th scope="col">Dates</th><th scope="col">Trades</th><th scope="col">Net de la semaine</th><th scope="col">Cumul du mois</th><th scope="col">Versement simulé</th><th scope="col">Maximum retirable théorique</th></tr></thead><tbody id="monthlyGoalWeeks"></tbody></table></div>
+          <h4>Combien rapporte un trade ?</h4><div class="iv-table-wrap" role="region" aria-label="Gains et pertes par trade" tabindex="0"><table class="iv-table"><caption>Gagnants, perdants et moyenne générale séparés ; montants en dollars après coûts, avant partage Lucid.</caption><thead><tr><th scope="col">Mesure</th><th scope="col">Valeur du mois sélectionné</th></tr></thead><tbody id="monthlyGoalTrades"></tbody></table></div>
+          <h4>Ce que change le retrait du MYM</h4><div class="iv-table-wrap" role="region" aria-label="Comparaison des trois mois" tabindex="0"><table class="iv-table"><thead><tr><th scope="col">Mois</th><th scope="col">Net à quatre marchés</th><th scope="col">Net sans MYM</th><th scope="col">Versement sans MYM</th></tr></thead><tbody id="monthlyGoalComparison"></tbody></table></div>
+        </div>
+        <details class="iv-help"><summary>Peut-on viser 500–900 par trade ?</summary><p>À 2R, 500–900 $ nets demanderaient un risque supérieur à 250–450 $ frais compris. Pour 500–900 € au taux de référence utilisé ici, le minimum théorique monte à 291,30–524,34 $ avant l’ajustement des frais. Cela représente déjà environ 15–26 % des 2 000 $ de marge initiale du compte.</p><p>Avec le plafond actuel de 100 $ tout compris et une cible 2R, un trade gagnant rapporte moins de 200 $ dans ce modèle. Rechercher 500–900 $ en gardant le risque à 100 $ demanderait un ratio supérieur à 5–9R : c’est une autre stratégie, encore non testée. Le risque n’est pas augmenté pour atteindre artificiellement l’objectif.</p></details>
+        <p class="monthly-goal-note">Conversion fixe de comparaison : 1 € = 1,1652 $, référence BCE du 9 septembre 2026. Fiscalité et frais de change/transfert non inclus. Un compte réel ne se réinitialise pas gratuitement chaque mois ; l’obtention préalable du funded n’est pas simulée.</p>
+        <p><a href="./JEU34_RESULTS.md">Bilan et toutes les semaines</a> · <a href="./JEU34_PROTOCOL.md">Protocole</a> · <a href="https://support.lucidtrading.com/en/articles/12945796-lucidflex-payouts">Retraits LucidFlex</a> · <a href="https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/eurofxref-graph-usd.en.html">Taux BCE</a></p>
+      </div>
+    </section>
     <section class="panel independent-game market-game" id="account50Game" aria-labelledby="account50Title">
       <div class="panel-heading"><div><p class="panel-kicker">JEU 33 · LUCIDFLEX 50K</p><h3 id="account50Title">Un compte commun, des réglages par marché</h3></div><span class="lab-status planned">Recherche · 100 $ maximum par trade</span></div>
       <div class="iv-content">

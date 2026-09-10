@@ -691,3 +691,23 @@ Eleven missing pure dependencies are imported unchanged from research commit
 The published ledger holds 73 entries and the cross-history catalog 90 unique
 configuration keys. See trading/lab/JEU33_PROTOCOL.md and JEU33_RESULTS.md.
 Private archive: jeu33/account-sizing-v1/manifest.json, fully read back.
+
+
+Game 34 resets a hypothetical 50K account each month and measures weekly PnL
+separately from withdrawals. A new without-MYM ablation improves June/August
+but worsens July. No month meets the personal 1000 EUR payout goal. Funded
+assumes prior qualification; evaluation gains are never treated as withdrawable.
+The fixed ECB reference is 1.1652 USD/EUR (2026-09-09), after 90/10 split,
+before tax and transfer/FX fees. Required gross request 1294.67 USD and profit
+2589.34 USD plus five 150 USD days. See trading/lab/JEU34_PROTOCOL.md and
+JEU34_RESULTS.md. 24 replays include 6 controls; 3 new configurations, one new
+strategy ablation. The ledger holds 76 entries, cross-history catalog 93 keys,
+zero independent confirmations. Private archive fully read back under
+jeu34/monthly-withdrawal-v1/. No order, payout request or activation.
+
+The owner-provided call transcript is distilled in
+trading/lab/ASSOCIATE_METHOD_2026-09-10.md and linked from the Lab. It distinguishes
+H1 20/50 and level reactions from the historical H1 EMA9/21 experiment, records
+unknown indicator/session settings and the cash-only data limit, and separates
+the two speakers' optional confirmations. This is a method audit, with no new
+performance run or ledger entry; frozen research remains unchanged.

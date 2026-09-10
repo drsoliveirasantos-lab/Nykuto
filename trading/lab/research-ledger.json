@@ -1,7 +1,7 @@
 {
   "schema": "research-ledger-v1",
-  "scope": "Published Games 19\u201326, audit F1 and Game 33; research-catalog.json also preserves research Games 27\u201332",
-  "configurationCount": 73,
+  "scope": "Published Games 19\u201326, audit F1 and Game 33; research-catalog.json also preserves research Games 27\u201332; Game 34 monthly payout comparison",
+  "configurationCount": 76,
   "independentConfirmations": 0,
   "entries": [
     {
@@ -1428,6 +1428,57 @@
       "holdoutPassed": null,
       "confirmed": false,
       "report": "jeu33-report.json"
+    },
+    {
+      "game": 34,
+      "id": "PORTFOLIO/four-markets/funded",
+      "executionKey": "2bcc0bd6414d5e116bb1ee8f3bb05bd2afe401103bdf39df363e3de13fd9c91b",
+      "freezeSha256": "61ad0bc64102072c825bd56cbcb4090987813ca3fb448b6caef9812c035e7adb",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "four-markets/funded",
+      "phase": "diagnostic",
+      "start": "2026-06-01",
+      "end": "2026-09-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu34-report.json"
+    },
+    {
+      "game": 34,
+      "id": "PORTFOLIO/without-mym/evaluation",
+      "executionKey": "a7593f3d653ee1957a1daa15a24cde576017ea46ada1c692a1a6f0c723fffcf1",
+      "freezeSha256": "61ad0bc64102072c825bd56cbcb4090987813ca3fb448b6caef9812c035e7adb",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "without-mym/evaluation",
+      "phase": "diagnostic",
+      "start": "2026-06-01",
+      "end": "2026-09-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu34-report.json"
+    },
+    {
+      "game": 34,
+      "id": "PORTFOLIO/without-mym/funded",
+      "executionKey": "f317118dcc4dd2ee22bf6c8a57571aa74e6cf08f96678613e649c227993913bb",
+      "freezeSha256": "61ad0bc64102072c825bd56cbcb4090987813ca3fb448b6caef9812c035e7adb",
+      "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+      "configuration": "without-mym/funded",
+      "phase": "diagnostic",
+      "start": "2026-06-01",
+      "end": "2026-09-01",
+      "developmentPassed": false,
+      "selected": false,
+      "holdoutStatus": "not-opened",
+      "holdoutPassed": null,
+      "confirmed": false,
+      "report": "jeu34-report.json"
     }
   ]
 }

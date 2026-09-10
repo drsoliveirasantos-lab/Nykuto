@@ -1,8 +1,8 @@
 {
   "schema": "research-catalog-v1",
-  "checkedAt": "2026-09-09",
+  "checkedAt": "2026-09-10",
   "independentConfirmations": 0,
-  "uniqueConfigurationKeys": 90,
+  "uniqueConfigurationKeys": 93,
   "sharedConfigurationKeys": 57,
   "countIsNotIndependentTrials": true,
   "sources": [
@@ -29,6 +29,15 @@
       "configurationCount": 4,
       "reportSha256": "6650ae7ea8061e94d1c24142d516cd29aabd8d03cfb91a71da08c05092392a57",
       "note": "Four exploratory account configurations; 32 replays are not independent trials."
+    },
+    {
+      "namespace": "game34-monthly-payout",
+      "ref": "5a23869cf02cc0bd798fb400c87719c9f1e61da8",
+      "ledger": "research-ledger.json",
+      "configurationCount": 3,
+      "newStrategyVariants": 1,
+      "reportSha256": "ec751379ed0416e2895ca989e3f449d0144727f57582da51c08ee1920cdec349",
+      "note": "24 replays include 6 existing controls; monthly accounts reset independently."
     }
   ],
   "entries": [
@@ -627,6 +636,24 @@
       "executionKey": "20acaffa1c9cb2e67e00919c06df6e6b1b4fec2a5a3fe56f463e4c48ab364ea8",
       "sources": [
         "game33-account-comparison"
+      ]
+    },
+    {
+      "executionKey": "2bcc0bd6414d5e116bb1ee8f3bb05bd2afe401103bdf39df363e3de13fd9c91b",
+      "sources": [
+        "game34-monthly-payout"
+      ]
+    },
+    {
+      "executionKey": "a7593f3d653ee1957a1daa15a24cde576017ea46ada1c692a1a6f0c723fffcf1",
+      "sources": [
+        "game34-monthly-payout"
+      ]
+    },
+    {
+      "executionKey": "f317118dcc4dd2ee22bf6c8a57571aa74e6cf08f96678613e649c227993913bb",
+      "sources": [
+        "game34-monthly-payout"
       ]
     }
   ]
