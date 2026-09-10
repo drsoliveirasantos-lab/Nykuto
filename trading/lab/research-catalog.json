@@ -2,7 +2,7 @@
   "schema": "research-catalog-v1",
   "checkedAt": "2026-09-10",
   "independentConfirmations": 0,
-  "uniqueConfigurationKeys": 112,
+  "uniqueConfigurationKeys": 114,
   "sharedConfigurationKeys": 57,
   "countIsNotIndependentTrials": true,
   "sources": [
@@ -109,6 +109,15 @@
       "newStrategyVariants": 1,
       "reportSha256": "efc3a4338458ccac4d7a1a32e3b317fa8646bea1b6e4b49515eb581599344bdc",
       "note": "One bounded MES pullback-volume veto. 32 replays,16 whole controls; rejected in5/16 cells. No independent confirmation, inference or automatic selection."
+    },
+    {
+      "namespace": "game43-normalized-entry",
+      "ref": "1c776a3073bc04423179236b1ac42591694a0cdf",
+      "ledger": "research-ledger.json",
+      "configurationCount": 2,
+      "newStrategyVariants": 2,
+      "reportSha256": "5182ba3d2f966534ed66854beca4f5e808694ac5fc8ff60288a10bb8ecd426c9",
+      "note": "Two isolated normalized-entry vetoes; 48 replays,16 controls; no signals vetoed, all full accounts unchanged. Not retained; no strict improvement or independent confirmation."
     }
   ],
   "entries": [
@@ -849,6 +858,20 @@
       "executionKey": "89f2a96c0490b1512a93d87646b92b098ac6ec540843aca85b5eaf51d586d0c7",
       "sources": [
         "game42-mes-pullback-volume"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "007b16365cf6a2e21e5a13ef5228e1b3469a50f81b8db83e0c3de03eb4e8d695",
+      "sources": [
+        "game43-normalized-entry"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "e5a75cb6ab58f14e29b76630a3b493efa59b743ff08250f9084d1b3bf5617582",
+      "sources": [
+        "game43-normalized-entry"
       ],
       "confirmed": false
     }

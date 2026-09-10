@@ -1,0 +1,414 @@
+{
+  "schema": "jeu43-verified-summary-v1",
+  "prePerformanceCommit": "1c776a3073bc04423179236b1ac42591694a0cdf",
+  "freezeSha256": "15974c255098447031f3dc88d1eefbe6a5a070311ee9362c096352ce4fb28d19",
+  "executionCount": 48,
+  "coverage": [
+    {
+      "month": "january",
+      "expected": 20,
+      "available": 20,
+      "scored": 20,
+      "complete": true,
+      "missing": []
+    },
+    {
+      "month": "february",
+      "expected": 19,
+      "available": 18,
+      "scored": 18,
+      "complete": false,
+      "missing": [
+        {
+          "day": "2026-02-25",
+          "symbols": [
+            "MGC"
+          ]
+        }
+      ]
+    },
+    {
+      "month": "march",
+      "expected": 22,
+      "available": 21,
+      "scored": 21,
+      "complete": false,
+      "missing": [
+        {
+          "day": "2026-03-06",
+          "symbols": [
+            "MES",
+            "MGC",
+            "MNQ"
+          ]
+        }
+      ]
+    },
+    {
+      "month": "april",
+      "expected": 21,
+      "available": 21,
+      "scored": 21,
+      "complete": true,
+      "missing": []
+    },
+    {
+      "month": "may",
+      "expected": 20,
+      "available": 20,
+      "scored": 20,
+      "complete": true,
+      "missing": []
+    },
+    {
+      "month": "june",
+      "expected": 21,
+      "available": 21,
+      "scored": 21,
+      "complete": true,
+      "missing": []
+    },
+    {
+      "month": "july",
+      "expected": 22,
+      "available": 22,
+      "scored": 22,
+      "complete": true,
+      "missing": []
+    },
+    {
+      "month": "august",
+      "expected": 21,
+      "available": 21,
+      "scored": 21,
+      "complete": true,
+      "missing": []
+    }
+  ],
+  "summaries": {
+    "baseline": {
+      "normal": {
+        "cost": "normal",
+        "months": 8,
+        "completeMonths": 6,
+        "incompleteMonths": 2,
+        "expectedSessions": 166,
+        "availableSessions": 164,
+        "observedSessions": 164,
+        "totalObserved": 1923.25,
+        "cumulativeResetSum": 1923.25,
+        "meanObservedMonthly": 240.41,
+        "medianObservedMonthly": 249.88,
+        "worstObservedMonth": -297.5,
+        "negativeMonths": 3,
+        "trades": 122,
+        "wins": 53,
+        "losses": 69,
+        "weightedMeanTrade": 15.76,
+        "weightedWinRate": 0.4344262295081967,
+        "maxMonthlyDrawdown": 730.25,
+        "fullEightMonthNet": null,
+        "fullEightMonthMean": null,
+        "withdrawnUSD": 0,
+        "receiptEUR": 0,
+        "personalGoals": 0,
+        "profitGoals": 0,
+        "continuousAccount": false,
+        "continuousDrawdown": null,
+        "independent": false,
+        "executionAllowed": false
+      },
+      "stress": {
+        "cost": "stress",
+        "months": 8,
+        "completeMonths": 6,
+        "incompleteMonths": 2,
+        "expectedSessions": 166,
+        "availableSessions": 164,
+        "observedSessions": 164,
+        "totalObserved": 1154,
+        "cumulativeResetSum": 1154,
+        "meanObservedMonthly": 144.25,
+        "medianObservedMonthly": 106,
+        "worstObservedMonth": -250.5,
+        "negativeMonths": 3,
+        "trades": 110,
+        "wins": 48,
+        "losses": 62,
+        "weightedMeanTrade": 10.49,
+        "weightedWinRate": 0.43636363636363634,
+        "maxMonthlyDrawdown": 689.5,
+        "fullEightMonthNet": null,
+        "fullEightMonthMean": null,
+        "withdrawnUSD": 0,
+        "receiptEUR": 0,
+        "personalGoals": 0,
+        "profitGoals": 0,
+        "continuousAccount": false,
+        "continuousDrawdown": null,
+        "independent": false,
+        "executionAllowed": false
+      }
+    },
+    "mnq-normalized-entry": {
+      "normal": {
+        "cost": "normal",
+        "months": 8,
+        "completeMonths": 6,
+        "incompleteMonths": 2,
+        "expectedSessions": 166,
+        "availableSessions": 164,
+        "observedSessions": 164,
+        "totalObserved": 1923.25,
+        "cumulativeResetSum": 1923.25,
+        "meanObservedMonthly": 240.41,
+        "medianObservedMonthly": 249.88,
+        "worstObservedMonth": -297.5,
+        "negativeMonths": 3,
+        "trades": 122,
+        "wins": 53,
+        "losses": 69,
+        "weightedMeanTrade": 15.76,
+        "weightedWinRate": 0.4344262295081967,
+        "maxMonthlyDrawdown": 730.25,
+        "fullEightMonthNet": null,
+        "fullEightMonthMean": null,
+        "withdrawnUSD": 0,
+        "receiptEUR": 0,
+        "personalGoals": 0,
+        "profitGoals": 0,
+        "continuousAccount": false,
+        "continuousDrawdown": null,
+        "independent": false,
+        "executionAllowed": false
+      },
+      "stress": {
+        "cost": "stress",
+        "months": 8,
+        "completeMonths": 6,
+        "incompleteMonths": 2,
+        "expectedSessions": 166,
+        "availableSessions": 164,
+        "observedSessions": 164,
+        "totalObserved": 1154,
+        "cumulativeResetSum": 1154,
+        "meanObservedMonthly": 144.25,
+        "medianObservedMonthly": 106,
+        "worstObservedMonth": -250.5,
+        "negativeMonths": 3,
+        "trades": 110,
+        "wins": 48,
+        "losses": 62,
+        "weightedMeanTrade": 10.49,
+        "weightedWinRate": 0.43636363636363634,
+        "maxMonthlyDrawdown": 689.5,
+        "fullEightMonthNet": null,
+        "fullEightMonthMean": null,
+        "withdrawnUSD": 0,
+        "receiptEUR": 0,
+        "personalGoals": 0,
+        "profitGoals": 0,
+        "continuousAccount": false,
+        "continuousDrawdown": null,
+        "independent": false,
+        "executionAllowed": false
+      }
+    },
+    "mes-normalized-entry": {
+      "normal": {
+        "cost": "normal",
+        "months": 8,
+        "completeMonths": 6,
+        "incompleteMonths": 2,
+        "expectedSessions": 166,
+        "availableSessions": 164,
+        "observedSessions": 164,
+        "totalObserved": 1923.25,
+        "cumulativeResetSum": 1923.25,
+        "meanObservedMonthly": 240.41,
+        "medianObservedMonthly": 249.88,
+        "worstObservedMonth": -297.5,
+        "negativeMonths": 3,
+        "trades": 122,
+        "wins": 53,
+        "losses": 69,
+        "weightedMeanTrade": 15.76,
+        "weightedWinRate": 0.4344262295081967,
+        "maxMonthlyDrawdown": 730.25,
+        "fullEightMonthNet": null,
+        "fullEightMonthMean": null,
+        "withdrawnUSD": 0,
+        "receiptEUR": 0,
+        "personalGoals": 0,
+        "profitGoals": 0,
+        "continuousAccount": false,
+        "continuousDrawdown": null,
+        "independent": false,
+        "executionAllowed": false
+      },
+      "stress": {
+        "cost": "stress",
+        "months": 8,
+        "completeMonths": 6,
+        "incompleteMonths": 2,
+        "expectedSessions": 166,
+        "availableSessions": 164,
+        "observedSessions": 164,
+        "totalObserved": 1154,
+        "cumulativeResetSum": 1154,
+        "meanObservedMonthly": 144.25,
+        "medianObservedMonthly": 106,
+        "worstObservedMonth": -250.5,
+        "negativeMonths": 3,
+        "trades": 110,
+        "wins": 48,
+        "losses": 62,
+        "weightedMeanTrade": 10.49,
+        "weightedWinRate": 0.43636363636363634,
+        "maxMonthlyDrawdown": 689.5,
+        "fullEightMonthNet": null,
+        "fullEightMonthMean": null,
+        "withdrawnUSD": 0,
+        "receiptEUR": 0,
+        "personalGoals": 0,
+        "profitGoals": 0,
+        "continuousAccount": false,
+        "continuousDrawdown": null,
+        "independent": false,
+        "executionAllowed": false
+      }
+    }
+  },
+  "audit": {
+    "controls": 16,
+    "prefixes": 984,
+    "filterPrefixes": 984,
+    "contextPrefixes": 984,
+    "normalizationPrefixes": 984,
+    "checkedTrades": 696,
+    "passed": true
+  },
+  "reviews": {
+    "mnq-normalized-entry": {
+      "checks": {
+        "netNondecreasing": true,
+        "drawdownNonincreasing": true,
+        "strictNetImprovement": false,
+        "noAccountBreach": true
+      },
+      "descriptiveGatePassed": false,
+      "decision": "not-retained",
+      "failedCells": [],
+      "selection": null,
+      "independent": false,
+      "confirmed": false,
+      "executionAllowed": false
+    },
+    "mes-normalized-entry": {
+      "checks": {
+        "netNondecreasing": true,
+        "drawdownNonincreasing": true,
+        "strictNetImprovement": false,
+        "noAccountBreach": true
+      },
+      "descriptiveGatePassed": false,
+      "decision": "not-retained",
+      "failedCells": [],
+      "selection": null,
+      "independent": false,
+      "confirmed": false,
+      "executionAllowed": false
+    }
+  },
+  "selection": null,
+  "independent": false,
+  "confirmed": false,
+  "executionAllowed": false,
+  "startedAt": "2026-09-10T13:11:25.306Z",
+  "generatedAt": "2026-09-10T13:15:58.105Z",
+  "sourceOutputs": {
+    "report.json": {
+      "bytes": 1051592,
+      "sha256": "948443afd390e9a5bbff31103dba547b55458122578f59f160ab17056843a13f"
+    },
+    "runs-private.json": {
+      "bytes": 3152298,
+      "sha256": "e8f798a046b4b972d1b39583d85cd84cd08215b4787de0f9b718e8db4da1d137"
+    }
+  },
+  "fullAccountsEqualToReference": true,
+  "signalDiagnostics": {
+    "mnq-normalized-entry": {
+      "signals": 118,
+      "blocked": 0,
+      "statuses": {
+        "insufficient-context": 1,
+        "ready": 110,
+        "missing-session-warmup": 2,
+        "contract-roll-warmup": 5
+      },
+      "maximumExtensionZ": 0.9549602727737513
+    },
+    "mes-normalized-entry": {
+      "signals": 68,
+      "blocked": 0,
+      "statuses": {
+        "insufficient-context": 1,
+        "ready": 65,
+        "missing-session-warmup": 1,
+        "contract-roll-warmup": 1
+      },
+      "maximumExtensionZ": 0.6425859479491194
+    }
+  },
+  "monthlyReference": [
+    {
+      "month": "january",
+      "label": "Janvier",
+      "normal": 511,
+      "doubled": 48
+    },
+    {
+      "month": "february",
+      "label": "Février",
+      "normal": 663.25,
+      "doubled": 616.75
+    },
+    {
+      "month": "march",
+      "label": "Mars",
+      "normal": -297.5,
+      "doubled": -250.5
+    },
+    {
+      "month": "april",
+      "label": "Avril",
+      "normal": 323.75,
+      "doubled": 216.25
+    },
+    {
+      "month": "may",
+      "label": "Mai",
+      "normal": -256.5,
+      "doubled": -197.5
+    },
+    {
+      "month": "june",
+      "label": "Juin",
+      "normal": 1048.75,
+      "doubled": 785.5
+    },
+    {
+      "month": "july",
+      "label": "Juillet",
+      "normal": 176,
+      "doubled": 164
+    },
+    {
+      "month": "august",
+      "label": "Août",
+      "normal": -245.5,
+      "doubled": -228.5
+    }
+  ]
+}

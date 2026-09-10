@@ -65,7 +65,7 @@ test('Game42 appends one executed configuration and preserves every older regist
  const a=JSON.parse(await read('jeu42-execution-audit.json')),p=a.preservedRegistryPrefixes,l=JSON.parse(await read('research-ledger.json')),c=JSON.parse(await read('research-catalog.json'));
  assert.equal(p.ledgerCount,94);assert.equal(p.catalogCount,111);assert.equal(p.sourcesCount,11);
  for(const [rows,count,sha]of [[l.entries,p.ledgerCount,p.ledgerSha256],[c.entries,p.catalogCount,p.catalogSha256],[c.sources,p.sourcesCount,p.sourcesSha256]])assert.equal(hash(JSON.stringify(rows.slice(0,count))),sha);
- assert.equal(l.configurationCount,l.entries.length);assert.equal(c.uniqueConfigurationKeys,c.entries.length);assert.equal(l.entries.length,95);assert.equal(c.entries.length,112);
+ assert.equal(l.configurationCount,l.entries.length);assert.equal(c.uniqueConfigurationKeys,c.entries.length);assert.equal(l.entries.filter(e=>e.game<=42).length,95);assert.ok(c.entries.length>=112);
  for(const rows of [l.entries,c.entries])assert.equal(new Set(rows.map(e=>e.executionKey)).size,rows.length);
  const added=l.entries.filter(e=>e.game===42);assert.equal(added.length,1);assert.equal(added[0].configuration,'mes-pullback-volume/eight-months/funded');assert.equal(added[0].selected,false);assert.equal(added[0].confirmed,false);
  assert.equal(l.independentConfirmations,0);assert.equal(c.independentConfirmations,0);

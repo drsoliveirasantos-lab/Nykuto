@@ -901,3 +901,6 @@ The original preparation protocol remains frozen as a historical record.
 
 
 Game43 adds a reusable past-window normalization module and two isolated entry-extension hypotheses (MNQ / MES). Kronos-style scaling is reimplemented, not model inference. See trading/lab/JEU43_PROTOCOL.md and JEU43_RESEARCH.md. Forty-eight January-August replays are planned, including sixteen exact Game40 controls; no performance is claimed at freeze. Private progress/results stay outside Git, and the user requested launch then stop monitoring. Historical freezes, models, RSI/news, risk and collection remain intact. No automatic selection or activation.
+
+
+Game43 completed once at frozen commit1c776a3073bc04423179236b1ac42591694a0cdf. Both normalized-entry variants veto zero signals and preserve all48 full accounts. Neither is retained: no strict improvement.16 exact controls,984 chronological prefixes per layer; outputs verified without rerun. See trading/lab/JEU43_RESULTS.md and jeu43-summary.json. Private detailed calendars/results archived separately; no UI calendar recomputation. Ledger97/catalog114 preserve prior95/112. No activation or new campaign.

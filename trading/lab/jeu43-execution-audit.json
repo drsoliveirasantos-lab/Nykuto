@@ -1,0 +1,29 @@
+{
+  "schema": "jeu43-readback-audit-v1",
+  "sourceOutputs": {
+    "report.json": {
+      "bytes": 1051592,
+      "sha256": "948443afd390e9a5bbff31103dba547b55458122578f59f160ab17056843a13f"
+    },
+    "runs-private.json": {
+      "bytes": 3152298,
+      "sha256": "e8f798a046b4b972d1b39583d85cd84cd08215b4787de0f9b718e8db4da1d137"
+    }
+  },
+  "all48FullAccountsEqualToReference": true,
+  "tradeNetSumsReconciled": true,
+  "preservedPrefixes": {
+    "ledger": "1255f77d1d00d3b5e7d96cbe6bfd94c62c2f164f4d44c3784c7297c6b5faa45a",
+    "catalog": "2ccb37b4ced54befa81ff2dbbff851cd15537ae6e540bb235c7f8e342e6366df",
+    "sources": "c33a84224587f0634860ef1c7a11441c8d44c39426529d4e14ec09629bf61c13"
+  },
+  "previousLedgerCount": 95,
+  "previousCatalogCount": 112,
+  "ledgerCount": 97,
+  "catalogCount": 114,
+  "newPerformanceRuns": 0,
+  "newInferences": 0,
+  "archiveFile": "Nykuto_Jeu43_resultats_verifies_2026-09-10.zip",
+  "selection": null,
+  "executionAllowed": false
+}

@@ -6,7 +6,7 @@ Dernière revue : 10 septembre 2026. Lire ce document, le catalogue et les derni
 
 - Référence de recherche : Jeu 37 `fixed100`, cibles 2R, portefeuille sans MYM, profils MES/MGC/MNQ conservés. Bot réel, Paper et Shadow désactivés.
 - Objectif étudié : 4 000 USD de PnL mensuel. Objectif personnel distinct : premier versement simulé équivalent à 1 000 EUR. Compte 50K neuf chaque mois, pas un été continu.
-- 95 configurations dans le registre, 112 clés dans le catalogue croisé, **zéro confirmation indépendante**. Le Jeu 40 ajoute une extension de période sans nouvelle stratégie ; les variantes 38/39/41/42 restent non retenues.
+- 97 configurations dans le registre, 114 clés dans le catalogue croisé, **zéro confirmation indépendante**. Le Jeu 40 ajoute une extension de période sans nouvelle stratégie ; les variantes 38/39/41/42/43 restent non retenues.
 - Le modèle Kronos-mini téléchargé est expérimental : K1 ne bat pas la prévision constante ; aucune adoption comme filtre ou modèle entraîné sur notre stratégie.
 
 ## Leçons et preuves
@@ -104,3 +104,11 @@ Diego autorise désormais des propositions issues de recherches et du diagnostic
 - **L28 — Conserver une hypothèse rejetée est une amélioration de la recherche.** La règle de volume échoue dans5/16cellules : janvier aux deux coûts, juin/juillet/août normaux. Net total1589,25normal/1131,25doublé, aucun4Kmensuel ni retrait. Le seuil n'est pas déplacé ; la référence fixed100 reste inchangée. Cela n'invalide pas toutes les utilisations du volume ni ne démontre une saisonnalité d'août.
 
 [Bilan42](./JEU42_RESULTS.md), [protocole](./JEU42_PROTOCOL.md), [recherche vidéo](./JEU42_RESEARCH.md), [audit](./jeu42-execution-audit.json). Une campagne32relectures,16témoins exacts,656préfixes compte/filtre/contexte chacun,451trades et272enregistrements de phase contrôlés. Quatre fichiers privés archivés et relus exactement. Une configuration ajoutée :registre95/catalogue112, anciennes entrées préservées. Zéro confirmation indépendante, aucune activation, aucun nouveau modèle/ordre/achat, collecteJeu08/3décembre inchangée.
+
+
+## Jeu43 — Une mesure nouvelle peut laisser toutes les décisions identiques
+
+- **L29 — Une règle sans veto ne change pas la performance.** Extension maximale observable0,95496 MNQ /0,64259 MES, sous le seuil1 gelé. Aucun signal bloqué ;48 comptes entiers identiques à leur référence, aucune perte évitée ou nouvelle admission. Deux variantes non retenues faute d'amélioration stricte. Ne pas déplacer le seuil après ce constat.
+- **L30 — Réutiliser un mécanisme ne transfère pas un avantage appris.** La normalisation past-window et le diagnostic temporel fonctionnent ; ce ne sont ni un entraînement des poids ni une preuve de rentabilité.8/118 signauxMNQ et3/68MES manquent de contexte complet, explicitement signalé.
+
+[Bilan43](./JEU43_RESULTS.md) · [Résumé vérifié](./jeu43-summary.json).48 relectures,16 témoins exacts,984 préfixes par couche. Rapport et runs privés archivés ; aucune campagne relancée à la vérification. Registre97/catalogue114, anciennes95/112 entrées conservées, zéro confirmation indépendante.

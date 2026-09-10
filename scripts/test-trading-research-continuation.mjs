@@ -16,7 +16,7 @@ test('new reports preserve all eight failed configurations and their frozen prot
     const check=v=>{if(!v||typeof v!=='object')return;for(const [key,value] of Object.entries(v)){assert.ok(!['entry','exit','signalOpen','signalClose','trendClosedAt','open','high','low','close'].includes(key),'Raw prices or trades must remain private');if(key==='trades')assert.equal(typeof value,'number');check(value);}};check(r);
   }
   const ledger=JSON.parse(await readFile(new URL('../trading/lab/research-ledger.json',import.meta.url)));
-  assert.equal(ledger.configurationCount,95);assert.equal(ledger.entries.length,95);assert.equal(ledger.independentConfirmations,0);assert.equal(new Set(ledger.entries.map(x=>x.executionKey)).size,95);
+  assert.equal(ledger.configurationCount,97);assert.equal(ledger.entries.length,97);assert.equal(ledger.independentConfirmations,0);assert.equal(new Set(ledger.entries.map(x=>x.executionKey)).size,97);
   assert.equal(ledger.entries.filter(x=>x.game<39).length,90);
   assert.deepEqual(ledger.entries.filter(x=>x.game===39).map(x=>x.configuration),['mnq-before-11/funded','mnq-kronos/funded']);
   assert.equal(ledger.entries.find(x=>x.game===20).holdoutPassed,false);
