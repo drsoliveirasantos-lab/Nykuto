@@ -1,0 +1,271 @@
+{
+  "schema": "nykuto-learning-audit-v1",
+  "asOf": "2026-09-10",
+  "sourceSha256": "d96d279d13a819d9cf58b575218897b43f3279a749c4aa5ba8e7aabee632e44b",
+  "reference": "jeu37-fixed100",
+  "monthlyGoalUSD": 4000,
+  "independent": false,
+  "executionAllowed": false,
+  "months": [
+    {
+      "month": "june",
+      "cost": "normal",
+      "trades": 16,
+      "wins": 11,
+      "losses": 5,
+      "net": 1048.75,
+      "costs": 145.5,
+      "gross": 1194.25,
+      "mean": 65.55,
+      "winRate": 0.6875,
+      "averageWin": 133.64,
+      "averageLoss": -84.25,
+      "neededMeanFor4000": 250.0,
+      "lossesOnEntryBar": 3,
+      "exits": {
+        "Session close": 1,
+        "Stop": 5,
+        "Target": 10
+      },
+      "markets": [
+        {
+          "symbol": "MNQ",
+          "trades": 7,
+          "wins": 6,
+          "net": 700.0,
+          "missingContext": 2
+        },
+        {
+          "symbol": "MES",
+          "trades": 7,
+          "wins": 3,
+          "net": 83.75,
+          "missingContext": 0
+        },
+        {
+          "symbol": "MGC",
+          "trades": 2,
+          "wins": 2,
+          "net": 265.0,
+          "missingContext": 0
+        }
+      ]
+    },
+    {
+      "month": "june",
+      "cost": "stress",
+      "trades": 13,
+      "wins": 9,
+      "losses": 4,
+      "net": 785.5,
+      "costs": 143,
+      "gross": 928.5,
+      "mean": 60.42,
+      "winRate": 0.6923076923076923,
+      "averageWin": 122.72,
+      "averageLoss": -79.75,
+      "neededMeanFor4000": 307.69,
+      "lossesOnEntryBar": 2,
+      "exits": {
+        "Stop": 4,
+        "Target": 9
+      },
+      "markets": [
+        {
+          "symbol": "MNQ",
+          "trades": 6,
+          "wins": 5,
+          "net": 559,
+          "missingContext": 2
+        },
+        {
+          "symbol": "MES",
+          "trades": 4,
+          "wins": 2,
+          "net": 47.5,
+          "missingContext": 0
+        },
+        {
+          "symbol": "MGC",
+          "trades": 3,
+          "wins": 2,
+          "net": 179,
+          "missingContext": 0
+        }
+      ]
+    },
+    {
+      "month": "july",
+      "cost": "normal",
+      "trades": 21,
+      "wins": 8,
+      "losses": 13,
+      "net": 176.0,
+      "costs": 107.5,
+      "gross": 283.5,
+      "mean": 8.38,
+      "winRate": 0.38095238095238093,
+      "averageWin": 141.44,
+      "averageLoss": -73.5,
+      "neededMeanFor4000": 190.48,
+      "lossesOnEntryBar": 3,
+      "exits": {
+        "Session close": 1,
+        "Stop": 12,
+        "Target": 8
+      },
+      "markets": [
+        {
+          "symbol": "MNQ",
+          "trades": 8,
+          "wins": 2,
+          "net": -228.0,
+          "missingContext": 0
+        },
+        {
+          "symbol": "MES",
+          "trades": 5,
+          "wins": 3,
+          "net": 315.0,
+          "missingContext": 0
+        },
+        {
+          "symbol": "MGC",
+          "trades": 8,
+          "wins": 3,
+          "net": 89.0,
+          "missingContext": 0
+        }
+      ]
+    },
+    {
+      "month": "july",
+      "cost": "stress",
+      "trades": 21,
+      "wins": 9,
+      "losses": 12,
+      "net": 164.0,
+      "costs": 216,
+      "gross": 380.0,
+      "mean": 7.81,
+      "winRate": 0.42857142857142855,
+      "averageWin": 126.5,
+      "averageLoss": -81.21,
+      "neededMeanFor4000": 190.48,
+      "lossesOnEntryBar": 3,
+      "exits": {
+        "Stop": 12,
+        "Target": 9
+      },
+      "markets": [
+        {
+          "symbol": "MNQ",
+          "trades": 8,
+          "wins": 2,
+          "net": -259.5,
+          "missingContext": 0
+        },
+        {
+          "symbol": "MES",
+          "trades": 6,
+          "wins": 4,
+          "net": 332.5,
+          "missingContext": 0
+        },
+        {
+          "symbol": "MGC",
+          "trades": 7,
+          "wins": 3,
+          "net": 91,
+          "missingContext": 0
+        }
+      ]
+    },
+    {
+      "month": "august",
+      "cost": "normal",
+      "trades": 11,
+      "wins": 3,
+      "losses": 8,
+      "net": -245.5,
+      "costs": 149.5,
+      "gross": -96.0,
+      "mean": -22.32,
+      "winRate": 0.2727272727272727,
+      "averageWin": 148.17,
+      "averageLoss": -86.25,
+      "neededMeanFor4000": 363.64,
+      "lossesOnEntryBar": 5,
+      "exits": {
+        "Stop": 8,
+        "Target": 3
+      },
+      "markets": [
+        {
+          "symbol": "MNQ",
+          "trades": 5,
+          "wins": 1,
+          "net": -149.5,
+          "missingContext": 1
+        },
+        {
+          "symbol": "MES",
+          "trades": 5,
+          "wins": 1,
+          "net": -257.5,
+          "missingContext": 1
+        },
+        {
+          "symbol": "MGC",
+          "trades": 1,
+          "wins": 1,
+          "net": 161.5,
+          "missingContext": 0
+        }
+      ]
+    },
+    {
+      "month": "august",
+      "cost": "stress",
+      "trades": 8,
+      "wins": 2,
+      "losses": 6,
+      "net": -228.5,
+      "costs": 122,
+      "gross": -106.5,
+      "mean": -28.56,
+      "winRate": 0.25,
+      "averageWin": 132.5,
+      "averageLoss": -82.25,
+      "neededMeanFor4000": 500.0,
+      "lossesOnEntryBar": 3,
+      "exits": {
+        "Stop": 6,
+        "Target": 2
+      },
+      "markets": [
+        {
+          "symbol": "MNQ",
+          "trades": 5,
+          "wins": 1,
+          "net": -220.5,
+          "missingContext": 1
+        },
+        {
+          "symbol": "MES",
+          "trades": 2,
+          "wins": 0,
+          "net": -165,
+          "missingContext": 0
+        },
+        {
+          "symbol": "MGC",
+          "trades": 1,
+          "wins": 1,
+          "net": 157,
+          "missingContext": 0
+        }
+      ]
+    }
+  ]
+}

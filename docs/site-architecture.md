@@ -771,3 +771,16 @@ and news guidance. No hosted inference, strategy filter, training, news feed or
 order execution is enabled. Frozen research and ledgers remain unchanged. See
 `trading/models/README.md` and `PROTOCOL.md`; model weights and individual private
 data/results stay outside Git.
+
+
+The learning audit at trading/lab/RESEARCH_LESSONS.md records corrected data/history
+errors separately from rejected strategy hypotheses, including Kronos K1.
+research-learning-audit.json reaggregates the six existing Jeu37 fixed100 runs;
+no new performance is claimed. JEU38_PROTOCOL.md and jeu38-obstacles.mjs prepare
+one MNQ-only veto (opposed confirmed M5 structure plus a confirmed pivot strictly
+before 2R), keeping the whole fixed100 account and other market profiles unchanged.
+The runner is frozen before a later bounded 12-replay diagnostic; six exact
+controls are required. No new configuration is counted before execution.
+The Lab #learning38Game exposes the lessons and pending experiment. Existing
+model integration, 493 HTML IDs, freezes and prospective collection are preserved.
+No weights retrained, live/Paper/Shadow activation, new data or main merge.

@@ -45,6 +45,7 @@
   <script src="./lab-entries.mjs?v=1" type="module"></script>
   <link rel="stylesheet" href="./lab-confidence.css?v=1">
   <script src="./lab-confidence.mjs?v=1" type="module"></script>
+  <link rel="stylesheet" href="./lab-learning.css?v=1">
 </head>
 <body>
   <a class="skip-link" href="#main">Aller au contenu</a>
@@ -80,6 +81,20 @@
     </div>
     <noscript><p>Active JavaScript pour changer de vue et consulter le suivi.</p></noscript>
     <div id="view-current" class="lab-view" role="tabpanel" aria-labelledby="tab-current" tabindex="0">
+    <section class="panel independent-game market-game" id="learning38Game" aria-labelledby="learning38Title">
+      <div class="panel-heading"><div><p class="panel-kicker">AUDIT · LEÇONS DES ESSAIS</p><h3 id="learning38Title">Corriger les entrées avant d’augmenter les montants</h3></div><span class="lab-status planned">Nouvel essai préparé</span></div>
+      <div class="iv-content">
+        <p class="iv-intro">Le dernier essai modifiait le risque, pas les signaux. Il ne pouvait donc pas améliorer la sélection des entrées de juillet. L’audit montre une baisse du taux de réussite, surtout sur le Nasdaq ; les gains moyens des gagnants augmentent pourtant.</p>
+        <div class="iv-table-wrap" role="region" aria-label="Pourquoi les mois ne rapportent pas quatre mille dollars" tabindex="0"><table class="iv-table"><caption>Référence à 100 $, compte neuf chaque mois, coûts normaux. Résultats simulés déjà observés.</caption><thead><tr><th scope="col">Mois 2026</th><th scope="col">Gagnants / trades</th><th scope="col">Net</th><th scope="col">Moyenne par trade</th><th scope="col">Moyenne nécessaire pour 4 000 $</th></tr></thead><tbody><tr><td>Juin</td><td>11 / 16</td><td>+1 048,75 $</td><td>+65,55 $</td><td>250 $</td></tr><tr><td>Juillet</td><td>8 / 21</td><td>+176 $</td><td>+8,38 $</td><td>190,48 $</td></tr><tr><td>Août</td><td>3 / 11</td><td>−245,50 $</td><td>−22,32 $</td><td>363,64 $</td></tr></tbody></table></div>
+        <h4>Ce que nous avons appris</h4>
+        <ul><li>Juillet : Nasdaq −228 $, S&amp;P +315 $, or +89 $. Le problème n’est pas identique sur tous les marchés.</li><li>Le nombre de « points verts » n’est pas une probabilité validée. Le risque modulé avait déjà été testé et ne justifie pas encore les gros montants.</li><li>25 des 26 pertes de la référence touchent le stop. Tenir plus longtemps après ce stop changerait le risque, pas seulement la durée.</li><li>Attendre une M5 supplémentaire et viser 3R ont déjà supprimé des gagnants. Ces idées ne seront pas présentées à nouveau comme des solutions inédites.</li><li>Les erreurs de préparation des données et de reprise entre branches ont été corrigées. Aucun nouveau bug de calcul expliquant juillet n’a été trouvé dans cet audit.</li><li>Le modèle Kronos téléchargé ne bat pas son témoin simple et ne pilote pas les entrées. Ajouter un modèle n’est pas une preuve de rentabilité.</li></ul>
+        <h4>Une correction précise pour le prochain test</h4>
+        <p>Sur le Nasdaq seulement, refuser le trade si la structure M5 confirmée est opposée <strong>et</strong> si un pivot déjà confirmé se trouve avant la cible 2R. Le risque reste à 100 $, les stops et les autres profils restent identiques. Les deux conditions sont connues à l’entrée ; elles peuvent aussi écarter des gagnants.</p>
+        <p>Le filtre est codé et vérifié sur des exemples synthétiques. Sa performance n’est pas encore calculée. Le prochain essai comparera les trois mois aux coûts normaux et doublés, avec les mêmes témoins, pour éviter de choisir une seule belle journée. Ces données déjà vues ne constitueront pas une confirmation indépendante.</p>
+        <p>Les leçons sont enregistrées dans le projet et reliées aux consignes de reprise. Cela conserve les erreurs et les décisions à consulter ; ce n’est pas un réentraînement automatique des modèles.</p>
+        <p><a href="./RESEARCH_LESSONS.md">Lire les 12 leçons et leurs preuves</a> · <a href="./JEU38_PROTOCOL.md">Prochain test fixé avant résultat</a> · <a href="#risk37Game">Calendriers et barèmes déjà testés</a></p>
+      </div>
+    </section>
     <section class="panel independent-game market-game" id="risk37Game" aria-labelledby="risk37Title">
       <div class="panel-heading"><div><p class="panel-kicker">JEU 37 · RISQUE SELON LES CONFIRMATIONS</p><h3 id="risk37Title">Des montants différents, des résultats à vérifier</h3></div><span class="lab-status planned">Référence 100 $ conservée</span></div>
       <div class="iv-content">
