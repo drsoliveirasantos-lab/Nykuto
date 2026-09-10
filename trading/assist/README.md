@@ -127,3 +127,10 @@ Sources officielles consultées le 9 septembre 2026 :
 - https://www.cmegroup.com/markets/microsuite/metals.html
 - https://developers.openai.com/api/docs/guides/images-vision
 - https://help.openai.com/en/articles/9039756-managing-billing-settings-on-chatgpt-web-and-platform
+
+
+September 10: model handoff and documentation are described in
+[Models and sources](../models/README.md). Assisted prompts now distinguish
+confirmed RSI divergences and timestamped primary news from missing information.
+Analysis offers an explicit local JSON export of the current selected window
+for a separate Kronos calculation. No hosted inference or automatic order.
