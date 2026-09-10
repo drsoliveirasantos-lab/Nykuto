@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "status": "research-observer-only",
+  "model": {
+    "id": "NeoQuasar/Kronos-mini",
+    "revision": "main",
+    "file": "model.safetensors",
+    "sha256": "a7d5f37e2e9fbd9891f7d7d4f72574512dd1f704fee14223e0a8cd0fbf54197c",
+    "sizeBytesApprox": 16400000,
+    "parameters": 4100000,
+    "contextLength": 2048,
+    "license": "MIT"
+  },
+  "tokenizer": {
+    "id": "NeoQuasar/Kronos-Tokenizer-2k",
+    "revision": "main",
+    "file": "model.safetensors",
+    "sha256": "b97ec46b3b72160509e289183eaf7bdf5f0dac5bb9b49522f6d46638a99a8717",
+    "sizeBytesApprox": 15800000,
+    "license": "MIT"
+  },
+  "input": {
+    "requiredColumns": ["timestamp", "open", "high", "low", "close"],
+    "optionalColumns": ["volume", "amount"],
+    "notes": "Official predictor fills missing volume with zero and derives amount from volume and mean OHLC when amount is absent. Nykuto should prefer genuine volume when available."
+  },
+  "safety": {
+    "canPlaceOrders": false,
+    "canChangeRisk": false,
+    "canActivatePaperTrading": false,
+    "canActivateLiveTrading": false,
+    "purpose": "Forecast-only research feature for ablation against frozen Nykuto strategies."
+  }
+}
