@@ -349,3 +349,24 @@ Game35 controls are exact; 768 daily prefixes and 472 executions checked.
 Monthly 50K reset and EUR1000 withdrawal goal persist; no goal achieved.
 All archive parts verified under jeu36/entry-confirmation-v1/. Existing freezes,
 HTML IDs, collection and live/Paper/Shadow inactivity are preserved.
+
+
+Game 37 implements frozen diagnostic risk policies for the monthly funded50K
+portfolio: fixed100/250/500 and graded50/150/250 or100/250/500 on MNQ/MES.
+MGC retains nominal100 and its failed-breakout profile; MYM remains excluded.
+The signal score and account-headroom tier are separate. One personal EUR1000
+payout can occur before continuing toward USD4000 trading PnL; every month
+resets. No policy meets the predeclared all-month/all-cost objective and
+USD1000 drawdown gate. Reference100 remains; all new risk policies stay research.
+The checksum-pinned lab-confidence.mjs panel at #risk37Game shows June/July/
+August2026 daily calendars, exact date/market details, weekly PnL and simulated
+withdrawals, plus score evidence from the fixed100 cohort. Absent dates and
+stopped periods are not zero-profit days. See JEU37_PROTOCOL.md and JEU37_RESULTS.md.
+36 replays: six exact controls, six new100 engine parity checks, 766 daily
+prefixes and563 executions audited. Five new configurations/four risk policies;
+89 ledger entries,106 cross-history keys, zero independent confirmations.
+Freeze was published at ff0948823ee670385aaf34b6865bf9cb49317c82 before performance.
+All three private archive parts and manifest read back under
+jeu37/confidence-risk-v1/. Broker optional daily loss choice remains unknown;
+only internal daily limits are modeled. No activation, order, payout request,
+new collection or independent validation. Earlier reports and freezes persist.

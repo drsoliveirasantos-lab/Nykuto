@@ -2,7 +2,7 @@
   "schema": "research-catalog-v1",
   "checkedAt": "2026-09-10",
   "independentConfirmations": 0,
-  "uniqueConfigurationKeys": 101,
+  "uniqueConfigurationKeys": 106,
   "sharedConfigurationKeys": 57,
   "countIsNotIndependentTrials": true,
   "sources": [
@@ -56,6 +56,15 @@
       "newStrategyVariants": 2,
       "reportSha256": "d8c1f793f00d23989838d83d62abbb130195a75eb957db342ac18e8cf7612537",
       "note": "36 replays include 12 exact Game35 controls; both delayed-entry variants rejected by the frozen research gate."
+    },
+    {
+      "namespace": "game37-confidence-risk",
+      "ref": "ff0948823ee670385aaf34b6865bf9cb49317c82",
+      "ledger": "research-ledger.json",
+      "configurationCount": 5,
+      "newRiskPolicies": 4,
+      "reportSha256": "7b6aab05fccfcd86d397d03c8295fc8643e3ac22bfa2bd8d5dbfad0f1c07713f",
+      "note": "36 diagnostic replays include 6 exact controls; no configuration meets the frozen monthly target and drawdown gate. No independent confirmation."
     }
   ],
   "entries": [
@@ -721,6 +730,41 @@
       "sources": [
         "game36-entry-confirmation"
       ]
+    },
+    {
+      "executionKey": "c53cf0d19daba79e7db620582d0124ce64d968f360b4a4fbc1e0f5b8b1737f36",
+      "sources": [
+        "game37-confidence-risk"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "b1a46123f4b507698c4a0d65498538ae79cd11a296e5de452db9bfff7e134302",
+      "sources": [
+        "game37-confidence-risk"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "03f6acea1063872f503325c562acb0f9c8e44057afc6caf938fdd4d97f438481",
+      "sources": [
+        "game37-confidence-risk"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "ee0a937a12296a44123408624f9a3a00844695f0306fc8df864c3c055c3e87ed",
+      "sources": [
+        "game37-confidence-risk"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "781be09cde63db7171764254e44ccb9f61b3eda793582aae9fb362dd84713d84",
+      "sources": [
+        "game37-confidence-risk"
+      ],
+      "confirmed": false
     }
   ]
 }
