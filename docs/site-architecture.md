@@ -724,3 +724,18 @@ common/removed/new entries. See trading/lab/JEU35_PROTOCOL.md and JEU35_RESULTS.
 80 ledger entries and 97 cross-history keys; zero independent confirmations.
 All private archive parts read back under jeu35/market-exits-v1/. Historical
 freezes, entry rules, live/Paper/Shadow inactivity and collection stay intact.
+
+
+Game 36 adds isolated MNQ/MES entry-confirmation experiments, importing the
+Game34 account engine unchanged. One extra closed M5 candle must retain the
+original stop and confirm directional progress; sizing uses the next open.
+Both variants fail the frozen research gate. The current entry profiles and
+2R targets remain the reference, with MGC unchanged and MYM still excluded
+in this exploratory portfolio. See trading/lab/JEU36_PROTOCOL.md and
+JEU36_RESULTS.md. The checksum-pinned lab-entries.mjs panel shows 36 replays,
+market effects, confirmation/admission counts and weekly results. Twelve
+Game35 controls are exact; 768 daily prefixes and 472 executions checked.
+84 ledger entries, 101 cross-history keys; zero independent confirmations.
+Monthly 50K reset and EUR1000 withdrawal goal persist; no goal achieved.
+All archive parts verified under jeu36/entry-confirmation-v1/. Existing freezes,
+HTML IDs, collection and live/Paper/Shadow inactivity are preserved.
