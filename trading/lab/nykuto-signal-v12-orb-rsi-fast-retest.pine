@@ -1,0 +1,166 @@
+//@version=6
+indicator("Nykuto Signal V12 - ORB + RSI + Fast Retest", overlay=true, max_labels_count=300)
+
+// Research / decision-support indicator only. No broker orders are sent.
+// V12 aligns the visible B/S markers with the research candidate that survived the latest tests:
+// New York 30-minute ORB + anti-late RSI + fast retest. Contextual features may strengthen a label,
+// but they do not create extra chart clutter and are not mandatory unless explicitly configured.
+
+// ===== Inputs =====
+nyTz = "America/New_York"
+orbSession = input.session("0930-1000", "New York Opening Range")
+tradeSession = input.session("1000-1200", "Fenetre de recherche apres ORB")
+rsiLen = input.int(14, "RSI", minval=2)
+longRsiMax = input.float(70.0, "RSI max LONG", step=0.5)
+shortRsiMin = input.float(30.0, "RSI min SHORT", step=0.5)
+atrLen = input.int(14, "ATR", minval=2)
+compactOrbAtr = input.float(3.0, "ORB compact (ATR) - bonus uniquement", step=0.1)
+maxRetestMinutes = input.int(5, "Retest rapide max (minutes)", minval=1, maxval=30)
+retestToleranceAtr = input.float(0.15, "Tolerance retest (ATR)", step=0.05)
+volLen = input.int(20, "Volume moyen", minval=2)
+relVolStrong = input.float(1.20, "Volume relatif fort", step=0.05)
+showOrb = input.bool(true, "Afficher ORB High/Low")
+showContext = input.bool(false, "Afficher contexte RSI/volume")
+showTooltips = input.bool(true, "Explications au survol")
+
+// ===== Base series =====
+rsi = ta.rsi(close, rsiLen)
+atr = ta.atr(atrLen)
+atrRef = atr[1]
+volAvg = ta.sma(volume, volLen)[1]
+relVol = not na(volAvg) and volAvg > 0 ? volume / volAvg : 0.0
+
+body = math.abs(close - open)
+barRange = high - low
+bodyRatio = barRange > 0 ? body / barRange : 0.0
+bullImpulse = close > open and bodyRatio >= 0.55 and (not na(atrRef) and barRange >= atrRef * 0.70)
+bearImpulse = close < open and bodyRatio >= 0.55 and (not na(atrRef) and barRange >= atrRef * 0.70)
+volumeStrong = relVol >= relVolStrong
+
+// ===== Session state =====
+inOrb = not na(time(timeframe.period, orbSession, nyTz))
+inTradeWindow = not na(time(timeframe.period, tradeSession, nyTz))
+orbStart = inOrb and not inOrb[1]
+orbEnd = not inOrb and inOrb[1]
+
+var float orbHigh = na
+var float orbLow = na
+var float orbAtrAtEnd = na
+var bool orbReady = false
+
+if orbStart
+    orbHigh := high
+    orbLow := low
+    orbAtrAtEnd := na
+    orbReady := false
+else if inOrb
+    orbHigh := na(orbHigh) ? high : math.max(orbHigh, high)
+    orbLow := na(orbLow) ? low : math.min(orbLow, low)
+
+if orbEnd
+    orbAtrAtEnd := atrRef
+    orbReady := true
+
+orbWidth = orbReady and not na(orbHigh) and not na(orbLow) ? orbHigh - orbLow : na
+orbAtrRatio = orbReady and not na(orbWidth) and not na(orbAtrAtEnd) and orbAtrAtEnd > 0 ? orbWidth / orbAtrAtEnd : na
+compactOrb = not na(orbAtrRatio) and orbAtrRatio <= compactOrbAtr
+
+// ===== Breakout state =====
+longBreak = orbReady and inTradeWindow and barstate.isconfirmed and close > orbHigh and close[1] <= orbHigh
+shortBreak = orbReady and inTradeWindow and barstate.isconfirmed and close < orbLow and close[1] >= orbLow
+
+var int longBreakTime = na
+var int shortBreakTime = na
+var bool longArmed = false
+var bool shortArmed = false
+
+if orbStart
+    longBreakTime := na
+    shortBreakTime := na
+    longArmed := false
+    shortArmed := false
+
+if longBreak
+    longBreakTime := time_close
+    longArmed := true
+    shortArmed := false
+
+if shortBreak
+    shortBreakTime := time_close
+    shortArmed := true
+    longArmed := false
+
+maxRetestMs = maxRetestMinutes * 60 * 1000
+longStillFast = longArmed and not na(longBreakTime) and time_close - longBreakTime <= maxRetestMs
+shortStillFast = shortArmed and not na(shortBreakTime) and time_close - shortBreakTime <= maxRetestMs
+
+if longArmed and not longStillFast
+    longArmed := false
+if shortArmed and not shortStillFast
+    shortArmed := false
+
+// Retest may touch/undercut the level slightly, but must close back in breakout direction.
+tol = not na(atrRef) ? atrRef * retestToleranceAtr : 0.0
+longRetest = longStillFast and low <= orbHigh + tol and close >= orbHigh and barstate.isconfirmed
+shortRetest = shortStillFast and high >= orbLow - tol and close <= orbLow and barstate.isconfirmed
+
+// Anti-late RSI rule discovered in the research sequence.
+longRsiOk = rsi <= longRsiMax
+shortRsiOk = rsi >= shortRsiMin
+
+rawLong = longRetest and longRsiOk
+rawShort = shortRetest and shortRsiOk
+
+// Consume the armed setup after first valid retest attempt so the chart stays selective.
+if longRetest
+    longArmed := false
+if shortRetest
+    shortArmed := false
+
+// ===== Strength classification =====
+// Base B/S = validated ORB + RSI + fast retest candidate.
+// '+' / '++' use non-mandatory context only; they do not redefine the core entry family.
+longBonus = (compactOrb ? 1 : 0) + (volumeStrong ? 1 : 0) + (bullImpulse ? 1 : 0)
+shortBonus = (compactOrb ? 1 : 0) + (volumeStrong ? 1 : 0) + (bearImpulse ? 1 : 0)
+
+longLabel = longBonus >= 2 ? "B++" : longBonus == 1 ? "B+" : "B"
+shortLabel = shortBonus >= 2 ? "S++" : shortBonus == 1 ? "S+" : "S"
+
+longTip = "ORB LONG valide\n" +
+     "Cassure ORB High confirmee\n" +
+     "Retest <= " + str.tostring(maxRetestMinutes) + " min\n" +
+     "RSI: " + str.tostring(rsi, "#.0") + " <= " + str.tostring(longRsiMax, "#.0") + "\n" +
+     "ORB/ATR: " + (na(orbAtrRatio) ? "n/a" : str.tostring(orbAtrRatio, "#.00")) + "\n" +
+     "RelVol: " + str.tostring(relVol, "#.00") + "x\n" +
+     (compactOrb ? "Bonus: ORB compact\n" : "") +
+     (volumeStrong ? "Bonus: volume\n" : "") +
+     (bullImpulse ? "Bonus: impulsion\n" : "") +
+     "Sortie de recherche: 2R (a gerer separement)."
+
+shortTip = "ORB SHORT valide\n" +
+     "Cassure ORB Low confirmee\n" +
+     "Retest <= " + str.tostring(maxRetestMinutes) + " min\n" +
+     "RSI: " + str.tostring(rsi, "#.0") + " >= " + str.tostring(shortRsiMin, "#.0") + "\n" +
+     "ORB/ATR: " + (na(orbAtrRatio) ? "n/a" : str.tostring(orbAtrRatio, "#.00")) + "\n" +
+     "RelVol: " + str.tostring(relVol, "#.00") + "x\n" +
+     (compactOrb ? "Bonus: ORB compact\n" : "") +
+     (volumeStrong ? "Bonus: volume\n" : "") +
+     (bearImpulse ? "Bonus: impulsion\n" : "") +
+     "Sortie de recherche: 2R (a gerer separement)."
+
+if rawLong
+    label.new(bar_index, low, longLabel, style=label.style_label_up, color=color.new(color.green, longBonus >= 2 ? 35 : 70), textcolor=color.white, size=longBonus >= 2 ? size.small : size.tiny, tooltip=showTooltips ? longTip : "")
+
+if rawShort
+    label.new(bar_index, high, shortLabel, style=label.style_label_down, color=color.new(color.red, shortBonus >= 2 ? 35 : 70), textcolor=color.white, size=shortBonus >= 2 ? size.small : size.tiny, tooltip=showTooltips ? shortTip : "")
+
+// ===== Minimal context =====
+plot(showOrb and orbReady ? orbHigh : na, "ORB High", color=color.new(color.green, 55), linewidth=1, style=plot.style_linebr)
+plot(showOrb and orbReady ? orbLow : na, "ORB Low", color=color.new(color.red, 55), linewidth=1, style=plot.style_linebr)
+
+plotshape(showContext and longBreak, title="ORB Break Up", style=shape.circle, location=location.belowbar, size=size.tiny, color=color.new(color.green, 0), text="BRK")
+plotshape(showContext and shortBreak, title="ORB Break Down", style=shape.circle, location=location.abovebar, size=size.tiny, color=color.new(color.red, 0), text="BRK")
+
+// ===== Alerts =====
+alertcondition(rawLong, title="Nykuto V12 BUY", message="Nykuto V12: ORB + RSI + fast retest BUY candidate confirmed. Decision-support only; no automatic order.")
+alertcondition(rawShort, title="Nykuto V12 SELL", message="Nykuto V12: ORB + RSI + fast retest SELL candidate confirmed. Decision-support only; no automatic order.")
