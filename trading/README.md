@@ -2,6 +2,14 @@
 
 Private personal trading workspace intended for `trading.nykuto.com`.
 
+## Pine parity V9 — September 11, 2026
+
+Trading Nykuto now carries a dedicated Pine parity reference for manual TradingView use. See `lab/NYKUTO_PINE_PARITY_V9.md` and `lab/nykuto-signal-v9.pine`.
+
+The Pine reference mirrors the descriptive features that are useful and causally available on chart data: EMA 9/21, confirmed HTF EMA 20/50 context, VWAP, RSI14 with 30/70 exits, confirmed swing structure HH/HL/LH/LL, BOS/potential MSS, regular RSI divergence on confirmed price pivots, ATR/displacement, relative volume, engulfing/rejection candles, simple 3-candle FVG context, session labels and the Jeu47 anti-late-entry RSI candidate. Continuation and reversal remain separate signal families.
+
+The Pine indicator does **not** replace the server-side portfolio/risk simulator, does not reproduce every research-only method, and cannot turn confluence grades into validated probabilities. Session labels are context only. Real-money execution remains OFF.
+
 ## Latest Lab comparison — Jeu 10
 
 The latest exploratory comparison is `/lab/#confluenceGame`: eight fixed variants
