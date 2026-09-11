@@ -3,6 +3,7 @@ const $ = id => document.getElementById(id);
 let busy = false, hadSuccess = false, hasTradingView = false;
 const date = value => new Intl.DateTimeFormat('fr-FR', { dateStyle: 'short', timeStyle: 'medium' }).format(new Date(value));
 const number = value => new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 8 }).format(value);
+const isMicro1m = event => ['1', '1m', '1min', '1.0'].includes(String(event?.interval || '').trim().toLowerCase());
 async function api(path = '', options = {}) {
   let response;
   try { response = await fetch(`/api/alerts${path}`, { credentials: 'same-origin', cache: 'no-store', redirect: 'error', signal: AbortSignal.timeout(12000), ...options, headers: { 'X-Nykuto-User': window.Nykuto.user.id, ...options.headers } }); }
@@ -14,21 +15,35 @@ async function api(path = '', options = {}) {
   return data;
 }
 function element(tag, text, className = '') { const el = document.createElement(tag); el.textContent = text; el.className = className; return el; }
-function render(events) {
+function renderList(events, targetId, micro = false) {
   const fragment = document.createDocumentFragment();
   for (const event of events) {
     const item = element('li', '');
+    if (micro) item.classList.add('is-micro-alert');
     const top = element('div', '', 'alert-item-top');
-    top.append(element('h4', event.name), element('span', event.source, `alert-source${event.source === 'Test du site' ? ' is-test' : ''}`));
+    top.append(element('h4', event.name), element('span', micro ? 'MICRO 1M' : event.source, `alert-source${event.source === 'Test du site' ? ' is-test' : ''}`));
     const bottom = element('div', '', 'alert-item-bottom');
     const details = element('span', `${event.symbol} · ${event.interval === 'test' ? 'essai interne' : `unité ${event.interval}`}`);
     if (event.price !== null) details.append(element('span', ` · ${number(event.price)}`, 'alert-price'));
     const time = element('time', date(event.triggeredAt), 'alerts-meta'); time.dateTime = event.triggeredAt; time.title = `Reçu le ${date(event.receivedAt)}`;
     bottom.append(details, time); item.append(top, bottom); fragment.append(item);
   }
-  $('alertsList').replaceChildren(fragment); $('emptyInbox').hidden = events.length > 0;
+  $(targetId).replaceChildren(fragment);
+}
+function render(events) {
+  const primary = events.filter(event => !isMicro1m(event));
+  const micro = events.filter(isMicro1m);
+  renderList(primary, 'alertsList');
+  renderList(micro.slice(0, 20), 'microAlertsList', true);
+  $('emptyInbox').hidden = primary.length > 0;
+  $('microEmpty').hidden = micro.length > 0;
+  $('microCount').textContent = String(micro.length);
   hasTradingView = events.some(event => event.source === 'TradingView');
-  $('connectionStatus').textContent = hasTradingView ? 'Des alertes TradingView ont été reçues' : 'Réception disponible · en attente de TradingView';
+  const primaryTradingView = primary.some(event => event.source === 'TradingView');
+  const microTradingView = micro.some(event => event.source === 'TradingView');
+  if (primaryTradingView) $('connectionStatus').textContent = 'Flux principal reçu · micro 1m séparé';
+  else if (microTradingView) $('connectionStatus').textContent = 'Micro 1m reçu · en attente du flux 5m/15m';
+  else $('connectionStatus').textContent = 'Réception disponible · en attente de TradingView';
 }
 async function refresh() {
   if (busy) return; busy = true; $('refreshAlerts').disabled = true;

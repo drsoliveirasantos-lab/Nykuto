@@ -1,3 +1,4 @@
+@import url('../hitech.css?v=1');
 /* A compact Dashboard, without reducing text or the 44px touch targets. */
 #dashboard .section-heading{margin-bottom:.5rem;gap:.5rem}
 #dashboard .section-heading h2{margin:.1rem 0;font-size:1.25rem}

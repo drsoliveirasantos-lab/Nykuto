@@ -1,3 +1,4 @@
+@import url('../hitech.css?v=1');
 .alerts-page{--alert-title:1rem;--alert-section:.9375rem;--alert-item:.875rem;--alert-body:.75rem;--alert-meta:.6875rem;font-size:var(--alert-body)}
 .alerts-main{padding:1rem;max-width:1500px;margin:auto}
 .alerts-heading{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:1rem}
@@ -22,4 +23,10 @@
 .alerts-page a:not(.ghost-button):not(.section-nav a):not(.skip-link){text-underline-offset:3px}.alerts-page summary{cursor:pointer;padding:.5rem 0;color:var(--muted)}
 .alerts-explainer{margin-top:.75rem;padding:1rem}.tools-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.25rem;margin-top:1rem}.tools-grid p{color:var(--muted);margin:.25rem 0}
 .alerts-page [hidden]{display:none!important}.alerts-page #setupFeedback{min-height:1.5em;color:var(--accent)}.alerts-page #setupFeedback.is-error{color:var(--danger)}
+.micro-context-panel{margin:.65rem;border:1px solid rgba(79,168,255,.17);border-radius:10px;background:linear-gradient(180deg,rgba(79,168,255,.055),rgba(67,243,195,.018));overflow:hidden}
+.micro-context-panel>summary{display:flex;align-items:center;gap:.55rem;min-height:42px;padding:.55rem .7rem!important;color:#a8c7d8!important;font-size:.7rem;font-weight:760;letter-spacing:.06em;text-transform:uppercase;list-style:none}.micro-context-panel>summary::-webkit-details-marker{display:none}.micro-context-panel>summary::before{content:'◇';color:var(--accent-2);text-shadow:0 0 10px rgba(79,168,255,.4)}
+.micro-count{margin-left:auto;min-width:24px;text-align:center;padding:.12rem .35rem;border:1px solid rgba(79,168,255,.2);border-radius:999px;color:#cfe9f7;font-family:ui-monospace,SFMono-Regular,monospace}
+.micro-context-copy{margin:0;padding:.05rem .7rem .65rem;color:var(--muted);font-size:var(--alert-meta)}
+.micro-alerts-list{max-height:280px;border-top:1px solid rgba(79,168,255,.09)}.micro-alerts-list li{opacity:.78;background:rgba(79,168,255,.018)}.micro-alerts-list .alert-source{color:var(--accent-2)}
+.micro-empty{margin:0;padding:.7rem;color:var(--muted);font-size:var(--alert-meta);border-top:1px solid rgba(79,168,255,.09)}
 @media(max-width:800px){.alerts-layout{grid-template-columns:1fr}.alerts-heading{align-items:start;flex-direction:column}.tools-grid{grid-template-columns:1fr;gap:.75rem}.alerts-main{padding:.75rem}.alerts-page button,.alerts-page .ghost-button{min-height:44px}.alerts-page input{min-height:44px}.copy-row{flex-wrap:wrap}.copy-row input{flex-basis:100%}.alerts-list{max-height:500px}}
