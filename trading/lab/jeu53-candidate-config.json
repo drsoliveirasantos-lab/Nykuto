@@ -1,0 +1,34 @@
+{
+  "game": 53,
+  "status": "research-only",
+  "executionAllowed": false,
+  "product": "MNQ",
+  "window": {"from": "2026-06-01", "to": "2026-08-31"},
+  "reference": {
+    "family": "ny-orb-retest",
+    "rsi": {"period": 14, "longMax": 70, "shortMin": 30},
+    "rr": 2,
+    "trades": 30,
+    "totalR": 6
+  },
+  "candidate": {
+    "id": "orb-rsi-compact-fast-retest",
+    "openingRangeMaxAtr": 3.0,
+    "maxRetestDelayBars": 1,
+    "rr": 2,
+    "discoveredInSample": true,
+    "promotionAllowed": false,
+    "inSample": {
+      "trades": 11,
+      "wins": 8,
+      "winRate": 0.7272727273,
+      "totalR": 13,
+      "monthlyR": {"2026-06": 8, "2026-07": 3, "2026-08": 2}
+    }
+  },
+  "nextValidation": {
+    "required": true,
+    "preferred": "unseen-forward-data",
+    "doNotRetuneOn": ["2026-06", "2026-07", "2026-08"]
+  }
+}
