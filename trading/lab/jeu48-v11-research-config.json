@@ -1,0 +1,42 @@
+{
+  "schema": "nykuto-research-config-v1",
+  "game": 48,
+  "name": "V11 session-target-aware confluence",
+  "symbol": "MNQ",
+  "timeframe": "1m",
+  "evaluationWindow": {
+    "start": "2026-06-01",
+    "end": "2026-08-31"
+  },
+  "features": {
+    "emaLocal": [9, 21],
+    "htfEmaConfirmed": [20, 50],
+    "smma": 50,
+    "ichimokuBias": true,
+    "rsi": {"length": 14, "oversold": 30, "overbought": 70, "contextBars": 12},
+    "macd": [12, 26, 9],
+    "vwap": true,
+    "relativeVolume": {"length": 20, "minimum": 1.2, "high": 1.5},
+    "atr": {"length": 14, "expansionMultiple": 0.75},
+    "candleAnatomy": ["engulfing", "hammer", "shooting-star", "pin-bar", "ema-rejection", "doji-penalty", "displacement", "potential-absorption"],
+    "structure": ["confirmed-pivots", "HH", "HL", "LH", "LL", "BOS", "MSS"],
+    "fvg3bar": true,
+    "tokyoRange": {"timezone": "Asia/Tokyo", "session": "09:00-15:00", "confirmedCloseBreakOnly": true, "wickProbePenalty": true},
+    "standardDailyPivots": ["PP", "R1", "R2", "R3", "S1", "S2", "S3"],
+    "targetRoom": {"minimumATR": 1.25, "sources": ["nearest-confirmed-swing", "standard-pivot"]}
+  },
+  "markerThresholds": {
+    "continuationWeak": 8,
+    "continuationStrong": 11,
+    "continuationVeryStrong": 14,
+    "reversalStrong": 9,
+    "reversalVeryStrong": 12,
+    "sameDirectionCooldownBars": 6
+  },
+  "promotion": {
+    "selected": false,
+    "productionExecution": false,
+    "reason": "Jeu48 three-month diagnostic does not show stable or monotonic forward edge; keep features available for ablation only."
+  },
+  "liveOrdersEnabled": false
+}
