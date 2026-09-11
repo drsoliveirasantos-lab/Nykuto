@@ -1,0 +1,35 @@
+{
+  "schema": "jeu34-archive-v1",
+  "prefix": "jeu34/monthly-withdrawal-v1/",
+  "prePerformanceCommit": "5a23869cf02cc0bd798fb400c87719c9f1e61da8",
+  "files": [
+    {
+      "name": "report.json",
+      "bytes": 196060,
+      "sha256": "ec751379ed0416e2895ca989e3f449d0144727f57582da51c08ee1920cdec349",
+      "encoding": "gzip+base64",
+      "parts": [
+        {
+          "key": "jeu34/monthly-withdrawal-v1/report.json.gz.b64.part-000",
+          "bytes": 12292,
+          "sha256": "31f17fc1279ded4b93572d5db68f34fca59d63d76fed073621b8dc52eca2b0d4"
+        }
+      ]
+    },
+    {
+      "name": "runs-private.json",
+      "bytes": 703413,
+      "sha256": "1bf89a96c8e8f1491fca82852231dfcc1c78cc086fb2968bf9e891d3536ea366",
+      "encoding": "gzip+base64",
+      "parts": [
+        {
+          "key": "jeu34/monthly-withdrawal-v1/runs-private.json.gz.b64.part-000",
+          "bytes": 76140,
+          "sha256": "f4bb921cc921e12bfe16df0bf0d76f83f5adc68c5b144c31e287d40c53b46c62"
+        }
+      ]
+    }
+  ],
+  "confirmed": false,
+  "executionAllowed": false
+}

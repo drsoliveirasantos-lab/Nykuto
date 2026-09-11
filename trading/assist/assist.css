@@ -1,0 +1,21 @@
+.assist-shell{max-width:1120px;padding:24px 18px 64px;margin:auto;font-size:.875rem;line-height:1.55}
+.assist-shell h1{font-size:1.75rem}.assist-shell h2{font-size:1.25rem}.assist-shell h3{font-size:1.0625rem}
+.assist-shell h1,.assist-shell h2,.assist-shell h3{line-height:1.25;margin:.4rem 0 .8rem}
+.assist-panel{padding:20px;margin:20px 0;border:1px solid var(--line);background:var(--surface);border-radius:14px}
+.assist-shell .step,.assist-shell .meta,.assist-shell small{font-size:.75rem;color:var(--muted)}
+.assist-shell .step{letter-spacing:.08em}.assist-shell .notice{border-left:3px solid var(--warning);padding:10px 14px;background:var(--surface-2)}
+.assist-shell .fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:16px 0}
+.assist-shell label{display:flex;flex-direction:column;gap:6px;font-size:.875rem;min-width:0;margin:10px 0}
+.assist-shell input,.assist-shell select,.assist-shell textarea{width:100%;max-width:100%;border:1px solid var(--line-strong);border-radius:8px;padding:10px;background:var(--surface-2);color:var(--text);font-size:1rem;min-height:44px}
+.assist-shell textarea{resize:vertical}.assist-shell .check{flex-direction:row;align-items:flex-start;gap:10px;min-height:44px}
+.assist-shell .check input{width:20px;min-width:20px;height:20px;min-height:20px;margin-top:2px}
+.assist-shell .actions{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}.assist-shell button{min-height:44px}
+.assist-shell button:disabled{opacity:.55;cursor:not-allowed}.assist-shell .previews{display:flex;gap:12px;overflow-x:auto}
+.assist-shell .previews figure{margin:0;flex:0 0 min(70vw,290px)}.assist-shell .previews img{width:100%;max-height:240px;object-fit:contain;background:var(--surface-2);border-radius:8px}
+.assist-shell figcaption{font-size:.75rem;color:var(--muted)}.assist-shell summary{padding:12px 0;cursor:pointer;min-height:44px}
+.assist-shell pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;max-height:520px;overflow:auto}
+.assist-shell #review p{margin:8px 0}.assist-shell .trade-list{display:grid;gap:10px;margin:14px 0}
+.assist-shell .trade-list article{border:1px solid var(--line);padding:14px;border-radius:10px;overflow-wrap:anywhere}
+.assist-shell [hidden]{display:none!important}.assist-shell .error{color:var(--danger)}
+@media(max-width:720px){.assist-shell{padding:16px 12px 40px}.assist-panel{padding:14px}.assist-shell .fields{grid-template-columns:1fr 1fr}.assist-shell h1{font-size:1.5rem}}
+@media(max-width:440px){.assist-shell .fields{grid-template-columns:1fr}}

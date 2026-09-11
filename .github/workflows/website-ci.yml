@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   pull_request:
   push:
-    branches: [main, preview]
+    branches: [main, preview, feat/trading-hq-v1]
 
 permissions:
   contents: read
@@ -32,5 +32,9 @@ jobs:
         run: npm run functions:check
       - name: Run publisher regression tests
         run: npm test
+      - name: Run read-only market reception tests
+        run: node --test scripts/test-trading-live.mjs
+      - name: Run human-confirmed assisted simulation tests
+        run: node --test scripts/test-trading-assist.mjs
       - name: Build website
         run: npm run build

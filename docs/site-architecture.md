@@ -76,6 +76,275 @@ scripts/prepare-cloudflare-output.js
 
 ## Generated outputs
 
+The private `trading/` site is a separate Cloudflare Pages project,
+`trading-nykuto`, publishing that directory directly from `feat/trading-hq-v1`
+during owner validation. It is not part of the main commercial build outputs.
+Its `/lab/` includes an independent-validation module, with pure CSV parsing,
+indicators and browser simulation modules. The default Jeu 04 snapshot loads
+from `trading/functions/api/lab/jeu04.js`, backed by the private
+`TRADING_DATASETS` KV binding. Cloudflare Access protects the site and the
+endpoint also verifies the JWT signature, issuer, audience and expiry. Raw
+market data is provisioned only in KV, never Git. Optional imported histories
+remain in the tab. See `trading/lab/INDEPENDENT_VALIDATION.md` for the frozen
+protocol and snapshot identity. `npm run test:trading-validation` covers both
+the engine and private data-loading checks.
+
+Jeu 05 adds `session-comparison.mjs`, `session-source.mjs` and `lab-session.mjs`.
+It tests one frozen session-close policy, keeping the Jeu 04 engine's default
+behavior intact. `trading/functions/api/lab/jeu05.js` reuses the same Access
+verification and private KV binding to serve a checksum-pinned 2025 snapshot
+with exchange calendars. The 2026 comparison is explicitly exploratory;
+only the new 2025 windows determine the research verdict. No market history
+is committed to Git. See `trading/lab/SESSION_COMPARISON.md`.
+
+Jeu 06 compares SPY, MES and MNQ over frozen July–December 2025 windows using
+`market-comparison.mjs` and private `/api/lab/jeu06`. See
+`trading/lab/MARKET_COMPARISON.md` and `trading/lab/JEU06_AUDIT.md`.
+
+Jeu 07 uses `mnq-confirmation.mjs`, `mnq-source.mjs`, `lab-mnq.mjs` and protected
+`/api/lab/jeu07`. Its October–November 2024 MNQZ4 snapshot has complete cash
+prices but lacks complete verified futures schedules. The v2 snapshot adds only
+the November 29 holiday interval from Ironbeam's November 26, 2024 publication
+(1/59 covered sessions, 58 still missing), with explicit provenance. It displays the missing coverage
+and refuses performance calculation. The incomplete snapshot stays in private
+KV; no licensed prices enter Git. See `trading/lab/MNQ_CONFIRMATION.md` for the
+frozen protocol, sample-size limits, availability evidence and repair boundary.
+
+At the owner’s request, Jeu 07 now offers a replacement July 1–24, 2026
+MNQU6 diagnostic through `mnq-retest.mjs`, `retest-source.mjs` and private
+`/api/lab/jeu07b`. The old snapshot and default engine policy are preserved.
+The validator/simulator accepts the fixed replacement policy; 28 sessions and
+728 candles pass, but this short test cannot satisfy three complete two-month
+confirmation windows. See `trading/lab/MNQ_RETEST.md`.
+
+Jeu 09 adds `mnq-six-months-policy.mjs`, `mnq-six-months.mjs`,
+`six-months-source.mjs`, `lab-six-months.mjs` and private `/api/lab/jeu09`.
+It evaluates January–February, April–May and July–August 2026 on three separately
+prepared MNQ contracts, using the unchanged market simulator. An initial
+January–June attempt remains unscored because March 6 prices are missing;
+the replacement windows were fixed before performance calculation. Exact
+calendar support and the Christmas early close extend the confirmation data
+validator without changing its existing default 2024 behavior. Source bytes
+are pinned and private; the browser recalculates on load and on request.
+This is retrospective, nonconsecutive and overlaps previously seen markets;
+it cannot satisfy independent confirmation or activate a bot. See
+`trading/lab/MNQ_SIX_MONTHS.md` for dates, the failed availability attempt,
+results and audit. Game 08 and account isolation remain intact.
+
+Jeu 10 adds `confluence-policy.mjs`, `confluence-engine.mjs` and
+`lab-confluence.mjs`, reusing the private pinned Jeu 09 history and its endpoint.
+Eight fixed exploratory variants compare hourly trend, engulfing bodies,
+same-slot relative volume, three official macro-event categories, their joint
+filter, long-only and short-only with the original baseline. A signal-filter
+hook in `simulateMarket` preserves default results and fully resimulates daily
+brakes for every variant/cost. Hourly candles must be closed; volume references
+only five prior sessions. The UI provides per-period, per-direction and causal
+signal explanations, with all failed gates and event coverage limitations.
+This is already-seen history, not independent evidence or a live news service.
+See `trading/lab/CONFLUENCE_DIAGNOSTIC.md` for the frozen rules and full results.
+A separate one-time follow-up is scheduled for December 3 after the existing
+collection ends. It audits the archive before comparing the same eight rules
+on October–November, preserves Jeu 08 and stops with a precise report if data
+or access is incomplete. This does not imply continuous optimization or trading.
+
+The Dashboard includes `trading/performance/`: an account-only monthly R calendar,
+curve and daily trade table with mode/timezone filters. Its pure metrics never
+invent cash balances or convert historical R using current risk settings. New
+journal entries retain a closing timestamp and explicit mode; Replay uses its
+historical time. Existing records remain intact with visible legacy-date and
+unknown-mode treatment. It reuses account-scoped D1 state without new APIs or
+broker credentials. See `trading/performance/README.md` for exact definitions.
+
+The ergonomics audit in `trading/UX_AUDIT.md` records the shared mobile menu,
+calendar/list views, account-scoped calendar colors, journal feedback and
+cash-risk validation. `trading/performance/appearance-core.mjs` restricts the
+new appearance state to three hex colors; the existing member/revision gate
+remains authoritative. `trading/risk-core.mjs` only sizes euro cash units.
+
+`trading/analysis/` adds a native MNQ candle chart beside an explainable reading.
+The selected 20–500 closed candles determine both the chart and every measure;
+confirmed swing structure, potential MSS/BOS, EMA9/21 and candle bodies never use
+unselected future context. Three contract histories reuse the existing verified,
+private Jeu 09 source. Optional hourly bars require four complete cash candles.
+This is descriptive historical analysis with no order or news path. The common
+navigation and Dashboard link to it; TradingView remains a separate widget. See
+`trading/analysis/README.md` for exact definitions and validation boundaries.
+
+`trading/discipline/` hosts the drawdown scenario and emotional self-report,
+with an optional pause and post-trade journal linkage. Pure rules are in
+`discipline-core.mjs`. Records use account-scoped D1 persistence with device sync. There is no broker endpoint
+or server emotional profiling. Shared navigation exposes this page;
+the Journal shows linked before/after emotion. See `trading/README.md`.
+
+Jeu 08 adds `prospective-collection.mjs`, `lab-collection.mjs` and private
+GET-only `/api/lab/jeu08`. It archives future MNQZ6 sessions (September 9–30,
+2026 preparation, October–November first test window) using existing Massive
+and Cloudflare connections. The endpoint recomputes coverage from private KV;
+it exposes neither raw prices nor a write interface. A bounded scheduled task
+uses `scripts/collect-trading-session.mjs` to normalize captures and retain
+private hashed revisions. There is no performance calculation or bot activation.
+See `trading/lab/PROSPECTIVE_COLLECTION.md` for the fixed calendar, protocol,
+collection procedure, data boundaries and limitations.
+
+The Lab interface separates `Suivi actuel`, `Tests précédents` and `Test manuel`
+with accessible tabs in `lab-workspace.mjs` and scoped `lab-workspace.css`.
+Jeu 22 opens as the default follow-up, comparing four opening-range retest experiments. Jeux 21 and 20 remain in disclosures; Jeu 20 compares MYM development with the
+reserved months after separately verified 5- and 30-minute preparation.
+Jeu 19 preserves eight micro-futures comparisons; Jeu 18 remains in a disclosure
+with one frozen cash-session
+VWAP entry filter. Jeu 17 remains in a disclosure with its 2 × 2 stop/margin comparison.
+The owner explicitly authorized publication of the code and aggregate results for
+Jeux 17–18 on September 9, 2026, resolving the earlier publication hold. Raw market
+data, individual trades and per-signal contexts remain in private storage.
+PR #83 records the release and deployment verification.
+Jeu 16 remains in a disclosure with its original structural-stop comparison.
+Jeu 15 remains in a disclosure with its exploratory LucidFlex 25K risk replay.
+Jeu 14 remains in a disclosure with the fixed Pullback tested across all currently
+verifiable historical blocks (234 trades over 330 scored sessions).
+Jeux 12–13 remain in a disclosure with 54 explicit timeframe/session/direction trials
+and the selected Pullback's separate June 2025 control (positive but only eight
+of twelve required trades). Jeu 11 remains available in a disclosure with its
+separately scored April–May 2025 report.
+Jeu 10 remains available in a disclosure with its 2026 exploratory comparison. Jeu 09 remains in a
+disclosure with its original six-month MNQ retrospective result.
+Jeu 08 retains its collection state, next action and three-step calendar in
+a collapsible disclosure. Older games remain available in collapsed native details;
+their IDs and deep links are preserved, and navigation reveals the matching tab
+and disclosure. The manual strategy form is isolated visually and does not
+modify the frozen Jeu 08 protocol. No trading engine, data or automation changes
+are part of this presentation layer.
+
+Jeu 11 uses `jeu11-policy.mjs`, `jeu11-engine.mjs`, `jeu11-source.mjs` and
+`lab-jeu11.mjs`. `scripts/prepare-trading-jeu11.mjs` validates private captures;
+`scripts/run-trading-jeu11.mjs` checks the pinned snapshot, runs eight unchanged
+variants with two cost assumptions, checks every feature prefix and compares
+every completed-session simulation prefix. The aggregate-only
+`jeu11-report.json` is an explicitly generated, reproducible research report,
+not an alternative price source. Licensed prices, raw captures and their hashes
+are archived privately under `jeu11/` in TRADING_DATASETS, with no new public
+dataset route. See `trading/lab/JEU11_PROTOCOL.md` and `JEU11_RESULTS.md`.
+No new strategy or paper execution adapter is enabled. Existing prospective
+collection/test automations and their rules remain unchanged.
+
+Jeux 12–13 use `jeu12-engine.mjs` for closed 5/15/30-minute signals and a shared
+5-minute execution clock, with next-open entries, tick-rounded stops/targets,
+cash-session boundaries, daily brakes and fully resimulated doubled costs.
+`JEU12_PROTOCOL.md` freezes the first 27 EMA Cross trials; `JEU13_PROTOCOL.md`
+freezes the subsequent 27 Pullback trials and selection rule. The second family
+was formulated after the first failed; it is explicitly adaptive development.
+`JEU13_AVAILABILITY.md` documents a pre-performance June 2025 rollover amendment.
+Preparation/run scripts pin private snapshots, verify full coverage, compare
+every reconstructed 15-minute OHLCV bar with the prior reference, and audit
+signal/simulation prefixes. `lab-timeframes.mjs` renders aggregate-only
+`jeu12-report.json` and `jeu13-report.json`, including losing trials and every
+failed gate; UI filters never recompute or change the selected strategy.
+Raw captures remain in private TRADING_DATASETS under `jeu12/` and `jeu13/`.
+`TIMEFRAME_RESULTS.md` records results and reproducibility;
+`PULLBACK_FORWARD_PROTOCOL.md` preserves a proposed future comparison whose
+separate automation was disabled at the owner’s request; both earlier MNQ tasks
+are unchanged. No broker or paper execution is enabled.
+
+Jeu 14 adds `jeu14-policy.mjs`, `jeu14-history.mjs`, a pinned private source,
+prepare/run scripts and `lab-history.mjs`. Its predeclared coverage policy forms
+maximal consecutive complete-session blocks and requires 220 fresh 30-minute
+warmup bars after any gap. Every expected day belongs exactly once to scored,
+warmup or unavailable coverage. The unchanged Jeu 12 execution engine runs
+only the selected Pullback; monthly/window/direction tables aggregate the same
+trades. The separate 2025 confirmation fails consistency and full coverage;
+weekly bootstrap intervals include zero. `JEU14_PROTOCOL.md`, `JEU14_RESULTS.md`
+and aggregate-only `jeu14-report.json` document the methods and limitations.
+Private captures remain under `jeu14/` in TRADING_DATASETS; no new API or bot.
+
+Jeu 15 adds `jeu15-policy.mjs`, `jeu15-engine.mjs`, a private-output runner,
+focused account-risk tests and `lab-lucid.mjs`. Three predeclared scenarios
+compare the unchanged 30-minute candidate, its budget-limited version and one
+new 5-minute pullback in a closed 30-minute trend. A simulated LucidFlex 25K
+evaluation enforces the EOD trailing floor, open-loss checks, terminal breach,
+profit target and strict consistency. Dollar budgets are internal research
+guards, not broker settings. Five fully covered two-month windows are used;
+three incomplete windows remain blocked. Existing source archives and reports
+are preserved. `JEU15_PROTOCOL.md`, `JEU15_RESULTS.md` and aggregate-only
+`jeu15-report.json` document failures, costs and daily results. The private
+`jeu15/` archive contains the replay details. No account API, live feed, Paper
+Trading, payout or order execution is added; readiness gates remain closed.
+
+Jeu 16 adds an isolated extension of the frozen account replay, strict same-session
+2-left/2-right pivots and a net target/stop margin check. It compares one new
+structural-stop hypothesis to the unchanged protected 5-minute reference.
+`JEU16_PROTOCOL.md`, `jeu16-freeze.json` and the local pre-result commit pin the
+rules and 18 dependencies. Both cost assumptions and all complete windows are
+reported, including the failed candidate; all earlier engines and results remain
+unchanged. The new aggregate report is checked by SHA256 before display through
+`lab-structural.mjs`; a malformed or unavailable report fails closed. The private
+`jeu16/structural-v1/` archive contains full trades and account days. Tests cover
+pivot confirmation/invalidation, cost and risk gates, replay causality, the
+unchanged reference, report integrity and four menu selections with a simulated
+DOM. This is not browser rendering QA or independent strategy confirmation.
+`JEU16_RESULTS.md` records the exact negative result. No broker, live feed,
+Paper/Shadow activation, account state or MNQ automation is modified.
+
+Jeu 17 separates the two factors changed together in Jeu 16: ATR/pivot stop
+and net-margin filter off/on. It adds only the two missing combinations, with
+unchanged source data, signals, risk budgets and evaluation windows. The frozen
+runner verifies the previous two cells against the Jeu 16 private archive,
+audits chronological prefixes and publishes every result and four paired
+policy contrasts. No strategy is automatically selected. `jeu17-freeze.json`
+pins 20 dependencies; `JEU17_PROTOCOL.md` and `JEU17_RESULTS.md` record scope
+and failure. `lab-ablation-report.mjs` verifies the aggregate report fingerprint
+before displaying all eight selections (four policies × two costs). Full trades
+remain private under `jeu17/ablation-v1/`; previous results, account state,
+MNQ tasks and execution activation remain unchanged. No browser QA is implied.
+
+Jeu 18 adds a causal HLC3/volume estimate anchored to 09:30 New York, using
+integer tick-volume sums and rejecting incomplete sessions. One direction filter
+is applied before the unchanged Jeu 17 ATR/margin replay; all entries and daily
+brakes are resimulated. The reference reproduces its archived trades/days/statuses.
+The added filter does not change any executed trade in this historical test and
+is not adopted. `JEU18_PROTOCOL.md`, `jeu18-freeze.json` and `JEU18_RESULTS.md`
+record the frozen scope, result and limits. `lab-vwap.mjs` verifies the aggregate
+report before rendering the two cost views; raw signal contexts and trades
+remain private under `jeu18/vwap-v1/`. No new data endpoint, activation, account
+change or MNQ task change is made. Publication is authorized as described above.
+
+Jeux 19–20 extend the research engine to contract-specific MNQ, MES, MYM and
+MGC arithmetic without modifying earlier frozen engines. Jeu 19 declares eight
+configurations and keeps the May–August reserve unopened when development
+coverage fails. Jeu 20 tests one separate MYM preparation hypothesis using native
+30-minute bars reconciled against available 5-minute OHLCV, with no invented bars.
+All 166 sessions become eligible. Development passes all eight gates, but the
+candidate pinned before reserve evaluation loses money in May–August and is
+rejected. Both development and final reports, selection records, protocols and
+freezes remain under `trading/lab/`; `lab-multimarket.mjs` loads fingerprint-pinned
+aggregate reports and displays both costs, all attempted configurations and the
+negative reserve result. Raw sources and execution details remain private. No
+new endpoint, member access change, broker connection or bot activation is added.
+The local DOM fixture covers both report views and rejection of a corrupted file;
+no browser QA is performed. Research details are in `JEU19_RESULTS.md` and
+`JEU20_RESULTS.md`.
+
+`trading/account/` adds required first/last-name onboarding, personal settings and
+feedback to the site owner. Cloudflare Access email PIN verifies identity;
+Functions middleware additionally checks the private D1 membership registry and
+profile completion. `TRADING_USERS` is a dedicated D1 database; schema migrations
+are in `trading/migrations/`. No invite email or credential is committed.
+Personal journal, preparation and settings queries always derive ownership from
+the signed identity. Conditional revisions reject stale tab/device overwrites.
+The browser keeps only document memory; an owner-only import can preserve the
+previous device-local journal. Feedback is visible only to its author and the
+owner, who can respond and update its status. Brokers remain unconnected.
+See `trading/account/README.md` for provisioning and access tests.
+
+`trading/alerts/` adds the private TradingView inbox and account setup guide.
+`trading/functions/api/alerts/` reuses the signed Access verification. A separate
+Worker in `workers/trading-alerts/` receives TradingView POSTs using a random
+capability URL and the official source IP allowlist, without opening the private
+site through Access. Its shared validation module is
+`trading/alerts/alert-service.mjs`. Dedicated `TRADING_ALERTS` KV binds the Worker
+and Pages; only a hash of the webhook token is provisioned as a Worker secret.
+No secrets or actual alert data are committed. See `trading/alerts/README.md` for
+deployment, data boundaries, test labeling and eventual-consistency limits.
+This Worker is not part of the commercial static build and never sends orders.
+
 `npm run build` creates three equivalent static outputs:
 
 - `out/` — Cloudflare Pages production output;
@@ -329,3 +598,309 @@ hierarchy for page, section, category, item, description/price and metadata role
 AGENTS and Copilot require it before UI work and require its inclusion in future
 site repositories. Compact interface text and long-form learning text have
 different readability needs; both keep details subordinate to their own heading.
+
+Jeux 21–22 continue immediate research. Jeu 21 extends independently reconciled
+native preparation to MES/MGC for four frozen comparisons. Jeu 22 introduces
+one opening-range breakout/retest family across four microcontracts, with a
+causal stop behind the retest wick, fixed 10:00–12:00 New York entries and at
+most one signal per direction. All eight new configurations fail selection;
+no reserve performance is computed. Existing frozen code remains unchanged.
+`lab-research-continuation.mjs` displays checksum-pinned aggregate reports,
+both cost assumptions, all failed gates, daily counts and incomplete windows.
+`research-ledger.json` records all 17 configurations from Games 19–22, including
+the Game 20 failed reserve, to support avoiding identical research repeats.
+Licensed sources and individual trades remain in private TRADING_DATASETS.
+See `JEU21_RESULTS.md`, `JEU22_RESULTS.md` and `JEU21_22_ARCHIVE.md`.
+
+
+Game 24 adds a frozen combined-context entry gate to the Game 23 retest engine.
+`jeu24-context.mjs` joins causal EMA/VWAP trend, confirmed swings, Wilder RSI,
+same-time previous-session volume and alternative candle shapes;
+`jeu24-engine.mjs` enforces that gate before the unchanged one-contract simulator.
+All 16 new configurations fail; 6 of 209 candidate signals survive and each
+profile executes at most two trades. No reserve is opened.
+`lab-combined-context.mjs` displays the checksum-pinned aggregates, equal-risk
+Game 23 comparison and fixed-order signal funnel as the current Lab panel;
+Game 23 and all earlier IDs remain in expandable archives. The research ledger
+now retains 49 configurations from Games 19–24. Private contexts and individual
+trades are archived in TRADING_DATASETS at `jeu24/combined-context-v1/manifest.json`.
+See `trading/lab/JEU24_PROTOCOL.md`, `JEU24_RESULTS.md` and `JEU24_ARCHIVE.md`.
+No live/Paper/Shadow activation, collection change or independent confirmation.
+
+
+Game 25 introduces one graded admission-cap policy per microcontract through
+`jeu25-risk.mjs` and `jeu25-engine.mjs`. It reuses Game 24 causal context, assigns
+50/75/150 USD by the frozen score and preserves a fixed 300 USD daily envelope,
+one microcontract and structural stops. Four configurations fail; reserve stays
+closed. Game 23 fixed150 and Game 24 strict150 are read from private archived
+executions, not resimulated or counted as new trials. `lab-graded-risk.mjs` is the
+current checksum-pinned Lab panel, showing both costs, archived comparisons,
+risk tiers and mean planned risk. It explains that repeated PnL across caps can
+represent the same historical trade, rather than additional gains. Game 24 and
+all previous IDs remain in expandable history. The ledger retains 53 trials.
+Private sources and individual decisions/trades remain in TRADING_DATASETS at
+`jeu25/graded-risk-v1/manifest.json`. See `trading/lab/JEU25_PROTOCOL.md`,
+`JEU25_RESULTS.md` and `JEU25_ARCHIVE.md`. No live, Paper or Shadow activation.
+
+
+Game 26 introduces a separately frozen closed-failure entry after public
+video/transcript and community research. `jeu26-signals.mjs` requires a closed
+opening-range breakout and a first directional close back inside within 30
+minutes; `jeu26-terms.mjs` anchors the stop to the whole excursion and bounds
+the target at the opposite range edge. One microcontract, fixed150/daily300,
+the Game23 execution/account protections, source gaps and qualification gates
+are retained. All four configurations fail; reserve stays closed and the
+research ledger retains 57 configurations. `lab-failed-breakout.mjs` is the
+current checksum-pinned Lab panel; Game25 and all prior HTML IDs remain in
+expandable history. Private data and trades: `jeu26/failed-breakout-v1/manifest.json`.
+See `trading/lab/JEU26_PROTOCOL.md`, `JEU26_RESULTS.md`, `JEU26_ARCHIVE.md`.
+Public Discord-community archives are distinguished from inaccessible private
+Discord channels. No live, Paper or Shadow execution is enabled. Historical
+PR83 body is preserved in `docs/trading-pr83-history-through-game25.md` to
+allow a concise current PR description within GitHub's length limit.
+
+
+Game 27 adds a bounded filter diagnostic: twelve January–April configurations,
+all below qualification. The existing Game23 engine and all earlier freezes
+remain unchanged. The public aggregate report and current Lab panel show both
+cost paths, the MNQ trend-only comparison, an archived Game20 monthly breakdown,
+and the official LucidFlex 25K/50K differences. This is not an H1/M5 strategy
+or a 50K account backtest. No new holdout is opened; 69 trials remain recorded.
+Private executions are in `jeu27/filter-diagnostic-v1/manifest.json`.
+See `trading/lab/JEU27_PROTOCOL.md`, `JEU27_RESULTS.md`, and `JEU27_ARCHIVE.md`.
+
+
+Research continuation must also consult `trading/lab/research-catalog.json`.
+The branch `research/trading-game32-trend500` at `9df4d691122ff6b2137da4bc93e30a4ddf1aac31`
+contains the latest Games27–32. The filter diagnostic provisionally named Game27
+in this checkout is audit F1, with distinct frozen files and private archive;
+it must not overwrite the research branch's Game27 reentry experiment. The
+current Lab synopsis links both histories. Their 57 shared configuration keys
+are deduplicated in a catalog of 86 keys, with zero independent confirmations.
+See `trading/lab/RESEARCH_SYNTHESIS_2026-09-09.md` before new work.
+
+
+Game 33 executes the owner-selected LucidFlex 50K comparison at fixed100 and
+reduced100/50/25 risk, with 25K controls: four configurations, 32 summer
+replays, all exploratory. The 50K continuous result is +691.25 USD normal /
++265.50 stress; August remains negative and the evaluation target is not met.
+The published Lab now includes account/period comparison, market contributions,
+and an evaluation-versus-funded consistency calculator. No broker execution.
+Eleven missing pure dependencies are imported unchanged from research commit
+9df4d691122ff6b2137da4bc93e30a4ddf1aac31; historical freezes remain intact.
+The published ledger holds 73 entries and the cross-history catalog 90 unique
+configuration keys. See trading/lab/JEU33_PROTOCOL.md and JEU33_RESULTS.md.
+Private archive: jeu33/account-sizing-v1/manifest.json, fully read back.
+
+
+Game 34 resets a hypothetical 50K account each month and measures weekly PnL
+separately from withdrawals. A new without-MYM ablation improves June/August
+but worsens July. No month meets the personal 1000 EUR payout goal. Funded
+assumes prior qualification; evaluation gains are never treated as withdrawable.
+The fixed ECB reference is 1.1652 USD/EUR (2026-09-09), after 90/10 split,
+before tax and transfer/FX fees. Required gross request 1294.67 USD and profit
+2589.34 USD plus five 150 USD days. See trading/lab/JEU34_PROTOCOL.md and
+JEU34_RESULTS.md. 24 replays include 6 controls; 3 new configurations, one new
+strategy ablation. The ledger holds 76 entries, cross-history catalog 93 keys,
+zero independent confirmations. Private archive fully read back under
+jeu34/monthly-withdrawal-v1/. No order, payout request or activation.
+
+The owner-provided call transcript is distilled in
+trading/lab/ASSOCIATE_METHOD_2026-09-10.md and linked from the Lab. It distinguishes
+H1 20/50 and level reactions from the historical H1 EMA9/21 experiment, records
+unknown indicator/session settings and the cash-only data limit, and separates
+the two speakers' optional confirmations. This is a method audit, with no new
+performance run or ledger entry; frozen research remains unchanged.
+
+
+Game 35 compares unchanged Game34-without-MYM entries with one target extension
+per variant: MNQ 3R or MGC 3R. Neither meets the predeclared non-degradation
+criterion; 2R remains the reference. MNQ worsens June/August; MGC worsens July
+and raises normal realized drawdown from 312.50 to 536.50 USD. The 50K monthly
+reset and EUR1000 withdrawal objective remain; no goal achieved. The Lab shows
+weekly results, market contributions, duration lower bounds and reconciled
+common/removed/new entries. See trading/lab/JEU35_PROTOCOL.md and JEU35_RESULTS.md.
+36 replays include 12 exact controls; 4 new configurations, 2 strategy variants,
+80 ledger entries and 97 cross-history keys; zero independent confirmations.
+All private archive parts read back under jeu35/market-exits-v1/. Historical
+freezes, entry rules, live/Paper/Shadow inactivity and collection stay intact.
+
+
+Game 36 adds isolated MNQ/MES entry-confirmation experiments, importing the
+Game34 account engine unchanged. One extra closed M5 candle must retain the
+original stop and confirm directional progress; sizing uses the next open.
+Both variants fail the frozen research gate. The current entry profiles and
+2R targets remain the reference, with MGC unchanged and MYM still excluded
+in this exploratory portfolio. See trading/lab/JEU36_PROTOCOL.md and
+JEU36_RESULTS.md. The checksum-pinned lab-entries.mjs panel shows 36 replays,
+market effects, confirmation/admission counts and weekly results. Twelve
+Game35 controls are exact; 768 daily prefixes and 472 executions checked.
+84 ledger entries, 101 cross-history keys; zero independent confirmations.
+Monthly 50K reset and EUR1000 withdrawal goal persist; no goal achieved.
+All archive parts verified under jeu36/entry-confirmation-v1/. Existing freezes,
+HTML IDs, collection and live/Paper/Shadow inactivity are preserved.
+
+
+Game 37 implements frozen diagnostic risk policies for the monthly funded50K
+portfolio: fixed100/250/500 and graded50/150/250 or100/250/500 on MNQ/MES.
+MGC retains nominal100 and its failed-breakout profile; MYM remains excluded.
+The signal score and account-headroom tier are separate. One personal EUR1000
+payout can occur before continuing toward USD4000 trading PnL; every month
+resets. No policy meets the predeclared all-month/all-cost objective and
+USD1000 drawdown gate. Reference100 remains; all new risk policies stay research.
+The checksum-pinned lab-confidence.mjs panel at #risk37Game shows June/July/
+August2026 daily calendars, exact date/market details, weekly PnL and simulated
+withdrawals, plus score evidence from the fixed100 cohort. Absent dates and
+stopped periods are not zero-profit days. See JEU37_PROTOCOL.md and JEU37_RESULTS.md.
+36 replays: six exact controls, six new100 engine parity checks, 766 daily
+prefixes and563 executions audited. Five new configurations/four risk policies;
+89 ledger entries,106 cross-history keys, zero independent confirmations.
+Freeze was published at ff0948823ee670385aaf34b6865bf9cb49317c82 before performance.
+All three private archive parts and manifest read back under
+jeu37/confidence-risk-v1/. Broker optional daily loss choice remains unknown;
+only internal daily limits are modeled. No activation, order, payout request,
+new collection or independent validation. Earlier reports and freezes persist.
+
+
+`trading/models/` integrates the recovered RSI/news documentation and a separate
+Kronos-mini experimental import/export boundary. The pinned CPU model was tested
+on 24 predeclared MNQU6 windows (K1): MAE 78.9543 points versus last-close
+persistence 67.875, with two invalid OHLC forecast windows; no trading adoption.
+Analysis exports the selected closed bars; assisted prompts use source-aware RSI
+and news guidance. No hosted inference, strategy filter, training, news feed or
+order execution is enabled. Frozen research and ledgers remain unchanged. See
+`trading/models/README.md` and `PROTOCOL.md`; model weights and individual private
+data/results stay outside Git.
+
+
+The learning audit at trading/lab/RESEARCH_LESSONS.md records corrected data/history
+errors separately from rejected strategy hypotheses, including Kronos K1.
+research-learning-audit.json reaggregates the six existing Jeu37 fixed100 runs;
+no new performance is claimed. JEU38_PROTOCOL.md and jeu38-obstacles.mjs prepare
+one MNQ-only veto (opposed confirmed M5 structure plus a confirmed pivot strictly
+before 2R), keeping the whole fixed100 account and other market profiles unchanged.
+The runner is frozen before a later bounded 12-replay diagnostic; six exact
+controls are required. No new configuration is counted before execution.
+The Lab #learning38Game exposes the lessons and pending experiment. Existing
+model integration, 493 HTML IDs, freezes and prospective collection are preserved.
+No weights retrained, live/Paper/Shadow activation, new data or main merge.
+
+
+Game 38 is now executed once after the published freeze 563ab6eff9e475ddcc40058b9fb9b2342ef4618a.
+The MNQ opposed-structure/obstacle veto changes no executed trades or monthly
+results: its two August signals were already denied for planned risk. No strict
+PnL improvement, so the filter is not retained; fixed100 remains the research
+reference. Twelve replays, six exact controls, 256 account prefixes and 256
+filter prefixes; one added configuration, ledger90/catalog107, no independent
+confirmation. See trading/lab/JEU38_RESULTS.md and RESEARCH_LESSONS.md.
+The original 49-file freeze and protocol retain their pre-performance wording.
+Private archive jeu38/structure-obstacle-v1/ was written and fully read back.
+
+The shared Lab #historyCalendarGame adds a game/profile/mode/cost selector for
+monthly-reset June/July/August2026 views from Games33–38. Immutable reports stay
+checksum-verified by their original validators. history-calendar-manifest.json,
+history-calendar-view.mjs and lab-calendar-history.mjs/css are presentation
+sources only; changing a selection does not rerun or tune strategies. Game33
+continuous-summer views are excluded from this monthly calendar; early-stop
+nulls and unavailable daily market/risk details remain explicit. Preferences
+can persist locally; actual result history is versioned with its reports.
+Earlier panels/HTML IDs, Kronos/RSI/news integration, historical freezes and
+prospective collection remain intact; no execution, payout request or main merge.
+
+Game 39 is prepared, not yet calculated. Two isolated MNQ admission variants
+(before 11 h New York and actual pinned Kronos-mini directional veto) compare
+against exact Game37 fixed100 across June/July/August2026 and two cost levels.
+Eighteen replays are planned; request preparation is causal and frozen before
+inference. research-self-review.mjs checks six cells without tuning, selection
+or execution. See JEU39_PROTOCOL.md and JEU39_RESEARCH.md. No new weights or
+prospective data; old models/RSI/news, freezes and work remain intact.
+
+Game 39 completed once after published freeze2fc700dfb385f92b001a63fcb642603be51f7bf8.
+Both isolated MNQ variants are rejected: before11h harmsJune and June stressDD;
+Kronos harmsJune/August normal and has3invalidOHLC forecasts. Textual protocol
+conflict disclosed: top-p0 in original prose versus0.9 in frozen code/pack and
+execution. Do not edit freeze or rerun. See JEU39_RESULTS.md and
+jeu39-execution-audit.json. Eighteen replays,6exactwholecontrols,384account and
+384filterprefixes,64modelinputprefixes. Four private files durably archived and
+read back, manifest90e3290567fbc376daeca2300261a02dd7fd1c0b0c5295e59e3f5709469729de.
+Ledger92/catalog109,2addedconfigurations,0independentconfirmations. New Lab
+study39Game and sharedcalendar include results; self-review is deterministic,
+no self-training/autotuning/activation. Old freezes/models/RSI/news and
+prospectivecollection preserved. No merge main.
+
+Game40 preparation: jeu40-engine.mjs copies the Game37 account engine with only
+the authorized start-date guard and its error text widened to January. A source
+identity test checks this restriction. jeu40-diagnostic.mjs prepares the eight
+monthly accounts; jeu40-policy.mjs declares expected coverage and two incomplete
+dates. The protocol parameter table is generated from inherited code policies.
+Private source-probes evidence is checksum-pinned outside Git. No performance
+or new model inference at this preparation stage; missing dates must be explicit
+nulls in the eventual shared calendar, with the rest of each month calculated.
+
+Game40 completed after published freeze e0eb36dc7c787d9071e32882846c647f1088f04c:
+16 replays,6 whole controls,328 account/filter/context prefixes each. Immutable
+jeu40-report.json is checksum-verified by jeu40-report-validation.mjs; its private
+archive holds3 exactly reconstructed files. JEU40_RESULTS.md and the scoped
+study40Game/lab-study40.css panel show observed totals and partial-data limits.
+Shared history calendar uses8 months only for40,3 for older games;64 selections
+and202 monthly views. Missing dates are crossed out/null with partial weeks and
+month totals explicit. historyCalendarTotalsHead supports dynamic month columns.
+Ledger93/catalog110, one period extension, no strategy/inference/activation or
+prospective-collection change. The original52-file freeze remains unchanged.
+
+Game41 preparation isolates jeu41-net-reward.mjs before the unchanged Game40
+engine. Only MES can be vetoed for (2R-cost)/(R+cost)<1.5, using current open and
+closed signal; quantity/risk/stops remain unchanged. jeu41-preparation.mjs copies
+the two Game40 preparation functions exactly, verified by source identity test.
+jeu41-diagnostic.mjs will compare32 full accounts and16 whole archived controls,
+preserving partial-day calendars; no performance at preparation time. Source
+audit aggregates are public, private executions/prices stay outside Git.
+
+Game41 completed once after published freeze73aa1a6208a85f5a622e5d81f2675cd561ca0bb2.
+The MES net reward/risk1.5 veto is not retained:7/16 comparison cells fail.
+Observed normal total1923.25→2337 USD; doubled1154→807.75. Removed winners4/12,
+removed losers11/15, new admissions4/8 for normal/stress. No common trade changes.
+32 replays,16 whole Game40 controls,656 account/filter/context prefixes each;
+434 trades reconciled. Three private files archived and exactly reconstructed,
+manifest312d0a56709698f6372507496131a32746347252c788947e0487a50dad0485f5.
+See JEU41_RESULTS.md and jeu41-execution-audit.json. The immutable report is
+verified by jeu41-report-validation.mjs. study41Game and lab-study41.css extend
+the existing Lab. Shared calendar33–41 has68 selections/234 monthly cost views;
+40/41 use eight months, older games retain three; missing dates remain null.
+One configuration added:ledger94/catalog111, all prior entries and67 frozen
+dependencies preserved. No new inference, automatic selection, activation,
+prospective collection changes or main merge. Original protocol remains frozen.
+
+BOT_PROFILE_REVIEW_2026-09-10.md documents actual active profiles, mandatory
+versus informative confirmations, costs/entry weaknesses and five proposed
+research priorities. No new hypothesis execution or threshold selection.
+
+Game42 preparation follows the owner-authorized video-method research. The only
+candidate vetoes MES when the mean relative volume of strictly opposite closed
+bars between the original breakout and confirmation is not below breakout
+relative volume. Confirmation volume is diagnostic only; unobservable phases
+keep the reference and receive explicit reasons. Fixed100/2R/stops, other
+markets and Game40 preparation remain unchanged. Thirty-two replays and sixteen
+whole Game40 controls are planned, not calculated at this preparation stage.
+See trading/lab/JEU42_PROTOCOL.md and JEU42_RESEARCH.md. One future configuration,
+no automatic selection, new inference, activation or collection change.
+
+Game42 completed once after published freeze39904d4a5f16d2ce71880c6d127766bca649a9aa,
+79 dependencies preserved. The MES phase-volume veto is not retained:5/16 cells
+fail. Normal total1923.25→1589.25 USD; doubled1154→1131.25. Four/two winners
+removed and two/three new losses for normal/stress; no common trade changes.
+32 replays,16 exact whole controls,656 account/filter/context prefixes each,
+451 trades and272 recorded phase observations audited. Four private files
+archived/recomposed exactly from6parts/33chunks under jeu42/mes-pullback-volume-v1/.
+See trading/lab/JEU42_RESULTS.md and jeu42-execution-audit.json. Immutable
+report checked by jeu42-report-validation.mjs; study42Game/lab-study42.css
+extend the Lab and shared calendar to33–42,72selections/266monthly cost views.
+One executed configuration added:ledger95/catalog112; old94/111entries intact.
+No inference, automatic selection, activation, collection change or main merge.
+The original preparation protocol remains frozen as a historical record.
+
+
+Game43 adds a reusable past-window normalization module and two isolated entry-extension hypotheses (MNQ / MES). Kronos-style scaling is reimplemented, not model inference. See trading/lab/JEU43_PROTOCOL.md and JEU43_RESEARCH.md. Forty-eight January-August replays are planned, including sixteen exact Game40 controls; no performance is claimed at freeze. Private progress/results stay outside Git, and the user requested launch then stop monitoring. Historical freezes, models, RSI/news, risk and collection remain intact. No automatic selection or activation.
+
+
+Game43 completed once at frozen commit1c776a3073bc04423179236b1ac42591694a0cdf. Both normalized-entry variants veto zero signals and preserve all48 full accounts. Neither is retained: no strict improvement.16 exact controls,984 chronological prefixes per layer; outputs verified without rerun. See trading/lab/JEU43_RESULTS.md and jeu43-summary.json. Private detailed calendars/results archived separately; no UI calendar recomputation. Ledger97/catalog114 preserve prior95/112. No activation or new campaign.

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow"><title>Connexions · Nykuto Trading HQ</title>
+  <link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/connections/connections.css?v=1">
+  <script type="module" src="/connections/connections.js?v=1"></script>
+</head>
+<body>
+  <a class="skip-link" href="#content">Aller au contenu</a>
+  <header class="topbar"><a class="brand-wrap" href="/" aria-label="Nykuto Trading HQ · Dashboard"><span class="brand-mark" aria-hidden="true">N</span><span><span class="eyebrow">NYKUTO</span><strong>Trading HQ</strong></span></a><a class="ghost-button" href="/account/">Mon compte</a></header>
+  <nav class="section-nav" aria-label="Navigation"><a href="/">Dashboard</a><a href="/connections/" aria-current="page">Connexions</a><a href="/lab/">Lab</a></nav>
+  <main id="content" class="connections-shell">
+    <div class="connections-heading"><div><p class="eyebrow">TON ENVIRONNEMENT DE TRADING</p><h1>Choisir mon broker ou ma plateforme</h1><p>Retrouve ton choix dans ton compte et les étapes réellement disponibles.</p></div><a class="ghost-button" href="#bot-validation">Comment valider mon bot ?</a></div>
+
+    <section class="start-panel" aria-labelledby="startTitle"><div><span class="badge">SANS ARGENT RÉEL</span><h2 id="startTitle">Commencer par la simulation</h2><p>Le Replay du site permet de t’entraîner sur l’historique. Pour pratiquer manuellement sur TradingView, ouvre un graphique puis <strong>Trade → Paper Trading → Connect</strong>.</p><p class="meta">Le simulateur TradingView est gratuit. Les données futures en temps réel peuvent nécessiter un abonnement distinct.</p></div><div class="start-actions"><a class="primary-button" href="/replay/">Ouvrir le Replay</a><a class="ghost-button" href="https://www.tradingview.com/chart/" target="_blank" rel="noopener noreferrer">Ouvrir TradingView ↗</a></div></section>
+
+    <section aria-labelledby="catalogTitle">
+      <div class="catalog-heading"><h2 id="catalogTitle">Mes connexions</h2><p class="meta">Choisir une carte enregistre une préférence. Aucun broker n’est connecté au site.</p></div>
+      <p id="loadStatus" role="status">Chargement de tes préférences…</p>
+      <noscript><p>Active JavaScript pour retrouver et enregistrer ton choix. Les guides ci-dessous restent accessibles.</p></noscript>
+      <form id="providerForm" hidden>
+        <div class="catalog-tools"><label>Rechercher<input id="providerSearch" type="search" placeholder="Lucid, Tradovate, Paper…" autocomplete="off"></label><label>Afficher<select id="providerCategory"><option value="all">Tous les environnements</option><option value="simulation">Simulation</option><option value="broker">Brokers</option><option value="platform">Plateformes et alertes</option><option value="prop">Prop firms</option><option value="other">Autre</option></select></label><p id="resultCount" class="meta" role="status"></p></div>
+        <fieldset class="provider-fieldset"><legend class="sr-only">Choisir un environnement</legend><div id="providerGrid" class="provider-grid"></div></fieldset>
+        <p id="noResults" hidden>Aucun résultat. Change ta recherche ou choisis « Autre environnement » dans la liste complète.</p>
+        <div class="save-panel">
+          <div><p class="selection-line">Choix : <strong id="selectionLabel">Aucun</strong></p><p id="savedChoice" class="meta"></p></div>
+          <label id="customField" hidden>Nom du broker ou de la plateforme<input id="customName" maxlength="80" autocomplete="off" placeholder="Le nom uniquement"></label>
+          <label>Utilisation<select id="usageMode"><option value="paper">Simulation / Paper Trading</option><option value="manual">Journal de mes trades manuels</option></select></label>
+          <button id="saveChoice" class="primary-button" type="submit" disabled>Enregistrer mon choix</button>
+          <p class="meta save-note">Ce réglage n’active pas le bot et ne transmet aucun ordre. Aucun mot de passe ni clé API n’est demandé.</p>
+          <p id="saveStatus" role="status" class="save-note"></p>
+        </div>
+      </form>
+    </section>
+
+    <div class="guides-grid">
+      <section class="connection-guide" aria-labelledby="lucidTitle"><span class="badge">LUCID TRADING</span><h2 id="lucidTitle">Prop firm, plateforme, données</h2><p>Lucid est la prop firm. Pour son accès CQG, Lucid liste <strong>Tradovate, NinjaTrader et TradingView</strong>. Son accès Rithmic utilise d’autres plateformes compatibles.</p><p>Il faudra identifier la plateforme de ton compte pour étudier une vraie connexion au site. Choisir une carte ne remplace pas cette intégration.</p><p>Lucid autorise les systèmes automatisés sous réserve de toutes ses règles. Certaines règles, notamment les news, varient selon le type de compte. Acheter un challenge n’est pas nécessaire pour commencer nos tests historiques.</p><div class="guide-links"><a href="https://support.lucidtrading.com/en/articles/11404614-lucid-trading-supported-platforms" target="_blank" rel="noopener noreferrer">Plateformes Lucid ↗</a><a href="https://support.lucidtrading.com/en/articles/11404728-other-trading-activities" target="_blank" rel="noopener noreferrer">Règles des bots ↗</a></div><p class="meta">Documentation consultée le 9 septembre 2026. À revérifier pour le compte choisi avant toute utilisation.</p></section>
+      <section class="connection-guide" aria-labelledby="availableTitle"><span class="badge">DISPONIBLE DANS TRADING HQ</span><h2 id="availableTitle">Alertes et journal personnel</h2><p><strong>Alertes TradingView :</strong> une adresse personnelle et un guide de configuration. Seule une alerte réellement reçue confirme la liaison.</p><p><strong>Journal :</strong> ajoute tes trades manuellement. La connexion à un broker, l’import automatique d’historique et la synchronisation des positions ne sont pas disponibles.</p><p>Le graphique et les indicateurs de Trading HQ utilisent un historique. Ils ne constituent pas un flux MNQ en temps réel pour entrer en position maintenant.</p><div class="start-actions"><a class="primary-button" href="/alerts/#connect">Configurer mes alertes</a><a class="ghost-button" href="/#journal">Ouvrir mon journal</a><a class="ghost-button" href="/account/#feedback">Demander une intégration</a></div></section>
+    </div>
+
+    <section id="bot-validation" class="validation-panel" aria-labelledby="validationTitle"><div class="catalog-heading"><h2 id="validationTitle">Valider le bot avant de mettre de l’argent</h2><span class="badge pending">Paper Bot et Shadow : OFF</span></div><p><strong>Le bot n’est pas encore validé.</strong> Au bilan du Jeu 10, aucune variante ne passe tous les critères de recherche. Les tests techniques réussis vérifient le logiciel ; ils ne démontrent pas sa rentabilité.</p>
+      <ol class="validation-steps">
+        <li><h3>Backtests avec des règles fixées</h3><p>Tester Long et Short, les frais et le slippage, les périodes défavorables et le drawdown. Fixer les critères avant le calcul. Cette étape existe dans le Lab ; le verdict actuel reste non confirmé.</p></li>
+        <li><h3>Forward test sur de nouvelles données</h3><p>Observer une période jamais utilisée pour ajuster la stratégie. Le protocole MNQ prévoit octobre–novembre 2026, après la préparation de septembre. La collecte après séance n’est pas du trading en direct et cette seule fenêtre ne peut pas valider le bot.</p></li>
+        <li><h3>Paper Trading automatisé</h3><p>Faire tourner le même bot avec des ordres virtuels et un flux actuel : frais, latence, rejets, doublons, déconnexions et limites de perte. Le flux et l’adaptateur d’exécution restent à développer. Le Paper Trading manuel de TradingView ne teste pas automatiquement ce bot.</p></li>
+        <li><h3>Décision après revue des résultats</h3><p>Vérifier la stabilité hors échantillon, le drawdown et le respect des règles du compte envisagé. Aucun nombre de « jeux » ne garantit un bot parfait. Le passage à l’argent réel nécessite une décision distincte.</p></li>
+      </ol>
+      <details><summary>Quels critères sont déjà fixés pour les tests MNQ ?</summary><p>Trois fenêtres distinctes de deux mois, au moins 40 trades au total et 12 par fenêtre, résultat positif dans chaque fenêtre, profit factor ≥ 1,10, drawdown réalisé ≤ 8 R et résultat positif avec les coûts doublés. Ce sont des critères de recherche ; les franchir ne garantit pas les performances futures.</p><p>R représente le risque initial d’un trade. Les paramètres ne doivent pas être ajustés après avoir vu les résultats de la période de validation.</p></details>
+      <div class="guide-links"><a href="/lab/">Voir les résultats du Lab</a><a href="https://www.tradingview.com/support/solutions/43000516466-paper-trading-main-functionality/" target="_blank" rel="noopener noreferrer">Guide Paper Trading ↗</a><a href="https://www.tradingview.com/support/solutions/43000471705-how-to-purchase-additional-market-data/" target="_blank" rel="noopener noreferrer">Comprendre les données en temps réel ↗</a></div>
+    </section>
+  </main>
+</body>
+</html>

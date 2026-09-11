@@ -1,0 +1,27 @@
+#risk37Game p,#risk37Game li{font-size:1rem;line-height:1.65}
+#risk37Game h4{font-size:var(--lab-heading);margin:1.25rem 0 .5rem}
+#risk37Game .risk-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:1rem;margin:1rem 0}
+#risk37Game label span{display:block;margin-bottom:.4rem;font-size:1rem}
+#risk37Game select{width:100%;min-width:0;min-height:44px;font-size:1rem;padding:.6rem;color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:8px}
+#risk37Game .iv-table{min-width:20rem}
+#risk37Game .risk-calendars{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,24rem),1fr));gap:1rem;margin:1.25rem 0}
+#risk37Game .risk-month{min-width:0;border:1px solid var(--line);border-radius:12px;padding:1rem;background:var(--surface)}
+#risk37Game .risk-month h4{margin:0}
+#risk37Game .risk-month-total{font-size:1.8rem;font-weight:700;margin:.35rem 0}
+#risk37Game .risk-month-note{margin:.5rem 0 1rem}
+#risk37Game .risk-calendar-weekdays,#risk37Game .risk-calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}
+#risk37Game .risk-calendar-weekdays{font-size:.875rem;text-align:center;margin-bottom:.5rem;color:var(--muted)}
+#risk37Game .risk-day{min-width:0;min-height:76px;display:flex;flex-direction:column;align-items:center;gap:.35rem;padding:.45rem 0;border:1px solid var(--line);border-radius:6px;background:transparent;color:var(--text);cursor:pointer;font:inherit}
+#risk37Game .risk-day-number{font-size:.875rem;color:var(--text)}
+#risk37Game .risk-day-value{font-size:.875rem;font-weight:650;max-width:100%;overflow-wrap:anywhere;line-height:1.15}
+#risk37Game .risk-day-payout{font-size:.875rem;overflow-wrap:anywhere}
+#risk37Game .is-gain{color:#8be8b5}
+#risk37Game .is-loss{color:#ffaca7}
+#risk37Game .risk-day.is-gain{background:rgba(60,175,113,.12)}
+#risk37Game .risk-day.is-loss{background:rgba(229,92,92,.12)}
+#risk37Game .is-inactive{color:var(--muted)}
+#risk37Game .risk-day[aria-pressed="true"]{outline:2px solid #9cc6ff;outline-offset:1px}
+#risk37Game button:focus-visible,#risk37Game select:focus-visible{outline:3px solid #9cc6ff;outline-offset:2px}
+#risk37Game .risk-day-detail{padding:1rem;border-left:3px solid #9cc6ff;background:rgba(156,198,255,.06)}
+#risk37Game .risk-day-detail h4{margin-top:0}
+@media(max-width:400px){#risk37Game .risk-month{padding:.65rem}#risk37Game .risk-controls{grid-template-columns:1fr}}

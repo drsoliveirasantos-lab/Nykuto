@@ -1,0 +1,42 @@
+{
+  "schema": "jeu37-archive-v1",
+  "namespace": "TRADING_DATASETS",
+  "prefix": "jeu37/confidence-risk-v1/",
+  "prePerformanceCommit": "ff0948823ee670385aaf34b6865bf9cb49317c82",
+  "freezeSha256": "ac87880b0dda78276f0efb7d7c85a874384c7e7747756ed67de0bb0e874dcdd7",
+  "files": [
+    {
+      "name": "report.json",
+      "bytes": 501152,
+      "sha256": "7b6aab05fccfcd86d397d03c8295fc8643e3ac22bfa2bd8d5dbfad0f1c07713f",
+      "encoding": "gzip+base64",
+      "parts": [
+        {
+          "key": "jeu37/confidence-risk-v1/report.json.gz.b64.part-000",
+          "bytes": 36812,
+          "sha256": "04a4656592a657282a9c55eb33c8ba81facc97f5388b156b99ee08b1c16e4d0a"
+        }
+      ]
+    },
+    {
+      "name": "runs-private.json",
+      "bytes": 1068424,
+      "sha256": "d96d279d13a819d9cf58b575218897b43f3279a749c4aa5ba8e7aabee632e44b",
+      "encoding": "gzip+base64",
+      "parts": [
+        {
+          "key": "jeu37/confidence-risk-v1/runs-private.json.gz.b64.part-000",
+          "bytes": 60000,
+          "sha256": "d21dd215f208892292b9784aa1eb24649fbb43b440bf08d1b29094fa3c15c197"
+        },
+        {
+          "key": "jeu37/confidence-risk-v1/runs-private.json.gz.b64.part-001",
+          "bytes": 47192,
+          "sha256": "44aa4d2af4ce4c598c2da6e9156464bae930ea974d0ccaaf40697daca7df21de"
+        }
+      ]
+    }
+  ],
+  "confirmed": false,
+  "executionAllowed": false
+}

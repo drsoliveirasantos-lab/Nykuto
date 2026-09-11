@@ -1,0 +1,40 @@
+{
+  "schema": "jeu36-archive-v1",
+  "prefix": "jeu36/entry-confirmation-v1/",
+  "prePerformanceCommit": "de6365e691b2b137c6a73689765d448cb6a69249",
+  "files": [
+    {
+      "name": "report.json",
+      "bytes": 308887,
+      "sha256": "d8c1f793f00d23989838d83d62abbb130195a75eb957db342ac18e8cf7612537",
+      "encoding": "gzip+base64",
+      "parts": [
+        {
+          "key": "jeu36/entry-confirmation-v1/report.json.gz.b64.part-000",
+          "bytes": 17556,
+          "sha256": "530d7d10743a0ab20dc0508d79d7a6892eaecb63c37adc9c4ed593c85033016f"
+        }
+      ]
+    },
+    {
+      "name": "runs-private.json",
+      "bytes": 953912,
+      "sha256": "517f4fae40033bc01860ba7a9d0d3b66c41b3945b6ac95aeee8231c0d99181e2",
+      "encoding": "gzip+base64",
+      "parts": [
+        {
+          "key": "jeu36/entry-confirmation-v1/runs-private.json.gz.b64.part-000",
+          "bytes": 60000,
+          "sha256": "713c3d184b64f29da4ee8f0a0091d6756188dd7f83b2027ce1efcf2ca6af2390"
+        },
+        {
+          "key": "jeu36/entry-confirmation-v1/runs-private.json.gz.b64.part-001",
+          "bytes": 24120,
+          "sha256": "216ce41fc07bad1f0cb59013e03d506a773f388e7cd738ab73e49b7881a87ccb"
+        }
+      ]
+    }
+  ],
+  "confirmed": false,
+  "executionAllowed": false
+}

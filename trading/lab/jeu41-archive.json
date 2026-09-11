@@ -1,0 +1,55 @@
+{
+  "schema": "jeu41-private-archive-v1",
+  "namespace": "TRADING_DATASETS",
+  "prefix": "jeu41/mes-net-reward-v1/",
+  "prePerformanceCommit": "73aa1a6208a85f5a622e5d81f2675cd561ca0bb2",
+  "freezeSha256": "4103b44c49687f32310f9f46d7ff3579fca8f1edc48c2c392df3d4f6d8019722",
+  "files": [
+    {
+      "name": "entry-audit.json",
+      "bytes": 200804,
+      "sha256": "288cc67fdd9b4e3aed610d8530edeef0b3f1c5f259be7268cc8ec3d47ab9357e",
+      "encoding": "gzip+base64",
+      "parts": [
+        {
+          "key": "jeu41/mes-net-reward-v1/entry-audit.json.gz.b64.000",
+          "bytes": 23920,
+          "sha256": "06b98d31e34694f915a8e24ee53636e4ea9678ef2553820d06d37a6d5108ffc4"
+        }
+      ]
+    },
+    {
+      "name": "report.json",
+      "bytes": 700142,
+      "sha256": "57126d9f313c03b63e73be2e531a07670e2cd62d1b04fe49467e45f297f6b559",
+      "encoding": "gzip+base64",
+      "parts": [
+        {
+          "key": "jeu41/mes-net-reward-v1/report.json.gz.b64.000",
+          "bytes": 44764,
+          "sha256": "d6c925ded0a0b31a0f25658171117187d489c7f1ad6995c573d4ef5a3bf65959"
+        }
+      ]
+    },
+    {
+      "name": "runs-private.json",
+      "bytes": 1073114,
+      "sha256": "06db6f39fae5c0009b5e55da69310863fe4f8eb03b2d6cd2ea530d2749e9516c",
+      "encoding": "gzip+base64",
+      "parts": [
+        {
+          "key": "jeu41/mes-net-reward-v1/runs-private.json.gz.b64.000",
+          "bytes": 60000,
+          "sha256": "e0ec6a5dd0bc80f38a96b44781aa97e8c770ca261615908de324c351ea3cab78"
+        },
+        {
+          "key": "jeu41/mes-net-reward-v1/runs-private.json.gz.b64.001",
+          "bytes": 49172,
+          "sha256": "c84b39eb268a3978cc2668cc667f6e062c37339654efbc32c545284c111df6c5"
+        }
+      ]
+    }
+  ],
+  "confirmed": false,
+  "executionAllowed": false
+}

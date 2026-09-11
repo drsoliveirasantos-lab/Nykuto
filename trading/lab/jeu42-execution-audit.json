@@ -1,0 +1,6111 @@
+{
+  "schema": "jeu42-independent-arithmetic-audit-v1",
+  "sourceReportSha256": "efc3a4338458ccac4d7a1a32e3b317fa8646bea1b6e4b49515eb581599344bdc",
+  "sourceRunsSha256": "dd197ce7c07b73a154b98c403ead94979af281e54a0fb01acb873ea4596d5476",
+  "prePerformanceCommit": "39904d4a5f16d2ce71880c6d127766bca649a9aa",
+  "checkedTrades": 451,
+  "checkedDays": 656,
+  "checkedWeeks": 156,
+  "exactWholeControls": 16,
+  "newReplays": 0,
+  "newInferences": 0,
+  "passed": true,
+  "failedCriterionCells": [
+    {
+      "month": "january",
+      "cost": "normal",
+      "netDelta": -180.25,
+      "drawdownDelta": 0.0
+    },
+    {
+      "month": "january",
+      "cost": "stress",
+      "netDelta": -184,
+      "drawdownDelta": 0.0
+    },
+    {
+      "month": "june",
+      "cost": "normal",
+      "netDelta": -130.0,
+      "drawdownDelta": 0.0
+    },
+    {
+      "month": "july",
+      "cost": "normal",
+      "netDelta": -135,
+      "drawdownDelta": 110.0
+    },
+    {
+      "month": "august",
+      "cost": "normal",
+      "netDelta": -125.0,
+      "drawdownDelta": 0.0
+    }
+  ],
+  "monthly": [
+    {
+      "month": "january",
+      "variant": "baseline",
+      "cost": "normal",
+      "net": 511,
+      "trades": 17,
+      "wins": 8,
+      "losses": 9,
+      "drawdown": 227.0,
+      "referenceNet": 511,
+      "referenceDrawdown": 227,
+      "comparison": {
+        "common": 17,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 0.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 7,
+          "net": 435,
+          "wins": 4,
+          "losses": 3,
+          "mean": 62.14,
+          "averageWin": 162.38,
+          "averageLoss": -71.5,
+          "best": 175.5,
+          "worst": -94.5,
+          "winRate": 0.5714285714285714
+        },
+        {
+          "symbol": "MES",
+          "trades": 6,
+          "net": 122.5,
+          "wins": 3,
+          "losses": 3,
+          "mean": 20.42,
+          "averageWin": 115,
+          "averageLoss": -74.17,
+          "best": 125,
+          "worst": -86.25,
+          "winRate": 0.5
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 4,
+          "net": -46.5,
+          "wins": 1,
+          "losses": 3,
+          "mean": -11.62,
+          "averageWin": 179.5,
+          "averageLoss": -75.33,
+          "best": 179.5,
+          "worst": -85,
+          "winRate": 0.25
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 7,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 6,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 4,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    },
+    {
+      "month": "january",
+      "variant": "baseline",
+      "cost": "stress",
+      "net": 48,
+      "trades": 16,
+      "wins": 6,
+      "losses": 10,
+      "drawdown": 336.0,
+      "referenceNet": 48,
+      "referenceDrawdown": 336,
+      "comparison": {
+        "common": 16,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 0.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 7,
+          "net": 344.5,
+          "wins": 4,
+          "losses": 3,
+          "mean": 49.21,
+          "averageWin": 136.25,
+          "averageLoss": -66.83,
+          "best": 172,
+          "worst": -75,
+          "winRate": 0.5714285714285714
+        },
+        {
+          "symbol": "MES",
+          "trades": 6,
+          "net": -52.5,
+          "wins": 2,
+          "losses": 4,
+          "mean": -8.75,
+          "averageWin": 110,
+          "averageLoss": -68.12,
+          "best": 115,
+          "worst": -95,
+          "winRate": 0.3333333333333333
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 3,
+          "net": -244,
+          "wins": 0,
+          "losses": 3,
+          "mean": -81.33,
+          "averageWin": null,
+          "averageLoss": -81.33,
+          "best": -73,
+          "worst": -94,
+          "winRate": 0
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 7,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 6,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 3,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    },
+    {
+      "month": "january",
+      "variant": "mes-pullback-volume",
+      "cost": "normal",
+      "net": 330.75,
+      "trades": 16,
+      "wins": 7,
+      "losses": 9,
+      "drawdown": 227.0,
+      "referenceNet": 511,
+      "referenceDrawdown": 227,
+      "comparison": {
+        "common": 15,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 2,
+          "wins": 1,
+          "losses": 1,
+          "net": 91.25
+        },
+        "added": {
+          "count": 1,
+          "wins": 0,
+          "losses": 1,
+          "net": -89
+        },
+        "delta": -180.25,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 7,
+          "net": 203.5,
+          "wins": 3,
+          "losses": 4,
+          "mean": 29.07,
+          "averageWin": 169,
+          "averageLoss": -75.87,
+          "best": 175.5,
+          "worst": -94.5,
+          "winRate": 0.42857142857142855
+        },
+        {
+          "symbol": "MES",
+          "trades": 5,
+          "net": 173.75,
+          "wins": 3,
+          "losses": 2,
+          "mean": 34.75,
+          "averageWin": 115,
+          "averageLoss": -85.62,
+          "best": 125,
+          "worst": -86.25,
+          "winRate": 0.6
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 4,
+          "net": -46.5,
+          "wins": 1,
+          "losses": 3,
+          "mean": -11.62,
+          "averageWin": 179.5,
+          "averageLoss": -75.33,
+          "best": 179.5,
+          "worst": -85,
+          "winRate": 0.25
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 6,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 1,
+            "wins": 1,
+            "losses": 0,
+            "net": 142.5
+          },
+          "added": {
+            "count": 1,
+            "wins": 0,
+            "losses": 1,
+            "net": -89
+          },
+          "delta": -231.5,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 5,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 1,
+            "wins": 0,
+            "losses": 1,
+            "net": -51.25
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 51.25,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 4,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    },
+    {
+      "month": "january",
+      "variant": "mes-pullback-volume",
+      "cost": "stress",
+      "net": -136,
+      "trades": 15,
+      "wins": 5,
+      "losses": 10,
+      "drawdown": 336.0,
+      "referenceNet": 48,
+      "referenceDrawdown": 336,
+      "comparison": {
+        "common": 13,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 3,
+          "wins": 1,
+          "losses": 2,
+          "net": 22.0
+        },
+        "added": {
+          "count": 2,
+          "wins": 0,
+          "losses": 2,
+          "net": -162.0
+        },
+        "delta": -184.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 8,
+          "net": 50.5,
+          "wins": 3,
+          "losses": 5,
+          "mean": 6.31,
+          "averageWin": 137.67,
+          "averageLoss": -72.5,
+          "best": 172,
+          "worst": -92.5,
+          "winRate": 0.375
+        },
+        {
+          "symbol": "MES",
+          "trades": 4,
+          "net": 57.5,
+          "wins": 2,
+          "losses": 2,
+          "mean": 14.38,
+          "averageWin": 110,
+          "averageLoss": -81.25,
+          "best": 115,
+          "worst": -95,
+          "winRate": 0.5
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 3,
+          "net": -244,
+          "wins": 0,
+          "losses": 3,
+          "mean": -81.33,
+          "averageWin": null,
+          "averageLoss": -81.33,
+          "best": -73,
+          "worst": -94,
+          "winRate": 0
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 6,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 1,
+            "wins": 1,
+            "losses": 0,
+            "net": 132
+          },
+          "added": {
+            "count": 2,
+            "wins": 0,
+            "losses": 2,
+            "net": -162
+          },
+          "delta": -294,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 4,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 2,
+            "wins": 0,
+            "losses": 2,
+            "net": -110
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 110,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 3,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    },
+    {
+      "month": "february",
+      "variant": "baseline",
+      "cost": "normal",
+      "net": 663.25,
+      "trades": 10,
+      "wins": 7,
+      "losses": 3,
+      "drawdown": 88.5,
+      "referenceNet": 663.25,
+      "referenceDrawdown": 88.5,
+      "comparison": {
+        "common": 10,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 0.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 5,
+          "net": 488.5,
+          "wins": 4,
+          "losses": 1,
+          "mean": 97.7,
+          "averageWin": 143.25,
+          "averageLoss": -84.5,
+          "best": 172.5,
+          "worst": -84.5,
+          "winRate": 0.8
+        },
+        {
+          "symbol": "MES",
+          "trades": 3,
+          "net": 163.75,
+          "wins": 2,
+          "losses": 1,
+          "mean": 54.58,
+          "averageWin": 113.75,
+          "averageLoss": -63.75,
+          "best": 115,
+          "worst": -63.75,
+          "winRate": 0.6666666666666666
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 2,
+          "net": 11,
+          "wins": 1,
+          "losses": 1,
+          "mean": 5.5,
+          "averageWin": 99.5,
+          "averageLoss": -88.5,
+          "best": 99.5,
+          "worst": -88.5,
+          "winRate": 0.5
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 5,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 3,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 2,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    },
+    {
+      "month": "february",
+      "variant": "baseline",
+      "cost": "stress",
+      "net": 616.75,
+      "trades": 10,
+      "wins": 7,
+      "losses": 3,
+      "drawdown": 93.0,
+      "referenceNet": 616.75,
+      "referenceDrawdown": 93,
+      "comparison": {
+        "common": 10,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 0.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 5,
+          "net": 471,
+          "wins": 4,
+          "losses": 1,
+          "mean": 94.2,
+          "averageWin": 139.75,
+          "averageLoss": -88,
+          "best": 169,
+          "worst": -88,
+          "winRate": 0.8
+        },
+        {
+          "symbol": "MES",
+          "trades": 3,
+          "net": 143.75,
+          "wins": 2,
+          "losses": 1,
+          "mean": 47.92,
+          "averageWin": 106.25,
+          "averageLoss": -68.75,
+          "best": 107.5,
+          "worst": -68.75,
+          "winRate": 0.6666666666666666
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 2,
+          "net": 2,
+          "wins": 1,
+          "losses": 1,
+          "mean": 1,
+          "averageWin": 95,
+          "averageLoss": -93,
+          "best": 95,
+          "worst": -93,
+          "winRate": 0.5
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 5,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 3,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 2,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    },
+    {
+      "month": "february",
+      "variant": "mes-pullback-volume",
+      "cost": "normal",
+      "net": 663.25,
+      "trades": 10,
+      "wins": 7,
+      "losses": 3,
+      "drawdown": 88.5,
+      "referenceNet": 663.25,
+      "referenceDrawdown": 88.5,
+      "comparison": {
+        "common": 10,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 0.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 5,
+          "net": 488.5,
+          "wins": 4,
+          "losses": 1,
+          "mean": 97.7,
+          "averageWin": 143.25,
+          "averageLoss": -84.5,
+          "best": 172.5,
+          "worst": -84.5,
+          "winRate": 0.8
+        },
+        {
+          "symbol": "MES",
+          "trades": 3,
+          "net": 163.75,
+          "wins": 2,
+          "losses": 1,
+          "mean": 54.58,
+          "averageWin": 113.75,
+          "averageLoss": -63.75,
+          "best": 115,
+          "worst": -63.75,
+          "winRate": 0.6666666666666666
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 2,
+          "net": 11,
+          "wins": 1,
+          "losses": 1,
+          "mean": 5.5,
+          "averageWin": 99.5,
+          "averageLoss": -88.5,
+          "best": 99.5,
+          "worst": -88.5,
+          "winRate": 0.5
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 5,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 3,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 2,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    },
+    {
+      "month": "february",
+      "variant": "mes-pullback-volume",
+      "cost": "stress",
+      "net": 616.75,
+      "trades": 10,
+      "wins": 7,
+      "losses": 3,
+      "drawdown": 93.0,
+      "referenceNet": 616.75,
+      "referenceDrawdown": 93,
+      "comparison": {
+        "common": 10,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 0.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 5,
+          "net": 471,
+          "wins": 4,
+          "losses": 1,
+          "mean": 94.2,
+          "averageWin": 139.75,
+          "averageLoss": -88,
+          "best": 169,
+          "worst": -88,
+          "winRate": 0.8
+        },
+        {
+          "symbol": "MES",
+          "trades": 3,
+          "net": 143.75,
+          "wins": 2,
+          "losses": 1,
+          "mean": 47.92,
+          "averageWin": 106.25,
+          "averageLoss": -68.75,
+          "best": 107.5,
+          "worst": -68.75,
+          "winRate": 0.6666666666666666
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 2,
+          "net": 2,
+          "wins": 1,
+          "losses": 1,
+          "mean": 1,
+          "averageWin": 95,
+          "averageLoss": -93,
+          "best": 95,
+          "worst": -93,
+          "winRate": 0.5
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 5,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 3,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 2,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    },
+    {
+      "month": "march",
+      "variant": "baseline",
+      "cost": "normal",
+      "net": -297.5,
+      "trades": 11,
+      "wins": 3,
+      "losses": 8,
+      "drawdown": 330.0,
+      "referenceNet": -297.5,
+      "referenceDrawdown": 330,
+      "comparison": {
+        "common": 11,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 0.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 6,
+          "net": -128.5,
+          "wins": 2,
+          "losses": 4,
+          "mean": -21.42,
+          "averageWin": 119.75,
+          "averageLoss": -92,
+          "best": 139,
+          "worst": -98,
+          "winRate": 0.3333333333333333
+        },
+        {
+          "symbol": "MES",
+          "trades": 4,
+          "net": -72.5,
+          "wins": 1,
+          "losses": 3,
+          "mean": -18.12,
+          "averageWin": 95,
+          "averageLoss": -55.83,
+          "best": 95,
+          "worst": -60,
+          "winRate": 0.25
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 1,
+          "net": -96.5,
+          "wins": 0,
+          "losses": 1,
+          "mean": -96.5,
+          "averageWin": null,
+          "averageLoss": -96.5,
+          "best": -96.5,
+          "worst": -96.5,
+          "winRate": 0
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 6,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 4,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 1,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    },
+    {
+      "month": "march",
+      "variant": "baseline",
+      "cost": "stress",
+      "net": -250.5,
+      "trades": 10,
+      "wins": 3,
+      "losses": 7,
+      "drawdown": 356.0,
+      "referenceNet": -250.5,
+      "referenceDrawdown": 356,
+      "comparison": {
+        "common": 10,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 0.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 6,
+          "net": -158,
+          "wins": 2,
+          "losses": 4,
+          "mean": -26.33,
+          "averageWin": 114.5,
+          "averageLoss": -96.75,
+          "best": 132,
+          "worst": -98.5,
+          "winRate": 0.3333333333333333
+        },
+        {
+          "symbol": "MES",
+          "trades": 4,
+          "net": -92.5,
+          "wins": 1,
+          "losses": 3,
+          "mean": -23.12,
+          "averageWin": 90,
+          "averageLoss": -60.83,
+          "best": 90,
+          "worst": -65,
+          "winRate": 0.25
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 6,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 4,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    },
+    {
+      "month": "march",
+      "variant": "mes-pullback-volume",
+      "cost": "normal",
+      "net": -297.5,
+      "trades": 11,
+      "wins": 3,
+      "losses": 8,
+      "drawdown": 330.0,
+      "referenceNet": -297.5,
+      "referenceDrawdown": 330,
+      "comparison": {
+        "common": 11,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 0.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 6,
+          "net": -128.5,
+          "wins": 2,
+          "losses": 4,
+          "mean": -21.42,
+          "averageWin": 119.75,
+          "averageLoss": -92,
+          "best": 139,
+          "worst": -98,
+          "winRate": 0.3333333333333333
+        },
+        {
+          "symbol": "MES",
+          "trades": 4,
+          "net": -72.5,
+          "wins": 1,
+          "losses": 3,
+          "mean": -18.12,
+          "averageWin": 95,
+          "averageLoss": -55.83,
+          "best": 95,
+          "worst": -60,
+          "winRate": 0.25
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 1,
+          "net": -96.5,
+          "wins": 0,
+          "losses": 1,
+          "mean": -96.5,
+          "averageWin": null,
+          "averageLoss": -96.5,
+          "best": -96.5,
+          "worst": -96.5,
+          "winRate": 0
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 6,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 4,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 1,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    },
+    {
+      "month": "march",
+      "variant": "mes-pullback-volume",
+      "cost": "stress",
+      "net": -250.5,
+      "trades": 10,
+      "wins": 3,
+      "losses": 7,
+      "drawdown": 356.0,
+      "referenceNet": -250.5,
+      "referenceDrawdown": 356,
+      "comparison": {
+        "common": 10,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 0.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 6,
+          "net": -158,
+          "wins": 2,
+          "losses": 4,
+          "mean": -26.33,
+          "averageWin": 114.5,
+          "averageLoss": -96.75,
+          "best": 132,
+          "worst": -98.5,
+          "winRate": 0.3333333333333333
+        },
+        {
+          "symbol": "MES",
+          "trades": 4,
+          "net": -92.5,
+          "wins": 1,
+          "losses": 3,
+          "mean": -23.12,
+          "averageWin": 90,
+          "averageLoss": -60.83,
+          "best": 90,
+          "worst": -65,
+          "winRate": 0.25
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 6,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 4,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    },
+    {
+      "month": "april",
+      "variant": "baseline",
+      "cost": "normal",
+      "net": 323.75,
+      "trades": 16,
+      "wins": 7,
+      "losses": 9,
+      "drawdown": 263.0,
+      "referenceNet": 323.75,
+      "referenceDrawdown": 263,
+      "comparison": {
+        "common": 16,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 0.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 7,
+          "net": 421.5,
+          "wins": 4,
+          "losses": 3,
+          "mean": 60.21,
+          "averageWin": 156.75,
+          "averageLoss": -68.5,
+          "best": 188.5,
+          "worst": -72,
+          "winRate": 0.5714285714285714
+        },
+        {
+          "symbol": "MES",
+          "trades": 6,
+          "net": -68.75,
+          "wins": 2,
+          "losses": 4,
+          "mean": -11.46,
+          "averageWin": 133.75,
+          "averageLoss": -84.06,
+          "best": 162.5,
+          "worst": -100,
+          "winRate": 0.3333333333333333
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 3,
+          "net": -29,
+          "wins": 1,
+          "losses": 2,
+          "mean": -9.67,
+          "averageWin": 151.5,
+          "averageLoss": -90.25,
+          "best": 151.5,
+          "worst": -95,
+          "winRate": 0.3333333333333333
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 7,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 6,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 3,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    },
+    {
+      "month": "april",
+      "variant": "baseline",
+      "cost": "stress",
+      "net": 216.25,
+      "trades": 14,
+      "wins": 6,
+      "losses": 8,
+      "drawdown": 234.5,
+      "referenceNet": 216.25,
+      "referenceDrawdown": 234.5,
+      "comparison": {
+        "common": 14,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 0.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 6,
+          "net": 205,
+          "wins": 3,
+          "losses": 3,
+          "mean": 34.17,
+          "averageWin": 140.33,
+          "averageLoss": -72,
+          "best": 154,
+          "worst": -75.5,
+          "winRate": 0.5
+        },
+        {
+          "symbol": "MES",
+          "trades": 5,
+          "net": 6.25,
+          "wins": 2,
+          "losses": 3,
+          "mean": 1.25,
+          "averageWin": 126.25,
+          "averageLoss": -82.08,
+          "best": 157.5,
+          "worst": -92.5,
+          "winRate": 0.4
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 3,
+          "net": 5,
+          "wins": 1,
+          "losses": 2,
+          "mean": 1.67,
+          "averageWin": 147,
+          "averageLoss": -71,
+          "best": 147,
+          "worst": -90,
+          "winRate": 0.3333333333333333
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 6,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 5,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 3,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    },
+    {
+      "month": "april",
+      "variant": "mes-pullback-volume",
+      "cost": "normal",
+      "net": 477.5,
+      "trades": 14,
+      "wins": 7,
+      "losses": 7,
+      "drawdown": 263.0,
+      "referenceNet": 323.75,
+      "referenceDrawdown": 263,
+      "comparison": {
+        "common": 14,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 2,
+          "wins": 0,
+          "losses": 2,
+          "net": -153.75
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 153.75,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 7,
+          "net": 421.5,
+          "wins": 4,
+          "losses": 3,
+          "mean": 60.21,
+          "averageWin": 156.75,
+          "averageLoss": -68.5,
+          "best": 188.5,
+          "worst": -72,
+          "winRate": 0.5714285714285714
+        },
+        {
+          "symbol": "MES",
+          "trades": 4,
+          "net": 85,
+          "wins": 2,
+          "losses": 2,
+          "mean": 21.25,
+          "averageWin": 133.75,
+          "averageLoss": -91.25,
+          "best": 162.5,
+          "worst": -100,
+          "winRate": 0.5
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 3,
+          "net": -29,
+          "wins": 1,
+          "losses": 2,
+          "mean": -9.67,
+          "averageWin": 151.5,
+          "averageLoss": -90.25,
+          "best": 151.5,
+          "worst": -95,
+          "winRate": 0.3333333333333333
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 7,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 4,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 2,
+            "wins": 0,
+            "losses": 2,
+            "net": -153.75
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 153.75,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 3,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    },
+    {
+      "month": "april",
+      "variant": "mes-pullback-volume",
+      "cost": "stress",
+      "net": 280,
+      "trades": 13,
+      "wins": 6,
+      "losses": 7,
+      "drawdown": 234.5,
+      "referenceNet": 216.25,
+      "referenceDrawdown": 234.5,
+      "comparison": {
+        "common": 13,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 1,
+          "wins": 0,
+          "losses": 1,
+          "net": -63.75
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 63.75,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 6,
+          "net": 205,
+          "wins": 3,
+          "losses": 3,
+          "mean": 34.17,
+          "averageWin": 140.33,
+          "averageLoss": -72,
+          "best": 154,
+          "worst": -75.5,
+          "winRate": 0.5
+        },
+        {
+          "symbol": "MES",
+          "trades": 4,
+          "net": 70,
+          "wins": 2,
+          "losses": 2,
+          "mean": 17.5,
+          "averageWin": 126.25,
+          "averageLoss": -91.25,
+          "best": 157.5,
+          "worst": -92.5,
+          "winRate": 0.5
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 3,
+          "net": 5,
+          "wins": 1,
+          "losses": 2,
+          "mean": 1.67,
+          "averageWin": 147,
+          "averageLoss": -71,
+          "best": 147,
+          "worst": -90,
+          "winRate": 0.3333333333333333
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 6,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 4,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 1,
+            "wins": 0,
+            "losses": 1,
+            "net": -63.75
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 63.75,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 3,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    },
+    {
+      "month": "may",
+      "variant": "baseline",
+      "cost": "normal",
+      "net": -256.5,
+      "trades": 20,
+      "wins": 6,
+      "losses": 14,
+      "drawdown": 730.25,
+      "referenceNet": -256.5,
+      "referenceDrawdown": 730.25,
+      "comparison": {
+        "common": 20,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 0.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 7,
+          "net": -75,
+          "wins": 2,
+          "losses": 5,
+          "mean": -10.71,
+          "averageWin": 147,
+          "averageLoss": -73.8,
+          "best": 149.5,
+          "worst": -85.5,
+          "winRate": 0.2857142857142857
+        },
+        {
+          "symbol": "MES",
+          "trades": 8,
+          "net": -245,
+          "wins": 2,
+          "losses": 6,
+          "mean": -30.62,
+          "averageWin": 113.75,
+          "averageLoss": -78.75,
+          "best": 115,
+          "worst": -97.5,
+          "winRate": 0.25
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 5,
+          "net": 63.5,
+          "wins": 2,
+          "losses": 3,
+          "mean": 12.7,
+          "averageWin": 141.5,
+          "averageLoss": -73.17,
+          "best": 177.5,
+          "worst": -77.5,
+          "winRate": 0.4
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 7,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 8,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 5,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    },
+    {
+      "month": "may",
+      "variant": "baseline",
+      "cost": "stress",
+      "net": -197.5,
+      "trades": 18,
+      "wins": 6,
+      "losses": 12,
+      "drawdown": 689.5,
+      "referenceNet": -197.5,
+      "referenceDrawdown": 689.5,
+      "comparison": {
+        "common": 18,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 0.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 6,
+          "net": -44.5,
+          "wins": 2,
+          "losses": 4,
+          "mean": -7.42,
+          "averageWin": 143.5,
+          "averageLoss": -82.87,
+          "best": 146,
+          "worst": -89,
+          "winRate": 0.3333333333333333
+        },
+        {
+          "symbol": "MES",
+          "trades": 7,
+          "net": -185,
+          "wins": 2,
+          "losses": 5,
+          "mean": -26.43,
+          "averageWin": 92.5,
+          "averageLoss": -74,
+          "best": 105,
+          "worst": -92.5,
+          "winRate": 0.2857142857142857
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 5,
+          "net": 32,
+          "wins": 2,
+          "losses": 3,
+          "mean": 6.4,
+          "averageWin": 137,
+          "averageLoss": -80.67,
+          "best": 173,
+          "worst": -90,
+          "winRate": 0.4
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 6,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 7,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 5,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    },
+    {
+      "month": "may",
+      "variant": "mes-pullback-volume",
+      "cost": "normal",
+      "net": -174,
+      "trades": 19,
+      "wins": 6,
+      "losses": 13,
+      "drawdown": 730.25,
+      "referenceNet": -256.5,
+      "referenceDrawdown": 730.25,
+      "comparison": {
+        "common": 19,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 1,
+          "wins": 0,
+          "losses": 1,
+          "net": -82.5
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 82.5,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 7,
+          "net": -75,
+          "wins": 2,
+          "losses": 5,
+          "mean": -10.71,
+          "averageWin": 147,
+          "averageLoss": -73.8,
+          "best": 149.5,
+          "worst": -85.5,
+          "winRate": 0.2857142857142857
+        },
+        {
+          "symbol": "MES",
+          "trades": 7,
+          "net": -162.5,
+          "wins": 2,
+          "losses": 5,
+          "mean": -23.21,
+          "averageWin": 113.75,
+          "averageLoss": -78,
+          "best": 115,
+          "worst": -97.5,
+          "winRate": 0.2857142857142857
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 5,
+          "net": 63.5,
+          "wins": 2,
+          "losses": 3,
+          "mean": 12.7,
+          "averageWin": 141.5,
+          "averageLoss": -73.17,
+          "best": 177.5,
+          "worst": -77.5,
+          "winRate": 0.4
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 7,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 7,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 1,
+            "wins": 0,
+            "losses": 1,
+            "net": -82.5
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 82.5,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 5,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    },
+    {
+      "month": "may",
+      "variant": "mes-pullback-volume",
+      "cost": "stress",
+      "net": -105,
+      "trades": 17,
+      "wins": 6,
+      "losses": 11,
+      "drawdown": 689.5,
+      "referenceNet": -197.5,
+      "referenceDrawdown": 689.5,
+      "comparison": {
+        "common": 17,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 1,
+          "wins": 0,
+          "losses": 1,
+          "net": -92.5
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 92.5,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 6,
+          "net": -44.5,
+          "wins": 2,
+          "losses": 4,
+          "mean": -7.42,
+          "averageWin": 143.5,
+          "averageLoss": -82.87,
+          "best": 146,
+          "worst": -89,
+          "winRate": 0.3333333333333333
+        },
+        {
+          "symbol": "MES",
+          "trades": 6,
+          "net": -92.5,
+          "wins": 2,
+          "losses": 4,
+          "mean": -15.42,
+          "averageWin": 92.5,
+          "averageLoss": -69.37,
+          "best": 105,
+          "worst": -85,
+          "winRate": 0.3333333333333333
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 5,
+          "net": 32,
+          "wins": 2,
+          "losses": 3,
+          "mean": 6.4,
+          "averageWin": 137,
+          "averageLoss": -80.67,
+          "best": 173,
+          "worst": -90,
+          "winRate": 0.4
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 6,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 6,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 1,
+            "wins": 0,
+            "losses": 1,
+            "net": -92.5
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 92.5,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 5,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    },
+    {
+      "month": "june",
+      "variant": "baseline",
+      "cost": "normal",
+      "net": 1048.75,
+      "trades": 16,
+      "wins": 11,
+      "losses": 5,
+      "drawdown": 172.5,
+      "referenceNet": 1048.75,
+      "referenceDrawdown": 172.5,
+      "comparison": {
+        "common": 16,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 0.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 7,
+          "net": 700,
+          "wins": 6,
+          "losses": 1,
+          "mean": 100,
+          "averageWin": 131.67,
+          "averageLoss": -90,
+          "best": 153.5,
+          "worst": -90,
+          "winRate": 0.8571428571428571
+        },
+        {
+          "symbol": "MES",
+          "trades": 7,
+          "net": 83.75,
+          "wins": 3,
+          "losses": 4,
+          "mean": 11.96,
+          "averageWin": 138.33,
+          "averageLoss": -82.81,
+          "best": 155,
+          "worst": -87.5,
+          "winRate": 0.42857142857142855
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 2,
+          "net": 265,
+          "wins": 2,
+          "losses": 0,
+          "mean": 132.5,
+          "averageWin": 132.5,
+          "averageLoss": null,
+          "best": 155.5,
+          "worst": 109.5,
+          "winRate": 1
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 7,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 7,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 2,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    },
+    {
+      "month": "june",
+      "variant": "baseline",
+      "cost": "stress",
+      "net": 785.5,
+      "trades": 13,
+      "wins": 9,
+      "losses": 4,
+      "drawdown": 145.0,
+      "referenceNet": 785.5,
+      "referenceDrawdown": 145,
+      "comparison": {
+        "common": 13,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 0.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 6,
+          "net": 559,
+          "wins": 5,
+          "losses": 1,
+          "mean": 93.17,
+          "averageWin": 131.2,
+          "averageLoss": -97,
+          "best": 150,
+          "worst": -97,
+          "winRate": 0.8333333333333334
+        },
+        {
+          "symbol": "MES",
+          "trades": 4,
+          "net": 47.5,
+          "wins": 2,
+          "losses": 2,
+          "mean": 11.88,
+          "averageWin": 96.25,
+          "averageLoss": -72.5,
+          "best": 120,
+          "worst": -77.5,
+          "winRate": 0.5
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 3,
+          "net": 179,
+          "wins": 2,
+          "losses": 1,
+          "mean": 59.67,
+          "averageWin": 128,
+          "averageLoss": -77,
+          "best": 151,
+          "worst": -77,
+          "winRate": 0.6666666666666666
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 6,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 4,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 3,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    },
+    {
+      "month": "june",
+      "variant": "mes-pullback-volume",
+      "cost": "normal",
+      "net": 918.75,
+      "trades": 15,
+      "wins": 10,
+      "losses": 5,
+      "drawdown": 172.5,
+      "referenceNet": 1048.75,
+      "referenceDrawdown": 172.5,
+      "comparison": {
+        "common": 15,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 1,
+          "wins": 1,
+          "losses": 0,
+          "net": 130
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": -130.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 7,
+          "net": 700,
+          "wins": 6,
+          "losses": 1,
+          "mean": 100,
+          "averageWin": 131.67,
+          "averageLoss": -90,
+          "best": 153.5,
+          "worst": -90,
+          "winRate": 0.8571428571428571
+        },
+        {
+          "symbol": "MES",
+          "trades": 6,
+          "net": -46.25,
+          "wins": 2,
+          "losses": 4,
+          "mean": -7.71,
+          "averageWin": 142.5,
+          "averageLoss": -82.81,
+          "best": 155,
+          "worst": -87.5,
+          "winRate": 0.3333333333333333
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 2,
+          "net": 265,
+          "wins": 2,
+          "losses": 0,
+          "mean": 132.5,
+          "averageWin": 132.5,
+          "averageLoss": null,
+          "best": 155.5,
+          "worst": 109.5,
+          "winRate": 1
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 7,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 6,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 1,
+            "wins": 1,
+            "losses": 0,
+            "net": 130
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": -130,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 2,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    },
+    {
+      "month": "june",
+      "variant": "mes-pullback-volume",
+      "cost": "stress",
+      "net": 785.5,
+      "trades": 13,
+      "wins": 9,
+      "losses": 4,
+      "drawdown": 145.0,
+      "referenceNet": 785.5,
+      "referenceDrawdown": 145,
+      "comparison": {
+        "common": 13,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 0.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 6,
+          "net": 559,
+          "wins": 5,
+          "losses": 1,
+          "mean": 93.17,
+          "averageWin": 131.2,
+          "averageLoss": -97,
+          "best": 150,
+          "worst": -97,
+          "winRate": 0.8333333333333334
+        },
+        {
+          "symbol": "MES",
+          "trades": 4,
+          "net": 47.5,
+          "wins": 2,
+          "losses": 2,
+          "mean": 11.88,
+          "averageWin": 96.25,
+          "averageLoss": -72.5,
+          "best": 120,
+          "worst": -77.5,
+          "winRate": 0.5
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 3,
+          "net": 179,
+          "wins": 2,
+          "losses": 1,
+          "mean": 59.67,
+          "averageWin": 128,
+          "averageLoss": -77,
+          "best": 151,
+          "worst": -77,
+          "winRate": 0.6666666666666666
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 6,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 4,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 3,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    },
+    {
+      "month": "july",
+      "variant": "baseline",
+      "cost": "normal",
+      "net": 176,
+      "trades": 21,
+      "wins": 8,
+      "losses": 13,
+      "drawdown": 312.5,
+      "referenceNet": 176,
+      "referenceDrawdown": 312.5,
+      "comparison": {
+        "common": 21,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 0.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 8,
+          "net": -228,
+          "wins": 2,
+          "losses": 6,
+          "mean": -28.5,
+          "averageWin": 132.5,
+          "averageLoss": -82.17,
+          "best": 160.5,
+          "worst": -94,
+          "winRate": 0.25
+        },
+        {
+          "symbol": "MES",
+          "trades": 5,
+          "net": 315,
+          "wins": 3,
+          "losses": 2,
+          "mean": 63,
+          "averageWin": 146.67,
+          "averageLoss": -62.5,
+          "best": 165,
+          "worst": -66.25,
+          "winRate": 0.6
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 8,
+          "net": 89,
+          "wins": 3,
+          "losses": 5,
+          "mean": 11.13,
+          "averageWin": 142.17,
+          "averageLoss": -67.5,
+          "best": 161.5,
+          "worst": -93.5,
+          "winRate": 0.375
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 8,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 5,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 8,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    },
+    {
+      "month": "july",
+      "variant": "baseline",
+      "cost": "stress",
+      "net": 164,
+      "trades": 21,
+      "wins": 9,
+      "losses": 12,
+      "drawdown": 330.5,
+      "referenceNet": 164,
+      "referenceDrawdown": 330.5,
+      "comparison": {
+        "common": 21,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 0.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 8,
+          "net": -259.5,
+          "wins": 2,
+          "losses": 6,
+          "mean": -32.44,
+          "averageWin": 129,
+          "averageLoss": -86.25,
+          "best": 157,
+          "worst": -97.5,
+          "winRate": 0.25
+        },
+        {
+          "symbol": "MES",
+          "trades": 6,
+          "net": 332.5,
+          "wins": 4,
+          "losses": 2,
+          "mean": 55.42,
+          "averageWin": 116.88,
+          "averageLoss": -67.5,
+          "best": 140,
+          "worst": -71.25,
+          "winRate": 0.6666666666666666
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 7,
+          "net": 91,
+          "wins": 3,
+          "losses": 4,
+          "mean": 13,
+          "averageWin": 137.67,
+          "averageLoss": -80.5,
+          "best": 157,
+          "worst": -98,
+          "winRate": 0.42857142857142855
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 8,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 6,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 7,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    },
+    {
+      "month": "july",
+      "variant": "mes-pullback-volume",
+      "cost": "normal",
+      "net": 41,
+      "trades": 19,
+      "wins": 7,
+      "losses": 12,
+      "drawdown": 422.5,
+      "referenceNet": 176,
+      "referenceDrawdown": 312.5,
+      "comparison": {
+        "common": 18,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 3,
+          "wins": 1,
+          "losses": 2,
+          "net": 40.0
+        },
+        "added": {
+          "count": 1,
+          "wins": 0,
+          "losses": 1,
+          "net": -95
+        },
+        "delta": -135.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 8,
+          "net": -228,
+          "wins": 2,
+          "losses": 6,
+          "mean": -28.5,
+          "averageWin": 132.5,
+          "averageLoss": -82.17,
+          "best": 160.5,
+          "worst": -94,
+          "winRate": 0.25
+        },
+        {
+          "symbol": "MES",
+          "trades": 3,
+          "net": 180,
+          "wins": 2,
+          "losses": 1,
+          "mean": 60,
+          "averageWin": 137.5,
+          "averageLoss": -95,
+          "best": 150,
+          "worst": -95,
+          "winRate": 0.6666666666666666
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 8,
+          "net": 89,
+          "wins": 3,
+          "losses": 5,
+          "mean": 11.13,
+          "averageWin": 142.17,
+          "averageLoss": -67.5,
+          "best": 161.5,
+          "worst": -93.5,
+          "winRate": 0.375
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 8,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 2,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 3,
+            "wins": 1,
+            "losses": 2,
+            "net": 40
+          },
+          "added": {
+            "count": 1,
+            "wins": 0,
+            "losses": 1,
+            "net": -95
+          },
+          "delta": -135,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 8,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    },
+    {
+      "month": "july",
+      "variant": "mes-pullback-volume",
+      "cost": "stress",
+      "net": 169,
+      "trades": 19,
+      "wins": 8,
+      "losses": 11,
+      "drawdown": 261.5,
+      "referenceNet": 164,
+      "referenceDrawdown": 330.5,
+      "comparison": {
+        "common": 18,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 3,
+          "wins": 1,
+          "losses": 2,
+          "net": -57.5
+        },
+        "added": {
+          "count": 1,
+          "wins": 0,
+          "losses": 1,
+          "net": -52.5
+        },
+        "delta": 5.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 8,
+          "net": -259.5,
+          "wins": 2,
+          "losses": 6,
+          "mean": -32.44,
+          "averageWin": 129,
+          "averageLoss": -86.25,
+          "best": 157,
+          "worst": -97.5,
+          "winRate": 0.25
+        },
+        {
+          "symbol": "MES",
+          "trades": 4,
+          "net": 337.5,
+          "wins": 3,
+          "losses": 1,
+          "mean": 84.38,
+          "averageWin": 130,
+          "averageLoss": -52.5,
+          "best": 140,
+          "worst": -52.5,
+          "winRate": 0.75
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 7,
+          "net": 91,
+          "wins": 3,
+          "losses": 4,
+          "mean": 13,
+          "averageWin": 137.67,
+          "averageLoss": -80.5,
+          "best": 157,
+          "worst": -98,
+          "winRate": 0.42857142857142855
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 8,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 3,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 3,
+            "wins": 1,
+            "losses": 2,
+            "net": -57.5
+          },
+          "added": {
+            "count": 1,
+            "wins": 0,
+            "losses": 1,
+            "net": -52.5
+          },
+          "delta": 5,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 7,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    },
+    {
+      "month": "august",
+      "variant": "baseline",
+      "cost": "normal",
+      "net": -245.5,
+      "trades": 11,
+      "wins": 3,
+      "losses": 8,
+      "drawdown": 442.0,
+      "referenceNet": -245.5,
+      "referenceDrawdown": 442,
+      "comparison": {
+        "common": 11,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 0.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 5,
+          "net": -149.5,
+          "wins": 1,
+          "losses": 4,
+          "mean": -29.9,
+          "averageWin": 158,
+          "averageLoss": -76.87,
+          "best": 158,
+          "worst": -93,
+          "winRate": 0.2
+        },
+        {
+          "symbol": "MES",
+          "trades": 5,
+          "net": -257.5,
+          "wins": 1,
+          "losses": 4,
+          "mean": -51.5,
+          "averageWin": 125,
+          "averageLoss": -95.62,
+          "best": 125,
+          "worst": -100,
+          "winRate": 0.2
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 1,
+          "net": 161.5,
+          "wins": 1,
+          "losses": 0,
+          "mean": 161.5,
+          "averageWin": 161.5,
+          "averageLoss": null,
+          "best": 161.5,
+          "worst": 161.5,
+          "winRate": 1
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 5,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 5,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 1,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    },
+    {
+      "month": "august",
+      "variant": "baseline",
+      "cost": "stress",
+      "net": -228.5,
+      "trades": 8,
+      "wins": 2,
+      "losses": 6,
+      "drawdown": 359.5,
+      "referenceNet": -228.5,
+      "referenceDrawdown": 359.5,
+      "comparison": {
+        "common": 8,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 0.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 5,
+          "net": -220.5,
+          "wins": 1,
+          "losses": 4,
+          "mean": -44.1,
+          "averageWin": 108,
+          "averageLoss": -82.12,
+          "best": 108,
+          "worst": -100,
+          "winRate": 0.2
+        },
+        {
+          "symbol": "MES",
+          "trades": 2,
+          "net": -165,
+          "wins": 0,
+          "losses": 2,
+          "mean": -82.5,
+          "averageWin": null,
+          "averageLoss": -82.5,
+          "best": -75,
+          "worst": -90,
+          "winRate": 0
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 1,
+          "net": 157,
+          "wins": 1,
+          "losses": 0,
+          "mean": 157,
+          "averageWin": 157,
+          "averageLoss": null,
+          "best": 157,
+          "worst": 157,
+          "winRate": 1
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 5,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 2,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 1,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    },
+    {
+      "month": "august",
+      "variant": "mes-pullback-volume",
+      "cost": "normal",
+      "net": -370.5,
+      "trades": 10,
+      "wins": 2,
+      "losses": 8,
+      "drawdown": 442.0,
+      "referenceNet": -245.5,
+      "referenceDrawdown": 442,
+      "comparison": {
+        "common": 10,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 1,
+          "wins": 1,
+          "losses": 0,
+          "net": 125
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": -125.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 5,
+          "net": -149.5,
+          "wins": 1,
+          "losses": 4,
+          "mean": -29.9,
+          "averageWin": 158,
+          "averageLoss": -76.87,
+          "best": 158,
+          "worst": -93,
+          "winRate": 0.2
+        },
+        {
+          "symbol": "MES",
+          "trades": 4,
+          "net": -382.5,
+          "wins": 0,
+          "losses": 4,
+          "mean": -95.62,
+          "averageWin": null,
+          "averageLoss": -95.62,
+          "best": -90,
+          "worst": -100,
+          "winRate": 0
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 1,
+          "net": 161.5,
+          "wins": 1,
+          "losses": 0,
+          "mean": 161.5,
+          "averageWin": 161.5,
+          "averageLoss": null,
+          "best": 161.5,
+          "worst": 161.5,
+          "winRate": 1
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 5,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 4,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 1,
+            "wins": 1,
+            "losses": 0,
+            "net": 125
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": -125,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 1,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    },
+    {
+      "month": "august",
+      "variant": "mes-pullback-volume",
+      "cost": "stress",
+      "net": -228.5,
+      "trades": 8,
+      "wins": 2,
+      "losses": 6,
+      "drawdown": 359.5,
+      "referenceNet": -228.5,
+      "referenceDrawdown": 359.5,
+      "comparison": {
+        "common": 8,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 0.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "marketContributions": [
+        {
+          "symbol": "MNQ",
+          "trades": 5,
+          "net": -220.5,
+          "wins": 1,
+          "losses": 4,
+          "mean": -44.1,
+          "averageWin": 108,
+          "averageLoss": -82.12,
+          "best": 108,
+          "worst": -100,
+          "winRate": 0.2
+        },
+        {
+          "symbol": "MES",
+          "trades": 2,
+          "net": -165,
+          "wins": 0,
+          "losses": 2,
+          "mean": -82.5,
+          "averageWin": null,
+          "averageLoss": -82.5,
+          "best": -75,
+          "worst": -90,
+          "winRate": 0
+        },
+        {
+          "symbol": "MYM",
+          "trades": 0,
+          "net": 0,
+          "wins": 0,
+          "losses": 0,
+          "mean": null,
+          "averageWin": null,
+          "averageLoss": null,
+          "best": null,
+          "worst": null,
+          "winRate": null
+        },
+        {
+          "symbol": "MGC",
+          "trades": 1,
+          "net": 157,
+          "wins": 1,
+          "losses": 0,
+          "mean": 157,
+          "averageWin": 157,
+          "averageLoss": null,
+          "best": 157,
+          "worst": 157,
+          "winRate": 1
+        }
+      ],
+      "marketComparisons": [
+        {
+          "symbol": "MNQ",
+          "common": 5,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MES",
+          "common": 2,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MYM",
+          "common": 0,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        },
+        {
+          "symbol": "MGC",
+          "common": 1,
+          "delayedCommon": 0,
+          "commonDelta": 0,
+          "removed": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "added": {
+            "count": 0,
+            "wins": 0,
+            "losses": 0,
+            "net": 0
+          },
+          "delta": 0,
+          "winnersToLosers": 0,
+          "losersToWinners": 0
+        }
+      ]
+    }
+  ],
+  "attribution": [
+    {
+      "cost": "normal",
+      "common": 112,
+      "commonDelta": 0.0,
+      "commonModified": 0,
+      "delta": -334.0,
+      "removed": {
+        "count": 10,
+        "wins": 4,
+        "losses": 6,
+        "net": 150.0
+      },
+      "added": {
+        "count": 2,
+        "wins": 0,
+        "losses": 2,
+        "net": -184
+      },
+      "removedMarkets": {
+        "MES": 9,
+        "MNQ": 1
+      },
+      "addedMarkets": {
+        "MNQ": 1,
+        "MES": 1
+      }
+    },
+    {
+      "cost": "stress",
+      "common": 102,
+      "commonDelta": 0.0,
+      "commonModified": 0,
+      "delta": -22.75,
+      "removed": {
+        "count": 8,
+        "wins": 2,
+        "losses": 6,
+        "net": -191.75
+      },
+      "added": {
+        "count": 3,
+        "wins": 0,
+        "losses": 3,
+        "net": -214.5
+      },
+      "removedMarkets": {
+        "MES": 7,
+        "MNQ": 1
+      },
+      "addedMarkets": {
+        "MNQ": 2,
+        "MES": 1
+      }
+    }
+  ],
+  "attributionByCell": [
+    {
+      "month": "january",
+      "cost": "normal",
+      "comparison": {
+        "common": 15,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 2,
+          "wins": 1,
+          "losses": 1,
+          "net": 91.25
+        },
+        "added": {
+          "count": 1,
+          "wins": 0,
+          "losses": 1,
+          "net": -89
+        },
+        "delta": -180.25,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {
+        "MES": 1,
+        "MNQ": 1
+      },
+      "addedMarkets": {
+        "MNQ": 1
+      },
+      "commonModified": 0
+    },
+    {
+      "month": "january",
+      "cost": "stress",
+      "comparison": {
+        "common": 13,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 3,
+          "wins": 1,
+          "losses": 2,
+          "net": 22.0
+        },
+        "added": {
+          "count": 2,
+          "wins": 0,
+          "losses": 2,
+          "net": -162.0
+        },
+        "delta": -184.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {
+        "MES": 2,
+        "MNQ": 1
+      },
+      "addedMarkets": {
+        "MNQ": 2
+      },
+      "commonModified": 0
+    },
+    {
+      "month": "february",
+      "cost": "normal",
+      "comparison": {
+        "common": 10,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 0.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {},
+      "addedMarkets": {},
+      "commonModified": 0
+    },
+    {
+      "month": "february",
+      "cost": "stress",
+      "comparison": {
+        "common": 10,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 0.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {},
+      "addedMarkets": {},
+      "commonModified": 0
+    },
+    {
+      "month": "march",
+      "cost": "normal",
+      "comparison": {
+        "common": 11,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 0.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {},
+      "addedMarkets": {},
+      "commonModified": 0
+    },
+    {
+      "month": "march",
+      "cost": "stress",
+      "comparison": {
+        "common": 10,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 0.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {},
+      "addedMarkets": {},
+      "commonModified": 0
+    },
+    {
+      "month": "april",
+      "cost": "normal",
+      "comparison": {
+        "common": 14,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 2,
+          "wins": 0,
+          "losses": 2,
+          "net": -153.75
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 153.75,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {
+        "MES": 2
+      },
+      "addedMarkets": {},
+      "commonModified": 0
+    },
+    {
+      "month": "april",
+      "cost": "stress",
+      "comparison": {
+        "common": 13,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 1,
+          "wins": 0,
+          "losses": 1,
+          "net": -63.75
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 63.75,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {
+        "MES": 1
+      },
+      "addedMarkets": {},
+      "commonModified": 0
+    },
+    {
+      "month": "may",
+      "cost": "normal",
+      "comparison": {
+        "common": 19,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 1,
+          "wins": 0,
+          "losses": 1,
+          "net": -82.5
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 82.5,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {
+        "MES": 1
+      },
+      "addedMarkets": {},
+      "commonModified": 0
+    },
+    {
+      "month": "may",
+      "cost": "stress",
+      "comparison": {
+        "common": 17,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 1,
+          "wins": 0,
+          "losses": 1,
+          "net": -92.5
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 92.5,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {
+        "MES": 1
+      },
+      "addedMarkets": {},
+      "commonModified": 0
+    },
+    {
+      "month": "june",
+      "cost": "normal",
+      "comparison": {
+        "common": 15,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 1,
+          "wins": 1,
+          "losses": 0,
+          "net": 130
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": -130.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {
+        "MES": 1
+      },
+      "addedMarkets": {},
+      "commonModified": 0
+    },
+    {
+      "month": "june",
+      "cost": "stress",
+      "comparison": {
+        "common": 13,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 0.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {},
+      "addedMarkets": {},
+      "commonModified": 0
+    },
+    {
+      "month": "july",
+      "cost": "normal",
+      "comparison": {
+        "common": 18,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 3,
+          "wins": 1,
+          "losses": 2,
+          "net": 40.0
+        },
+        "added": {
+          "count": 1,
+          "wins": 0,
+          "losses": 1,
+          "net": -95
+        },
+        "delta": -135.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {
+        "MES": 3
+      },
+      "addedMarkets": {
+        "MES": 1
+      },
+      "commonModified": 0
+    },
+    {
+      "month": "july",
+      "cost": "stress",
+      "comparison": {
+        "common": 18,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 3,
+          "wins": 1,
+          "losses": 2,
+          "net": -57.5
+        },
+        "added": {
+          "count": 1,
+          "wins": 0,
+          "losses": 1,
+          "net": -52.5
+        },
+        "delta": 5.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {
+        "MES": 3
+      },
+      "addedMarkets": {
+        "MES": 1
+      },
+      "commonModified": 0
+    },
+    {
+      "month": "august",
+      "cost": "normal",
+      "comparison": {
+        "common": 10,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 1,
+          "wins": 1,
+          "losses": 0,
+          "net": 125
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": -125.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {
+        "MES": 1
+      },
+      "addedMarkets": {},
+      "commonModified": 0
+    },
+    {
+      "month": "august",
+      "cost": "stress",
+      "comparison": {
+        "common": 8,
+        "delayedCommon": 0,
+        "commonDelta": 0.0,
+        "removed": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "added": {
+          "count": 0,
+          "wins": 0,
+          "losses": 0,
+          "net": 0
+        },
+        "delta": 0.0,
+        "winnersToLosers": 0,
+        "losersToWinners": 0
+      },
+      "removedMarkets": {},
+      "addedMarkets": {},
+      "commonModified": 0
+    }
+  ],
+  "limitations": [
+    "Descriptive observed history, two omitted dates, not independent validation.",
+    "This audit recomputes arithmetic from recorded trades, not strategy outcomes or causal prefixes.",
+    "Prefix counts are verified metadata; no prefix replay was rerun."
+  ],
+  "archiveManifestSha256": "6715268e5d2817526ddc71b800c3291a687e8a71e1f2997bff3a156fd3fc0903",
+  "archiveReadback": {
+    "files": 4,
+    "parts": 6,
+    "chunks": 33,
+    "exact": true
+  },
+  "phaseInputs": {
+    "schema": "jeu42-phase-input-audit-v1",
+    "sourceRunsSha256": "dd197ce7c07b73a154b98c403ead94979af281e54a0fb01acb873ea4596d5476",
+    "checkedRecords": 272,
+    "uniqueMesSignals": 68,
+    "phaseReasons": {
+      "relative-volume-unavailable": 5,
+      "no-separate-counterdirectional-bar": 33,
+      "pullback-not-contracted": 15,
+      "pullback-contracted": 15
+    },
+    "decisionIndependentOfCost": true,
+    "newReplays": 0,
+    "newInferences": 0,
+    "passed": true,
+    "method": "Reconstructed only closed contexts and phase arithmetic against recorded decisions; no signal generation or account/performance replay."
+  },
+  "preservedRegistryPrefixes": {
+    "ledgerCount": 94,
+    "ledgerSha256": "1ee7b74be903a2b8cb11277a8a08673659a6fe6b0d8bf67cf275beb83c6c9538",
+    "catalogCount": 111,
+    "catalogSha256": "93e8f0b02591717eb413bad2f069970fc507c412f1e1f09a797d88bb28b90a67",
+    "sourcesCount": 11,
+    "sourcesSha256": "41e12979cf814bc02bdcc7ff1a2a410f40e5d47ce9cef95f6382e816d58e37e2"
+  },
+  "configurationAdded": 1,
+  "ledgerCount": 95,
+  "catalogCount": 112
+}

@@ -1,0 +1,214 @@
+//@version=6
+indicator("Nykuto Signal V9 - Auto MTF", overlay=true, max_labels_count=500)
+
+// Research indicator only. No broker orders.
+
+// ===== Inputs =====
+fastLen = input.int(9, "EMA rapide", minval=1)
+slowLen = input.int(21, "EMA lente", minval=2)
+rsiLen = input.int(14, "RSI", minval=2)
+atrLen = input.int(14, "ATR", minval=2)
+volLen = input.int(20, "Volume moyen", minval=2)
+pivotLeft = input.int(2, "Pivot gauche", minval=1)
+pivotRight = input.int(2, "Pivot droite", minval=1)
+useAutoHtf = input.bool(true, "HTF automatique")
+manualHtf = input.timeframe("60", "HTF manuel")
+htfFastLen = input.int(20, "HTF EMA rapide", minval=1)
+htfSlowLen = input.int(50, "HTF EMA lente", minval=2)
+relVolMin = input.float(1.20, "Volume relatif min", step=0.05)
+rangeATRMin = input.float(0.75, "Expansion min ATR", step=0.05)
+maxExtensionATR = input.float(1.40, "Extension max EMA/ATR", step=0.10)
+contextBars = input.int(12, "Memoire RSI/divergence", minval=1)
+cooldownBars = input.int(6, "Cooldown", minval=1)
+showContext = input.bool(true, "Afficher R/DIV/MSS")
+showSessions = input.bool(true, "Afficher TOK/LON/NY")
+showGuides = input.bool(false, "Afficher EMA/VWAP")
+
+// ===== Auto higher timeframe =====
+chartSec = timeframe.in_seconds()
+autoHtf = chartSec <= 15 ? "1" : chartSec <= 60 ? "5" : chartSec <= 300 ? "15" : chartSec <= 900 ? "60" : chartSec <= 3600 ? "240" : "D"
+htf = useAutoHtf ? autoHtf : manualHtf
+
+// 5s/15s -> 1m; 1m -> 5m; 5m -> 15m; 15m -> 1h; 1h -> 4h; above -> 1D.
+
+// ===== Base =====
+emaFast = ta.ema(close, fastLen)
+emaSlow = ta.ema(close, slowLen)
+rsi = ta.rsi(close, rsiLen)
+atr = ta.atr(atrLen)
+atrRef = atr[1]
+vwap = ta.vwap(hlc3)
+volAvg = ta.sma(volume, volLen)[1]
+relVol = not na(volAvg) and volAvg > 0 ? volume / volAvg : 0.0
+[macdLine, macdSignal, macdHist] = ta.macd(close, 12, 26, 9)
+
+// ===== Confirmed higher timeframe =====
+htfFast = request.security(syminfo.tickerid, htf, ta.ema(close, htfFastLen)[1], barmerge.gaps_off, barmerge.lookahead_on)
+htfSlow = request.security(syminfo.tickerid, htf, ta.ema(close, htfSlowLen)[1], barmerge.gaps_off, barmerge.lookahead_on)
+htfBull = htfFast > htfSlow
+htfBear = htfFast < htfSlow
+
+// ===== Candle / volatility =====
+candleRange = high - low
+body = math.abs(close - open)
+bodyRatio = candleRange > 0 ? body / candleRange : 0.0
+expansion = not na(atrRef) and atrRef > 0 and candleRange >= atrRef * rangeATRMin
+displacementUp = expansion and bodyRatio >= 0.60 and close > open
+displacementDown = expansion and bodyRatio >= 0.60 and close < open
+volumeOk = relVol >= relVolMin
+
+bullEngulf = close > open and close[1] < open[1] and open <= close[1] and close >= open[1]
+bearEngulf = close < open and close[1] > open[1] and open >= close[1] and close <= open[1]
+bullReject = low <= emaFast and close > emaFast and close > open and close > high[1]
+bearReject = high >= emaFast and close < emaFast and close < open and close < low[1]
+
+// ===== RSI events =====
+rsiExitUp = barstate.isconfirmed and ta.crossover(rsi, 30)
+rsiExitDown = barstate.isconfirmed and ta.crossunder(rsi, 70)
+ageRsiUp = ta.barssince(rsiExitUp)
+ageRsiDown = ta.barssince(rsiExitDown)
+recentRsiUp = not na(ageRsiUp) and ageRsiUp <= contextBars
+recentRsiDown = not na(ageRsiDown) and ageRsiDown <= contextBars
+
+// ===== Confirmed pivots + divergence =====
+pHigh = ta.pivothigh(high, pivotLeft, pivotRight)
+pLow = ta.pivotlow(low, pivotLeft, pivotRight)
+var float lastHigh = na
+var float prevHigh = na
+var float lastLow = na
+var float prevLow = na
+var float lastHighRsi = na
+var float lastLowRsi = na
+bullDiv = false
+bearDiv = false
+
+if barstate.isconfirmed and not na(pLow)
+    pivotRsi = rsi[pivotRight]
+    bullDiv := not na(lastLow) and not na(lastLowRsi) and pLow < lastLow and pivotRsi > lastLowRsi
+    prevLow := lastLow
+    lastLow := pLow
+    lastLowRsi := pivotRsi
+
+if barstate.isconfirmed and not na(pHigh)
+    pivotRsi = rsi[pivotRight]
+    bearDiv := not na(lastHigh) and not na(lastHighRsi) and pHigh > lastHigh and pivotRsi < lastHighRsi
+    prevHigh := lastHigh
+    lastHigh := pHigh
+    lastHighRsi := pivotRsi
+
+ageBullDiv = ta.barssince(bullDiv)
+ageBearDiv = ta.barssince(bearDiv)
+recentBullDiv = not na(ageBullDiv) and ageBullDiv <= contextBars
+recentBearDiv = not na(ageBearDiv) and ageBearDiv <= contextBars
+
+higherHigh = not na(lastHigh) and not na(prevHigh) and lastHigh > prevHigh
+lowerHigh = not na(lastHigh) and not na(prevHigh) and lastHigh < prevHigh
+higherLow = not na(lastLow) and not na(prevLow) and lastLow > prevLow
+lowerLow = not na(lastLow) and not na(prevLow) and lastLow < prevLow
+bullStructure = higherHigh and higherLow
+bearStructure = lowerHigh and lowerLow
+
+// ===== BOS / MSS =====
+bullBreak = not na(lastHigh) and close > lastHigh and close[1] <= lastHigh
+bearBreak = not na(lastLow) and close < lastLow and close[1] >= lastLow
+bullBOS = barstate.isconfirmed and bullStructure and bullBreak
+bearBOS = barstate.isconfirmed and bearStructure and bearBreak
+bullMSS = barstate.isconfirmed and bearStructure and bullBreak and displacementUp and volumeOk
+bearMSS = barstate.isconfirmed and bullStructure and bearBreak and displacementDown and volumeOk
+
+// ===== FVG context =====
+bullFvg = low > high[2]
+bearFvg = high < low[2]
+
+// ===== Trend / momentum =====
+localBull = emaFast > emaSlow and emaSlow >= emaSlow[1]
+localBear = emaFast < emaSlow and emaSlow <= emaSlow[1]
+buyMomentum = rsi > 55 and rsi > rsi[1] and macdHist > macdHist[1]
+sellMomentum = rsi < 45 and rsi < rsi[1] and macdHist < macdHist[1]
+buyVwap = close > vwap
+sellVwap = close < vwap
+buyExtensionOk = not na(atrRef) and close >= emaFast and close - emaFast <= atrRef * maxExtensionATR
+sellExtensionOk = not na(atrRef) and close <= emaFast and emaFast - close <= atrRef * maxExtensionATR
+
+recentHigh6 = ta.highest(high[1], 6)
+recentLow6 = ta.lowest(low[1], 6)
+breakoutUp = close > recentHigh6 and close > open
+breakdownDown = close < recentLow6 and close < open
+buyTrigger = breakoutUp or bullEngulf or bullReject
+sellTrigger = breakdownDown or bearEngulf or bearReject
+
+// ===== Weighted continuation score =====
+buyScore = (localBull ? 2 : 0) + (htfBull ? 2 : 0) + (buyVwap ? 1 : 0) + (buyMomentum ? 1 : 0) + (volumeOk ? 1 : 0) + (expansion ? 1 : 0) + (higherHigh ? 1 : 0) + (higherLow ? 1 : 0) + (bullFvg ? 1 : 0) + (bullBOS ? 1 : 0)
+sellScore = (localBear ? 2 : 0) + (htfBear ? 2 : 0) + (sellVwap ? 1 : 0) + (sellMomentum ? 1 : 0) + (volumeOk ? 1 : 0) + (expansion ? 1 : 0) + (lowerHigh ? 1 : 0) + (lowerLow ? 1 : 0) + (bearFvg ? 1 : 0) + (bearBOS ? 1 : 0)
+
+rawBuyContinuation = barstate.isconfirmed and localBull and htfBull and buyTrigger and buyExtensionOk and rsi < 70 and buyScore >= 8
+rawSellContinuation = barstate.isconfirmed and localBear and htfBear and sellTrigger and sellExtensionOk and rsi > 30 and sellScore >= 8
+
+// ===== Reversal score: MSS mandatory =====
+buyReversalContext = recentRsiUp or recentBullDiv
+sellReversalContext = recentRsiDown or recentBearDiv
+buyRevScore = (bullMSS ? 4 : 0) + (recentRsiUp ? 2 : 0) + (recentBullDiv ? 2 : 0) + (rsi > rsi[1] ? 1 : 0) + (macdHist > macdHist[1] ? 1 : 0) + (close > emaFast ? 1 : 0) + (buyVwap ? 1 : 0) + (htfBull ? 1 : 0)
+sellRevScore = (bearMSS ? 4 : 0) + (recentRsiDown ? 2 : 0) + (recentBearDiv ? 2 : 0) + (rsi < rsi[1] ? 1 : 0) + (macdHist < macdHist[1] ? 1 : 0) + (close < emaFast ? 1 : 0) + (sellVwap ? 1 : 0) + (htfBear ? 1 : 0)
+rawBuyReversal = bullMSS and buyReversalContext and buyRevScore >= 7
+rawSellReversal = bearMSS and sellReversalContext and sellRevScore >= 7
+
+// ===== Cooldown =====
+var int lastBuyBar = na
+var int lastSellBar = na
+buyCooldown = na(lastBuyBar) or bar_index - lastBuyBar >= cooldownBars
+sellCooldown = na(lastSellBar) or bar_index - lastSellBar >= cooldownBars
+buyContinuation = rawBuyContinuation and buyCooldown and not rawBuyContinuation[1]
+sellContinuation = rawSellContinuation and sellCooldown and not rawSellContinuation[1]
+buyReversal = rawBuyReversal and buyCooldown
+sellReversal = rawSellReversal and sellCooldown
+
+if buyContinuation or buyReversal
+    lastBuyBar := bar_index
+if sellContinuation or sellReversal
+    lastSellBar := bar_index
+
+buyStrong = buyContinuation and buyScore >= 8 and buyScore < 10
+buyVeryStrong = buyContinuation and buyScore >= 10
+sellStrong = sellContinuation and sellScore >= 8 and sellScore < 10
+sellVeryStrong = sellContinuation and sellScore >= 10
+buyRevStrong = buyReversal and buyRevScore < 10
+buyRevVeryStrong = buyReversal and buyRevScore >= 10
+sellRevStrong = sellReversal and sellRevScore < 10
+sellRevVeryStrong = sellReversal and sellRevScore >= 10
+
+// ===== Session clocks: context only =====
+f_open(simple string zone, simple int hh, simple int mm) =>
+    target = timestamp(zone, year(time, zone), month(time, zone), dayofmonth(time, zone), hh, mm)
+    time <= target and time_close > target
+
+tokOpen = barstate.isconfirmed and f_open("Asia/Tokyo", 9, 0)
+lonOpen = barstate.isconfirmed and f_open("Europe/London", 8, 0)
+nyOpen = barstate.isconfirmed and f_open("America/New_York", 9, 30)
+
+// ===== Display =====
+plot(showGuides ? emaFast : na, "EMA 9", color=color.new(color.blue, 40))
+plot(showGuides ? emaSlow : na, "EMA 21", color=color.new(color.orange, 40))
+plot(showGuides ? vwap : na, "VWAP", color=color.new(color.purple, 40))
+plotshape(showContext and rsiExitUp, title="RSI exit up", style=shape.circle, location=location.belowbar, size=size.tiny, color=color.lime, text="R↑")
+plotshape(showContext and rsiExitDown, title="RSI exit down", style=shape.circle, location=location.abovebar, size=size.tiny, color=color.red, text="R↓")
+plotshape(showContext and bullDiv, title="Bull divergence", style=shape.circle, location=location.belowbar, size=size.tiny, color=color.aqua, text="DIV↑")
+plotshape(showContext and bearDiv, title="Bear divergence", style=shape.circle, location=location.abovebar, size=size.tiny, color=color.orange, text="DIV↓")
+plotshape(showContext and bullMSS, title="Bull MSS", style=shape.labelup, location=location.belowbar, size=size.tiny, color=color.aqua, text="MSS↑", textcolor=color.black)
+plotshape(showContext and bearMSS, title="Bear MSS", style=shape.labeldown, location=location.abovebar, size=size.tiny, color=color.orange, text="MSS↓", textcolor=color.black)
+plotshape(buyStrong, title="BUY fort", style=shape.triangleup, location=location.belowbar, size=size.tiny, color=color.lime, text="B+")
+plotshape(buyVeryStrong, title="BUY tres fort", style=shape.triangleup, location=location.belowbar, size=size.small, color=color.lime, text="B++")
+plotshape(sellStrong, title="SELL fort", style=shape.triangledown, location=location.abovebar, size=size.tiny, color=color.red, text="S+")
+plotshape(sellVeryStrong, title="SELL tres fort", style=shape.triangledown, location=location.abovebar, size=size.small, color=color.red, text="S++")
+plotshape(buyRevStrong, title="BUY reversal", style=shape.labelup, location=location.belowbar, size=size.tiny, color=color.green, text="BR")
+plotshape(buyRevVeryStrong, title="BUY reversal tres fort", style=shape.labelup, location=location.belowbar, size=size.small, color=color.green, text="BR+")
+plotshape(sellRevStrong, title="SELL reversal", style=shape.labeldown, location=location.abovebar, size=size.tiny, color=color.maroon, text="SR")
+plotshape(sellRevVeryStrong, title="SELL reversal tres fort", style=shape.labeldown, location=location.abovebar, size=size.small, color=color.maroon, text="SR+")
+plotshape(showSessions and tokOpen, title="Tokyo open", style=shape.circle, location=location.bottom, size=size.tiny, color=color.aqua, text="TOK")
+plotshape(showSessions and lonOpen, title="London open", style=shape.circle, location=location.bottom, size=size.tiny, color=color.orange, text="LON")
+plotshape(showSessions and nyOpen, title="New York open", style=shape.circle, location=location.bottom, size=size.tiny, color=color.yellow, text="NY")
+
+// ===== Alerts =====
+alertcondition(buyStrong or buyVeryStrong or buyRevStrong or buyRevVeryStrong, title="Nykuto BUY V9 Auto MTF", message="Nykuto V9 BUY confluence confirmed. Research signal, not an order.")
+alertcondition(sellStrong or sellVeryStrong or sellRevStrong or sellRevVeryStrong, title="Nykuto SELL V9 Auto MTF", message="Nykuto V9 SELL confluence confirmed. Research signal, not an order.")
+alertcondition(bullMSS, title="Nykuto MSS up", message="Nykuto V9 bullish MSS context.")
+alertcondition(bearMSS, title="Nykuto MSS down", message="Nykuto V9 bearish MSS context.")

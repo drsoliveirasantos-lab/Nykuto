@@ -1,0 +1,75 @@
+{
+  "schema": "nykuto-experiment-v1",
+  "id": "ema9-vwap-obstacle-filter-v1",
+  "createdAt": "2026-09-10",
+  "status": "candidate-for-backtest",
+  "promotion": "not-live",
+  "scope": ["MNQ", "MES", "MYM", "MGC"],
+  "timeframes": {
+    "context": "H1",
+    "execution": "M5"
+  },
+  "features": {
+    "ema": {"period": 9, "timeframe": "M5"},
+    "vwap": {"anchor": "session", "source": "HLC3", "timeframe": "M5"},
+    "volume": true,
+    "marketStructure": ["H1", "M5"],
+    "localSupportResistance": true,
+    "distanceToNextObstacleInR": true
+  },
+  "hypotheses": [
+    "Do not treat a simple EMA9 or VWAP cross as sufficient confirmation.",
+    "Test joint EMA9 + session VWAP confirmation in the direction allowed by H1/M5 structure.",
+    "Reject or downgrade entries when the next support/resistance obstacle leaves insufficient reward relative to risk.",
+    "Use WAIT when H1/M5 are contradictory, price is chopping around EMA9/VWAP, confirmation is incomplete, or the entry is too close to an opposing level.",
+    "Test whether impulse volume improves discrimination of valid breaks/reclaims versus false starts."
+  ],
+  "candidateLogic": {
+    "long": [
+      "H1 bias compatible with long",
+      "M5 bullish structure or confirmed structural recovery",
+      "price reclaims and holds EMA9 and session VWAP",
+      "next resistance provides sufficient room in R",
+      "volume confirmation tested as an optional filter"
+    ],
+    "short": [
+      "H1 bias compatible with short",
+      "M5 bearish structure or confirmed structural breakdown",
+      "price loses and holds below EMA9 and session VWAP",
+      "next support provides sufficient room in R",
+      "volume confirmation tested as an optional filter"
+    ],
+    "wait": [
+      "H1 and M5 conflict without structural confirmation",
+      "price repeatedly crosses EMA9/VWAP without follow-through",
+      "opposing support/resistance is too close",
+      "break is only a wick or lacks hold/retest confirmation"
+    ]
+  },
+  "backtestPlan": {
+    "baseline": "current per-market profile unchanged",
+    "variants": [
+      "baseline + EMA9/VWAP joint confirmation",
+      "baseline + obstacle-distance filter",
+      "baseline + EMA9/VWAP + obstacle-distance",
+      "baseline + EMA9/VWAP + obstacle-distance + volume filter"
+    ],
+    "compare": [
+      "netPnL",
+      "tradeCount",
+      "winRate",
+      "expectancy",
+      "profitFactor",
+      "maxDrawdown",
+      "averageR",
+      "rejectedTradeOutcome",
+      "monthlyPnL"
+    ],
+    "segmentation": ["market", "month", "normal-vs-stress"],
+    "rule": "Do not promote globally. Keep only per-market variants that improve robustness without materially degrading drawdown or sample quality."
+  },
+  "origin": {
+    "type": "manual-chart-observation",
+    "note": "TradingView observation: M5 price reclaimed EMA9 and session VWAP during a rebound, failed below nearby resistance, then lost EMA9/VWAP and returned toward support. This is a hypothesis-generating observation only, not statistical validation."
+  }
+}

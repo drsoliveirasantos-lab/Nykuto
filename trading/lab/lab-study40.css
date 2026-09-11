@@ -1,0 +1,16 @@
+#study40Game{--study-section:1.5rem;--study-heading:1.25rem;--study-body:1rem;--study-meta:.875rem}
+#study40Game .panel-heading h3{font-size:var(--study-section);line-height:1.35}
+#study40Game h4{font-size:var(--study-heading);line-height:1.4;margin:1.25rem 0 .5rem}
+#study40Game p,#study40Game li,#study40Game .iv-table{font-size:var(--study-body);line-height:1.6}
+#study40Game .panel-kicker,#study40Game .lab-status,#study40Game .iv-table caption,#study40Game .iv-table th{font-size:var(--study-meta)}
+#study40Game .iv-table{min-width:34rem}
+#study40Game .iv-table th{white-space:normal;min-width:6rem}
+#study40Game .study-decision{padding:1rem;border-left:3px solid #9cc6ff;background:rgba(156,198,255,.06)}
+#study40Game details{margin:1rem 0;border:1px solid var(--line);border-radius:8px;padding:0 1rem 1rem}
+#study40Game details:not([open]){padding-bottom:0}
+#study40Game summary{min-height:44px;padding:.65rem 0;cursor:pointer;font-size:var(--study-heading);line-height:1.4;font-weight:650}
+#study40Game .study-links{display:flex;flex-wrap:wrap;gap:.25rem 1rem;margin-top:1rem}
+#study40Game .study-links a{display:inline-flex;align-items:center;min-height:44px;max-width:100%;font-size:var(--study-body);overflow-wrap:anywhere}
+#study40Game a:focus-visible,#study40Game summary:focus-visible,#study40Game .iv-table-wrap:focus-visible{outline:3px solid #9cc6ff;outline-offset:2px}
+#study40Game .study-note{color:var(--muted)}
+@media(max-width:400px){#study40Game details{padding-left:.65rem;padding-right:.65rem}}

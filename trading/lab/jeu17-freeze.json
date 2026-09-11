@@ -1,0 +1,26 @@
+{
+  "schema": "jeu17-freeze-v1",
+  "baseRemoteCommit": "b6a15a0b01c4a17704187d6a32c403ec913ed04d",
+  "files": {
+    "scripts/run-trading-jeu17.mjs": "dccc571c2251ed6f4e006ddc6f0cbf1964b80cc43525766524185327c1861163",
+    "scripts/test-trading-ablation.mjs": "d0dcaa49e3ffc9064ce2e02407fbbf8046d61b80234f80ef2ab70bb0d1748b42",
+    "trading/lab/JEU17_PROTOCOL.md": "e5ad3a5745c74b173ca3703f2936ea2755ff901a2b4a5b4622648813517b8797",
+    "trading/lab/jeu12-engine.mjs": "5f42c19cc26a6c74e3be1094288fcebaad763be9ad1f30b13256061b93c9de11",
+    "trading/lab/jeu12-policy.mjs": "37a82feb4a65682ee94fe2a8a580f22c8d3261eac43cc37b1b771085dd93226c",
+    "trading/lab/jeu14-history.mjs": "45d7009dbb7c902a7c0c6265641027cc0db8e271b1882612c6331ebe7171dc42",
+    "trading/lab/jeu14-policy.mjs": "1c0dc7a2cb4991a343ba66fb6097216a696f1f6590d6ec9321738730a75d71f2",
+    "trading/lab/jeu14-source.mjs": "739fd0c0f12bbcb7f6974c166063c129a55198259718a96a1e581960183d29f2",
+    "trading/lab/jeu15-engine.mjs": "12065cad1a2b8c429fd20ebef7473cd2488ed17b44f7cd12774b18aa4774b653",
+    "trading/lab/jeu15-policy.mjs": "1b90adf7bed45f17ff3378f4a140ce97c133fe9a50ccb64c5a5f047c14eb7d87",
+    "trading/lab/jeu16-engine.mjs": "e609b8608451c8a3ab5b760c05e5d9f5fc82ece9a447e5137c51e4a034803c5e",
+    "trading/lab/jeu16-policy.mjs": "b157f2bc446179128c5bf30b0ec0eda835a7d7a7f148fa4f369624d0e617f1ee",
+    "trading/lab/jeu17-engine.mjs": "66f1f28861aa3181cad0f8ae2683885740a2382a2e402efa7cfa644930edb12a",
+    "trading/lab/jeu17-policy.mjs": "d2fbf10139fb207ee7c1df9a03acebc670867bef3c82c597b260dbd7b792057e",
+    "trading/lab/market-comparison.mjs": "bc8bc751492f3af71cc30ba57a7daa5779521d6459ef30a9bf3536f0d85fc1cc",
+    "trading/lab/mnq-confirmation.mjs": "284c73045c9b2d586c0d882ae387d3d01dada27425fe5a023710b143b08165ba",
+    "trading/lab/mnq-six-months-policy.mjs": "c435aa8b07e7445ebef0784dd464850bd48496051d7b59f6a78d9147758817fa",
+    "trading/lab/session-comparison.mjs": "4cc2d112bc4d3b0ffac588b8a67fe70e406c182f59ce0c70763db9caab415218",
+    "trading/lab/validation-engine.mjs": "409fe8c232c1a893fa88f0aebf106d5dcbd141e903700d3b1f8d90922bd151e6",
+    "trading/lab/validation-indicators.mjs": "88fdd0e4a58950bb2bb0dcc4071e60d0a3b5b836bc7a24e4c2b839f78c737812"
+  }
+}

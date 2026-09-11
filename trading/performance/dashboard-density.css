@@ -1,0 +1,41 @@
+@import url('../hitech.css?v=1');
+/* A compact Dashboard, without reducing text or the 44px touch targets. */
+#dashboard .section-heading{margin-bottom:.5rem;gap:.5rem}
+#dashboard .section-heading h2{margin:.1rem 0;font-size:1.25rem}
+#dashboard .section-heading p{margin:.15rem 0}
+#dashboard .kpi-grid{gap:0;margin:.5rem 0;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+#dashboard .kpi-card{padding:.45rem .65rem;border:0;border-radius:0;border-right:1px solid var(--line);box-shadow:none}
+#dashboard .kpi-card:last-child{border-right:0}
+#dashboard .kpi-label,#dashboard .kpi-meta{margin:.1rem 0}
+#dashboard .kpi-value{font-size:.875rem;margin:.15rem 0}
+#dashboard .performance{margin:.55rem 0}
+#dashboard .perf-heading{margin-bottom:.3rem}
+#dashboard .performance fieldset{padding:.4rem .5rem;gap:.35rem .5rem;margin-bottom:.3rem}
+#dashboard .perf-stats{gap:.3rem;margin:.35rem 0}
+#dashboard .perf-stat{padding:.45rem .5rem}
+#dashboard .perf-stat h4{font-size:.75rem;margin-bottom:.15rem}
+#dashboard .perf-stat p{margin:.1rem 0 0}
+#dashboard .perf-layout{gap:.4rem;grid-template-columns:minmax(0,2.7fr) minmax(230px,1fr)}
+#dashboard .perf-calendar-panel,#dashboard .perf-curve-panel,#dashboard .perf-day-detail{padding:.5rem}
+#dashboard .perf-calendar-panel h4,#dashboard .perf-curve-panel h4,#dashboard .perf-day-detail h4{margin-bottom:.3rem}
+#dashboard .perf-calendar-scroll{padding:.2rem}
+#dashboard .perf-weekdays,#dashboard .perf-calendar{gap:.2rem}
+#dashboard .perf-day{min-height:62px;padding:.3rem .4rem;gap:.1rem;border-radius:5px}
+#dashboard .perf-list-view .perf-day{min-height:48px}
+#dashboard .perf-day-detail{margin-top:.4rem}
+#dashboard .perf-day-detail p,#dashboard .perf-curve-panel p{margin:.3rem 0}
+#dashboard .perf-curve-panel dt{margin-top:.4rem}
+#dashboard .perf-curve-panel dd{margin:.15rem 0}
+#dashboard .performance td,#dashboard .performance th{padding:.35rem .45rem}
+#dashboard .perf-status,#dashboard .perf-method{margin:.25rem 0}
+#dashboard .workspace-note{margin:.4rem 0;font-size:.6875rem}
+#dashboard .market-layout{gap:.5rem}
+#dashboard .panel-heading{padding:.5rem .65rem}
+@media(max-width:1050px){#dashboard .perf-layout{grid-template-columns:1fr}}
+@media(max-width:600px){
+  #dashboard .kpi-grid{grid-template-columns:1fr 1fr}
+  #dashboard .kpi-card:nth-child(2){border-right:0}
+  #dashboard .kpi-card:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  #dashboard .perf-day{padding:.3rem;min-height:62px}
+  #dashboard .section-heading{align-items:flex-start}
+}

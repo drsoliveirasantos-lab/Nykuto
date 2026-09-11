@@ -1,0 +1,9 @@
+{
+  "schema": "jeu19-selection-v1",
+  "id": null,
+  "attempted": 8,
+  "freezeSha256": "e047c8fde787bc55eae48fc5ed4a0ee541da3193829fc43e24a285a2599199e1",
+  "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+  "trainEnd": "2026-05-01",
+  "createdAt": "2026-09-09T05:49:15.709Z"
+}

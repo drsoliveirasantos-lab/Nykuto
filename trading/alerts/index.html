@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#07111f">
+  <title>Alertes · Nykuto Trading HQ</title>
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="./alerts.css?v=2">
+  <script src="./alerts.mjs?v=3" type="module"></script>
+</head>
+<body class="alerts-page">
+  <a class="skip-link" href="#main">Aller au contenu</a>
+  <header class="topbar">
+    <div class="brand-wrap"><div class="brand-mark" aria-hidden="true">N</div><div><p class="eyebrow">NYKUTO</p><h1>Trading HQ</h1></div></div>
+    <div class="topbar-actions"><span class="status-pill">Signal Center · aucun ordre</span><a class="ghost-button" href="../lab/">Lab</a></div>
+  </header>
+  <nav class="section-nav" aria-label="Navigation du Trading HQ">
+    <a href="../#dashboard">Dashboard</a><a href="../#risk">Risque</a><a href="../#journal">Journal</a><a href="../#plan">Plan</a><a href="../replay/">Replay</a><a href="../lab/">Lab</a><a href="/alerts/" class="is-active" aria-current="page">Alertes</a>
+  </nav>
+  <main id="main" class="alerts-main">
+    <div class="alerts-heading"><div><p class="eyebrow">SIGNAL CENTER</p><h2>Alertes principales sans le bruit 1m</h2><p>Le flux 5m/15m reste décisionnel. Le 1m est conservé séparément comme micro-contexte de recherche, jamais comme ordre.</p></div><a class="ghost-button" href="#connect">Connecter TradingView</a></div>
+    <div class="alerts-layout">
+      <section class="panel inbox" aria-labelledby="inboxTitle">
+        <div class="panel-heading"><div><p class="panel-kicker">FLUX PRINCIPAL · 5M / 15M</p><h3 id="inboxTitle">Derniers déclenchements</h3></div><button id="refreshAlerts" class="ghost-button" type="button">Actualiser</button></div>
+        <div class="alerts-status"><span id="connectionStatus">Vérification de la réception…</span><span id="checkedAt" class="alerts-meta"></span></div>
+        <p id="feedError" class="alerts-error" role="alert" hidden></p>
+        <div id="emptyInbox" class="alerts-empty" hidden><span class="empty-icon" aria-hidden="true">◎</span><h4>Aucune alerte principale reçue</h4><p>Les événements 1 minute, s’il y en a, restent dans le bloc Micro 1m ci-dessous.</p></div>
+        <ol id="alertsList" class="alerts-list" aria-label="Alertes principales reçues"></ol>
+        <details id="microContextPanel" class="micro-context-panel">
+          <summary>Micro 1m · indice seulement <span id="microCount" class="micro-count">0</span></summary>
+          <p class="micro-context-copy">Conservé pour mesurer si le 1m améliore réellement le timing des signaux 5m/15m. Il n’est pas présenté comme BUY/SELL autonome.</p>
+          <p id="microEmpty" class="micro-empty">Aucun événement 1m reçu.</p>
+          <ol id="microAlertsList" class="alerts-list micro-alerts-list" aria-label="Micro-contexte 1 minute"></ol>
+        </details>
+        <p class="alerts-footnote">Les 50 derniers événements sont chargés. Le 1m est séparé visuellement mais reste conservé pour l’audit. Actualisation toutes les 30 secondes lorsque cet onglet est visible ; les prix sont ceux des alertes, pas des cotations en direct.</p>
+      </section>
+      <section class="panel setup" id="connect" aria-labelledby="setupTitle">
+        <div class="panel-heading"><div><p class="panel-kicker">CONFIGURATION GUIDÉE</p><h3 id="setupTitle">Recevoir tes alertes TradingView</h3></div></div>
+        <div class="setup-content">
+          <p>À faire une fois pour chaque alerte que tu veux recevoir sur le site. Pour le système actuel, privilégie les alertes principales 5m/15m ; garde le 1m uniquement si tu veux alimenter la recherche Micro.</p>
+          <ol class="setup-steps">
+            <li><h4>Prépare ton alerte</h4><p>Dans <a href="https://www.tradingview.com/chart/" target="_blank" rel="noopener noreferrer">TradingView</a>, ouvre le graphique puis « Créer une alerte ». Choisis le symbole et la condition : seuil de prix, indicateur ou dessin.</p></li>
+            <li><h4>Copie l’adresse de réception</h4><p>Dans les notifications de l’alerte, coche « URL du webhook » et colle cette adresse.</p>
+              <button id="showSetup" class="ghost-button" type="button">Afficher mon adresse</button>
+              <div id="webhookFields" hidden><label for="webhookUrl">Adresse privée de réception</label><div class="copy-row"><input id="webhookUrl" type="password" readonly autocomplete="off" spellcheck="false"><button id="copyUrl" class="ghost-button" type="button">Copier l’adresse</button></div><p class="alerts-meta">Garde cette adresse privée. Elle sert uniquement à recevoir des alertes.</p></div>
+            </li>
+            <li><h4>Colle le message et enregistre</h4><label for="alertName">Nom affiché sur Nykuto</label><input id="alertName" maxlength="100" value="NYKUTO 5M" autocomplete="off"><label for="alertMessage">Message à coller dans TradingView</label><textarea id="alertMessage" rows="7" readonly spellcheck="false"></textarea><button id="copyMessage" class="ghost-button" type="button">Copier le message</button><p>Enregistre l’alerte dans TradingView. Une vraie réception ici confirmera la connexion.</p></li>
+          </ol>
+          <p id="setupFeedback" role="status" aria-live="polite"></p>
+          <p class="alerts-note">TradingView exige la double authentification pour les webhooks. L’option doit être disponible dans ton offre. Si elle n’apparaît pas, vérifie les réglages de ton compte. <a href="https://www.tradingview.com/support/solutions/43000529348-how-to-configure-webhook-alerts/" target="_blank" rel="noopener noreferrer">Guide officiel</a>.</p>
+          <details><summary>Vérifier la réception du site</summary><p>Ce bouton ajoute un événement « Test du site ». Il vérifie l’enregistrement interne ; seul un déclenchement depuis TradingView vérifie toute la connexion.</p><button id="testAlerts" class="ghost-button" type="button">Créer une alerte de test</button></details>
+        </div>
+      </section>
+    </div>
+    <section class="panel alerts-explainer" aria-labelledby="toolsTitle"><h3 id="toolsTitle">Architecture des signaux</h3><div class="tools-grid"><div><h4>15m · contexte</h4><p>Structure et direction de fond. Ce niveau donne le cadre, pas le timing précis.</p></div><div><h4>5m · alerte principale</h4><p>Le flux opérationnel est centré sur les setups 5 minutes et leur qualité mesurée.</p></div><div><h4>1m · micro-contexte</h4><p>Le 1 minute sert à tester confirmation, danger ou timing. Il reste séparé tant que sa valeur incrémentale n’est pas démontrée.</p></div></div><p class="alerts-meta">Les scripts Pine personnalisés et les fonctionnalités payantes du compte ne sont pas transférés au widget. Les alertes reçues ici ne passent aucun ordre.</p></section>
+    <noscript>Active JavaScript pour charger ta boîte de réception et configurer l’adresse TradingView.</noscript>
+  </main>
+</body>
+</html>

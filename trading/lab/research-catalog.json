@@ -1,0 +1,879 @@
+{
+  "schema": "research-catalog-v1",
+  "checkedAt": "2026-09-10",
+  "independentConfirmations": 0,
+  "uniqueConfigurationKeys": 114,
+  "sharedConfigurationKeys": 57,
+  "countIsNotIndependentTrials": true,
+  "sources": [
+    {
+      "namespace": "published-site-plus-filter-audit-F1",
+      "ref": "8c9e343a29458e3d7548a76f1925dbe92f16b3a6",
+      "ledger": "research-ledger.json",
+      "configurationCount": 69,
+      "note": "Local game27/filter-diagnostic-v1 is audit F1, distinct from research-branch Game27 reentry."
+    },
+    {
+      "namespace": "research-games19-32",
+      "ref": "9df4d691122ff6b2137da4bc93e30a4ddf1aac31",
+      "branch": "research/trading-game32-trend500",
+      "ledger": "https://github.com/drsoliveirasantos-lab/Nykuto/blob/9df4d691122ff6b2137da4bc93e30a4ddf1aac31/trading/lab/research-ledger.json",
+      "configurationCount": 74,
+      "reportSha256": "0866d4c8b40493a5747ac5aa73251887e1272f2831c9d79f3c525604c4437035",
+      "note": "Latest H1/M5 and summer research; consult before new strategy decisions."
+    },
+    {
+      "namespace": "game33-account-comparison",
+      "ref": "c8fa2449db65bbf988eb6d0051cec1e8b867cd68",
+      "ledger": "research-ledger.json",
+      "configurationCount": 4,
+      "reportSha256": "6650ae7ea8061e94d1c24142d516cd29aabd8d03cfb91a71da08c05092392a57",
+      "note": "Four exploratory account configurations; 32 replays are not independent trials."
+    },
+    {
+      "namespace": "game34-monthly-payout",
+      "ref": "5a23869cf02cc0bd798fb400c87719c9f1e61da8",
+      "ledger": "research-ledger.json",
+      "configurationCount": 3,
+      "newStrategyVariants": 1,
+      "reportSha256": "ec751379ed0416e2895ca989e3f449d0144727f57582da51c08ee1920cdec349",
+      "note": "24 replays include 6 existing controls; monthly accounts reset independently."
+    },
+    {
+      "namespace": "game35-market-exits",
+      "ref": "71eb5adb79cf63e189fbe11bc40a4710c439c2da",
+      "ledger": "research-ledger.json",
+      "configurationCount": 4,
+      "newStrategyVariants": 2,
+      "reportSha256": "ff5f836855229d88fba31d22fd3d2717d67a19dfa0c7dc0659724f59f0044311",
+      "note": "36 replays include 12 Game34 controls; both 3R extensions rejected by the frozen research gate."
+    },
+    {
+      "namespace": "game36-entry-confirmation",
+      "ref": "de6365e691b2b137c6a73689765d448cb6a69249",
+      "ledger": "research-ledger.json",
+      "configurationCount": 4,
+      "newStrategyVariants": 2,
+      "reportSha256": "d8c1f793f00d23989838d83d62abbb130195a75eb957db342ac18e8cf7612537",
+      "note": "36 replays include 12 exact Game35 controls; both delayed-entry variants rejected by the frozen research gate."
+    },
+    {
+      "namespace": "game37-confidence-risk",
+      "ref": "ff0948823ee670385aaf34b6865bf9cb49317c82",
+      "ledger": "research-ledger.json",
+      "configurationCount": 5,
+      "newRiskPolicies": 4,
+      "reportSha256": "7b6aab05fccfcd86d397d03c8295fc8643e3ac22bfa2bd8d5dbfad0f1c07713f",
+      "note": "36 diagnostic replays include 6 exact controls; no configuration meets the frozen monthly target and drawdown gate. No independent confirmation."
+    },
+    {
+      "namespace": "game38-structure-obstacle",
+      "ref": "563ab6eff9e475ddcc40058b9fb9b2342ef4618a",
+      "ledger": "research-ledger.json",
+      "configurationCount": 1,
+      "reportSha256": "dc6ea2f52b3f69f0f5dd9e8cd6534ba6498c10b21e96d6fa001244affb4f221f",
+      "note": "12 bounded diagnostic replays, six exact controls. Two vetoed signals already failed planned risk; no executed trade changes and no strict PnL improvement. No independent confirmation."
+    },
+    {
+      "namespace": "game39-model-hours",
+      "ref": "2fc700dfb385f92b001a63fcb642603be51f7bf8",
+      "ledger": "research-ledger.json",
+      "configurationCount": 2,
+      "newStrategyVariants": 2,
+      "reportSha256": "c1520169a547acf65805f9f1197d1bf137181292f72e747207c52bac4c4b8326",
+      "note": "18 replays; six whole Game37 controls. Both variants rejected. Kronos textual top-p conflict disclosed in JEU39_RESULTS.md; no independent confirmation."
+    },
+    {
+      "namespace": "game40-eight-months",
+      "ref": "e0eb36dc7c787d9071e32882846c647f1088f04c",
+      "ledger": "research-ledger.json",
+      "configurationCount": 1,
+      "newStrategyVariants": 0,
+      "reportSha256": "fd57be160b7fd20f60449f13f379da138687acc1174f2c01d25889c7475fa6b0",
+      "note": "Unchanged fixed100 period extension; 16 replays, six whole controls; 164/166 sessions. Two partial months, no independent confirmation or new strategy."
+    },
+    {
+      "namespace": "game41-mes-net-reward",
+      "ref": "73aa1a6208a85f5a622e5d81f2675cd561ca0bb2",
+      "ledger": "research-ledger.json",
+      "configurationCount": 1,
+      "newStrategyVariants": 1,
+      "reportSha256": "57126d9f313c03b63e73be2e531a07670e2cd62d1b04fe49467e45f297f6b559",
+      "note": "One bounded MES net reward/risk1.5 variant; 32 replays,16 whole controls. Rejected in7/16 cells; no independent confirmation or automatic selection."
+    },
+    {
+      "namespace": "game42-mes-pullback-volume",
+      "ref": "39904d4a5f16d2ce71880c6d127766bca649a9aa",
+      "ledger": "research-ledger.json",
+      "configurationCount": 1,
+      "newStrategyVariants": 1,
+      "reportSha256": "efc3a4338458ccac4d7a1a32e3b317fa8646bea1b6e4b49515eb581599344bdc",
+      "note": "One bounded MES pullback-volume veto. 32 replays,16 whole controls; rejected in5/16 cells. No independent confirmation, inference or automatic selection."
+    },
+    {
+      "namespace": "game43-normalized-entry",
+      "ref": "1c776a3073bc04423179236b1ac42591694a0cdf",
+      "ledger": "research-ledger.json",
+      "configurationCount": 2,
+      "newStrategyVariants": 2,
+      "reportSha256": "5182ba3d2f966534ed66854beca4f5e808694ac5fc8ff60288a10bb8ecd426c9",
+      "note": "Two isolated normalized-entry vetoes; 48 replays,16 controls; no signals vetoed, all full accounts unchanged. Not retained; no strict improvement or independent confirmation."
+    }
+  ],
+  "entries": [
+    {
+      "executionKey": "058767ddf24d4b73ca83d641a0dd2b3fa1881db629878d173de535568fd8f415",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "12c0c40116b6c7793c3e988c8ba730976edf8eb0962073eadd4ef31944a2e20d",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "131be8165dce15e4e75f4f09651be9b4e52fcf2b3f0098e7e385ef559a8539a8",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "15a2157e17b325c0c3d35f762d49d9199fea53f3f1e10bef69f2756b7ffcae0d",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "21157df83aa5ed6867b7f2e3bf48800c9925b5c4a78faa13378b6cff996d2b9b",
+      "sources": [
+        "published-site-plus-filter-audit-F1"
+      ]
+    },
+    {
+      "executionKey": "2524f9b7940a4663ee7bc3343ad7aba5a17cf5349b3beae52fff935e6aeaa7cc",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "26919e4603a80fa4106e02495913c9373891e215e053de822960e9ca214175d0",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "2cf54bccee4e295240c709aa6656caf11a97a619e685663cdccb51357ed55fb3",
+      "sources": [
+        "published-site-plus-filter-audit-F1"
+      ]
+    },
+    {
+      "executionKey": "2e29ea2b209e594aa582d30060a3a1d299e7f2b5f9700ec1db708713910f1ba2",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "2fc8d238bff156b6440f91e6424a1b36d53abb9c9464f916fe90cc5b600bc56f",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "2fef71de90a31dba30a4aa479a7dbd8ff7c069931047c0112c7ecbf00aefb1f8",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "37c42aff95e585a760c761fe744358fddcf9e41cbb63a46f0dc13fdd66d9401b",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "3b1cd76e0b521ce8f4fc40bb1ea34b419a5b9bd38dfb5b5d62f69938091507cd",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "3cbf3b733cc825179d18d212c9c16a52f962a151e88a07595de0d28de827c273",
+      "sources": [
+        "published-site-plus-filter-audit-F1"
+      ]
+    },
+    {
+      "executionKey": "3f17770672977e612b8fa0adad84b495f4fe8160dd9cd22ae2452539ad87c94a",
+      "sources": [
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "3f8771408debb38201cadc40a38ba66fe7527df7c054b63e8d19f7f9dbdc989c",
+      "sources": [
+        "published-site-plus-filter-audit-F1"
+      ]
+    },
+    {
+      "executionKey": "400ed7d43d3766050a3c724cc229b287e7ece8df9ac6074fab9483fb0cc6bb02",
+      "sources": [
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "40f0a8717a1f42aee420a4f3abb80916b89ff9430546b4749d7922b06230af6c",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "443ef2906dec42b69fe4e77aa8b5f6f18277c35e64fc7b2d69b2dea430e9175f",
+      "sources": [
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "453edda9b1addf0c88a995c7a34b60b1a0d307e35416eb78c6bdc389dc8148bd",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "46e9ca7e44f79e58a047db21ca4a7faa1782632da69f95a1fe1099c5681acea3",
+      "sources": [
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "4d4a8d59f0d86b930ad685527656b15dc06120969804c5d48e0ef2524aa4095d",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "4f5dac2d97f7b5c4ee32fe0db5b244faa3d820a4564db486708d9fcdcb85b744",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "5209c50bb77c2d81f42b0c46eac2e9ee696aea1b991a7b37c63a6d38929b16c7",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "52e0ebd962319c8f1acaf92d77e98369ef26d5a02fdf8470a0eee3273999d8fb",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "57a22292d56d5887f75e658d29d28c6b293ee3917a106622794d8bdfb589b5da",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "57aea67a01bab30645feb8b02563391143253771310ec03c2cbabb7f92990b31",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "5a1b0d2dbedd60c1cad9371b6ba955129224e6daebe241e16850acf4bd972006",
+      "sources": [
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "5a7f3b62bf2c02724194ca9695cc99a6d86de46d5fcdbfa09e8e4182fc9a65af",
+      "sources": [
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "5ef75c5c87c29ee090b425ff60734044c11a7b7ac9b26406e032105cba5401fe",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "6e7a81531408a123af62fded072cf44c764f43e40685c29ec64b3f81f481a03f",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "6f0dada0da6bf9776f478497e69e84881775cedad45d10158e0fc0bec8ae26fb",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "708ed4cc9670d56aebdaa4967a9b5a874545a5bd70b26f9bebc57e772a47712d",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "74e7e91e5d3db674e46446f0c13a485cb74c48f907d5fc7f074ad58792c64844",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "77c791d80aec73eb937db764190b1b85908b9f9f199d4f4010462b777dfb30bf",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "78285642d32d82e68803b40109a3889811e4c58605a4f5199421af27e3491938",
+      "sources": [
+        "published-site-plus-filter-audit-F1"
+      ]
+    },
+    {
+      "executionKey": "790faadd8e376e8abaa782af8d95c7486cc72c75986c6282e060bbda1396abb5",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "7c6225f247eb107bffeb533276c95e6074a06afed1b841ad0a94002f15186ec2",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "7ea17d8da8bc96c54979aa8420f23eb7afd0a33f631c36df6f5c6223f53f2487",
+      "sources": [
+        "published-site-plus-filter-audit-F1"
+      ]
+    },
+    {
+      "executionKey": "7f8864f75b074f453ff14d1616c00e6f9a4dcc51ef85a9bbfe9865468302d142",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "8214ead5af08479f9e0a290825f4a5900acfc197637915744392cfaee3f548a1",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "8e72f13d92cc032e7aa5d1a349baf3bbf61a1babff70b018f8bc1318141a0590",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "8fbf4fb103629b7bbffbbbee1fcfbe49c9d901ead208582ce241076bf1398436",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "93bb7bf848963c7846f316d3d2a2515e9c3614d2c3340c1d3188be88b5cc94e7",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "95a6625af5a2d0341ea132ad5fc8166ce7565bd462b7e05109a55c2eeebac490",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "9628a8c417873d9c1bed4718530fcfe97316231f180ccec24a059cc52852d611",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "994557bf09a12814cc629ac8e1de7fd42625dac43cca267f44d4390c2035ba1c",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "9d8def71b32db8874e6ca62e8cdb46cd698b2c5987ba3e953e6da92727392970",
+      "sources": [
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "9ec2b0f60621ab4eb10cfee8720e8516f4099e2eea84b941295f1a794b306b69",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "9ffec90bc803a5f802d3fd7222de7e9f4f080df38efaf3b48172a65dbd558f6e",
+      "sources": [
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "aab3446d05d58b1df4cb1dfc5a900fd94b35b49e079464cf07196064b0a521d5",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "ad6e0d4d8b4bdcabcc21a592b295deccbb13edc225e76067d7a3bd8f03bb2d13",
+      "sources": [
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "ae896673d517349bc4dd1e3e82b5c7951a9c4c0b2e1ac9a0887c55ed2a78430e",
+      "sources": [
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "b2501c7ed4adc904b7137c761523009e38ba59368633aece49b708f9b1680a96",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "b572e13c39a00b6885192a9e115c10e3abe908a3c99e573fc661e3a5bd253006",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "bfd919f27023262b3b0ea1df8f1e7225f76fd0ca80f84c78ea2145121bbb86d6",
+      "sources": [
+        "published-site-plus-filter-audit-F1"
+      ]
+    },
+    {
+      "executionKey": "c1c7e4d62fe78acfbb548859a96ace2ff989a81e6f5f0f169e39c837d6efff26",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "c2bb1ff44d331880272f5bc0f90aa00e5f87792950a5db16a6e58fb13a7d3bdd",
+      "sources": [
+        "published-site-plus-filter-audit-F1"
+      ]
+    },
+    {
+      "executionKey": "c4c3b1089bce242f9e58e53d802e2a37d9fd9904f6bdf731d956f0cb66b5c6f1",
+      "sources": [
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "c76df482894c107d4681377cdf9e69257a093a9d5e49f908b99bc33694aeab2b",
+      "sources": [
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "ca5c63712b2b90bf7fba2a8532adeb6a770fd08d213be905fd8fed4bd095ed65",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "cbde6238abd18d8ee4fd030c427577a15a87701b5cd910162e3820315038cc39",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "ce120a93bab9e91c7507079571214e66296155bb99e1ca7c247abae55e4edc7f",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "ceb692bd4d88aba507b6c681095f5836915ae632d23670fe84cdc1e0c4d7f047",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "d3842f742d3422b534b09e20380e7c1eb7c3f979faf88df4f7e51a0e1258dba5",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "d390b73fd48b6d0abff56f3014670429f344bc9b50933995a60ad85226624327",
+      "sources": [
+        "published-site-plus-filter-audit-F1"
+      ]
+    },
+    {
+      "executionKey": "d4fbfe85062eca202ca8f5c8cd87c79aff12c169bb6c29c17f3984044630e21c",
+      "sources": [
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "d7305a0a4de1adeb9a73e58b00cda7b5edc002e260ca7a15683f5c92866296ae",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "d87762fe5e0a910cf01ec501744fb35f08b5a43744a0c9759b2dd62ec8898b78",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "dde5a9ad7abe398aaed179732fd9c79bad8c28748ed7d1a2890e3a6a218dea85",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "e0461ba41d7c4a04d42ecba5fe9531a62ccc919a202e4604b0418c9316009059",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "e4acc06e2164e2a0b2d3bae24d731093b27f57d46c41b3758af3211e149fa3c6",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "e51bffdf1c10e6711d297887df829078c87e5eafb5a4f7e8d6b61cdfa4f4fba7",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "e7c34b3a9235c9679b59cf8778c8668a1b3ea16d11d26425640f01c743f56ec2",
+      "sources": [
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "e814a911c30b66f5b38ea9f2ad2f8af5e8e159fb0283e4feb60013f36648a4bc",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "eac785e558c46eb8450ba0caee38edf4b862cf36cecbfd6f7e46e78700de2007",
+      "sources": [
+        "published-site-plus-filter-audit-F1"
+      ]
+    },
+    {
+      "executionKey": "ee48f5100456053a6f6fbdba30d55a3aafdd24e4104fc4f4c742170c50e3716e",
+      "sources": [
+        "published-site-plus-filter-audit-F1"
+      ]
+    },
+    {
+      "executionKey": "efbf4edb6a7a42b9efd7735d39f1546e8dd879fde3eb0c935dc97dc38f795abe",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "f1cb8b9fdba47c709b7126347c5b45872a89eb5a070fac6c77b97f2433470ab0",
+      "sources": [
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "f39737a8b708e0f30f4f921a52480c31cb7b36e5037fc20fee6e22838d18e09d",
+      "sources": [
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "f5e4b33d08d4378b31027997e1b3b96e25ddfcb08e1ba71e690f25e621ecb0cf",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "f6cc5320bdf7ba9d5d895db04ffaf22615f5405ec90df83ab078cd5dc71bca35",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "f7404fa67dff1419e5a8be5a2dfc7e4fcc86c1e952f477198560fd84823bb75d",
+      "sources": [
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "fa9bf81d78ade31c4a614a34ee3bf4004dd149250751aca5c7c52e0bae5c26cf",
+      "sources": [
+        "published-site-plus-filter-audit-F1"
+      ]
+    },
+    {
+      "executionKey": "fb3ad682b1da9b8b1c9dc4d6d2f0bf7a1232cc6b2d6723773a45a85ccc46a180",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "fd912f089a9f31d1ef36ca8214163849f1bb1f05351c37ddadefc8f18f85fe1f",
+      "sources": [
+        "published-site-plus-filter-audit-F1",
+        "research-games19-32"
+      ]
+    },
+    {
+      "executionKey": "9121e49b20467776752e633c26db864e2edf2533d402d44ca02dc50aae2fcbb0",
+      "sources": [
+        "game33-account-comparison"
+      ]
+    },
+    {
+      "executionKey": "72603c459aeaf200eb510d460eb7f0026049e78e92b8b1afe33d9ecde8f5b1fd",
+      "sources": [
+        "game33-account-comparison"
+      ]
+    },
+    {
+      "executionKey": "a82b27d17a0934d54277337a631d497ab5bbcf0359eba00a77ed0ad60291ea48",
+      "sources": [
+        "game33-account-comparison"
+      ]
+    },
+    {
+      "executionKey": "20acaffa1c9cb2e67e00919c06df6e6b1b4fec2a5a3fe56f463e4c48ab364ea8",
+      "sources": [
+        "game33-account-comparison"
+      ]
+    },
+    {
+      "executionKey": "2bcc0bd6414d5e116bb1ee8f3bb05bd2afe401103bdf39df363e3de13fd9c91b",
+      "sources": [
+        "game34-monthly-payout"
+      ]
+    },
+    {
+      "executionKey": "a7593f3d653ee1957a1daa15a24cde576017ea46ada1c692a1a6f0c723fffcf1",
+      "sources": [
+        "game34-monthly-payout"
+      ]
+    },
+    {
+      "executionKey": "f317118dcc4dd2ee22bf6c8a57571aa74e6cf08f96678613e649c227993913bb",
+      "sources": [
+        "game34-monthly-payout"
+      ]
+    },
+    {
+      "executionKey": "0fdd26f32beffcdcb052ecca41c221b003d691d09497bd92801107d5c4b7fbb8",
+      "sources": [
+        "game35-market-exits"
+      ]
+    },
+    {
+      "executionKey": "7470b3423d4cafa48110a4447ed59c395a44ecb19e19bd43fbcd622d7e05288c",
+      "sources": [
+        "game35-market-exits"
+      ]
+    },
+    {
+      "executionKey": "a8355c93bb8de0dd886da1a4567836c23b41c100b18c93f8f11041ccc3ab7e0e",
+      "sources": [
+        "game35-market-exits"
+      ]
+    },
+    {
+      "executionKey": "79cf0ca376efad1ea7cd05398d7a29707daa0428b7c1ab5684477911ca5f39e0",
+      "sources": [
+        "game35-market-exits"
+      ]
+    },
+    {
+      "executionKey": "4c095d3afc3a5334ce46dca6165f8ea38fc3c76e9412b7eba3fa954c83638442",
+      "sources": [
+        "game36-entry-confirmation"
+      ]
+    },
+    {
+      "executionKey": "20bf9edad8cebbe81f4fea135aa5529717d8cc4dc835dc9976f69e0727d1fddc",
+      "sources": [
+        "game36-entry-confirmation"
+      ]
+    },
+    {
+      "executionKey": "ec7caab7a8a0669302cc9e5ac64f6284819c10461853e4f801c39592d0660915",
+      "sources": [
+        "game36-entry-confirmation"
+      ]
+    },
+    {
+      "executionKey": "5ededa232c64348f2980dcf00669251caf80b6cd1342e86a5bee8cfdf903b057",
+      "sources": [
+        "game36-entry-confirmation"
+      ]
+    },
+    {
+      "executionKey": "c53cf0d19daba79e7db620582d0124ce64d968f360b4a4fbc1e0f5b8b1737f36",
+      "sources": [
+        "game37-confidence-risk"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "b1a46123f4b507698c4a0d65498538ae79cd11a296e5de452db9bfff7e134302",
+      "sources": [
+        "game37-confidence-risk"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "03f6acea1063872f503325c562acb0f9c8e44057afc6caf938fdd4d97f438481",
+      "sources": [
+        "game37-confidence-risk"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "ee0a937a12296a44123408624f9a3a00844695f0306fc8df864c3c055c3e87ed",
+      "sources": [
+        "game37-confidence-risk"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "781be09cde63db7171764254e44ccb9f61b3eda793582aae9fb362dd84713d84",
+      "sources": [
+        "game37-confidence-risk"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "b4fb9f567429d4e31c2b2f0f60b412110ced33577f8410e8287d0d84fa495d71",
+      "sources": [
+        "game38-structure-obstacle"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "0639aff83db3c86449027a839d0629f30ea595eeea8eb00db1660f84df7b7eff",
+      "sources": [
+        "game39-model-hours"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "21db11926cf1c3ed3ccccc22a0d725829c80a069d3dd999f98848fd1e3bf14b3",
+      "sources": [
+        "game39-model-hours"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "263b52acb6cf972f914793534f181160efbab65505e8ffbced7e5a59bb20be93",
+      "sources": [
+        "game40-eight-months"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "54f6b4eec44fe43dda5c11a6eb134d2b810ef9e70bfc2904df00d3bcc3d811b7",
+      "sources": [
+        "game41-mes-net-reward"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "89f2a96c0490b1512a93d87646b92b098ac6ec540843aca85b5eaf51d586d0c7",
+      "sources": [
+        "game42-mes-pullback-volume"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "007b16365cf6a2e21e5a13ef5228e1b3469a50f81b8db83e0c3de03eb4e8d695",
+      "sources": [
+        "game43-normalized-entry"
+      ],
+      "confirmed": false
+    },
+    {
+      "executionKey": "e5a75cb6ab58f14e29b76630a3b493efa59b743ff08250f9084d1b3bf5617582",
+      "sources": [
+        "game43-normalized-entry"
+      ],
+      "confirmed": false
+    }
+  ]
+}

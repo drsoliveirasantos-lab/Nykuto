@@ -1,0 +1,149 @@
+//@version=6
+indicator("Nykuto Signal V12.4 - HUD REV + ORB", overlay=true, max_labels_count=500)
+// Decision-support only. No broker orders.
+
+// ===== Inputs =====
+nyTz="America/New_York"
+orbSession=input.session("0930-1000","New York Opening Range")
+tradeSession=input.session("1000-1200","ORB trade window")
+rsiLen=input.int(14,"RSI",minval=2)
+atrLen=input.int(14,"ATR",minval=2)
+volLen=input.int(20,"Volume average",minval=2)
+fastLen=input.int(9,"EMA fast",minval=1)
+slowLen=input.int(21,"EMA slow",minval=2)
+htf=input.timeframe("60","Context HTF")
+htfFastLen=input.int(20,"HTF EMA fast",minval=1)
+htfSlowLen=input.int(50,"HTF EMA slow",minval=2)
+pivotLeft=input.int(2,"Pivot left",minval=1)
+pivotRight=input.int(2,"Pivot right",minval=1)
+contextBars=input.int(12,"Context memory",minval=1)
+ctxCooldown=input.int(6,"B/S cooldown",minval=1)
+revCooldown=input.int(4,"REV cooldown",minval=1)
+minRevScore=input.int(2,"Minimum REV score",minval=1,maxval=6)
+sweepLookback=input.int(8,"Liquidity sweep lookback",minval=2)
+levelAtrDistance=input.float(0.35,"Near-level distance ATR",step=0.05)
+relVolMin=input.float(1.20,"Relative volume min",step=0.05)
+maxRetestMinutes=input.int(5,"ORB retest max minutes",minval=1,maxval=30)
+retestToleranceAtr=input.float(0.15,"ORB retest tolerance ATR",step=0.05)
+compactOrbAtr=input.float(3.0,"Compact ORB ATR bonus",step=0.1)
+showRev=input.bool(true,"Show REV HUD")
+showContextSignals=input.bool(true,"Show B/S context")
+showContextMarkers=input.bool(true,"Show R / DIV / MSS")
+showOrbSignals=input.bool(true,"Show ORB B/S")
+showOrb=input.bool(true,"Show ORB High/Low")
+showGuides=input.bool(false,"Show EMA/VWAP")
+showTooltips=input.bool(true,"Tooltips")
+
+// ===== Base =====
+emaFast=ta.ema(close,fastLen), emaSlow=ta.ema(close,slowLen), rsi=ta.rsi(close,rsiLen), atr=ta.atr(atrLen), atrRef=atr[1], vwap=ta.vwap(hlc3)
+volAvg=ta.sma(volume,volLen)[1]
+relVol=not na(volAvg) and volAvg>0?volume/volAvg:0.0
+volumeOk=relVol>=relVolMin
+[macdLine,macdSignal,macdHist]=ta.macd(close,12,26,9)
+htfFast=request.security(syminfo.tickerid,htf,ta.ema(close,htfFastLen)[1],barmerge.gaps_off,barmerge.lookahead_on)
+htfSlow=request.security(syminfo.tickerid,htf,ta.ema(close,htfSlowLen)[1],barmerge.gaps_off,barmerge.lookahead_on)
+htfBull=htfFast>htfSlow, htfBear=htfFast<htfSlow
+
+// ===== Candle anatomy =====
+barRange=high-low, body=math.abs(close-open), bodyRatio=barRange>0?body/barRange:0.0
+upperWick=high-math.max(open,close), lowerWick=math.min(open,close)-low
+upperWickRatio=barRange>0?upperWick/barRange:0.0, lowerWickRatio=barRange>0?lowerWick/barRange:0.0
+expansion=not na(atrRef) and atrRef>0 and barRange>=atrRef*0.75
+displacementUp=expansion and bodyRatio>=0.60 and close>open
+displacementDown=expansion and bodyRatio>=0.60 and close<open
+bullEngulf=close>open and close[1]<open[1] and open<=close[1] and close>=open[1]
+bearEngulf=close<open and close[1]>open[1] and open>=close[1] and close<=open[1]
+bullHammer=lowerWickRatio>=0.50 and upperWickRatio<=0.20 and bodyRatio<=0.45
+bearStar=upperWickRatio>=0.50 and lowerWickRatio<=0.20 and bodyRatio<=0.45
+bullPin=lowerWickRatio>=0.60 and bodyRatio<=0.30, bearPin=upperWickRatio>=0.60 and bodyRatio<=0.30
+bullCandle=bullEngulf or bullHammer or bullPin, bearCandle=bearEngulf or bearStar or bearPin
+bullAbsorption=volumeOk and lowerWickRatio>=0.45 and bodyRatio<=0.35
+bearAbsorption=volumeOk and upperWickRatio>=0.45 and bodyRatio<=0.35
+
+// ===== RSI / pivots / divergence =====
+rsiExitUp=barstate.isconfirmed and ta.crossover(rsi,30), rsiExitDown=barstate.isconfirmed and ta.crossunder(rsi,70)
+ageRsiUp=ta.barssince(rsiExitUp), ageRsiDown=ta.barssince(rsiExitDown)
+recentRsiUp=not na(ageRsiUp) and ageRsiUp<=contextBars, recentRsiDown=not na(ageRsiDown) and ageRsiDown<=contextBars
+pHigh=ta.pivothigh(high,pivotLeft,pivotRight), pLow=ta.pivotlow(low,pivotLeft,pivotRight)
+var float lastHigh=na, var float prevHigh=na, var float lastLow=na, var float prevLow=na, var float lastHighRsi=na, var float lastLowRsi=na
+bullDiv=false, bearDiv=false
+if barstate.isconfirmed and not na(pLow)
+    pivotRsiLow=rsi[pivotRight]
+    bullDiv:=not na(lastLow) and not na(lastLowRsi) and pLow<lastLow and pivotRsiLow>lastLowRsi
+    prevLow:=lastLow, lastLow:=pLow, lastLowRsi:=pivotRsiLow
+if barstate.isconfirmed and not na(pHigh)
+    pivotRsiHigh=rsi[pivotRight]
+    bearDiv:=not na(lastHigh) and not na(lastHighRsi) and pHigh>lastHigh and pivotRsiHigh<lastHighRsi
+    prevHigh:=lastHigh, lastHigh:=pHigh, lastHighRsi:=pivotRsiHigh
+ageBullDiv=ta.barssince(bullDiv), ageBearDiv=ta.barssince(bearDiv)
+recentBullDiv=not na(ageBullDiv) and ageBullDiv<=contextBars, recentBearDiv=not na(ageBearDiv) and ageBearDiv<=contextBars
+
+// ===== Structure =====
+higherHigh=not na(lastHigh) and not na(prevHigh) and lastHigh>prevHigh
+lowerHigh=not na(lastHigh) and not na(prevHigh) and lastHigh<prevHigh
+higherLow=not na(lastLow) and not na(prevLow) and lastLow>prevLow
+lowerLow=not na(lastLow) and not na(prevLow) and lastLow<prevLow
+bullStructure=higherHigh and higherLow, bearStructure=lowerHigh and lowerLow
+bullBreak=not na(lastHigh) and close>lastHigh and close[1]<=lastHigh
+bearBreak=not na(lastLow) and close<lastLow and close[1]>=lastLow
+bullBOS=barstate.isconfirmed and bullStructure and bullBreak, bearBOS=barstate.isconfirmed and bearStructure and bearBreak
+bullMSS=barstate.isconfirmed and bearStructure and bullBreak and displacementUp and volumeOk
+bearMSS=barstate.isconfirmed and bullStructure and bearBreak and displacementDown and volumeOk
+
+// ===== ORB state =====
+inOrb=not na(time(timeframe.period,orbSession,nyTz)), inTradeWindow=not na(time(timeframe.period,tradeSession,nyTz))
+orbStart=inOrb and not inOrb[1], orbEnd=not inOrb and inOrb[1]
+var float orbHigh=na, var float orbLow=na, var float orbAtrAtEnd=na
+var bool orbReady=false
+if orbStart
+    orbHigh:=high, orbLow:=low, orbAtrAtEnd:=na, orbReady:=false
+else if inOrb
+    orbHigh:=na(orbHigh)?high:math.max(orbHigh,high), orbLow:=na(orbLow)?low:math.min(orbLow,low)
+if orbEnd
+    orbAtrAtEnd:=atrRef, orbReady:=true
+orbWidth=orbReady and not na(orbHigh) and not na(orbLow)?orbHigh-orbLow:na
+orbAtrRatio=orbReady and not na(orbWidth) and not na(orbAtrAtEnd) and orbAtrAtEnd>0?orbWidth/orbAtrAtEnd:na
+compactOrb=not na(orbAtrRatio) and orbAtrRatio<=compactOrbAtr
+
+// ===== REV 6/6 =====
+priorLow=ta.lowest(low[1],sweepLookback), priorHigh=ta.highest(high[1],sweepLookback)
+bullSweep=barstate.isconfirmed and low<priorLow and close>priorLow, bearSweep=barstate.isconfirmed and high>priorHigh and close<priorHigh
+nearVwap=not na(atrRef) and atrRef>0 and math.abs(close-vwap)<=atrRef*levelAtrDistance
+nearSwingLow=not na(lastLow) and not na(atrRef) and atrRef>0 and math.abs(close-lastLow)<=atrRef*levelAtrDistance
+nearSwingHigh=not na(lastHigh) and not na(atrRef) and atrRef>0 and math.abs(close-lastHigh)<=atrRef*levelAtrDistance
+nearOrbLow=orbReady and not na(orbLow) and not na(atrRef) and atrRef>0 and math.abs(close-orbLow)<=atrRef*levelAtrDistance
+nearOrbHigh=orbReady and not na(orbHigh) and not na(atrRef) and atrRef>0 and math.abs(close-orbHigh)<=atrRef*levelAtrDistance
+bullMomentumTurn=recentRsiUp or recentBullDiv or (macdHist>macdHist[1] and macdHist[1]<=macdHist[2])
+bearMomentumTurn=recentRsiDown or recentBearDiv or (macdHist<macdHist[1] and macdHist[1]>=macdHist[2])
+bullStructureTurn=bullMSS or bullBOS or higherLow, bearStructureTurn=bearMSS or bearBOS or lowerHigh
+bullCandleTurn=bullCandle, bearCandleTurn=bearCandle
+bullVolumeTurn=volumeOk and (close>open or bullAbsorption), bearVolumeTurn=volumeOk and (close<open or bearAbsorption)
+bullLiquidityTurn=bullSweep, bearLiquidityTurn=bearSweep
+bullLevelTurn=nearVwap or nearSwingLow or nearOrbLow, bearLevelTurn=nearVwap or nearSwingHigh or nearOrbHigh
+bullRevScore=(bullMomentumTurn?1:0)+(bullStructureTurn?1:0)+(bullCandleTurn?1:0)+(bullVolumeTurn?1:0)+(bullLiquidityTurn?1:0)+(bullLevelTurn?1:0)
+bearRevScore=(bearMomentumTurn?1:0)+(bearStructureTurn?1:0)+(bearCandleTurn?1:0)+(bearVolumeTurn?1:0)+(bearLiquidityTurn?1:0)+(bearLevelTurn?1:0)
+bullRevEvent=rsiExitUp or bullDiv or bullMSS or bullSweep or bullCandle, bearRevEvent=rsiExitDown or bearDiv or bearMSS or bearSweep or bearCandle
+var int lastBullRev=na, var int lastBearRev=na
+bullRevRaw=barstate.isconfirmed and bullRevScore>=minRevScore and (bullRevScore>bullRevScore[1] or bullRevEvent)
+bearRevRaw=barstate.isconfirmed and bearRevScore>=minRevScore and (bearRevScore>bearRevScore[1] or bearRevEvent)
+bullRev=bullRevRaw and (na(lastBullRev) or bar_index-lastBullRev>=revCooldown), bearRev=bearRevRaw and (na(lastBearRev) or bar_index-lastBearRev>=revCooldown)
+if bullRev
+    lastBullRev:=bar_index
+if bearRev
+    lastBearRev:=bar_index
+
+// HUD text: score hidden on chart, full 1/6 detail in tooltip.
+bullRevName=bullRevScore>=5?"REV++":bullRevScore>=4?"REV+":"REV"
+bearRevName=bearRevScore>=5?"REV++":bearRevScore>=4?"REV+":"REV"
+bullRevText="▲ "+bullRevName, bearRevText="▼ "+bearRevName
+bullRevTip="REV haussier — "+str.tostring(bullRevScore)+"/6\nMomentum: "+(bullMomentumTurn?"✓":"✗")+"\nStructure: "+(bullStructureTurn?"✓":"✗")+"\nBougie: "+(bullCandleTurn?"✓":"✗")+"\nVolume: "+(bullVolumeTurn?"✓":"✗")+"\nLiquidite: "+(bullLiquidityTurn?"✓":"✗")+"\nNiveau: "+(bullLevelTurn?"✓":"✗")+"\nAlerte contextuelle, pas ordre automatique."
+bearRevTip="REV baissier — "+str.tostring(bearRevScore)+"/6\nMomentum: "+(bearMomentumTurn?"✓":"✗")+"\nStructure: "+(bearStructureTurn?"✓":"✗")+"\nBougie: "+(bearCandleTurn?"✓":"✗")+"\nVolume: "+(bearVolumeTurn?"✓":"✗")+"\nLiquidite: "+(bearLiquidityTurn?"✓":"✗")+"\nNiveau: "+(bearLevelTurn?"✓":"✗")+"\nAlerte contextuelle, pas ordre automatique."
+
+// ===== Directional context =====
+localBull=emaFast>emaSlow and emaSlow>=emaSlow[1], localBear=emaFast<emaSlow and emaSlow<=emaSlow[1]
+buyVwap=close>vwap, sellVwap=close<vwap
+buyMomentum=rsi>55 and rsi>rsi[1] and macdHist>macdHist[1], sellMomentum=rsi<45 and rsi<rsi[1] and macdHist<macdHist[1]
+recentHigh6=ta.highest(high[1],6), recentLow6=ta.lowest(low[1],6)
+breakoutUp=close>recentHigh6 and close>open, breakdownDown=close<recentLow6 and close<open
+contextBuyScore=(localBull?2:0)+(htfBull?2:0)+(buyVwap?1:0)+(buyMomentum?1:0)+(volumeOk?1:0)+(displacementUp?1:0)+(higherHigh?1:0)+(higherLow?1:0)+(bullBOS?2:0)+(bullCandle?1:0)+(recentRsiUp?1:0)+(recentBullDiv?1:0)
+contextSellScore=(localBear?2:0)+(htfBear?2:0)+(sellVwap?1:0)+(sellMomentum?1:0)+(volumeOk?1:0)+(displacementDown?1:0)+(lowerHigh?1:0)+(lowerLow?1:0)+(bearBOS?2

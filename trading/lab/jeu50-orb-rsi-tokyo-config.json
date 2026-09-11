@@ -1,0 +1,38 @@
+{
+  "schema": "nykuto-research-config-v1",
+  "game": 50,
+  "name": "MNQ ORB + RSI + Tokyo confirmation",
+  "symbol": "MNQ",
+  "evaluationWindow": {"start": "2026-06-01", "end": "2026-08-31"},
+  "baseline": {
+    "family": "NY-opening-range-breakout-retest",
+    "openingRange": "09:30-10:00 America/New_York",
+    "retestBars": 6,
+    "latestSignalStart": "11:55 America/New_York",
+    "entry": "next M5 open",
+    "targetR": 2,
+    "structuralStop": "retest extreme plus one MNQ tick",
+    "sameBarResolution": "stop-first",
+    "maxPerDirectionPerDay": 1
+  },
+  "rsiFilter": {"length": 14, "longVetoAbove": 70, "shortVetoBelow": 30},
+  "tokyoPrimary": {
+    "id": "tokyo-ever-break",
+    "session": "09:00-15:00 Asia/Tokyo",
+    "requiresCompletedRange": true,
+    "confirmation": "at least one closed 1m candle beyond same-direction Tokyo boundary after session end and before ORB confirmation",
+    "wickDoesNotCount": true
+  },
+  "secondaryDiagnostics": ["tokyo-state", "tokyo-first-break"],
+  "result": {
+    "orbBase": {"trades": 34, "wins": 12, "totalR": 2.0, "meanR": 0.0588235294, "profitFactor": 1.0909},
+    "orbPlusRsi": {"trades": 30, "wins": 12, "totalR": 6.0, "meanR": 0.2, "profitFactor": 1.3333},
+    "orbPlusRsiPlusTokyo": {"trades": 20, "wins": 7, "totalR": 1.0, "meanR": 0.05, "profitFactor": 1.0769}
+  },
+  "decision": {
+    "selected": false,
+    "reason": "Tokyo confirmation reduced expectancy and frequency versus ORB + RSI; keep Tokyo as separate research family.",
+    "productionExecution": false
+  },
+  "liveOrdersEnabled": false
+}

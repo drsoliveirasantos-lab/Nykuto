@@ -1,0 +1,5241 @@
+{
+  "schema": "jeu19-report-v1",
+  "protocol": "jeu19-multimarket-v1",
+  "generatedAt": "2026-09-09T05:49:15.710Z",
+  "freezeSha256": "e047c8fde787bc55eae48fc5ed4a0ee541da3193829fc43e24a285a2599199e1",
+  "protocolSha256": "66a134b3bf4f9f4762d6fe15a85bc5351ba7b0987c76204e5353063f667de82a",
+  "source": {
+    "provider": "Massive",
+    "resolution": "5min",
+    "bytes": 4331838,
+    "sha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+    "retrievedAt": "2026-09-09T05:47:42.614820+00:00",
+    "contracts": [
+      "MESH6",
+      "MESM6",
+      "MESU6",
+      "MYMH6",
+      "MYMM6",
+      "MYMU6",
+      "MGCG6",
+      "MGCJ6",
+      "MGCM6",
+      "MGCQ6",
+      "MGCV6"
+    ],
+    "rawPublic": false,
+    "mnqSource": "Pinned Jeu 14 archive, reused observations"
+  },
+  "policy": {
+    "version": "jeu19-multimarket-v1",
+    "from": "2026-01-01",
+    "end": "2026-09-01",
+    "trainEnd": "2026-05-01",
+    "warmup30": 220,
+    "minNetRewardRisk": 1,
+    "minimumTrainTrades": 40,
+    "minimumWindowTrades": 12,
+    "minimumPF": 1.1,
+    "maxDrawdownR": 8,
+    "paperEnabled": false,
+    "shadowEnabled": false,
+    "brokerEnabled": false,
+    "confirmed": false,
+    "independent": false,
+    "liveFeed": false
+  },
+  "results": [
+    {
+      "id": "MNQ/pullback",
+      "symbol": "MNQ",
+      "label": "Pullback 5 min + tendance 30 min",
+      "product": {
+        "symbol": "MNQ",
+        "label": "Micro Nasdaq",
+        "tick": 0.25,
+        "multiplier": 2,
+        "fees": 2.5,
+        "venue": "XCME",
+        "priorData": true
+      },
+      "diagnostic": {
+        "normal": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": 171.5,
+          "balance": 25171.5,
+          "drawdown": 0.5,
+          "daily": {
+            "observed": 64,
+            "positive": 3,
+            "negative": 1,
+            "flatActive": 0,
+            "noTrade": 60,
+            "worst": -0.5
+          },
+          "trades": 5,
+          "metrics": {
+            "count": 5,
+            "wins": 4,
+            "win": 0.8,
+            "total": 4.7142487660840136,
+            "exp": 0.9428497532168028,
+            "pf": 392.2826475849731,
+            "dd": 0.012048192771084265,
+            "winInterval": [
+              0.3755282641185388,
+              0.9637768390302125
+            ]
+          },
+          "grossDollars": 189,
+          "feesDollars": 17.5,
+          "pfDollars": 344,
+          "signalCount": 291,
+          "denied": {
+            "tradeRisk": 286,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 0
+          },
+          "ambiguous": 0
+        },
+        "stress": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": 154,
+          "balance": 25154,
+          "drawdown": 4,
+          "daily": {
+            "observed": 64,
+            "positive": 3,
+            "negative": 1,
+            "flatActive": 0,
+            "noTrade": 60,
+            "worst": -4
+          },
+          "trades": 5,
+          "metrics": {
+            "count": 5,
+            "wins": 4,
+            "win": 0.8,
+            "total": 4.233131452464598,
+            "exp": 0.8466262904929197,
+            "pf": 44.91873881932021,
+            "dd": 0.09638554216867479,
+            "winInterval": [
+              0.3755282641185388,
+              0.9637768390302125
+            ]
+          },
+          "grossDollars": 189,
+          "feesDollars": 35,
+          "pfDollars": 39.5,
+          "signalCount": 291,
+          "denied": {
+            "tradeRisk": 286,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 0
+          },
+          "ambiguous": 0
+        }
+      },
+      "windows": [
+        {
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "phase": "train",
+          "expected": 39,
+          "scored": 39,
+          "complete": true,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 110.5,
+              "balance": 25110.5,
+              "drawdown": 0.5,
+              "daily": {
+                "observed": 39,
+                "positive": 2,
+                "negative": 1,
+                "flatActive": 0,
+                "noTrade": 36,
+                "worst": -0.5
+              },
+              "trades": 4,
+              "metrics": {
+                "count": 4,
+                "wins": 3,
+                "win": 0.75,
+                "total": 3.295644114921223,
+                "exp": 0.8239110287303058,
+                "pf": 274.5384615384615,
+                "dd": 0.012048192771084265,
+                "winInterval": [
+                  0.3006360524426366,
+                  0.9544139373553637
+                ]
+              },
+              "grossDollars": 124.5,
+              "feesDollars": 14,
+              "pfDollars": 222,
+              "signalCount": 188,
+              "denied": {
+                "tradeRisk": 184,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 96.5,
+              "balance": 25096.5,
+              "drawdown": 4,
+              "daily": {
+                "observed": 39,
+                "positive": 2,
+                "negative": 1,
+                "flatActive": 0,
+                "noTrade": 36,
+                "worst": -4
+              },
+              "trades": 4,
+              "metrics": {
+                "count": 4,
+                "wins": 3,
+                "win": 0.75,
+                "total": 2.8959221501390173,
+                "exp": 0.7239805375347543,
+                "pf": 31.0451923076923,
+                "dd": 0.09638554216867479,
+                "winInterval": [
+                  0.3006360524426366,
+                  0.9544139373553637
+                ]
+              },
+              "grossDollars": 124.5,
+              "feesDollars": 28,
+              "pfDollars": 25.125,
+              "signalCount": 188,
+              "denied": {
+                "tradeRisk": 184,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            }
+          },
+          "account": {
+            "normal": {
+              "status": "incomplete",
+              "terminalDay": null,
+              "net": 110.5,
+              "balance": 25110.5,
+              "drawdown": 0.5,
+              "daily": {
+                "observed": 39,
+                "positive": 2,
+                "negative": 1,
+                "flatActive": 0,
+                "noTrade": 36,
+                "worst": -0.5
+              },
+              "trades": 4,
+              "metrics": {
+                "count": 4,
+                "wins": 3,
+                "win": 0.75,
+                "total": 3.295644114921223,
+                "exp": 0.8239110287303058,
+                "pf": 274.5384615384615,
+                "dd": 0.012048192771084265,
+                "winInterval": [
+                  0.3006360524426366,
+                  0.9544139373553637
+                ]
+              },
+              "grossDollars": 124.5,
+              "feesDollars": 14,
+              "pfDollars": 222,
+              "signalCount": 188,
+              "denied": {
+                "tradeRisk": 184,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "incomplete",
+              "terminalDay": null,
+              "net": 96.5,
+              "balance": 25096.5,
+              "drawdown": 4,
+              "daily": {
+                "observed": 39,
+                "positive": 2,
+                "negative": 1,
+                "flatActive": 0,
+                "noTrade": 36,
+                "worst": -4
+              },
+              "trades": 4,
+              "metrics": {
+                "count": 4,
+                "wins": 3,
+                "win": 0.75,
+                "total": 2.8959221501390173,
+                "exp": 0.7239805375347543,
+                "pf": 31.0451923076923,
+                "dd": 0.09638554216867479,
+                "winInterval": [
+                  0.3006360524426366,
+                  0.9544139373553637
+                ]
+              },
+              "grossDollars": 124.5,
+              "feesDollars": 28,
+              "pfDollars": 25.125,
+              "signalCount": 188,
+              "denied": {
+                "tradeRisk": 184,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            }
+          }
+        },
+        {
+          "start": "2026-03-01",
+          "end": "2026-05-01",
+          "phase": "train",
+          "expected": 43,
+          "scored": 25,
+          "complete": false,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 61,
+              "balance": 25061,
+              "drawdown": 0,
+              "daily": {
+                "observed": 25,
+                "positive": 1,
+                "negative": 0,
+                "flatActive": 0,
+                "noTrade": 24,
+                "worst": 0
+              },
+              "trades": 1,
+              "metrics": {
+                "count": 1,
+                "wins": 1,
+                "win": 1,
+                "total": 1.4186046511627908,
+                "exp": 1.4186046511627908,
+                "pf": "Infinity",
+                "dd": 0,
+                "winInterval": [
+                  0.20654329147389294,
+                  1
+                ]
+              },
+              "grossDollars": 64.5,
+              "feesDollars": 3.5,
+              "pfDollars": null,
+              "signalCount": 103,
+              "denied": {
+                "tradeRisk": 102,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 57.5,
+              "balance": 25057.5,
+              "drawdown": 0,
+              "daily": {
+                "observed": 25,
+                "positive": 1,
+                "negative": 0,
+                "flatActive": 0,
+                "noTrade": 24,
+                "worst": 0
+              },
+              "trades": 1,
+              "metrics": {
+                "count": 1,
+                "wins": 1,
+                "win": 1,
+                "total": 1.3372093023255813,
+                "exp": 1.3372093023255813,
+                "pf": "Infinity",
+                "dd": 0,
+                "winInterval": [
+                  0.20654329147389294,
+                  1
+                ]
+              },
+              "grossDollars": 64.5,
+              "feesDollars": 7,
+              "pfDollars": null,
+              "signalCount": 103,
+              "denied": {
+                "tradeRisk": 102,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            }
+          },
+          "account": null
+        }
+      ],
+      "checks": [
+        {
+          "id": "coverage",
+          "label": "Deux fenêtres entièrement couvertes",
+          "pass": false
+        },
+        {
+          "id": "count",
+          "label": "Au moins 40 trades au total",
+          "pass": false
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par fenêtre",
+          "pass": false
+        },
+        {
+          "id": "positive",
+          "label": "Chaque fenêtre positive en R et dollars",
+          "pass": true
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor en R au moins 1,10",
+          "pass": true
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé au plus 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Total positif en R et dollars avec coûts doublés",
+          "pass": true
+        },
+        {
+          "id": "account",
+          "label": "Aucun franchissement du seuil dans les comptes complets",
+          "pass": false
+        }
+      ],
+      "researchPassed": false,
+      "confirmed": false
+    },
+    {
+      "id": "MNQ/cross",
+      "symbol": "MNQ",
+      "label": "Croisement 5 min + tendance 30 min",
+      "product": {
+        "symbol": "MNQ",
+        "label": "Micro Nasdaq",
+        "tick": 0.25,
+        "multiplier": 2,
+        "fees": 2.5,
+        "venue": "XCME",
+        "priorData": true
+      },
+      "diagnostic": {
+        "normal": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": 0,
+          "balance": 25000,
+          "drawdown": 0,
+          "daily": {
+            "observed": 64,
+            "positive": 0,
+            "negative": 0,
+            "flatActive": 0,
+            "noTrade": 64,
+            "worst": 0
+          },
+          "trades": 0,
+          "metrics": {
+            "count": 0,
+            "wins": 0,
+            "win": null,
+            "total": 0,
+            "exp": null,
+            "pf": null,
+            "dd": 0,
+            "winInterval": null
+          },
+          "grossDollars": 0,
+          "feesDollars": 0,
+          "pfDollars": null,
+          "signalCount": 18,
+          "denied": {
+            "tradeRisk": 18,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 0
+          },
+          "ambiguous": 0
+        },
+        "stress": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": 0,
+          "balance": 25000,
+          "drawdown": 0,
+          "daily": {
+            "observed": 64,
+            "positive": 0,
+            "negative": 0,
+            "flatActive": 0,
+            "noTrade": 64,
+            "worst": 0
+          },
+          "trades": 0,
+          "metrics": {
+            "count": 0,
+            "wins": 0,
+            "win": null,
+            "total": 0,
+            "exp": null,
+            "pf": null,
+            "dd": 0,
+            "winInterval": null
+          },
+          "grossDollars": 0,
+          "feesDollars": 0,
+          "pfDollars": null,
+          "signalCount": 18,
+          "denied": {
+            "tradeRisk": 18,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 0
+          },
+          "ambiguous": 0
+        }
+      },
+      "windows": [
+        {
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "phase": "train",
+          "expected": 39,
+          "scored": 39,
+          "complete": true,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 0,
+              "balance": 25000,
+              "drawdown": 0,
+              "daily": {
+                "observed": 39,
+                "positive": 0,
+                "negative": 0,
+                "flatActive": 0,
+                "noTrade": 39,
+                "worst": 0
+              },
+              "trades": 0,
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "grossDollars": 0,
+              "feesDollars": 0,
+              "pfDollars": null,
+              "signalCount": 12,
+              "denied": {
+                "tradeRisk": 12,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 0,
+              "balance": 25000,
+              "drawdown": 0,
+              "daily": {
+                "observed": 39,
+                "positive": 0,
+                "negative": 0,
+                "flatActive": 0,
+                "noTrade": 39,
+                "worst": 0
+              },
+              "trades": 0,
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "grossDollars": 0,
+              "feesDollars": 0,
+              "pfDollars": null,
+              "signalCount": 12,
+              "denied": {
+                "tradeRisk": 12,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            }
+          },
+          "account": {
+            "normal": {
+              "status": "incomplete",
+              "terminalDay": null,
+              "net": 0,
+              "balance": 25000,
+              "drawdown": 0,
+              "daily": {
+                "observed": 39,
+                "positive": 0,
+                "negative": 0,
+                "flatActive": 0,
+                "noTrade": 39,
+                "worst": 0
+              },
+              "trades": 0,
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "grossDollars": 0,
+              "feesDollars": 0,
+              "pfDollars": null,
+              "signalCount": 12,
+              "denied": {
+                "tradeRisk": 12,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "incomplete",
+              "terminalDay": null,
+              "net": 0,
+              "balance": 25000,
+              "drawdown": 0,
+              "daily": {
+                "observed": 39,
+                "positive": 0,
+                "negative": 0,
+                "flatActive": 0,
+                "noTrade": 39,
+                "worst": 0
+              },
+              "trades": 0,
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "grossDollars": 0,
+              "feesDollars": 0,
+              "pfDollars": null,
+              "signalCount": 12,
+              "denied": {
+                "tradeRisk": 12,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            }
+          }
+        },
+        {
+          "start": "2026-03-01",
+          "end": "2026-05-01",
+          "phase": "train",
+          "expected": 43,
+          "scored": 25,
+          "complete": false,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 0,
+              "balance": 25000,
+              "drawdown": 0,
+              "daily": {
+                "observed": 25,
+                "positive": 0,
+                "negative": 0,
+                "flatActive": 0,
+                "noTrade": 25,
+                "worst": 0
+              },
+              "trades": 0,
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "grossDollars": 0,
+              "feesDollars": 0,
+              "pfDollars": null,
+              "signalCount": 6,
+              "denied": {
+                "tradeRisk": 6,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 0,
+              "balance": 25000,
+              "drawdown": 0,
+              "daily": {
+                "observed": 25,
+                "positive": 0,
+                "negative": 0,
+                "flatActive": 0,
+                "noTrade": 25,
+                "worst": 0
+              },
+              "trades": 0,
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "grossDollars": 0,
+              "feesDollars": 0,
+              "pfDollars": null,
+              "signalCount": 6,
+              "denied": {
+                "tradeRisk": 6,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            }
+          },
+          "account": null
+        }
+      ],
+      "checks": [
+        {
+          "id": "coverage",
+          "label": "Deux fenêtres entièrement couvertes",
+          "pass": false
+        },
+        {
+          "id": "count",
+          "label": "Au moins 40 trades au total",
+          "pass": false
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par fenêtre",
+          "pass": false
+        },
+        {
+          "id": "positive",
+          "label": "Chaque fenêtre positive en R et dollars",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor en R au moins 1,10",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé au plus 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Total positif en R et dollars avec coûts doublés",
+          "pass": false
+        },
+        {
+          "id": "account",
+          "label": "Aucun franchissement du seuil dans les comptes complets",
+          "pass": false
+        }
+      ],
+      "researchPassed": false,
+      "confirmed": false
+    },
+    {
+      "id": "MES/pullback",
+      "symbol": "MES",
+      "label": "Pullback 5 min + tendance 30 min",
+      "product": {
+        "symbol": "MES",
+        "label": "Micro S&P 500",
+        "tick": 0.25,
+        "multiplier": 5,
+        "fees": 2.5,
+        "venue": "XCME",
+        "priorData": false
+      },
+      "diagnostic": {
+        "normal": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": -408.75,
+          "balance": 24591.25,
+          "drawdown": 492.5,
+          "daily": {
+            "observed": 64,
+            "positive": 12,
+            "negative": 19,
+            "flatActive": 0,
+            "noTrade": 33,
+            "worst": -98.75
+          },
+          "trades": 51,
+          "metrics": {
+            "count": 51,
+            "wins": 19,
+            "win": 0.37254901960784315,
+            "total": -10.342316033569487,
+            "exp": -0.2027905104621468,
+            "pf": 0.6966284459340785,
+            "dd": 12.993092431085016,
+            "winInterval": [
+              0.2532032972099011,
+              0.5097503729966575
+            ]
+          },
+          "grossDollars": -153.75,
+          "feesDollars": 255,
+          "pfDollars": 0.6736526946107785,
+          "signalCount": 189,
+          "denied": {
+            "tradeRisk": 130,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 8
+          },
+          "ambiguous": 0
+        },
+        "stress": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": -50,
+          "balance": 24950,
+          "drawdown": 100,
+          "daily": {
+            "observed": 64,
+            "positive": 2,
+            "negative": 3,
+            "flatActive": 1,
+            "noTrade": 58,
+            "worst": -50
+          },
+          "trades": 7,
+          "metrics": {
+            "count": 7,
+            "wins": 3,
+            "win": 0.42857142857142855,
+            "total": -1.25,
+            "exp": -0.17857142857142858,
+            "pf": 0.75,
+            "dd": 2.5,
+            "winInterval": [
+              0.15821692226262685,
+              0.7495457695909742
+            ]
+          },
+          "grossDollars": 20,
+          "feesDollars": 70,
+          "pfDollars": 0.75,
+          "signalCount": 255,
+          "denied": {
+            "tradeRisk": 162,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 86
+          },
+          "ambiguous": 0
+        }
+      },
+      "windows": [
+        {
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "phase": "train",
+          "expected": 39,
+          "scored": 39,
+          "complete": true,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": -255,
+              "balance": 24745,
+              "drawdown": 353.75,
+              "daily": {
+                "observed": 39,
+                "positive": 7,
+                "negative": 9,
+                "flatActive": 0,
+                "noTrade": 23,
+                "worst": -98.75
+              },
+              "trades": 23,
+              "metrics": {
+                "count": 23,
+                "wins": 8,
+                "win": 0.34782608695652173,
+                "total": -7.072610883649139,
+                "exp": -0.3075048210282234,
+                "pf": 0.5892779061560511,
+                "dd": 10.055457988235375,
+                "winInterval": [
+                  0.18811054636982238,
+                  0.5511002309310836
+                ]
+              },
+              "grossDollars": -140,
+              "feesDollars": 115,
+              "pfDollars": 0.5862068965517241,
+              "signalCount": 114,
+              "denied": {
+                "tradeRisk": 83,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 8
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 0,
+              "balance": 25000,
+              "drawdown": 50,
+              "daily": {
+                "observed": 39,
+                "positive": 1,
+                "negative": 1,
+                "flatActive": 0,
+                "noTrade": 37,
+                "worst": -50
+              },
+              "trades": 2,
+              "metrics": {
+                "count": 2,
+                "wins": 1,
+                "win": 0.5,
+                "total": 0,
+                "exp": 0,
+                "pf": 1,
+                "dd": 1.25,
+                "winInterval": [
+                  0.09452865480086614,
+                  0.9054713451991339
+                ]
+              },
+              "grossDollars": 20,
+              "feesDollars": 20,
+              "pfDollars": 1,
+              "signalCount": 154,
+              "denied": {
+                "tradeRisk": 105,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 47
+              },
+              "ambiguous": 0
+            }
+          },
+          "account": {
+            "normal": {
+              "status": "incomplete",
+              "terminalDay": null,
+              "net": -255,
+              "balance": 24745,
+              "drawdown": 353.75,
+              "daily": {
+                "observed": 39,
+                "positive": 7,
+                "negative": 9,
+                "flatActive": 0,
+                "noTrade": 23,
+                "worst": -98.75
+              },
+              "trades": 23,
+              "metrics": {
+                "count": 23,
+                "wins": 8,
+                "win": 0.34782608695652173,
+                "total": -7.072610883649139,
+                "exp": -0.3075048210282234,
+                "pf": 0.5892779061560511,
+                "dd": 10.055457988235375,
+                "winInterval": [
+                  0.18811054636982238,
+                  0.5511002309310836
+                ]
+              },
+              "grossDollars": -140,
+              "feesDollars": 115,
+              "pfDollars": 0.5862068965517241,
+              "signalCount": 114,
+              "denied": {
+                "tradeRisk": 83,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 8
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "incomplete",
+              "terminalDay": null,
+              "net": 0,
+              "balance": 25000,
+              "drawdown": 50,
+              "daily": {
+                "observed": 39,
+                "positive": 1,
+                "negative": 1,
+                "flatActive": 0,
+                "noTrade": 37,
+                "worst": -50
+              },
+              "trades": 2,
+              "metrics": {
+                "count": 2,
+                "wins": 1,
+                "win": 0.5,
+                "total": 0,
+                "exp": 0,
+                "pf": 1,
+                "dd": 1.25,
+                "winInterval": [
+                  0.09452865480086614,
+                  0.9054713451991339
+                ]
+              },
+              "grossDollars": 20,
+              "feesDollars": 20,
+              "pfDollars": 1,
+              "signalCount": 154,
+              "denied": {
+                "tradeRisk": 105,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 47
+              },
+              "ambiguous": 0
+            }
+          }
+        },
+        {
+          "start": "2026-03-01",
+          "end": "2026-05-01",
+          "phase": "train",
+          "expected": 43,
+          "scored": 25,
+          "complete": false,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": -153.75,
+              "balance": 24846.25,
+              "drawdown": 272.5,
+              "daily": {
+                "observed": 25,
+                "positive": 5,
+                "negative": 10,
+                "flatActive": 0,
+                "noTrade": 10,
+                "worst": -50
+              },
+              "trades": 28,
+              "metrics": {
+                "count": 28,
+                "wins": 11,
+                "win": 0.39285714285714285,
+                "total": -3.2697051499203535,
+                "exp": -0.11677518392572692,
+                "pf": 0.8061973071650659,
+                "dd": 7.271569847026236,
+                "winInterval": [
+                  0.23565451827580033,
+                  0.575912739650937
+                ]
+              },
+              "grossDollars": -13.75,
+              "feesDollars": 140,
+              "pfDollars": 0.7583497053045186,
+              "signalCount": 75,
+              "denied": {
+                "tradeRisk": 47,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": -50,
+              "balance": 24950,
+              "drawdown": 100,
+              "daily": {
+                "observed": 25,
+                "positive": 1,
+                "negative": 2,
+                "flatActive": 1,
+                "noTrade": 21,
+                "worst": -50
+              },
+              "trades": 5,
+              "metrics": {
+                "count": 5,
+                "wins": 2,
+                "win": 0.4,
+                "total": -1.25,
+                "exp": -0.25,
+                "pf": 0.6666666666666666,
+                "dd": 2.5,
+                "winInterval": [
+                  0.1176182311592533,
+                  0.769280067791163
+                ]
+              },
+              "grossDollars": 0,
+              "feesDollars": 50,
+              "pfDollars": 0.6666666666666666,
+              "signalCount": 101,
+              "denied": {
+                "tradeRisk": 57,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 39
+              },
+              "ambiguous": 0
+            }
+          },
+          "account": null
+        }
+      ],
+      "checks": [
+        {
+          "id": "coverage",
+          "label": "Deux fenêtres entièrement couvertes",
+          "pass": false
+        },
+        {
+          "id": "count",
+          "label": "Au moins 40 trades au total",
+          "pass": true
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par fenêtre",
+          "pass": true
+        },
+        {
+          "id": "positive",
+          "label": "Chaque fenêtre positive en R et dollars",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor en R au moins 1,10",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé au plus 8 R",
+          "pass": false
+        },
+        {
+          "id": "stress",
+          "label": "Total positif en R et dollars avec coûts doublés",
+          "pass": false
+        },
+        {
+          "id": "account",
+          "label": "Aucun franchissement du seuil dans les comptes complets",
+          "pass": false
+        }
+      ],
+      "researchPassed": false,
+      "confirmed": false
+    },
+    {
+      "id": "MES/cross",
+      "symbol": "MES",
+      "label": "Croisement 5 min + tendance 30 min",
+      "product": {
+        "symbol": "MES",
+        "label": "Micro S&P 500",
+        "tick": 0.25,
+        "multiplier": 5,
+        "fees": 2.5,
+        "venue": "XCME",
+        "priorData": false
+      },
+      "diagnostic": {
+        "normal": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": -10,
+          "balance": 24990,
+          "drawdown": 97.5,
+          "daily": {
+            "observed": 64,
+            "positive": 5,
+            "negative": 6,
+            "flatActive": 0,
+            "noTrade": 53,
+            "worst": -50
+          },
+          "trades": 11,
+          "metrics": {
+            "count": 11,
+            "wins": 5,
+            "win": 0.45454545454545453,
+            "total": -0.5981964807023699,
+            "exp": -0.054381498245669985,
+            "pf": 0.9053440929147939,
+            "dd": 2.2287581699346406,
+            "winInterval": [
+              0.21270957543988045,
+              0.7199122443100118
+            ]
+          },
+          "grossDollars": 45,
+          "feesDollars": 55,
+          "pfDollars": 0.9550561797752809,
+          "signalCount": 18,
+          "denied": {
+            "tradeRisk": 7,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 0
+          },
+          "ambiguous": 0
+        },
+        "stress": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": 7.5,
+          "balance": 25007.5,
+          "drawdown": 0,
+          "daily": {
+            "observed": 64,
+            "positive": 1,
+            "negative": 0,
+            "flatActive": 0,
+            "noTrade": 63,
+            "worst": 0
+          },
+          "trades": 1,
+          "metrics": {
+            "count": 1,
+            "wins": 1,
+            "win": 1,
+            "total": 0.1875,
+            "exp": 0.1875,
+            "pf": "Infinity",
+            "dd": 0,
+            "winInterval": [
+              0.20654329147389294,
+              1
+            ]
+          },
+          "grossDollars": 17.5,
+          "feesDollars": 10,
+          "pfDollars": null,
+          "signalCount": 18,
+          "denied": {
+            "tradeRisk": 11,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 6
+          },
+          "ambiguous": 0
+        }
+      },
+      "windows": [
+        {
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "phase": "train",
+          "expected": 39,
+          "scored": 39,
+          "complete": true,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": -21.25,
+              "balance": 24978.75,
+              "drawdown": 97.5,
+              "daily": {
+                "observed": 39,
+                "positive": 2,
+                "negative": 3,
+                "flatActive": 0,
+                "noTrade": 34,
+                "worst": -50
+              },
+              "trades": 5,
+              "metrics": {
+                "count": 5,
+                "wins": 2,
+                "win": 0.4,
+                "total": -0.6920538330274639,
+                "exp": -0.13841076660549279,
+                "pf": 0.7975997664739448,
+                "dd": 2.2287581699346406,
+                "winInterval": [
+                  0.1176182311592533,
+                  0.769280067791163
+                ]
+              },
+              "grossDollars": 3.75,
+              "feesDollars": 25,
+              "pfDollars": 0.8349514563106796,
+              "signalCount": 10,
+              "denied": {
+                "tradeRisk": 5,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 0,
+              "balance": 25000,
+              "drawdown": 0,
+              "daily": {
+                "observed": 39,
+                "positive": 0,
+                "negative": 0,
+                "flatActive": 0,
+                "noTrade": 39,
+                "worst": 0
+              },
+              "trades": 0,
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "grossDollars": 0,
+              "feesDollars": 0,
+              "pfDollars": null,
+              "signalCount": 10,
+              "denied": {
+                "tradeRisk": 8,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 2
+              },
+              "ambiguous": 0
+            }
+          },
+          "account": {
+            "normal": {
+              "status": "incomplete",
+              "terminalDay": null,
+              "net": -21.25,
+              "balance": 24978.75,
+              "drawdown": 97.5,
+              "daily": {
+                "observed": 39,
+                "positive": 2,
+                "negative": 3,
+                "flatActive": 0,
+                "noTrade": 34,
+                "worst": -50
+              },
+              "trades": 5,
+              "metrics": {
+                "count": 5,
+                "wins": 2,
+                "win": 0.4,
+                "total": -0.6920538330274639,
+                "exp": -0.13841076660549279,
+                "pf": 0.7975997664739448,
+                "dd": 2.2287581699346406,
+                "winInterval": [
+                  0.1176182311592533,
+                  0.769280067791163
+                ]
+              },
+              "grossDollars": 3.75,
+              "feesDollars": 25,
+              "pfDollars": 0.8349514563106796,
+              "signalCount": 10,
+              "denied": {
+                "tradeRisk": 5,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "incomplete",
+              "terminalDay": null,
+              "net": 0,
+              "balance": 25000,
+              "drawdown": 0,
+              "daily": {
+                "observed": 39,
+                "positive": 0,
+                "negative": 0,
+                "flatActive": 0,
+                "noTrade": 39,
+                "worst": 0
+              },
+              "trades": 0,
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "grossDollars": 0,
+              "feesDollars": 0,
+              "pfDollars": null,
+              "signalCount": 10,
+              "denied": {
+                "tradeRisk": 8,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 2
+              },
+              "ambiguous": 0
+            }
+          }
+        },
+        {
+          "start": "2026-03-01",
+          "end": "2026-05-01",
+          "phase": "train",
+          "expected": 43,
+          "scored": 25,
+          "complete": false,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 11.25,
+              "balance": 25011.25,
+              "drawdown": 63.75,
+              "daily": {
+                "observed": 25,
+                "positive": 3,
+                "negative": 3,
+                "flatActive": 0,
+                "noTrade": 19,
+                "worst": -43.75
+              },
+              "trades": 6,
+              "metrics": {
+                "count": 6,
+                "wins": 3,
+                "win": 0.5,
+                "total": 0.09385735232509407,
+                "exp": 0.015642892054182345,
+                "pf": 1.0323594621139902,
+                "dd": 1.7004608294930876,
+                "winInterval": [
+                  0.18761280689940868,
+                  0.8123871931005913
+                ]
+              },
+              "grossDollars": 41.25,
+              "feesDollars": 30,
+              "pfDollars": 1.12,
+              "signalCount": 8,
+              "denied": {
+                "tradeRisk": 2,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 7.5,
+              "balance": 25007.5,
+              "drawdown": 0,
+              "daily": {
+                "observed": 25,
+                "positive": 1,
+                "negative": 0,
+                "flatActive": 0,
+                "noTrade": 24,
+                "worst": 0
+              },
+              "trades": 1,
+              "metrics": {
+                "count": 1,
+                "wins": 1,
+                "win": 1,
+                "total": 0.1875,
+                "exp": 0.1875,
+                "pf": "Infinity",
+                "dd": 0,
+                "winInterval": [
+                  0.20654329147389294,
+                  1
+                ]
+              },
+              "grossDollars": 17.5,
+              "feesDollars": 10,
+              "pfDollars": null,
+              "signalCount": 8,
+              "denied": {
+                "tradeRisk": 3,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 4
+              },
+              "ambiguous": 0
+            }
+          },
+          "account": null
+        }
+      ],
+      "checks": [
+        {
+          "id": "coverage",
+          "label": "Deux fenêtres entièrement couvertes",
+          "pass": false
+        },
+        {
+          "id": "count",
+          "label": "Au moins 40 trades au total",
+          "pass": false
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par fenêtre",
+          "pass": false
+        },
+        {
+          "id": "positive",
+          "label": "Chaque fenêtre positive en R et dollars",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor en R au moins 1,10",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé au plus 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Total positif en R et dollars avec coûts doublés",
+          "pass": true
+        },
+        {
+          "id": "account",
+          "label": "Aucun franchissement du seuil dans les comptes complets",
+          "pass": false
+        }
+      ],
+      "researchPassed": false,
+      "confirmed": false
+    },
+    {
+      "id": "MYM/pullback",
+      "symbol": "MYM",
+      "label": "Pullback 5 min + tendance 30 min",
+      "product": {
+        "symbol": "MYM",
+        "label": "Micro Dow Jones",
+        "tick": 1,
+        "multiplier": 0.5,
+        "fees": 2.5,
+        "venue": "XCBT",
+        "priorData": false
+      },
+      "diagnostic": {
+        "normal": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": 251,
+          "balance": 25251,
+          "drawdown": 200,
+          "daily": {
+            "observed": 73,
+            "positive": 19,
+            "negative": 19,
+            "flatActive": 0,
+            "noTrade": 35,
+            "worst": -82
+          },
+          "trades": 69,
+          "metrics": {
+            "count": 69,
+            "wins": 32,
+            "win": 0.463768115942029,
+            "total": 7.716840346206691,
+            "exp": 0.11183826588705349,
+            "pf": 1.2166483343344425,
+            "dd": 5.192615823892419,
+            "winInterval": [
+              0.35113991297637237,
+              0.5802179923963817
+            ]
+          },
+          "grossDollars": 492.5,
+          "feesDollars": 241.5,
+          "pfDollars": 1.2043973941368078,
+          "signalCount": 149,
+          "denied": {
+            "tradeRisk": 80,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 0
+          },
+          "ambiguous": 0
+        },
+        "stress": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": 145.5,
+          "balance": 25145.5,
+          "drawdown": 152,
+          "daily": {
+            "observed": 73,
+            "positive": 18,
+            "negative": 11,
+            "flatActive": 0,
+            "noTrade": 44,
+            "worst": -99
+          },
+          "trades": 38,
+          "metrics": {
+            "count": 38,
+            "wins": 20,
+            "win": 0.5263157894736842,
+            "total": 3.9954064782042145,
+            "exp": 0.10514227574221617,
+            "pf": 1.19318980518832,
+            "dd": 4.462273797319653,
+            "winInterval": [
+              0.37258710742710854,
+              0.6752122119105841
+            ]
+          },
+          "grossDollars": 411.5,
+          "feesDollars": 266,
+          "pfDollars": 1.1938707528314456,
+          "signalCount": 192,
+          "denied": {
+            "tradeRisk": 108,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 46
+          },
+          "ambiguous": 0
+        }
+      },
+      "windows": [
+        {
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "phase": "train",
+          "expected": 39,
+          "scored": 39,
+          "complete": true,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 200,
+              "balance": 25200,
+              "drawdown": 130.5,
+              "daily": {
+                "observed": 39,
+                "positive": 12,
+                "negative": 10,
+                "flatActive": 0,
+                "noTrade": 17,
+                "worst": -61
+              },
+              "trades": 41,
+              "metrics": {
+                "count": 41,
+                "wins": 19,
+                "win": 0.4634146341463415,
+                "total": 5.371221093566427,
+                "exp": 0.1310053925260104,
+                "pf": 1.2583624202648338,
+                "dd": 5.192615823892419,
+                "winInterval": [
+                  0.32055999118185885,
+                  0.6125378465402564
+                ]
+              },
+              "grossDollars": 343.5,
+              "feesDollars": 143.5,
+              "pfDollars": 1.2994011976047903,
+              "signalCount": 68,
+              "denied": {
+                "tradeRisk": 27,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 203.5,
+              "balance": 25203.5,
+              "drawdown": 148.5,
+              "daily": {
+                "observed": 39,
+                "positive": 10,
+                "negative": 4,
+                "flatActive": 0,
+                "noTrade": 25,
+                "worst": -99
+              },
+              "trades": 19,
+              "metrics": {
+                "count": 19,
+                "wins": 11,
+                "win": 0.5789473684210527,
+                "total": 5.625847465568302,
+                "exp": 0.29609723502991064,
+                "pf": 1.6465664717915272,
+                "dd": 3.494163246694027,
+                "winInterval": [
+                  0.36275551465160105,
+                  0.7685837960796962
+                ]
+              },
+              "grossDollars": 336.5,
+              "feesDollars": 133,
+              "pfDollars": 1.6359375,
+              "signalCount": 93,
+              "denied": {
+                "tradeRisk": 41,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 33
+              },
+              "ambiguous": 0
+            }
+          },
+          "account": {
+            "normal": {
+              "status": "incomplete",
+              "terminalDay": null,
+              "net": 200,
+              "balance": 25200,
+              "drawdown": 130.5,
+              "daily": {
+                "observed": 39,
+                "positive": 12,
+                "negative": 10,
+                "flatActive": 0,
+                "noTrade": 17,
+                "worst": -61
+              },
+              "trades": 41,
+              "metrics": {
+                "count": 41,
+                "wins": 19,
+                "win": 0.4634146341463415,
+                "total": 5.371221093566427,
+                "exp": 0.1310053925260104,
+                "pf": 1.2583624202648338,
+                "dd": 5.192615823892419,
+                "winInterval": [
+                  0.32055999118185885,
+                  0.6125378465402564
+                ]
+              },
+              "grossDollars": 343.5,
+              "feesDollars": 143.5,
+              "pfDollars": 1.2994011976047903,
+              "signalCount": 68,
+              "denied": {
+                "tradeRisk": 27,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "incomplete",
+              "terminalDay": null,
+              "net": 203.5,
+              "balance": 25203.5,
+              "drawdown": 148.5,
+              "daily": {
+                "observed": 39,
+                "positive": 10,
+                "negative": 4,
+                "flatActive": 0,
+                "noTrade": 25,
+                "worst": -99
+              },
+              "trades": 19,
+              "metrics": {
+                "count": 19,
+                "wins": 11,
+                "win": 0.5789473684210527,
+                "total": 5.625847465568302,
+                "exp": 0.29609723502991064,
+                "pf": 1.6465664717915272,
+                "dd": 3.494163246694027,
+                "winInterval": [
+                  0.36275551465160105,
+                  0.7685837960796962
+                ]
+              },
+              "grossDollars": 336.5,
+              "feesDollars": 133,
+              "pfDollars": 1.6359375,
+              "signalCount": 93,
+              "denied": {
+                "tradeRisk": 41,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 33
+              },
+              "ambiguous": 0
+            }
+          }
+        },
+        {
+          "start": "2026-03-01",
+          "end": "2026-05-01",
+          "phase": "train",
+          "expected": 43,
+          "scored": 34,
+          "complete": false,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 51,
+              "balance": 25051,
+              "drawdown": 200,
+              "daily": {
+                "observed": 34,
+                "positive": 7,
+                "negative": 9,
+                "flatActive": 0,
+                "noTrade": 18,
+                "worst": -82
+              },
+              "trades": 28,
+              "metrics": {
+                "count": 28,
+                "wins": 13,
+                "win": 0.4642857142857143,
+                "total": 2.345619252640264,
+                "exp": 0.0837721161657237,
+                "pf": 1.1581701946713954,
+                "dd": 5.141316938794665,
+                "winInterval": [
+                  0.29531303739659587,
+                  0.6418760485789833
+                ]
+              },
+              "grossDollars": 149,
+              "feesDollars": 98,
+              "pfDollars": 1.0910714285714285,
+              "signalCount": 81,
+              "denied": {
+                "tradeRisk": 53,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": -58,
+              "balance": 24942,
+              "drawdown": 152,
+              "daily": {
+                "observed": 34,
+                "positive": 8,
+                "negative": 7,
+                "flatActive": 0,
+                "noTrade": 19,
+                "worst": -89
+              },
+              "trades": 19,
+              "metrics": {
+                "count": 19,
+                "wins": 9,
+                "win": 0.47368421052631576,
+                "total": -1.6304409873640866,
+                "exp": -0.08581268354547825,
+                "pf": 0.8639046434938134,
+                "dd": 4.462273797319652,
+                "winInterval": [
+                  0.27329505487448547,
+                  0.6829251748817489
+                ]
+              },
+              "grossDollars": 75,
+              "feesDollars": 133,
+              "pfDollars": 0.8652729384436701,
+              "signalCount": 99,
+              "denied": {
+                "tradeRisk": 67,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 13
+              },
+              "ambiguous": 0
+            }
+          },
+          "account": null
+        }
+      ],
+      "checks": [
+        {
+          "id": "coverage",
+          "label": "Deux fenêtres entièrement couvertes",
+          "pass": false
+        },
+        {
+          "id": "count",
+          "label": "Au moins 40 trades au total",
+          "pass": true
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par fenêtre",
+          "pass": true
+        },
+        {
+          "id": "positive",
+          "label": "Chaque fenêtre positive en R et dollars",
+          "pass": true
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor en R au moins 1,10",
+          "pass": true
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé au plus 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Total positif en R et dollars avec coûts doublés",
+          "pass": true
+        },
+        {
+          "id": "account",
+          "label": "Aucun franchissement du seuil dans les comptes complets",
+          "pass": false
+        }
+      ],
+      "researchPassed": false,
+      "confirmed": false
+    },
+    {
+      "id": "MYM/cross",
+      "symbol": "MYM",
+      "label": "Croisement 5 min + tendance 30 min",
+      "product": {
+        "symbol": "MYM",
+        "label": "Micro Dow Jones",
+        "tick": 1,
+        "multiplier": 0.5,
+        "fees": 2.5,
+        "venue": "XCBT",
+        "priorData": false
+      },
+      "diagnostic": {
+        "normal": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": 49.5,
+          "balance": 25049.5,
+          "drawdown": 97.5,
+          "daily": {
+            "observed": 73,
+            "positive": 7,
+            "negative": 6,
+            "flatActive": 0,
+            "noTrade": 60,
+            "worst": -53
+          },
+          "trades": 14,
+          "metrics": {
+            "count": 14,
+            "wins": 7,
+            "win": 0.5,
+            "total": -0.9727825750784607,
+            "exp": -0.06948446964846147,
+            "pf": 0.8722540268385308,
+            "dd": 4.678423349699945,
+            "winInterval": [
+              0.2679886791947528,
+              0.7320113208052472
+            ]
+          },
+          "grossDollars": 98.5,
+          "feesDollars": 49,
+          "pfDollars": 1.271978021978022,
+          "signalCount": 16,
+          "denied": {
+            "tradeRisk": 2,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 0
+          },
+          "ambiguous": 0
+        },
+        "stress": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": 169,
+          "balance": 25169,
+          "drawdown": 40.5,
+          "daily": {
+            "observed": 73,
+            "positive": 6,
+            "negative": 1,
+            "flatActive": 0,
+            "noTrade": 66,
+            "worst": -40.5
+          },
+          "trades": 7,
+          "metrics": {
+            "count": 7,
+            "wins": 6,
+            "win": 0.8571428571428571,
+            "total": 4.779903552180563,
+            "exp": 0.6828433645972233,
+            "pf": 4.953747382667873,
+            "dd": 1.208955223880597,
+            "winInterval": [
+              0.48686549668097007,
+              0.9743210440510253
+            ]
+          },
+          "grossDollars": 218,
+          "feesDollars": 49,
+          "pfDollars": 5.172839506172839,
+          "signalCount": 16,
+          "denied": {
+            "tradeRisk": 2,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 7
+          },
+          "ambiguous": 0
+        }
+      },
+      "windows": [
+        {
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "phase": "train",
+          "expected": 39,
+          "scored": 39,
+          "complete": true,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 146,
+              "balance": 25146,
+              "drawdown": 67,
+              "daily": {
+                "observed": 39,
+                "positive": 6,
+                "negative": 3,
+                "flatActive": 0,
+                "noTrade": 30,
+                "worst": -37
+              },
+              "trades": 9,
+              "metrics": {
+                "count": 9,
+                "wins": 6,
+                "win": 0.6666666666666666,
+                "total": 3.667904925564881,
+                "exp": 0.4075449917294312,
+                "pf": 2.2490511225563536,
+                "dd": 2.2365530836384115,
+                "winInterval": [
+                  0.35419734749908977,
+                  0.879418401317257
+                ]
+              },
+              "grossDollars": 177.5,
+              "feesDollars": 31.5,
+              "pfDollars": 2.727810650887574,
+              "signalCount": 10,
+              "denied": {
+                "tradeRisk": 1,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 169,
+              "balance": 25169,
+              "drawdown": 40.5,
+              "daily": {
+                "observed": 39,
+                "positive": 6,
+                "negative": 1,
+                "flatActive": 0,
+                "noTrade": 32,
+                "worst": -40.5
+              },
+              "trades": 7,
+              "metrics": {
+                "count": 7,
+                "wins": 6,
+                "win": 0.8571428571428571,
+                "total": 4.779903552180563,
+                "exp": 0.6828433645972233,
+                "pf": 4.953747382667873,
+                "dd": 1.208955223880597,
+                "winInterval": [
+                  0.48686549668097007,
+                  0.9743210440510253
+                ]
+              },
+              "grossDollars": 218,
+              "feesDollars": 49,
+              "pfDollars": 5.172839506172839,
+              "signalCount": 10,
+              "denied": {
+                "tradeRisk": 1,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 2
+              },
+              "ambiguous": 0
+            }
+          },
+          "account": {
+            "normal": {
+              "status": "incomplete",
+              "terminalDay": null,
+              "net": 146,
+              "balance": 25146,
+              "drawdown": 67,
+              "daily": {
+                "observed": 39,
+                "positive": 6,
+                "negative": 3,
+                "flatActive": 0,
+                "noTrade": 30,
+                "worst": -37
+              },
+              "trades": 9,
+              "metrics": {
+                "count": 9,
+                "wins": 6,
+                "win": 0.6666666666666666,
+                "total": 3.667904925564881,
+                "exp": 0.4075449917294312,
+                "pf": 2.2490511225563536,
+                "dd": 2.2365530836384115,
+                "winInterval": [
+                  0.35419734749908977,
+                  0.879418401317257
+                ]
+              },
+              "grossDollars": 177.5,
+              "feesDollars": 31.5,
+              "pfDollars": 2.727810650887574,
+              "signalCount": 10,
+              "denied": {
+                "tradeRisk": 1,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "incomplete",
+              "terminalDay": null,
+              "net": 169,
+              "balance": 25169,
+              "drawdown": 40.5,
+              "daily": {
+                "observed": 39,
+                "positive": 6,
+                "negative": 1,
+                "flatActive": 0,
+                "noTrade": 32,
+                "worst": -40.5
+              },
+              "trades": 7,
+              "metrics": {
+                "count": 7,
+                "wins": 6,
+                "win": 0.8571428571428571,
+                "total": 4.779903552180563,
+                "exp": 0.6828433645972233,
+                "pf": 4.953747382667873,
+                "dd": 1.208955223880597,
+                "winInterval": [
+                  0.48686549668097007,
+                  0.9743210440510253
+                ]
+              },
+              "grossDollars": 218,
+              "feesDollars": 49,
+              "pfDollars": 5.172839506172839,
+              "signalCount": 10,
+              "denied": {
+                "tradeRisk": 1,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 2
+              },
+              "ambiguous": 0
+            }
+          }
+        },
+        {
+          "start": "2026-03-01",
+          "end": "2026-05-01",
+          "phase": "train",
+          "expected": 43,
+          "scored": 34,
+          "complete": false,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": -96.5,
+              "balance": 24903.5,
+              "drawdown": 97.5,
+              "daily": {
+                "observed": 34,
+                "positive": 1,
+                "negative": 3,
+                "flatActive": 0,
+                "noTrade": 30,
+                "worst": -53
+              },
+              "trades": 5,
+              "metrics": {
+                "count": 5,
+                "wins": 1,
+                "win": 0.2,
+                "total": -4.640687500643342,
+                "exp": -0.9281375001286684,
+                "pf": 0.008065932951327286,
+                "dd": 4.678423349699946,
+                "winInterval": [
+                  0.03622316096978745,
+                  0.6244717358814613
+                ]
+              },
+              "grossDollars": -79,
+              "feesDollars": 17.5,
+              "pfDollars": 0.010256410256410256,
+              "signalCount": 6,
+              "denied": {
+                "tradeRisk": 1,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 0,
+              "balance": 25000,
+              "drawdown": 0,
+              "daily": {
+                "observed": 34,
+                "positive": 0,
+                "negative": 0,
+                "flatActive": 0,
+                "noTrade": 34,
+                "worst": 0
+              },
+              "trades": 0,
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "grossDollars": 0,
+              "feesDollars": 0,
+              "pfDollars": null,
+              "signalCount": 6,
+              "denied": {
+                "tradeRisk": 1,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 5
+              },
+              "ambiguous": 0
+            }
+          },
+          "account": null
+        }
+      ],
+      "checks": [
+        {
+          "id": "coverage",
+          "label": "Deux fenêtres entièrement couvertes",
+          "pass": false
+        },
+        {
+          "id": "count",
+          "label": "Au moins 40 trades au total",
+          "pass": false
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par fenêtre",
+          "pass": false
+        },
+        {
+          "id": "positive",
+          "label": "Chaque fenêtre positive en R et dollars",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor en R au moins 1,10",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé au plus 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Total positif en R et dollars avec coûts doublés",
+          "pass": true
+        },
+        {
+          "id": "account",
+          "label": "Aucun franchissement du seuil dans les comptes complets",
+          "pass": false
+        }
+      ],
+      "researchPassed": false,
+      "confirmed": false
+    },
+    {
+      "id": "MGC/pullback",
+      "symbol": "MGC",
+      "label": "Pullback 5 min + tendance 30 min",
+      "product": {
+        "symbol": "MGC",
+        "label": "Micro Or",
+        "tick": 0.1,
+        "multiplier": 10,
+        "fees": 2.5,
+        "venue": "XCEC",
+        "priorData": false
+      },
+      "diagnostic": {
+        "normal": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": 0,
+          "balance": 25000,
+          "drawdown": 0,
+          "daily": {
+            "observed": 38,
+            "positive": 0,
+            "negative": 0,
+            "flatActive": 0,
+            "noTrade": 38,
+            "worst": 0
+          },
+          "trades": 0,
+          "metrics": {
+            "count": 0,
+            "wins": 0,
+            "win": null,
+            "total": 0,
+            "exp": null,
+            "pf": null,
+            "dd": 0,
+            "winInterval": null
+          },
+          "grossDollars": 0,
+          "feesDollars": 0,
+          "pfDollars": null,
+          "signalCount": 175,
+          "denied": {
+            "tradeRisk": 175,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 0
+          },
+          "ambiguous": 0
+        },
+        "stress": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": 0,
+          "balance": 25000,
+          "drawdown": 0,
+          "daily": {
+            "observed": 38,
+            "positive": 0,
+            "negative": 0,
+            "flatActive": 0,
+            "noTrade": 38,
+            "worst": 0
+          },
+          "trades": 0,
+          "metrics": {
+            "count": 0,
+            "wins": 0,
+            "win": null,
+            "total": 0,
+            "exp": null,
+            "pf": null,
+            "dd": 0,
+            "winInterval": null
+          },
+          "grossDollars": 0,
+          "feesDollars": 0,
+          "pfDollars": null,
+          "signalCount": 175,
+          "denied": {
+            "tradeRisk": 175,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 0
+          },
+          "ambiguous": 0
+        }
+      },
+      "windows": [
+        {
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "phase": "train",
+          "expected": 39,
+          "scored": 24,
+          "complete": false,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 0,
+              "balance": 25000,
+              "drawdown": 0,
+              "daily": {
+                "observed": 24,
+                "positive": 0,
+                "negative": 0,
+                "flatActive": 0,
+                "noTrade": 24,
+                "worst": 0
+              },
+              "trades": 0,
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "grossDollars": 0,
+              "feesDollars": 0,
+              "pfDollars": null,
+              "signalCount": 113,
+              "denied": {
+                "tradeRisk": 113,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 0,
+              "balance": 25000,
+              "drawdown": 0,
+              "daily": {
+                "observed": 24,
+                "positive": 0,
+                "negative": 0,
+                "flatActive": 0,
+                "noTrade": 24,
+                "worst": 0
+              },
+              "trades": 0,
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "grossDollars": 0,
+              "feesDollars": 0,
+              "pfDollars": null,
+              "signalCount": 113,
+              "denied": {
+                "tradeRisk": 113,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            }
+          },
+          "account": null
+        },
+        {
+          "start": "2026-03-01",
+          "end": "2026-05-01",
+          "phase": "train",
+          "expected": 43,
+          "scored": 14,
+          "complete": false,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 0,
+              "balance": 25000,
+              "drawdown": 0,
+              "daily": {
+                "observed": 14,
+                "positive": 0,
+                "negative": 0,
+                "flatActive": 0,
+                "noTrade": 14,
+                "worst": 0
+              },
+              "trades": 0,
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "grossDollars": 0,
+              "feesDollars": 0,
+              "pfDollars": null,
+              "signalCount": 62,
+              "denied": {
+                "tradeRisk": 62,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 0,
+              "balance": 25000,
+              "drawdown": 0,
+              "daily": {
+                "observed": 14,
+                "positive": 0,
+                "negative": 0,
+                "flatActive": 0,
+                "noTrade": 14,
+                "worst": 0
+              },
+              "trades": 0,
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "grossDollars": 0,
+              "feesDollars": 0,
+              "pfDollars": null,
+              "signalCount": 62,
+              "denied": {
+                "tradeRisk": 62,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            }
+          },
+          "account": null
+        }
+      ],
+      "checks": [
+        {
+          "id": "coverage",
+          "label": "Deux fenêtres entièrement couvertes",
+          "pass": false
+        },
+        {
+          "id": "count",
+          "label": "Au moins 40 trades au total",
+          "pass": false
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par fenêtre",
+          "pass": false
+        },
+        {
+          "id": "positive",
+          "label": "Chaque fenêtre positive en R et dollars",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor en R au moins 1,10",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé au plus 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Total positif en R et dollars avec coûts doublés",
+          "pass": false
+        },
+        {
+          "id": "account",
+          "label": "Aucun franchissement du seuil dans les comptes complets",
+          "pass": false
+        }
+      ],
+      "researchPassed": false,
+      "confirmed": false
+    },
+    {
+      "id": "MGC/cross",
+      "symbol": "MGC",
+      "label": "Croisement 5 min + tendance 30 min",
+      "product": {
+        "symbol": "MGC",
+        "label": "Micro Or",
+        "tick": 0.1,
+        "multiplier": 10,
+        "fees": 2.5,
+        "venue": "XCEC",
+        "priorData": false
+      },
+      "diagnostic": {
+        "normal": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": 0,
+          "balance": 25000,
+          "drawdown": 0,
+          "daily": {
+            "observed": 38,
+            "positive": 0,
+            "negative": 0,
+            "flatActive": 0,
+            "noTrade": 38,
+            "worst": 0
+          },
+          "trades": 0,
+          "metrics": {
+            "count": 0,
+            "wins": 0,
+            "win": null,
+            "total": 0,
+            "exp": null,
+            "pf": null,
+            "dd": 0,
+            "winInterval": null
+          },
+          "grossDollars": 0,
+          "feesDollars": 0,
+          "pfDollars": null,
+          "signalCount": 8,
+          "denied": {
+            "tradeRisk": 8,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 0
+          },
+          "ambiguous": 0
+        },
+        "stress": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": 0,
+          "balance": 25000,
+          "drawdown": 0,
+          "daily": {
+            "observed": 38,
+            "positive": 0,
+            "negative": 0,
+            "flatActive": 0,
+            "noTrade": 38,
+            "worst": 0
+          },
+          "trades": 0,
+          "metrics": {
+            "count": 0,
+            "wins": 0,
+            "win": null,
+            "total": 0,
+            "exp": null,
+            "pf": null,
+            "dd": 0,
+            "winInterval": null
+          },
+          "grossDollars": 0,
+          "feesDollars": 0,
+          "pfDollars": null,
+          "signalCount": 8,
+          "denied": {
+            "tradeRisk": 8,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 0
+          },
+          "ambiguous": 0
+        }
+      },
+      "windows": [
+        {
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "phase": "train",
+          "expected": 39,
+          "scored": 24,
+          "complete": false,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 0,
+              "balance": 25000,
+              "drawdown": 0,
+              "daily": {
+                "observed": 24,
+                "positive": 0,
+                "negative": 0,
+                "flatActive": 0,
+                "noTrade": 24,
+                "worst": 0
+              },
+              "trades": 0,
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "grossDollars": 0,
+              "feesDollars": 0,
+              "pfDollars": null,
+              "signalCount": 6,
+              "denied": {
+                "tradeRisk": 6,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 0,
+              "balance": 25000,
+              "drawdown": 0,
+              "daily": {
+                "observed": 24,
+                "positive": 0,
+                "negative": 0,
+                "flatActive": 0,
+                "noTrade": 24,
+                "worst": 0
+              },
+              "trades": 0,
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "grossDollars": 0,
+              "feesDollars": 0,
+              "pfDollars": null,
+              "signalCount": 6,
+              "denied": {
+                "tradeRisk": 6,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            }
+          },
+          "account": null
+        },
+        {
+          "start": "2026-03-01",
+          "end": "2026-05-01",
+          "phase": "train",
+          "expected": 43,
+          "scored": 14,
+          "complete": false,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 0,
+              "balance": 25000,
+              "drawdown": 0,
+              "daily": {
+                "observed": 14,
+                "positive": 0,
+                "negative": 0,
+                "flatActive": 0,
+                "noTrade": 14,
+                "worst": 0
+              },
+              "trades": 0,
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "grossDollars": 0,
+              "feesDollars": 0,
+              "pfDollars": null,
+              "signalCount": 2,
+              "denied": {
+                "tradeRisk": 2,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 0,
+              "balance": 25000,
+              "drawdown": 0,
+              "daily": {
+                "observed": 14,
+                "positive": 0,
+                "negative": 0,
+                "flatActive": 0,
+                "noTrade": 14,
+                "worst": 0
+              },
+              "trades": 0,
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "grossDollars": 0,
+              "feesDollars": 0,
+              "pfDollars": null,
+              "signalCount": 2,
+              "denied": {
+                "tradeRisk": 2,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            }
+          },
+          "account": null
+        }
+      ],
+      "checks": [
+        {
+          "id": "coverage",
+          "label": "Deux fenêtres entièrement couvertes",
+          "pass": false
+        },
+        {
+          "id": "count",
+          "label": "Au moins 40 trades au total",
+          "pass": false
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par fenêtre",
+          "pass": false
+        },
+        {
+          "id": "positive",
+          "label": "Chaque fenêtre positive en R et dollars",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor en R au moins 1,10",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé au plus 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Total positif en R et dollars avec coûts doublés",
+          "pass": false
+        },
+        {
+          "id": "account",
+          "label": "Aucun franchissement du seuil dans les comptes complets",
+          "pass": false
+        }
+      ],
+      "researchPassed": false,
+      "confirmed": false
+    }
+  ],
+  "selection": {
+    "schema": "jeu19-selection-v1",
+    "id": null,
+    "attempted": 8,
+    "freezeSha256": "e047c8fde787bc55eae48fc5ed4a0ee541da3193829fc43e24a285a2599199e1",
+    "sourceSha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+    "trainEnd": "2026-05-01",
+    "createdAt": "2026-09-09T05:49:15.709Z"
+  },
+  "selectionSha256": "d6ebdf582aaad2f4a9773feb7f2894b7d4ebf92d888f36e24aa20a05581d1964",
+  "holdout": {
+    "status": "not-opened",
+    "reason": "No eligible development candidate"
+  },
+  "coverage": [
+    {
+      "symbol": "MNQ",
+      "expected": 166,
+      "scored": 146,
+      "unavailable": [
+        {
+          "ticker": "MNQH6",
+          "date": "2026-03-06",
+          "missingMinutes": [
+            605,
+            610,
+            615,
+            620,
+            625,
+            630,
+            635,
+            640,
+            645,
+            650
+          ],
+          "missingSchedule": false,
+          "scoredRange": true,
+          "reason": "missing-data"
+        },
+        {
+          "ticker": "MNQH6",
+          "date": "2026-03-09",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MNQH6",
+          "date": "2026-03-10",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MNQH6",
+          "date": "2026-03-11",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MNQH6",
+          "date": "2026-03-12",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MNQH6",
+          "date": "2026-03-13",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MNQM6",
+          "date": "2026-03-16",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MNQM6",
+          "date": "2026-03-17",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MNQM6",
+          "date": "2026-03-18",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MNQM6",
+          "date": "2026-03-19",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MNQM6",
+          "date": "2026-03-20",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MNQM6",
+          "date": "2026-03-23",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MNQM6",
+          "date": "2026-03-24",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MNQM6",
+          "date": "2026-03-25",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MNQM6",
+          "date": "2026-03-26",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MNQM6",
+          "date": "2026-03-27",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MNQM6",
+          "date": "2026-03-30",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MNQM6",
+          "date": "2026-03-31",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MNQU6",
+          "date": "2026-06-15",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MNQU6",
+          "date": "2026-06-16",
+          "reason": "warmup"
+        }
+      ],
+      "quality": [
+        {
+          "ticker": "MNQM5",
+          "prep": "2025-03-17",
+          "start": "2025-03-17",
+          "end": "2025-06-16",
+          "bars": 4914,
+          "expectedSessions": 63,
+          "issues": [],
+          "blocks": [
+            {
+              "ticker": "MNQM5",
+              "prep": "2025-03-17",
+              "last": "2025-06-13",
+              "start": "2025-04-09",
+              "sessions": 63,
+              "scoredSessions": 46
+            }
+          ]
+        },
+        {
+          "ticker": "MNQU5",
+          "prep": "2025-05-01",
+          "start": "2025-06-16",
+          "end": "2025-09-15",
+          "bars": 7208,
+          "expectedSessions": 93,
+          "issues": [
+            {
+              "ticker": "MNQU5",
+              "date": "2025-05-05",
+              "missingMinutes": [
+                820
+              ],
+              "missingSchedule": false,
+              "scoredRange": false
+            },
+            {
+              "ticker": "MNQU5",
+              "date": "2025-05-06",
+              "missingMinutes": [
+                920
+              ],
+              "missingSchedule": false,
+              "scoredRange": false
+            },
+            {
+              "ticker": "MNQU5",
+              "date": "2025-05-09",
+              "missingMinutes": [
+                860,
+                865,
+                870,
+                895,
+                935
+              ],
+              "missingSchedule": false,
+              "scoredRange": false
+            },
+            {
+              "ticker": "MNQU5",
+              "date": "2025-05-16",
+              "missingMinutes": [
+                765
+              ],
+              "missingSchedule": false,
+              "scoredRange": false
+            },
+            {
+              "ticker": "MNQU5",
+              "date": "2025-05-20",
+              "missingMinutes": [
+                735,
+                740
+              ],
+              "missingSchedule": false,
+              "scoredRange": false
+            }
+          ],
+          "blocks": [
+            {
+              "ticker": "MNQU5",
+              "prep": "2025-05-01",
+              "last": "2025-05-02",
+              "start": null,
+              "sessions": 2,
+              "scoredSessions": 0
+            },
+            {
+              "ticker": "MNQU5",
+              "prep": "2025-05-07",
+              "last": "2025-05-08",
+              "start": null,
+              "sessions": 2,
+              "scoredSessions": 0
+            },
+            {
+              "ticker": "MNQU5",
+              "prep": "2025-05-12",
+              "last": "2025-05-15",
+              "start": null,
+              "sessions": 4,
+              "scoredSessions": 0
+            },
+            {
+              "ticker": "MNQU5",
+              "prep": "2025-05-19",
+              "last": "2025-05-19",
+              "start": null,
+              "sessions": 1,
+              "scoredSessions": 0
+            },
+            {
+              "ticker": "MNQU5",
+              "prep": "2025-05-21",
+              "last": "2025-09-12",
+              "start": "2025-06-16",
+              "sessions": 79,
+              "scoredSessions": 62
+            }
+          ]
+        },
+        {
+          "ticker": "MNQZ5",
+          "prep": "2025-08-01",
+          "start": "2025-09-15",
+          "end": "2025-12-15",
+          "bars": 7283,
+          "expectedSessions": 94,
+          "issues": [
+            {
+              "ticker": "MNQZ5",
+              "date": "2025-08-04",
+              "missingMinutes": [
+                860,
+                890
+              ],
+              "missingSchedule": false,
+              "scoredRange": false
+            },
+            {
+              "ticker": "MNQZ5",
+              "date": "2025-08-05",
+              "missingMinutes": [
+                800
+              ],
+              "missingSchedule": false,
+              "scoredRange": false
+            },
+            {
+              "ticker": "MNQZ5",
+              "date": "2025-08-08",
+              "missingMinutes": [
+                905
+              ],
+              "missingSchedule": false,
+              "scoredRange": false
+            },
+            {
+              "ticker": "MNQZ5",
+              "date": "2025-08-11",
+              "missingMinutes": [
+                800,
+                905
+              ],
+              "missingSchedule": false,
+              "scoredRange": false
+            },
+            {
+              "ticker": "MNQZ5",
+              "date": "2025-08-12",
+              "missingMinutes": [
+                890
+              ],
+              "missingSchedule": false,
+              "scoredRange": false
+            },
+            {
+              "ticker": "MNQZ5",
+              "date": "2025-08-18",
+              "missingMinutes": [
+                860,
+                940
+              ],
+              "missingSchedule": false,
+              "scoredRange": false
+            },
+            {
+              "ticker": "MNQZ5",
+              "date": "2025-08-25",
+              "missingMinutes": [
+                785,
+                850,
+                875,
+                905
+              ],
+              "missingSchedule": false,
+              "scoredRange": false
+            }
+          ],
+          "blocks": [
+            {
+              "ticker": "MNQZ5",
+              "prep": "2025-08-01",
+              "last": "2025-08-01",
+              "start": null,
+              "sessions": 1,
+              "scoredSessions": 0
+            },
+            {
+              "ticker": "MNQZ5",
+              "prep": "2025-08-06",
+              "last": "2025-08-07",
+              "start": null,
+              "sessions": 2,
+              "scoredSessions": 0
+            },
+            {
+              "ticker": "MNQZ5",
+              "prep": "2025-08-13",
+              "last": "2025-08-15",
+              "start": null,
+              "sessions": 3,
+              "scoredSessions": 0
+            },
+            {
+              "ticker": "MNQZ5",
+              "prep": "2025-08-19",
+              "last": "2025-08-22",
+              "start": null,
+              "sessions": 4,
+              "scoredSessions": 0
+            },
+            {
+              "ticker": "MNQZ5",
+              "prep": "2025-08-26",
+              "last": "2025-12-12",
+              "start": "2025-09-19",
+              "sessions": 77,
+              "scoredSessions": 60
+            }
+          ]
+        },
+        {
+          "ticker": "MNQH6",
+          "prep": "2025-11-01",
+          "start": "2025-12-15",
+          "end": "2026-03-16",
+          "bars": 6932,
+          "expectedSessions": 90,
+          "issues": [
+            {
+              "ticker": "MNQH6",
+              "date": "2025-11-03",
+              "missingMinutes": [
+                665,
+                905,
+                920
+              ],
+              "missingSchedule": false,
+              "scoredRange": false
+            },
+            {
+              "ticker": "MNQH6",
+              "date": "2025-11-05",
+              "missingMinutes": [
+                915
+              ],
+              "missingSchedule": false,
+              "scoredRange": false
+            },
+            {
+              "ticker": "MNQH6",
+              "date": "2025-11-11",
+              "missingMinutes": [
+                865,
+                915
+              ],
+              "missingSchedule": false,
+              "scoredRange": false
+            },
+            {
+              "ticker": "MNQH6",
+              "date": "2026-03-06",
+              "missingMinutes": [
+                605,
+                610,
+                615,
+                620,
+                625,
+                630,
+                635,
+                640,
+                645,
+                650
+              ],
+              "missingSchedule": false,
+              "scoredRange": true
+            }
+          ],
+          "blocks": [
+            {
+              "ticker": "MNQH6",
+              "prep": "2025-11-04",
+              "last": "2025-11-04",
+              "start": null,
+              "sessions": 1,
+              "scoredSessions": 0
+            },
+            {
+              "ticker": "MNQH6",
+              "prep": "2025-11-06",
+              "last": "2025-11-10",
+              "start": null,
+              "sessions": 3,
+              "scoredSessions": 0
+            },
+            {
+              "ticker": "MNQH6",
+              "prep": "2025-11-12",
+              "last": "2026-03-05",
+              "start": "2025-12-15",
+              "sessions": 77,
+              "scoredSessions": 55
+            },
+            {
+              "ticker": "MNQH6",
+              "prep": "2026-03-09",
+              "last": "2026-03-13",
+              "start": null,
+              "sessions": 5,
+              "scoredSessions": 0
+            }
+          ]
+        },
+        {
+          "ticker": "MNQM6",
+          "prep": "2026-02-01",
+          "start": "2026-03-16",
+          "end": "2026-06-15",
+          "bars": 7159,
+          "expectedSessions": 92,
+          "issues": [
+            {
+              "ticker": "MNQM6",
+              "date": "2026-02-02",
+              "missingMinutes": [
+                830,
+                880
+              ],
+              "missingSchedule": false,
+              "scoredRange": false
+            },
+            {
+              "ticker": "MNQM6",
+              "date": "2026-02-09",
+              "missingMinutes": [
+                890
+              ],
+              "missingSchedule": false,
+              "scoredRange": false
+            },
+            {
+              "ticker": "MNQM6",
+              "date": "2026-02-13",
+              "missingMinutes": [
+                855
+              ],
+              "missingSchedule": false,
+              "scoredRange": false
+            },
+            {
+              "ticker": "MNQM6",
+              "date": "2026-02-24",
+              "missingMinutes": [
+                845
+              ],
+              "missingSchedule": false,
+              "scoredRange": false
+            },
+            {
+              "ticker": "MNQM6",
+              "date": "2026-02-25",
+              "missingMinutes": [
+                735,
+                895
+              ],
+              "missingSchedule": false,
+              "scoredRange": false
+            },
+            {
+              "ticker": "MNQM6",
+              "date": "2026-03-06",
+              "missingMinutes": [
+                605,
+                610,
+                615,
+                620,
+                625,
+                630,
+                635,
+                640,
+                645,
+                650
+              ],
+              "missingSchedule": false,
+              "scoredRange": false
+            }
+          ],
+          "blocks": [
+            {
+              "ticker": "MNQM6",
+              "prep": "2026-02-03",
+              "last": "2026-02-06",
+              "start": null,
+              "sessions": 4,
+              "scoredSessions": 0
+            },
+            {
+              "ticker": "MNQM6",
+              "prep": "2026-02-10",
+              "last": "2026-02-12",
+              "start": null,
+              "sessions": 3,
+              "scoredSessions": 0
+            },
+            {
+              "ticker": "MNQM6",
+              "prep": "2026-02-17",
+              "last": "2026-02-23",
+              "start": null,
+              "sessions": 5,
+              "scoredSessions": 0
+            },
+            {
+              "ticker": "MNQM6",
+              "prep": "2026-02-26",
+              "last": "2026-03-05",
+              "start": null,
+              "sessions": 6,
+              "scoredSessions": 0
+            },
+            {
+              "ticker": "MNQM6",
+              "prep": "2026-03-09",
+              "last": "2026-06-12",
+              "start": "2026-04-01",
+              "sessions": 68,
+              "scoredSessions": 51
+            }
+          ]
+        },
+        {
+          "ticker": "MNQU6",
+          "prep": "2026-05-01",
+          "start": "2026-06-15",
+          "end": "2026-09-09",
+          "bars": 6922,
+          "expectedSessions": 89,
+          "issues": [
+            {
+              "ticker": "MNQU6",
+              "date": "2026-05-01",
+              "missingMinutes": [
+                785
+              ],
+              "missingSchedule": false,
+              "scoredRange": false
+            },
+            {
+              "ticker": "MNQU6",
+              "date": "2026-05-04",
+              "missingMinutes": [
+                940
+              ],
+              "missingSchedule": false,
+              "scoredRange": false
+            },
+            {
+              "ticker": "MNQU6",
+              "date": "2026-05-06",
+              "missingMinutes": [
+                820
+              ],
+              "missingSchedule": false,
+              "scoredRange": false
+            },
+            {
+              "ticker": "MNQU6",
+              "date": "2026-05-21",
+              "missingMinutes": [
+                760
+              ],
+              "missingSchedule": false,
+              "scoredRange": false
+            },
+            {
+              "ticker": "MNQU6",
+              "date": "2026-09-08",
+              "missingMinutes": [
+                880,
+                885,
+                890,
+                895,
+                900,
+                905,
+                910,
+                915,
+                920,
+                925,
+                930,
+                935,
+                940,
+                945,
+                950,
+                955
+              ],
+              "missingSchedule": false,
+              "scoredRange": true
+            }
+          ],
+          "blocks": [
+            {
+              "ticker": "MNQU6",
+              "prep": "2026-05-05",
+              "last": "2026-05-05",
+              "start": null,
+              "sessions": 1,
+              "scoredSessions": 0
+            },
+            {
+              "ticker": "MNQU6",
+              "prep": "2026-05-07",
+              "last": "2026-05-20",
+              "start": null,
+              "sessions": 10,
+              "scoredSessions": 0
+            },
+            {
+              "ticker": "MNQU6",
+              "prep": "2026-05-22",
+              "last": "2026-09-04",
+              "start": "2026-06-17",
+              "sessions": 73,
+              "scoredSessions": 56
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "symbol": "MES",
+      "expected": 166,
+      "scored": 144,
+      "unavailable": [
+        {
+          "ticker": "MESH6",
+          "date": "2026-03-06",
+          "reason": "missing-data",
+          "missingBars": 10,
+          "missingSchedule": false
+        },
+        {
+          "ticker": "MESH6",
+          "date": "2026-03-09",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MESH6",
+          "date": "2026-03-10",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MESH6",
+          "date": "2026-03-11",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MESH6",
+          "date": "2026-03-12",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MESH6",
+          "date": "2026-03-13",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MESM6",
+          "date": "2026-03-16",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MESM6",
+          "date": "2026-03-17",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MESM6",
+          "date": "2026-03-18",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MESM6",
+          "date": "2026-03-19",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MESM6",
+          "date": "2026-03-20",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MESM6",
+          "date": "2026-03-23",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MESM6",
+          "date": "2026-03-24",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MESM6",
+          "date": "2026-03-25",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MESM6",
+          "date": "2026-03-26",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MESM6",
+          "date": "2026-03-27",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MESM6",
+          "date": "2026-03-30",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MESM6",
+          "date": "2026-03-31",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MESU6",
+          "date": "2026-06-15",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MESU6",
+          "date": "2026-06-16",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MESU6",
+          "date": "2026-06-17",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MESU6",
+          "date": "2026-06-18",
+          "reason": "warmup"
+        }
+      ],
+      "quality": [
+        {
+          "ticker": "MESH6",
+          "rows": 8531,
+          "expectedPrepSessions": 71,
+          "issues": [
+            {
+              "ticker": "MESH6",
+              "date": "2025-12-01",
+              "reason": "missing-data",
+              "missingBars": 1,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MESH6",
+              "date": "2025-12-02",
+              "reason": "missing-data",
+              "missingBars": 1,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MESH6",
+              "date": "2026-03-06",
+              "reason": "missing-data",
+              "missingBars": 10,
+              "missingSchedule": false
+            }
+          ]
+        },
+        {
+          "ticker": "MESM6",
+          "rows": 10252,
+          "expectedPrepSessions": 92,
+          "issues": [
+            {
+              "ticker": "MESM6",
+              "date": "2026-02-04",
+              "reason": "missing-data",
+              "missingBars": 1,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MESM6",
+              "date": "2026-02-06",
+              "reason": "missing-data",
+              "missingBars": 1,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MESM6",
+              "date": "2026-02-09",
+              "reason": "missing-data",
+              "missingBars": 2,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MESM6",
+              "date": "2026-02-10",
+              "reason": "missing-data",
+              "missingBars": 3,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MESM6",
+              "date": "2026-02-11",
+              "reason": "missing-data",
+              "missingBars": 1,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MESM6",
+              "date": "2026-02-12",
+              "reason": "missing-data",
+              "missingBars": 1,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MESM6",
+              "date": "2026-02-17",
+              "reason": "missing-data",
+              "missingBars": 1,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MESM6",
+              "date": "2026-03-06",
+              "reason": "missing-data",
+              "missingBars": 10,
+              "missingSchedule": false
+            }
+          ]
+        },
+        {
+          "ticker": "MESU6",
+          "rows": 9191,
+          "expectedPrepSessions": 84,
+          "issues": [
+            {
+              "ticker": "MESU6",
+              "date": "2026-05-01",
+              "reason": "missing-data",
+              "missingBars": 2,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MESU6",
+              "date": "2026-05-04",
+              "reason": "missing-data",
+              "missingBars": 1,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MESU6",
+              "date": "2026-05-05",
+              "reason": "missing-data",
+              "missingBars": 2,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MESU6",
+              "date": "2026-05-08",
+              "reason": "missing-data",
+              "missingBars": 1,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MESU6",
+              "date": "2026-05-13",
+              "reason": "missing-data",
+              "missingBars": 1,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MESU6",
+              "date": "2026-05-14",
+              "reason": "missing-data",
+              "missingBars": 1,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MESU6",
+              "date": "2026-05-18",
+              "reason": "missing-data",
+              "missingBars": 4,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MESU6",
+              "date": "2026-05-20",
+              "reason": "missing-data",
+              "missingBars": 1,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MESU6",
+              "date": "2026-05-21",
+              "reason": "missing-data",
+              "missingBars": 1,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MESU6",
+              "date": "2026-05-26",
+              "reason": "missing-data",
+              "missingBars": 1,
+              "missingSchedule": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "symbol": "MYM",
+      "expected": 166,
+      "scored": 146,
+      "unavailable": [
+        {
+          "ticker": "MYMM6",
+          "date": "2026-03-16",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MYMM6",
+          "date": "2026-03-17",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MYMM6",
+          "date": "2026-03-18",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MYMM6",
+          "date": "2026-03-19",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MYMM6",
+          "date": "2026-03-20",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MYMM6",
+          "date": "2026-03-23",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MYMM6",
+          "date": "2026-03-24",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MYMM6",
+          "date": "2026-03-25",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MYMM6",
+          "date": "2026-03-26",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MYMU6",
+          "date": "2026-06-15",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MYMU6",
+          "date": "2026-06-16",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MYMU6",
+          "date": "2026-06-17",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MYMU6",
+          "date": "2026-06-18",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MYMU6",
+          "date": "2026-06-22",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MYMU6",
+          "date": "2026-06-23",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MYMU6",
+          "date": "2026-06-24",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MYMU6",
+          "date": "2026-06-25",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MYMU6",
+          "date": "2026-06-26",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MYMU6",
+          "date": "2026-06-29",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MYMU6",
+          "date": "2026-06-30",
+          "reason": "warmup"
+        }
+      ],
+      "quality": [
+        {
+          "ticker": "MYMH6",
+          "rows": 8387,
+          "expectedPrepSessions": 71,
+          "issues": [
+            {
+              "ticker": "MYMH6",
+              "date": "2025-12-01",
+              "reason": "missing-data",
+              "missingBars": 25,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMH6",
+              "date": "2025-12-02",
+              "reason": "missing-data",
+              "missingBars": 8,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMH6",
+              "date": "2025-12-03",
+              "reason": "missing-data",
+              "missingBars": 1,
+              "missingSchedule": false
+            }
+          ]
+        },
+        {
+          "ticker": "MYMM6",
+          "rows": 9664,
+          "expectedPrepSessions": 92,
+          "issues": [
+            {
+              "ticker": "MYMM6",
+              "date": "2026-02-02",
+              "reason": "missing-data",
+              "missingBars": 19,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMM6",
+              "date": "2026-02-03",
+              "reason": "missing-data",
+              "missingBars": 9,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMM6",
+              "date": "2026-02-04",
+              "reason": "missing-data",
+              "missingBars": 8,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMM6",
+              "date": "2026-02-05",
+              "reason": "missing-data",
+              "missingBars": 12,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMM6",
+              "date": "2026-02-06",
+              "reason": "missing-data",
+              "missingBars": 11,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMM6",
+              "date": "2026-02-09",
+              "reason": "missing-data",
+              "missingBars": 22,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMM6",
+              "date": "2026-02-10",
+              "reason": "missing-data",
+              "missingBars": 26,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMM6",
+              "date": "2026-02-11",
+              "reason": "missing-data",
+              "missingBars": 27,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMM6",
+              "date": "2026-02-12",
+              "reason": "missing-data",
+              "missingBars": 2,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMM6",
+              "date": "2026-02-13",
+              "reason": "missing-data",
+              "missingBars": 7,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMM6",
+              "date": "2026-02-17",
+              "reason": "missing-data",
+              "missingBars": 17,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMM6",
+              "date": "2026-02-18",
+              "reason": "missing-data",
+              "missingBars": 16,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMM6",
+              "date": "2026-02-19",
+              "reason": "missing-data",
+              "missingBars": 12,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMM6",
+              "date": "2026-02-20",
+              "reason": "missing-data",
+              "missingBars": 13,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMM6",
+              "date": "2026-02-23",
+              "reason": "missing-data",
+              "missingBars": 6,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMM6",
+              "date": "2026-02-24",
+              "reason": "missing-data",
+              "missingBars": 12,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMM6",
+              "date": "2026-02-25",
+              "reason": "missing-data",
+              "missingBars": 15,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMM6",
+              "date": "2026-02-26",
+              "reason": "missing-data",
+              "missingBars": 10,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMM6",
+              "date": "2026-02-27",
+              "reason": "missing-data",
+              "missingBars": 11,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMM6",
+              "date": "2026-03-02",
+              "reason": "missing-data",
+              "missingBars": 3,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMM6",
+              "date": "2026-03-03",
+              "reason": "missing-data",
+              "missingBars": 2,
+              "missingSchedule": false
+            }
+          ]
+        },
+        {
+          "ticker": "MYMU6",
+          "rows": 8584,
+          "expectedPrepSessions": 84,
+          "issues": [
+            {
+              "ticker": "MYMU6",
+              "date": "2026-05-01",
+              "reason": "missing-data",
+              "missingBars": 20,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMU6",
+              "date": "2026-05-04",
+              "reason": "missing-data",
+              "missingBars": 18,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMU6",
+              "date": "2026-05-05",
+              "reason": "missing-data",
+              "missingBars": 27,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMU6",
+              "date": "2026-05-06",
+              "reason": "missing-data",
+              "missingBars": 13,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMU6",
+              "date": "2026-05-07",
+              "reason": "missing-data",
+              "missingBars": 17,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMU6",
+              "date": "2026-05-08",
+              "reason": "missing-data",
+              "missingBars": 26,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMU6",
+              "date": "2026-05-11",
+              "reason": "missing-data",
+              "missingBars": 23,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMU6",
+              "date": "2026-05-12",
+              "reason": "missing-data",
+              "missingBars": 14,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMU6",
+              "date": "2026-05-13",
+              "reason": "missing-data",
+              "missingBars": 17,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMU6",
+              "date": "2026-05-14",
+              "reason": "missing-data",
+              "missingBars": 17,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMU6",
+              "date": "2026-05-15",
+              "reason": "missing-data",
+              "missingBars": 17,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMU6",
+              "date": "2026-05-18",
+              "reason": "missing-data",
+              "missingBars": 3,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMU6",
+              "date": "2026-05-19",
+              "reason": "missing-data",
+              "missingBars": 14,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMU6",
+              "date": "2026-05-20",
+              "reason": "missing-data",
+              "missingBars": 11,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMU6",
+              "date": "2026-05-21",
+              "reason": "missing-data",
+              "missingBars": 15,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMU6",
+              "date": "2026-05-22",
+              "reason": "missing-data",
+              "missingBars": 7,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMU6",
+              "date": "2026-05-26",
+              "reason": "missing-data",
+              "missingBars": 12,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMU6",
+              "date": "2026-05-27",
+              "reason": "missing-data",
+              "missingBars": 11,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMU6",
+              "date": "2026-05-28",
+              "reason": "missing-data",
+              "missingBars": 17,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMU6",
+              "date": "2026-05-29",
+              "reason": "missing-data",
+              "missingBars": 8,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMU6",
+              "date": "2026-06-01",
+              "reason": "missing-data",
+              "missingBars": 6,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMU6",
+              "date": "2026-06-02",
+              "reason": "missing-data",
+              "missingBars": 2,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMU6",
+              "date": "2026-06-03",
+              "reason": "missing-data",
+              "missingBars": 2,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MYMU6",
+              "date": "2026-06-04",
+              "reason": "missing-data",
+              "missingBars": 1,
+              "missingSchedule": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "symbol": "MGC",
+      "expected": 166,
+      "scored": 96,
+      "unavailable": [
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-02-25",
+          "reason": "missing-data",
+          "missingBars": 20,
+          "missingSchedule": true
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-06",
+          "reason": "missing-data",
+          "missingBars": 7,
+          "missingSchedule": false
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-01-26",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-01-27",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-01-28",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-01-29",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-01-30",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-02-02",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-02-03",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-02-04",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-02-05",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-02-06",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-02-09",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-02-10",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-02-26",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-02-27",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-02",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-03",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-04",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-05",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-09",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-10",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-11",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-12",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-13",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-16",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-17",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-18",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-19",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-20",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-23",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-24",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCM6",
+          "date": "2026-03-25",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCM6",
+          "date": "2026-03-26",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCM6",
+          "date": "2026-03-27",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCM6",
+          "date": "2026-03-30",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCM6",
+          "date": "2026-03-31",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCM6",
+          "date": "2026-04-01",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCM6",
+          "date": "2026-04-02",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCM6",
+          "date": "2026-04-06",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCM6",
+          "date": "2026-04-07",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCM6",
+          "date": "2026-04-08",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCM6",
+          "date": "2026-04-09",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCM6",
+          "date": "2026-04-10",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCQ6",
+          "date": "2026-05-26",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCQ6",
+          "date": "2026-05-27",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCQ6",
+          "date": "2026-05-28",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCQ6",
+          "date": "2026-05-29",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCQ6",
+          "date": "2026-06-01",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCQ6",
+          "date": "2026-06-02",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCQ6",
+          "date": "2026-06-03",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCQ6",
+          "date": "2026-06-04",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCQ6",
+          "date": "2026-06-05",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCQ6",
+          "date": "2026-06-08",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCQ6",
+          "date": "2026-06-09",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCQ6",
+          "date": "2026-06-10",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCV6",
+          "date": "2026-07-27",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCV6",
+          "date": "2026-07-28",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCV6",
+          "date": "2026-07-29",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCV6",
+          "date": "2026-07-30",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCV6",
+          "date": "2026-07-31",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCV6",
+          "date": "2026-08-03",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCV6",
+          "date": "2026-08-04",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCV6",
+          "date": "2026-08-05",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCV6",
+          "date": "2026-08-06",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCV6",
+          "date": "2026-08-07",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCV6",
+          "date": "2026-08-10",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCV6",
+          "date": "2026-08-11",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCV6",
+          "date": "2026-08-12",
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCV6",
+          "date": "2026-08-13",
+          "reason": "warmup"
+        }
+      ],
+      "quality": [
+        {
+          "ticker": "MGCG6",
+          "rows": 4491,
+          "expectedPrepSessions": 37,
+          "issues": []
+        },
+        {
+          "ticker": "MGCJ6",
+          "rows": 6713,
+          "expectedPrepSessions": 56,
+          "issues": [
+            {
+              "ticker": "MGCJ6",
+              "date": "2026-01-02",
+              "reason": "missing-data",
+              "missingBars": 1,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MGCJ6",
+              "date": "2026-01-05",
+              "reason": "missing-data",
+              "missingBars": 1,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MGCJ6",
+              "date": "2026-01-07",
+              "reason": "missing-data",
+              "missingBars": 2,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MGCJ6",
+              "date": "2026-01-08",
+              "reason": "missing-data",
+              "missingBars": 1,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MGCJ6",
+              "date": "2026-01-09",
+              "reason": "missing-data",
+              "missingBars": 1,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MGCJ6",
+              "date": "2026-01-13",
+              "reason": "missing-data",
+              "missingBars": 2,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MGCJ6",
+              "date": "2026-01-15",
+              "reason": "missing-data",
+              "missingBars": 1,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MGCJ6",
+              "date": "2026-02-25",
+              "reason": "missing-data",
+              "missingBars": 20,
+              "missingSchedule": true
+            },
+            {
+              "ticker": "MGCJ6",
+              "date": "2026-03-06",
+              "reason": "missing-data",
+              "missingBars": 7,
+              "missingSchedule": false
+            }
+          ]
+        },
+        {
+          "ticker": "MGCM6",
+          "rows": 6417,
+          "expectedPrepSessions": 59,
+          "issues": [
+            {
+              "ticker": "MGCM6",
+              "date": "2026-03-06",
+              "reason": "missing-data",
+              "missingBars": 7,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MGCM6",
+              "date": "2026-03-09",
+              "reason": "missing-data",
+              "missingBars": 1,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MGCM6",
+              "date": "2026-03-10",
+              "reason": "missing-data",
+              "missingBars": 1,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MGCM6",
+              "date": "2026-03-17",
+              "reason": "missing-data",
+              "missingBars": 1,
+              "missingSchedule": false
+            }
+          ]
+        },
+        {
+          "ticker": "MGCQ6",
+          "rows": 6434,
+          "expectedPrepSessions": 58,
+          "issues": [
+            {
+              "ticker": "MGCQ6",
+              "date": "2026-05-01",
+              "reason": "missing-data",
+              "missingBars": 1,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MGCQ6",
+              "date": "2026-05-05",
+              "reason": "missing-data",
+              "missingBars": 3,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MGCQ6",
+              "date": "2026-05-06",
+              "reason": "missing-data",
+              "missingBars": 4,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MGCQ6",
+              "date": "2026-05-08",
+              "reason": "missing-data",
+              "missingBars": 5,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MGCQ6",
+              "date": "2026-05-11",
+              "reason": "missing-data",
+              "missingBars": 3,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MGCQ6",
+              "date": "2026-05-15",
+              "reason": "missing-data",
+              "missingBars": 2,
+              "missingSchedule": false
+            }
+          ]
+        },
+        {
+          "ticker": "MGCV6",
+          "rows": 4629,
+          "expectedPrepSessions": 43,
+          "issues": [
+            {
+              "ticker": "MGCV6",
+              "date": "2026-07-01",
+              "reason": "missing-data",
+              "missingBars": 3,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MGCV6",
+              "date": "2026-07-02",
+              "reason": "missing-data",
+              "missingBars": 4,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MGCV6",
+              "date": "2026-07-06",
+              "reason": "missing-data",
+              "missingBars": 5,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MGCV6",
+              "date": "2026-07-07",
+              "reason": "missing-data",
+              "missingBars": 2,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MGCV6",
+              "date": "2026-07-08",
+              "reason": "missing-data",
+              "missingBars": 1,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MGCV6",
+              "date": "2026-07-09",
+              "reason": "missing-data",
+              "missingBars": 4,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MGCV6",
+              "date": "2026-07-10",
+              "reason": "missing-data",
+              "missingBars": 8,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MGCV6",
+              "date": "2026-07-13",
+              "reason": "missing-data",
+              "missingBars": 1,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MGCV6",
+              "date": "2026-07-14",
+              "reason": "missing-data",
+              "missingBars": 7,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MGCV6",
+              "date": "2026-07-17",
+              "reason": "missing-data",
+              "missingBars": 2,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MGCV6",
+              "date": "2026-07-20",
+              "reason": "missing-data",
+              "missingBars": 4,
+              "missingSchedule": false
+            },
+            {
+              "ticker": "MGCV6",
+              "date": "2026-07-21",
+              "reason": "missing-data",
+              "missingBars": 1,
+              "missingSchedule": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "confirmed": false,
+  "audit": {
+    "signalPrefixes": 808,
+    "accountPrefixes": 468,
+    "trades": 530,
+    "referencePairs": 8,
+    "passed": true
+  }
+}

@@ -1,0 +1,343 @@
+//@version=6
+indicator("Nykuto Signal V12.2 - Full Context + ORB", overlay=true, max_labels_count=500)
+
+// Decision-support only. No broker orders are sent.
+// V12.2 restores V11 context markers (RSI recovery, divergence, MSS/BOS-style structure)
+// while preserving the stricter V12 ORB + RSI + fast-retest setup layer.
+
+// ===== Inputs =====
+nyTz = "America/New_York"
+orbSession = input.session("0930-1000", "New York Opening Range")
+tradeSession = input.session("1000-1200", "Fenetre ORB")
+
+rsiLen = input.int(14, "RSI", minval=2)
+atrLen = input.int(14, "ATR", minval=2)
+volLen = input.int(20, "Volume moyen", minval=2)
+fastLen = input.int(9, "EMA rapide", minval=1)
+slowLen = input.int(21, "EMA lente", minval=2)
+htf = input.timeframe("60", "HTF contexte")
+htfFastLen = input.int(20, "HTF EMA rapide", minval=1)
+htfSlowLen = input.int(50, "HTF EMA lente", minval=2)
+
+pivotLeft = input.int(2, "Pivot gauche", minval=1)
+pivotRight = input.int(2, "Pivot droite", minval=1)
+contextBars = input.int(12, "Memoire RSI/divergence", minval=1)
+ctxCooldown = input.int(6, "Cooldown B/S contexte", minval=1)
+
+maxRetestMinutes = input.int(5, "Retest ORB max (min)", minval=1, maxval=30)
+retestToleranceAtr = input.float(0.15, "Tolerance retest ATR", step=0.05)
+compactOrbAtr = input.float(3.0, "ORB compact ATR - bonus", step=0.1)
+relVolMin = input.float(1.20, "Volume relatif min", step=0.05)
+
+showContextSignals = input.bool(true, "Afficher B/S contexte")
+showContextMarkers = input.bool(true, "Afficher R / DIV / MSS")
+showOrbSignals = input.bool(true, "Afficher ORB B/S")
+showOrb = input.bool(true, "Afficher ORB High/Low")
+showGuides = input.bool(false, "Afficher EMA/VWAP")
+showTooltips = input.bool(true, "Tooltips")
+
+// ===== Base =====
+emaFast = ta.ema(close, fastLen)
+emaSlow = ta.ema(close, slowLen)
+rsi = ta.rsi(close, rsiLen)
+atr = ta.atr(atrLen)
+atrRef = atr[1]
+vwap = ta.vwap(hlc3)
+volAvg = ta.sma(volume, volLen)[1]
+relVol = not na(volAvg) and volAvg > 0 ? volume / volAvg : 0.0
+volumeOk = relVol >= relVolMin
+[macdLine, macdSignal, macdHist] = ta.macd(close, 12, 26, 9)
+
+htfFast = request.security(syminfo.tickerid, htf, ta.ema(close, htfFastLen)[1], barmerge.gaps_off, barmerge.lookahead_on)
+htfSlow = request.security(syminfo.tickerid, htf, ta.ema(close, htfSlowLen)[1], barmerge.gaps_off, barmerge.lookahead_on)
+htfBull = htfFast > htfSlow
+htfBear = htfFast < htfSlow
+
+// ===== Candle anatomy =====
+barRange = high - low
+body = math.abs(close - open)
+bodyRatio = barRange > 0 ? body / barRange : 0.0
+upperWick = high - math.max(open, close)
+lowerWick = math.min(open, close) - low
+upperWickRatio = barRange > 0 ? upperWick / barRange : 0.0
+lowerWickRatio = barRange > 0 ? lowerWick / barRange : 0.0
+
+expansion = not na(atrRef) and atrRef > 0 and barRange >= atrRef * 0.75
+displacementUp = expansion and bodyRatio >= 0.60 and close > open
+displacementDown = expansion and bodyRatio >= 0.60 and close < open
+
+bullEngulf = close > open and close[1] < open[1] and open <= close[1] and close >= open[1]
+bearEngulf = close < open and close[1] > open[1] and open >= close[1] and close <= open[1]
+bullHammer = lowerWickRatio >= 0.50 and upperWickRatio <= 0.20 and bodyRatio <= 0.45
+bearStar = upperWickRatio >= 0.50 and lowerWickRatio <= 0.20 and bodyRatio <= 0.45
+
+// ===== RSI recovery / reversal markers =====
+rsiExitUp = barstate.isconfirmed and ta.crossover(rsi, 30)
+rsiExitDown = barstate.isconfirmed and ta.crossunder(rsi, 70)
+ageRsiUp = ta.barssince(rsiExitUp)
+ageRsiDown = ta.barssince(rsiExitDown)
+recentRsiUp = not na(ageRsiUp) and ageRsiUp <= contextBars
+recentRsiDown = not na(ageRsiDown) and ageRsiDown <= contextBars
+
+// ===== Confirmed pivots + RSI divergence =====
+pHigh = ta.pivothigh(high, pivotLeft, pivotRight)
+pLow = ta.pivotlow(low, pivotLeft, pivotRight)
+
+var float lastHigh = na
+var float prevHigh = na
+var float lastLow = na
+var float prevLow = na
+var float lastHighRsi = na
+var float lastLowRsi = na
+
+bullDiv = false
+bearDiv = false
+
+if barstate.isconfirmed and not na(pLow)
+    pivotRsiLow = rsi[pivotRight]
+    bullDiv := not na(lastLow) and not na(lastLowRsi) and pLow < lastLow and pivotRsiLow > lastLowRsi
+    prevLow := lastLow
+    lastLow := pLow
+    lastLowRsi := pivotRsiLow
+
+if barstate.isconfirmed and not na(pHigh)
+    pivotRsiHigh = rsi[pivotRight]
+    bearDiv := not na(lastHigh) and not na(lastHighRsi) and pHigh > lastHigh and pivotRsiHigh < lastHighRsi
+    prevHigh := lastHigh
+    lastHigh := pHigh
+    lastHighRsi := pivotRsiHigh
+
+ageBullDiv = ta.barssince(bullDiv)
+ageBearDiv = ta.barssince(bearDiv)
+recentBullDiv = not na(ageBullDiv) and ageBullDiv <= contextBars
+recentBearDiv = not na(ageBearDiv) and ageBearDiv <= contextBars
+
+// ===== Market structure =====
+higherHigh = not na(lastHigh) and not na(prevHigh) and lastHigh > prevHigh
+lowerHigh = not na(lastHigh) and not na(prevHigh) and lastHigh < prevHigh
+higherLow = not na(lastLow) and not na(prevLow) and lastLow > prevLow
+lowerLow = not na(lastLow) and not na(prevLow) and lastLow < prevLow
+
+bullStructure = higherHigh and higherLow
+bearStructure = lowerHigh and lowerLow
+
+bullBreak = not na(lastHigh) and close > lastHigh and close[1] <= lastHigh
+bearBreak = not na(lastLow) and close < lastLow and close[1] >= lastLow
+
+bullBOS = barstate.isconfirmed and bullStructure and bullBreak
+bearBOS = barstate.isconfirmed and bearStructure and bearBreak
+
+bullMSS = barstate.isconfirmed and bearStructure and bullBreak and displacementUp and volumeOk
+bearMSS = barstate.isconfirmed and bullStructure and bearBreak and displacementDown and volumeOk
+
+// ===== Directional context B/S =====
+localBull = emaFast > emaSlow and emaSlow >= emaSlow[1]
+localBear = emaFast < emaSlow and emaSlow <= emaSlow[1]
+buyVwap = close > vwap
+sellVwap = close < vwap
+buyMomentum = rsi > 55 and rsi > rsi[1] and macdHist > macdHist[1]
+sellMomentum = rsi < 45 and rsi < rsi[1] and macdHist < macdHist[1]
+
+recentHigh6 = ta.highest(high[1], 6)
+recentLow6 = ta.lowest(low[1], 6)
+breakoutUp = close > recentHigh6 and close > open
+breakdownDown = close < recentLow6 and close < open
+
+contextBuyScore =
+     (localBull ? 2 : 0) +
+     (htfBull ? 2 : 0) +
+     (buyVwap ? 1 : 0) +
+     (buyMomentum ? 1 : 0) +
+     (volumeOk ? 1 : 0) +
+     (displacementUp ? 1 : 0) +
+     (higherHigh ? 1 : 0) +
+     (higherLow ? 1 : 0) +
+     (bullBOS ? 2 : 0) +
+     ((bullEngulf or bullHammer) ? 1 : 0) +
+     (recentRsiUp ? 1 : 0) +
+     (recentBullDiv ? 1 : 0)
+
+contextSellScore =
+     (localBear ? 2 : 0) +
+     (htfBear ? 2 : 0) +
+     (sellVwap ? 1 : 0) +
+     (sellMomentum ? 1 : 0) +
+     (volumeOk ? 1 : 0) +
+     (displacementDown ? 1 : 0) +
+     (lowerHigh ? 1 : 0) +
+     (lowerLow ? 1 : 0) +
+     (bearBOS ? 2 : 0) +
+     ((bearEngulf or bearStar) ? 1 : 0) +
+     (recentRsiDown ? 1 : 0) +
+     (recentBearDiv ? 1 : 0)
+
+rawContextBuy = barstate.isconfirmed and (breakoutUp or bullEngulf or bullBOS) and contextBuyScore >= 6 and rsi < 75
+rawContextSell = barstate.isconfirmed and (breakdownDown or bearEngulf or bearBOS) and contextSellScore >= 6 and rsi > 25
+
+var int lastContextBuy = na
+var int lastContextSell = na
+contextBuy = rawContextBuy and (na(lastContextBuy) or bar_index - lastContextBuy >= ctxCooldown)
+contextSell = rawContextSell and (na(lastContextSell) or bar_index - lastContextSell >= ctxCooldown)
+
+if contextBuy
+    lastContextBuy := bar_index
+if contextSell
+    lastContextSell := bar_index
+
+ctxBuyLabel = contextBuyScore >= 11 ? "B++" : contextBuyScore >= 8 ? "B+" : "B"
+ctxSellLabel = contextSellScore >= 11 ? "S++" : contextSellScore >= 8 ? "S+" : "S"
+
+ctxBuyTip = "Contexte haussier\nScore: " + str.tostring(contextBuyScore) +
+     "\nRSI: " + str.tostring(rsi, "#.0") +
+     "\nRelVol: " + str.tostring(relVol, "#.00") + "x" +
+     (bullBOS ? "\nBOS haussier" : "") +
+     (recentBullDiv ? "\nDivergence haussiere recente" : "") +
+     (recentRsiUp ? "\nRSI sorti de survente" : "") +
+     "\nCe n'est pas le setup ORB strict."
+
+ctxSellTip = "Contexte baissier\nScore: " + str.tostring(contextSellScore) +
+     "\nRSI: " + str.tostring(rsi, "#.0") +
+     "\nRelVol: " + str.tostring(relVol, "#.00") + "x" +
+     (bearBOS ? "\nBOS baissier" : "") +
+     (recentBearDiv ? "\nDivergence baissiere recente" : "") +
+     (recentRsiDown ? "\nRSI sorti de surachat" : "") +
+     "\nCe n'est pas le setup ORB strict."
+
+// ===== Strict ORB + RSI + fast retest =====
+inOrb = not na(time(timeframe.period, orbSession, nyTz))
+inTradeWindow = not na(time(timeframe.period, tradeSession, nyTz))
+orbStart = inOrb and not inOrb[1]
+orbEnd = not inOrb and inOrb[1]
+
+var float orbHigh = na
+var float orbLow = na
+var float orbAtrAtEnd = na
+var bool orbReady = false
+
+if orbStart
+    orbHigh := high
+    orbLow := low
+    orbAtrAtEnd := na
+    orbReady := false
+else if inOrb
+    orbHigh := na(orbHigh) ? high : math.max(orbHigh, high)
+    orbLow := na(orbLow) ? low : math.min(orbLow, low)
+
+if orbEnd
+    orbAtrAtEnd := atrRef
+    orbReady := true
+
+orbWidth = orbReady and not na(orbHigh) and not na(orbLow) ? orbHigh - orbLow : na
+orbAtrRatio = orbReady and not na(orbWidth) and not na(orbAtrAtEnd) and orbAtrAtEnd > 0 ? orbWidth / orbAtrAtEnd : na
+compactOrb = not na(orbAtrRatio) and orbAtrRatio <= compactOrbAtr
+
+longBreak = orbReady and inTradeWindow and barstate.isconfirmed and close > orbHigh and close[1] <= orbHigh
+shortBreak = orbReady and inTradeWindow and barstate.isconfirmed and close < orbLow and close[1] >= orbLow
+
+var int longBreakTime = na
+var int shortBreakTime = na
+var bool longArmed = false
+var bool shortArmed = false
+
+if orbStart
+    longBreakTime := na
+    shortBreakTime := na
+    longArmed := false
+    shortArmed := false
+
+if longBreak
+    longBreakTime := time_close
+    longArmed := true
+    shortArmed := false
+
+if shortBreak
+    shortBreakTime := time_close
+    shortArmed := true
+    longArmed := false
+
+maxRetestMs = maxRetestMinutes * 60 * 1000
+longStillFast = longArmed and not na(longBreakTime) and time_close - longBreakTime <= maxRetestMs
+shortStillFast = shortArmed and not na(shortBreakTime) and time_close - shortBreakTime <= maxRetestMs
+
+if longArmed and not longStillFast
+    longArmed := false
+if shortArmed and not shortStillFast
+    shortArmed := false
+
+tol = not na(atrRef) ? atrRef * retestToleranceAtr : 0.0
+longRetest = longStillFast and low <= orbHigh + tol and close >= orbHigh and barstate.isconfirmed
+shortRetest = shortStillFast and high >= orbLow - tol and close <= orbLow and barstate.isconfirmed
+
+orbLong = longRetest and rsi <= 70
+orbShort = shortRetest and rsi >= 30
+
+if longRetest
+    longArmed := false
+if shortRetest
+    shortArmed := false
+
+orbLongBonus = (compactOrb ? 1 : 0) + (volumeOk ? 1 : 0) + (displacementUp ? 1 : 0)
+orbShortBonus = (compactOrb ? 1 : 0) + (volumeOk ? 1 : 0) + (displacementDown ? 1 : 0)
+
+orbLongLabel = orbLongBonus >= 2 ? "ORB B++" : orbLongBonus == 1 ? "ORB B+" : "ORB B"
+orbShortLabel = orbShortBonus >= 2 ? "ORB S++" : orbShortBonus == 1 ? "ORB S+" : "ORB S"
+
+orbLongTip = "SETUP ORB LONG\nCassure + retest <= " + str.tostring(maxRetestMinutes) + " min" +
+     "\nRSI: " + str.tostring(rsi, "#.0") + " <= 70" +
+     "\nORB/ATR: " + (na(orbAtrRatio) ? "n/a" : str.tostring(orbAtrRatio, "#.00")) +
+     "\nRelVol: " + str.tostring(relVol, "#.00") + "x" +
+     "\nFamille ORB testee. Sortie de recherche: 2R."
+
+orbShortTip = "SETUP ORB SHORT\nCassure + retest <= " + str.tostring(maxRetestMinutes) + " min" +
+     "\nRSI: " + str.tostring(rsi, "#.0") + " >= 30" +
+     "\nORB/ATR: " + (na(orbAtrRatio) ? "n/a" : str.tostring(orbAtrRatio, "#.00")) +
+     "\nRelVol: " + str.tostring(relVol, "#.00") + "x" +
+     "\nFamille ORB testee. Sortie de recherche: 2R."
+
+// ===== Context markers restored =====
+if showContextMarkers and rsiExitUp
+    label.new(bar_index, low, "R↑", style=label.style_label_up, color=color.new(color.green, 100), textcolor=color.lime, size=size.tiny, tooltip=showTooltips ? "RSI recovery: le RSI repasse au-dessus de 30 apres survente. Contexte uniquement." : "")
+
+if showContextMarkers and rsiExitDown
+    label.new(bar_index, high, "R↓", style=label.style_label_down, color=color.new(color.red, 100), textcolor=color.red, size=size.tiny, tooltip=showTooltips ? "RSI reversal: le RSI repasse sous 70 apres surachat. Contexte uniquement." : "")
+
+if showContextMarkers and bullDiv
+    label.new(bar_index, low, "DIV↑", style=label.style_label_up, color=color.new(color.aqua, 100), textcolor=color.aqua, size=size.tiny, tooltip=showTooltips ? "Divergence RSI haussiere confirmee sur pivots." : "")
+
+if showContextMarkers and bearDiv
+    label.new(bar_index, high, "DIV↓", style=label.style_label_down, color=color.new(color.orange, 100), textcolor=color.orange, size=size.tiny, tooltip=showTooltips ? "Divergence RSI baissiere confirmee sur pivots." : "")
+
+if showContextMarkers and bullMSS
+    label.new(bar_index, low, "MSS↑", style=label.style_label_up, color=color.new(color.aqua, 15), textcolor=color.black, size=size.tiny, tooltip=showTooltips ? "Market Structure Shift haussier: ancienne structure baissiere cassee avec displacement + volume." : "")
+
+if showContextMarkers and bearMSS
+    label.new(bar_index, high, "MSS↓", style=label.style_label_down, color=color.new(color.orange, 15), textcolor=color.black, size=size.tiny, tooltip=showTooltips ? "Market Structure Shift baissier: ancienne structure haussiere cassee avec displacement + volume." : "")
+
+// ===== Directional labels =====
+if showContextSignals and contextBuy
+    label.new(bar_index, low, ctxBuyLabel, style=label.style_label_up, color=color.new(color.green, 72), textcolor=color.white, size=contextBuyScore >= 11 ? size.small : size.tiny, tooltip=showTooltips ? ctxBuyTip : "")
+
+if showContextSignals and contextSell
+    label.new(bar_index, high, ctxSellLabel, style=label.style_label_down, color=color.new(color.red, 72), textcolor=color.white, size=contextSellScore >= 11 ? size.small : size.tiny, tooltip=showTooltips ? ctxSellTip : "")
+
+// ===== Strict ORB labels =====
+if showOrbSignals and orbLong
+    label.new(bar_index, low, orbLongLabel, style=label.style_label_up, color=color.new(color.lime, 15), textcolor=color.black, size=orbLongBonus >= 2 ? size.small : size.tiny, tooltip=showTooltips ? orbLongTip : "")
+
+if showOrbSignals and orbShort
+    label.new(bar_index, high, orbShortLabel, style=label.style_label_down, color=color.new(color.red, 15), textcolor=color.white, size=orbShortBonus >= 2 ? size.small : size.tiny, tooltip=showTooltips ? orbShortTip : "")
+
+// ===== Optional guides =====
+plot(showOrb and orbReady ? orbHigh : na, "ORB High", color=color.new(color.green, 55), linewidth=1, style=plot.style_linebr)
+plot(showOrb and orbReady ? orbLow : na, "ORB Low", color=color.new(color.red, 55), linewidth=1, style=plot.style_linebr)
+plot(showGuides ? emaFast : na, "EMA 9", color=color.new(color.blue, 40))
+plot(showGuides ? emaSlow : na, "EMA 21", color=color.new(color.orange, 40))
+plot(showGuides ? vwap : na, "VWAP", color=color.new(color.purple, 40))
+
+// ===== Alerts =====
+alertcondition(contextBuy, title="Nykuto V12.2 Context BUY", message="Nykuto V12.2 contextual BUY. Not the strict ORB setup.")
+alertcondition(contextSell, title="Nykuto V12.2 Context SELL", message="Nykuto V12.2 contextual SELL. Not the strict ORB setup.")
+alertcondition(orbLong, title="Nykuto V12.2 ORB BUY", message="Nykuto V12.2 strict ORB BUY candidate confirmed. Decision-support only.")
+alertcondition(orbShort, title="Nykuto V12.2 ORB SELL", message="Nykuto V12.2 strict ORB SELL candidate confirmed. Decision-support only.")
+alertcondition(bullMSS, title="Nykuto V12.2 MSS UP", message="Nykuto V12.2 bullish MSS context.")
+alertcondition(bearMSS, title="Nykuto V12.2 MSS DOWN", message="Nykuto V12.2 bearish MSS context.")
