@@ -156,7 +156,7 @@ function jeu23Fixture(firstLow = 80) {
   return bars;
 }
 
-test('JEU23 census keeps same-side opportunities that sequential execution consumes and links them to one ORB parent', () => {
+test('JEU23 census keeps every same-side emission while lifecycle links them to one ORB parent', () => {
   const product = JEU23_PRODUCTS[0];
   const scenario = JEU23_SCENARIOS.find(candidate => candidate.riskPerTrade === 150);
   const period = { start: '2026-01-02', end: '2026-01-04' };
@@ -166,18 +166,18 @@ test('JEU23 census keeps same-side opportunities that sequential execution consu
   const sequential = simulateAdmission(bars, signals, scenario, product, period, 1, false);
   const census = simulateAdmissionOpportunityCensus(bars, signals, scenario, product, period, 1);
 
-  assert.equal(signals.size, 2);
+  assert.equal(signals.size, 3);
   assert.equal(sequential.trades.length, 1);
   assert.ok(sequential.denied.sideLimit > 0);
-  assert.equal(census.totalSignals, 2);
-  assert.equal(census.totalOpportunities, 2);
-  assert.equal(census.maxOpportunitiesInDay, 2);
-  assert.equal(census.opportunities.filter(opportunity => Number.isFinite(opportunity.resultR)).length, 2);
+  assert.equal(census.totalSignals, 3);
+  assert.equal(census.totalOpportunities, 3);
+  assert.equal(census.maxOpportunitiesInDay, 3);
+  assert.equal(census.opportunities.filter(opportunity => Number.isFinite(opportunity.resultR)).length, 3);
   assert.equal(new Set(census.opportunities.map(opportunity => opportunity.setupId)).size, 1);
 
   const lifecycle = applyTp1ReleasePolicy(census);
   assert.equal(lifecycle.admitted.length, 1);
-  assert.equal(lifecycle.rejected.filter(item => item.lifecycleReason === 'SAME_SETUP').length, 1);
+  assert.equal(lifecycle.rejected.filter(item => item.lifecycleReason === 'SAME_SETUP').length, 2);
 });
 
 test('JEU23 TP1 milestone is conservative when TP1 and stop occur in the same 5m candle', () => {
@@ -203,8 +203,8 @@ test('JEU23 census records risk-incompatible opportunities instead of deleting t
   const signals = admissionSignals(bars, product);
   const census = simulateAdmissionOpportunityCensus(bars, signals, scenario, product, period, 1);
 
-  assert.equal(census.totalOpportunities, 2);
+  assert.equal(census.totalOpportunities, 3);
   assert.ok(census.analyticalOnlyRiskCount >= 1);
   assert.ok(census.tradeableCount >= 1);
-  assert.equal(census.tradeableCount + census.analyticalOnlyRiskCount, 2);
+  assert.equal(census.tradeableCount + census.analyticalOnlyRiskCount, 3);
 });
