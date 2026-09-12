@@ -18,28 +18,63 @@ function validatePolicy(scenario, product, costFactor) {
   return riskProfile(scenario);
 }
 
+export function admissionSetupId(signal) {
+  if (!signal || !signal.day || !signal.side || !Number.isFinite(signal.rangeClosedAt)) throw new Error('Invalid admission setup lineage');
+  // Every retest of the same daily opening range in the same direction belongs
+  // to one parent ORB setup. A fresh day/direction/range creates a fresh setup.
+  return `ORB_RETEST|${signal.day}|${signal.side}|${signal.rangeClosedAt}`;
+}
+
 function independentOutcome(candles, startIndex, position, product, riskPolicy) {
   const entryDay = candles[startIndex].day;
+  const long = position.side === 'Long';
+  const tp1Price = cents(position.entry + (long ? 1 : -1) * position.risk);
+  let tp1Reached = false;
+  let tp1Time = null;
+
   for (let index = startIndex; index < candles.length; index += 1) {
     const bar = candles[index];
     if (bar.day !== entryDay) break;
 
+    // Conservative milestone ordering: if TP1 and the structural stop are both
+    // inside the same 5m candle, do not assume TP1 happened first. This mirrors
+    // the frozen stop-first ambiguity policy used elsewhere in the research lab.
+    const stopAtOpen = long ? bar.open <= position.stop : bar.open >= position.stop;
+    const stopTouched = stopAtOpen || (long ? bar.low <= position.stop : bar.high >= position.stop);
+    const tp1AtOpen = long ? bar.open >= tp1Price : bar.open <= tp1Price;
+    const tp1Touched = tp1AtOpen || (long ? bar.high >= tp1Price : bar.low <= tp1Price);
+
+    if (!tp1Reached && tp1Touched && !stopTouched) {
+      tp1Reached = true;
+      tp1Time = bar.time;
+    }
+
     if (bar.minute >= bar.closeMinute - SESSION_POLICY.exitBeforeClose) {
       const fill = riskFill(product, position, { ...bar, high: bar.open, low: bar.open }, 0, 0, 0, false, false, riskPolicy)
         || { price: bar.open, reason: 'Session close', ambiguous: false };
-      return { fill, exitTime: bar.time };
+      if (!tp1Reached && String(fill.reason).startsWith('Target')) {
+        tp1Reached = true;
+        tp1Time = bar.time;
+      }
+      return { fill, exitTime: bar.time, tp1Price, tp1Reached, tp1Time };
     }
 
     // Opportunity outcomes intentionally ignore account state, daily loss limits,
     // other open positions and daily trade counts. They retain the same stop /
     // target geometry and conservative same-candle ordering.
     const fill = riskFill(product, position, bar, 0, 0, 0, false, false, riskPolicy);
-    if (fill) return { fill, exitTime: bar.time };
+    if (fill) {
+      if (!tp1Reached && String(fill.reason).startsWith('Target')) {
+        tp1Reached = true;
+        tp1Time = bar.time;
+      }
+      return { fill, exitTime: bar.time, tp1Price, tp1Reached, tp1Time };
+    }
   }
 
   const last = candles.slice(startIndex).findLast(bar => bar.day === entryDay);
   return last
-    ? { fill: { price: last.close, reason: 'End of data/session', ambiguous: false }, exitTime: last.time }
+    ? { fill: { price: last.close, reason: 'End of data/session', ambiguous: false }, exitTime: last.time, tp1Price, tp1Reached, tp1Time }
     : null;
 }
 
@@ -73,6 +108,7 @@ export function simulateAdmissionOpportunityCensus(candles, signals, scenario, p
       side: signal.side,
       family: signal.pattern || 'admission',
       timeframe: '5m',
+      setupId: admissionSetupId(signal),
       qualified: true,
       signal
     });
@@ -119,6 +155,7 @@ export function simulateAdmissionOpportunityCensus(candles, signals, scenario, p
       ticker: bar.ticker,
       side: signal.side,
       day: bar.day,
+      setupId: event.setupId,
       entryTime: bar.time,
       entry: bar.open,
       signalOpen: signal.signalOpen,
@@ -142,7 +179,7 @@ export function simulateAdmissionOpportunityCensus(candles, signals, scenario, p
       continue;
     }
 
-    const { fill, exitTime } = outcome;
+    const { fill, exitTime, tp1Price, tp1Reached, tp1Time } = outcome;
     const netDollars = cents(sign * (fill.price - position.entry) * product.multiplier - position.costDollars);
     const resultR = netDollars / position.riskDollars;
     opportunities.push({
@@ -151,6 +188,9 @@ export function simulateAdmissionOpportunityCensus(candles, signals, scenario, p
       riskTradeable,
       singleTradeLoss,
       status: riskTradeable ? 'TRADEABLE' : 'ANALYTICAL_ONLY_RISK',
+      tp1Price,
+      tp1Reached,
+      tp1Time,
       exitTime,
       exit: fill.price,
       reason: fill.reason,
@@ -175,6 +215,7 @@ export function simulateAdmissionOpportunityCensus(candles, signals, scenario, p
     tradeableCount: tradeable.length,
     analyticalOnlyRiskCount: analytical.length,
     resolvedCount: resolved.length,
+    tp1ReachedCount: resolved.filter(opportunity => opportunity.tp1Reached).length,
     targetReachedCount: resolved.filter(opportunity => opportunity.targetReached).length,
     positiveCount: resolved.filter(opportunity => opportunity.resultR > 0).length,
     blocked,
