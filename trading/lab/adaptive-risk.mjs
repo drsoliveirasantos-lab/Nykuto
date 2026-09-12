@@ -130,12 +130,12 @@ export function recommendAdaptiveRisk(opportunity, { maxRiskUsd = ADAPTIVE_RISK_
       recommendedRiskUsd: 0,
       rawRiskUsd: 0,
       maxRiskUsd: cap,
-      expectedR: ev.value,
+      expectedR: ev.value === null ? null : cents(ev.value),
       expectedRSource: ev.source,
       calibratedWinProbability,
       evidenceN,
-      confidence: evidenceN === null ? null : evidenceN / (evidenceN + ADAPTIVE_RISK_POLICY.evidenceShrinkageN),
-      quality: quality.value,
+      confidence: evidenceN === null ? null : cents(evidenceN / (evidenceN + ADAPTIVE_RISK_POLICY.evidenceShrinkageN)),
+      quality: cents(quality.value),
       qualitySource: quality.source,
       dailyLossThrottleApplied: false
     };
@@ -147,12 +147,12 @@ export function recommendAdaptiveRisk(opportunity, { maxRiskUsd = ADAPTIVE_RISK_
       recommendedRiskUsd: 0,
       rawRiskUsd: 0,
       maxRiskUsd: cap,
-      expectedR: ev.value,
+      expectedR: cents(ev.value),
       expectedRSource: ev.source,
       calibratedWinProbability,
       evidenceN,
-      confidence: evidenceN / (evidenceN + ADAPTIVE_RISK_POLICY.evidenceShrinkageN),
-      quality: quality.value,
+      confidence: cents(evidenceN / (evidenceN + ADAPTIVE_RISK_POLICY.evidenceShrinkageN)),
+      quality: cents(quality.value),
       qualitySource: quality.source,
       dailyLossThrottleApplied: false
     };
