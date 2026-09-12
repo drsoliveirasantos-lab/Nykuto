@@ -210,6 +210,9 @@ export function classifyCalendarRisk({events=[], now=Date.now(), fetchedAt=now, 
   if (nearB) return {calendarStatus,state:'EVENT_CONTEXT',tier:'B',event:nearB,minutesToEvent:(nearB.at-now)/MINUTE,minutesSinceEvent:(now-nearB.at)/MINUTE,
     analyticalAllowed:true,newPlanAllowed:true,autoExecutionAllowed:false,researchAdmission:'ALLOW',
     reason:'Tier B event is contextual only; the long-history test did not support a hard cooldown.'};
+  if (calendarStatus==='PARTIAL') return {calendarStatus,state:'CALENDAR_PARTIAL',tier:null,event:nearestFuture,minutesToEvent:Number.isFinite(futureMin)?futureMin:null,minutesSinceEvent:Number.isFinite(pastMin)?pastMin:null,
+    analyticalAllowed:true,newPlanAllowed:true,autoExecutionAllowed:false,researchAdmission:'CAUTION',
+    reason:'At least one official calendar source is unavailable; known events remain visible but absence of news is not verified.'};
   return {calendarStatus,state:'CLEAR',tier:null,event:nearestFuture,minutesToEvent:Number.isFinite(futureMin)?futureMin:null,minutesSinceEvent:Number.isFinite(pastMin)?pastMin:null,
     analyticalAllowed:true,newPlanAllowed:true,autoExecutionAllowed:false,researchAdmission:'ALLOW',reason:'No tested Tier A risk window is active.'};
 }
