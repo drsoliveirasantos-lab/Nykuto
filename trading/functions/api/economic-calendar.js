@@ -1,4 +1,4 @@
-import {parseBlsIcs,parseFedFomcHtml,parseBeaHtml,dedupeEvents,classifyCalendarRisk} from '../../../calendar/economic-calendar-core.mjs';
+import {parseBlsIcs,parseFedFomcHtml,parseBeaHtml,dedupeEvents,classifyCalendarRisk} from '../../calendar/economic-calendar-core.mjs';
 
 const SOURCES=Object.freeze({
   BLS:'https://www.bls.gov/schedule/news_release/bls.ics',
