@@ -47,6 +47,41 @@ Replay causal long V14.9.1 reconstruit sur 62 279 bougies M5:
 
 Ces résultats proviennent d'historiques déjà étudiés. Ils ne constituent pas une confirmation indépendante.
 
+## Test d'expansion du scanner toujours actif
+
+Un test borné supplémentaire a été lancé pour répondre au besoin d'augmenter le nombre de boutons BUY/SELL visibles sans réintroduire `planActive` comme verrou.
+
+Référence scanner indépendant avec cooldown 8:
+
+- 3 218 opportunités valides;
+- moyenne 12.87 opportunités par jour actif;
+- médiane 13/jour;
+- maximum 25/jour;
+- TP1 45.06%; TP2 20.54%; TP3 10.85%.
+
+Le meilleur compromis de fréquence du lot testé utilise:
+
+- scanner indépendant de `planActive`;
+- cooldown principal ramené de 8 à 5 barres, uniquement comme déduplication temporelle;
+- booster M5 B/S >=10 ou qualité >=3 lorsque H1 STRONG + M15 >=4/5 sont alignés;
+- famille secondaire de pullback/reprise EMA21 M5 dans le même contexte HTF/LTF.
+
+Résultat:
+
+- **4 119 opportunités indépendantes**;
+- **16.35 opportunités/jour actif** en moyenne, médiane 17/jour;
+- 2 175 BUY et 1 944 SELL;
+- maximum observé 35 opportunités sur une journée;
+- TP1 **45.55%**;
+- TP2 **20.95%**;
+- TP3 **10.95%**.
+
+Par rapport au scanner indépendant de référence, cela ajoute 901 opportunités (+28.0%) tout en conservant des taux TP1/TP2/TP3 légèrement supérieurs à la référence. Par rapport à l'ancien moteur mono-plan de 1 554 plans, le scanner voit environ 2.65 fois plus d'opportunités analytiques distinctes.
+
+Un test sans cooldown réel (chaque réémission de barre comptée) monte jusqu'à 4 529 opportunités valides, mais TP1 tombe à 44.58% et TP2 à 19.41%. Cette variante n'est **pas** retenue: elle mélange davantage de réémissions du même mouvement et dilue la qualité. La priorité reste donc de supprimer seulement les doublons du même setup, pas de supprimer les nouvelles opportunités parce qu'un autre trade est actif.
+
+Ce résultat est une optimisation sur historique déjà étudié. Il sert à choisir la prochaine variante de scanner, pas à prétendre à une confirmation indépendante.
+
 ## Tests logiciels ajoutés
 
 `node --test scripts/test-trading-market-scanner.mjs` vérifie notamment:
@@ -60,6 +95,8 @@ Ces résultats proviennent d'historiques déjà étudiés. Ils ne constituent pa
 - H4 et M1 restent des tags/contextes;
 - Sunday WAIT/SAFE/PRIME, gap extrême et midnight caution n'effacent pas le signal du scanner;
 - le `% BUY/SELL` NEXT 60M est explicitement distinct d'une probabilité de gain.
+
+Le test ciblé local passe actuellement **12/12**.
 
 ## Ce qui n'est pas encore validé
 
