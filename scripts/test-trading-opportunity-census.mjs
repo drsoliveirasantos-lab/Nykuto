@@ -7,6 +7,12 @@ import {
   normalizedOpportunityKey
 } from '../trading/lab/opportunity-census.mjs';
 import { TP1_RELEASE_POLICY, applyTp1ReleasePolicy } from '../trading/lab/opportunity-lifecycle.mjs';
+import {
+  ADAPTIVE_RISK_POLICY,
+  recommendAdaptiveRisk,
+  sizeAdaptiveContracts,
+  applyAdaptiveRiskSizing
+} from '../trading/lab/adaptive-risk.mjs';
 import { simulateAdmissionOpportunityCensus } from '../trading/lab/jeu23-opportunity-census.mjs';
 import { admissionSignals } from '../trading/lab/jeu23-signals.mjs';
 import { simulateAdmission } from '../trading/lab/jeu23-engine.mjs';
@@ -207,4 +213,100 @@ test('JEU23 census records risk-incompatible opportunities instead of deleting t
   assert.ok(census.analyticalOnlyRiskCount >= 1);
   assert.ok(census.tradeableCount >= 1);
   assert.ok(census.tradeableCount + census.analyticalOnlyRiskCount <= census.totalOpportunities);
+});
+
+test('adaptive risk treats 500 USD as a ceiling, not a fixed stake, and does not throttle on daily PnL', () => {
+  assert.equal(ADAPTIVE_RISK_POLICY.absoluteMaxRiskUsd, 500);
+  assert.equal(ADAPTIVE_RISK_POLICY.dailyLossThrottle, false);
+
+  const opportunity = {
+    historicalEvR: 0.35,
+    evidenceN: 795,
+    qualityNormalized: 0.8,
+    dayPnlUsd: -950
+  };
+  const withLoss = recommendAdaptiveRisk(opportunity);
+  const withoutLoss = recommendAdaptiveRisk({ ...opportunity, dayPnlUsd: 0 });
+
+  assert.equal(withLoss.status, 'SIZED');
+  assert.ok(withLoss.recommendedRiskUsd > 0 && withLoss.recommendedRiskUsd < 500);
+  assert.equal(withLoss.recommendedRiskUsd, withoutLoss.recommendedRiskUsd);
+  assert.equal(withLoss.dailyLossThrottleApplied, false);
+});
+
+test('adaptive risk uses expectancy instead of win rate alone', () => {
+  const positive = recommendAdaptiveRisk({
+    calibratedWinProbability: 0.45,
+    rewardRisk: 2,
+    evidenceN: 500,
+    qualityNormalized: 0.8
+  });
+  const negative = recommendAdaptiveRisk({
+    calibratedWinProbability: 0.60,
+    rewardRisk: 0.5,
+    evidenceN: 500,
+    qualityNormalized: 0.8
+  });
+
+  assert.equal(positive.expectedR, 0.35);
+  assert.equal(positive.status, 'SIZED');
+  assert.equal(negative.expectedR, -0.1);
+  assert.equal(negative.status, 'BLOCK_NON_POSITIVE_EDGE');
+  assert.equal(negative.recommendedRiskUsd, 0);
+});
+
+test('adaptive risk requires empirical evidence and never converts TP1 reach or quality into a probability', () => {
+  const tp1Only = recommendAdaptiveRisk({
+    tp1Probability: 0.80,
+    evidenceN: 800,
+    qualityNormalized: 1
+  });
+  const qualityOnly = recommendAdaptiveRisk({
+    qualityNormalized: 1,
+    evidenceN: 800
+  });
+
+  assert.equal(tp1Only.status, 'INSUFFICIENT_EVIDENCE');
+  assert.equal(tp1Only.calibratedWinProbability, null);
+  assert.equal(qualityOnly.status, 'INSUFFICIENT_EVIDENCE');
+  assert.equal(ADAPTIVE_RISK_POLICY.probabilityIsNotQualityScore, true);
+  assert.equal(ADAPTIVE_RISK_POLICY.tp1ReachAloneIsNotTerminalWinProbability, true);
+});
+
+test('larger evidence samples earn more risk for the same edge and quality while the absolute cap remains 500', () => {
+  const small = recommendAdaptiveRisk({ historicalEvR: 0.5, evidenceN: 37, qualityNormalized: 0.95 });
+  const large = recommendAdaptiveRisk({ historicalEvR: 0.5, evidenceN: 795, qualityNormalized: 0.95 });
+  const huge = recommendAdaptiveRisk({ historicalEvR: 5, evidenceN: 1_000_000, qualityNormalized: 1 }, { maxRiskUsd: 5_000 });
+
+  assert.ok(small.recommendedRiskUsd > 0);
+  assert.ok(large.recommendedRiskUsd > small.recommendedRiskUsd);
+  assert.ok(huge.recommendedRiskUsd <= 500);
+  assert.equal(huge.maxRiskUsd, 500);
+});
+
+test('contract sizing rounds quantity down so planned loss never exceeds the adaptive budget', () => {
+  const recommendation = recommendAdaptiveRisk({ historicalEvR: 0.5, evidenceN: 795, qualityNormalized: 1 });
+  const sizing = sizeAdaptiveContracts({ perContractLossUsd: 118 }, recommendation);
+
+  assert.equal(sizing.sizingStatus, 'TRADEABLE');
+  assert.ok(sizing.quantity >= 1);
+  assert.ok(sizing.plannedLossUsd <= recommendation.recommendedRiskUsd);
+  assert.ok((sizing.quantity + 1) * sizing.perContractLossUsd > recommendation.recommendedRiskUsd);
+});
+
+test('adaptive risk layer enriches every census opportunity without deleting weak or unsized opportunities', () => {
+  const census = buildOpportunityCensus([
+    { time: base, side: 'BUY', family: 'A', qualified: true, historicalEvR: 0.35, evidenceN: 795, qualityNormalized: 0.8, perContractLossUsd: 90 },
+    { time: base + 10 * minute, side: 'SELL', family: 'B', qualified: true, historicalEvR: -0.1, evidenceN: 500, qualityNormalized: 0.9, perContractLossUsd: 80 },
+    { time: base + 20 * minute, side: 'BUY', family: 'C', qualified: true, tp1Probability: 0.7, evidenceN: 500, qualityNormalized: 0.9, perContractLossUsd: 70 }
+  ], { dedupeBars: 0 });
+  const sized = applyAdaptiveRiskSizing(census);
+
+  assert.equal(sized.opportunities.length, 3);
+  assert.equal(sized.stats.sourceOpportunities, 3);
+  assert.equal(sized.stats.statusCounts.SIZED, 1);
+  assert.equal(sized.stats.statusCounts.BLOCK_NON_POSITIVE_EDGE, 1);
+  assert.equal(sized.stats.statusCounts.INSUFFICIENT_EVIDENCE, 1);
+  assert.equal(sized.stats.dailyLossThrottleApplied, false);
+  assert.ok(sized.opportunities[0].adaptivePlannedLossUsd <= sized.opportunities[0].recommendedRiskUsd);
 });
