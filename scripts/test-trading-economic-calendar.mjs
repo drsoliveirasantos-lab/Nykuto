@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {ECONOMIC_CALENDAR_POLICY,newYorkLocalToUtc,parseBlsIcs,parseFedFomcHtml,parseBeaHtml,dedupeEvents,classifyCalendarRisk} from '../trading/calendar/economic-calendar-core.mjs';
+import {currentCalendarRisk} from '../trading/assist/vision.mjs';
 
 const iso=ms=>new Date(ms).toISOString();
 
@@ -61,4 +62,30 @@ test('Tier B stays contextual and stale calendars fail safe without pretending t
   assert.equal(risk.state,'EVENT_CONTEXT');assert.equal(risk.researchAdmission,'ALLOW');
   risk=classifyCalendarRisk({events,now:at+10*60000,fetchedAt:at-13*3600000});
   assert.equal(risk.state,'CALENDAR_STALE');assert.equal(risk.autoExecutionAllowed,false);
+});
+
+test('partial official sources never become a false CLEAR state',()=>{
+  const now=Date.parse('2026-07-14T14:00:00Z');
+  const risk=classifyCalendarRisk({events:[],now,fetchedAt:now,sourceErrors:['BLS unavailable']});
+  assert.equal(risk.calendarStatus,'PARTIAL');
+  assert.equal(risk.state,'CALENDAR_PARTIAL');
+  assert.equal(risk.researchAdmission,'CAUTION');
+});
+
+test('Nykuto analysis-side calendar loader detects a live CPI window from official-source fixtures',async()=>{
+  const now=Date.parse('2026-07-14T12:25:00Z');
+  const bls=`BEGIN:VCALENDAR\nBEGIN:VEVENT\nDTSTART;TZID=America/New_York:20260714T083000\nSUMMARY:Consumer Price Index for June 2026\nEND:VEVENT\nEND:VCALENDAR`;
+  const fed='<h4>2026 FOMC Meetings</h4><div>September 15-16</div>';
+  const bea='<table><tr><td>July 30 8:30 AM</td><td>News</td><td>Personal Income and Outlays, June 2026</td></tr></table>';
+  const fetcher=async url=>{
+    if(String(url).includes('bls.gov'))return new Response(bls,{status:200});
+    if(String(url).includes('federalreserve.gov'))return new Response(fed,{status:200});
+    if(String(url).includes('bea.gov'))return new Response(bea,{status:200});
+    throw new Error('Unexpected URL');
+  };
+  const risk=await currentCalendarRisk(now,fetcher);
+  assert.equal(risk.state,'EVENT_LIVE');
+  assert.equal(risk.event.kind,'CPI');
+  assert.equal(risk.researchAdmission,'BLOCK_CANDIDATE');
+  assert.equal(risk.autoExecutionAllowed,false);
 });
