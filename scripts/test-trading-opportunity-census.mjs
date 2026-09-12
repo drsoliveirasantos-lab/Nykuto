@@ -6,6 +6,7 @@ import {
   compareCensusToSequential,
   normalizedOpportunityKey
 } from '../trading/lab/opportunity-census.mjs';
+import { TP1_RELEASE_POLICY, applyTp1ReleasePolicy } from '../trading/lab/opportunity-lifecycle.mjs';
 import { simulateAdmissionOpportunityCensus } from '../trading/lab/jeu23-opportunity-census.mjs';
 import { admissionSignals } from '../trading/lab/jeu23-signals.mjs';
 import { simulateAdmission } from '../trading/lab/jeu23-engine.mjs';
@@ -82,6 +83,56 @@ test('opportunity identity is deterministic', () => {
   assert.equal(normalizedOpportunityKey(event), `BUY|REV|15m|${base}`);
 });
 
+test('TP1 lifecycle releases fresh risk for a new setup but never re-enters the same setup', () => {
+  assert.equal(TP1_RELEASE_POLICY.maxTradesPerDay, null);
+  assert.equal(TP1_RELEASE_POLICY.initialRiskSlots, 1);
+  assert.equal(TP1_RELEASE_POLICY.sameSetupReentryAllowed, false);
+  assert.equal(TP1_RELEASE_POLICY.runnersMayOverlapAfterTp1, true);
+
+  const opportunities = [
+    { time: base, entryTime: base, entry: 100, setupId: 'A', status: 'TRADEABLE', tp1Reached: true, tp1Time: base + 20 * minute, exitTime: base + 60 * minute },
+    { time: base + 10 * minute, entryTime: base + 10 * minute, entry: 200, setupId: 'B', status: 'TRADEABLE', tp1Reached: true, tp1Time: base + 15 * minute, exitTime: base + 40 * minute },
+    { time: base + 25 * minute, entryTime: base + 25 * minute, entry: 101, setupId: 'A', status: 'TRADEABLE', tp1Reached: true, tp1Time: base + 30 * minute, exitTime: base + 45 * minute },
+    { time: base + 30 * minute, entryTime: base + 30 * minute, entry: 300, setupId: 'C', status: 'TRADEABLE', tp1Reached: true, tp1Time: base + 40 * minute, exitTime: base + 70 * minute }
+  ];
+
+  const lifecycle = applyTp1ReleasePolicy(opportunities);
+  assert.deepEqual(lifecycle.admitted.map(item => item.setupId), ['A', 'C']);
+  assert.equal(lifecycle.rejected.find(item => item.setupId === 'B').lifecycleReason, 'WAIT_FOR_TP1_OR_CLOSE');
+  assert.equal(lifecycle.rejected.find(item => item.setupId === 'A').lifecycleReason, 'SAME_SETUP');
+  assert.equal(lifecycle.admitted[0].runnerRiskNeutralizedAtTp1, true);
+  assert.equal(lifecycle.admitted[0].runnerStopAfterTp1, 100);
+  assert.equal(lifecycle.stats.maxConcurrentRunners, 2);
+});
+
+test('full close also releases the slot when TP1 was not reached', () => {
+  const opportunities = [
+    { time: base, entryTime: base, entry: 100, setupId: 'D', status: 'TRADEABLE', tp1Reached: false, exitTime: base + 10 * minute },
+    { time: base + 15 * minute, entryTime: base + 15 * minute, entry: 110, setupId: 'E', status: 'TRADEABLE', tp1Reached: false, exitTime: base + 25 * minute }
+  ];
+  const lifecycle = applyTp1ReleasePolicy(opportunities);
+  assert.deepEqual(lifecycle.admitted.map(item => item.setupId), ['D', 'E']);
+  assert.ok(lifecycle.admitted.every(item => item.initialRiskReleaseReason === 'CLOSE'));
+});
+
+test('there is no daily trade cap when six distinct setups release risk before the next entry', () => {
+  const opportunities = Array.from({ length: 6 }, (_, index) => ({
+    time: base + index * 20 * minute,
+    entryTime: base + index * 20 * minute,
+    entry: 100 + index,
+    day: '2026-09-10',
+    setupId: `SETUP-${index + 1}`,
+    status: 'TRADEABLE',
+    tp1Reached: true,
+    tp1Time: base + (index * 20 + 5) * minute,
+    exitTime: base + (index * 20 + 15) * minute
+  }));
+  const lifecycle = applyTp1ReleasePolicy(opportunities);
+  assert.equal(lifecycle.admitted.length, 6);
+  assert.equal(lifecycle.stats.maxTradesInSingleDay, 6);
+  assert.equal(lifecycle.rejected.length, 0);
+});
+
 function jeu23Fixture(firstLow = 80) {
   const time = Date.parse('2026-01-02T14:30:00Z') / 1000;
   const bars = Array.from({ length: 78 }, (_, index) => ({
@@ -105,7 +156,7 @@ function jeu23Fixture(firstLow = 80) {
   return bars;
 }
 
-test('JEU23 census keeps same-side opportunities that sequential execution consumes', () => {
+test('JEU23 census keeps same-side opportunities that sequential execution consumes and links them to one ORB parent', () => {
   const product = JEU23_PRODUCTS[0];
   const scenario = JEU23_SCENARIOS.find(candidate => candidate.riskPerTrade === 150);
   const period = { start: '2026-01-02', end: '2026-01-04' };
@@ -122,6 +173,26 @@ test('JEU23 census keeps same-side opportunities that sequential execution consu
   assert.equal(census.totalOpportunities, 2);
   assert.equal(census.maxOpportunitiesInDay, 2);
   assert.equal(census.opportunities.filter(opportunity => Number.isFinite(opportunity.resultR)).length, 2);
+  assert.equal(new Set(census.opportunities.map(opportunity => opportunity.setupId)).size, 1);
+
+  const lifecycle = applyTp1ReleasePolicy(census);
+  assert.equal(lifecycle.admitted.length, 1);
+  assert.equal(lifecycle.rejected.filter(item => item.lifecycleReason === 'SAME_SETUP').length, 1);
+});
+
+test('JEU23 TP1 milestone is conservative when TP1 and stop occur in the same 5m candle', () => {
+  const product = JEU23_PRODUCTS[0];
+  const scenario = JEU23_SCENARIOS.find(candidate => candidate.riskPerTrade === 150);
+  const period = { start: '2026-01-02', end: '2026-01-04' };
+  const bars = jeu23Fixture(119);
+  Object.assign(bars[8], { open: 131, high: 150, low: 110, close: 133 });
+  const signals = admissionSignals(bars, product);
+  const census = simulateAdmissionOpportunityCensus(bars, signals, scenario, product, period, 1);
+  const first = census.opportunities[0];
+
+  assert.equal(first.reason, 'Stop');
+  assert.equal(first.tp1Reached, false);
+  assert.equal(first.tp1Time, null);
 });
 
 test('JEU23 census records risk-incompatible opportunities instead of deleting them', () => {
