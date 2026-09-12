@@ -18,7 +18,7 @@ async function text(url,fetcher){
   const response=await fetcher(url,{headers:{
     accept:'text/html,text/calendar,text/plain;q=0.9,*/*;q=0.5',
     'user-agent':'NykutoTradingCalendar/1.0'
-  }});
+  },signal:AbortSignal.timeout(5000)});
   if(!response.ok)throw Error(`${new URL(url).hostname} ${response.status}`);
   return response.text();
 }
@@ -28,7 +28,8 @@ export async function loadEconomicCalendar(now=Date.now(),fetcher=fetch){
   const requests={BLS:text(SOURCES.BLS,fetcher),FED:text(SOURCES.FED,fetcher),BEA:text(SOURCES.BEA,fetcher)};
   const entries=await Promise.all(Object.entries(requests).map(async([name,promise])=>{
     try{return [name,{ok:true,text:await promise}];}
-    catch(error){return [name,{ok:false,error:error instanceof Error?error.message:String(error)}];}
+    catch(error){return [name,{ok:false,error:error instanceof Error?error.message:String(error)}];
+    }
   }));
   const result=Object.fromEntries(entries);
   const sourceErrors=entries.filter(([,value])=>!value.ok).map(([name,value])=>`${name}: ${value.error}`);
