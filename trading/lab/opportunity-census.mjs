@@ -15,14 +15,22 @@ function finiteNumber(value) {
   return Number.isFinite(number) ? number : null;
 }
 
+function epochMs(value) {
+  const number = finiteNumber(value);
+  if (number === null) return null;
+  // Research engines in this repository use epoch seconds, while UI/event data
+  // can use epoch milliseconds. Normalize both representations for comparison.
+  return Math.abs(number) < 1e12 ? number * 1000 : number;
+}
+
 export function normalizedOpportunityKey(event) {
   if (!event || typeof event !== 'object') return '';
   const side = String(event.side || '').toUpperCase();
   const family = String(event.family || event.source || 'UNKNOWN').toUpperCase();
   const timeframe = String(event.timeframe || '5m');
-  const time = finiteNumber(event.time ?? event.timestamp ?? event.barTime);
-  if (!side || time === null) return '';
-  return `${side}|${family}|${timeframe}|${time}`;
+  const timeMs = epochMs(event.time ?? event.timestamp ?? event.barTime ?? event.entryTime);
+  if (!side || timeMs === null) return '';
+  return `${side}|${family}|${timeframe}|${timeMs}`;
 }
 
 /**
@@ -43,16 +51,21 @@ export function buildOpportunityCensus(events, {
   const rejected = [];
   const lastBySignature = new Map();
 
-  const sorted = [...source].sort((a, b) => Number(a?.time ?? a?.timestamp ?? 0) - Number(b?.time ?? b?.timestamp ?? 0));
+  const sorted = [...source].sort((a, b) => {
+    const aMs = epochMs(a?.time ?? a?.timestamp ?? a?.barTime ?? a?.entryTime) ?? 0;
+    const bMs = epochMs(b?.time ?? b?.timestamp ?? b?.barTime ?? b?.entryTime) ?? 0;
+    return aMs - bMs;
+  });
 
   for (const raw of sorted) {
-    const time = finiteNumber(raw?.time ?? raw?.timestamp ?? raw?.barTime);
+    const originalTime = finiteNumber(raw?.time ?? raw?.timestamp ?? raw?.barTime ?? raw?.entryTime);
+    const timeMs = epochMs(originalTime);
     const side = String(raw?.side || '').toUpperCase();
     const family = String(raw?.family || raw?.source || 'UNKNOWN').toUpperCase();
     const timeframe = String(raw?.timeframe || `${timeframeMinutes}m`);
     const qualified = raw?.qualified !== false;
 
-    if (time === null || !side) {
+    if (originalTime === null || timeMs === null || !side) {
       rejected.push({ ...raw, censusReason: 'INVALID_EVENT' });
       continue;
     }
@@ -62,23 +75,24 @@ export function buildOpportunityCensus(events, {
     }
 
     const signature = `${side}|${family}|${timeframe}`;
-    const previous = lastBySignature.get(signature);
-    if (previous !== undefined && windowMs > 0 && time - previous < windowMs) {
+    const previousMs = lastBySignature.get(signature);
+    if (previousMs !== undefined && windowMs > 0 && timeMs - previousMs < windowMs) {
       rejected.push({ ...raw, censusReason: 'DUPLICATE_SETUP_WINDOW' });
       continue;
     }
 
     const opportunity = {
       ...raw,
-      time,
+      time: originalTime,
+      censusTimeMs: timeMs,
       side,
       family,
       timeframe,
-      censusKey: normalizedOpportunityKey({ ...raw, time, side, family, timeframe }),
+      censusKey: normalizedOpportunityKey({ ...raw, time: originalTime, side, family, timeframe }),
       censusReason: 'COUNTED'
     };
     accepted.push(opportunity);
-    lastBySignature.set(signature, time);
+    lastBySignature.set(signature, timeMs);
   }
 
   return {
@@ -92,7 +106,7 @@ export function buildOpportunityCensus(events, {
 export function summarizeOpportunityCensus(opportunities, rejected = []) {
   const accepted = Array.isArray(opportunities) ? opportunities : [];
   const byDay = new Map();
-  const bySide = { BUY: 0, SELL: 0 };
+  const bySide = { BUY: 0, SELL: 0, LONG: 0, SHORT: 0 };
   const byFamily = {};
 
   for (const item of accepted) {
@@ -100,7 +114,8 @@ export function summarizeOpportunityCensus(opportunities, rejected = []) {
     if (side in bySide) bySide[side] += 1;
     const family = String(item.family || 'UNKNOWN').toUpperCase();
     byFamily[family] = (byFamily[family] || 0) + 1;
-    const day = item.day || new Date(Number(item.time)).toISOString().slice(0, 10);
+    const timeMs = item.censusTimeMs ?? epochMs(item.time ?? item.timestamp ?? item.barTime ?? item.entryTime);
+    const day = item.day || (timeMs === null ? 'UNKNOWN' : new Date(timeMs).toISOString().slice(0, 10));
     byDay.set(day, (byDay.get(day) || 0) + 1);
   }
 
