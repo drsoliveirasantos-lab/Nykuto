@@ -9,13 +9,13 @@ const SOURCES=Object.freeze({
 function json(body,status=200){
   return new Response(JSON.stringify(body),{status,headers:{
     'content-type':'application/json; charset=utf-8',
-    'cache-control':'public, max-age=300, s-maxage=900',
+    'cache-control':'private, no-store',
     'x-content-type-options':'nosniff'
   }});
 }
 
-async function text(url){
-  const response=await fetch(url,{headers:{
+async function text(url,fetcher){
+  const response=await fetcher(url,{headers:{
     accept:'text/html,text/calendar,text/plain;q=0.9,*/*;q=0.5',
     'user-agent':'NykutoTradingCalendar/1.0'
   }});
@@ -23,9 +23,9 @@ async function text(url){
   return response.text();
 }
 
-export async function loadEconomicCalendar(now=Date.now()){
+export async function loadEconomicCalendar(now=Date.now(),fetcher=fetch){
   const year=Number(new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric'}).format(new Date(now)));
-  const requests={BLS:text(SOURCES.BLS),FED:text(SOURCES.FED),BEA:text(SOURCES.BEA)};
+  const requests={BLS:text(SOURCES.BLS,fetcher),FED:text(SOURCES.FED,fetcher),BEA:text(SOURCES.BEA,fetcher)};
   const entries=await Promise.all(Object.entries(requests).map(async([name,promise])=>{
     try{return [name,{ok:true,text:await promise}];}
     catch(error){return [name,{ok:false,error:error instanceof Error?error.message:String(error)}];}
