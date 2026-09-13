@@ -1,0 +1,18 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { operationalM5,sizePosition,effectiveMinutes,evaluatePlan,processClosedBar,zoneFresh,overnightBar,uniqueParents } from '../trading/historique/pine-fidelity-core.mjs';
+const plan=(extra={})=>({id:'old',active:true,entryTime:0,side:1,stop:90,targets:[110,120,130],hit:[false,false,false],...extra});
+test('only 300 seconds can produce an operational plan',()=>{for(const t of [30,60,120,180,240,300,600,900,3600])assert.equal(operationalM5(t),t===300);});
+test('the old SL survives admission of a new plan on the same close',()=>{const r=processClosedBar(plan(),{time:300,low:89,high:105},{admitted:true,plan:plan({id:'new',entryTime:300})});assert.equal(r.oldPlan.state,'SL');assert.deepEqual(r.events.map(e=>[e.planId,e.type]),[['old','SL'],['new','NEW_PLAN']]);});
+test('entry close never consumes its own past candle extremes',()=>assert.equal(evaluatePlan(plan({entryTime:300}),{time:300,low:80,high:140}).events.length,0));
+test('rejected candidate preserves existing plan and its TP event',()=>{const r=processClosedBar(plan(),{time:300,low:95,high:115},{admitted:false});assert.equal(r.plan.id,'old');assert.equal(r.events[0].type,'TP1');});
+test('one unit exits at TP1 and cannot later lose at SL',()=>{const r=evaluatePlan(plan({allocation:[1,0,0],remaining:1}),{time:300,low:95,high:115});assert.equal(r.plan.active,false);assert.equal(r.plan.remaining,0);assert.equal(evaluatePlan(r.plan,{time:600,low:80,high:100}).events.length,0);});
+test('two units are terminal after TP2',()=>{const r=evaluatePlan(plan({allocation:[1,1,0],remaining:2}),{time:300,low:95,high:125});assert.equal(r.plan.active,false);assert.equal(r.plan.remaining,0);});
+test('every crossed TP remains in the event envelope',()=>assert.deepEqual(evaluatePlan(plan(),{time:300,low:95,high:140}).events.map(e=>e.type),['TP1','TP2','TP3']));
+test('same candle stop plus new target stays ambiguous',()=>assert.equal(evaluatePlan(plan(),{time:300,low:89,high:140}).plan.state,'AMBIGUOUS'));
+test('gap does not fabricate target or stop path',()=>assert.deepEqual(evaluatePlan(plan(),{time:300,low:70,high:150,gap:true}).events.map(e=>e.type),['GAP_UNRESOLVED']));
+test('last overnight M5 belongs to the completed overnight window',()=>{assert.equal(overnightBar(565,570),true);assert.equal(overnightBar(570,575),false);});
+test('a previous touch on zone A cannot freshen zone B',()=>{const touches=new Map([['A',100]]);assert.equal(zoneFresh(touches,'B',102,10),false);assert.equal(zoneFresh(touches,'A',102,10),true);});
+test('time feasibility is bounded by actual plan horizon',()=>{assert.equal(effectiveMinutes(720,180),180);assert.equal(effectiveMinutes(45,180),45);assert.equal(effectiveMinutes(-5,180),0);});
+test('same parent across families is counted once, independent parents uncapped',()=>{const e=Array.from({length:30},(_,i)=>({side:1,parentId:`parent${i}`,family:'BASE'}));assert.equal(uniqueParents([...e,{...e[0],family:'FVG'}]).length,30);assert.throws(()=>uniqueParents([{side:1}]),/parent/);});
+test('whole position sizing respects cap across 80,000 bounded combinations',()=>{let n=0;for(let stopTicks=2;stopTicks<=201;stopTicks++)for(const budget of [25,50,75,100,150,200,300,500])for(let units=1;units<=5;units++)for(const fee of [0,1.25,2.5,5,10])for(const slipTicks of [0,2]){const r=sizePosition({riskPoints:stopTicks*.25,budget,units,fee,slipTicks});assert.ok(r.risk<=budget+1e-9);assert.ok(r.quantity<=units&&r.quantity<=5);n++;}assert.equal(n,80000);});
