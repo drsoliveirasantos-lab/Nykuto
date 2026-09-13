@@ -74,6 +74,19 @@ _headers                       Cloudflare response headers
 scripts/prepare-cloudflare-output.js
 ```
 
+## Current Trading audit
+
+The `trading-nykuto` production branch remains `feat/trading-hq-v1`, independently
+from commercial `main`. History version v3 is published through immutable KV
+chunks followed by its verified manifest; only then does `catalog.mjs` activate
+it. Prior archives remain intact. The page reads coverage and limits from the
+manifest instead of a hard-coded missing June 18. Research paths require the D1
+owner role, including normalized encoded asset paths. Tests cover rejection
+before KV access. `current-audit.mjs` separates native Pine compilation state,
+software checks, current history and exploratory historical outcomes. The Pine
+source and detailed market data are not pushed into this public repository.
+`validate-pages-functions.js` now checks both commercial and Trading Functions.
+
 ## Generated outputs
 
 `trading/historique/` is the maintained MNQ history entry point. Its private

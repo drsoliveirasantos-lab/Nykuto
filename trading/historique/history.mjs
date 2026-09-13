@@ -1,5 +1,6 @@
 import { loadManifest, loadHistory, toCsv } from './history-source.mjs';
 import { AUDIT } from './pine-audit.mjs';
+import { describeDay } from './coverage.mjs';
 const $ = id => document.getElementById(id), nf = new Intl.NumberFormat('fr-FR');
 const date = t => new Date(t*1000).toLocaleDateString('fr-FR',{timeZone:'UTC'});
 const node = (tag, value, cls='') => {const n=document.createElement(tag);n.textContent=value;n.className=cls;return n;};
@@ -19,11 +20,11 @@ function render(){
   for(let i=0;i<offset;i++)grid.append(node('span',''));
   const days=new Date(Date.UTC(year,m,0)).getUTCDate();
   for(let day=1;day<=days;day++){
-    const d=`${month}-${String(day).padStart(2,'0')}`, values=dataset.daily[d], gap=dataset.id==='m1'&&d==='2026-06-18';
+    const d=`${month}-${String(day).padStart(2,'0')}`, detail=describeDay(dataset,d,manifest), values=detail.values, gap=detail.missingMinutes>0;
     const button=node('button','',gap?'is-gap':!values?'is-empty':values.volumeCount<values.count?'is-partial':'');button.type='button';button.setAttribute('aria-pressed','false');
-    const label=!values?'Aucune bougie exportée':`${nf.format(values.count)} bougies, ${nf.format(values.volumeCount)} avec volume${gap?', 17 heures manquantes':''}`;
+    const label=!values?'Aucune bougie exportée':`${nf.format(values.count)} bougies, ${nf.format(values.volumeCount)} avec volume${gap?`, ${nf.format(detail.missingMinutes)} minutes manquantes`:''}`;
     button.setAttribute('aria-label',`${d} : ${label}`);button.append(node('strong',String(day)),node('small',!values?'—':`${gap?'⚠ ':values.volumeCount<values.count?'◐ ':'● '}${nf.format(values.count)}`));
-    button.addEventListener('click',()=>{grid.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));$('dayDetail').textContent=`${d} UTC · ${label}.${gap?' M1 absent de 04:00 à 21:00 UTC.':''}${dataset.id==='m5'&&d==='2026-09-09'?' Trois M5 reconstituées depuis M1.':''}`;});grid.append(button);
+    button.addEventListener('click',()=>{grid.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));$('dayDetail').textContent=`${d} UTC · ${label}. ${detail.notes.join(' ')}`;});grid.append(button);
   }
   $('dayDetail').textContent='Sélectionne un jour pour voir son détail.';
 }
@@ -43,8 +44,10 @@ $('auditResults').textContent=AUDIT.resultSummary;
 try{
   manifest=await loadManifest();
   for(const d of manifest.datasets){const article=node('article','','coverage-card');article.append(node('h3',d.id.toUpperCase()),node('p',`${nf.format(d.count)} bougies`),node('p',`${date(d.from)} → ${date(d.to)}`),node('small',`${nf.format(d.volumeCount)} avec volume · ${d.origin}`));$('coverageCards').append(article);}
-  $('loadState').textContent='Historique sauvegardé · manifeste vérifié · données disponibles jusqu’au 11 septembre 2026.';
-  $('datasetIdentity').textContent=`MNQ1! · version ${manifest.id} · horodatage d’ouverture UTC. Source : Archive(4).zip + Archive 3.zip, doublons compatibles fusionnés.`;
+  $('loadState').textContent=`Historique sauvegardé · manifeste vérifié · données disponibles jusqu’au ${date(Math.max(...manifest.datasets.map(d=>d.to)))}.`;
+  $('datasetIdentity').textContent=`MNQ1! · version ${manifest.id} · horodatage d’ouverture UTC. ${manifest.provenanceSummary ?? 'Archives et exports vérifiés, doublons compatibles fusionnés.'}`;
+  const limits=$('currentLimits');
+  if(limits) for(const limit of manifest.limits??[]) limits.append(node('li',limit));
   months();$('timeframe').addEventListener('change',months);$('month').addEventListener('change',render);
   $('downloadMonth').disabled=false;$('downloadAll').disabled=false;$('downloadMonth').addEventListener('click',()=>download(false));$('downloadAll').addEventListener('click',()=>download(true));
 }catch(e){$('loadState').textContent=e.message;$('loadState').setAttribute('role','alert');}

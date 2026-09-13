@@ -47,6 +47,12 @@ Nykuto must never claim to:
 
 ## Editable production sources
 
+Current Trading history audit: `trading/historique/catalog.mjs` pins the active
+private manifest. The owner-only API serves bounded blocks after Access and D1
+authorization. `current-audit.mjs` records source status separately from software
+checks and retrospective outcomes; private OHLCV and current Pine code remain
+outside the public repository. See `AUDIT_COMPLET_2026-09-13.md`.
+
 The private Trading HQ additionally owns `trading/historique/`: the versioned
 MNQ data calendar, integrity-checked private loader and Pine fidelity audit.
 Raw OHLCV stays in TRADING_DATASETS, not Git. See its README for canonical keys,

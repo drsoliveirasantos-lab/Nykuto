@@ -1,6 +1,24 @@
 import { member, AccountError, json } from '../account/account-service.mjs';
 const MED_NYKUTO_ICON = 'https://med.nykuto.com/assets/logo-medcursos-icon.png?v=trading-1';
 const CSP = "default-src 'self'; script-src 'self' https://s3.tradingview.com https://unpkg.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://med.nykuto.com https://*.tradingview.com https://s3-symbol-logo.tradingview.com; font-src 'self'; frame-src https://*.tradingview.com; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'; upgrade-insecure-requests";
+const OWNER_ONLY_PREFIXES = Object.freeze(['/analysis', '/historique', '/lab', '/live', '/models', '/suivi', '/api/lab']);
+
+export function ownerOnlyPath(path) {
+  // Authorize the same decoded path that an asset router may subsequently serve.
+  // A malformed or repeatedly encoded path fails closed for non-owners.
+  let decoded = path;
+  try {
+    for (let pass = 0; pass < 4; pass++) {
+      const next = decodeURIComponent(decoded);
+      if (next === decoded) break;
+      decoded = next;
+      if (/[?#\u0000]/.test(decoded)) return true;
+      if (pass === 3) return true;
+    }
+    const normalized = new URL(decoded.replace(/\\/g, '/').replace(/\/{2,}/g, '/'), 'https://trading.nykuto.com').pathname.toLowerCase();
+    return OWNER_ONLY_PREFIXES.some(prefix => normalized === prefix || normalized.startsWith(`${prefix}/`));
+  } catch { return true; }
+}
 
 function applySecurityHeaders(headers) {
   headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive, nosnippet');
@@ -13,8 +31,15 @@ function applySecurityHeaders(headers) {
 
 export async function onRequest(context) {
   const path = new URL(context.request.url).pathname;
+  let user;
   try {
-    const user = await member(context, false);
+    user = await member(context, false);
+    if (ownerOnlyPath(path) && user.role !== 'owner') {
+      const headers = { 'Cache-Control': 'private, no-store', 'X-Robots-Tag': 'noindex, nofollow, noarchive', Vary: 'Cookie, Cf-Access-Jwt-Assertion' };
+      return path.startsWith('/api/')
+        ? json({ error: 'Ressource réservée au propriétaire.' }, 403)
+        : new Response('Page introuvable.', { status: 404, headers });
+    }
     const profileRoute = path === '/account' || path.startsWith('/account/') || path === '/api/account' || path === '/api/account/';
     const asset = /\.(?:js|mjs|css|png|svg|ico|woff2?)$/.test(path);
     if (!user.first_name || !user.last_name) {
@@ -26,12 +51,14 @@ export async function onRequest(context) {
   }
   const response = await context.next();
   const contentType = response.headers.get('content-type') || '';
-  if (!contentType.includes('text/html')) return response;
-
   const headers = new Headers(response.headers);
-  applySecurityHeaders(headers);
   headers.set('Cache-Control', 'private, no-store');
+  headers.set('Cross-Origin-Resource-Policy', 'same-origin');
+  headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive, nosnippet');
   headers.set('Vary', 'Cookie, Cf-Access-Jwt-Assertion');
+  if (!contentType.includes('text/html')) return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
+
+  applySecurityHeaders(headers);
   const htmlResponse = new Response(response.body, {
     status: response.status,
     statusText: response.statusText,
@@ -50,7 +77,7 @@ export async function onRequest(context) {
           `<link rel="shortcut icon" type="image/png" href="${MED_NYKUTO_ICON}">` +
           `<link rel="apple-touch-icon" href="${MED_NYKUTO_ICON}">` +
           `<link rel="stylesheet" href="/compact.css?v=2">` +
-          `<script src="/navigation.js?v=13" defer></script>` +
+          `<script src="/navigation.js?v=14" defer></script>` +
           labScripts,
           { html: true }
         );

@@ -5,6 +5,7 @@ import { readFile, access } from 'node:fs/promises';
 import { sha256, decodePart, loadManifest, loadHistory, toCsv } from '../trading/historique/history-source.mjs';
 import { onRequest } from '../trading/functions/api/lab/history.js';
 import { HISTORY_PREFIX, PART_COUNTS } from '../trading/historique/catalog.mjs';
+import { accountDatabase, users } from './trading-account-fixtures.mjs';
 
 async function fixture(rows, index = 0) {
   const raw = JSON.stringify(rows), encoded = gzipSync(raw).toString('base64');
@@ -47,12 +48,8 @@ test('login pages and changed manifests cannot be treated as verified history', 
 test('private history API restricts keys and requires signed Access identity before reading KV', async () => {
   let reads = 0;
   const request = (query = '', token, method = 'GET') => new Request('https://trading.nykuto.com/api/lab/history' + query, { method, headers: token ? { 'Cf-Access-Jwt-Assertion': token } : {} });
-  const env = { TRADING_DATASETS: { get: async key => { reads++; return key; } } };
+  const env = { TRADING_USERS: accountDatabase(), TRADING_DATASETS: { get: async key => { reads++; return key; } } };
   for (const query of ['', '?dataset=m1&part=0']) assert.equal((await onRequest({ request: request(query), env })).status, 401);
-  for (const query of ['?key=other', '?dataset=../other&part=0', '?dataset=m1&part=-1', '?dataset=m1&part=53', '?dataset=m1&part=00', '?dataset=m1&part=0&part=1', '?dataset=m1', '?part=0']) {
-    assert.equal((await onRequest({ request: request(query), env })).status, 400, query);
-  }
-  assert.equal((await onRequest({ request: request('', undefined, 'POST'), env })).status, 405);
   assert.equal(reads, 0);
   const pair = await crypto.subtle.generateKey({ name: 'RSASSA-PKCS1-v1_5', modulusLength: 2048, publicExponent: new Uint8Array([1, 0, 1]), hash: 'SHA-256' }, true, ['sign', 'verify']);
   const jwk = { ...await crypto.subtle.exportKey('jwk', pair.publicKey), kid: 'history-test' };
@@ -61,9 +58,20 @@ test('private history API restricts keys and requires signed Access identity bef
   try {
     const encode = value => Buffer.from(JSON.stringify(value)).toString('base64url');
     const now = Math.floor(Date.now() / 1000);
-    const input = encode({ alg: 'RS256', kid: jwk.kid }) + '.' + encode({ iss: 'https://nykuto.cloudflareaccess.com', aud: ['c32e7605f403b5782f17f3ba017488d62e13599d14811f0a15a3d914c4b50190'], iat: now - 10, exp: now + 300 });
-    const signature = await crypto.subtle.sign('RSASSA-PKCS1-v1_5', pair.privateKey, new TextEncoder().encode(input));
-    const token = input + '.' + Buffer.from(signature).toString('base64url');
+    const tokenFor = async email => {
+      const input = encode({ alg: 'RS256', kid: jwk.kid }) + '.' + encode({ email, iss: 'https://nykuto.cloudflareaccess.com', aud: ['c32e7605f403b5782f17f3ba017488d62e13599d14811f0a15a3d914c4b50190'], iat: now - 10, exp: now + 300 });
+      const signature = await crypto.subtle.sign('RSASSA-PKCS1-v1_5', pair.privateKey, new TextEncoder().encode(input));
+      return input + '.' + Buffer.from(signature).toString('base64url');
+    };
+    const [owner, tester] = users;
+    const token = await tokenFor(owner.email);
+    assert.equal((await onRequest({ request: request('', await tokenFor(tester.email)), env })).status, 403);
+    assert.equal(reads, 0, 'a tester must never read the manifest or a block');
+    for (const query of ['?key=other', '?dataset=../other&part=0', '?dataset=m1&part=-1', `?dataset=m1&part=${PART_COUNTS.m1}`, '?dataset=m1&part=00', '?dataset=m1&part=0&part=1', '?dataset=m1', '?part=0']) {
+      assert.equal((await onRequest({ request: request(query, token), env })).status, 400, query);
+    }
+    assert.equal((await onRequest({ request: request('', token, 'POST'), env })).status, 405);
+    assert.equal(reads, 0);
     for (const [dataset, count] of Object.entries(PART_COUNTS)) {
       const response = await onRequest({ request: request(`?dataset=${dataset}&part=${count - 1}`, token), env });
       assert.equal(response.status, 200);
@@ -73,7 +81,7 @@ test('private history API restricts keys and requires signed Access identity bef
     const response = await onRequest({ request: request('', token), env });
     assert.equal(await response.text(), `${HISTORY_PREFIX}/manifest`);
     assert.match(response.headers.get('content-type'), /application\/json/);
-    assert.equal((await onRequest({ request: request('', token), env: {} })).status, 503);
+    assert.equal((await onRequest({ request: request('', token), env: { TRADING_USERS: env.TRADING_USERS } })).status, 503);
   } finally { globalThis.fetch = originalFetch; }
 });
 

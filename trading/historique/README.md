@@ -1,5 +1,16 @@
 # Historique MNQ réutilisable
 
+## Version actuelle
+
+La version `2026-09-13-v3` conserve 352 800 M1 avec volume, 354 033 M5,
+118 011 M15 et 29 511 H1. Les volumes et le 18 juin ont été complétés.
+Voir [l’audit actuel](./AUDIT_COMPLET_2026-09-13.md) pour les preuves, limites
+et contrôles. `catalog.mjs` épingle le manifeste courant. Les 172 blocs sont
+vérifiés avant de rendre ce manifeste actif ; les versions précédentes restent
+conservées. Les comptes associés ne reçoivent ni le calendrier ni les données.
+
+## Archive initiale conservée — état avant cette mise à jour
+
 Point d’entrée : https://trading.nykuto.com/historique/ . Menu **Historique** ; choix M1/M5/M15/H1, mois et jour. Télécharger le mois ou tout le timeframe en CSV. Horodatage Unix en secondes UTC à l’ouverture ; colonne volume vide si absente. Ce calendrier décrit les exports observés, pas les annonces économiques ni un calendrier officiel de bourse.
 
 ## Source canonique privée
