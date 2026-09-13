@@ -1,0 +1,380 @@
+//@version=6
+indicator("Nykuto Signal V12.5 - Custom HUD + Calibrated REV", overlay=true, max_labels_count=500)
+// Decision-support only. No broker orders.
+
+// =====================================================
+// INPUT GROUPS
+// =====================================================
+gDisplay = "1. Affichage"
+gSignals = "2. Signaux"
+gColors = "3. Couleurs HUD"
+gAdvanced = "4. Avance"
+gOrb = "5. ORB"
+
+// ----- Display
+showRev = input.bool(true, "REV", group=gDisplay, inline="d1")
+showContextSignals = input.bool(true, "B/S", group=gDisplay, inline="d1")
+showContextMarkers = input.bool(true, "R/DIV/MSS", group=gDisplay, inline="d2")
+showOrbSignals = input.bool(true, "ORB B/S", group=gDisplay, inline="d2")
+showOrb = input.bool(true, "Lignes ORB", group=gDisplay, inline="d3")
+showGuides = input.bool(false, "EMA/VWAP", group=gDisplay, inline="d3")
+showTooltips = input.bool(true, "Tooltips", group=gDisplay, inline="d4")
+showLabelBg = input.bool(false, "Fond REV", group=gDisplay, inline="d4")
+bgTransparency = input.int(88, "Transparence fond", minval=0, maxval=100, group=gDisplay)
+
+// ----- Signal calibration
+minRevScore = input.int(2, "Score REV minimum", minval=1, maxval=6, group=gSignals)
+revCooldown = input.int(4, "Cooldown REV", minval=1, group=gSignals)
+ctxCooldown = input.int(6, "Cooldown B/S", minval=1, group=gSignals)
+requireAnchorForWeak = input.bool(true, "REV 2/6 exige sweep/div/MSS/rejet", group=gSignals)
+filterCounterTrend = input.bool(true, "Filtrer REV contre tendance forte", group=gSignals)
+
+// ----- Colors
+bullRevColor = input.color(color.rgb(0,235,255), "REV haussier", group=gColors, inline="c1")
+bearRevColor = input.color(color.rgb(255,55,190), "REV baissier", group=gColors, inline="c1")
+buyColor = input.color(color.rgb(0,255,180), "BUY / B", group=gColors, inline="c2")
+sellColor = input.color(color.rgb(255,65,90), "SELL / S", group=gColors, inline="c2")
+contextColor = input.color(color.rgb(160,180,255), "R/DIV/MSS", group=gColors, inline="c3")
+orbColor = input.color(color.rgb(70,255,150), "ORB", group=gColors, inline="c3")
+
+// ----- Advanced
+nyTz = "America/New_York"
+rsiLen = input.int(14, "RSI", minval=2, group=gAdvanced)
+atrLen = input.int(14, "ATR", minval=2, group=gAdvanced)
+volLen = input.int(20, "Volume moyen", minval=2, group=gAdvanced)
+fastLen = input.int(9, "EMA rapide", minval=1, group=gAdvanced)
+slowLen = input.int(21, "EMA lente", minval=2, group=gAdvanced)
+htf = input.timeframe("60", "HTF contexte", group=gAdvanced)
+htfFastLen = input.int(20, "HTF EMA rapide", minval=1, group=gAdvanced)
+htfSlowLen = input.int(50, "HTF EMA lente", minval=2, group=gAdvanced)
+pivotLeft = input.int(2, "Pivot gauche", minval=1, group=gAdvanced)
+pivotRight = input.int(2, "Pivot droite", minval=1, group=gAdvanced)
+contextBars = input.int(12, "Memoire contexte", minval=1, group=gAdvanced)
+sweepLookback = input.int(8, "Liquidity sweep lookback", minval=2, group=gAdvanced)
+levelAtrDistance = input.float(0.35, "Distance niveau ATR", step=0.05, group=gAdvanced)
+relVolMin = input.float(1.20, "Volume relatif minimum", step=0.05, group=gAdvanced)
+
+// ----- ORB
+orbSession = input.session("0930-1000", "New York Opening Range", group=gOrb)
+tradeSession = input.session("1000-1200", "ORB trade window", group=gOrb)
+maxRetestMinutes = input.int(5, "Retest ORB max minutes", minval=1, maxval=30, group=gOrb)
+retestToleranceAtr = input.float(0.15, "Tolerance retest ATR", step=0.05, group=gOrb)
+compactOrbAtr = input.float(3.0, "ORB compact ATR bonus", step=0.1, group=gOrb)
+
+// =====================================================
+// BASE
+// =====================================================
+emaFast = ta.ema(close, fastLen)
+emaSlow = ta.ema(close, slowLen)
+rsi = ta.rsi(close, rsiLen)
+atr = ta.atr(atrLen)
+atrRef = atr[1]
+vwap = ta.vwap(hlc3)
+volAvg = ta.sma(volume, volLen)[1]
+relVol = not na(volAvg) and volAvg > 0 ? volume / volAvg : 0.0
+volumeOk = relVol >= relVolMin
+[macdLine, macdSignal, macdHist] = ta.macd(close, 12, 26, 9)
+
+htfFast = request.security(syminfo.tickerid, htf, ta.ema(close, htfFastLen)[1], barmerge.gaps_off, barmerge.lookahead_on)
+htfSlow = request.security(syminfo.tickerid, htf, ta.ema(close, htfSlowLen)[1], barmerge.gaps_off, barmerge.lookahead_on)
+htfBull = htfFast > htfSlow
+htfBear = htfFast < htfSlow
+localBull = emaFast > emaSlow and emaSlow >= emaSlow[1]
+localBear = emaFast < emaSlow and emaSlow <= emaSlow[1]
+strongBullTrend = localBull and htfBull and macdHist > 0
+strongBearTrend = localBear and htfBear and macdHist < 0
+
+// =====================================================
+// CANDLE ANATOMY
+// =====================================================
+barRange = high - low
+body = math.abs(close - open)
+bodyRatio = barRange > 0 ? body / barRange : 0.0
+upperWick = high - math.max(open, close)
+lowerWick = math.min(open, close) - low
+upperWickRatio = barRange > 0 ? upperWick / barRange : 0.0
+lowerWickRatio = barRange > 0 ? lowerWick / barRange : 0.0
+expansion = not na(atrRef) and atrRef > 0 and barRange >= atrRef * 0.75
+displacementUp = expansion and bodyRatio >= 0.60 and close > open
+displacementDown = expansion and bodyRatio >= 0.60 and close < open
+bullEngulf = close > open and close[1] < open[1] and open <= close[1] and close >= open[1]
+bearEngulf = close < open and close[1] > open[1] and open >= close[1] and close <= open[1]
+bullHammer = lowerWickRatio >= 0.50 and upperWickRatio <= 0.20 and bodyRatio <= 0.45
+bearStar = upperWickRatio >= 0.50 and lowerWickRatio <= 0.20 and bodyRatio <= 0.45
+bullPin = lowerWickRatio >= 0.60 and bodyRatio <= 0.30
+bearPin = upperWickRatio >= 0.60 and bodyRatio <= 0.30
+bullCandle = bullEngulf or bullHammer or bullPin
+bearCandle = bearEngulf or bearStar or bearPin
+bullAbsorption = volumeOk and lowerWickRatio >= 0.45 and bodyRatio <= 0.35
+bearAbsorption = volumeOk and upperWickRatio >= 0.45 and bodyRatio <= 0.35
+
+// =====================================================
+// RSI + PIVOTS + DIVERGENCE
+// =====================================================
+rsiExitUp = barstate.isconfirmed and ta.crossover(rsi, 30)
+rsiExitDown = barstate.isconfirmed and ta.crossunder(rsi, 70)
+ageRsiUp = ta.barssince(rsiExitUp)
+ageRsiDown = ta.barssince(rsiExitDown)
+recentRsiUp = not na(ageRsiUp) and ageRsiUp <= contextBars
+recentRsiDown = not na(ageRsiDown) and ageRsiDown <= contextBars
+
+pHigh = ta.pivothigh(high, pivotLeft, pivotRight)
+pLow = ta.pivotlow(low, pivotLeft, pivotRight)
+var float lastHigh = na
+var float prevHigh = na
+var float lastLow = na
+var float prevLow = na
+var float lastHighRsi = na
+var float lastLowRsi = na
+bullDiv = false
+bearDiv = false
+
+if barstate.isconfirmed and not na(pLow)
+    pivotRsiLow = rsi[pivotRight]
+    bullDiv := not na(lastLow) and not na(lastLowRsi) and pLow < lastLow and pivotRsiLow > lastLowRsi
+    prevLow := lastLow
+    lastLow := pLow
+    lastLowRsi := pivotRsiLow
+
+if barstate.isconfirmed and not na(pHigh)
+    pivotRsiHigh = rsi[pivotRight]
+    bearDiv := not na(lastHigh) and not na(lastHighRsi) and pHigh > lastHigh and pivotRsiHigh < lastHighRsi
+    prevHigh := lastHigh
+    lastHigh := pHigh
+    lastHighRsi := pivotRsiHigh
+
+ageBullDiv = ta.barssince(bullDiv)
+ageBearDiv = ta.barssince(bearDiv)
+recentBullDiv = not na(ageBullDiv) and ageBullDiv <= contextBars
+recentBearDiv = not na(ageBearDiv) and ageBearDiv <= contextBars
+
+// =====================================================
+// STRUCTURE
+// =====================================================
+higherHigh = not na(lastHigh) and not na(prevHigh) and lastHigh > prevHigh
+lowerHigh = not na(lastHigh) and not na(prevHigh) and lastHigh < prevHigh
+higherLow = not na(lastLow) and not na(prevLow) and lastLow > prevLow
+lowerLow = not na(lastLow) and not na(prevLow) and lastLow < prevLow
+bullStructure = higherHigh and higherLow
+bearStructure = lowerHigh and lowerLow
+bullBreak = not na(lastHigh) and close > lastHigh and close[1] <= lastHigh
+bearBreak = not na(lastLow) and close < lastLow and close[1] >= lastLow
+bullBOS = barstate.isconfirmed and bullStructure and bullBreak
+bearBOS = barstate.isconfirmed and bearStructure and bearBreak
+bullMSS = barstate.isconfirmed and bearStructure and bullBreak and displacementUp and volumeOk
+bearMSS = barstate.isconfirmed and bullStructure and bearBreak and displacementDown and volumeOk
+
+// =====================================================
+// ORB STATE
+// =====================================================
+inOrb = not na(time(timeframe.period, orbSession, nyTz))
+inTradeWindow = not na(time(timeframe.period, tradeSession, nyTz))
+orbStart = inOrb and not inOrb[1]
+orbEnd = not inOrb and inOrb[1]
+var float orbHigh = na
+var float orbLow = na
+var float orbAtrAtEnd = na
+var bool orbReady = false
+
+if orbStart
+    orbHigh := high
+    orbLow := low
+    orbAtrAtEnd := na
+    orbReady := false
+else if inOrb
+    orbHigh := na(orbHigh) ? high : math.max(orbHigh, high)
+    orbLow := na(orbLow) ? low : math.min(orbLow, low)
+
+if orbEnd
+    orbAtrAtEnd := atrRef
+    orbReady := true
+
+orbWidth = orbReady and not na(orbHigh) and not na(orbLow) ? orbHigh - orbLow : na
+orbAtrRatio = orbReady and not na(orbWidth) and not na(orbAtrAtEnd) and orbAtrAtEnd > 0 ? orbWidth / orbAtrAtEnd : na
+compactOrb = not na(orbAtrRatio) and orbAtrRatio <= compactOrbAtr
+
+// =====================================================
+// REV 6/6 FAMILIES
+// =====================================================
+priorLow = ta.lowest(low[1], sweepLookback)
+priorHigh = ta.highest(high[1], sweepLookback)
+bullSweep = barstate.isconfirmed and low < priorLow and close > priorLow
+bearSweep = barstate.isconfirmed and high > priorHigh and close < priorHigh
+
+nearVwap = not na(atrRef) and atrRef > 0 and math.abs(close - vwap) <= atrRef * levelAtrDistance
+nearSwingLow = not na(lastLow) and not na(atrRef) and atrRef > 0 and math.abs(close - lastLow) <= atrRef * levelAtrDistance
+nearSwingHigh = not na(lastHigh) and not na(atrRef) and atrRef > 0 and math.abs(close - lastHigh) <= atrRef * levelAtrDistance
+nearOrbLow = orbReady and not na(orbLow) and not na(atrRef) and atrRef > 0 and math.abs(close - orbLow) <= atrRef * levelAtrDistance
+nearOrbHigh = orbReady and not na(orbHigh) and not na(atrRef) and atrRef > 0 and math.abs(close - orbHigh) <= atrRef * levelAtrDistance
+
+bullMomentumTurn = recentRsiUp or recentBullDiv or (macdHist > macdHist[1] and macdHist[1] <= macdHist[2])
+bearMomentumTurn = recentRsiDown or recentBearDiv or (macdHist < macdHist[1] and macdHist[1] >= macdHist[2])
+bullStructureTurn = bullMSS or bullBOS or higherLow
+bearStructureTurn = bearMSS or bearBOS or lowerHigh
+bullCandleTurn = bullCandle
+bearCandleTurn = bearCandle
+bullVolumeTurn = volumeOk and (close > open or bullAbsorption)
+bearVolumeTurn = volumeOk and (close < open or bearAbsorption)
+bullLiquidityTurn = bullSweep
+bearLiquidityTurn = bearSweep
+bullLevelTurn = nearVwap or nearSwingLow or nearOrbLow
+bearLevelTurn = nearVwap or nearSwingHigh or nearOrbHigh
+
+bullRevScore = (bullMomentumTurn?1:0)+(bullStructureTurn?1:0)+(bullCandleTurn?1:0)+(bullVolumeTurn?1:0)+(bullLiquidityTurn?1:0)+(bullLevelTurn?1:0)
+bearRevScore = (bearMomentumTurn?1:0)+(bearStructureTurn?1:0)+(bearCandleTurn?1:0)+(bearVolumeTurn?1:0)+(bearLiquidityTurn?1:0)+(bearLevelTurn?1:0)
+
+// Significant anchors: prevent weak 2/6 noise.
+bullReject = bullCandle and bullLevelTurn and (lowerWickRatio >= 0.45 or bullAbsorption)
+bearReject = bearCandle and bearLevelTurn and (upperWickRatio >= 0.45 or bearAbsorption)
+bullAnchor = bullSweep or bullDiv or bullMSS or bullReject
+bearAnchor = bearSweep or bearDiv or bearMSS or bearReject
+
+bullRevEvent = rsiExitUp or bullAnchor
+bearRevEvent = rsiExitDown or bearAnchor
+
+weakBullAllowed = bullRevScore > 2 or not requireAnchorForWeak or bullAnchor
+weakBearAllowed = bearRevScore > 2 or not requireAnchorForWeak or bearAnchor
+counterBullAllowed = not filterCounterTrend or not strongBearTrend or bullRevScore >= 4 or bullAnchor
+counterBearAllowed = not filterCounterTrend or not strongBullTrend or bearRevScore >= 4 or bearAnchor
+
+var int lastBullRev = na
+var int lastBearRev = na
+bullRevRaw = barstate.isconfirmed and bullRevScore >= minRevScore and weakBullAllowed and counterBullAllowed and (bullRevScore > bullRevScore[1] or bullRevEvent)
+bearRevRaw = barstate.isconfirmed and bearRevScore >= minRevScore and weakBearAllowed and counterBearAllowed and (bearRevScore > bearRevScore[1] or bearRevEvent)
+bullRev = bullRevRaw and (na(lastBullRev) or bar_index - lastBullRev >= revCooldown)
+bearRev = bearRevRaw and (na(lastBearRev) or bar_index - lastBearRev >= revCooldown)
+if bullRev
+    lastBullRev := bar_index
+if bearRev
+    lastBearRev := bar_index
+
+bullRevName = bullRevScore >= 5 ? "REV++" : bullRevScore >= 4 ? "REV+" : "REV"
+bearRevName = bearRevScore >= 5 ? "REV++" : bearRevScore >= 4 ? "REV+" : "REV"
+bullRevText = "▲ " + bullRevName
+bearRevText = "▼ " + bearRevName
+
+bullRevTip = "REV haussier — " + str.tostring(bullRevScore) + "/6\nMomentum: " + (bullMomentumTurn?"✓":"✗") + "\nStructure: " + (bullStructureTurn?"✓":"✗") + "\nBougie: " + (bullCandleTurn?"✓":"✗") + "\nVolume: " + (bullVolumeTurn?"✓":"✗") + "\nLiquidite: " + (bullLiquidityTurn?"✓":"✗") + "\nNiveau: " + (bullLevelTurn?"✓":"✗") + "\nAncre forte: " + (bullAnchor?"✓":"✗")
+bearRevTip = "REV baissier — " + str.tostring(bearRevScore) + "/6\nMomentum: " + (bearMomentumTurn?"✓":"✗") + "\nStructure: " + (bearStructureTurn?"✓":"✗") + "\nBougie: " + (bearCandleTurn?"✓":"✗") + "\nVolume: " + (bearVolumeTurn?"✓":"✗") + "\nLiquidite: " + (bearLiquidityTurn?"✓":"✗") + "\nNiveau: " + (bearLevelTurn?"✓":"✗") + "\nAncre forte: " + (bearAnchor?"✓":"✗")
+
+// =====================================================
+// DIRECTIONAL B/S CONTEXT
+// =====================================================
+buyVwap = close > vwap
+sellVwap = close < vwap
+buyMomentum = rsi > 55 and rsi > rsi[1] and macdHist > macdHist[1]
+sellMomentum = rsi < 45 and rsi < rsi[1] and macdHist < macdHist[1]
+recentHigh6 = ta.highest(high[1], 6)
+recentLow6 = ta.lowest(low[1], 6)
+breakoutUp = close > recentHigh6 and close > open
+breakdownDown = close < recentLow6 and close < open
+
+contextBuyScore = (localBull?2:0)+(htfBull?2:0)+(buyVwap?1:0)+(buyMomentum?1:0)+(volumeOk?1:0)+(displacementUp?1:0)+(higherHigh?1:0)+(higherLow?1:0)+(bullBOS?2:0)+(bullCandle?1:0)+(recentRsiUp?1:0)+(recentBullDiv?1:0)
+contextSellScore = (localBear?2:0)+(htfBear?2:0)+(sellVwap?1:0)+(sellMomentum?1:0)+(volumeOk?1:0)+(displacementDown?1:0)+(lowerHigh?1:0)+(lowerLow?1:0)+(bearBOS?2:0)+(bearCandle?1:0)+(recentRsiDown?1:0)+(recentBearDiv?1:0)
+rawContextBuy = barstate.isconfirmed and (breakoutUp or bullEngulf or bullBOS) and contextBuyScore >= 6 and rsi < 75
+rawContextSell = barstate.isconfirmed and (breakdownDown or bearEngulf or bearBOS) and contextSellScore >= 6 and rsi > 25
+var int lastContextBuy = na
+var int lastContextSell = na
+contextBuy = rawContextBuy and (na(lastContextBuy) or bar_index - lastContextBuy >= ctxCooldown)
+contextSell = rawContextSell and (na(lastContextSell) or bar_index - lastContextSell >= ctxCooldown)
+if contextBuy
+    lastContextBuy := bar_index
+if contextSell
+    lastContextSell := bar_index
+ctxBuyLabel = contextBuyScore >= 11 ? "B++" : contextBuyScore >= 8 ? "B+" : "B"
+ctxSellLabel = contextSellScore >= 11 ? "S++" : contextSellScore >= 8 ? "S+" : "S"
+
+// =====================================================
+// STRICT ORB + RSI + FAST RETEST
+// =====================================================
+longBreak = orbReady and inTradeWindow and barstate.isconfirmed and close > orbHigh and close[1] <= orbHigh
+shortBreak = orbReady and inTradeWindow and barstate.isconfirmed and close < orbLow and close[1] >= orbLow
+var int longBreakTime = na
+var int shortBreakTime = na
+var bool longArmed = false
+var bool shortArmed = false
+if orbStart
+    longBreakTime := na
+    shortBreakTime := na
+    longArmed := false
+    shortArmed := false
+if longBreak
+    longBreakTime := time_close
+    longArmed := true
+    shortArmed := false
+if shortBreak
+    shortBreakTime := time_close
+    shortArmed := true
+    longArmed := false
+maxRetestMs = maxRetestMinutes * 60 * 1000
+longStillFast = longArmed and not na(longBreakTime) and time_close - longBreakTime <= maxRetestMs
+shortStillFast = shortArmed and not na(shortBreakTime) and time_close - shortBreakTime <= maxRetestMs
+if longArmed and not longStillFast
+    longArmed := false
+if shortArmed and not shortStillFast
+    shortArmed := false
+tol = not na(atrRef) ? atrRef * retestToleranceAtr : 0.0
+longRetest = longStillFast and low <= orbHigh + tol and close >= orbHigh and barstate.isconfirmed
+shortRetest = shortStillFast and high >= orbLow - tol and close <= orbLow and barstate.isconfirmed
+orbLong = longRetest and rsi <= 70
+orbShort = shortRetest and rsi >= 30
+if longRetest
+    longArmed := false
+if shortRetest
+    shortArmed := false
+orbLongBonus = (compactOrb?1:0)+(volumeOk?1:0)+(displacementUp?1:0)
+orbShortBonus = (compactOrb?1:0)+(volumeOk?1:0)+(displacementDown?1:0)
+orbLongLabel = orbLongBonus >= 2 ? "ORB B++" : orbLongBonus == 1 ? "ORB B+" : "ORB B"
+orbShortLabel = orbShortBonus >= 2 ? "ORB S++" : orbShortBonus == 1 ? "ORB S+" : "ORB S"
+
+// =====================================================
+// LABEL HELPERS / HUD
+// =====================================================
+revBullBg = showLabelBg ? color.new(bullRevColor, bgTransparency) : color.new(bullRevColor, 100)
+revBearBg = showLabelBg ? color.new(bearRevColor, bgTransparency) : color.new(bearRevColor, 100)
+
+if showRev and bullRev
+    label.new(bar_index, low, bullRevText, style=showLabelBg?label.style_label_up:label.style_none, color=revBullBg, textcolor=bullRevColor, size=bullRevScore>=5?size.small:size.tiny, tooltip=showTooltips?bullRevTip:"")
+if showRev and bearRev
+    label.new(bar_index, high, bearRevText, style=showLabelBg?label.style_label_down:label.style_none, color=revBearBg, textcolor=bearRevColor, size=bearRevScore>=5?size.small:size.tiny, tooltip=showTooltips?bearRevTip:"")
+
+if showContextMarkers and rsiExitUp
+    label.new(bar_index, low, "R↑", style=label.style_none, textcolor=contextColor, size=size.tiny, tooltip="RSI sort de survente")
+if showContextMarkers and rsiExitDown
+    label.new(bar_index, high, "R↓", style=label.style_none, textcolor=contextColor, size=size.tiny, tooltip="RSI sort de surachat")
+if showContextMarkers and bullDiv
+    label.new(bar_index, low, "DIV↑", style=label.style_none, textcolor=contextColor, size=size.tiny, tooltip="Divergence RSI haussiere")
+if showContextMarkers and bearDiv
+    label.new(bar_index, high, "DIV↓", style=label.style_none, textcolor=contextColor, size=size.tiny, tooltip="Divergence RSI baissiere")
+if showContextMarkers and bullMSS
+    label.new(bar_index, low, "MSS↑", style=label.style_none, textcolor=buyColor, size=size.tiny, tooltip="Market Structure Shift haussier")
+if showContextMarkers and bearMSS
+    label.new(bar_index, high, "MSS↓", style=label.style_none, textcolor=sellColor, size=size.tiny, tooltip="Market Structure Shift baissier")
+
+if showContextSignals and contextBuy
+    label.new(bar_index, low, "▲ "+ctxBuyLabel, style=label.style_none, textcolor=buyColor, size=contextBuyScore>=11?size.small:size.tiny, tooltip="Contexte BUY\nScore: "+str.tostring(contextBuyScore))
+if showContextSignals and contextSell
+    label.new(bar_index, high, "▼ "+ctxSellLabel, style=label.style_none, textcolor=sellColor, size=contextSellScore>=11?size.small:size.tiny, tooltip="Contexte SELL\nScore: "+str.tostring(contextSellScore))
+
+if showOrbSignals and orbLong
+    label.new(bar_index, low, orbLongLabel, style=label.style_label_up, color=color.new(orbColor, 78), textcolor=orbColor, size=orbLongBonus>=2?size.small:size.tiny, tooltip="SETUP ORB LONG\nRSI: "+str.tostring(rsi,"#.0")+"\nORB/ATR: "+(na(orbAtrRatio)?"n/a":str.tostring(orbAtrRatio,"#.00")))
+if showOrbSignals and orbShort
+    label.new(bar_index, high, orbShortLabel, style=label.style_label_down, color=color.new(sellColor, 78), textcolor=sellColor, size=orbShortBonus>=2?size.small:size.tiny, tooltip="SETUP ORB SHORT\nRSI: "+str.tostring(rsi,"#.0")+"\nORB/ATR: "+(na(orbAtrRatio)?"n/a":str.tostring(orbAtrRatio,"#.00")))
+
+// =====================================================
+// GUIDES
+// =====================================================
+plot(showOrb and orbReady ? orbHigh : na, "ORB High", color=color.new(orbColor, 70), linewidth=1, style=plot.style_linebr)
+plot(showOrb and orbReady ? orbLow : na, "ORB Low", color=color.new(sellColor, 70), linewidth=1, style=plot.style_linebr)
+plot(showGuides ? emaFast : na, "EMA 9", color=color.new(buyColor, 55))
+plot(showGuides ? emaSlow : na, "EMA 21", color=color.new(sellColor, 55))
+plot(showGuides ? vwap : na, "VWAP", color=color.new(color.white, 65))
+
+// =====================================================
+// ALERTS
+// =====================================================
+alertcondition(bullRev, title="Nykuto V12.5 REV UP", message="Nykuto V12.5 bullish REV.")
+alertcondition(bearRev, title="Nykuto V12.5 REV DOWN", message="Nykuto V12.5 bearish REV.")
+alertcondition(contextBuy, title="Nykuto V12.5 Context BUY", message="Nykuto V12.5 contextual BUY.")
+alertcondition(contextSell, title="Nykuto V12.5 Context SELL", message="Nykuto V12.5 contextual SELL.")
+alertcondition(orbLong, title="Nykuto V12.5 ORB BUY", message="Nykuto V12.5 strict ORB BUY candidate.")
+alertcondition(orbShort, title="Nykuto V12.5 ORB SELL", message="Nykuto V12.5 strict ORB SELL candidate.")

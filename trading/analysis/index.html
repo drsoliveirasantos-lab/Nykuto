@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive,nosnippet"><meta name="referrer" content="no-referrer"><meta name="theme-color" content="#07111f">
+  <title>Analyse du graphique · Nykuto Trading HQ</title>
+  <meta name="description" content="Analyse explicable des bougies MNQ sélectionnées : tendance, structure, MSS potentiel et formes de bougies.">
+  <link rel="stylesheet" href="../styles.css"><link rel="stylesheet" href="./analysis.css?v=2">
+  <script src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js" defer></script>
+  <script src="./analysis.mjs?v=4" type="module"></script>
+</head>
+<body class="analysis-page">
+  <a class="skip-link" href="#main">Aller au contenu</a>
+  <header class="topbar"><div class="brand-wrap"><div class="brand-mark" aria-hidden="true">N</div><div><p class="eyebrow">NYKUTO</p><h1>Trading HQ</h1></div></div><span class="status-pill">Analyse historique · aucun ordre</span></header>
+  <nav class="section-nav" aria-label="Navigation du Trading HQ"><a href="/">Dashboard</a><a href="/analysis/" class="is-active" aria-current="page">Analyse</a><a href="/replay/">Replay</a><a href="/lab/">Lab</a></nav>
+  <main id="main" class="analysis-main">
+    <div class="analysis-heading"><div><p class="eyebrow">LECTURE DU GRAPHIQUE</p><h2>Analyser les bougies</h2><p>Choisis une période. Le graphique et l’analyse utilisent exactement la même sélection. Données historiques : aucun flux en direct.</p></div><button id="analysisReload" class="ghost-button" type="button">Recharger les données</button></div>
+    <p id="analysisAvailability" class="analysis-availability" role="status">Vérification de la dernière séance disponible…</p>
+    <form id="analysisForm" class="panel analysis-form"><fieldset id="analysisInputs" disabled><legend>Ta sélection historique</legend>
+      <label for="analysisContract">Contrat MNQ<select id="analysisContract"><option value="MNQU6">MNQU6 · juin–août 2026</option><option value="MNQM6">MNQM6 · mars–mai 2026</option><option value="MNQH6">MNQH6 · déc. 2025–févr. 2026</option></select></label>
+      <label for="analysisInterval">Unité de temps<select id="analysisInterval"><option value="900">15 minutes</option><option value="3600">1 heure</option></select></label>
+      <label for="analysisCount">Nombre de bougies<input id="analysisCount" type="number" min="20" max="500" step="1" value="100" required aria-describedby="analysisCountHint"><small id="analysisCountHint" class="analysis-meta">Entre 20 et 500 bougies</small></label>
+      <label for="analysisEndDate">Jusqu’au jour<input id="analysisEndDate" type="date" required></label>
+      <button class="primary-button" type="submit">Analyser</button>
+      <div class="analysis-date-help"><span id="analysisDateRange"></span><button id="analysisLatest" class="ghost-button" type="button">Dernière séance disponible</button></div>
+    </fieldset></form>
+    <p id="analysisStatus" class="analysis-status" role="status" aria-live="polite">Chargement des données vérifiées…</p>
+    <div id="analysisResults" class="analysis-layout" hidden>
+      <section class="panel analysis-chart-panel" aria-labelledby="analysisChartTitle"><div class="panel-heading"><div><h3 id="analysisChartTitle">Graphique sélectionné</h3><p id="analysisScope" class="analysis-meta"></p></div><button id="analysisFit" class="ghost-button" type="button">Recentrer</button></div>
+        <details id="analysisLayers" class="analysis-layers"><summary>Indicateurs et repères <span id="analysisLayerCount" class="analysis-meta"></span></summary>
+          <fieldset id="analysisLayerInputs"><legend>Afficher sur le graphique</legend>
+            <label><input type="checkbox" name="ema" checked><span>Tendance · EMA 9 / 21<small>Courbes jaune / bleue</small></span></label>
+            <label><input type="checkbox" name="pivots"><span>Sommets et creux · HH / HL<small>HH, LH, HL, LL à leur confirmation</small></span></label>
+            <label><input type="checkbox" name="bos" checked><span>BOS · poursuite<small>Rupture dans le sens précédent</small></span></label>
+            <label><input type="checkbox" name="mss" checked><span>MSS potentiel<small>Rupture opposée avec impulsion</small></span></label>
+            <label><input type="checkbox" name="breaks"><span>Autres ruptures<small>Initiales ou opposées sans impulsion</small></span></label>
+            <label><input type="checkbox" name="engulfing"><span>Bougies englobantes<small>Haussières et baissières</small></span></label>
+            <label><input type="checkbox" name="patterns"><span>Doji, marteau et mèche haute<small>Formes de bougies, pas des ordres</small></span></label>
+            <label><input type="checkbox" name="levels" checked><span>Niveaux des derniers pivots<small>Dernier sommet et dernier creux connus</small></span></label>
+            <label><input type="checkbox" name="rsi"><span>RSI 14<small>Panneau séparé · repères 30 / 70</small></span></label>
+            <label><input type="checkbox" name="volume"><span>Volume par bougie<small>Histogramme au pied du graphique</small></span></label>
+            <label><input type="checkbox" name="bands"><span>Bandes de Bollinger<small>Moyenne 20 · ±2 écarts-types</small></span></label>
+          </fieldset>
+          <div class="analysis-layer-actions"><button id="analysisLayerReset" class="ghost-button" type="button">Vue essentielle</button><button id="analysisLayerClear" class="ghost-button" type="button">Tout masquer</button></div>
+          <p class="analysis-meta">Ces choix modifient l’affichage, pas l’analyse ni la sélection. Ils restent actifs pendant ta visite de cette page. Les calculs commencent à la première bougie sélectionnée.</p>
+        </details>
+        <p id="analysisVisibleLayers" class="analysis-meta analysis-visible-layers" role="status"></p>
+        <div id="analysisChart" aria-label="Bougies de la sélection et repères de structure"></div>
+        <section id="analysisRsiPanel" class="analysis-rsi-panel" aria-labelledby="analysisRsiTitle" hidden><h4 id="analysisRsiTitle">RSI 14 · échelle de 0 à 100</h4><div id="analysisRsiChart" aria-label="RSI 14 de la même sélection, aligné avec les bougies"></div><p id="analysisRsiValue" class="analysis-meta"></p></section>
+        <p id="analysisChartError" class="analysis-meta" hidden>Le moteur graphique n’a pas pu être chargé. Les résultats textuels restent disponibles ; recharge la page pour réessayer.</p>
+        <p class="analysis-meta analysis-credit"><a href="https://www.tradingview.com/" target="_blank" rel="noopener noreferrer">TradingView Lightweight Charts™</a> · Copyright (c) 2025 TradingView, Inc.</p>
+        <div class="analysis-cursor"><button id="analysisPrevious" class="ghost-button" type="button" aria-label="Terminer une bougie plus tôt">−1 bougie</button><label for="analysisEndIndex">Déplacer la fin de l’analyse<input id="analysisEndIndex" type="range" min="0" max="1" value="1"></label><button id="analysisNext" class="ghost-button" type="button" aria-label="Terminer une bougie plus tard">+1 bougie</button></div>
+        <p class="analysis-meta analysis-legend">HH / LH : sommet plus haut / plus bas ; HL / LL : creux plus haut / plus bas. H / L : premier pivot ; « = » : niveau égal. Ces repères apparaissent sur la bougie de confirmation, deux bougies après le pivot. Les lignes de niveaux décrivent la fin de sélection. Déplacer ou zoomer le graphique ne change pas la sélection analysée.</p>
+      </section>
+      <aside class="panel analysis-reading" aria-labelledby="analysisReadingTitle"><div class="panel-heading"><h3 id="analysisReadingTitle">Ce que montrent les bougies</h3></div><div class="analysis-reading-content">
+        <p id="analysisSummary"></p>
+        <dl class="analysis-facts"><div><dt>Structure des sommets / creux</dt><dd id="analysisTrend"></dd></div><div><dt>Direction EMA 9 / 21</dt><dd id="analysisMomentum"></dd></div><div><dt>Dernière bougie</dt><dd id="analysisPattern"></dd></div><div><dt>Dernière rupture détectée</dt><dd id="analysisBreak"></dd></div></dl>
+        <h4>Les niveaux à comprendre</h4><ul id="analysisLevels"></ul>
+        <details open><summary>Pourquoi cette lecture ?</summary><ul id="analysisReasons"></ul></details>
+        <p class="analysis-meta">Lecture calculée selon les règles ci-dessous. Elle ne donne pas une probabilité de gain et ne recommande pas un achat ou une vente.</p>
+      </div></aside>
+    </div>
+    <section class="panel analysis-disclosure"><div class="analysis-method"><h3>Tester cette sélection avec Kronos-mini</h3><p>Exporte 32 à 500 bougies closes pour le calcul expérimental. Les quatre bougies à prévoir doivent rester dans la séance cash. Le calcul externe et ses limites sont décrits dans <a href="/models/">Modèles et sources</a>.</p><button id="analysisExportModel" class="ghost-button" type="button">Exporter la sélection pour Kronos</button><p id="analysisModelStatus" role="status"></p></div></section>
+    <details id="analysisEventsPanel" class="panel analysis-disclosure" hidden><summary>Voir les ruptures de la sélection</summary><div class="analysis-table-wrap" tabindex="0" role="region" aria-label="Ruptures de structure"><table><caption>Heures de clôture à New York. Un pivot n’est disponible qu’après deux bougies suivantes clôturées.</caption><thead><tr><th scope="col">Clôture</th><th scope="col">Repère</th><th scope="col">Sens</th><th scope="col">Niveau franchi</th><th scope="col">Pivot connu depuis</th></tr></thead><tbody id="analysisEvents"></tbody></table></div></details>
+    <details class="panel analysis-disclosure"><summary>Comprendre les indicateurs affichables</summary><div class="analysis-method"><p><strong>EMA 9 / 21 :</strong> moyennes exponentielles des clôtures, initialisées à la première clôture sélectionnée. Les premières valeurs ont peu de contexte.</p><p><strong>RSI 14 :</strong> calcul de Wilder sur les variations de clôture. Première valeur après 14 variations, donc 15 bougies ; une sélection entièrement plate vaut 50 par convention. Les niveaux 30 et 70 sont des repères, pas des ordres d’achat ou de vente. Le panneau suit le zoom et le déplacement du graphique principal.</p><p><strong>Bollinger :</strong> moyenne simple de 20 clôtures, entourée de deux écarts-types de population. Aucun tracé avant la 20e bougie. <strong>Volume :</strong> volume historique enregistré pour chaque bougie, avec sa propre échelle.</p><p>Les indicateurs n’utilisent aucun contexte avant la sélection. Leurs valeurs peuvent donc différer d’un graphique TradingView chargé avec davantage d’historique. Les options masquent les dessins sans retirer les observations du compte rendu textuel. Ce menu ne connecte aucun compte TradingView et n’ajoute pas de flux en direct.</p></div></details>
+    <details class="panel analysis-disclosure"><summary>Définitions, données et limites</summary><div class="analysis-method"><p><strong>Structure :</strong> deux sommets et deux creux confirmés ascendants indiquent une structure haussière ; tous descendants, une structure baissière. Les autres configurations sont mixtes ou insuffisantes. Un pivot est strictement plus haut ou plus bas que ses deux voisins de chaque côté : sa confirmation arrive donc deux bougies plus tard.</p><p><strong>MSS potentiel :</strong> clôture au-delà du dernier pivot confirmé, dans le sens opposé à la structure précédemment établie ou à la dernière rupture, avec un corps dans le sens de la rupture, d’au moins 60 % de l’amplitude, et une amplitude au moins égale à l’ATR 14 précédent. Il faut au moins 14 bougies précédentes dans la sélection. Ce choix de définition est explicite ; il ne garantit pas un retournement. Une rupture opposée sans cette impulsion est signalée séparément.</p><p><strong>Formes de bougies :</strong> englobante par le corps, doji avec corps ≤10 % de l’amplitude, longue mèche ≥2 fois le corps, ou corps dominant ≥80 %. Une forme de marteau seule n’établit pas un signal haussier. Les englobantes exigent deux bougies contiguës de la même séance.</p><p><strong>Périmètre :</strong> toutes les mesures utilisent uniquement les bougies sélectionnées. Le contexte situé avant ou après est exclu. Réduire ou déplacer la sélection peut donc modifier les pivots et l’analyse. Les deux dernières bougies ne peuvent pas encore être des pivots confirmés.</p><p><strong>Données :</strong> historique MNQ vérifié du Lab, contrats séparés, séance actions américaine. Les heures regroupent quatre bougies de 15 minutes depuis 9 h 30 ; les demi-heures de fin de séance sont exclues du mode 1 h. Les prix sont contrôlés avant le calcul. Le graphique n’est pas un flux en direct et ne lit pas le widget TradingView du Dashboard.</p><p>Cette analyse descriptive ne change pas le bot, les critères des tests, le journal ou les connexions personnelles. Elle n’analyse pas les actualités économiques. Les essais du calendrier d’annonces restent dans le <a href="/lab/#confluenceGame">Jeu 10</a>.</p></div></details>
+  </main>
+</body>
+</html>

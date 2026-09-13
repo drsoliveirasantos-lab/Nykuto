@@ -1,0 +1,26 @@
+{
+  "game": 51,
+  "status": "research-only",
+  "executionAllowed": false,
+  "product": "MNQ",
+  "window": {"from": "2026-06-01", "to": "2026-08-31"},
+  "base": {
+    "family": "ny-orb-retest",
+    "openingMinutes": 30,
+    "rsi": {"period": 14, "longMax": 70, "shortMin": 30},
+    "rr": 2,
+    "tokyoFilter": false
+  },
+  "alignment": {
+    "timeframes": ["M5", "H1"],
+    "requireBothSameSide": true,
+    "closedBarsOnly": true,
+    "hourAnchorMinuteNY": 570,
+    "variants": [
+      {"id": "reference-orb-rsi", "enabled": false},
+      {"id": "ema9-21-h1-m5", "enabled": true, "fast": 9, "slow": 21},
+      {"id": "ema20-50-h1-m5", "enabled": true, "fast": 20, "slow": 50, "assumption": true}
+    ]
+  },
+  "metrics": ["trades", "wins", "winRate", "totalR", "meanR", "profitFactor", "monthlyR", "rejectedTrades", "rejectedR"]
+}

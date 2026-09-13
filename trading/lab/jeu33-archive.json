@@ -1,0 +1,40 @@
+{
+  "schema": "jeu33-archive-v1",
+  "prefix": "jeu33/account-sizing-v1/",
+  "prePerformanceCommit": "c8fa2449db65bbf988eb6d0051cec1e8b867cd68",
+  "files": [
+    {
+      "name": "report.json",
+      "bytes": 403845,
+      "sha256": "6650ae7ea8061e94d1c24142d516cd29aabd8d03cfb91a71da08c05092392a57",
+      "encoding": "gzip+base64",
+      "parts": [
+        {
+          "key": "jeu33/account-sizing-v1/report.json.gz.b64.part-000",
+          "bytes": 29992,
+          "sha256": "e79a57c8fc193c5433e1ecd39d800e631870f336049f3a8a4b104b03bb534a05"
+        }
+      ]
+    },
+    {
+      "name": "runs-private.json",
+      "bytes": 941856,
+      "sha256": "79769e144287569975e4d59c04e0d8684eda3db3fbcf0eaa8ed22f8ddd0a6b72",
+      "encoding": "gzip+base64",
+      "parts": [
+        {
+          "key": "jeu33/account-sizing-v1/runs-private.json.gz.b64.part-000",
+          "bytes": 120000,
+          "sha256": "1fa1d6a5af11f6314e86dff5db5890644b6f843ee1216e4145ddfbe4709adbc9"
+        },
+        {
+          "key": "jeu33/account-sizing-v1/runs-private.json.gz.b64.part-001",
+          "bytes": 11180,
+          "sha256": "6d219961a37e8ff14e268d0c97d5f15a64e1d979935bea77bf6b0c2a79098b88"
+        }
+      ]
+    }
+  ],
+  "confirmed": false,
+  "executionAllowed": false
+}

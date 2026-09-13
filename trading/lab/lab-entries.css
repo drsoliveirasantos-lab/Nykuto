@@ -1,0 +1,9 @@
+#entry36Game h4{font-size:var(--lab-heading);margin:1.2rem 0 .5rem}
+#entry36Game p{font-size:1rem;line-height:1.65}
+#entry36Game .entry-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(12rem,1fr));gap:.75rem;margin:1rem 0}
+#entry36Game label{display:block;font-size:var(--lab-body)}
+#entry36Game label span{display:block;margin-bottom:.35rem}
+#entry36Game select{width:100%;min-width:0;min-height:44px;font-size:1rem;padding:.55rem;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--text)}
+#entry36Game .iv-table{min-width:20rem}
+#entry36Game #entry36Result{padding:.75rem;border-left:3px solid #87b8f8;background:rgba(135,184,248,.06)}
+@media(max-width:400px){#entry36Game .entry-controls{grid-template-columns:1fr}}

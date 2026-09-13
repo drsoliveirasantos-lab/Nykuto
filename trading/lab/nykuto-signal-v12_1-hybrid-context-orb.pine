@@ -1,0 +1,207 @@
+//@version=6
+indicator("Nykuto Signal V12.1 - Context + ORB", overlay=true, max_labels_count=500)
+
+// Decision-support only. No broker orders.
+// V12.1 restores V11-style directional context while keeping V12 ORB+RSI+fast-retest as the stricter setup layer.
+
+// ===== Inputs =====
+nyTz = "America/New_York"
+orbSession = input.session("0930-1000", "New York Opening Range")
+tradeSession = input.session("1000-1200", "Fenetre ORB")
+rsiLen = input.int(14, "RSI", minval=2)
+atrLen = input.int(14, "ATR", minval=2)
+volLen = input.int(20, "Volume moyen", minval=2)
+fastLen = input.int(9, "EMA rapide", minval=1)
+slowLen = input.int(21, "EMA lente", minval=2)
+htf = input.timeframe("60", "HTF contexte")
+maxRetestMinutes = input.int(5, "Retest ORB max (min)", minval=1, maxval=30)
+retestToleranceAtr = input.float(0.15, "Tolerance retest ATR", step=0.05)
+compactOrbAtr = input.float(3.0, "ORB compact ATR", step=0.1)
+relVolStrong = input.float(1.20, "Volume relatif fort", step=0.05)
+showOrb = input.bool(true, "Afficher ORB")
+showContextSignals = input.bool(true, "Afficher B/S contexte")
+showOrbSignals = input.bool(true, "Afficher ORB B/S")
+showTooltips = input.bool(true, "Tooltips")
+
+// ===== Base =====
+emaFast = ta.ema(close, fastLen)
+emaSlow = ta.ema(close, slowLen)
+rsi = ta.rsi(close, rsiLen)
+atr = ta.atr(atrLen)
+atrRef = atr[1]
+vwap = ta.vwap(hlc3)
+volAvg = ta.sma(volume, volLen)[1]
+relVol = not na(volAvg) and volAvg > 0 ? volume / volAvg : 0.0
+[macdLine, macdSignal, macdHist] = ta.macd(close, 12, 26, 9)
+
+htfFast = request.security(syminfo.tickerid, htf, ta.ema(close, 20)[1], barmerge.gaps_off, barmerge.lookahead_on)
+htfSlow = request.security(syminfo.tickerid, htf, ta.ema(close, 50)[1], barmerge.gaps_off, barmerge.lookahead_on)
+htfBull = htfFast > htfSlow
+htfBear = htfFast < htfSlow
+
+barRange = high - low
+body = math.abs(close - open)
+bodyRatio = barRange > 0 ? body / barRange : 0.0
+upperWick = high - math.max(open, close)
+lowerWick = math.min(open, close) - low
+upperWickRatio = barRange > 0 ? upperWick / barRange : 0.0
+lowerWickRatio = barRange > 0 ? lowerWick / barRange : 0.0
+
+volumeStrong = relVol >= relVolStrong
+expansion = not na(atrRef) and atrRef > 0 and barRange >= atrRef * 0.75
+bullImpulse = close > open and bodyRatio >= 0.55 and expansion
+bearImpulse = close < open and bodyRatio >= 0.55 and expansion
+
+bullEngulf = close > open and close[1] < open[1] and open <= close[1] and close >= open[1]
+bearEngulf = close < open and close[1] > open[1] and open >= close[1] and close <= open[1]
+bullHammer = lowerWickRatio >= 0.50 and upperWickRatio <= 0.20 and bodyRatio <= 0.45
+bearStar = upperWickRatio >= 0.50 and lowerWickRatio <= 0.20 and bodyRatio <= 0.45
+
+localBull = emaFast > emaSlow and emaSlow >= emaSlow[1]
+localBear = emaFast < emaSlow and emaSlow <= emaSlow[1]
+buyMomentum = rsi > 55 and rsi > rsi[1] and macdHist > macdHist[1]
+sellMomentum = rsi < 45 and rsi < rsi[1] and macdHist < macdHist[1]
+buyVwap = close > vwap
+sellVwap = close < vwap
+
+// ===== V11-style contextual signals =====
+recentHigh6 = ta.highest(high[1], 6)
+recentLow6 = ta.lowest(low[1], 6)
+breakoutUp = close > recentHigh6 and close > open
+breakdownDown = close < recentLow6 and close < open
+
+contextBuyScore =
+     (localBull ? 2 : 0) +
+     (htfBull ? 2 : 0) +
+     (buyVwap ? 1 : 0) +
+     (buyMomentum ? 1 : 0) +
+     (volumeStrong ? 1 : 0) +
+     (bullImpulse ? 1 : 0) +
+     (bullEngulf or bullHammer ? 1 : 0)
+
+contextSellScore =
+     (localBear ? 2 : 0) +
+     (htfBear ? 2 : 0) +
+     (sellVwap ? 1 : 0) +
+     (sellMomentum ? 1 : 0) +
+     (volumeStrong ? 1 : 0) +
+     (bearImpulse ? 1 : 0) +
+     (bearEngulf or bearStar ? 1 : 0)
+
+rawContextBuy = barstate.isconfirmed and (breakoutUp or bullEngulf) and contextBuyScore >= 5 and rsi < 75
+rawContextSell = barstate.isconfirmed and (breakdownDown or bearEngulf) and contextSellScore >= 5 and rsi > 25
+
+var int lastContextBuy = na
+var int lastContextSell = na
+ctxCooldown = 6
+contextBuy = rawContextBuy and (na(lastContextBuy) or bar_index - lastContextBuy >= ctxCooldown)
+contextSell = rawContextSell and (na(lastContextSell) or bar_index - lastContextSell >= ctxCooldown)
+if contextBuy
+    lastContextBuy := bar_index
+if contextSell
+    lastContextSell := bar_index
+
+ctxBuyLabel = contextBuyScore >= 8 ? "B++" : contextBuyScore >= 6 ? "B+" : "B"
+ctxSellLabel = contextSellScore >= 8 ? "S++" : contextSellScore >= 6 ? "S+" : "S"
+
+ctxBuyTip = "Contexte haussier\nScore: " + str.tostring(contextBuyScore) + "\nEMA/HTF/VWAP/momentum/volume/bougie.\nCe n'est pas le setup ORB backteste."
+ctxSellTip = "Contexte baissier\nScore: " + str.tostring(contextSellScore) + "\nEMA/HTF/VWAP/momentum/volume/bougie.\nCe n'est pas le setup ORB backteste."
+
+if showContextSignals and contextBuy
+    label.new(bar_index, low, ctxBuyLabel, style=label.style_label_up, color=color.new(color.green, 72), textcolor=color.white, size=contextBuyScore >= 8 ? size.small : size.tiny, tooltip=showTooltips ? ctxBuyTip : "")
+
+if showContextSignals and contextSell
+    label.new(bar_index, high, ctxSellLabel, style=label.style_label_down, color=color.new(color.red, 72), textcolor=color.white, size=contextSellScore >= 8 ? size.small : size.tiny, tooltip=showTooltips ? ctxSellTip : "")
+
+// ===== Strict V12 ORB setup =====
+inOrb = not na(time(timeframe.period, orbSession, nyTz))
+inTradeWindow = not na(time(timeframe.period, tradeSession, nyTz))
+orbStart = inOrb and not inOrb[1]
+orbEnd = not inOrb and inOrb[1]
+
+var float orbHigh = na
+var float orbLow = na
+var float orbAtrAtEnd = na
+var bool orbReady = false
+
+if orbStart
+    orbHigh := high
+    orbLow := low
+    orbAtrAtEnd := na
+    orbReady := false
+else if inOrb
+    orbHigh := na(orbHigh) ? high : math.max(orbHigh, high)
+    orbLow := na(orbLow) ? low : math.min(orbLow, low)
+
+if orbEnd
+    orbAtrAtEnd := atrRef
+    orbReady := true
+
+orbWidth = orbReady and not na(orbHigh) and not na(orbLow) ? orbHigh - orbLow : na
+orbAtrRatio = orbReady and not na(orbWidth) and not na(orbAtrAtEnd) and orbAtrAtEnd > 0 ? orbWidth / orbAtrAtEnd : na
+compactOrb = not na(orbAtrRatio) and orbAtrRatio <= compactOrbAtr
+
+longBreak = orbReady and inTradeWindow and barstate.isconfirmed and close > orbHigh and close[1] <= orbHigh
+shortBreak = orbReady and inTradeWindow and barstate.isconfirmed and close < orbLow and close[1] >= orbLow
+
+var int longBreakTime = na
+var int shortBreakTime = na
+var bool longArmed = false
+var bool shortArmed = false
+
+if orbStart
+    longBreakTime := na
+    shortBreakTime := na
+    longArmed := false
+    shortArmed := false
+
+if longBreak
+    longBreakTime := time_close
+    longArmed := true
+    shortArmed := false
+if shortBreak
+    shortBreakTime := time_close
+    shortArmed := true
+    longArmed := false
+
+maxRetestMs = maxRetestMinutes * 60 * 1000
+longStillFast = longArmed and not na(longBreakTime) and time_close - longBreakTime <= maxRetestMs
+shortStillFast = shortArmed and not na(shortBreakTime) and time_close - shortBreakTime <= maxRetestMs
+if longArmed and not longStillFast
+    longArmed := false
+if shortArmed and not shortStillFast
+    shortArmed := false
+
+tol = not na(atrRef) ? atrRef * retestToleranceAtr : 0.0
+longRetest = longStillFast and low <= orbHigh + tol and close >= orbHigh and barstate.isconfirmed
+shortRetest = shortStillFast and high >= orbLow - tol and close <= orbLow and barstate.isconfirmed
+
+orbLong = longRetest and rsi <= 70
+orbShort = shortRetest and rsi >= 30
+
+if longRetest
+    longArmed := false
+if shortRetest
+    shortArmed := false
+
+orbLongBonus = (compactOrb ? 1 : 0) + (volumeStrong ? 1 : 0) + (bullImpulse ? 1 : 0)
+orbShortBonus = (compactOrb ? 1 : 0) + (volumeStrong ? 1 : 0) + (bearImpulse ? 1 : 0)
+orbLongLabel = orbLongBonus >= 2 ? "ORB B++" : orbLongBonus == 1 ? "ORB B+" : "ORB B"
+orbShortLabel = orbShortBonus >= 2 ? "ORB S++" : orbShortBonus == 1 ? "ORB S+" : "ORB S"
+
+orbLongTip = "SETUP ORB LONG\nCassure + retest <= " + str.tostring(maxRetestMinutes) + " min\nRSI <= 70\nORB/ATR: " + (na(orbAtrRatio) ? "n/a" : str.tostring(orbAtrRatio, "#.00")) + "\nRelVol: " + str.tostring(relVol, "#.00") + "x\nFamille de setup backtestee. Sortie de recherche: 2R."
+orbShortTip = "SETUP ORB SHORT\nCassure + retest <= " + str.tostring(maxRetestMinutes) + " min\nRSI >= 30\nORB/ATR: " + (na(orbAtrRatio) ? "n/a" : str.tostring(orbAtrRatio, "#.00")) + "\nRelVol: " + str.tostring(relVol, "#.00") + "x\nFamille de setup backtestee. Sortie de recherche: 2R."
+
+if showOrbSignals and orbLong
+    label.new(bar_index, low, orbLongLabel, style=label.style_label_up, color=color.new(color.lime, 15), textcolor=color.black, size=orbLongBonus >= 2 ? size.small : size.tiny, tooltip=showTooltips ? orbLongTip : "")
+
+if showOrbSignals and orbShort
+    label.new(bar_index, high, orbShortLabel, style=label.style_label_down, color=color.new(color.red, 15), textcolor=color.white, size=orbShortBonus >= 2 ? size.small : size.tiny, tooltip=showTooltips ? orbShortTip : "")
+
+plot(showOrb and orbReady ? orbHigh : na, "ORB High", color=color.new(color.green, 55), linewidth=1, style=plot.style_linebr)
+plot(showOrb and orbReady ? orbLow : na, "ORB Low", color=color.new(color.red, 55), linewidth=1, style=plot.style_linebr)
+
+alertcondition(contextBuy, title="Nykuto V12.1 Context BUY", message="Nykuto V12.1 contextual BUY signal. Not the strict ORB setup.")
+alertcondition(contextSell, title="Nykuto V12.1 Context SELL", message="Nykuto V12.1 contextual SELL signal. Not the strict ORB setup.")
+alertcondition(orbLong, title="Nykuto V12.1 ORB BUY", message="Nykuto V12.1 strict ORB BUY candidate confirmed. Decision-support only.")
+alertcondition(orbShort, title="Nykuto V12.1 ORB SELL", message="Nykuto V12.1 strict ORB SELL candidate confirmed. Decision-support only.")

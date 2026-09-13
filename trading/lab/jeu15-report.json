@@ -1,0 +1,2245 @@
+{
+  "schema": "jeu15-report-v1",
+  "protocol": "jeu15-lucidflex-v1",
+  "generatedAt": "2026-09-09T03:33:52.845Z",
+  "protocolSha256": "b342f8db74a9a9e6aca2d38e58073accf6ac2909970d881070bdb23f2cb86905",
+  "source": {
+    "key": "jeu14/available-history-v1.json",
+    "sha256": "028e914bb10ea38b73b6fcbc867c5d81937b967701448913fc88ca85746557cf",
+    "bytes": 2426693
+  },
+  "policy": {
+    "version": "jeu15-lucidflex-v1",
+    "checkedAt": "2026-09-09",
+    "account": "LucidFlex 25K evaluation",
+    "initial": 25000,
+    "maxLoss": 1000,
+    "lockedFloor": 25100,
+    "profitTarget": 1250,
+    "consistency": 0.5,
+    "riskPerTrade": 50,
+    "dailyLoss": 100,
+    "floorReserve": 100,
+    "tick": 0.25,
+    "multiplier": 2,
+    "maxContracts": 1,
+    "cost": 3.5,
+    "exitBeforeClose": 15,
+    "paperEnabled": false,
+    "shadowEnabled": false,
+    "brokerEnabled": false,
+    "independent": false,
+    "liveFeed": false,
+    "confirmed": false
+  },
+  "coverage": {
+    "expectedSessions": 372,
+    "scoredSessions": 330,
+    "first": "2025-04-09",
+    "last": "2026-09-04",
+    "unavailable": 42,
+    "completeWindows": 5,
+    "blockedWindows": 3
+  },
+  "results": [
+    {
+      "id": "reference30",
+      "label": "Pullback 30 min · référence",
+      "signal": "pullback30",
+      "guarded": false,
+      "diagnostic": {
+        "normal": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": 2946,
+          "balance": 27946,
+          "floor": null,
+          "bestDay": 1376.5,
+          "drawdown": 2693.5,
+          "consistency": 0.46724372029871014,
+          "signalCount": 234,
+          "denied": {
+            "tradeRisk": 0,
+            "dailyBudget": 0,
+            "floorReserve": 0
+          },
+          "ambiguous": 0,
+          "daily": {
+            "observed": 330,
+            "positive": 95,
+            "negative": 91,
+            "flatActive": 0,
+            "noTrade": 144,
+            "worst": -1221.5
+          },
+          "trades": 234,
+          "metrics": {
+            "count": 234,
+            "wins": 114,
+            "win": 0.48717948717948717,
+            "total": 10.892092113880338,
+            "exp": 0.04654740219606982,
+            "pf": 1.136155455390524,
+            "dd": 9.738447947497093,
+            "winInterval": [
+              0.4238620038030385,
+              0.5509111225129634
+            ]
+          }
+        },
+        "stress": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": 2127,
+          "balance": 27127,
+          "floor": null,
+          "bestDay": 1369.5,
+          "drawdown": 2749.5,
+          "consistency": 0.6438645980253879,
+          "signalCount": 234,
+          "denied": {
+            "tradeRisk": 0,
+            "dailyBudget": 0,
+            "floorReserve": 0
+          },
+          "ambiguous": 0,
+          "daily": {
+            "observed": 330,
+            "positive": 94,
+            "negative": 92,
+            "flatActive": 0,
+            "noTrade": 144,
+            "worst": -1228.5
+          },
+          "trades": 234,
+          "metrics": {
+            "count": 234,
+            "wins": 113,
+            "win": 0.4829059829059829,
+            "total": 7.216793558243229,
+            "exp": 0.030840998112150554,
+            "pf": 1.088107893826903,
+            "dd": 10.79125022977233,
+            "winInterval": [
+              0.41967351681596826,
+              0.5466906516053676
+            ]
+          }
+        }
+      },
+      "windows": [
+        {
+          "start": "2025-05-01",
+          "end": "2025-07-01",
+          "complete": true,
+          "expected": 41,
+          "scored": 41,
+          "normal": {
+            "status": "breached",
+            "terminalDay": "2025-05-29",
+            "net": -1000,
+            "balance": 24000,
+            "floor": 24000,
+            "bestDay": 111.5,
+            "drawdown": 1042.5,
+            "consistency": null,
+            "signalCount": 14,
+            "denied": {
+              "tradeRisk": 0,
+              "dailyBudget": 0,
+              "floorReserve": 0
+            },
+            "ambiguous": 0,
+            "daily": {
+              "observed": 20,
+              "positive": 2,
+              "negative": 9,
+              "flatActive": 0,
+              "noTrade": 9,
+              "worst": -317
+            },
+            "trades": 14,
+            "metrics": {
+              "count": 14,
+              "wins": 3,
+              "win": 0.21428571428571427,
+              "total": -4.482574251445718,
+              "exp": -0.32018387510326557,
+              "pf": 0.33202452568123464,
+              "dd": 4.70601793075882,
+              "winInterval": [
+                0.0757124833691637,
+                0.4758972377320828
+              ]
+            }
+          },
+          "stress": {
+            "status": "breached",
+            "terminalDay": "2025-05-29",
+            "net": -1000,
+            "balance": 24000,
+            "floor": 24000,
+            "bestDay": 108,
+            "drawdown": 1028.5,
+            "consistency": null,
+            "signalCount": 14,
+            "denied": {
+              "tradeRisk": 0,
+              "dailyBudget": 0,
+              "floorReserve": 0
+            },
+            "ambiguous": 0,
+            "daily": {
+              "observed": 20,
+              "positive": 2,
+              "negative": 9,
+              "flatActive": 0,
+              "noTrade": 9,
+              "worst": -275
+            },
+            "trades": 14,
+            "metrics": {
+              "count": 14,
+              "wins": 3,
+              "win": 0.21428571428571427,
+              "total": -4.497091664566228,
+              "exp": -0.321220833183302,
+              "pf": 0.3259453762364919,
+              "dd": 4.656234740582132,
+              "winInterval": [
+                0.0757124833691637,
+                0.4758972377320828
+              ]
+            }
+          },
+          "diagnostic": {
+            "normal": {
+              "metrics": {
+                "count": 25,
+                "wins": 9,
+                "win": 0.36,
+                "total": -2.983852105039054,
+                "exp": -0.11935408420156217,
+                "pf": 0.6930683755491569,
+                "dd": 6.286711973110122,
+                "winInterval": [
+                  0.20247656431735636,
+                  0.5548184539895337
+                ]
+              },
+              "netDollars": -755.5
+            },
+            "stress": {
+              "metrics": {
+                "count": 25,
+                "wins": 8,
+                "win": 0.32,
+                "total": -3.417732549465764,
+                "exp": -0.13670930197863057,
+                "pf": 0.6580859463319241,
+                "dd": 6.469507525949924,
+                "winInterval": [
+                  0.17204987516891143,
+                  0.5159008626542329
+                ]
+              },
+              "netDollars": -843
+            }
+          }
+        },
+        {
+          "start": "2025-07-01",
+          "end": "2025-09-01",
+          "complete": true,
+          "expected": 43,
+          "scored": 43,
+          "normal": {
+            "status": "breached",
+            "terminalDay": "2025-08-21",
+            "net": -808.5,
+            "balance": 24191.5,
+            "floor": 24191.5,
+            "bestDay": 253,
+            "drawdown": 1000,
+            "consistency": null,
+            "signalCount": 24,
+            "denied": {
+              "tradeRisk": 0,
+              "dailyBudget": 0,
+              "floorReserve": 0
+            },
+            "ambiguous": 0,
+            "daily": {
+              "observed": 37,
+              "positive": 7,
+              "negative": 13,
+              "flatActive": 0,
+              "noTrade": 17,
+              "worst": -283
+            },
+            "trades": 24,
+            "metrics": {
+              "count": 24,
+              "wins": 7,
+              "win": 0.2916666666666667,
+              "total": -4.993921157161231,
+              "exp": -0.2080800482150513,
+              "pf": 0.5964343778391761,
+              "dd": 5.9018626900369355,
+              "winInterval": [
+                0.14914460334164278,
+                0.49168063658709704
+              ]
+            }
+          },
+          "stress": {
+            "status": "breached",
+            "terminalDay": "2025-08-21",
+            "net": -829.5,
+            "balance": 24170.5,
+            "floor": 24170.5,
+            "bestDay": 249.5,
+            "drawdown": 1000,
+            "consistency": null,
+            "signalCount": 23,
+            "denied": {
+              "tradeRisk": 0,
+              "dailyBudget": 0,
+              "floorReserve": 0
+            },
+            "ambiguous": 0,
+            "daily": {
+              "observed": 37,
+              "positive": 7,
+              "negative": 13,
+              "flatActive": 0,
+              "noTrade": 17,
+              "worst": -290
+            },
+            "trades": 23,
+            "metrics": {
+              "count": 23,
+              "wins": 7,
+              "win": 0.30434782608695654,
+              "total": -5.280167755187804,
+              "exp": -0.22957251109512192,
+              "pf": 0.5772570732392329,
+              "dd": 6.04981522812186,
+              "winInterval": [
+                0.15603828020972454,
+                0.5086612906057261
+              ]
+            }
+          },
+          "diagnostic": {
+            "normal": {
+              "metrics": {
+                "count": 26,
+                "wins": 8,
+                "win": 0.3076923076923077,
+                "total": -4.894851136426508,
+                "exp": -0.1882635052471734,
+                "pf": 0.6112221309750048,
+                "dd": 5.802792669302213,
+                "winInterval": [
+                  0.16501120939792674,
+                  0.49988611514231246
+                ]
+              },
+              "netDollars": -766
+            },
+            "stress": {
+              "metrics": {
+                "count": 26,
+                "wins": 8,
+                "win": 0.3076923076923077,
+                "total": -5.484452208393129,
+                "exp": -0.21094046955358187,
+                "pf": 0.5779617654157854,
+                "dd": 6.254099681327183,
+                "winInterval": [
+                  0.16501120939792674,
+                  0.49988611514231246
+                ]
+              },
+              "netDollars": -857
+            }
+          }
+        },
+        {
+          "start": "2025-09-01",
+          "end": "2025-11-01",
+          "complete": false,
+          "expected": 44,
+          "scored": 40,
+          "normal": null,
+          "stress": null
+        },
+        {
+          "start": "2025-11-01",
+          "end": "2026-01-01",
+          "complete": true,
+          "expected": 41,
+          "scored": 41,
+          "normal": {
+            "status": "breached",
+            "terminalDay": "2025-12-10",
+            "net": -67.5,
+            "balance": 24932.5,
+            "floor": 24932.5,
+            "bestDay": 504,
+            "drawdown": 1000,
+            "consistency": null,
+            "signalCount": 13,
+            "denied": {
+              "tradeRisk": 0,
+              "dailyBudget": 0,
+              "floorReserve": 0
+            },
+            "ambiguous": 0,
+            "daily": {
+              "observed": 27,
+              "positive": 6,
+              "negative": 4,
+              "flatActive": 0,
+              "noTrade": 17,
+              "worst": -468.5
+            },
+            "trades": 13,
+            "metrics": {
+              "count": 13,
+              "wins": 7,
+              "win": 0.5384615384615384,
+              "total": 0.006732808487069364,
+              "exp": 0.0005179083451591818,
+              "pf": 1.0019892911695645,
+              "dd": 3.1625129515483557,
+              "winInterval": [
+                0.2914343243183205,
+                0.7679424569851186
+              ]
+            }
+          },
+          "stress": {
+            "status": "breached",
+            "terminalDay": "2025-12-10",
+            "net": -85,
+            "balance": 24915,
+            "floor": 24915,
+            "bestDay": 500.5,
+            "drawdown": 1000,
+            "consistency": null,
+            "signalCount": 13,
+            "denied": {
+              "tradeRisk": 0,
+              "dailyBudget": 0,
+              "floorReserve": 0
+            },
+            "ambiguous": 0,
+            "daily": {
+              "observed": 27,
+              "positive": 6,
+              "negative": 4,
+              "flatActive": 0,
+              "noTrade": 17,
+              "worst": -475.5
+            },
+            "trades": 13,
+            "metrics": {
+              "count": 13,
+              "wins": 7,
+              "win": 0.5384615384615384,
+              "total": -0.014794574650984688,
+              "exp": -0.001138044203921899,
+              "pf": 0.995537826017634,
+              "dd": 3.11795415837764,
+              "winInterval": [
+                0.2914343243183205,
+                0.7679424569851186
+              ]
+            }
+          },
+          "diagnostic": {
+            "normal": {
+              "metrics": {
+                "count": 28,
+                "wins": 18,
+                "win": 0.6428571428571429,
+                "total": 4.61686941032829,
+                "exp": 0.16488819322601037,
+                "pf": 1.635409341265911,
+                "dd": 2.830880298487131,
+                "winInterval": [
+                  0.4582997758222723,
+                  0.7929438802754113
+                ]
+              },
+              "netDollars": 794
+            },
+            "stress": {
+              "metrics": {
+                "count": 28,
+                "wins": 18,
+                "win": 0.6428571428571429,
+                "total": 4.143246549375798,
+                "exp": 0.14797309104913564,
+                "pf": 1.5571452848196423,
+                "dd": 2.9113215053164154,
+                "winInterval": [
+                  0.4582997758222723,
+                  0.7929438802754113
+                ]
+              },
+              "netDollars": 696
+            }
+          }
+        },
+        {
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "complete": true,
+          "expected": 39,
+          "scored": 39,
+          "normal": {
+            "status": "targetMet",
+            "terminalDay": "2026-02-09",
+            "net": 1626,
+            "balance": 26626,
+            "floor": 25100,
+            "bestDay": 520,
+            "drawdown": 340,
+            "consistency": 0.3198031980319803,
+            "signalCount": 18,
+            "denied": {
+              "tradeRisk": 0,
+              "dailyBudget": 0,
+              "floorReserve": 0
+            },
+            "ambiguous": 0,
+            "daily": {
+              "observed": 26,
+              "positive": 10,
+              "negative": 5,
+              "flatActive": 0,
+              "noTrade": 11,
+              "worst": -265.5
+            },
+            "trades": 18,
+            "metrics": {
+              "count": 18,
+              "wins": 11,
+              "win": 0.6111111111111112,
+              "total": 6.235976579225169,
+              "exp": 0.3464431432902872,
+              "pf": 2.5827417565052544,
+              "dd": 1.3829070443375786,
+              "winInterval": [
+                0.3861866858065617,
+                0.7969500807306884
+              ]
+            }
+          },
+          "stress": {
+            "status": "targetMet",
+            "terminalDay": "2026-02-09",
+            "net": 1563,
+            "balance": 26563,
+            "floor": 25100,
+            "bestDay": 513,
+            "drawdown": 347,
+            "consistency": 0.32821497120921306,
+            "signalCount": 18,
+            "denied": {
+              "tradeRisk": 0,
+              "dailyBudget": 0,
+              "floorReserve": 0
+            },
+            "ambiguous": 0,
+            "daily": {
+              "observed": 26,
+              "positive": 10,
+              "negative": 5,
+              "flatActive": 0,
+              "noTrade": 11,
+              "worst": -272.5
+            },
+            "trades": 18,
+            "metrics": {
+              "count": 18,
+              "wins": 11,
+              "win": 0.6111111111111112,
+              "total": 5.951180753902797,
+              "exp": 0.3306211529945998,
+              "pf": 2.4709992391013946,
+              "dd": 1.4123465271539044,
+              "winInterval": [
+                0.3861866858065617,
+                0.7969500807306884
+              ]
+            }
+          },
+          "diagnostic": {
+            "normal": {
+              "metrics": {
+                "count": 28,
+                "wins": 12,
+                "win": 0.42857142857142855,
+                "total": 1.041939757605737,
+                "exp": 0.037212134200204895,
+                "pf": 1.1110739427130005,
+                "dd": 5.440612164085185,
+                "winInterval": [
+                  0.2650829618073122,
+                  0.609295210143846
+                ]
+              },
+              "netDollars": 69
+            },
+            "stress": {
+              "metrics": {
+                "count": 28,
+                "wins": 12,
+                "win": 0.42857142857142855,
+                "total": 0.6321045680806849,
+                "exp": 0.022575163145738746,
+                "pf": 1.0658605186647871,
+                "dd": 5.551952898150879,
+                "winInterval": [
+                  0.2650829618073122,
+                  0.609295210143846
+                ]
+              },
+              "netDollars": -29
+            }
+          }
+        },
+        {
+          "start": "2026-03-01",
+          "end": "2026-05-01",
+          "complete": false,
+          "expected": 43,
+          "scored": 25,
+          "normal": null,
+          "stress": null
+        },
+        {
+          "start": "2026-05-01",
+          "end": "2026-07-01",
+          "complete": false,
+          "expected": 41,
+          "scored": 39,
+          "normal": null,
+          "stress": null
+        },
+        {
+          "start": "2026-07-01",
+          "end": "2026-09-01",
+          "complete": true,
+          "expected": 43,
+          "scored": 43,
+          "normal": {
+            "status": "targetMet",
+            "terminalDay": "2026-07-17",
+            "net": 1251.5,
+            "balance": 26251.5,
+            "floor": 25100,
+            "bestDay": 530.5,
+            "drawdown": 282.5,
+            "consistency": 0.4238913304035158,
+            "signalCount": 6,
+            "denied": {
+              "tradeRisk": 0,
+              "dailyBudget": 0,
+              "floorReserve": 0
+            },
+            "ambiguous": 0,
+            "daily": {
+              "observed": 12,
+              "positive": 4,
+              "negative": 1,
+              "flatActive": 0,
+              "noTrade": 7,
+              "worst": -137.5
+            },
+            "trades": 6,
+            "metrics": {
+              "count": 6,
+              "wins": 5,
+              "win": 0.8333333333333334,
+              "total": 3.2699113122469945,
+              "exp": 0.5449852187078325,
+              "pf": 4.2293991366970305,
+              "dd": 1.0125448028673834,
+              "winInterval": [
+                0.43649056343635395,
+                0.9699474141282697
+              ]
+            }
+          },
+          "stress": {
+            "status": "targetMet",
+            "terminalDay": "2026-07-27",
+            "net": 1505.5,
+            "balance": 26505.5,
+            "floor": 25100,
+            "bestDay": 527,
+            "drawdown": 531.5,
+            "consistency": 0.3500498173364331,
+            "signalCount": 12,
+            "denied": {
+              "tradeRisk": 0,
+              "dailyBudget": 0,
+              "floorReserve": 0
+            },
+            "ambiguous": 0,
+            "daily": {
+              "observed": 18,
+              "positive": 6,
+              "negative": 2,
+              "flatActive": 0,
+              "noTrade": 10,
+              "worst": -203
+            },
+            "trades": 12,
+            "metrics": {
+              "count": 12,
+              "wins": 8,
+              "win": 0.6666666666666666,
+              "total": 4.199274304416068,
+              "exp": 0.3499395253680057,
+              "pf": 2.1762051191523026,
+              "dd": 1.5073987707919696,
+              "winInterval": [
+                0.3906175873976139,
+                0.8618821601026385
+              ]
+            }
+          },
+          "diagnostic": {
+            "normal": {
+              "metrics": {
+                "count": 32,
+                "wins": 21,
+                "win": 0.65625,
+                "total": 4.926707305557974,
+                "exp": 0.1539596032986867,
+                "pf": 1.5069395863965696,
+                "dd": 4.1792928445698365,
+                "winInterval": [
+                  0.4831077350878594,
+                  0.7958976664567146
+                ]
+              },
+              "netDollars": 2567
+            },
+            "stress": {
+              "metrics": {
+                "count": 32,
+                "wins": 21,
+                "win": 0.65625,
+                "total": 4.530076397311767,
+                "exp": 0.1415648874159927,
+                "pf": 1.4590269966191711,
+                "dd": 4.413649606421746,
+                "winInterval": [
+                  0.4831077350878594,
+                  0.7958976664567146
+                ]
+              },
+              "netDollars": 2455
+            }
+          }
+        }
+      ],
+      "checks": [
+        {
+          "id": "count",
+          "label": "Au moins 40 trades de diagnostic",
+          "pass": true
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades dans chacune des cinq fenêtres complètes",
+          "pass": true
+        },
+        {
+          "id": "positive",
+          "label": "Chaque fenêtre complète positive",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor au moins 1,10 avant arrondi",
+          "pass": true
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé au plus 8 R",
+          "pass": false
+        },
+        {
+          "id": "stress",
+          "label": "Total positif avec coûts doublés",
+          "pass": true
+        },
+        {
+          "id": "account",
+          "label": "Aucun breach dans les évaluations simulées aux deux coûts",
+          "pass": false
+        }
+      ],
+      "researchPassed": false,
+      "confirmed": false
+    },
+    {
+      "id": "guard30",
+      "label": "Pullback 30 min · risque limité",
+      "signal": "pullback30",
+      "guarded": true,
+      "diagnostic": {
+        "normal": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": 0,
+          "balance": 25000,
+          "floor": null,
+          "bestDay": 0,
+          "drawdown": 0,
+          "consistency": null,
+          "signalCount": 405,
+          "denied": {
+            "tradeRisk": 405,
+            "dailyBudget": 0,
+            "floorReserve": 0
+          },
+          "ambiguous": 0,
+          "daily": {
+            "observed": 330,
+            "positive": 0,
+            "negative": 0,
+            "flatActive": 0,
+            "noTrade": 330,
+            "worst": 0
+          },
+          "trades": 0,
+          "metrics": {
+            "count": 0,
+            "wins": 0,
+            "win": null,
+            "total": 0,
+            "exp": null,
+            "pf": null,
+            "dd": 0,
+            "winInterval": null
+          }
+        },
+        "stress": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": 0,
+          "balance": 25000,
+          "floor": null,
+          "bestDay": 0,
+          "drawdown": 0,
+          "consistency": null,
+          "signalCount": 405,
+          "denied": {
+            "tradeRisk": 405,
+            "dailyBudget": 0,
+            "floorReserve": 0
+          },
+          "ambiguous": 0,
+          "daily": {
+            "observed": 330,
+            "positive": 0,
+            "negative": 0,
+            "flatActive": 0,
+            "noTrade": 330,
+            "worst": 0
+          },
+          "trades": 0,
+          "metrics": {
+            "count": 0,
+            "wins": 0,
+            "win": null,
+            "total": 0,
+            "exp": null,
+            "pf": null,
+            "dd": 0,
+            "winInterval": null
+          }
+        }
+      },
+      "windows": [
+        {
+          "start": "2025-05-01",
+          "end": "2025-07-01",
+          "complete": true,
+          "expected": 41,
+          "scored": 41,
+          "normal": {
+            "status": "incomplete",
+            "terminalDay": null,
+            "net": 0,
+            "balance": 25000,
+            "floor": 24000,
+            "bestDay": 0,
+            "drawdown": 0,
+            "consistency": null,
+            "signalCount": 44,
+            "denied": {
+              "tradeRisk": 44,
+              "dailyBudget": 0,
+              "floorReserve": 0
+            },
+            "ambiguous": 0,
+            "daily": {
+              "observed": 41,
+              "positive": 0,
+              "negative": 0,
+              "flatActive": 0,
+              "noTrade": 41,
+              "worst": 0
+            },
+            "trades": 0,
+            "metrics": {
+              "count": 0,
+              "wins": 0,
+              "win": null,
+              "total": 0,
+              "exp": null,
+              "pf": null,
+              "dd": 0,
+              "winInterval": null
+            }
+          },
+          "stress": {
+            "status": "incomplete",
+            "terminalDay": null,
+            "net": 0,
+            "balance": 25000,
+            "floor": 24000,
+            "bestDay": 0,
+            "drawdown": 0,
+            "consistency": null,
+            "signalCount": 44,
+            "denied": {
+              "tradeRisk": 44,
+              "dailyBudget": 0,
+              "floorReserve": 0
+            },
+            "ambiguous": 0,
+            "daily": {
+              "observed": 41,
+              "positive": 0,
+              "negative": 0,
+              "flatActive": 0,
+              "noTrade": 41,
+              "worst": 0
+            },
+            "trades": 0,
+            "metrics": {
+              "count": 0,
+              "wins": 0,
+              "win": null,
+              "total": 0,
+              "exp": null,
+              "pf": null,
+              "dd": 0,
+              "winInterval": null
+            }
+          },
+          "diagnostic": {
+            "normal": {
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "netDollars": 0
+            },
+            "stress": {
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "netDollars": 0
+            }
+          }
+        },
+        {
+          "start": "2025-07-01",
+          "end": "2025-09-01",
+          "complete": true,
+          "expected": 43,
+          "scored": 43,
+          "normal": {
+            "status": "incomplete",
+            "terminalDay": null,
+            "net": 0,
+            "balance": 25000,
+            "floor": 24000,
+            "bestDay": 0,
+            "drawdown": 0,
+            "consistency": null,
+            "signalCount": 44,
+            "denied": {
+              "tradeRisk": 44,
+              "dailyBudget": 0,
+              "floorReserve": 0
+            },
+            "ambiguous": 0,
+            "daily": {
+              "observed": 43,
+              "positive": 0,
+              "negative": 0,
+              "flatActive": 0,
+              "noTrade": 43,
+              "worst": 0
+            },
+            "trades": 0,
+            "metrics": {
+              "count": 0,
+              "wins": 0,
+              "win": null,
+              "total": 0,
+              "exp": null,
+              "pf": null,
+              "dd": 0,
+              "winInterval": null
+            }
+          },
+          "stress": {
+            "status": "incomplete",
+            "terminalDay": null,
+            "net": 0,
+            "balance": 25000,
+            "floor": 24000,
+            "bestDay": 0,
+            "drawdown": 0,
+            "consistency": null,
+            "signalCount": 44,
+            "denied": {
+              "tradeRisk": 44,
+              "dailyBudget": 0,
+              "floorReserve": 0
+            },
+            "ambiguous": 0,
+            "daily": {
+              "observed": 43,
+              "positive": 0,
+              "negative": 0,
+              "flatActive": 0,
+              "noTrade": 43,
+              "worst": 0
+            },
+            "trades": 0,
+            "metrics": {
+              "count": 0,
+              "wins": 0,
+              "win": null,
+              "total": 0,
+              "exp": null,
+              "pf": null,
+              "dd": 0,
+              "winInterval": null
+            }
+          },
+          "diagnostic": {
+            "normal": {
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "netDollars": 0
+            },
+            "stress": {
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "netDollars": 0
+            }
+          }
+        },
+        {
+          "start": "2025-09-01",
+          "end": "2025-11-01",
+          "complete": false,
+          "expected": 44,
+          "scored": 40,
+          "normal": null,
+          "stress": null
+        },
+        {
+          "start": "2025-11-01",
+          "end": "2026-01-01",
+          "complete": true,
+          "expected": 41,
+          "scored": 41,
+          "normal": {
+            "status": "incomplete",
+            "terminalDay": null,
+            "net": 0,
+            "balance": 25000,
+            "floor": 24000,
+            "bestDay": 0,
+            "drawdown": 0,
+            "consistency": null,
+            "signalCount": 56,
+            "denied": {
+              "tradeRisk": 56,
+              "dailyBudget": 0,
+              "floorReserve": 0
+            },
+            "ambiguous": 0,
+            "daily": {
+              "observed": 41,
+              "positive": 0,
+              "negative": 0,
+              "flatActive": 0,
+              "noTrade": 41,
+              "worst": 0
+            },
+            "trades": 0,
+            "metrics": {
+              "count": 0,
+              "wins": 0,
+              "win": null,
+              "total": 0,
+              "exp": null,
+              "pf": null,
+              "dd": 0,
+              "winInterval": null
+            }
+          },
+          "stress": {
+            "status": "incomplete",
+            "terminalDay": null,
+            "net": 0,
+            "balance": 25000,
+            "floor": 24000,
+            "bestDay": 0,
+            "drawdown": 0,
+            "consistency": null,
+            "signalCount": 56,
+            "denied": {
+              "tradeRisk": 56,
+              "dailyBudget": 0,
+              "floorReserve": 0
+            },
+            "ambiguous": 0,
+            "daily": {
+              "observed": 41,
+              "positive": 0,
+              "negative": 0,
+              "flatActive": 0,
+              "noTrade": 41,
+              "worst": 0
+            },
+            "trades": 0,
+            "metrics": {
+              "count": 0,
+              "wins": 0,
+              "win": null,
+              "total": 0,
+              "exp": null,
+              "pf": null,
+              "dd": 0,
+              "winInterval": null
+            }
+          },
+          "diagnostic": {
+            "normal": {
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "netDollars": 0
+            },
+            "stress": {
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "netDollars": 0
+            }
+          }
+        },
+        {
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "complete": true,
+          "expected": 39,
+          "scored": 39,
+          "normal": {
+            "status": "incomplete",
+            "terminalDay": null,
+            "net": 0,
+            "balance": 25000,
+            "floor": 24000,
+            "bestDay": 0,
+            "drawdown": 0,
+            "consistency": null,
+            "signalCount": 52,
+            "denied": {
+              "tradeRisk": 52,
+              "dailyBudget": 0,
+              "floorReserve": 0
+            },
+            "ambiguous": 0,
+            "daily": {
+              "observed": 39,
+              "positive": 0,
+              "negative": 0,
+              "flatActive": 0,
+              "noTrade": 39,
+              "worst": 0
+            },
+            "trades": 0,
+            "metrics": {
+              "count": 0,
+              "wins": 0,
+              "win": null,
+              "total": 0,
+              "exp": null,
+              "pf": null,
+              "dd": 0,
+              "winInterval": null
+            }
+          },
+          "stress": {
+            "status": "incomplete",
+            "terminalDay": null,
+            "net": 0,
+            "balance": 25000,
+            "floor": 24000,
+            "bestDay": 0,
+            "drawdown": 0,
+            "consistency": null,
+            "signalCount": 52,
+            "denied": {
+              "tradeRisk": 52,
+              "dailyBudget": 0,
+              "floorReserve": 0
+            },
+            "ambiguous": 0,
+            "daily": {
+              "observed": 39,
+              "positive": 0,
+              "negative": 0,
+              "flatActive": 0,
+              "noTrade": 39,
+              "worst": 0
+            },
+            "trades": 0,
+            "metrics": {
+              "count": 0,
+              "wins": 0,
+              "win": null,
+              "total": 0,
+              "exp": null,
+              "pf": null,
+              "dd": 0,
+              "winInterval": null
+            }
+          },
+          "diagnostic": {
+            "normal": {
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "netDollars": 0
+            },
+            "stress": {
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "netDollars": 0
+            }
+          }
+        },
+        {
+          "start": "2026-03-01",
+          "end": "2026-05-01",
+          "complete": false,
+          "expected": 43,
+          "scored": 25,
+          "normal": null,
+          "stress": null
+        },
+        {
+          "start": "2026-05-01",
+          "end": "2026-07-01",
+          "complete": false,
+          "expected": 41,
+          "scored": 39,
+          "normal": null,
+          "stress": null
+        },
+        {
+          "start": "2026-07-01",
+          "end": "2026-09-01",
+          "complete": true,
+          "expected": 43,
+          "scored": 43,
+          "normal": {
+            "status": "incomplete",
+            "terminalDay": null,
+            "net": 0,
+            "balance": 25000,
+            "floor": 24000,
+            "bestDay": 0,
+            "drawdown": 0,
+            "consistency": null,
+            "signalCount": 57,
+            "denied": {
+              "tradeRisk": 57,
+              "dailyBudget": 0,
+              "floorReserve": 0
+            },
+            "ambiguous": 0,
+            "daily": {
+              "observed": 43,
+              "positive": 0,
+              "negative": 0,
+              "flatActive": 0,
+              "noTrade": 43,
+              "worst": 0
+            },
+            "trades": 0,
+            "metrics": {
+              "count": 0,
+              "wins": 0,
+              "win": null,
+              "total": 0,
+              "exp": null,
+              "pf": null,
+              "dd": 0,
+              "winInterval": null
+            }
+          },
+          "stress": {
+            "status": "incomplete",
+            "terminalDay": null,
+            "net": 0,
+            "balance": 25000,
+            "floor": 24000,
+            "bestDay": 0,
+            "drawdown": 0,
+            "consistency": null,
+            "signalCount": 57,
+            "denied": {
+              "tradeRisk": 57,
+              "dailyBudget": 0,
+              "floorReserve": 0
+            },
+            "ambiguous": 0,
+            "daily": {
+              "observed": 43,
+              "positive": 0,
+              "negative": 0,
+              "flatActive": 0,
+              "noTrade": 43,
+              "worst": 0
+            },
+            "trades": 0,
+            "metrics": {
+              "count": 0,
+              "wins": 0,
+              "win": null,
+              "total": 0,
+              "exp": null,
+              "pf": null,
+              "dd": 0,
+              "winInterval": null
+            }
+          },
+          "diagnostic": {
+            "normal": {
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "netDollars": 0
+            },
+            "stress": {
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "netDollars": 0
+            }
+          }
+        }
+      ],
+      "checks": [
+        {
+          "id": "count",
+          "label": "Au moins 40 trades de diagnostic",
+          "pass": false
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades dans chacune des cinq fenêtres complètes",
+          "pass": false
+        },
+        {
+          "id": "positive",
+          "label": "Chaque fenêtre complète positive",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor au moins 1,10 avant arrondi",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé au plus 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Total positif avec coûts doublés",
+          "pass": false
+        },
+        {
+          "id": "account",
+          "label": "Aucun breach dans les évaluations simulées aux deux coûts",
+          "pass": true
+        }
+      ],
+      "researchPassed": false,
+      "confirmed": false
+    },
+    {
+      "id": "entry5trend30",
+      "label": "Pullback 5 min + tendance 30 min",
+      "signal": "entry5trend30",
+      "guarded": true,
+      "diagnostic": {
+        "normal": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": 14,
+          "balance": 25014,
+          "floor": null,
+          "bestDay": 107,
+          "drawdown": 522.5,
+          "consistency": 7.642857142857143,
+          "signalCount": 1342,
+          "denied": {
+            "tradeRisk": 1279,
+            "dailyBudget": 0,
+            "floorReserve": 0
+          },
+          "ambiguous": 0,
+          "daily": {
+            "observed": 330,
+            "positive": 17,
+            "negative": 21,
+            "flatActive": 0,
+            "noTrade": 292,
+            "worst": -94.5
+          },
+          "trades": 63,
+          "metrics": {
+            "count": 63,
+            "wins": 27,
+            "win": 0.42857142857142855,
+            "total": 0.019641151994921335,
+            "exp": 0.00031176431737970375,
+            "pf": 1.000574619846941,
+            "dd": 13.493983972335727,
+            "winInterval": [
+              0.3139672637328724,
+              0.5513860491740598
+            ]
+          }
+        },
+        "stress": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": -178,
+          "balance": 24822,
+          "floor": null,
+          "bestDay": 91,
+          "drawdown": 563.5,
+          "consistency": null,
+          "signalCount": 1356,
+          "denied": {
+            "tradeRisk": 1299,
+            "dailyBudget": 0,
+            "floorReserve": 0
+          },
+          "ambiguous": 0,
+          "daily": {
+            "observed": 330,
+            "positive": 17,
+            "negative": 18,
+            "flatActive": 0,
+            "noTrade": 295,
+            "worst": -96
+          },
+          "trades": 57,
+          "metrics": {
+            "count": 57,
+            "wins": 25,
+            "win": 0.43859649122807015,
+            "total": -5.645545138873111,
+            "exp": -0.09904465155917738,
+            "pf": 0.8365370362283772,
+            "dd": 15.012625200639473,
+            "winInterval": [
+              0.31772495285894004,
+              0.567222188570608
+            ]
+          }
+        }
+      },
+      "windows": [
+        {
+          "start": "2025-05-01",
+          "end": "2025-07-01",
+          "complete": true,
+          "expected": 41,
+          "scored": 41,
+          "normal": {
+            "status": "incomplete",
+            "terminalDay": null,
+            "net": 30.5,
+            "balance": 25030.5,
+            "floor": 24078.5,
+            "bestDay": 72.5,
+            "drawdown": 91,
+            "consistency": 2.377049180327869,
+            "signalCount": 120,
+            "denied": {
+              "tradeRisk": 111,
+              "dailyBudget": 0,
+              "floorReserve": 0
+            },
+            "ambiguous": 0,
+            "daily": {
+              "observed": 41,
+              "positive": 2,
+              "negative": 3,
+              "flatActive": 0,
+              "noTrade": 36,
+              "worst": -48
+            },
+            "trades": 9,
+            "metrics": {
+              "count": 9,
+              "wins": 4,
+              "win": 0.4444444444444444,
+              "total": 0.5151535867372883,
+              "exp": 0.057239287415254254,
+              "pf": 1.1002264432389335,
+              "dd": 2.1815928618638467,
+              "winInterval": [
+                0.188775429471914,
+                0.7333526542559703
+              ]
+            }
+          },
+          "stress": {
+            "status": "incomplete",
+            "terminalDay": null,
+            "net": 90.5,
+            "balance": 25090.5,
+            "floor": 24090.5,
+            "bestDay": 57.5,
+            "drawdown": 46.5,
+            "consistency": 0.6353591160220995,
+            "signalCount": 124,
+            "denied": {
+              "tradeRisk": 117,
+              "dailyBudget": 0,
+              "floorReserve": 0
+            },
+            "ambiguous": 0,
+            "daily": {
+              "observed": 41,
+              "positive": 3,
+              "negative": 1,
+              "flatActive": 0,
+              "noTrade": 37,
+              "worst": -46.5
+            },
+            "trades": 7,
+            "metrics": {
+              "count": 7,
+              "wins": 4,
+              "win": 0.5714285714285714,
+              "total": 1.9969131779921467,
+              "exp": 0.28527331114173526,
+              "pf": 1.609071261718231,
+              "dd": 1.2058823529411764,
+              "winInterval": [
+                0.2504542304090258,
+                0.8417830777373732
+              ]
+            }
+          },
+          "diagnostic": {
+            "normal": {
+              "metrics": {
+                "count": 9,
+                "wins": 4,
+                "win": 0.4444444444444444,
+                "total": 0.5151535867372883,
+                "exp": 0.057239287415254254,
+                "pf": 1.1002264432389335,
+                "dd": 2.1815928618638467,
+                "winInterval": [
+                  0.188775429471914,
+                  0.7333526542559703
+                ]
+              },
+              "netDollars": 30.5
+            },
+            "stress": {
+              "metrics": {
+                "count": 7,
+                "wins": 4,
+                "win": 0.5714285714285714,
+                "total": 1.9969131779921467,
+                "exp": 0.28527331114173526,
+                "pf": 1.609071261718231,
+                "dd": 1.2058823529411764,
+                "winInterval": [
+                  0.2504542304090258,
+                  0.8417830777373732
+                ]
+              },
+              "netDollars": 90.5
+            }
+          }
+        },
+        {
+          "start": "2025-07-01",
+          "end": "2025-09-01",
+          "complete": true,
+          "expected": 43,
+          "scored": 43,
+          "normal": {
+            "status": "incomplete",
+            "terminalDay": null,
+            "net": -299.5,
+            "balance": 24700.5,
+            "floor": 24000,
+            "bestDay": 107,
+            "drawdown": 437,
+            "consistency": null,
+            "signalCount": 131,
+            "denied": {
+              "tradeRisk": 114,
+              "dailyBudget": 0,
+              "floorReserve": 0
+            },
+            "ambiguous": 0,
+            "daily": {
+              "observed": 43,
+              "positive": 3,
+              "negative": 8,
+              "flatActive": 0,
+              "noTrade": 32,
+              "worst": -89
+            },
+            "trades": 17,
+            "metrics": {
+              "count": 17,
+              "wins": 5,
+              "win": 0.29411764705882354,
+              "total": -7.667455675699945,
+              "exp": -0.45102680445293797,
+              "pf": 0.4147056555956294,
+              "dd": 11.31239111047188,
+              "winInterval": [
+                0.13279793865556402,
+                0.5313353332621391
+              ]
+            }
+          },
+          "stress": {
+            "status": "incomplete",
+            "terminalDay": null,
+            "net": -457,
+            "balance": 24543,
+            "floor": 24000,
+            "bestDay": 27,
+            "drawdown": 522.5,
+            "consistency": null,
+            "signalCount": 136,
+            "denied": {
+              "tradeRisk": 119,
+              "dailyBudget": 0,
+              "floorReserve": 0
+            },
+            "ambiguous": 0,
+            "daily": {
+              "observed": 43,
+              "positive": 2,
+              "negative": 9,
+              "flatActive": 0,
+              "noTrade": 32,
+              "worst": -96
+            },
+            "trades": 17,
+            "metrics": {
+              "count": 17,
+              "wins": 4,
+              "win": 0.23529411764705882,
+              "total": -11.804721738333821,
+              "exp": -0.6943953963725777,
+              "pf": 0.23442876302535798,
+              "dd": 13.806742847698295,
+              "winInterval": [
+                0.0955488907167594,
+                0.47262245889171595
+              ]
+            }
+          },
+          "diagnostic": {
+            "normal": {
+              "metrics": {
+                "count": 17,
+                "wins": 5,
+                "win": 0.29411764705882354,
+                "total": -7.667455675699945,
+                "exp": -0.45102680445293797,
+                "pf": 0.4147056555956294,
+                "dd": 11.31239111047188,
+                "winInterval": [
+                  0.13279793865556402,
+                  0.5313353332621391
+                ]
+              },
+              "netDollars": -299.5
+            },
+            "stress": {
+              "metrics": {
+                "count": 17,
+                "wins": 4,
+                "win": 0.23529411764705882,
+                "total": -11.804721738333821,
+                "exp": -0.6943953963725777,
+                "pf": 0.23442876302535798,
+                "dd": 13.806742847698295,
+                "winInterval": [
+                  0.0955488907167594,
+                  0.47262245889171595
+                ]
+              },
+              "netDollars": -457
+            }
+          }
+        },
+        {
+          "start": "2025-09-01",
+          "end": "2025-11-01",
+          "complete": false,
+          "expected": 44,
+          "scored": 40,
+          "normal": null,
+          "stress": null
+        },
+        {
+          "start": "2025-11-01",
+          "end": "2026-01-01",
+          "complete": true,
+          "expected": 41,
+          "scored": 41,
+          "normal": {
+            "status": "incomplete",
+            "terminalDay": null,
+            "net": -87,
+            "balance": 24913,
+            "floor": 24070.5,
+            "bestDay": 92.5,
+            "drawdown": 177.5,
+            "consistency": null,
+            "signalCount": 185,
+            "denied": {
+              "tradeRisk": 175,
+              "dailyBudget": 0,
+              "floorReserve": 0
+            },
+            "ambiguous": 0,
+            "daily": {
+              "observed": 41,
+              "positive": 2,
+              "negative": 4,
+              "flatActive": 0,
+              "noTrade": 35,
+              "worst": -94.5
+            },
+            "trades": 10,
+            "metrics": {
+              "count": 10,
+              "wins": 3,
+              "win": 0.3,
+              "total": -1.4731128604064756,
+              "exp": -0.14731128604064755,
+              "pf": 0.7385042180491728,
+              "dd": 4.341346153846153,
+              "winInterval": [
+                0.10778928748621183,
+                0.6032267800204347
+              ]
+            }
+          },
+          "stress": {
+            "status": "incomplete",
+            "terminalDay": null,
+            "net": -15,
+            "balance": 24985,
+            "floor": 24051.5,
+            "bestDay": 82,
+            "drawdown": 90,
+            "consistency": null,
+            "signalCount": 187,
+            "denied": {
+              "tradeRisk": 179,
+              "dailyBudget": 0,
+              "floorReserve": 0
+            },
+            "ambiguous": 0,
+            "daily": {
+              "observed": 41,
+              "positive": 2,
+              "negative": 3,
+              "flatActive": 0,
+              "noTrade": 36,
+              "worst": -50
+            },
+            "trades": 8,
+            "metrics": {
+              "count": 8,
+              "wins": 3,
+              "win": 0.375,
+              "total": -0.20752255419023657,
+              "exp": -0.025940319273779572,
+              "pf": 0.9486408885591179,
+              "dd": 2.496875,
+              "winInterval": [
+                0.13684175946152105,
+                0.6942621454161981
+              ]
+            }
+          },
+          "diagnostic": {
+            "normal": {
+              "metrics": {
+                "count": 10,
+                "wins": 3,
+                "win": 0.3,
+                "total": -1.4731128604064756,
+                "exp": -0.14731128604064755,
+                "pf": 0.7385042180491728,
+                "dd": 4.341346153846153,
+                "winInterval": [
+                  0.10778928748621183,
+                  0.6032267800204347
+                ]
+              },
+              "netDollars": -87
+            },
+            "stress": {
+              "metrics": {
+                "count": 8,
+                "wins": 3,
+                "win": 0.375,
+                "total": -0.20752255419023657,
+                "exp": -0.025940319273779572,
+                "pf": 0.9486408885591179,
+                "dd": 2.496875,
+                "winInterval": [
+                  0.13684175946152105,
+                  0.6942621454161981
+                ]
+              },
+              "netDollars": -15
+            }
+          }
+        },
+        {
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "complete": true,
+          "expected": 39,
+          "scored": 39,
+          "normal": {
+            "status": "incomplete",
+            "terminalDay": null,
+            "net": 110.5,
+            "balance": 25110.5,
+            "floor": 24110.5,
+            "bestDay": 66,
+            "drawdown": 0.5,
+            "consistency": 0.5972850678733032,
+            "signalCount": 188,
+            "denied": {
+              "tradeRisk": 184,
+              "dailyBudget": 0,
+              "floorReserve": 0
+            },
+            "ambiguous": 0,
+            "daily": {
+              "observed": 39,
+              "positive": 2,
+              "negative": 1,
+              "flatActive": 0,
+              "noTrade": 36,
+              "worst": -0.5
+            },
+            "trades": 4,
+            "metrics": {
+              "count": 4,
+              "wins": 3,
+              "win": 0.75,
+              "total": 3.295644114921223,
+              "exp": 0.8239110287303058,
+              "pf": 274.5384615384615,
+              "dd": 0.012048192771084265,
+              "winInterval": [
+                0.3006360524426366,
+                0.9544139373553637
+              ]
+            }
+          },
+          "stress": {
+            "status": "incomplete",
+            "terminalDay": null,
+            "net": 96.5,
+            "balance": 25096.5,
+            "floor": 24096.5,
+            "bestDay": 59,
+            "drawdown": 4,
+            "consistency": 0.6113989637305699,
+            "signalCount": 188,
+            "denied": {
+              "tradeRisk": 184,
+              "dailyBudget": 0,
+              "floorReserve": 0
+            },
+            "ambiguous": 0,
+            "daily": {
+              "observed": 39,
+              "positive": 2,
+              "negative": 1,
+              "flatActive": 0,
+              "noTrade": 36,
+              "worst": -4
+            },
+            "trades": 4,
+            "metrics": {
+              "count": 4,
+              "wins": 3,
+              "win": 0.75,
+              "total": 2.8959221501390173,
+              "exp": 0.7239805375347543,
+              "pf": 31.0451923076923,
+              "dd": 0.09638554216867479,
+              "winInterval": [
+                0.3006360524426366,
+                0.9544139373553637
+              ]
+            }
+          },
+          "diagnostic": {
+            "normal": {
+              "metrics": {
+                "count": 4,
+                "wins": 3,
+                "win": 0.75,
+                "total": 3.295644114921223,
+                "exp": 0.8239110287303058,
+                "pf": 274.5384615384615,
+                "dd": 0.012048192771084265,
+                "winInterval": [
+                  0.3006360524426366,
+                  0.9544139373553637
+                ]
+              },
+              "netDollars": 110.5
+            },
+            "stress": {
+              "metrics": {
+                "count": 4,
+                "wins": 3,
+                "win": 0.75,
+                "total": 2.8959221501390173,
+                "exp": 0.7239805375347543,
+                "pf": 31.0451923076923,
+                "dd": 0.09638554216867479,
+                "winInterval": [
+                  0.3006360524426366,
+                  0.9544139373553637
+                ]
+              },
+              "netDollars": 96.5
+            }
+          }
+        },
+        {
+          "start": "2026-03-01",
+          "end": "2026-05-01",
+          "complete": false,
+          "expected": 43,
+          "scored": 25,
+          "normal": null,
+          "stress": null
+        },
+        {
+          "start": "2026-05-01",
+          "end": "2026-07-01",
+          "complete": false,
+          "expected": 41,
+          "scored": 39,
+          "normal": null,
+          "stress": null
+        },
+        {
+          "start": "2026-07-01",
+          "end": "2026-09-01",
+          "complete": true,
+          "expected": 43,
+          "scored": 43,
+          "normal": {
+            "status": "incomplete",
+            "terminalDay": null,
+            "net": 0,
+            "balance": 25000,
+            "floor": 24000,
+            "bestDay": 0,
+            "drawdown": 0,
+            "consistency": null,
+            "signalCount": 179,
+            "denied": {
+              "tradeRisk": 179,
+              "dailyBudget": 0,
+              "floorReserve": 0
+            },
+            "ambiguous": 0,
+            "daily": {
+              "observed": 43,
+              "positive": 0,
+              "negative": 0,
+              "flatActive": 0,
+              "noTrade": 43,
+              "worst": 0
+            },
+            "trades": 0,
+            "metrics": {
+              "count": 0,
+              "wins": 0,
+              "win": null,
+              "total": 0,
+              "exp": null,
+              "pf": null,
+              "dd": 0,
+              "winInterval": null
+            }
+          },
+          "stress": {
+            "status": "incomplete",
+            "terminalDay": null,
+            "net": 0,
+            "balance": 25000,
+            "floor": 24000,
+            "bestDay": 0,
+            "drawdown": 0,
+            "consistency": null,
+            "signalCount": 179,
+            "denied": {
+              "tradeRisk": 179,
+              "dailyBudget": 0,
+              "floorReserve": 0
+            },
+            "ambiguous": 0,
+            "daily": {
+              "observed": 43,
+              "positive": 0,
+              "negative": 0,
+              "flatActive": 0,
+              "noTrade": 43,
+              "worst": 0
+            },
+            "trades": 0,
+            "metrics": {
+              "count": 0,
+              "wins": 0,
+              "win": null,
+              "total": 0,
+              "exp": null,
+              "pf": null,
+              "dd": 0,
+              "winInterval": null
+            }
+          },
+          "diagnostic": {
+            "normal": {
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "netDollars": 0
+            },
+            "stress": {
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "netDollars": 0
+            }
+          }
+        }
+      ],
+      "checks": [
+        {
+          "id": "count",
+          "label": "Au moins 40 trades de diagnostic",
+          "pass": true
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades dans chacune des cinq fenêtres complètes",
+          "pass": false
+        },
+        {
+          "id": "positive",
+          "label": "Chaque fenêtre complète positive",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor au moins 1,10 avant arrondi",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé au plus 8 R",
+          "pass": false
+        },
+        {
+          "id": "stress",
+          "label": "Total positif avec coûts doublés",
+          "pass": false
+        },
+        {
+          "id": "account",
+          "label": "Aucun breach dans les évaluations simulées aux deux coûts",
+          "pass": true
+        }
+      ],
+      "researchPassed": false,
+      "confirmed": false
+    }
+  ],
+  "audit": {
+    "signalPrefixes": 874,
+    "accountPrefixes": 1242,
+    "trades": 819,
+    "legacyTrades": 468,
+    "passed": true
+  },
+  "readiness": [
+    {
+      "id": "historical",
+      "label": "Avantage historique indépendant",
+      "ready": false
+    },
+    {
+      "id": "feed",
+      "label": "Flux MNQ actuel autorisé dans le site",
+      "ready": false
+    },
+    {
+      "id": "paper",
+      "label": "Exécution Paper Trading vérifiée",
+      "ready": false
+    },
+    {
+      "id": "broker",
+      "label": "Connexion broker et contrôles opérationnels",
+      "ready": false
+    }
+  ],
+  "confirmed": false
+}

@@ -1,0 +1,29 @@
+{
+  "schema": "jeu39-source-v1",
+  "baseCommit": "9c9a013b70029450639a7c188ee0c37272b72908",
+  "inputs": {
+    "prices": {
+      "bytes": 4331838,
+      "sha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09"
+    },
+    "mnq": {
+      "bytes": 2426693,
+      "sha256": "028e914bb10ea38b73b6fcbc867c5d81937b967701448913fc88ca85746557cf"
+    },
+    "prior": {
+      "bytes": 1068424,
+      "sha256": "d96d279d13a819d9cf58b575218897b43f3279a749c4aa5ba8e7aabee632e44b"
+    },
+    "requestPack": {
+      "bytes": 287627,
+      "sha256": "a9578a01fe5e8512468d55e17611e8d094e196f58482d4790afbb88e6d313703"
+    }
+  },
+  "priorArchive": "jeu37/confidence-risk-v1/manifest.json",
+  "newConfigurations": 2,
+  "privateSourceLocations": {
+    "pricesManifest": "jeu19/multimarket-v1/manifest.json",
+    "mnqKey": "jeu14/available-history-v1.json"
+  },
+  "modelAssets": "Seven pinned assets and exact runtime in trading/models/registry.json and scripts/run-trading-kronos.py; no fitting or downloads"
+}

@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#07111f">
+  <title>Replay · Nykuto Trading HQ</title>
+  <meta name="description" content="Mode replay privé pour s'entraîner sur des chandeliers historiques sans voir le futur.">
+  <link rel="stylesheet" href="./replay.css">
+  <script src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js" defer></script>
+  <script src="./replay.js?v=3" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Aller au contenu</a>
+
+  <header class="topbar">
+    <a class="brand" href="../" aria-label="Retour au Trading HQ">
+      <span class="brand-mark" aria-hidden="true">N</span>
+      <span><small>NYKUTO</small><strong>Trading HQ</strong></span>
+    </a>
+    <div class="topbar-actions">
+      <span class="status-pill"><span class="status-dot" aria-hidden="true"></span>Replay · Paper only</span>
+      <a class="ghost-button" href="../">Dashboard</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="intro">
+      <div>
+        <p class="eyebrow">ENTRAÎNEMENT</p>
+        <h1>Market Replay</h1>
+        <p>Charge une période passée, puis avance sans voir les bougies futures. Le but est de travailler ton analyse et ton exécution, pas de prédire avec le recul.</p>
+      </div>
+      <div class="privacy-note">
+        <strong>Futur masqué</strong>
+        <span>Le graphique ne reçoit que les bougies déjà révélées.</span>
+      </div>
+    </section>
+
+    <section class="panel setup-panel" aria-labelledby="setup-title">
+      <div class="panel-heading">
+        <div>
+          <p class="panel-kicker">SESSION</p>
+          <h2 id="setup-title">Choisir une période</h2>
+        </div>
+        <button type="button" class="ghost-button compact-button" id="randomDateButton">Date aléatoire</button>
+      </div>
+
+      <form id="replaySetup" class="setup-grid">
+        <label>
+          <span>Actif</span>
+          <select id="assetSelect">
+            <optgroup label="Indices / ETF US">
+              <option value="SPY">SPY · S&P 500 ETF</option>
+              <option value="QQQ">QQQ · Nasdaq 100 ETF</option>
+              <option value="GSPC">S&P 500 · indice</option>
+              <option value="IXIC">Nasdaq Composite · indice</option>
+            </optgroup>
+            <optgroup label="Actions US">
+              <option value="AAPL">Apple</option>
+              <option value="NVDA">Nvidia</option>
+              <option value="TSLA">Tesla</option>
+            </optgroup>
+            <optgroup label="Matières premières">
+              <option value="GOLD">Or · futures</option>
+              <option value="OIL">Pétrole WTI · futures</option>
+            </optgroup>
+            <optgroup label="Crypto · Binance">
+              <option value="BTCUSDT">Bitcoin / USDT</option>
+              <option value="ETHUSDT">Ethereum / USDT</option>
+              <option value="SOLUSDT">Solana / USDT</option>
+            </optgroup>
+          </select>
+        </label>
+        <label>
+          <span>Timeframe</span>
+          <select id="intervalSelect">
+            <option value="1m">1 minute</option>
+            <option value="5m">5 minutes</option>
+            <option value="15m" selected>15 minutes</option>
+            <option value="1h">1 heure</option>
+            <option value="1d">1 jour</option>
+          </select>
+        </label>
+        <label>
+          <span>Date de départ</span>
+          <input id="startDateInput" type="date" required>
+        </label>
+        <label>
+          <span>Contexte initial</span>
+          <select id="contextBarsSelect">
+            <option value="20">20 bougies</option>
+            <option value="40" selected>40 bougies</option>
+            <option value="80">80 bougies</option>
+          </select>
+        </label>
+        <button type="submit" class="primary-button load-button" id="loadReplayButton">Charger le replay</button>
+      </form>
+      <p class="data-note" id="dataNote">Les données intraday gratuites peuvent avoir une profondeur historique limitée selon le marché. Si une période n'est pas disponible, choisis une date plus récente ou un timeframe plus grand.</p>
+    </section>
+
+    <section class="workspace" aria-label="Espace de replay">
+      <article class="panel chart-panel">
+        <div class="chart-header">
+          <div>
+            <p class="panel-kicker">GRAPHIQUE</p>
+            <h2 id="chartSymbol">Aucune session chargée</h2>
+            <p class="chart-time" id="chartTime">Choisis un actif, une date et un timeframe.</p>
+          </div>
+          <div class="ohlc" aria-live="polite">
+            <span>O <strong id="ohlcOpen">—</strong></span>
+            <span>H <strong id="ohlcHigh">—</strong></span>
+            <span>L <strong id="ohlcLow">—</strong></span>
+            <span>C <strong id="ohlcClose">—</strong></span>
+          </div>
+        </div>
+
+        <div class="chart-shell">
+          <div id="replayChart" aria-label="Graphique historique du replay"></div>
+          <div class="chart-placeholder" id="chartPlaceholder">
+            <strong>Prêt pour une session</strong>
+            <span>Le futur restera invisible jusqu'à ce que tu avances.</span>
+          </div>
+        </div>
+
+        <div class="playback-bar">
+          <button type="button" class="primary-button" id="playPauseButton" disabled>▶ Lecture</button>
+          <button type="button" class="ghost-button" id="stepButton" disabled>+1 bougie</button>
+          <button type="button" class="ghost-button" id="resetReplayButton" disabled>↺ Revenir au départ</button>
+          <label class="speed-control"><span>Vitesse</span><select id="speedSelect"><option value="1200">0,5×</option><option value="700" selected>1×</option><option value="350">2×</option><option value="140">5×</option></select></label>
+          <div class="replay-progress">
+            <span id="replayProgressLabel">0 / 0</span>
+            <div class="progress-track" aria-hidden="true"><span id="replayProgress"></span></div>
+          </div>
+        </div>
+      </article>
+
+      <aside class="panel practice-panel" aria-labelledby="practice-title">
+        <div class="panel-heading">
+          <div>
+            <p class="panel-kicker">PAPER TRADE</p>
+            <h2 id="practice-title">Tester ta décision</h2>
+          </div>
+        </div>
+
+        <div class="position-status" id="positionStatus">
+          <span class="status-label">Position</span>
+          <strong>Aucune</strong>
+          <small>Les ordres sont uniquement simulés dans ton navigateur.</small>
+        </div>
+
+        <div class="trade-fields">
+          <label><span>Stop loss</span><input id="paperStop" type="number" step="any" inputmode="decimal" placeholder="Optionnel"></label>
+          <label><span>Take profit</span><input id="paperTarget" type="number" step="any" inputmode="decimal" placeholder="Optionnel"></label>
+        </div>
+
+        <div class="trade-actions">
+          <button type="button" class="long-button" id="longButton" disabled>Long</button>
+          <button type="button" class="short-button" id="shortButton" disabled>Short</button>
+          <button type="button" class="ghost-button close-button" id="closePositionButton" disabled>Clôturer</button>
+        </div>
+
+        <div class="position-metrics">
+          <div><span>Entrée</span><strong id="paperEntry">—</strong></div>
+          <div><span>Prix actuel</span><strong id="paperCurrent">—</strong></div>
+          <div><span>P&L simulé</span><strong id="paperPnl">—</strong></div>
+          <div><span>Résultat</span><strong id="paperR">—</strong></div>
+        </div>
+
+        <div class="session-summary">
+          <p class="panel-kicker">SESSION</p>
+          <div><span>Trades clôturés</span><strong id="sessionTradeCount">0</strong></div>
+          <div><span>R cumulé</span><strong id="sessionTotalR">—</strong></div>
+          <div><span>Win rate</span><strong id="sessionWinRate">—</strong></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="panel method-panel" aria-labelledby="method-title">
+      <div class="panel-heading">
+        <div>
+          <p class="panel-kicker">MÉTHODE</p>
+          <h2 id="method-title">Comment t'entraîner proprement</h2>
+        </div>
+      </div>
+      <ol>
+        <li><strong>Choisis une date que tu connais le moins possible.</strong><span>Le bouton « Date aléatoire » évite de chercher uniquement les journées spectaculaires.</span></li>
+        <li><strong>Analyse uniquement ce qui est visible.</strong><span>Définis contexte, niveau, invalidation et objectif avant d'avancer.</span></li>
+        <li><strong>Avance une bougie à la fois.</strong><span>Quand ta décision est prise, utilise Long ou Short puis laisse le marché révéler la suite.</span></li>
+        <li><strong>Consigne le résultat.</strong><span>Chaque position clôturée avec un stop valide est ajoutée à ton journal Trading HQ en R.</span></li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>Nykuto Market Replay</strong> — entraînement personnel sur données historiques. Aucun ordre réel n'est transmis à un broker.</p>
+    <p>Une bougie OHLC ne révèle pas l'ordre exact des mouvements intrabougie : si stop et objectif sont tous les deux touchés dans la même bougie, le simulateur retient par prudence le stop en premier.</p>
+  </footer>
+</body>
+</html>

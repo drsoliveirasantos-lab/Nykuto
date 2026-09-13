@@ -1,0 +1,354 @@
+//@version=6
+indicator("Nykuto Signal V11 - Session + Target Aware", overlay=true, max_labels_count=500)
+
+// Research indicator only. No broker orders.
+// V11 keeps the chart minimal and moves Tokyo/SMMA/Ichimoku/pivots/target logic inside the existing B/S markers.
+
+// ===== Inputs =====
+fastLen = input.int(9, "EMA rapide", minval=1)
+slowLen = input.int(21, "EMA lente", minval=2)
+smmaLen = input.int(50, "SMMA", minval=2)
+rsiLen = input.int(14, "RSI", minval=2)
+atrLen = input.int(14, "ATR", minval=2)
+volLen = input.int(20, "Volume moyen", minval=2)
+pivotLeft = input.int(2, "Pivot gauche", minval=1)
+pivotRight = input.int(2, "Pivot droite", minval=1)
+useAutoHtf = input.bool(true, "HTF automatique")
+manualHtf = input.timeframe("60", "HTF manuel")
+htfFastLen = input.int(20, "HTF EMA rapide", minval=1)
+htfSlowLen = input.int(50, "HTF EMA lente", minval=2)
+relVolMin = input.float(1.20, "Volume relatif min", step=0.05)
+relVolHigh = input.float(1.50, "Volume eleve", step=0.05)
+rangeATRMin = input.float(0.75, "Expansion min ATR", step=0.05)
+maxExtensionATR = input.float(1.40, "Extension max EMA/ATR", step=0.10)
+minRoomATR = input.float(1.25, "Espace minimum vers target (ATR)", step=0.05)
+contextBars = input.int(12, "Memoire RSI/divergence", minval=1)
+cooldownBars = input.int(6, "Cooldown", minval=1)
+continuationWeak = input.int(8, "Seuil B/S", minval=1)
+continuationStrong = input.int(11, "Seuil B+/S+", minval=2)
+continuationVeryStrong = input.int(14, "Seuil B++/S++", minval=3)
+reversalStrong = input.int(9, "Seuil BR/SR", minval=1)
+reversalVeryStrong = input.int(12, "Seuil BR+/SR+", minval=2)
+
+tokyoSession = input.session("0900-1500", "Session Tokyo")
+showContext = input.bool(true, "Afficher R/DIV/MSS")
+showSessions = input.bool(true, "Afficher fin Tokyo")
+showGuides = input.bool(false, "Afficher EMA/SMMA/VWAP")
+showTooltips = input.bool(true, "Explications au survol")
+
+// ===== Helpers =====
+f_mark(bool cond, string txt) => cond ? "OK " + txt + "\n" : ""
+f_tip(string title, int score, string details) => showTooltips ? title + "\nScore: " + str.tostring(score) + "\n\n" + details : ""
+
+// ===== Auto HTF =====
+chartSec = timeframe.in_seconds()
+autoHtf = chartSec <= 15 ? "1" : chartSec <= 60 ? "5" : chartSec <= 300 ? "15" : chartSec <= 900 ? "60" : chartSec <= 3600 ? "240" : "D"
+htf = useAutoHtf ? autoHtf : manualHtf
+
+// ===== Base =====
+emaFast = ta.ema(close, fastLen)
+emaSlow = ta.ema(close, slowLen)
+smma = ta.rma(close, smmaLen)
+rsi = ta.rsi(close, rsiLen)
+atr = ta.atr(atrLen)
+atrRef = atr[1]
+vwap = ta.vwap(hlc3)
+volAvg = ta.sma(volume, volLen)[1]
+relVol = not na(volAvg) and volAvg > 0 ? volume / volAvg : 0.0
+[macdLine, macdSignal, macdHist] = ta.macd(close, 12, 26, 9)
+
+// ===== Confirmed higher timeframe =====
+htfFast = request.security(syminfo.tickerid, htf, ta.ema(close, htfFastLen)[1], barmerge.gaps_off, barmerge.lookahead_on)
+htfSlow = request.security(syminfo.tickerid, htf, ta.ema(close, htfSlowLen)[1], barmerge.gaps_off, barmerge.lookahead_on)
+htfBull = htfFast > htfSlow
+htfBear = htfFast < htfSlow
+
+// ===== Ichimoku internal bias =====
+tenkan = (ta.highest(high, 9) + ta.lowest(low, 9)) / 2.0
+kijun = (ta.highest(high, 26) + ta.lowest(low, 26)) / 2.0
+spanAraw = (tenkan + kijun) / 2.0
+spanBraw = (ta.highest(high, 52) + ta.lowest(low, 52)) / 2.0
+spanA = spanAraw[26]
+spanB = spanBraw[26]
+cloudTop = math.max(spanA, spanB)
+cloudBottom = math.min(spanA, spanB)
+ichBull = not na(cloudTop) and close > cloudTop
+ichBear = not na(cloudBottom) and close < cloudBottom
+ichNeutral = not na(cloudTop) and not na(cloudBottom) and close <= cloudTop and close >= cloudBottom
+
+// ===== Candle + volume =====
+candleRange = high - low
+body = math.abs(close - open)
+bodyRatio = candleRange > 0 ? body / candleRange : 0.0
+upperWick = high - math.max(open, close)
+lowerWick = math.min(open, close) - low
+upperWickRatio = candleRange > 0 ? upperWick / candleRange : 0.0
+lowerWickRatio = candleRange > 0 ? lowerWick / candleRange : 0.0
+expansion = not na(atrRef) and atrRef > 0 and candleRange >= atrRef * rangeATRMin
+displacementUp = expansion and bodyRatio >= 0.60 and close > open
+displacementDown = expansion and bodyRatio >= 0.60 and close < open
+doji = bodyRatio <= 0.10
+volumeOk = relVol >= relVolMin
+volumeHigh = relVol >= relVolHigh
+
+bullEngulf = close > open and close[1] < open[1] and open <= close[1] and close >= open[1]
+bearEngulf = close < open and close[1] > open[1] and open >= close[1] and close <= open[1]
+bullHammer = lowerWickRatio >= 0.50 and upperWickRatio <= 0.20 and bodyRatio <= 0.45
+bearShootingStar = upperWickRatio >= 0.50 and lowerWickRatio <= 0.20 and bodyRatio <= 0.45
+bullPin = lowerWickRatio >= 0.60 and bodyRatio <= 0.30
+bearPin = upperWickRatio >= 0.60 and bodyRatio <= 0.30
+bullReject = low <= emaFast and close > emaFast and close > open and close > high[1]
+bearReject = high >= emaFast and close < emaFast and close < open and close < low[1]
+bullPattern = bullEngulf or bullHammer or bullPin or bullReject
+bearPattern = bearEngulf or bearShootingStar or bearPin or bearReject
+bullAbsorption = volumeHigh and bodyRatio <= 0.35 and lowerWickRatio >= 0.45
+bearAbsorption = volumeHigh and bodyRatio <= 0.35 and upperWickRatio >= 0.45
+
+// ===== RSI events =====
+rsiExitUp = barstate.isconfirmed and ta.crossover(rsi, 30)
+rsiExitDown = barstate.isconfirmed and ta.crossunder(rsi, 70)
+ageRsiUp = ta.barssince(rsiExitUp)
+ageRsiDown = ta.barssince(rsiExitDown)
+recentRsiUp = not na(ageRsiUp) and ageRsiUp <= contextBars
+recentRsiDown = not na(ageRsiDown) and ageRsiDown <= contextBars
+
+// ===== Confirmed pivots + divergence =====
+pHigh = ta.pivothigh(high, pivotLeft, pivotRight)
+pLow = ta.pivotlow(low, pivotLeft, pivotRight)
+var float lastHigh = na
+var float prevHigh = na
+var float lastLow = na
+var float prevLow = na
+var float lastHighRsi = na
+var float lastLowRsi = na
+bullDiv = false
+bearDiv = false
+
+if barstate.isconfirmed and not na(pLow)
+    pivotRsi = rsi[pivotRight]
+    bullDiv := not na(lastLow) and not na(lastLowRsi) and pLow < lastLow and pivotRsi > lastLowRsi
+    prevLow := lastLow
+    lastLow := pLow
+    lastLowRsi := pivotRsi
+
+if barstate.isconfirmed and not na(pHigh)
+    pivotRsi = rsi[pivotRight]
+    bearDiv := not na(lastHigh) and not na(lastHighRsi) and pHigh > lastHigh and pivotRsi < lastHighRsi
+    prevHigh := lastHigh
+    lastHigh := pHigh
+    lastHighRsi := pivotRsi
+
+ageBullDiv = ta.barssince(bullDiv)
+ageBearDiv = ta.barssince(bearDiv)
+recentBullDiv = not na(ageBullDiv) and ageBullDiv <= contextBars
+recentBearDiv = not na(ageBearDiv) and ageBearDiv <= contextBars
+
+// ===== Structure =====
+higherHigh = not na(lastHigh) and not na(prevHigh) and lastHigh > prevHigh
+lowerHigh = not na(lastHigh) and not na(prevHigh) and lastHigh < prevHigh
+higherLow = not na(lastLow) and not na(prevLow) and lastLow > prevLow
+lowerLow = not na(lastLow) and not na(prevLow) and lastLow < prevLow
+bullStructure = higherHigh and higherLow
+bearStructure = lowerHigh and lowerLow
+bullBreak = not na(lastHigh) and close > lastHigh and close[1] <= lastHigh
+bearBreak = not na(lastLow) and close < lastLow and close[1] >= lastLow
+bullBOS = barstate.isconfirmed and bullStructure and bullBreak
+bearBOS = barstate.isconfirmed and bearStructure and bearBreak
+bullMSS = barstate.isconfirmed and bearStructure and bullBreak and displacementUp and volumeOk
+bearMSS = barstate.isconfirmed and bullStructure and bearBreak and displacementDown and volumeOk
+
+// ===== FVG =====
+bullFvg = low > high[2]
+bearFvg = high < low[2]
+
+// ===== Tokyo range =====
+tokyoIn = not na(time(timeframe.period, tokyoSession, "Asia/Tokyo"))
+tokyoStart = tokyoIn and not tokyoIn[1]
+tokyoEnd = not tokyoIn and tokyoIn[1]
+var float tokyoHigh = na
+var float tokyoLow = na
+var bool tokyoReady = false
+
+if tokyoStart
+    tokyoHigh := high
+    tokyoLow := low
+    tokyoReady := false
+else if tokyoIn
+    tokyoHigh := na(tokyoHigh) ? high : math.max(tokyoHigh, high)
+    tokyoLow := na(tokyoLow) ? low : math.min(tokyoLow, low)
+
+if tokyoEnd
+    tokyoReady := true
+
+if tokyoStart
+    tokyoReady := false
+
+tokyoBullBreak = tokyoReady and not na(tokyoHigh) and barstate.isconfirmed and close > tokyoHigh and close[1] <= tokyoHigh
+tokyoBearBreak = tokyoReady and not na(tokyoLow) and barstate.isconfirmed and close < tokyoLow and close[1] >= tokyoLow
+tokyoBullWickOnly = tokyoReady and not na(tokyoHigh) and high > tokyoHigh and close <= tokyoHigh
+tokyoBearWickOnly = tokyoReady and not na(tokyoLow) and low < tokyoLow and close >= tokyoLow
+
+// ===== Previous-day standard pivots =====
+pdHigh = request.security(syminfo.tickerid, "D", high[1], barmerge.gaps_off, barmerge.lookahead_on)
+pdLow = request.security(syminfo.tickerid, "D", low[1], barmerge.gaps_off, barmerge.lookahead_on)
+pdClose = request.security(syminfo.tickerid, "D", close[1], barmerge.gaps_off, barmerge.lookahead_on)
+pp = (pdHigh + pdLow + pdClose) / 3.0
+r1 = 2.0 * pp - pdLow
+s1 = 2.0 * pp - pdHigh
+r2 = pp + (pdHigh - pdLow)
+s2 = pp - (pdHigh - pdLow)
+r3 = pdHigh + 2.0 * (pp - pdLow)
+s3 = pdLow - 2.0 * (pdHigh - pp)
+
+// ===== Target/room engine =====
+float longTarget = na
+string longTargetName = ""
+if not na(lastHigh) and lastHigh > close
+    longTarget := lastHigh
+    longTargetName := "Swing High"
+if r1 > close and (na(longTarget) or r1 < longTarget)
+    longTarget := r1
+    longTargetName := "R1"
+if r2 > close and (na(longTarget) or r2 < longTarget)
+    longTarget := r2
+    longTargetName := "R2"
+if r3 > close and (na(longTarget) or r3 < longTarget)
+    longTarget := r3
+    longTargetName := "R3"
+
+float shortTarget = na
+string shortTargetName = ""
+if not na(lastLow) and lastLow < close
+    shortTarget := lastLow
+    shortTargetName := "Swing Low"
+if s1 < close and (na(shortTarget) or s1 > shortTarget)
+    shortTarget := s1
+    shortTargetName := "S1"
+if s2 < close and (na(shortTarget) or s2 > shortTarget)
+    shortTarget := s2
+    shortTargetName := "S2"
+if s3 < close and (na(shortTarget) or s3 > shortTarget)
+    shortTarget := s3
+    shortTargetName := "S3"
+
+longRoomATR = not na(longTarget) and not na(atrRef) and atrRef > 0 ? (longTarget - close) / atrRef : na
+shortRoomATR = not na(shortTarget) and not na(atrRef) and atrRef > 0 ? (close - shortTarget) / atrRef : na
+longRoomOk = na(longRoomATR) or longRoomATR >= minRoomATR
+shortRoomOk = na(shortRoomATR) or shortRoomATR >= minRoomATR
+
+// ===== Trend/momentum =====
+localBull = emaFast > emaSlow and emaSlow >= emaSlow[1]
+localBear = emaFast < emaSlow and emaSlow <= emaSlow[1]
+smmaBull = close > smma and smma >= smma[1]
+smmaBear = close < smma and smma <= smma[1]
+buyMomentum = rsi > 55 and rsi > rsi[1] and macdHist > macdHist[1]
+sellMomentum = rsi < 45 and rsi < rsi[1] and macdHist < macdHist[1]
+buyVwap = close > vwap
+sellVwap = close < vwap
+buyExtensionOk = not na(atrRef) and close >= emaFast and close - emaFast <= atrRef * maxExtensionATR
+sellExtensionOk = not na(atrRef) and close <= emaFast and emaFast - close <= atrRef * maxExtensionATR
+bullPatternContext = bullPattern and (recentRsiUp or recentBullDiv or higherLow or close > emaFast)
+bearPatternContext = bearPattern and (recentRsiDown or recentBearDiv or lowerHigh or close < emaFast)
+
+recentHigh6 = ta.highest(high[1], 6)
+recentLow6 = ta.lowest(low[1], 6)
+breakoutUp = close > recentHigh6 and close > open
+breakdownDown = close < recentLow6 and close < open
+buyTrigger = breakoutUp or bullEngulf or bullReject or tokyoBullBreak
+sellTrigger = breakdownDown or bearEngulf or bearReject or tokyoBearBreak
+
+// ===== Scores =====
+buyScore = (localBull ? 2 : 0) + (htfBull ? 2 : 0) + (smmaBull ? 1 : 0) + (ichBull ? 1 : 0) + (buyVwap ? 1 : 0) + (buyMomentum ? 1 : 0) + (volumeOk ? 1 : 0) + (volumeHigh ? 1 : 0) + (expansion ? 1 : 0) + (higherHigh ? 1 : 0) + (higherLow ? 1 : 0) + (bullBOS ? 2 : 0) + (bullFvg ? 1 : 0) + (bullPatternContext ? 1 : 0) + (displacementUp ? 1 : 0) + (tokyoBullBreak ? 3 : 0) + (longRoomOk ? 1 : 0) - (tokyoBullWickOnly ? 2 : 0) - (ichNeutral ? 1 : 0) - (doji ? 1 : 0)
+sellScore = (localBear ? 2 : 0) + (htfBear ? 2 : 0) + (smmaBear ? 1 : 0) + (ichBear ? 1 : 0) + (sellVwap ? 1 : 0) + (sellMomentum ? 1 : 0) + (volumeOk ? 1 : 0) + (volumeHigh ? 1 : 0) + (expansion ? 1 : 0) + (lowerHigh ? 1 : 0) + (lowerLow ? 1 : 0) + (bearBOS ? 2 : 0) + (bearFvg ? 1 : 0) + (bearPatternContext ? 1 : 0) + (displacementDown ? 1 : 0) + (tokyoBearBreak ? 3 : 0) + (shortRoomOk ? 1 : 0) - (tokyoBearWickOnly ? 2 : 0) - (ichNeutral ? 1 : 0) - (doji ? 1 : 0)
+
+rawBuyContinuation = barstate.isconfirmed and localBull and htfBull and buyTrigger and buyExtensionOk and rsi < 70 and (volumeOk or expansion) and longRoomOk and buyScore >= continuationWeak
+rawSellContinuation = barstate.isconfirmed and localBear and htfBear and sellTrigger and sellExtensionOk and rsi > 30 and (volumeOk or expansion) and shortRoomOk and sellScore >= continuationWeak
+
+buyReversalContext = recentRsiUp or recentBullDiv
+sellReversalContext = recentRsiDown or recentBearDiv
+buyRevScore = (bullMSS ? 4 : 0) + (recentRsiUp ? 2 : 0) + (recentBullDiv ? 2 : 0) + (bullPatternContext ? 2 : 0) + (bullAbsorption ? 1 : 0) + (volumeHigh ? 1 : 0) + (smmaBull ? 1 : 0) + (ichBull ? 1 : 0) + (buyVwap ? 1 : 0) + (htfBull ? 1 : 0) + (tokyoBullBreak ? 2 : 0) + (longRoomOk ? 1 : 0)
+sellRevScore = (bearMSS ? 4 : 0) + (recentRsiDown ? 2 : 0) + (recentBearDiv ? 2 : 0) + (bearPatternContext ? 2 : 0) + (bearAbsorption ? 1 : 0) + (volumeHigh ? 1 : 0) + (smmaBear ? 1 : 0) + (ichBear ? 1 : 0) + (sellVwap ? 1 : 0) + (htfBear ? 1 : 0) + (tokyoBearBreak ? 2 : 0) + (shortRoomOk ? 1 : 0)
+rawBuyReversal = bullMSS and buyReversalContext and longRoomOk and buyRevScore >= reversalStrong
+rawSellReversal = bearMSS and sellReversalContext and shortRoomOk and sellRevScore >= reversalStrong
+
+// ===== Cooldown =====
+var int lastBuyBar = na
+var int lastSellBar = na
+buyCooldown = na(lastBuyBar) or bar_index - lastBuyBar >= cooldownBars
+sellCooldown = na(lastSellBar) or bar_index - lastSellBar >= cooldownBars
+buyContinuation = rawBuyContinuation and buyCooldown and not rawBuyContinuation[1]
+sellContinuation = rawSellContinuation and sellCooldown and not rawSellContinuation[1]
+buyReversal = rawBuyReversal and buyCooldown
+sellReversal = rawSellReversal and sellCooldown
+if buyContinuation or buyReversal
+    lastBuyBar := bar_index
+if sellContinuation or sellReversal
+    lastSellBar := bar_index
+
+buyWeak = buyContinuation and buyScore >= continuationWeak and buyScore < continuationStrong
+buyStrong = buyContinuation and buyScore >= continuationStrong and buyScore < continuationVeryStrong
+buyVeryStrong = buyContinuation and buyScore >= continuationVeryStrong
+sellWeak = sellContinuation and sellScore >= continuationWeak and sellScore < continuationStrong
+sellStrong = sellContinuation and sellScore >= continuationStrong and sellScore < continuationVeryStrong
+sellVeryStrong = sellContinuation and sellScore >= continuationVeryStrong
+buyRevStrong = buyReversal and buyRevScore >= reversalStrong and buyRevScore < reversalVeryStrong
+buyRevVeryStrong = buyReversal and buyRevScore >= reversalVeryStrong
+sellRevStrong = sellReversal and sellRevScore >= reversalStrong and sellRevScore < reversalVeryStrong
+sellRevVeryStrong = sellReversal and sellRevScore >= reversalVeryStrong
+
+// ===== Tooltip details =====
+buyTargetText = na(longTarget) ? "Target: aucun niveau proche detecte\n" : "Target: " + longTargetName + " @ " + str.tostring(longTarget, format.mintick) + " | room " + str.tostring(longRoomATR, "#.00") + " ATR\n"
+sellTargetText = na(shortTarget) ? "Target: aucun niveau proche detecte\n" : "Target: " + shortTargetName + " @ " + str.tostring(shortTarget, format.mintick) + " | room " + str.tostring(shortRoomATR, "#.00") + " ATR\n"
+buyDetails = buyTargetText + f_mark(htfBull, "HTF haussier") + f_mark(localBull, "EMA 9/21 haussiere") + f_mark(smmaBull, "Prix au-dessus SMMA") + f_mark(ichBull, "Prix au-dessus Ichimoku") + f_mark(tokyoBullBreak, "Tokyo High casse en cloture") + f_mark(buyVwap, "Prix au-dessus VWAP") + f_mark(buyMomentum, "Momentum RSI/MACD") + f_mark(volumeOk, "Volume relatif " + str.tostring(relVol, "#.00") + "x") + f_mark(bullBOS, "BOS haussier") + f_mark(bullPatternContext, "Bougie haussiere confirmee") + f_mark(displacementUp, "Displacement")
+sellDetails = sellTargetText + f_mark(htfBear, "HTF baissier") + f_mark(localBear, "EMA 9/21 baissiere") + f_mark(smmaBear, "Prix sous SMMA") + f_mark(ichBear, "Prix sous Ichimoku") + f_mark(tokyoBearBreak, "Tokyo Low casse en cloture") + f_mark(sellVwap, "Prix sous VWAP") + f_mark(sellMomentum, "Momentum RSI/MACD") + f_mark(volumeOk, "Volume relatif " + str.tostring(relVol, "#.00") + "x") + f_mark(bearBOS, "BOS baissier") + f_mark(bearPatternContext, "Bougie baissiere confirmee") + f_mark(displacementDown, "Displacement")
+
+// ===== Guides =====
+plot(showGuides ? emaFast : na, "EMA 9", color=color.new(color.blue, 40))
+plot(showGuides ? emaSlow : na, "EMA 21", color=color.new(color.orange, 40))
+plot(showGuides ? smma : na, "SMMA", color=color.new(color.red, 40))
+plot(showGuides ? vwap : na, "VWAP", color=color.new(color.purple, 40))
+
+// ===== Existing context markers only =====
+if showContext and rsiExitUp
+    label.new(bar_index, low, "R↑", style=label.style_label_up, color=color.new(color.green, 100), textcolor=color.lime, size=size.tiny, tooltip="RSI repasse au-dessus de 30 apres survente. Contexte, pas ordre.")
+if showContext and rsiExitDown
+    label.new(bar_index, high, "R↓", style=label.style_label_down, color=color.new(color.red, 100), textcolor=color.red, size=size.tiny, tooltip="RSI repasse sous 70 apres surachat. Contexte, pas ordre.")
+if showContext and bullDiv
+    label.new(bar_index, low, "DIV↑", style=label.style_label_up, color=color.new(color.aqua, 100), textcolor=color.aqua, size=size.tiny, tooltip="Divergence RSI haussiere confirmee sur pivots.")
+if showContext and bearDiv
+    label.new(bar_index, high, "DIV↓", style=label.style_label_down, color=color.new(color.orange, 100), textcolor=color.orange, size=size.tiny, tooltip="Divergence RSI baissiere confirmee sur pivots.")
+if showContext and bullMSS
+    label.new(bar_index, low, "MSS↑", style=label.style_label_up, color=color.new(color.aqua, 15), textcolor=color.black, size=size.tiny, tooltip="MSS haussier: cassure de structure baissiere + displacement + volume.")
+if showContext and bearMSS
+    label.new(bar_index, high, "MSS↓", style=label.style_label_down, color=color.new(color.orange, 15), textcolor=color.black, size=size.tiny, tooltip="MSS baissier: cassure de structure haussiere + displacement + volume.")
+
+if showSessions and tokyoEnd
+    label.new(bar_index, high, "TOK✓", style=label.style_label_down, color=color.new(color.blue, 85), textcolor=color.aqua, size=size.tiny, tooltip="Session Tokyo terminee. Le range High/Low est maintenant fige et surveille pour une cassure en cloture.")
+
+// ===== Main markers =====
+if buyWeak
+    label.new(bar_index, low, "B", style=label.style_label_up, color=color.new(color.green, 85), textcolor=color.lime, size=size.tiny, tooltip=f_tip("BUY selectif", buyScore, buyDetails))
+if buyStrong
+    label.new(bar_index, low, "B+", style=label.style_label_up, color=color.new(color.green, 70), textcolor=color.lime, size=size.tiny, tooltip=f_tip("BUY fort", buyScore, buyDetails))
+if buyVeryStrong
+    label.new(bar_index, low, "B++", style=label.style_label_up, color=color.new(color.green, 45), textcolor=color.lime, size=size.small, tooltip=f_tip("BUY tres fort", buyScore, buyDetails))
+if sellWeak
+    label.new(bar_index, high, "S", style=label.style_label_down, color=color.new(color.red, 85), textcolor=color.red, size=size.tiny, tooltip=f_tip("SELL selectif", sellScore, sellDetails))
+if sellStrong
+    label.new(bar_index, high, "S+", style=label.style_label_down, color=color.new(color.red, 70), textcolor=color.red, size=size.tiny, tooltip=f_tip("SELL fort", sellScore, sellDetails))
+if sellVeryStrong
+    label.new(bar_index, high, "S++", style=label.style_label_down, color=color.new(color.red, 45), textcolor=color.red, size=size.small, tooltip=f_tip("SELL tres fort", sellScore, sellDetails))
+if buyRevStrong
+    label.new(bar_index, low, "BR", style=label.style_label_up, color=color.new(color.green, 35), textcolor=color.white, size=size.tiny, tooltip=f_tip("BUY reversal", buyRevScore, buyDetails))
+if buyRevVeryStrong
+    label.new(bar_index, low, "BR+", style=label.style_label_up, color=color.new(color.green, 15), textcolor=color.white, size=size.small, tooltip=f_tip("BUY reversal tres fort", buyRevScore, buyDetails))
+if sellRevStrong
+    label.new(bar_index, high, "SR", style=label.style_label_down, color=color.new(color.maroon, 35), textcolor=color.white, size=size.tiny, tooltip=f_tip("SELL reversal", sellRevScore, sellDetails))
+if sellRevVeryStrong
+    label.new(bar_index, high, "SR+", style=label.style_label_down, color=color.new(color.maroon, 15), textcolor=color.white, size=size.small, tooltip=f_tip("SELL reversal tres fort", sellRevScore, sellDetails))
+
+// ===== Alerts =====
+alertcondition(buyWeak or buyStrong or buyVeryStrong or buyRevStrong or buyRevVeryStrong, title="Nykuto BUY V11", message="Nykuto V11 BUY confluence confirmed. Research signal, not an order.")
+alertcondition(sellWeak or sellStrong or sellVeryStrong or sellRevStrong or sellRevVeryStrong, title="Nykuto SELL V11", message="Nykuto V11 SELL confluence confirmed. Research signal, not an order.")
+alertcondition(tokyoBullBreak, title="Tokyo high break V11", message="Tokyo High broken on confirmed close.")
+alertcondition(tokyoBearBreak, title="Tokyo low break V11", message="Tokyo Low broken on confirmed close.")

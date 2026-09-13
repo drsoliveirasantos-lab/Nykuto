@@ -1,0 +1,10 @@
+#account50Game h4{font-size:var(--lab-heading);margin:1.2rem 0 .5rem}
+#account50Game p{line-height:1.65}
+#account50Game .account50-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:.75rem;margin:1rem 0}
+#account50Game label{display:block;font-size:var(--lab-body)}
+#account50Game label span{display:block;margin-bottom:.35rem}
+#account50Game input,#account50Game select{width:100%;min-width:0;min-height:44px;font-size:1rem;padding:.55rem;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--text)}
+#account50Game .account50-note{font-size:var(--lab-meta);color:var(--muted)}
+#account50Game output{display:block;padding:.75rem;border-left:3px solid #87b8f8;background:rgba(135,184,248,.06);font-size:var(--lab-body);line-height:1.65}
+#account50Game .iv-table{min-width:20rem}
+@media(max-width:400px){#account50Game .account50-controls{grid-template-columns:1fr}}

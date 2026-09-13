@@ -1,0 +1,6394 @@
+{
+  "schema": "jeu21-report-v1",
+  "protocol": "jeu21-native-markets-v1",
+  "generatedAt": "2026-09-09T10:13:46.257Z",
+  "freezeSha256": "24cb1c01006906e2b47833445ddca597743afc37e21da1d82811a545c63e48ef",
+  "protocolSha256": "efd5aae39ce021350e295b360ebe4fc0f3f53085153d6a6cf4199e4371450f67",
+  "source": {
+    "provider": "Massive",
+    "resolution": "5min+native30min",
+    "bytes": 3363302,
+    "sha256": "21bb71d50ef00065a08d8f74ae2b5def70286014d9750fd870e8c8566bb6de5f",
+    "contracts": [
+      "MESH6",
+      "MESM6",
+      "MESU6",
+      "MGCG6",
+      "MGCJ6",
+      "MGCM6",
+      "MGCQ6",
+      "MGCV6"
+    ],
+    "rawPublic": false,
+    "reused5min": "jeu19 source snapshot",
+    "nativeRetrievedAt": "2026-09-09"
+  },
+  "policy": {
+    "version": "jeu21-native-markets-v1",
+    "from": "2026-01-01",
+    "end": "2026-09-01",
+    "trainEnd": "2026-05-01",
+    "warmup30": 220,
+    "minNetRewardRisk": 1,
+    "minimumTrainTrades": 40,
+    "minimumWindowTrades": 12,
+    "minimumPF": 1.1,
+    "maxDrawdownR": 8,
+    "paperEnabled": false,
+    "shadowEnabled": false,
+    "brokerEnabled": false,
+    "confirmed": false,
+    "independent": false,
+    "liveFeed": false,
+    "warmup5": 220,
+    "priorAttempts": 9
+  },
+  "results": [
+    {
+      "id": "MES/pullback",
+      "symbol": "MES",
+      "label": "Pullback 5 min + tendance 30 min",
+      "product": {
+        "symbol": "MES",
+        "label": "Micro S&P 500",
+        "tick": 0.25,
+        "multiplier": 5,
+        "fees": 2.5,
+        "venue": "XCME",
+        "priorData": false
+      },
+      "diagnostic": {
+        "normal": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": -385,
+          "balance": 24615,
+          "drawdown": 468.75,
+          "daily": {
+            "observed": 78,
+            "positive": 14,
+            "negative": 19,
+            "flatActive": 0,
+            "noTrade": 45,
+            "worst": -98.75
+          },
+          "trades": 55,
+          "metrics": {
+            "count": 55,
+            "wins": 21,
+            "win": 0.38181818181818183,
+            "total": -9.799645632075553,
+            "exp": -0.17817537512864642,
+            "pf": 0.730184654950159,
+            "dd": 12.450422029591081,
+            "winInterval": [
+              0.26515766317415235,
+              0.513910207176076
+            ]
+          },
+          "grossDollars": -110,
+          "feesDollars": 275,
+          "pfDollars": 0.7148148148148148,
+          "signalCount": 241,
+          "denied": {
+            "tradeRisk": 178,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 8
+          },
+          "ambiguous": 0
+        },
+        "stress": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": -50,
+          "balance": 24950,
+          "drawdown": 100,
+          "daily": {
+            "observed": 78,
+            "positive": 2,
+            "negative": 3,
+            "flatActive": 1,
+            "noTrade": 72,
+            "worst": -50
+          },
+          "trades": 7,
+          "metrics": {
+            "count": 7,
+            "wins": 3,
+            "win": 0.42857142857142855,
+            "total": -1.25,
+            "exp": -0.17857142857142858,
+            "pf": 0.75,
+            "dd": 2.5,
+            "winInterval": [
+              0.15821692226262685,
+              0.7495457695909742
+            ]
+          },
+          "grossDollars": 20,
+          "feesDollars": 70,
+          "pfDollars": 0.75,
+          "signalCount": 312,
+          "denied": {
+            "tradeRisk": 219,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 86
+          },
+          "ambiguous": 0
+        }
+      },
+      "windows": [
+        {
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "phase": "train",
+          "expected": 39,
+          "scored": 39,
+          "complete": true,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": -255,
+              "balance": 24745,
+              "drawdown": 353.75,
+              "daily": {
+                "observed": 39,
+                "positive": 7,
+                "negative": 9,
+                "flatActive": 0,
+                "noTrade": 23,
+                "worst": -98.75
+              },
+              "trades": 23,
+              "metrics": {
+                "count": 23,
+                "wins": 8,
+                "win": 0.34782608695652173,
+                "total": -7.072610883649139,
+                "exp": -0.3075048210282234,
+                "pf": 0.5892779061560511,
+                "dd": 10.055457988235375,
+                "winInterval": [
+                  0.18811054636982238,
+                  0.5511002309310836
+                ]
+              },
+              "grossDollars": -140,
+              "feesDollars": 115,
+              "pfDollars": 0.5862068965517241,
+              "signalCount": 114,
+              "denied": {
+                "tradeRisk": 83,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 8
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 0,
+              "balance": 25000,
+              "drawdown": 50,
+              "daily": {
+                "observed": 39,
+                "positive": 1,
+                "negative": 1,
+                "flatActive": 0,
+                "noTrade": 37,
+                "worst": -50
+              },
+              "trades": 2,
+              "metrics": {
+                "count": 2,
+                "wins": 1,
+                "win": 0.5,
+                "total": 0,
+                "exp": 0,
+                "pf": 1,
+                "dd": 1.25,
+                "winInterval": [
+                  0.09452865480086614,
+                  0.9054713451991339
+                ]
+              },
+              "grossDollars": 20,
+              "feesDollars": 20,
+              "pfDollars": 1,
+              "signalCount": 154,
+              "denied": {
+                "tradeRisk": 105,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 47
+              },
+              "ambiguous": 0
+            }
+          },
+          "account": {
+            "normal": {
+              "status": "incomplete",
+              "terminalDay": null,
+              "net": -255,
+              "balance": 24745,
+              "drawdown": 353.75,
+              "daily": {
+                "observed": 39,
+                "positive": 7,
+                "negative": 9,
+                "flatActive": 0,
+                "noTrade": 23,
+                "worst": -98.75
+              },
+              "trades": 23,
+              "metrics": {
+                "count": 23,
+                "wins": 8,
+                "win": 0.34782608695652173,
+                "total": -7.072610883649139,
+                "exp": -0.3075048210282234,
+                "pf": 0.5892779061560511,
+                "dd": 10.055457988235375,
+                "winInterval": [
+                  0.18811054636982238,
+                  0.5511002309310836
+                ]
+              },
+              "grossDollars": -140,
+              "feesDollars": 115,
+              "pfDollars": 0.5862068965517241,
+              "signalCount": 114,
+              "denied": {
+                "tradeRisk": 83,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 8
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "incomplete",
+              "terminalDay": null,
+              "net": 0,
+              "balance": 25000,
+              "drawdown": 50,
+              "daily": {
+                "observed": 39,
+                "positive": 1,
+                "negative": 1,
+                "flatActive": 0,
+                "noTrade": 37,
+                "worst": -50
+              },
+              "trades": 2,
+              "metrics": {
+                "count": 2,
+                "wins": 1,
+                "win": 0.5,
+                "total": 0,
+                "exp": 0,
+                "pf": 1,
+                "dd": 1.25,
+                "winInterval": [
+                  0.09452865480086614,
+                  0.9054713451991339
+                ]
+              },
+              "grossDollars": 20,
+              "feesDollars": 20,
+              "pfDollars": 1,
+              "signalCount": 154,
+              "denied": {
+                "tradeRisk": 105,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 47
+              },
+              "ambiguous": 0
+            }
+          }
+        },
+        {
+          "start": "2026-03-01",
+          "end": "2026-05-01",
+          "phase": "train",
+          "expected": 43,
+          "scored": 39,
+          "complete": false,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": -130,
+              "balance": 24870,
+              "drawdown": 272.5,
+              "daily": {
+                "observed": 39,
+                "positive": 7,
+                "negative": 10,
+                "flatActive": 0,
+                "noTrade": 22,
+                "worst": -50
+              },
+              "trades": 32,
+              "metrics": {
+                "count": 32,
+                "wins": 13,
+                "win": 0.40625,
+                "total": -2.727034748426423,
+                "exp": -0.08521983588832571,
+                "pf": 0.85722241908661,
+                "dd": 7.271569847026237,
+                "winInterval": [
+                  0.255194024803138,
+                  0.5774027342701177
+                ]
+              },
+              "grossDollars": 30,
+              "feesDollars": 160,
+              "pfDollars": 0.8228279386712095,
+              "signalCount": 127,
+              "denied": {
+                "tradeRisk": 95,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": -50,
+              "balance": 24950,
+              "drawdown": 100,
+              "daily": {
+                "observed": 39,
+                "positive": 1,
+                "negative": 2,
+                "flatActive": 1,
+                "noTrade": 35,
+                "worst": -50
+              },
+              "trades": 5,
+              "metrics": {
+                "count": 5,
+                "wins": 2,
+                "win": 0.4,
+                "total": -1.25,
+                "exp": -0.25,
+                "pf": 0.6666666666666666,
+                "dd": 2.5,
+                "winInterval": [
+                  0.1176182311592533,
+                  0.769280067791163
+                ]
+              },
+              "grossDollars": 0,
+              "feesDollars": 50,
+              "pfDollars": 0.6666666666666666,
+              "signalCount": 158,
+              "denied": {
+                "tradeRisk": 114,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 39
+              },
+              "ambiguous": 0
+            }
+          },
+          "account": null
+        }
+      ],
+      "checks": [
+        {
+          "id": "coverage",
+          "label": "Deux fenêtres entièrement couvertes",
+          "pass": false
+        },
+        {
+          "id": "count",
+          "label": "Au moins 40 trades au total",
+          "pass": true
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par fenêtre",
+          "pass": true
+        },
+        {
+          "id": "positive",
+          "label": "Chaque fenêtre positive en R et dollars",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor en R au moins 1,10",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé au plus 8 R",
+          "pass": false
+        },
+        {
+          "id": "stress",
+          "label": "Total positif en R et dollars avec coûts doublés",
+          "pass": false
+        },
+        {
+          "id": "account",
+          "label": "Aucun franchissement du seuil dans les comptes complets",
+          "pass": false
+        }
+      ],
+      "researchPassed": false,
+      "confirmed": false
+    },
+    {
+      "id": "MES/cross",
+      "symbol": "MES",
+      "label": "Croisement 5 min + tendance 30 min",
+      "product": {
+        "symbol": "MES",
+        "label": "Micro S&P 500",
+        "tick": 0.25,
+        "multiplier": 5,
+        "fees": 2.5,
+        "venue": "XCME",
+        "priorData": false
+      },
+      "diagnostic": {
+        "normal": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": -10,
+          "balance": 24990,
+          "drawdown": 97.5,
+          "daily": {
+            "observed": 78,
+            "positive": 5,
+            "negative": 6,
+            "flatActive": 0,
+            "noTrade": 67,
+            "worst": -50
+          },
+          "trades": 11,
+          "metrics": {
+            "count": 11,
+            "wins": 5,
+            "win": 0.45454545454545453,
+            "total": -0.5981964807023699,
+            "exp": -0.054381498245669985,
+            "pf": 0.9053440929147939,
+            "dd": 2.2287581699346406,
+            "winInterval": [
+              0.21270957543988045,
+              0.7199122443100118
+            ]
+          },
+          "grossDollars": 45,
+          "feesDollars": 55,
+          "pfDollars": 0.9550561797752809,
+          "signalCount": 19,
+          "denied": {
+            "tradeRisk": 8,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 0
+          },
+          "ambiguous": 0
+        },
+        "stress": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": 7.5,
+          "balance": 25007.5,
+          "drawdown": 0,
+          "daily": {
+            "observed": 78,
+            "positive": 1,
+            "negative": 0,
+            "flatActive": 0,
+            "noTrade": 77,
+            "worst": 0
+          },
+          "trades": 1,
+          "metrics": {
+            "count": 1,
+            "wins": 1,
+            "win": 1,
+            "total": 0.1875,
+            "exp": 0.1875,
+            "pf": "Infinity",
+            "dd": 0,
+            "winInterval": [
+              0.20654329147389294,
+              1
+            ]
+          },
+          "grossDollars": 17.5,
+          "feesDollars": 10,
+          "pfDollars": null,
+          "signalCount": 19,
+          "denied": {
+            "tradeRisk": 12,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 6
+          },
+          "ambiguous": 0
+        }
+      },
+      "windows": [
+        {
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "phase": "train",
+          "expected": 39,
+          "scored": 39,
+          "complete": true,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": -21.25,
+              "balance": 24978.75,
+              "drawdown": 97.5,
+              "daily": {
+                "observed": 39,
+                "positive": 2,
+                "negative": 3,
+                "flatActive": 0,
+                "noTrade": 34,
+                "worst": -50
+              },
+              "trades": 5,
+              "metrics": {
+                "count": 5,
+                "wins": 2,
+                "win": 0.4,
+                "total": -0.6920538330274639,
+                "exp": -0.13841076660549279,
+                "pf": 0.7975997664739448,
+                "dd": 2.2287581699346406,
+                "winInterval": [
+                  0.1176182311592533,
+                  0.769280067791163
+                ]
+              },
+              "grossDollars": 3.75,
+              "feesDollars": 25,
+              "pfDollars": 0.8349514563106796,
+              "signalCount": 10,
+              "denied": {
+                "tradeRisk": 5,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 0,
+              "balance": 25000,
+              "drawdown": 0,
+              "daily": {
+                "observed": 39,
+                "positive": 0,
+                "negative": 0,
+                "flatActive": 0,
+                "noTrade": 39,
+                "worst": 0
+              },
+              "trades": 0,
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "grossDollars": 0,
+              "feesDollars": 0,
+              "pfDollars": null,
+              "signalCount": 10,
+              "denied": {
+                "tradeRisk": 8,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 2
+              },
+              "ambiguous": 0
+            }
+          },
+          "account": {
+            "normal": {
+              "status": "incomplete",
+              "terminalDay": null,
+              "net": -21.25,
+              "balance": 24978.75,
+              "drawdown": 97.5,
+              "daily": {
+                "observed": 39,
+                "positive": 2,
+                "negative": 3,
+                "flatActive": 0,
+                "noTrade": 34,
+                "worst": -50
+              },
+              "trades": 5,
+              "metrics": {
+                "count": 5,
+                "wins": 2,
+                "win": 0.4,
+                "total": -0.6920538330274639,
+                "exp": -0.13841076660549279,
+                "pf": 0.7975997664739448,
+                "dd": 2.2287581699346406,
+                "winInterval": [
+                  0.1176182311592533,
+                  0.769280067791163
+                ]
+              },
+              "grossDollars": 3.75,
+              "feesDollars": 25,
+              "pfDollars": 0.8349514563106796,
+              "signalCount": 10,
+              "denied": {
+                "tradeRisk": 5,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "incomplete",
+              "terminalDay": null,
+              "net": 0,
+              "balance": 25000,
+              "drawdown": 0,
+              "daily": {
+                "observed": 39,
+                "positive": 0,
+                "negative": 0,
+                "flatActive": 0,
+                "noTrade": 39,
+                "worst": 0
+              },
+              "trades": 0,
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "grossDollars": 0,
+              "feesDollars": 0,
+              "pfDollars": null,
+              "signalCount": 10,
+              "denied": {
+                "tradeRisk": 8,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 2
+              },
+              "ambiguous": 0
+            }
+          }
+        },
+        {
+          "start": "2026-03-01",
+          "end": "2026-05-01",
+          "phase": "train",
+          "expected": 43,
+          "scored": 39,
+          "complete": false,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 11.25,
+              "balance": 25011.25,
+              "drawdown": 63.75,
+              "daily": {
+                "observed": 39,
+                "positive": 3,
+                "negative": 3,
+                "flatActive": 0,
+                "noTrade": 33,
+                "worst": -43.75
+              },
+              "trades": 6,
+              "metrics": {
+                "count": 6,
+                "wins": 3,
+                "win": 0.5,
+                "total": 0.09385735232509407,
+                "exp": 0.015642892054182345,
+                "pf": 1.0323594621139902,
+                "dd": 1.7004608294930876,
+                "winInterval": [
+                  0.18761280689940868,
+                  0.8123871931005913
+                ]
+              },
+              "grossDollars": 41.25,
+              "feesDollars": 30,
+              "pfDollars": 1.12,
+              "signalCount": 9,
+              "denied": {
+                "tradeRisk": 3,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 7.5,
+              "balance": 25007.5,
+              "drawdown": 0,
+              "daily": {
+                "observed": 39,
+                "positive": 1,
+                "negative": 0,
+                "flatActive": 0,
+                "noTrade": 38,
+                "worst": 0
+              },
+              "trades": 1,
+              "metrics": {
+                "count": 1,
+                "wins": 1,
+                "win": 1,
+                "total": 0.1875,
+                "exp": 0.1875,
+                "pf": "Infinity",
+                "dd": 0,
+                "winInterval": [
+                  0.20654329147389294,
+                  1
+                ]
+              },
+              "grossDollars": 17.5,
+              "feesDollars": 10,
+              "pfDollars": null,
+              "signalCount": 9,
+              "denied": {
+                "tradeRisk": 4,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 4
+              },
+              "ambiguous": 0
+            }
+          },
+          "account": null
+        }
+      ],
+      "checks": [
+        {
+          "id": "coverage",
+          "label": "Deux fenêtres entièrement couvertes",
+          "pass": false
+        },
+        {
+          "id": "count",
+          "label": "Au moins 40 trades au total",
+          "pass": false
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par fenêtre",
+          "pass": false
+        },
+        {
+          "id": "positive",
+          "label": "Chaque fenêtre positive en R et dollars",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor en R au moins 1,10",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé au plus 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Total positif en R et dollars avec coûts doublés",
+          "pass": true
+        },
+        {
+          "id": "account",
+          "label": "Aucun franchissement du seuil dans les comptes complets",
+          "pass": false
+        }
+      ],
+      "researchPassed": false,
+      "confirmed": false
+    },
+    {
+      "id": "MGC/pullback",
+      "symbol": "MGC",
+      "label": "Pullback 5 min + tendance 30 min",
+      "product": {
+        "symbol": "MGC",
+        "label": "Micro Or",
+        "tick": 0.1,
+        "multiplier": 10,
+        "fees": 2.5,
+        "venue": "XCEC",
+        "priorData": false
+      },
+      "diagnostic": {
+        "normal": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": 0,
+          "balance": 25000,
+          "drawdown": 0,
+          "daily": {
+            "observed": 62,
+            "positive": 0,
+            "negative": 0,
+            "flatActive": 0,
+            "noTrade": 62,
+            "worst": 0
+          },
+          "trades": 0,
+          "metrics": {
+            "count": 0,
+            "wins": 0,
+            "win": null,
+            "total": 0,
+            "exp": null,
+            "pf": null,
+            "dd": 0,
+            "winInterval": null
+          },
+          "grossDollars": 0,
+          "feesDollars": 0,
+          "pfDollars": null,
+          "signalCount": 291,
+          "denied": {
+            "tradeRisk": 291,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 0
+          },
+          "ambiguous": 0
+        },
+        "stress": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": 0,
+          "balance": 25000,
+          "drawdown": 0,
+          "daily": {
+            "observed": 62,
+            "positive": 0,
+            "negative": 0,
+            "flatActive": 0,
+            "noTrade": 62,
+            "worst": 0
+          },
+          "trades": 0,
+          "metrics": {
+            "count": 0,
+            "wins": 0,
+            "win": null,
+            "total": 0,
+            "exp": null,
+            "pf": null,
+            "dd": 0,
+            "winInterval": null
+          },
+          "grossDollars": 0,
+          "feesDollars": 0,
+          "pfDollars": null,
+          "signalCount": 291,
+          "denied": {
+            "tradeRisk": 291,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 0
+          },
+          "ambiguous": 0
+        }
+      },
+      "windows": [
+        {
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "phase": "train",
+          "expected": 39,
+          "scored": 34,
+          "complete": false,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 0,
+              "balance": 25000,
+              "drawdown": 0,
+              "daily": {
+                "observed": 34,
+                "positive": 0,
+                "negative": 0,
+                "flatActive": 0,
+                "noTrade": 34,
+                "worst": 0
+              },
+              "trades": 0,
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "grossDollars": 0,
+              "feesDollars": 0,
+              "pfDollars": null,
+              "signalCount": 155,
+              "denied": {
+                "tradeRisk": 155,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 0,
+              "balance": 25000,
+              "drawdown": 0,
+              "daily": {
+                "observed": 34,
+                "positive": 0,
+                "negative": 0,
+                "flatActive": 0,
+                "noTrade": 34,
+                "worst": 0
+              },
+              "trades": 0,
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "grossDollars": 0,
+              "feesDollars": 0,
+              "pfDollars": null,
+              "signalCount": 155,
+              "denied": {
+                "tradeRisk": 155,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            }
+          },
+          "account": null
+        },
+        {
+          "start": "2026-03-01",
+          "end": "2026-05-01",
+          "phase": "train",
+          "expected": 43,
+          "scored": 28,
+          "complete": false,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 0,
+              "balance": 25000,
+              "drawdown": 0,
+              "daily": {
+                "observed": 28,
+                "positive": 0,
+                "negative": 0,
+                "flatActive": 0,
+                "noTrade": 28,
+                "worst": 0
+              },
+              "trades": 0,
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "grossDollars": 0,
+              "feesDollars": 0,
+              "pfDollars": null,
+              "signalCount": 136,
+              "denied": {
+                "tradeRisk": 136,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 0,
+              "balance": 25000,
+              "drawdown": 0,
+              "daily": {
+                "observed": 28,
+                "positive": 0,
+                "negative": 0,
+                "flatActive": 0,
+                "noTrade": 28,
+                "worst": 0
+              },
+              "trades": 0,
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "grossDollars": 0,
+              "feesDollars": 0,
+              "pfDollars": null,
+              "signalCount": 136,
+              "denied": {
+                "tradeRisk": 136,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            }
+          },
+          "account": null
+        }
+      ],
+      "checks": [
+        {
+          "id": "coverage",
+          "label": "Deux fenêtres entièrement couvertes",
+          "pass": false
+        },
+        {
+          "id": "count",
+          "label": "Au moins 40 trades au total",
+          "pass": false
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par fenêtre",
+          "pass": false
+        },
+        {
+          "id": "positive",
+          "label": "Chaque fenêtre positive en R et dollars",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor en R au moins 1,10",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé au plus 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Total positif en R et dollars avec coûts doublés",
+          "pass": false
+        },
+        {
+          "id": "account",
+          "label": "Aucun franchissement du seuil dans les comptes complets",
+          "pass": false
+        }
+      ],
+      "researchPassed": false,
+      "confirmed": false
+    },
+    {
+      "id": "MGC/cross",
+      "symbol": "MGC",
+      "label": "Croisement 5 min + tendance 30 min",
+      "product": {
+        "symbol": "MGC",
+        "label": "Micro Or",
+        "tick": 0.1,
+        "multiplier": 10,
+        "fees": 2.5,
+        "venue": "XCEC",
+        "priorData": false
+      },
+      "diagnostic": {
+        "normal": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": 0,
+          "balance": 25000,
+          "drawdown": 0,
+          "daily": {
+            "observed": 62,
+            "positive": 0,
+            "negative": 0,
+            "flatActive": 0,
+            "noTrade": 62,
+            "worst": 0
+          },
+          "trades": 0,
+          "metrics": {
+            "count": 0,
+            "wins": 0,
+            "win": null,
+            "total": 0,
+            "exp": null,
+            "pf": null,
+            "dd": 0,
+            "winInterval": null
+          },
+          "grossDollars": 0,
+          "feesDollars": 0,
+          "pfDollars": null,
+          "signalCount": 13,
+          "denied": {
+            "tradeRisk": 13,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 0
+          },
+          "ambiguous": 0
+        },
+        "stress": {
+          "status": "diagnostic",
+          "terminalDay": null,
+          "net": 0,
+          "balance": 25000,
+          "drawdown": 0,
+          "daily": {
+            "observed": 62,
+            "positive": 0,
+            "negative": 0,
+            "flatActive": 0,
+            "noTrade": 62,
+            "worst": 0
+          },
+          "trades": 0,
+          "metrics": {
+            "count": 0,
+            "wins": 0,
+            "win": null,
+            "total": 0,
+            "exp": null,
+            "pf": null,
+            "dd": 0,
+            "winInterval": null
+          },
+          "grossDollars": 0,
+          "feesDollars": 0,
+          "pfDollars": null,
+          "signalCount": 13,
+          "denied": {
+            "tradeRisk": 13,
+            "dailyBudget": 0,
+            "floorReserve": 0,
+            "missingPivot": 0,
+            "invalidPivot": 0,
+            "netReward": 0
+          },
+          "ambiguous": 0
+        }
+      },
+      "windows": [
+        {
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "phase": "train",
+          "expected": 39,
+          "scored": 34,
+          "complete": false,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 0,
+              "balance": 25000,
+              "drawdown": 0,
+              "daily": {
+                "observed": 34,
+                "positive": 0,
+                "negative": 0,
+                "flatActive": 0,
+                "noTrade": 34,
+                "worst": 0
+              },
+              "trades": 0,
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "grossDollars": 0,
+              "feesDollars": 0,
+              "pfDollars": null,
+              "signalCount": 10,
+              "denied": {
+                "tradeRisk": 10,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 0,
+              "balance": 25000,
+              "drawdown": 0,
+              "daily": {
+                "observed": 34,
+                "positive": 0,
+                "negative": 0,
+                "flatActive": 0,
+                "noTrade": 34,
+                "worst": 0
+              },
+              "trades": 0,
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "grossDollars": 0,
+              "feesDollars": 0,
+              "pfDollars": null,
+              "signalCount": 10,
+              "denied": {
+                "tradeRisk": 10,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            }
+          },
+          "account": null
+        },
+        {
+          "start": "2026-03-01",
+          "end": "2026-05-01",
+          "phase": "train",
+          "expected": 43,
+          "scored": 28,
+          "complete": false,
+          "diagnostic": {
+            "normal": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 0,
+              "balance": 25000,
+              "drawdown": 0,
+              "daily": {
+                "observed": 28,
+                "positive": 0,
+                "negative": 0,
+                "flatActive": 0,
+                "noTrade": 28,
+                "worst": 0
+              },
+              "trades": 0,
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "grossDollars": 0,
+              "feesDollars": 0,
+              "pfDollars": null,
+              "signalCount": 3,
+              "denied": {
+                "tradeRisk": 3,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            },
+            "stress": {
+              "status": "diagnostic",
+              "terminalDay": null,
+              "net": 0,
+              "balance": 25000,
+              "drawdown": 0,
+              "daily": {
+                "observed": 28,
+                "positive": 0,
+                "negative": 0,
+                "flatActive": 0,
+                "noTrade": 28,
+                "worst": 0
+              },
+              "trades": 0,
+              "metrics": {
+                "count": 0,
+                "wins": 0,
+                "win": null,
+                "total": 0,
+                "exp": null,
+                "pf": null,
+                "dd": 0,
+                "winInterval": null
+              },
+              "grossDollars": 0,
+              "feesDollars": 0,
+              "pfDollars": null,
+              "signalCount": 3,
+              "denied": {
+                "tradeRisk": 3,
+                "dailyBudget": 0,
+                "floorReserve": 0,
+                "missingPivot": 0,
+                "invalidPivot": 0,
+                "netReward": 0
+              },
+              "ambiguous": 0
+            }
+          },
+          "account": null
+        }
+      ],
+      "checks": [
+        {
+          "id": "coverage",
+          "label": "Deux fenêtres entièrement couvertes",
+          "pass": false
+        },
+        {
+          "id": "count",
+          "label": "Au moins 40 trades au total",
+          "pass": false
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par fenêtre",
+          "pass": false
+        },
+        {
+          "id": "positive",
+          "label": "Chaque fenêtre positive en R et dollars",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor en R au moins 1,10",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé au plus 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Total positif en R et dollars avec coûts doublés",
+          "pass": false
+        },
+        {
+          "id": "account",
+          "label": "Aucun franchissement du seuil dans les comptes complets",
+          "pass": false
+        }
+      ],
+      "researchPassed": false,
+      "confirmed": false
+    }
+  ],
+  "selection": {
+    "schema": "jeu21-selection-v1",
+    "id": null,
+    "attempted": 4,
+    "cumulativeAttempts": 13,
+    "freezeSha256": "24cb1c01006906e2b47833445ddca597743afc37e21da1d82811a545c63e48ef",
+    "sourceSha256": "21bb71d50ef00065a08d8f74ae2b5def70286014d9750fd870e8c8566bb6de5f",
+    "trainEnd": "2026-05-01",
+    "createdAt": "2026-09-09T10:13:46.254Z"
+  },
+  "selectionSha256": "1c9aee2fa93a10a8d8df1276d9ed2fb6699dd3c82858110a80a7d8b2a50a4f6b",
+  "holdout": {
+    "status": "not-opened",
+    "reason": "No eligible development candidate"
+  },
+  "coverage": [
+    {
+      "symbol": "MES",
+      "expected": 166,
+      "scored": 162,
+      "unavailable": [
+        {
+          "ticker": "MESH6",
+          "date": "2026-03-06",
+          "run5": null,
+          "run30": 0,
+          "good5": false,
+          "good30": true,
+          "warm5": 0,
+          "warm30": 839,
+          "reason": "missing-data"
+        },
+        {
+          "ticker": "MESH6",
+          "date": "2026-03-09",
+          "run5": 1,
+          "run30": 0,
+          "good5": true,
+          "good30": true,
+          "warm5": 0,
+          "warm30": 852,
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MESH6",
+          "date": "2026-03-10",
+          "run5": 1,
+          "run30": 0,
+          "good5": true,
+          "good30": true,
+          "warm5": 78,
+          "warm30": 865,
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MESH6",
+          "date": "2026-03-11",
+          "run5": 1,
+          "run30": 0,
+          "good5": true,
+          "good30": true,
+          "warm5": 156,
+          "warm30": 878,
+          "reason": "warmup"
+        }
+      ],
+      "quality": [
+        {
+          "ticker": "MESH6",
+          "nativeReconciled": 917,
+          "nativeMismatchDays": [],
+          "days": [
+            {
+              "date": "2025-12-01",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 0
+            },
+            {
+              "date": "2025-12-02",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 13
+            },
+            {
+              "date": "2025-12-03",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 26
+            },
+            {
+              "date": "2025-12-04",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 78,
+              "warm30": 39
+            },
+            {
+              "date": "2025-12-05",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 156,
+              "warm30": 52
+            },
+            {
+              "date": "2025-12-08",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 234,
+              "warm30": 65
+            },
+            {
+              "date": "2025-12-09",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 312,
+              "warm30": 78
+            },
+            {
+              "date": "2025-12-10",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 390,
+              "warm30": 91
+            },
+            {
+              "date": "2025-12-11",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 468,
+              "warm30": 104
+            },
+            {
+              "date": "2025-12-12",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 546,
+              "warm30": 117
+            },
+            {
+              "date": "2025-12-15",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 624,
+              "warm30": 130
+            },
+            {
+              "date": "2025-12-16",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 702,
+              "warm30": 143
+            },
+            {
+              "date": "2025-12-17",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 780,
+              "warm30": 156
+            },
+            {
+              "date": "2025-12-18",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 858,
+              "warm30": 169
+            },
+            {
+              "date": "2025-12-19",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 936,
+              "warm30": 182
+            },
+            {
+              "date": "2025-12-22",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1014,
+              "warm30": 195
+            },
+            {
+              "date": "2025-12-23",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1092,
+              "warm30": 208
+            },
+            {
+              "date": "2025-12-24",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1170,
+              "warm30": 221
+            },
+            {
+              "date": "2025-12-26",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1212,
+              "warm30": 228
+            },
+            {
+              "date": "2025-12-29",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1290,
+              "warm30": 241
+            },
+            {
+              "date": "2025-12-30",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1368,
+              "warm30": 254
+            },
+            {
+              "date": "2025-12-31",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1446,
+              "warm30": 267
+            },
+            {
+              "date": "2026-01-02",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1524,
+              "warm30": 280
+            },
+            {
+              "date": "2026-01-05",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1602,
+              "warm30": 293
+            },
+            {
+              "date": "2026-01-06",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1680,
+              "warm30": 306
+            },
+            {
+              "date": "2026-01-07",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1758,
+              "warm30": 319
+            },
+            {
+              "date": "2026-01-08",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1836,
+              "warm30": 332
+            },
+            {
+              "date": "2026-01-09",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1914,
+              "warm30": 345
+            },
+            {
+              "date": "2026-01-12",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1992,
+              "warm30": 358
+            },
+            {
+              "date": "2026-01-13",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2070,
+              "warm30": 371
+            },
+            {
+              "date": "2026-01-14",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2148,
+              "warm30": 384
+            },
+            {
+              "date": "2026-01-15",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2226,
+              "warm30": 397
+            },
+            {
+              "date": "2026-01-16",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2304,
+              "warm30": 410
+            },
+            {
+              "date": "2026-01-20",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2382,
+              "warm30": 423
+            },
+            {
+              "date": "2026-01-21",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2460,
+              "warm30": 436
+            },
+            {
+              "date": "2026-01-22",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2538,
+              "warm30": 449
+            },
+            {
+              "date": "2026-01-23",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2616,
+              "warm30": 462
+            },
+            {
+              "date": "2026-01-26",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2694,
+              "warm30": 475
+            },
+            {
+              "date": "2026-01-27",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2772,
+              "warm30": 488
+            },
+            {
+              "date": "2026-01-28",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2850,
+              "warm30": 501
+            },
+            {
+              "date": "2026-01-29",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2928,
+              "warm30": 514
+            },
+            {
+              "date": "2026-01-30",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3006,
+              "warm30": 527
+            },
+            {
+              "date": "2026-02-02",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3084,
+              "warm30": 540
+            },
+            {
+              "date": "2026-02-03",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3162,
+              "warm30": 553
+            },
+            {
+              "date": "2026-02-04",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3240,
+              "warm30": 566
+            },
+            {
+              "date": "2026-02-05",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3318,
+              "warm30": 579
+            },
+            {
+              "date": "2026-02-06",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3396,
+              "warm30": 592
+            },
+            {
+              "date": "2026-02-09",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3474,
+              "warm30": 605
+            },
+            {
+              "date": "2026-02-10",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3552,
+              "warm30": 618
+            },
+            {
+              "date": "2026-02-11",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3630,
+              "warm30": 631
+            },
+            {
+              "date": "2026-02-12",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3708,
+              "warm30": 644
+            },
+            {
+              "date": "2026-02-13",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3786,
+              "warm30": 657
+            },
+            {
+              "date": "2026-02-17",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3864,
+              "warm30": 670
+            },
+            {
+              "date": "2026-02-18",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3942,
+              "warm30": 683
+            },
+            {
+              "date": "2026-02-19",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4020,
+              "warm30": 696
+            },
+            {
+              "date": "2026-02-20",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4098,
+              "warm30": 709
+            },
+            {
+              "date": "2026-02-23",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4176,
+              "warm30": 722
+            },
+            {
+              "date": "2026-02-24",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4254,
+              "warm30": 735
+            },
+            {
+              "date": "2026-02-25",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4332,
+              "warm30": 748
+            },
+            {
+              "date": "2026-02-26",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4410,
+              "warm30": 761
+            },
+            {
+              "date": "2026-02-27",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4488,
+              "warm30": 774
+            },
+            {
+              "date": "2026-03-02",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4566,
+              "warm30": 787
+            },
+            {
+              "date": "2026-03-03",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4644,
+              "warm30": 800
+            },
+            {
+              "date": "2026-03-04",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4722,
+              "warm30": 813
+            },
+            {
+              "date": "2026-03-05",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4800,
+              "warm30": 826
+            },
+            {
+              "date": "2026-03-06",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 839
+            },
+            {
+              "date": "2026-03-09",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 852
+            },
+            {
+              "date": "2026-03-10",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 78,
+              "warm30": 865
+            },
+            {
+              "date": "2026-03-11",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 156,
+              "warm30": 878
+            },
+            {
+              "date": "2026-03-12",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 234,
+              "warm30": 891
+            },
+            {
+              "date": "2026-03-13",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 312,
+              "warm30": 904
+            }
+          ]
+        },
+        {
+          "ticker": "MESM6",
+          "nativeReconciled": 1196,
+          "nativeMismatchDays": [],
+          "days": [
+            {
+              "date": "2026-02-02",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 0
+            },
+            {
+              "date": "2026-02-03",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 78,
+              "warm30": 13
+            },
+            {
+              "date": "2026-02-04",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 26
+            },
+            {
+              "date": "2026-02-05",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 39
+            },
+            {
+              "date": "2026-02-06",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 52
+            },
+            {
+              "date": "2026-02-09",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 65
+            },
+            {
+              "date": "2026-02-10",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 78
+            },
+            {
+              "date": "2026-02-11",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 91
+            },
+            {
+              "date": "2026-02-12",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 104
+            },
+            {
+              "date": "2026-02-13",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 117
+            },
+            {
+              "date": "2026-02-17",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 130
+            },
+            {
+              "date": "2026-02-18",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 143
+            },
+            {
+              "date": "2026-02-19",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 78,
+              "warm30": 156
+            },
+            {
+              "date": "2026-02-20",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 156,
+              "warm30": 169
+            },
+            {
+              "date": "2026-02-23",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 234,
+              "warm30": 182
+            },
+            {
+              "date": "2026-02-24",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 312,
+              "warm30": 195
+            },
+            {
+              "date": "2026-02-25",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 390,
+              "warm30": 208
+            },
+            {
+              "date": "2026-02-26",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 468,
+              "warm30": 221
+            },
+            {
+              "date": "2026-02-27",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 546,
+              "warm30": 234
+            },
+            {
+              "date": "2026-03-02",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 624,
+              "warm30": 247
+            },
+            {
+              "date": "2026-03-03",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 702,
+              "warm30": 260
+            },
+            {
+              "date": "2026-03-04",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 780,
+              "warm30": 273
+            },
+            {
+              "date": "2026-03-05",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 858,
+              "warm30": 286
+            },
+            {
+              "date": "2026-03-06",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 299
+            },
+            {
+              "date": "2026-03-09",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 312
+            },
+            {
+              "date": "2026-03-10",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 78,
+              "warm30": 325
+            },
+            {
+              "date": "2026-03-11",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 156,
+              "warm30": 338
+            },
+            {
+              "date": "2026-03-12",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 234,
+              "warm30": 351
+            },
+            {
+              "date": "2026-03-13",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 312,
+              "warm30": 364
+            },
+            {
+              "date": "2026-03-16",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 390,
+              "warm30": 377
+            },
+            {
+              "date": "2026-03-17",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 468,
+              "warm30": 390
+            },
+            {
+              "date": "2026-03-18",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 546,
+              "warm30": 403
+            },
+            {
+              "date": "2026-03-19",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 624,
+              "warm30": 416
+            },
+            {
+              "date": "2026-03-20",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 702,
+              "warm30": 429
+            },
+            {
+              "date": "2026-03-23",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 780,
+              "warm30": 442
+            },
+            {
+              "date": "2026-03-24",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 858,
+              "warm30": 455
+            },
+            {
+              "date": "2026-03-25",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 936,
+              "warm30": 468
+            },
+            {
+              "date": "2026-03-26",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1014,
+              "warm30": 481
+            },
+            {
+              "date": "2026-03-27",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1092,
+              "warm30": 494
+            },
+            {
+              "date": "2026-03-30",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1170,
+              "warm30": 507
+            },
+            {
+              "date": "2026-03-31",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1248,
+              "warm30": 520
+            },
+            {
+              "date": "2026-04-01",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1326,
+              "warm30": 533
+            },
+            {
+              "date": "2026-04-02",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1404,
+              "warm30": 546
+            },
+            {
+              "date": "2026-04-06",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1482,
+              "warm30": 559
+            },
+            {
+              "date": "2026-04-07",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1560,
+              "warm30": 572
+            },
+            {
+              "date": "2026-04-08",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1638,
+              "warm30": 585
+            },
+            {
+              "date": "2026-04-09",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1716,
+              "warm30": 598
+            },
+            {
+              "date": "2026-04-10",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1794,
+              "warm30": 611
+            },
+            {
+              "date": "2026-04-13",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1872,
+              "warm30": 624
+            },
+            {
+              "date": "2026-04-14",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1950,
+              "warm30": 637
+            },
+            {
+              "date": "2026-04-15",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2028,
+              "warm30": 650
+            },
+            {
+              "date": "2026-04-16",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2106,
+              "warm30": 663
+            },
+            {
+              "date": "2026-04-17",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2184,
+              "warm30": 676
+            },
+            {
+              "date": "2026-04-20",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2262,
+              "warm30": 689
+            },
+            {
+              "date": "2026-04-21",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2340,
+              "warm30": 702
+            },
+            {
+              "date": "2026-04-22",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2418,
+              "warm30": 715
+            },
+            {
+              "date": "2026-04-23",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2496,
+              "warm30": 728
+            },
+            {
+              "date": "2026-04-24",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2574,
+              "warm30": 741
+            },
+            {
+              "date": "2026-04-27",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2652,
+              "warm30": 754
+            },
+            {
+              "date": "2026-04-28",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2730,
+              "warm30": 767
+            },
+            {
+              "date": "2026-04-29",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2808,
+              "warm30": 780
+            },
+            {
+              "date": "2026-04-30",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2886,
+              "warm30": 793
+            },
+            {
+              "date": "2026-05-01",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2964,
+              "warm30": 806
+            },
+            {
+              "date": "2026-05-04",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3042,
+              "warm30": 819
+            },
+            {
+              "date": "2026-05-05",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3120,
+              "warm30": 832
+            },
+            {
+              "date": "2026-05-06",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3198,
+              "warm30": 845
+            },
+            {
+              "date": "2026-05-07",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3276,
+              "warm30": 858
+            },
+            {
+              "date": "2026-05-08",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3354,
+              "warm30": 871
+            },
+            {
+              "date": "2026-05-11",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3432,
+              "warm30": 884
+            },
+            {
+              "date": "2026-05-12",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3510,
+              "warm30": 897
+            },
+            {
+              "date": "2026-05-13",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3588,
+              "warm30": 910
+            },
+            {
+              "date": "2026-05-14",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3666,
+              "warm30": 923
+            },
+            {
+              "date": "2026-05-15",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3744,
+              "warm30": 936
+            },
+            {
+              "date": "2026-05-18",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3822,
+              "warm30": 949
+            },
+            {
+              "date": "2026-05-19",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3900,
+              "warm30": 962
+            },
+            {
+              "date": "2026-05-20",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3978,
+              "warm30": 975
+            },
+            {
+              "date": "2026-05-21",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4056,
+              "warm30": 988
+            },
+            {
+              "date": "2026-05-22",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4134,
+              "warm30": 1001
+            },
+            {
+              "date": "2026-05-26",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4212,
+              "warm30": 1014
+            },
+            {
+              "date": "2026-05-27",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4290,
+              "warm30": 1027
+            },
+            {
+              "date": "2026-05-28",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4368,
+              "warm30": 1040
+            },
+            {
+              "date": "2026-05-29",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4446,
+              "warm30": 1053
+            },
+            {
+              "date": "2026-06-01",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4524,
+              "warm30": 1066
+            },
+            {
+              "date": "2026-06-02",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4602,
+              "warm30": 1079
+            },
+            {
+              "date": "2026-06-03",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4680,
+              "warm30": 1092
+            },
+            {
+              "date": "2026-06-04",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4758,
+              "warm30": 1105
+            },
+            {
+              "date": "2026-06-05",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4836,
+              "warm30": 1118
+            },
+            {
+              "date": "2026-06-08",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4914,
+              "warm30": 1131
+            },
+            {
+              "date": "2026-06-09",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4992,
+              "warm30": 1144
+            },
+            {
+              "date": "2026-06-10",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 5070,
+              "warm30": 1157
+            },
+            {
+              "date": "2026-06-11",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 5148,
+              "warm30": 1170
+            },
+            {
+              "date": "2026-06-12",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 5226,
+              "warm30": 1183
+            }
+          ]
+        },
+        {
+          "ticker": "MESU6",
+          "nativeReconciled": 1092,
+          "nativeMismatchDays": [],
+          "days": [
+            {
+              "date": "2026-05-01",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 0
+            },
+            {
+              "date": "2026-05-04",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 13
+            },
+            {
+              "date": "2026-05-05",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 26
+            },
+            {
+              "date": "2026-05-06",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 39
+            },
+            {
+              "date": "2026-05-07",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 78,
+              "warm30": 52
+            },
+            {
+              "date": "2026-05-08",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 65
+            },
+            {
+              "date": "2026-05-11",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 78
+            },
+            {
+              "date": "2026-05-12",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 78,
+              "warm30": 91
+            },
+            {
+              "date": "2026-05-13",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 104
+            },
+            {
+              "date": "2026-05-14",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 117
+            },
+            {
+              "date": "2026-05-15",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 130
+            },
+            {
+              "date": "2026-05-18",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 143
+            },
+            {
+              "date": "2026-05-19",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 156
+            },
+            {
+              "date": "2026-05-20",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 169
+            },
+            {
+              "date": "2026-05-21",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 182
+            },
+            {
+              "date": "2026-05-22",
+              "run5": 4,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 195
+            },
+            {
+              "date": "2026-05-26",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 208
+            },
+            {
+              "date": "2026-05-27",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 221
+            },
+            {
+              "date": "2026-05-28",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 78,
+              "warm30": 234
+            },
+            {
+              "date": "2026-05-29",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 156,
+              "warm30": 247
+            },
+            {
+              "date": "2026-06-01",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 234,
+              "warm30": 260
+            },
+            {
+              "date": "2026-06-02",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 312,
+              "warm30": 273
+            },
+            {
+              "date": "2026-06-03",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 390,
+              "warm30": 286
+            },
+            {
+              "date": "2026-06-04",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 468,
+              "warm30": 299
+            },
+            {
+              "date": "2026-06-05",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 546,
+              "warm30": 312
+            },
+            {
+              "date": "2026-06-08",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 624,
+              "warm30": 325
+            },
+            {
+              "date": "2026-06-09",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 702,
+              "warm30": 338
+            },
+            {
+              "date": "2026-06-10",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 780,
+              "warm30": 351
+            },
+            {
+              "date": "2026-06-11",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 858,
+              "warm30": 364
+            },
+            {
+              "date": "2026-06-12",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 936,
+              "warm30": 377
+            },
+            {
+              "date": "2026-06-15",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1014,
+              "warm30": 390
+            },
+            {
+              "date": "2026-06-16",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1092,
+              "warm30": 403
+            },
+            {
+              "date": "2026-06-17",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1170,
+              "warm30": 416
+            },
+            {
+              "date": "2026-06-18",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1248,
+              "warm30": 429
+            },
+            {
+              "date": "2026-06-22",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1326,
+              "warm30": 442
+            },
+            {
+              "date": "2026-06-23",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1404,
+              "warm30": 455
+            },
+            {
+              "date": "2026-06-24",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1482,
+              "warm30": 468
+            },
+            {
+              "date": "2026-06-25",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1560,
+              "warm30": 481
+            },
+            {
+              "date": "2026-06-26",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1638,
+              "warm30": 494
+            },
+            {
+              "date": "2026-06-29",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1716,
+              "warm30": 507
+            },
+            {
+              "date": "2026-06-30",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1794,
+              "warm30": 520
+            },
+            {
+              "date": "2026-07-01",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1872,
+              "warm30": 533
+            },
+            {
+              "date": "2026-07-02",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1950,
+              "warm30": 546
+            },
+            {
+              "date": "2026-07-06",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2028,
+              "warm30": 559
+            },
+            {
+              "date": "2026-07-07",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2106,
+              "warm30": 572
+            },
+            {
+              "date": "2026-07-08",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2184,
+              "warm30": 585
+            },
+            {
+              "date": "2026-07-09",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2262,
+              "warm30": 598
+            },
+            {
+              "date": "2026-07-10",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2340,
+              "warm30": 611
+            },
+            {
+              "date": "2026-07-13",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2418,
+              "warm30": 624
+            },
+            {
+              "date": "2026-07-14",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2496,
+              "warm30": 637
+            },
+            {
+              "date": "2026-07-15",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2574,
+              "warm30": 650
+            },
+            {
+              "date": "2026-07-16",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2652,
+              "warm30": 663
+            },
+            {
+              "date": "2026-07-17",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2730,
+              "warm30": 676
+            },
+            {
+              "date": "2026-07-20",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2808,
+              "warm30": 689
+            },
+            {
+              "date": "2026-07-21",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2886,
+              "warm30": 702
+            },
+            {
+              "date": "2026-07-22",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2964,
+              "warm30": 715
+            },
+            {
+              "date": "2026-07-23",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3042,
+              "warm30": 728
+            },
+            {
+              "date": "2026-07-24",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3120,
+              "warm30": 741
+            },
+            {
+              "date": "2026-07-27",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3198,
+              "warm30": 754
+            },
+            {
+              "date": "2026-07-28",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3276,
+              "warm30": 767
+            },
+            {
+              "date": "2026-07-29",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3354,
+              "warm30": 780
+            },
+            {
+              "date": "2026-07-30",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3432,
+              "warm30": 793
+            },
+            {
+              "date": "2026-07-31",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3510,
+              "warm30": 806
+            },
+            {
+              "date": "2026-08-03",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3588,
+              "warm30": 819
+            },
+            {
+              "date": "2026-08-04",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3666,
+              "warm30": 832
+            },
+            {
+              "date": "2026-08-05",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3744,
+              "warm30": 845
+            },
+            {
+              "date": "2026-08-06",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3822,
+              "warm30": 858
+            },
+            {
+              "date": "2026-08-07",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3900,
+              "warm30": 871
+            },
+            {
+              "date": "2026-08-10",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3978,
+              "warm30": 884
+            },
+            {
+              "date": "2026-08-11",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4056,
+              "warm30": 897
+            },
+            {
+              "date": "2026-08-12",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4134,
+              "warm30": 910
+            },
+            {
+              "date": "2026-08-13",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4212,
+              "warm30": 923
+            },
+            {
+              "date": "2026-08-14",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4290,
+              "warm30": 936
+            },
+            {
+              "date": "2026-08-17",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4368,
+              "warm30": 949
+            },
+            {
+              "date": "2026-08-18",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4446,
+              "warm30": 962
+            },
+            {
+              "date": "2026-08-19",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4524,
+              "warm30": 975
+            },
+            {
+              "date": "2026-08-20",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4602,
+              "warm30": 988
+            },
+            {
+              "date": "2026-08-21",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4680,
+              "warm30": 1001
+            },
+            {
+              "date": "2026-08-24",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4758,
+              "warm30": 1014
+            },
+            {
+              "date": "2026-08-25",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4836,
+              "warm30": 1027
+            },
+            {
+              "date": "2026-08-26",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4914,
+              "warm30": 1040
+            },
+            {
+              "date": "2026-08-27",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 4992,
+              "warm30": 1053
+            },
+            {
+              "date": "2026-08-28",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 5070,
+              "warm30": 1066
+            },
+            {
+              "date": "2026-08-31",
+              "run5": 5,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 5148,
+              "warm30": 1079
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "symbol": "MGC",
+      "expected": 166,
+      "scored": 145,
+      "unavailable": [
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-01-26",
+          "run5": 3,
+          "run30": 0,
+          "good5": true,
+          "good30": true,
+          "warm5": 390,
+          "warm30": 195,
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-01-27",
+          "run5": 3,
+          "run30": 0,
+          "good5": true,
+          "good30": true,
+          "warm5": 468,
+          "warm30": 208,
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-02-25",
+          "run5": null,
+          "run30": null,
+          "good5": false,
+          "good30": false,
+          "warm5": 0,
+          "warm30": 0,
+          "reason": "missing-data"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-02-26",
+          "run5": 4,
+          "run30": 1,
+          "good5": true,
+          "good30": true,
+          "warm5": 0,
+          "warm30": 0,
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-02-27",
+          "run5": 4,
+          "run30": 1,
+          "good5": true,
+          "good30": true,
+          "warm5": 78,
+          "warm30": 13,
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-02",
+          "run5": 4,
+          "run30": 1,
+          "good5": true,
+          "good30": true,
+          "warm5": 156,
+          "warm30": 26,
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-03",
+          "run5": 4,
+          "run30": 1,
+          "good5": true,
+          "good30": true,
+          "warm5": 234,
+          "warm30": 39,
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-04",
+          "run5": 4,
+          "run30": 1,
+          "good5": true,
+          "good30": true,
+          "warm5": 312,
+          "warm30": 52,
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-05",
+          "run5": 4,
+          "run30": 1,
+          "good5": true,
+          "good30": true,
+          "warm5": 390,
+          "warm30": 65,
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-06",
+          "run5": null,
+          "run30": 1,
+          "good5": false,
+          "good30": true,
+          "warm5": 0,
+          "warm30": 78,
+          "reason": "missing-data"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-09",
+          "run5": 5,
+          "run30": 1,
+          "good5": true,
+          "good30": true,
+          "warm5": 0,
+          "warm30": 91,
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-10",
+          "run5": 5,
+          "run30": 1,
+          "good5": true,
+          "good30": true,
+          "warm5": 78,
+          "warm30": 104,
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-11",
+          "run5": 5,
+          "run30": 1,
+          "good5": true,
+          "good30": true,
+          "warm5": 156,
+          "warm30": 117,
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-12",
+          "run5": 5,
+          "run30": 1,
+          "good5": true,
+          "good30": true,
+          "warm5": 234,
+          "warm30": 130,
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-13",
+          "run5": 5,
+          "run30": 1,
+          "good5": true,
+          "good30": true,
+          "warm5": 312,
+          "warm30": 143,
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-16",
+          "run5": 5,
+          "run30": 1,
+          "good5": true,
+          "good30": true,
+          "warm5": 390,
+          "warm30": 156,
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-17",
+          "run5": 5,
+          "run30": 1,
+          "good5": true,
+          "good30": true,
+          "warm5": 468,
+          "warm30": 169,
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-18",
+          "run5": 5,
+          "run30": 1,
+          "good5": true,
+          "good30": true,
+          "warm5": 546,
+          "warm30": 182,
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-19",
+          "run5": 5,
+          "run30": 1,
+          "good5": true,
+          "good30": true,
+          "warm5": 624,
+          "warm30": 195,
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCJ6",
+          "date": "2026-03-20",
+          "run5": 5,
+          "run30": 1,
+          "good5": true,
+          "good30": true,
+          "warm5": 702,
+          "warm30": 208,
+          "reason": "warmup"
+        },
+        {
+          "ticker": "MGCQ6",
+          "date": "2026-05-26",
+          "run5": 3,
+          "run30": 0,
+          "good5": true,
+          "good30": true,
+          "warm5": 390,
+          "warm30": 208,
+          "reason": "warmup"
+        }
+      ],
+      "quality": [
+        {
+          "ticker": "MGCG6",
+          "nativeReconciled": 475,
+          "nativeMismatchDays": [],
+          "days": [
+            {
+              "date": "2025-12-01",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 0
+            },
+            {
+              "date": "2025-12-02",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 78,
+              "warm30": 13
+            },
+            {
+              "date": "2025-12-03",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 156,
+              "warm30": 26
+            },
+            {
+              "date": "2025-12-04",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 234,
+              "warm30": 39
+            },
+            {
+              "date": "2025-12-05",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 312,
+              "warm30": 52
+            },
+            {
+              "date": "2025-12-08",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 390,
+              "warm30": 65
+            },
+            {
+              "date": "2025-12-09",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 468,
+              "warm30": 78
+            },
+            {
+              "date": "2025-12-10",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 546,
+              "warm30": 91
+            },
+            {
+              "date": "2025-12-11",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 624,
+              "warm30": 104
+            },
+            {
+              "date": "2025-12-12",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 702,
+              "warm30": 117
+            },
+            {
+              "date": "2025-12-15",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 780,
+              "warm30": 130
+            },
+            {
+              "date": "2025-12-16",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 858,
+              "warm30": 143
+            },
+            {
+              "date": "2025-12-17",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 936,
+              "warm30": 156
+            },
+            {
+              "date": "2025-12-18",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1014,
+              "warm30": 169
+            },
+            {
+              "date": "2025-12-19",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1092,
+              "warm30": 182
+            },
+            {
+              "date": "2025-12-22",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1170,
+              "warm30": 195
+            },
+            {
+              "date": "2025-12-23",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1248,
+              "warm30": 208
+            },
+            {
+              "date": "2025-12-24",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1326,
+              "warm30": 221
+            },
+            {
+              "date": "2025-12-26",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1368,
+              "warm30": 228
+            },
+            {
+              "date": "2025-12-29",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1446,
+              "warm30": 241
+            },
+            {
+              "date": "2025-12-30",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1524,
+              "warm30": 254
+            },
+            {
+              "date": "2025-12-31",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1602,
+              "warm30": 267
+            },
+            {
+              "date": "2026-01-02",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1680,
+              "warm30": 280
+            },
+            {
+              "date": "2026-01-05",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1758,
+              "warm30": 293
+            },
+            {
+              "date": "2026-01-06",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1836,
+              "warm30": 306
+            },
+            {
+              "date": "2026-01-07",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1914,
+              "warm30": 319
+            },
+            {
+              "date": "2026-01-08",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1992,
+              "warm30": 332
+            },
+            {
+              "date": "2026-01-09",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2070,
+              "warm30": 345
+            },
+            {
+              "date": "2026-01-12",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2148,
+              "warm30": 358
+            },
+            {
+              "date": "2026-01-13",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2226,
+              "warm30": 371
+            },
+            {
+              "date": "2026-01-14",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2304,
+              "warm30": 384
+            },
+            {
+              "date": "2026-01-15",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2382,
+              "warm30": 397
+            },
+            {
+              "date": "2026-01-16",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2460,
+              "warm30": 410
+            },
+            {
+              "date": "2026-01-20",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2538,
+              "warm30": 423
+            },
+            {
+              "date": "2026-01-21",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2616,
+              "warm30": 436
+            },
+            {
+              "date": "2026-01-22",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2694,
+              "warm30": 449
+            },
+            {
+              "date": "2026-01-23",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2772,
+              "warm30": 462
+            }
+          ]
+        },
+        {
+          "ticker": "MGCJ6",
+          "nativeReconciled": 726,
+          "nativeMismatchDays": [],
+          "days": [
+            {
+              "date": "2026-01-02",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 0
+            },
+            {
+              "date": "2026-01-05",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 13
+            },
+            {
+              "date": "2026-01-06",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 26
+            },
+            {
+              "date": "2026-01-07",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 39
+            },
+            {
+              "date": "2026-01-08",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 52
+            },
+            {
+              "date": "2026-01-09",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 65
+            },
+            {
+              "date": "2026-01-12",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 78
+            },
+            {
+              "date": "2026-01-13",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 91
+            },
+            {
+              "date": "2026-01-14",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 104
+            },
+            {
+              "date": "2026-01-15",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 117
+            },
+            {
+              "date": "2026-01-16",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 130
+            },
+            {
+              "date": "2026-01-20",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 78,
+              "warm30": 143
+            },
+            {
+              "date": "2026-01-21",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 156,
+              "warm30": 156
+            },
+            {
+              "date": "2026-01-22",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 234,
+              "warm30": 169
+            },
+            {
+              "date": "2026-01-23",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 312,
+              "warm30": 182
+            },
+            {
+              "date": "2026-01-26",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 390,
+              "warm30": 195
+            },
+            {
+              "date": "2026-01-27",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 468,
+              "warm30": 208
+            },
+            {
+              "date": "2026-01-28",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 546,
+              "warm30": 221
+            },
+            {
+              "date": "2026-01-29",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 624,
+              "warm30": 234
+            },
+            {
+              "date": "2026-01-30",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 702,
+              "warm30": 247
+            },
+            {
+              "date": "2026-02-02",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 780,
+              "warm30": 260
+            },
+            {
+              "date": "2026-02-03",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 858,
+              "warm30": 273
+            },
+            {
+              "date": "2026-02-04",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 936,
+              "warm30": 286
+            },
+            {
+              "date": "2026-02-05",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1014,
+              "warm30": 299
+            },
+            {
+              "date": "2026-02-06",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1092,
+              "warm30": 312
+            },
+            {
+              "date": "2026-02-09",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1170,
+              "warm30": 325
+            },
+            {
+              "date": "2026-02-10",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1248,
+              "warm30": 338
+            },
+            {
+              "date": "2026-02-11",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1326,
+              "warm30": 351
+            },
+            {
+              "date": "2026-02-12",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1404,
+              "warm30": 364
+            },
+            {
+              "date": "2026-02-13",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1482,
+              "warm30": 377
+            },
+            {
+              "date": "2026-02-17",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1560,
+              "warm30": 390
+            },
+            {
+              "date": "2026-02-18",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1638,
+              "warm30": 403
+            },
+            {
+              "date": "2026-02-19",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1716,
+              "warm30": 416
+            },
+            {
+              "date": "2026-02-20",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1794,
+              "warm30": 429
+            },
+            {
+              "date": "2026-02-23",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1872,
+              "warm30": 442
+            },
+            {
+              "date": "2026-02-24",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1950,
+              "warm30": 455
+            },
+            {
+              "date": "2026-02-25",
+              "run5": null,
+              "run30": null,
+              "good5": false,
+              "good30": false,
+              "warm5": 0,
+              "warm30": 0
+            },
+            {
+              "date": "2026-02-26",
+              "run5": 4,
+              "run30": 1,
+              "good5": true,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 0
+            },
+            {
+              "date": "2026-02-27",
+              "run5": 4,
+              "run30": 1,
+              "good5": true,
+              "good30": true,
+              "warm5": 78,
+              "warm30": 13
+            },
+            {
+              "date": "2026-03-02",
+              "run5": 4,
+              "run30": 1,
+              "good5": true,
+              "good30": true,
+              "warm5": 156,
+              "warm30": 26
+            },
+            {
+              "date": "2026-03-03",
+              "run5": 4,
+              "run30": 1,
+              "good5": true,
+              "good30": true,
+              "warm5": 234,
+              "warm30": 39
+            },
+            {
+              "date": "2026-03-04",
+              "run5": 4,
+              "run30": 1,
+              "good5": true,
+              "good30": true,
+              "warm5": 312,
+              "warm30": 52
+            },
+            {
+              "date": "2026-03-05",
+              "run5": 4,
+              "run30": 1,
+              "good5": true,
+              "good30": true,
+              "warm5": 390,
+              "warm30": 65
+            },
+            {
+              "date": "2026-03-06",
+              "run5": null,
+              "run30": 1,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 78
+            },
+            {
+              "date": "2026-03-09",
+              "run5": 5,
+              "run30": 1,
+              "good5": true,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 91
+            },
+            {
+              "date": "2026-03-10",
+              "run5": 5,
+              "run30": 1,
+              "good5": true,
+              "good30": true,
+              "warm5": 78,
+              "warm30": 104
+            },
+            {
+              "date": "2026-03-11",
+              "run5": 5,
+              "run30": 1,
+              "good5": true,
+              "good30": true,
+              "warm5": 156,
+              "warm30": 117
+            },
+            {
+              "date": "2026-03-12",
+              "run5": 5,
+              "run30": 1,
+              "good5": true,
+              "good30": true,
+              "warm5": 234,
+              "warm30": 130
+            },
+            {
+              "date": "2026-03-13",
+              "run5": 5,
+              "run30": 1,
+              "good5": true,
+              "good30": true,
+              "warm5": 312,
+              "warm30": 143
+            },
+            {
+              "date": "2026-03-16",
+              "run5": 5,
+              "run30": 1,
+              "good5": true,
+              "good30": true,
+              "warm5": 390,
+              "warm30": 156
+            },
+            {
+              "date": "2026-03-17",
+              "run5": 5,
+              "run30": 1,
+              "good5": true,
+              "good30": true,
+              "warm5": 468,
+              "warm30": 169
+            },
+            {
+              "date": "2026-03-18",
+              "run5": 5,
+              "run30": 1,
+              "good5": true,
+              "good30": true,
+              "warm5": 546,
+              "warm30": 182
+            },
+            {
+              "date": "2026-03-19",
+              "run5": 5,
+              "run30": 1,
+              "good5": true,
+              "good30": true,
+              "warm5": 624,
+              "warm30": 195
+            },
+            {
+              "date": "2026-03-20",
+              "run5": 5,
+              "run30": 1,
+              "good5": true,
+              "good30": true,
+              "warm5": 702,
+              "warm30": 208
+            },
+            {
+              "date": "2026-03-23",
+              "run5": 5,
+              "run30": 1,
+              "good5": true,
+              "good30": true,
+              "warm5": 780,
+              "warm30": 221
+            },
+            {
+              "date": "2026-03-24",
+              "run5": 5,
+              "run30": 1,
+              "good5": true,
+              "good30": true,
+              "warm5": 858,
+              "warm30": 234
+            }
+          ]
+        },
+        {
+          "ticker": "MGCM6",
+          "nativeReconciled": 767,
+          "nativeMismatchDays": [],
+          "days": [
+            {
+              "date": "2026-03-02",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 0
+            },
+            {
+              "date": "2026-03-03",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 78,
+              "warm30": 13
+            },
+            {
+              "date": "2026-03-04",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 156,
+              "warm30": 26
+            },
+            {
+              "date": "2026-03-05",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 234,
+              "warm30": 39
+            },
+            {
+              "date": "2026-03-06",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 52
+            },
+            {
+              "date": "2026-03-09",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 65
+            },
+            {
+              "date": "2026-03-10",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 78
+            },
+            {
+              "date": "2026-03-11",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 91
+            },
+            {
+              "date": "2026-03-12",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 78,
+              "warm30": 104
+            },
+            {
+              "date": "2026-03-13",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 156,
+              "warm30": 117
+            },
+            {
+              "date": "2026-03-16",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 234,
+              "warm30": 130
+            },
+            {
+              "date": "2026-03-17",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 143
+            },
+            {
+              "date": "2026-03-18",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 156
+            },
+            {
+              "date": "2026-03-19",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 78,
+              "warm30": 169
+            },
+            {
+              "date": "2026-03-20",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 156,
+              "warm30": 182
+            },
+            {
+              "date": "2026-03-23",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 234,
+              "warm30": 195
+            },
+            {
+              "date": "2026-03-24",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 312,
+              "warm30": 208
+            },
+            {
+              "date": "2026-03-25",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 390,
+              "warm30": 221
+            },
+            {
+              "date": "2026-03-26",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 468,
+              "warm30": 234
+            },
+            {
+              "date": "2026-03-27",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 546,
+              "warm30": 247
+            },
+            {
+              "date": "2026-03-30",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 624,
+              "warm30": 260
+            },
+            {
+              "date": "2026-03-31",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 702,
+              "warm30": 273
+            },
+            {
+              "date": "2026-04-01",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 780,
+              "warm30": 286
+            },
+            {
+              "date": "2026-04-02",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 858,
+              "warm30": 299
+            },
+            {
+              "date": "2026-04-06",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 936,
+              "warm30": 312
+            },
+            {
+              "date": "2026-04-07",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1014,
+              "warm30": 325
+            },
+            {
+              "date": "2026-04-08",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1092,
+              "warm30": 338
+            },
+            {
+              "date": "2026-04-09",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1170,
+              "warm30": 351
+            },
+            {
+              "date": "2026-04-10",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1248,
+              "warm30": 364
+            },
+            {
+              "date": "2026-04-13",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1326,
+              "warm30": 377
+            },
+            {
+              "date": "2026-04-14",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1404,
+              "warm30": 390
+            },
+            {
+              "date": "2026-04-15",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1482,
+              "warm30": 403
+            },
+            {
+              "date": "2026-04-16",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1560,
+              "warm30": 416
+            },
+            {
+              "date": "2026-04-17",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1638,
+              "warm30": 429
+            },
+            {
+              "date": "2026-04-20",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1716,
+              "warm30": 442
+            },
+            {
+              "date": "2026-04-21",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1794,
+              "warm30": 455
+            },
+            {
+              "date": "2026-04-22",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1872,
+              "warm30": 468
+            },
+            {
+              "date": "2026-04-23",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1950,
+              "warm30": 481
+            },
+            {
+              "date": "2026-04-24",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2028,
+              "warm30": 494
+            },
+            {
+              "date": "2026-04-27",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2106,
+              "warm30": 507
+            },
+            {
+              "date": "2026-04-28",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2184,
+              "warm30": 520
+            },
+            {
+              "date": "2026-04-29",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2262,
+              "warm30": 533
+            },
+            {
+              "date": "2026-04-30",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2340,
+              "warm30": 546
+            },
+            {
+              "date": "2026-05-01",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2418,
+              "warm30": 559
+            },
+            {
+              "date": "2026-05-04",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2496,
+              "warm30": 572
+            },
+            {
+              "date": "2026-05-05",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2574,
+              "warm30": 585
+            },
+            {
+              "date": "2026-05-06",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2652,
+              "warm30": 598
+            },
+            {
+              "date": "2026-05-07",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2730,
+              "warm30": 611
+            },
+            {
+              "date": "2026-05-08",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2808,
+              "warm30": 624
+            },
+            {
+              "date": "2026-05-11",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2886,
+              "warm30": 637
+            },
+            {
+              "date": "2026-05-12",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2964,
+              "warm30": 650
+            },
+            {
+              "date": "2026-05-13",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3042,
+              "warm30": 663
+            },
+            {
+              "date": "2026-05-14",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3120,
+              "warm30": 676
+            },
+            {
+              "date": "2026-05-15",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3198,
+              "warm30": 689
+            },
+            {
+              "date": "2026-05-18",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3276,
+              "warm30": 702
+            },
+            {
+              "date": "2026-05-19",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3354,
+              "warm30": 715
+            },
+            {
+              "date": "2026-05-20",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3432,
+              "warm30": 728
+            },
+            {
+              "date": "2026-05-21",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3510,
+              "warm30": 741
+            },
+            {
+              "date": "2026-05-22",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3588,
+              "warm30": 754
+            }
+          ]
+        },
+        {
+          "ticker": "MGCQ6",
+          "nativeReconciled": 754,
+          "nativeMismatchDays": [],
+          "days": [
+            {
+              "date": "2026-05-01",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 0
+            },
+            {
+              "date": "2026-05-04",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 13
+            },
+            {
+              "date": "2026-05-05",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 26
+            },
+            {
+              "date": "2026-05-06",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 39
+            },
+            {
+              "date": "2026-05-07",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 52
+            },
+            {
+              "date": "2026-05-08",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 65
+            },
+            {
+              "date": "2026-05-11",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 78
+            },
+            {
+              "date": "2026-05-12",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 91
+            },
+            {
+              "date": "2026-05-13",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 78,
+              "warm30": 104
+            },
+            {
+              "date": "2026-05-14",
+              "run5": 2,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 156,
+              "warm30": 117
+            },
+            {
+              "date": "2026-05-15",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 130
+            },
+            {
+              "date": "2026-05-18",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 143
+            },
+            {
+              "date": "2026-05-19",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 78,
+              "warm30": 156
+            },
+            {
+              "date": "2026-05-20",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 156,
+              "warm30": 169
+            },
+            {
+              "date": "2026-05-21",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 234,
+              "warm30": 182
+            },
+            {
+              "date": "2026-05-22",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 312,
+              "warm30": 195
+            },
+            {
+              "date": "2026-05-26",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 390,
+              "warm30": 208
+            },
+            {
+              "date": "2026-05-27",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 468,
+              "warm30": 221
+            },
+            {
+              "date": "2026-05-28",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 546,
+              "warm30": 234
+            },
+            {
+              "date": "2026-05-29",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 624,
+              "warm30": 247
+            },
+            {
+              "date": "2026-06-01",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 702,
+              "warm30": 260
+            },
+            {
+              "date": "2026-06-02",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 780,
+              "warm30": 273
+            },
+            {
+              "date": "2026-06-03",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 858,
+              "warm30": 286
+            },
+            {
+              "date": "2026-06-04",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 936,
+              "warm30": 299
+            },
+            {
+              "date": "2026-06-05",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1014,
+              "warm30": 312
+            },
+            {
+              "date": "2026-06-08",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1092,
+              "warm30": 325
+            },
+            {
+              "date": "2026-06-09",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1170,
+              "warm30": 338
+            },
+            {
+              "date": "2026-06-10",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1248,
+              "warm30": 351
+            },
+            {
+              "date": "2026-06-11",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1326,
+              "warm30": 364
+            },
+            {
+              "date": "2026-06-12",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1404,
+              "warm30": 377
+            },
+            {
+              "date": "2026-06-15",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1482,
+              "warm30": 390
+            },
+            {
+              "date": "2026-06-16",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1560,
+              "warm30": 403
+            },
+            {
+              "date": "2026-06-17",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1638,
+              "warm30": 416
+            },
+            {
+              "date": "2026-06-18",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1716,
+              "warm30": 429
+            },
+            {
+              "date": "2026-06-22",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1794,
+              "warm30": 442
+            },
+            {
+              "date": "2026-06-23",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1872,
+              "warm30": 455
+            },
+            {
+              "date": "2026-06-24",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1950,
+              "warm30": 468
+            },
+            {
+              "date": "2026-06-25",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2028,
+              "warm30": 481
+            },
+            {
+              "date": "2026-06-26",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2106,
+              "warm30": 494
+            },
+            {
+              "date": "2026-06-29",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2184,
+              "warm30": 507
+            },
+            {
+              "date": "2026-06-30",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2262,
+              "warm30": 520
+            },
+            {
+              "date": "2026-07-01",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2340,
+              "warm30": 533
+            },
+            {
+              "date": "2026-07-02",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2418,
+              "warm30": 546
+            },
+            {
+              "date": "2026-07-06",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2496,
+              "warm30": 559
+            },
+            {
+              "date": "2026-07-07",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2574,
+              "warm30": 572
+            },
+            {
+              "date": "2026-07-08",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2652,
+              "warm30": 585
+            },
+            {
+              "date": "2026-07-09",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2730,
+              "warm30": 598
+            },
+            {
+              "date": "2026-07-10",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2808,
+              "warm30": 611
+            },
+            {
+              "date": "2026-07-13",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2886,
+              "warm30": 624
+            },
+            {
+              "date": "2026-07-14",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2964,
+              "warm30": 637
+            },
+            {
+              "date": "2026-07-15",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3042,
+              "warm30": 650
+            },
+            {
+              "date": "2026-07-16",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3120,
+              "warm30": 663
+            },
+            {
+              "date": "2026-07-17",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3198,
+              "warm30": 676
+            },
+            {
+              "date": "2026-07-20",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3276,
+              "warm30": 689
+            },
+            {
+              "date": "2026-07-21",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3354,
+              "warm30": 702
+            },
+            {
+              "date": "2026-07-22",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3432,
+              "warm30": 715
+            },
+            {
+              "date": "2026-07-23",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3510,
+              "warm30": 728
+            },
+            {
+              "date": "2026-07-24",
+              "run5": 3,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 3588,
+              "warm30": 741
+            }
+          ]
+        },
+        {
+          "ticker": "MGCV6",
+          "nativeReconciled": 559,
+          "nativeMismatchDays": [],
+          "days": [
+            {
+              "date": "2026-07-01",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 0
+            },
+            {
+              "date": "2026-07-02",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 13
+            },
+            {
+              "date": "2026-07-06",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 26
+            },
+            {
+              "date": "2026-07-07",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 39
+            },
+            {
+              "date": "2026-07-08",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 52
+            },
+            {
+              "date": "2026-07-09",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 65
+            },
+            {
+              "date": "2026-07-10",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 78
+            },
+            {
+              "date": "2026-07-13",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 91
+            },
+            {
+              "date": "2026-07-14",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 104
+            },
+            {
+              "date": "2026-07-15",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 117
+            },
+            {
+              "date": "2026-07-16",
+              "run5": 0,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 78,
+              "warm30": 130
+            },
+            {
+              "date": "2026-07-17",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 143
+            },
+            {
+              "date": "2026-07-20",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 156
+            },
+            {
+              "date": "2026-07-21",
+              "run5": null,
+              "run30": 0,
+              "good5": false,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 169
+            },
+            {
+              "date": "2026-07-22",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 0,
+              "warm30": 182
+            },
+            {
+              "date": "2026-07-23",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 78,
+              "warm30": 195
+            },
+            {
+              "date": "2026-07-24",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 156,
+              "warm30": 208
+            },
+            {
+              "date": "2026-07-27",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 234,
+              "warm30": 221
+            },
+            {
+              "date": "2026-07-28",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 312,
+              "warm30": 234
+            },
+            {
+              "date": "2026-07-29",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 390,
+              "warm30": 247
+            },
+            {
+              "date": "2026-07-30",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 468,
+              "warm30": 260
+            },
+            {
+              "date": "2026-07-31",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 546,
+              "warm30": 273
+            },
+            {
+              "date": "2026-08-03",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 624,
+              "warm30": 286
+            },
+            {
+              "date": "2026-08-04",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 702,
+              "warm30": 299
+            },
+            {
+              "date": "2026-08-05",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 780,
+              "warm30": 312
+            },
+            {
+              "date": "2026-08-06",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 858,
+              "warm30": 325
+            },
+            {
+              "date": "2026-08-07",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 936,
+              "warm30": 338
+            },
+            {
+              "date": "2026-08-10",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1014,
+              "warm30": 351
+            },
+            {
+              "date": "2026-08-11",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1092,
+              "warm30": 364
+            },
+            {
+              "date": "2026-08-12",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1170,
+              "warm30": 377
+            },
+            {
+              "date": "2026-08-13",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1248,
+              "warm30": 390
+            },
+            {
+              "date": "2026-08-14",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1326,
+              "warm30": 403
+            },
+            {
+              "date": "2026-08-17",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1404,
+              "warm30": 416
+            },
+            {
+              "date": "2026-08-18",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1482,
+              "warm30": 429
+            },
+            {
+              "date": "2026-08-19",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1560,
+              "warm30": 442
+            },
+            {
+              "date": "2026-08-20",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1638,
+              "warm30": 455
+            },
+            {
+              "date": "2026-08-21",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1716,
+              "warm30": 468
+            },
+            {
+              "date": "2026-08-24",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1794,
+              "warm30": 481
+            },
+            {
+              "date": "2026-08-25",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1872,
+              "warm30": 494
+            },
+            {
+              "date": "2026-08-26",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 1950,
+              "warm30": 507
+            },
+            {
+              "date": "2026-08-27",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2028,
+              "warm30": 520
+            },
+            {
+              "date": "2026-08-28",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2106,
+              "warm30": 533
+            },
+            {
+              "date": "2026-08-31",
+              "run5": 1,
+              "run30": 0,
+              "good5": true,
+              "good30": true,
+              "warm5": 2184,
+              "warm30": 546
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "confirmed": false,
+  "audit": {
+    "signalPrefixes": 426,
+    "accountPrefixes": 156,
+    "trades": 178,
+    "referencePairs": 0,
+    "passed": true
+  }
+}

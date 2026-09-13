@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow"><title>Flux Lucid · Nykuto Trading HQ</title>
+  <link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/live/live.css?v=1">
+  <script type="module" src="/live/live.mjs?v=1"></script>
+</head>
+<body>
+<a class="skip-link" href="#content">Aller au contenu</a>
+<header class="topbar"><a class="brand-wrap" href="/"><span class="brand-mark" aria-hidden="true">N</span><span><span class="eyebrow">NYKUTO</span><strong>Trading HQ</strong></span></a><a class="ghost-button" href="/connections/">Connexions</a></header>
+<nav class="section-nav" aria-label="Navigation"><a href="/">Dashboard</a><a href="/live/" aria-current="page">Flux Lucid</a><a href="/lab/">Lab</a></nav>
+<main id="content" class="live-shell">
+<p class="eyebrow">PRÉPARATION · LECTURE SEULE</p><h1>Préparer le flux Lucid pour Nykuto</h1>
+<p>Réception de bougies 1 minute via un relais personnel. Acheter Lucid ne connecte pas automatiquement le bot.</p>
+<p class="safety"><strong>Paper Bot et Shadow : OFF. Ordres Lucid : désactivés.</strong> Cette version collecte et contrôle des bougies ; elle ne lance aucune stratégie ni position, même simulée.</p>
+<section class="live-panel" aria-labelledby="statusTitle">
+<h2 id="statusTitle">État réel de la réception</h2><p id="apiState" role="status">Vérification du serveur…</p>
+<div class="live-actions"><button type="button" class="primary-button" id="refresh">Actualiser</button><button type="button" class="ghost-button" id="probe" disabled>Tester l’API sans marché</button><label><input id="autoRefresh" type="checkbox">Actualiser toutes les 15 secondes</label></div>
+<p id="pageStatus" role="status"></p><p id="probeStatus" role="status"></p><p id="updatedAt" class="meta"></p>
+<div class="live-table" tabindex="0" role="region" aria-label="État des quatre marchés"><table><thead><tr><th>Marché</th><th>Réception</th><th>Symbole natif</th><th>Échéance</th><th>Dernière clôture</th><th>Fin de bougie</th><th>1m conservées</th><th>Bougies complètes</th><th>Discontinuités</th></tr></thead><tbody id="streamRows"></tbody></table></div>
+<p class="meta">Aucun cours d’exemple. « Bougie récente » indique seulement une clôture reçue datant de moins de 2 minutes, pas un tick instantané ni un abonnement vérifié. Une discontinuité peut être une coupure ou une pause normale de séance.</p>
+<noscript><p>JavaScript est nécessaire pour vérifier le serveur. Aucun flux connecté ne peut être confirmé sur cette page sans cette vérification.</p></noscript>
+</section>
+<div class="live-grid">
+<section class="live-panel"><h2>Après l’achat</h2><ol>
+<li>Confirmer avec Lucid le fournisseur <strong>Rithmic</strong>, l’accès Quantower et l’usage personnel des données dans ce relais. Les droits et frais restent à vérifier pour ton compte.</li>
+<li>Installer Quantower sur un <strong>ordinateur Windows</strong> et connecter le compte dans Quantower uniquement. Aucun mot de passe Lucid ou Rithmic n’est demandé ici.</li>
+<li>Compiler et vérifier l’exporteur fourni sur la version installée de Quantower. Comparer symbole, échéance, heure, OHLC et volume avec la plateforme.</li>
+<li>Authentifier le relais sur Nykuto, démarrer la réception et vérifier les déconnexions avant d’envisager un Paper Bot.</li>
+</ol><p class="meta">L’exporteur C# est du code source à compiler et tester, pas un plugin Quantower déjà certifié. Le PC doit rester allumé et connecté pour alimenter le site.</p></section>
+<section class="live-panel"><h2>Ce qui reste verrouillé</h2><p>La réception n’abaisse aucun critère de recherche du Lab. Aucun résultat historique n’est modifié.</p><p>Un futur Paper Bot devra encore disposer d’une stratégie figée admissible, d’un moteur persistant d’ordres virtuels, de frais et slippage réalistes, et de contrôles de coupure. Ce module n’est pas ce moteur.</p><p>Le tampon conserve les <strong>120 dernières bougies par marché</strong>. Ce n’est pas une archive de recherche. Les agrégations 5/15/60 minutes utilisent des blocs UTC complets, sans inventer les minutes manquantes et sans mélanger les échéances.</p><a class="ghost-button" href="/lab/">Voir la validation du bot</a></section>
+</div>
+<section class="live-panel"><h2>Relais et guide d’installation</h2><p>Chaîne prévue : <strong>Lucid → Rithmic → Quantower → relais local → API privée Nykuto</strong>. La dernière étape est préparée ; la liaison complète reste à vérifier avec tes futurs accès.</p>
+<p>Identifiant Nykuto du propriétaire : <code id="bridgeUser">—</code>. Ce n’est pas un identifiant broker.</p>
+<div class="live-actions"><a class="ghost-button" href="/live/bridge/NykutoBarExporter.cs" download>Source Quantower C#</a><a class="ghost-button" href="/live/bridge/relay.mjs" download>Relais Node.js</a><a class="ghost-button" href="/live/README.md">Guide technique et limites</a></div>
+<details><summary>Comment le relais se connecte-t-il sans ouvrir le site au public ?</summary><p>Le relais utilise ta connexion Cloudflare Access personnelle et les mêmes contrôles d’identité que le site. Aucun contournement de l’authentification, aucun mot de passe broker dans le navigateur. L’expiration de la session arrête le relais et impose une reconnexion.</p><p>La validation locale teste le format et les protections. Seules des bougies réellement reçues depuis ta plateforme confirmeront le trajet complet.</p></details>
+<p class="meta">Sources officielles consultées le 9 septembre 2026 : <a href="https://support.lucidtrading.com/en/articles/11404614-lucid-trading-supported-platforms" target="_blank" rel="noopener noreferrer">plateformes Lucid</a> · <a href="https://help.quantower.com/quantower/quantower-algo/downloading-history" target="_blank" rel="noopener noreferrer">API Quantower</a> · <a href="https://developers.cloudflare.com/cloudflare-one/access-controls/authenticate-agents/" target="_blank" rel="noopener noreferrer">authentification CLI Cloudflare</a>.</p>
+</section>
+</main>
+</body>
+</html>

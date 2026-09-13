@@ -1,0 +1,40 @@
+{
+  "schema": "jeu35-archive-v1",
+  "prefix": "jeu35/market-exits-v1/",
+  "prePerformanceCommit": "71eb5adb79cf63e189fbe11bc40a4710c439c2da",
+  "files": [
+    {
+      "name": "report.json",
+      "bytes": 305623,
+      "sha256": "ff5f836855229d88fba31d22fd3d2717d67a19dfa0c7dc0659724f59f0044311",
+      "encoding": "gzip+base64",
+      "parts": [
+        {
+          "key": "jeu35/market-exits-v1/report.json.gz.b64.part-000",
+          "bytes": 15888,
+          "sha256": "c19608b829b66f3c4ae3288d74463545c13ea80a69f2d34b4068e78a8dce206c"
+        }
+      ]
+    },
+    {
+      "name": "runs-private.json",
+      "bytes": 969468,
+      "sha256": "a87f0a4c319155930186278b194910b092552a49bbdc947dcded3070eb09f765",
+      "encoding": "gzip+base64",
+      "parts": [
+        {
+          "key": "jeu35/market-exits-v1/runs-private.json.gz.b64.part-000",
+          "bytes": 60000,
+          "sha256": "6143538d69eb47005612c37202624ed131f16cb3bffc895c27c89f18014f298e"
+        },
+        {
+          "key": "jeu35/market-exits-v1/runs-private.json.gz.b64.part-001",
+          "bytes": 37276,
+          "sha256": "a2c10a7ba6775a12b8d27496adad703dcbe17c11107daa657dc37aea5bd57bcb"
+        }
+      ]
+    }
+  ],
+  "confirmed": false,
+  "executionAllowed": false
+}

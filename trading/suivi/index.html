@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#07111f">
+  <title>Suivi du projet · Nykuto Trading HQ</title>
+  <meta name="description" content="État consolidé du Pine, des données, des recherches et des prochaines validations Nykuto Trading.">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../hitech.css?v=1">
+  <link rel="stylesheet" href="./suivi.css?v=1">
+  <script src="./suivi.mjs?v=1" type="module"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Aller au contenu</a>
+  <header class="topbar">
+    <a class="brand-wrap" href="../" aria-label="Nykuto Trading HQ · Dashboard">
+      <span class="brand-mark" aria-hidden="true">N</span>
+      <span><span class="eyebrow">NYKUTO</span><strong>Trading HQ</strong></span>
+    </a>
+    <div class="topbar-actions">
+      <span class="status-pill"><span class="status-dot" aria-hidden="true"></span>Contexte synchronisé</span>
+      <a class="ghost-button" href="../historique/">Historique et audit Pine</a>
+    </div>
+  </header>
+
+  <nav class="section-nav" aria-label="Navigation du Trading HQ">
+    <a href="../">Dashboard</a>
+    <a href="../lab/">Lab</a>
+    <a href="./" class="is-active" aria-current="page">Suivi</a>
+  </nav>
+
+  <main id="main" class="tracker-main">
+    <section class="tracker-hero" aria-labelledby="tracker-title">
+      <div>
+        <p class="eyebrow">ÉTAT CONSOLIDÉ</p>
+        <h1 id="tracker-title">Où en est réellement Nykuto Trading ?</h1>
+        <p>Le Pine actuel, les résultats déjà mesurés, le code réellement implémenté et ce qui reste à tester sont séparés pour éviter toute fausse impression d’avancement.</p>
+      </div>
+      <dl class="tracker-stamp">
+        <div><dt>Mise à jour du suivi</dt><dd id="updatedAt">—</dd></div>
+        <div><dt>Informations relues jusqu’au</dt><dd id="evidenceThrough">—</dd></div>
+        <div><dt>Branche de recherche consultée</dt><dd id="branchState">—</dd></div>
+      </dl>
+    </section>
+
+    <p id="trackerError" class="tracker-error" role="alert" hidden>Le registre de suivi n’a pas pu être chargé. Les protections restent inchangées : aucune exécution n’est activée.</p>
+
+    <section aria-labelledby="sync-title">
+      <div class="tracker-heading"><div><p class="panel-kicker">SYNCHRONISATION</p><h3 id="sync-title">Ce qui est bien à jour</h3></div><span class="tracker-chip is-synced">Contexte repris</span></div>
+      <div id="syncGrid" class="sync-grid"></div>
+    </section>
+
+    <section class="snapshot-grid" aria-label="Résumé chiffré actuel">
+      <article class="snapshot-card"><span>Référence Pine</span><strong id="pineVersion">—</strong><small id="pineMode">—</small></article>
+      <article class="snapshot-card"><span>M5 des anciens rapports</span><strong id="barCount">—</strong><small id="datasetRange">—</small></article>
+      <article class="snapshot-card"><span>Opportunités des anciens rapports</span><strong id="opportunityCount">—</strong><small id="baselineTp1">—</small></article>
+      <article class="snapshot-card is-pending"><span>Base actuelle vérifiée</span><strong id="currentBarCount">—</strong><small><a href="../historique/"><span id="currentCoverage">Calendrier vérifié</span></a></small></article>
+    </section>
+
+    <section class="tracker-grid">
+      <article class="tracker-panel" aria-labelledby="pine-title">
+        <div class="tracker-panel-head"><div><p class="panel-kicker">TRADINGVIEW</p><h3 id="pine-title">Pine de référence</h3></div><span class="tracker-chip is-external">Fourni hors dépôt</span></div>
+        <p id="pineSummary"></p>
+        <p id="pineFamilies" class="token-line"></p>
+        <ul id="pineRules" class="compact-list"></ul>
+      </article>
+
+      <article class="tracker-panel" aria-labelledby="repo-title">
+        <div class="tracker-panel-head"><div><p class="panel-kicker">BRANCHE DE RECHERCHE SÉPARÉE</p><h3 id="repo-title">Couches déjà versionnées</h3></div><span class="tracker-chip is-research">Recherche</span></div>
+        <div id="repositoryResearch" class="research-stack"></div>
+      </article>
+    </section>
+
+    <section class="tracker-panel tracker-wide" aria-labelledby="tiers-title">
+      <div class="tracker-panel-head"><div><p class="panel-kicker">ANCIENS RAPPORTS V15.1.1</p><h3 id="tiers-title">11 545 opportunités rapportées, à reproduire</h3></div><span class="tracker-chip is-external">Rapport externe</span></div>
+      <div class="table-scroll" role="region" aria-label="Tiers du Pine V15.1.1" tabindex="0">
+        <table>
+          <caption>Le TP1 global est une mesure historique. Il ne transforme pas le tier en probabilité garantie.</caption>
+          <thead><tr><th scope="col">Tier</th><th scope="col">Opportunités</th><th scope="col">TP1 historique</th><th scope="col">Part du census</th></tr></thead>
+          <tbody id="tierRows"></tbody>
+          <tfoot><tr><th scope="row">Total</th><td id="tierTotal">—</td><td id="tierWeightedTp1">—</td><td>100 %</td></tr></tfoot>
+        </table>
+      </div>
+      <p class="panel-note" id="validationNote"></p>
+    </section>
+
+    <section class="tracker-panel tracker-wide" aria-labelledby="timepace-title">
+      <div class="tracker-panel-head"><div><p class="panel-kicker">TIME-PACE · HISTORIQUE COMPLET CORRIGÉ</p><h3 id="timepace-title">Candidat mesuré, pas encore intégré</h3></div><span class="tracker-chip is-pending">Union requise</span></div>
+      <p id="timePaceStatus"></p>
+      <div id="timePaceRules" class="rule-chips" aria-label="Règles Time-Pace"></div>
+      <div class="table-scroll" role="region" aria-label="Résultats Time-Pace" tabindex="0">
+        <table>
+          <caption>Développement et validation chronologique 2026 restent affichés séparément. Les variantes partagent le même historique.</caption>
+          <thead><tr><th scope="col">Niveau</th><th scope="col">Période</th><th scope="col">n</th><th scope="col">TP1</th><th scope="col">TP2</th><th scope="col">TP3</th><th scope="col">Exp. 1R</th><th scope="col">Exp. 2R</th><th scope="col">Exp. 3R</th></tr></thead>
+          <tbody id="timePaceRows"></tbody>
+        </table>
+      </div>
+      <p class="panel-note">La « validation 2026 » est un découpage chronologique rétrospectif, pas encore une confirmation prospective indépendante.</p>
+      <details class="tracker-details"><summary>Décisions conservées pour le prochain moteur</summary><ul id="timePaceDecisions" class="compact-list"></ul></details>
+    </section>
+
+    <section class="tracker-grid">
+      <article class="tracker-panel" aria-labelledby="next-title">
+        <div class="tracker-panel-head"><div><p class="panel-kicker">PRIORITÉ 01</p><h3 id="next-title">Prochain test obligatoire</h3></div><span class="tracker-chip is-pending">À calculer</span></div>
+        <p id="nextTestLabel" class="lead-copy"></p>
+        <p id="nextTestBlocker" class="attention-copy"></p>
+        <p id="nextTestDedupe"></p>
+        <ol id="nextTestSteps" class="pipeline-list"></ol>
+      </article>
+
+      <article class="tracker-panel" aria-labelledby="boundaries-title">
+        <div class="tracker-panel-head"><div><p class="panel-kicker">LIMITES ACTUELLES</p><h3 id="boundaries-title">Ce que le système ne fait pas</h3></div><span class="tracker-chip is-off">Exécution OFF</span></div>
+        <ul id="boundaryList" class="boundary-list"></ul>
+      </article>
+    </section>
+
+    <section class="tracker-panel tracker-wide" aria-labelledby="failed-title">
+      <div class="tracker-panel-head"><div><p class="panel-kicker">FAILED BREAKOUT INTEGRITY</p><h3 id="failed-title">Faiblesse identifiée, correction encore exploratoire</h3></div><span class="tracker-chip is-research">103 152 M5</span></div>
+      <p id="failedDiagnosis"></p>
+      <p id="failedCoverage" class="attention-copy"></p>
+      <details class="tracker-details"><summary>Voir les micro-replays et les vérifications proposées</summary>
+        <div class="table-scroll" role="region" aria-label="Micro-replays Failed Breakout" tabindex="0">
+          <table><caption>Exploration reconstruite : ces chiffres ne remplacent pas le test officiel sur 132 650 M5.</caption><thead><tr><th scope="col">Variante</th><th scope="col">n</th><th scope="col">TP1 total</th><th scope="col">Développement</th><th scope="col">Validation disponible</th></tr></thead><tbody id="failedRows"></tbody></table>
+        </div>
+        <h4>États proposés</h4><div id="failedStates" class="rule-chips"></div>
+        <h4>Micro-vérifications à tester</h4><div id="failedChecks" class="rule-chips"></div>
+      </details>
+    </section>
+
+    <section class="tracker-grid tracker-bottom-grid">
+      <article class="tracker-panel" aria-labelledby="timeline-title">
+        <div class="tracker-panel-head"><div><p class="panel-kicker">JOURNAL DU PROJET</p><h3 id="timeline-title">Derniers jalons repris</h3></div></div>
+        <ol id="timeline" class="timeline"></ol>
+      </article>
+      <article class="tracker-panel" aria-labelledby="sources-title">
+        <div class="tracker-panel-head"><div><p class="panel-kicker">TRAÇABILITÉ</p><h3 id="sources-title">Sources de cet état</h3></div></div>
+        <ul id="sourceList" class="source-list"></ul>
+        <p class="panel-note">Un document « hors dépôt » est bien pris en compte dans le suivi, mais n’est pas présenté comme du code déjà publié.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer><p><strong>Nykuto Trading HQ</strong> · Suivi privé de recherche. Les résultats historiques ne garantissent pas les résultats futurs.</p></footer>
+</body>
+</html>

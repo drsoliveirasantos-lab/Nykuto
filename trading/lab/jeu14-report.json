@@ -1,0 +1,2080 @@
+{
+  "schema": "jeu14-report-v1",
+  "protocol": "jeu14-v1",
+  "generatedAt": "2026-09-09T02:43:39.346Z",
+  "source": {
+    "key": "jeu14/available-history-v1.json",
+    "sha256": "028e914bb10ea38b73b6fcbc867c5d81937b967701448913fc88ca85746557cf",
+    "bytes": 2426693
+  },
+  "candidateId": "30-full-both",
+  "paperEnabled": false,
+  "coverage": {
+    "expectedSessions": 372,
+    "scoredSessions": 330,
+    "firstScored": "2025-04-09",
+    "lastScored": "2026-09-04",
+    "unavailable": [
+      {
+        "ticker": "MNQM5",
+        "date": "2025-03-17",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQM5",
+        "date": "2025-03-18",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQM5",
+        "date": "2025-03-19",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQM5",
+        "date": "2025-03-20",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQM5",
+        "date": "2025-03-21",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQM5",
+        "date": "2025-03-24",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQM5",
+        "date": "2025-03-25",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQM5",
+        "date": "2025-03-26",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQM5",
+        "date": "2025-03-27",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQM5",
+        "date": "2025-03-28",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQM5",
+        "date": "2025-03-31",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQM5",
+        "date": "2025-04-01",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQM5",
+        "date": "2025-04-02",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQM5",
+        "date": "2025-04-03",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQM5",
+        "date": "2025-04-04",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQM5",
+        "date": "2025-04-07",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQM5",
+        "date": "2025-04-08",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQZ5",
+        "date": "2025-09-15",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQZ5",
+        "date": "2025-09-16",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQZ5",
+        "date": "2025-09-17",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQZ5",
+        "date": "2025-09-18",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQH6",
+        "date": "2026-03-06",
+        "missingMinutes": [
+          605,
+          610,
+          615,
+          620,
+          625,
+          630,
+          635,
+          640,
+          645,
+          650
+        ],
+        "missingSchedule": false,
+        "scoredRange": true,
+        "reason": "missing-data"
+      },
+      {
+        "ticker": "MNQH6",
+        "date": "2026-03-09",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQH6",
+        "date": "2026-03-10",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQH6",
+        "date": "2026-03-11",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQH6",
+        "date": "2026-03-12",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQH6",
+        "date": "2026-03-13",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQM6",
+        "date": "2026-03-16",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQM6",
+        "date": "2026-03-17",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQM6",
+        "date": "2026-03-18",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQM6",
+        "date": "2026-03-19",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQM6",
+        "date": "2026-03-20",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQM6",
+        "date": "2026-03-23",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQM6",
+        "date": "2026-03-24",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQM6",
+        "date": "2026-03-25",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQM6",
+        "date": "2026-03-26",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQM6",
+        "date": "2026-03-27",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQM6",
+        "date": "2026-03-30",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQM6",
+        "date": "2026-03-31",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQU6",
+        "date": "2026-06-15",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQU6",
+        "date": "2026-06-16",
+        "reason": "warmup"
+      },
+      {
+        "ticker": "MNQU6",
+        "date": "2026-09-08",
+        "missingMinutes": [
+          880,
+          885,
+          890,
+          895,
+          900,
+          905,
+          910,
+          915,
+          920,
+          925,
+          930,
+          935,
+          940,
+          945,
+          950,
+          955
+        ],
+        "missingSchedule": false,
+        "scoredRange": true,
+        "reason": "missing-data"
+      }
+    ],
+    "quality": [
+      {
+        "ticker": "MNQM5",
+        "prep": "2025-03-17",
+        "start": "2025-03-17",
+        "end": "2025-06-16",
+        "bars": 4914,
+        "expectedSessions": 63,
+        "issues": [],
+        "blocks": [
+          {
+            "ticker": "MNQM5",
+            "prep": "2025-03-17",
+            "last": "2025-06-13",
+            "start": "2025-04-09",
+            "sessions": 63,
+            "scoredSessions": 46
+          }
+        ]
+      },
+      {
+        "ticker": "MNQU5",
+        "prep": "2025-05-01",
+        "start": "2025-06-16",
+        "end": "2025-09-15",
+        "bars": 7208,
+        "expectedSessions": 93,
+        "issues": [
+          {
+            "ticker": "MNQU5",
+            "date": "2025-05-05",
+            "missingMinutes": [
+              820
+            ],
+            "missingSchedule": false,
+            "scoredRange": false
+          },
+          {
+            "ticker": "MNQU5",
+            "date": "2025-05-06",
+            "missingMinutes": [
+              920
+            ],
+            "missingSchedule": false,
+            "scoredRange": false
+          },
+          {
+            "ticker": "MNQU5",
+            "date": "2025-05-09",
+            "missingMinutes": [
+              860,
+              865,
+              870,
+              895,
+              935
+            ],
+            "missingSchedule": false,
+            "scoredRange": false
+          },
+          {
+            "ticker": "MNQU5",
+            "date": "2025-05-16",
+            "missingMinutes": [
+              765
+            ],
+            "missingSchedule": false,
+            "scoredRange": false
+          },
+          {
+            "ticker": "MNQU5",
+            "date": "2025-05-20",
+            "missingMinutes": [
+              735,
+              740
+            ],
+            "missingSchedule": false,
+            "scoredRange": false
+          }
+        ],
+        "blocks": [
+          {
+            "ticker": "MNQU5",
+            "prep": "2025-05-01",
+            "last": "2025-05-02",
+            "start": null,
+            "sessions": 2,
+            "scoredSessions": 0
+          },
+          {
+            "ticker": "MNQU5",
+            "prep": "2025-05-07",
+            "last": "2025-05-08",
+            "start": null,
+            "sessions": 2,
+            "scoredSessions": 0
+          },
+          {
+            "ticker": "MNQU5",
+            "prep": "2025-05-12",
+            "last": "2025-05-15",
+            "start": null,
+            "sessions": 4,
+            "scoredSessions": 0
+          },
+          {
+            "ticker": "MNQU5",
+            "prep": "2025-05-19",
+            "last": "2025-05-19",
+            "start": null,
+            "sessions": 1,
+            "scoredSessions": 0
+          },
+          {
+            "ticker": "MNQU5",
+            "prep": "2025-05-21",
+            "last": "2025-09-12",
+            "start": "2025-06-16",
+            "sessions": 79,
+            "scoredSessions": 62
+          }
+        ]
+      },
+      {
+        "ticker": "MNQZ5",
+        "prep": "2025-08-01",
+        "start": "2025-09-15",
+        "end": "2025-12-15",
+        "bars": 7283,
+        "expectedSessions": 94,
+        "issues": [
+          {
+            "ticker": "MNQZ5",
+            "date": "2025-08-04",
+            "missingMinutes": [
+              860,
+              890
+            ],
+            "missingSchedule": false,
+            "scoredRange": false
+          },
+          {
+            "ticker": "MNQZ5",
+            "date": "2025-08-05",
+            "missingMinutes": [
+              800
+            ],
+            "missingSchedule": false,
+            "scoredRange": false
+          },
+          {
+            "ticker": "MNQZ5",
+            "date": "2025-08-08",
+            "missingMinutes": [
+              905
+            ],
+            "missingSchedule": false,
+            "scoredRange": false
+          },
+          {
+            "ticker": "MNQZ5",
+            "date": "2025-08-11",
+            "missingMinutes": [
+              800,
+              905
+            ],
+            "missingSchedule": false,
+            "scoredRange": false
+          },
+          {
+            "ticker": "MNQZ5",
+            "date": "2025-08-12",
+            "missingMinutes": [
+              890
+            ],
+            "missingSchedule": false,
+            "scoredRange": false
+          },
+          {
+            "ticker": "MNQZ5",
+            "date": "2025-08-18",
+            "missingMinutes": [
+              860,
+              940
+            ],
+            "missingSchedule": false,
+            "scoredRange": false
+          },
+          {
+            "ticker": "MNQZ5",
+            "date": "2025-08-25",
+            "missingMinutes": [
+              785,
+              850,
+              875,
+              905
+            ],
+            "missingSchedule": false,
+            "scoredRange": false
+          }
+        ],
+        "blocks": [
+          {
+            "ticker": "MNQZ5",
+            "prep": "2025-08-01",
+            "last": "2025-08-01",
+            "start": null,
+            "sessions": 1,
+            "scoredSessions": 0
+          },
+          {
+            "ticker": "MNQZ5",
+            "prep": "2025-08-06",
+            "last": "2025-08-07",
+            "start": null,
+            "sessions": 2,
+            "scoredSessions": 0
+          },
+          {
+            "ticker": "MNQZ5",
+            "prep": "2025-08-13",
+            "last": "2025-08-15",
+            "start": null,
+            "sessions": 3,
+            "scoredSessions": 0
+          },
+          {
+            "ticker": "MNQZ5",
+            "prep": "2025-08-19",
+            "last": "2025-08-22",
+            "start": null,
+            "sessions": 4,
+            "scoredSessions": 0
+          },
+          {
+            "ticker": "MNQZ5",
+            "prep": "2025-08-26",
+            "last": "2025-12-12",
+            "start": "2025-09-19",
+            "sessions": 77,
+            "scoredSessions": 60
+          }
+        ]
+      },
+      {
+        "ticker": "MNQH6",
+        "prep": "2025-11-01",
+        "start": "2025-12-15",
+        "end": "2026-03-16",
+        "bars": 6932,
+        "expectedSessions": 90,
+        "issues": [
+          {
+            "ticker": "MNQH6",
+            "date": "2025-11-03",
+            "missingMinutes": [
+              665,
+              905,
+              920
+            ],
+            "missingSchedule": false,
+            "scoredRange": false
+          },
+          {
+            "ticker": "MNQH6",
+            "date": "2025-11-05",
+            "missingMinutes": [
+              915
+            ],
+            "missingSchedule": false,
+            "scoredRange": false
+          },
+          {
+            "ticker": "MNQH6",
+            "date": "2025-11-11",
+            "missingMinutes": [
+              865,
+              915
+            ],
+            "missingSchedule": false,
+            "scoredRange": false
+          },
+          {
+            "ticker": "MNQH6",
+            "date": "2026-03-06",
+            "missingMinutes": [
+              605,
+              610,
+              615,
+              620,
+              625,
+              630,
+              635,
+              640,
+              645,
+              650
+            ],
+            "missingSchedule": false,
+            "scoredRange": true
+          }
+        ],
+        "blocks": [
+          {
+            "ticker": "MNQH6",
+            "prep": "2025-11-04",
+            "last": "2025-11-04",
+            "start": null,
+            "sessions": 1,
+            "scoredSessions": 0
+          },
+          {
+            "ticker": "MNQH6",
+            "prep": "2025-11-06",
+            "last": "2025-11-10",
+            "start": null,
+            "sessions": 3,
+            "scoredSessions": 0
+          },
+          {
+            "ticker": "MNQH6",
+            "prep": "2025-11-12",
+            "last": "2026-03-05",
+            "start": "2025-12-15",
+            "sessions": 77,
+            "scoredSessions": 55
+          },
+          {
+            "ticker": "MNQH6",
+            "prep": "2026-03-09",
+            "last": "2026-03-13",
+            "start": null,
+            "sessions": 5,
+            "scoredSessions": 0
+          }
+        ]
+      },
+      {
+        "ticker": "MNQM6",
+        "prep": "2026-02-01",
+        "start": "2026-03-16",
+        "end": "2026-06-15",
+        "bars": 7159,
+        "expectedSessions": 92,
+        "issues": [
+          {
+            "ticker": "MNQM6",
+            "date": "2026-02-02",
+            "missingMinutes": [
+              830,
+              880
+            ],
+            "missingSchedule": false,
+            "scoredRange": false
+          },
+          {
+            "ticker": "MNQM6",
+            "date": "2026-02-09",
+            "missingMinutes": [
+              890
+            ],
+            "missingSchedule": false,
+            "scoredRange": false
+          },
+          {
+            "ticker": "MNQM6",
+            "date": "2026-02-13",
+            "missingMinutes": [
+              855
+            ],
+            "missingSchedule": false,
+            "scoredRange": false
+          },
+          {
+            "ticker": "MNQM6",
+            "date": "2026-02-24",
+            "missingMinutes": [
+              845
+            ],
+            "missingSchedule": false,
+            "scoredRange": false
+          },
+          {
+            "ticker": "MNQM6",
+            "date": "2026-02-25",
+            "missingMinutes": [
+              735,
+              895
+            ],
+            "missingSchedule": false,
+            "scoredRange": false
+          },
+          {
+            "ticker": "MNQM6",
+            "date": "2026-03-06",
+            "missingMinutes": [
+              605,
+              610,
+              615,
+              620,
+              625,
+              630,
+              635,
+              640,
+              645,
+              650
+            ],
+            "missingSchedule": false,
+            "scoredRange": false
+          }
+        ],
+        "blocks": [
+          {
+            "ticker": "MNQM6",
+            "prep": "2026-02-03",
+            "last": "2026-02-06",
+            "start": null,
+            "sessions": 4,
+            "scoredSessions": 0
+          },
+          {
+            "ticker": "MNQM6",
+            "prep": "2026-02-10",
+            "last": "2026-02-12",
+            "start": null,
+            "sessions": 3,
+            "scoredSessions": 0
+          },
+          {
+            "ticker": "MNQM6",
+            "prep": "2026-02-17",
+            "last": "2026-02-23",
+            "start": null,
+            "sessions": 5,
+            "scoredSessions": 0
+          },
+          {
+            "ticker": "MNQM6",
+            "prep": "2026-02-26",
+            "last": "2026-03-05",
+            "start": null,
+            "sessions": 6,
+            "scoredSessions": 0
+          },
+          {
+            "ticker": "MNQM6",
+            "prep": "2026-03-09",
+            "last": "2026-06-12",
+            "start": "2026-04-01",
+            "sessions": 68,
+            "scoredSessions": 51
+          }
+        ]
+      },
+      {
+        "ticker": "MNQU6",
+        "prep": "2026-05-01",
+        "start": "2026-06-15",
+        "end": "2026-09-09",
+        "bars": 6922,
+        "expectedSessions": 89,
+        "issues": [
+          {
+            "ticker": "MNQU6",
+            "date": "2026-05-01",
+            "missingMinutes": [
+              785
+            ],
+            "missingSchedule": false,
+            "scoredRange": false
+          },
+          {
+            "ticker": "MNQU6",
+            "date": "2026-05-04",
+            "missingMinutes": [
+              940
+            ],
+            "missingSchedule": false,
+            "scoredRange": false
+          },
+          {
+            "ticker": "MNQU6",
+            "date": "2026-05-06",
+            "missingMinutes": [
+              820
+            ],
+            "missingSchedule": false,
+            "scoredRange": false
+          },
+          {
+            "ticker": "MNQU6",
+            "date": "2026-05-21",
+            "missingMinutes": [
+              760
+            ],
+            "missingSchedule": false,
+            "scoredRange": false
+          },
+          {
+            "ticker": "MNQU6",
+            "date": "2026-09-08",
+            "missingMinutes": [
+              880,
+              885,
+              890,
+              895,
+              900,
+              905,
+              910,
+              915,
+              920,
+              925,
+              930,
+              935,
+              940,
+              945,
+              950,
+              955
+            ],
+            "missingSchedule": false,
+            "scoredRange": true
+          }
+        ],
+        "blocks": [
+          {
+            "ticker": "MNQU6",
+            "prep": "2026-05-05",
+            "last": "2026-05-05",
+            "start": null,
+            "sessions": 1,
+            "scoredSessions": 0
+          },
+          {
+            "ticker": "MNQU6",
+            "prep": "2026-05-07",
+            "last": "2026-05-20",
+            "start": null,
+            "sessions": 10,
+            "scoredSessions": 0
+          },
+          {
+            "ticker": "MNQU6",
+            "prep": "2026-05-22",
+            "last": "2026-09-04",
+            "start": "2026-06-17",
+            "sessions": 73,
+            "scoredSessions": 56
+          }
+        ]
+      }
+    ]
+  },
+  "overall": {
+    "start": "2025-03-17",
+    "end": "2026-09-09",
+    "expectedSessions": 372,
+    "scoredSessions": 330,
+    "complete": false,
+    "normal": {
+      "count": 234,
+      "wins": 114,
+      "win": 0.48717948717948717,
+      "total": 10.892092113880341,
+      "exp": 0.046547402196069836,
+      "pf": 1.1361554553905242,
+      "dd": 9.738447947497091,
+      "winInterval": [
+        0.4238620038030385,
+        0.5509111225129634
+      ]
+    },
+    "stress": {
+      "count": 234,
+      "wins": 113,
+      "win": 0.4829059829059829,
+      "total": 7.216793558243229,
+      "exp": 0.030840998112150554,
+      "pf": 1.088107893826903,
+      "dd": 10.791250229772333,
+      "winInterval": [
+        0.41967351681596826,
+        0.5466906516053676
+      ]
+    }
+  },
+  "months": [
+    {
+      "start": "2025-03-01",
+      "end": "2025-04-01",
+      "expectedSessions": 21,
+      "scoredSessions": 0,
+      "complete": false,
+      "normal": {
+        "count": 0,
+        "wins": 0,
+        "win": null,
+        "total": 0,
+        "exp": null,
+        "pf": null,
+        "dd": 0,
+        "winInterval": null
+      },
+      "stress": {
+        "count": 0,
+        "wins": 0,
+        "win": null,
+        "total": 0,
+        "exp": null,
+        "pf": null,
+        "dd": 0,
+        "winInterval": null
+      }
+    },
+    {
+      "start": "2025-04-01",
+      "end": "2025-05-01",
+      "expectedSessions": 21,
+      "scoredSessions": 15,
+      "complete": false,
+      "normal": {
+        "count": 12,
+        "wins": 5,
+        "win": 0.4166666666666667,
+        "total": 1.7921433180679285,
+        "exp": 0.1493452765056607,
+        "pf": 1.4578347103570057,
+        "dd": 1.4538075776424892,
+        "winInterval": [
+          0.19325746190524656,
+          0.6804926643446272
+        ]
+      },
+      "stress": {
+        "count": 12,
+        "wins": 5,
+        "win": 0.4166666666666667,
+        "total": 1.658078416945968,
+        "exp": 0.138173201412164,
+        "pf": 1.4156720187080638,
+        "dd": 1.4998005715286469,
+        "winInterval": [
+          0.19325746190524656,
+          0.6804926643446272
+        ]
+      }
+    },
+    {
+      "start": "2025-05-01",
+      "end": "2025-06-01",
+      "expectedSessions": 21,
+      "scoredSessions": 21,
+      "complete": true,
+      "normal": {
+        "count": 17,
+        "wins": 4,
+        "win": 0.23529411764705882,
+        "total": -5.593038699654382,
+        "exp": -0.3290022764502578,
+        "pf": 0.39898147378003107,
+        "dd": 6.286711973110122,
+        "winInterval": [
+          0.0955488907167594,
+          0.47262245889171595
+        ]
+      },
+      "stress": {
+        "count": 17,
+        "wins": 4,
+        "win": 0.23529411764705882,
+        "total": -5.869905261648744,
+        "exp": -0.3452885448028673,
+        "pf": 0.3830297114292002,
+        "dd": 6.469507525949924,
+        "winInterval": [
+          0.0955488907167594,
+          0.47262245889171595
+        ]
+      }
+    },
+    {
+      "start": "2025-06-01",
+      "end": "2025-07-01",
+      "expectedSessions": 20,
+      "scoredSessions": 20,
+      "complete": true,
+      "normal": {
+        "count": 8,
+        "wins": 5,
+        "win": 0.625,
+        "total": 2.609186594615329,
+        "exp": 0.32614832432691615,
+        "pf": 7.27782936334699,
+        "dd": 0.3698630136986301,
+        "winInterval": [
+          0.30573785458380187,
+          0.863158240538479
+        ]
+      },
+      "stress": {
+        "count": 8,
+        "wins": 4,
+        "win": 0.5,
+        "total": 2.4521727121829797,
+        "exp": 0.30652158902287246,
+        "pf": 6.089595443302456,
+        "dd": 0.3938356164383562,
+        "winInterval": [
+          0.21521252682444186,
+          0.7847874731755582
+        ]
+      }
+    },
+    {
+      "start": "2025-07-01",
+      "end": "2025-08-01",
+      "expectedSessions": 22,
+      "scoredSessions": 22,
+      "complete": true,
+      "normal": {
+        "count": 12,
+        "wins": 5,
+        "win": 0.4166666666666667,
+        "total": -1.2083420931807338,
+        "exp": -0.10069517443172782,
+        "pf": 0.7856512320794105,
+        "dd": 3.433546124276065,
+        "winInterval": [
+          0.19325746190524656,
+          0.6804926643446272
+        ]
+      },
+      "stress": {
+        "count": 12,
+        "wins": 5,
+        "win": 0.4166666666666667,
+        "total": -1.512258861334852,
+        "exp": -0.12602157177790432,
+        "pf": 0.7400395044071636,
+        "dd": 3.540096050833499,
+        "winInterval": [
+          0.19325746190524656,
+          0.6804926643446272
+        ]
+      }
+    },
+    {
+      "start": "2025-08-01",
+      "end": "2025-09-01",
+      "expectedSessions": 21,
+      "scoredSessions": 21,
+      "complete": true,
+      "normal": {
+        "count": 14,
+        "wins": 3,
+        "win": 0.21428571428571427,
+        "total": -3.686509043245774,
+        "exp": -0.2633220745175553,
+        "pf": 0.4698022654494911,
+        "dd": 4.011348196504448,
+        "winInterval": [
+          0.0757124833691637,
+          0.4758972377320828
+        ]
+      },
+      "stress": {
+        "count": 14,
+        "wins": 3,
+        "win": 0.21428571428571427,
+        "total": -3.972193347058277,
+        "exp": -0.28372809621844836,
+        "pf": 0.4466071586956003,
+        "dd": 4.237034801368331,
+        "winInterval": [
+          0.0757124833691637,
+          0.4758972377320828
+        ]
+      }
+    },
+    {
+      "start": "2025-09-01",
+      "end": "2025-10-01",
+      "expectedSessions": 21,
+      "scoredSessions": 17,
+      "complete": false,
+      "normal": {
+        "count": 15,
+        "wins": 7,
+        "win": 0.4666666666666667,
+        "total": 3.967264641086555,
+        "exp": 0.26448430940577033,
+        "pf": 1.8892589514433762,
+        "dd": 1.3396654543312247,
+        "winInterval": [
+          0.24809225259746442,
+          0.6988336984894921
+        ]
+      },
+      "stress": {
+        "count": 15,
+        "wins": 7,
+        "win": 0.4666666666666667,
+        "total": 3.6412763154973082,
+        "exp": 0.24275175436648722,
+        "pf": 1.786807630031356,
+        "dd": 1.3945741149625923,
+        "winInterval": [
+          0.24809225259746442,
+          0.6988336984894921
+        ]
+      }
+    },
+    {
+      "start": "2025-10-01",
+      "end": "2025-11-01",
+      "expectedSessions": 23,
+      "scoredSessions": 23,
+      "complete": true,
+      "normal": {
+        "count": 14,
+        "wins": 8,
+        "win": 0.5714285714285714,
+        "total": 0.36089401497552526,
+        "exp": 0.025778143926823233,
+        "pf": 1.0762309775514094,
+        "dd": 2.054487907561371,
+        "winInterval": [
+          0.3259026690286936,
+          0.7861949006959948
+        ]
+      },
+      "stress": {
+        "count": 14,
+        "wins": 8,
+        "win": 0.5714285714285714,
+        "total": 0.10699221168575779,
+        "exp": 0.007642300834696985,
+        "pf": 1.0220624736128305,
+        "dd": 2.1089758151227413,
+        "winInterval": [
+          0.3259026690286936,
+          0.7861949006959948
+        ]
+      }
+    },
+    {
+      "start": "2025-11-01",
+      "end": "2025-12-01",
+      "expectedSessions": 19,
+      "scoredSessions": 19,
+      "complete": true,
+      "normal": {
+        "count": 10,
+        "wins": 6,
+        "win": 0.6,
+        "total": 1.3272660957977653,
+        "exp": 0.13272660957977653,
+        "pf": 1.6537720480349836,
+        "dd": 1.8419796642376596,
+        "winInterval": [
+          0.3126695474501864,
+          0.8318224187964902
+        ]
+      },
+      "stress": {
+        "count": 10,
+        "wins": 6,
+        "win": 0.6,
+        "total": 1.218265139721022,
+        "exp": 0.1218265139721022,
+        "pf": 1.5903975228819907,
+        "dd": 1.8848944440056332,
+        "winInterval": [
+          0.3126695474501864,
+          0.8318224187964902
+        ]
+      }
+    },
+    {
+      "start": "2025-12-01",
+      "end": "2026-01-01",
+      "expectedSessions": 22,
+      "scoredSessions": 22,
+      "complete": true,
+      "normal": {
+        "count": 18,
+        "wins": 12,
+        "win": 0.6666666666666666,
+        "total": 3.289603314530524,
+        "exp": 0.18275573969614023,
+        "pf": 1.6282892680039784,
+        "dd": 2.1892742959430853,
+        "winInterval": [
+          0.4374906934425036,
+          0.8372144563633714
+        ]
+      },
+      "stress": {
+        "count": 18,
+        "wins": 12,
+        "win": 0.6666666666666666,
+        "total": 2.9249814096547757,
+        "exp": 0.1624989672030431,
+        "pf": 1.544375211162895,
+        "dd": 2.2800264243984856,
+        "winInterval": [
+          0.4374906934425036,
+          0.8372144563633714
+        ]
+      }
+    },
+    {
+      "start": "2026-01-01",
+      "end": "2026-02-01",
+      "expectedSessions": 20,
+      "scoredSessions": 20,
+      "complete": true,
+      "normal": {
+        "count": 15,
+        "wins": 8,
+        "win": 0.5333333333333333,
+        "total": 2.395935936023866,
+        "exp": 0.15972906240159107,
+        "pf": 1.6081080972128434,
+        "dd": 1.3829070443375786,
+        "winInterval": [
+          0.3011663015105079,
+          0.7519077474025355
+        ]
+      },
+      "stress": {
+        "count": 15,
+        "wins": 8,
+        "win": 0.5333333333333333,
+        "total": 2.14335753201632,
+        "exp": 0.1428905021344213,
+        "pf": 1.529790209556412,
+        "dd": 1.4123465271539044,
+        "winInterval": [
+          0.3011663015105079,
+          0.7519077474025355
+        ]
+      }
+    },
+    {
+      "start": "2026-02-01",
+      "end": "2026-03-01",
+      "expectedSessions": 19,
+      "scoredSessions": 19,
+      "complete": true,
+      "normal": {
+        "count": 13,
+        "wins": 4,
+        "win": 0.3076923076923077,
+        "total": -1.3539961784181287,
+        "exp": -0.1041535521860099,
+        "pf": 0.7511316488691865,
+        "dd": 5.440612164085185,
+        "winInterval": [
+          0.12680497161618087,
+          0.5763111218666236
+        ]
+      },
+      "stress": {
+        "count": 13,
+        "wins": 4,
+        "win": 0.3076923076923077,
+        "total": -1.5112529639356338,
+        "exp": -0.11625022799504875,
+        "pf": 0.7277979493595904,
+        "dd": 5.551952898150878,
+        "winInterval": [
+          0.12680497161618087,
+          0.5763111218666236
+        ]
+      }
+    },
+    {
+      "start": "2026-03-01",
+      "end": "2026-04-01",
+      "expectedSessions": 22,
+      "scoredSessions": 4,
+      "complete": false,
+      "normal": {
+        "count": 4,
+        "wins": 0,
+        "win": 0,
+        "total": -3.5771152970081204,
+        "exp": -0.8942788242520301,
+        "pf": 0,
+        "dd": 3.5771152970081204,
+        "winInterval": [
+          0,
+          0.48990002040399916
+        ]
+      },
+      "stress": {
+        "count": 4,
+        "wins": 0,
+        "win": 0,
+        "total": -3.6255799470661487,
+        "exp": -0.9063949867665372,
+        "pf": 0,
+        "dd": 3.6255799470661487,
+        "winInterval": [
+          0,
+          0.48990002040399916
+        ]
+      }
+    },
+    {
+      "start": "2026-04-01",
+      "end": "2026-05-01",
+      "expectedSessions": 21,
+      "scoredSessions": 21,
+      "complete": true,
+      "normal": {
+        "count": 14,
+        "wins": 8,
+        "win": 0.5714285714285714,
+        "total": 2.2818910205894714,
+        "exp": 0.1629922157563908,
+        "pf": 1.9711046800866712,
+        "dd": 1.6070960668786753,
+        "winInterval": [
+          0.3259026690286936,
+          0.7861949006959948
+        ]
+      },
+      "stress": {
+        "count": 14,
+        "wins": 8,
+        "win": 0.5714285714285714,
+        "total": 2.066069471454588,
+        "exp": 0.14757639081818485,
+        "pf": 1.8468106505762047,
+        "dd": 1.6759951955604127,
+        "winInterval": [
+          0.3259026690286936,
+          0.7861949006959948
+        ]
+      }
+    },
+    {
+      "start": "2026-05-01",
+      "end": "2026-06-01",
+      "expectedSessions": 20,
+      "scoredSessions": 20,
+      "complete": true,
+      "normal": {
+        "count": 14,
+        "wins": 7,
+        "win": 0.5,
+        "total": 1.5683003271176819,
+        "exp": 0.11202145193697728,
+        "pf": 1.4336090860988426,
+        "dd": 2.5665840040776127,
+        "winInterval": [
+          0.2679886791947528,
+          0.7320113208052472
+        ]
+      },
+      "stress": {
+        "count": 14,
+        "wins": 7,
+        "win": 0.5,
+        "total": 1.3910471767357124,
+        "exp": 0.09936051262397946,
+        "pf": 1.3745832387409234,
+        "dd": 2.6415653851859444,
+        "winInterval": [
+          0.2679886791947528,
+          0.7320113208052472
+        ]
+      }
+    },
+    {
+      "start": "2026-06-01",
+      "end": "2026-07-01",
+      "expectedSessions": 21,
+      "scoredSessions": 19,
+      "complete": false,
+      "normal": {
+        "count": 18,
+        "wins": 9,
+        "win": 0.5,
+        "total": 0.4906356174567952,
+        "exp": 0.02725753430315529,
+        "pf": 1.0610544336062604,
+        "dd": 3.911883162058114,
+        "winInterval": [
+          0.2903070395897999,
+          0.7096929604102
+        ]
+      },
+      "stress": {
+        "count": 18,
+        "wins": 9,
+        "win": 0.5,
+        "total": 0.33727733473065147,
+        "exp": 0.018737629707258414,
+        "pf": 1.041611534659414,
+        "dd": 3.9975875671014354,
+        "winInterval": [
+          0.2903070395897999,
+          0.7096929604102
+        ]
+      }
+    },
+    {
+      "start": "2026-07-01",
+      "end": "2026-08-01",
+      "expectedSessions": 22,
+      "scoredSessions": 22,
+      "complete": true,
+      "normal": {
+        "count": 16,
+        "wins": 12,
+        "win": 0.75,
+        "total": 7.61536344600796,
+        "exp": 0.4759602153754975,
+        "pf": 3.157919912033984,
+        "dd": 1.4477900750941133,
+        "winInterval": [
+          0.5050123107060135,
+          0.8981809801576265
+        ]
+      },
+      "stress": {
+        "count": 16,
+        "wins": 12,
+        "win": 0.75,
+        "total": 7.461828375768468,
+        "exp": 0.4663642734855292,
+        "pf": 3.0900374916173097,
+        "dd": 1.5073987707919696,
+        "winInterval": [
+          0.5050123107060135,
+          0.8981809801576265
+        ]
+      }
+    },
+    {
+      "start": "2026-08-01",
+      "end": "2026-09-01",
+      "expectedSessions": 21,
+      "scoredSessions": 21,
+      "complete": true,
+      "normal": {
+        "count": 16,
+        "wins": 9,
+        "win": 0.5625,
+        "total": -2.6886561404499845,
+        "exp": -0.16804100877812403,
+        "pf": 0.5656101072283551,
+        "dd": 4.179292844569835,
+        "winInterval": [
+          0.33178195606776517,
+          0.7690163666481448
+        ]
+      },
+      "stress": {
+        "count": 16,
+        "wins": 9,
+        "win": 0.5625,
+        "total": -2.931751978456703,
+        "exp": -0.18323449865354394,
+        "pf": 0.5345448915450249,
+        "dd": 4.413649606421747,
+        "winInterval": [
+          0.33178195606776517,
+          0.7690163666481448
+        ]
+      }
+    },
+    {
+      "start": "2026-09-01",
+      "end": "2026-10-01",
+      "expectedSessions": 21,
+      "scoredSessions": 4,
+      "complete": false,
+      "normal": {
+        "count": 4,
+        "wins": 2,
+        "win": 0.5,
+        "total": 1.301265239568063,
+        "exp": 0.32531630989201576,
+        "pf": 3.063055402978113,
+        "dd": 0.47589098532494756,
+        "winInterval": [
+          0.15003570882017148,
+          0.8499642911798285
+        ]
+      },
+      "stress": {
+        "count": 4,
+        "wins": 2,
+        "win": 0.5,
+        "total": 1.2383898213500375,
+        "exp": 0.3095974553375094,
+        "pf": 2.865622624777776,
+        "dd": 0.49056603773584906,
+        "winInterval": [
+          0.15003570882017148,
+          0.8499642911798285
+        ]
+      }
+    }
+  ],
+  "windows": [
+    {
+      "start": "2025-05-01",
+      "end": "2025-07-01",
+      "expectedSessions": 41,
+      "scoredSessions": 41,
+      "complete": true,
+      "normal": {
+        "count": 25,
+        "wins": 9,
+        "win": 0.36,
+        "total": -2.983852105039054,
+        "exp": -0.11935408420156217,
+        "pf": 0.6930683755491569,
+        "dd": 6.286711973110122,
+        "winInterval": [
+          0.20247656431735636,
+          0.5548184539895337
+        ]
+      },
+      "stress": {
+        "count": 25,
+        "wins": 8,
+        "win": 0.32,
+        "total": -3.417732549465764,
+        "exp": -0.13670930197863057,
+        "pf": 0.6580859463319241,
+        "dd": 6.469507525949924,
+        "winInterval": [
+          0.17204987516891143,
+          0.5159008626542329
+        ]
+      },
+      "confirmation": false
+    },
+    {
+      "start": "2025-07-01",
+      "end": "2025-09-01",
+      "expectedSessions": 43,
+      "scoredSessions": 43,
+      "complete": true,
+      "normal": {
+        "count": 26,
+        "wins": 8,
+        "win": 0.3076923076923077,
+        "total": -4.894851136426508,
+        "exp": -0.1882635052471734,
+        "pf": 0.6112221309750048,
+        "dd": 5.802792669302213,
+        "winInterval": [
+          0.16501120939792674,
+          0.49988611514231246
+        ]
+      },
+      "stress": {
+        "count": 26,
+        "wins": 8,
+        "win": 0.3076923076923077,
+        "total": -5.4844522083931295,
+        "exp": -0.2109404695535819,
+        "pf": 0.5779617654157855,
+        "dd": 6.254099681327185,
+        "winInterval": [
+          0.16501120939792674,
+          0.49988611514231246
+        ]
+      },
+      "confirmation": true
+    },
+    {
+      "start": "2025-09-01",
+      "end": "2025-11-01",
+      "expectedSessions": 44,
+      "scoredSessions": 40,
+      "complete": false,
+      "normal": {
+        "count": 29,
+        "wins": 15,
+        "win": 0.5172413793103449,
+        "total": 4.32815865606208,
+        "exp": 0.14924685020903725,
+        "pf": 1.470680578333413,
+        "dd": 2.490179851958821,
+        "winInterval": [
+          0.3443073797056916,
+          0.6861418066920478
+        ]
+      },
+      "stress": {
+        "count": 29,
+        "wins": 15,
+        "win": 0.5172413793103449,
+        "total": 3.748268527183068,
+        "exp": 0.12925063886838165,
+        "pf": 1.395494487120617,
+        "dd": 2.6227552280985784,
+        "winInterval": [
+          0.3443073797056916,
+          0.6861418066920478
+        ]
+      },
+      "confirmation": true
+    },
+    {
+      "start": "2025-11-01",
+      "end": "2026-01-01",
+      "expectedSessions": 41,
+      "scoredSessions": 41,
+      "complete": true,
+      "normal": {
+        "count": 28,
+        "wins": 18,
+        "win": 0.6428571428571429,
+        "total": 4.61686941032829,
+        "exp": 0.16488819322601037,
+        "pf": 1.635409341265911,
+        "dd": 2.830880298487131,
+        "winInterval": [
+          0.4582997758222723,
+          0.7929438802754113
+        ]
+      },
+      "stress": {
+        "count": 28,
+        "wins": 18,
+        "win": 0.6428571428571429,
+        "total": 4.143246549375798,
+        "exp": 0.14797309104913564,
+        "pf": 1.5571452848196423,
+        "dd": 2.9113215053164154,
+        "winInterval": [
+          0.4582997758222723,
+          0.7929438802754113
+        ]
+      },
+      "confirmation": true
+    },
+    {
+      "start": "2026-01-01",
+      "end": "2026-03-01",
+      "expectedSessions": 39,
+      "scoredSessions": 39,
+      "complete": true,
+      "normal": {
+        "count": 28,
+        "wins": 12,
+        "win": 0.42857142857142855,
+        "total": 1.041939757605737,
+        "exp": 0.037212134200204895,
+        "pf": 1.1110739427130005,
+        "dd": 5.440612164085185,
+        "winInterval": [
+          0.2650829618073122,
+          0.609295210143846
+        ]
+      },
+      "stress": {
+        "count": 28,
+        "wins": 12,
+        "win": 0.42857142857142855,
+        "total": 0.6321045680806849,
+        "exp": 0.022575163145738746,
+        "pf": 1.0658605186647871,
+        "dd": 5.551952898150879,
+        "winInterval": [
+          0.2650829618073122,
+          0.609295210143846
+        ]
+      },
+      "confirmation": false
+    },
+    {
+      "start": "2026-03-01",
+      "end": "2026-05-01",
+      "expectedSessions": 43,
+      "scoredSessions": 25,
+      "complete": false,
+      "normal": {
+        "count": 18,
+        "wins": 8,
+        "win": 0.4444444444444444,
+        "total": -1.2952242764186488,
+        "exp": -0.07195690424548049,
+        "pf": 0.7814669803520148,
+        "dd": 3.804776758353792,
+        "winInterval": [
+          0.24559231101389126,
+          0.6628393057174837
+        ]
+      },
+      "stress": {
+        "count": 18,
+        "wins": 8,
+        "win": 0.4444444444444444,
+        "total": -1.5595104756115612,
+        "exp": -0.08663947086730896,
+        "pf": 0.7428843436466633,
+        "dd": 3.876021435402374,
+        "winInterval": [
+          0.24559231101389126,
+          0.6628393057174837
+        ]
+      },
+      "confirmation": false
+    },
+    {
+      "start": "2026-05-01",
+      "end": "2026-07-01",
+      "expectedSessions": 41,
+      "scoredSessions": 39,
+      "complete": false,
+      "normal": {
+        "count": 32,
+        "wins": 16,
+        "win": 0.5,
+        "total": 2.058935944574478,
+        "exp": 0.06434174826795244,
+        "pf": 1.1766888854081146,
+        "dd": 3.911883162058113,
+        "winInterval": [
+          0.33630614316859386,
+          0.6636938568314061
+        ]
+      },
+      "stress": {
+        "count": 32,
+        "wins": 16,
+        "win": 0.5,
+        "total": 1.7283245114663623,
+        "exp": 0.05401014098332382,
+        "pf": 1.1462331265718786,
+        "dd": 3.9975875671014363,
+        "winInterval": [
+          0.33630614316859386,
+          0.6636938568314061
+        ]
+      },
+      "confirmation": false
+    },
+    {
+      "start": "2026-07-01",
+      "end": "2026-09-01",
+      "expectedSessions": 43,
+      "scoredSessions": 43,
+      "complete": true,
+      "normal": {
+        "count": 32,
+        "wins": 21,
+        "win": 0.65625,
+        "total": 4.926707305557974,
+        "exp": 0.1539596032986867,
+        "pf": 1.5069395863965696,
+        "dd": 4.1792928445698365,
+        "winInterval": [
+          0.4831077350878594,
+          0.7958976664567146
+        ]
+      },
+      "stress": {
+        "count": 32,
+        "wins": 21,
+        "win": 0.65625,
+        "total": 4.530076397311767,
+        "exp": 0.1415648874159927,
+        "pf": 1.4590269966191711,
+        "dd": 4.413649606421744,
+        "winInterval": [
+          0.4831077350878594,
+          0.7958976664567146
+        ]
+      },
+      "confirmation": false
+    }
+  ],
+  "primary": {
+    "start": "2025-07-01",
+    "end": "2026-01-01",
+    "expectedSessions": 128,
+    "scoredSessions": 124,
+    "complete": false,
+    "normal": {
+      "count": 83,
+      "wins": 41,
+      "win": 0.4939759036144578,
+      "total": 4.050176929963861,
+      "exp": 0.048797312409203146,
+      "pf": 1.1394119487445211,
+      "dd": 6.650672968554083,
+      "winInterval": [
+        0.38908687956649984,
+        0.5993979019207136
+      ]
+    },
+    "stress": {
+      "count": 83,
+      "wins": 41,
+      "win": 0.4939759036144578,
+      "total": 2.4070628681657356,
+      "exp": 0.029000757447779947,
+      "pf": 1.0804791688030697,
+      "dd": 7.1194363396812985,
+      "winInterval": [
+        0.38908687956649984,
+        0.5993979019207136
+      ]
+    },
+    "windows": [
+      {
+        "start": "2025-07-01",
+        "end": "2025-09-01",
+        "expectedSessions": 43,
+        "scoredSessions": 43,
+        "complete": true,
+        "normal": {
+          "count": 26,
+          "wins": 8,
+          "win": 0.3076923076923077,
+          "total": -4.894851136426508,
+          "exp": -0.1882635052471734,
+          "pf": 0.6112221309750048,
+          "dd": 5.802792669302213,
+          "winInterval": [
+            0.16501120939792674,
+            0.49988611514231246
+          ]
+        },
+        "stress": {
+          "count": 26,
+          "wins": 8,
+          "win": 0.3076923076923077,
+          "total": -5.4844522083931295,
+          "exp": -0.2109404695535819,
+          "pf": 0.5779617654157855,
+          "dd": 6.254099681327185,
+          "winInterval": [
+            0.16501120939792674,
+            0.49988611514231246
+          ]
+        },
+        "confirmation": true
+      },
+      {
+        "start": "2025-09-01",
+        "end": "2025-11-01",
+        "expectedSessions": 44,
+        "scoredSessions": 40,
+        "complete": false,
+        "normal": {
+          "count": 29,
+          "wins": 15,
+          "win": 0.5172413793103449,
+          "total": 4.32815865606208,
+          "exp": 0.14924685020903725,
+          "pf": 1.470680578333413,
+          "dd": 2.490179851958821,
+          "winInterval": [
+            0.3443073797056916,
+            0.6861418066920478
+          ]
+        },
+        "stress": {
+          "count": 29,
+          "wins": 15,
+          "win": 0.5172413793103449,
+          "total": 3.748268527183068,
+          "exp": 0.12925063886838165,
+          "pf": 1.395494487120617,
+          "dd": 2.6227552280985784,
+          "winInterval": [
+            0.3443073797056916,
+            0.6861418066920478
+          ]
+        },
+        "confirmation": true
+      },
+      {
+        "start": "2025-11-01",
+        "end": "2026-01-01",
+        "expectedSessions": 41,
+        "scoredSessions": 41,
+        "complete": true,
+        "normal": {
+          "count": 28,
+          "wins": 18,
+          "win": 0.6428571428571429,
+          "total": 4.61686941032829,
+          "exp": 0.16488819322601037,
+          "pf": 1.635409341265911,
+          "dd": 2.830880298487131,
+          "winInterval": [
+            0.4582997758222723,
+            0.7929438802754113
+          ]
+        },
+        "stress": {
+          "count": 28,
+          "wins": 18,
+          "win": 0.6428571428571429,
+          "total": 4.143246549375798,
+          "exp": 0.14797309104913564,
+          "pf": 1.5571452848196423,
+          "dd": 2.9113215053164154,
+          "winInterval": [
+            0.4582997758222723,
+            0.7929438802754113
+          ]
+        },
+        "confirmation": true
+      }
+    ],
+    "checks": [
+      {
+        "id": "coverage",
+        "label": "Trois fenêtres complètes",
+        "pass": false
+      },
+      {
+        "id": "count",
+        "label": "Au moins 40 trades au total",
+        "pass": true
+      },
+      {
+        "id": "windowCount",
+        "label": "Au moins 12 trades par fenêtre",
+        "pass": true
+      },
+      {
+        "id": "positive",
+        "label": "Chaque fenêtre positive",
+        "pass": false
+      },
+      {
+        "id": "pf",
+        "label": "Profit factor ≥ 1,10 avant arrondi",
+        "pass": true
+      },
+      {
+        "id": "dd",
+        "label": "Drawdown réalisé ≤ 8 R",
+        "pass": true
+      },
+      {
+        "id": "stress",
+        "label": "Résultat positif avec coûts doublés",
+        "pass": true
+      }
+    ],
+    "passed": false
+  },
+  "years": [
+    {
+      "start": "2025-03-17",
+      "end": "2026-01-01",
+      "expectedSessions": 201,
+      "scoredSessions": 180,
+      "complete": false,
+      "normal": {
+        "count": 120,
+        "wins": 55,
+        "win": 0.4583333333333333,
+        "total": 2.858468142992738,
+        "exp": 0.023820567858272815,
+        "pf": 1.0669621701699747,
+        "dd": 9.738447947497091,
+        "winInterval": [
+          0.371859770816446,
+          0.5473919184382149
+        ]
+      },
+      "stress": {
+        "count": 120,
+        "wins": 54,
+        "win": 0.45,
+        "total": 0.647408735645939,
+        "exp": 0.005395072797049492,
+        "pf": 1.0147493895958473,
+        "dd": 10.791250229772333,
+        "winInterval": [
+          0.3639158452162006,
+          0.5391861818893925
+        ]
+      }
+    },
+    {
+      "start": "2026-01-01",
+      "end": "2026-09-09",
+      "expectedSessions": 171,
+      "scoredSessions": 150,
+      "complete": false,
+      "normal": {
+        "count": 114,
+        "wins": 59,
+        "win": 0.5175438596491229,
+        "total": 8.0336239708876,
+        "exp": 0.07047038570954035,
+        "pf": 1.2153228656116106,
+        "dd": 9.055845102115693,
+        "winInterval": [
+          0.4267487861701612,
+          0.6071950842457191
+        ]
+      },
+      "stress": {
+        "count": 114,
+        "wins": 59,
+        "win": 0.5175438596491229,
+        "total": 6.569384822597292,
+        "exp": 0.05762618265436221,
+        "pf": 1.1728118871357933,
+        "dd": 9.520152046619618,
+        "winInterval": [
+          0.4267487861701612,
+          0.6071950842457191
+        ]
+      }
+    }
+  ],
+  "robustness": {
+    "primary": {
+      "days": 124,
+      "weeks": 27,
+      "draws": 10000,
+      "seed": 14092026,
+      "meanDailyR": 0.03266271717712791,
+      "bootstrap95DailyR": [
+        -0.04565056885806042,
+        0.1195881808001626
+      ],
+      "withoutFiveBestR": -3.3699016763182303,
+      "removedTrades": 5,
+      "directions": [
+        {
+          "side": "Long",
+          "count": 39,
+          "wins": 22,
+          "win": 0.5641025641025641,
+          "total": 5.20693406888429,
+          "exp": 0.13351112997139206,
+          "pf": 1.471026306908033,
+          "dd": 2.054487907561371,
+          "winInterval": [
+            0.40975423474522105,
+            0.7069547583829534
+          ]
+        },
+        {
+          "side": "Short",
+          "count": 44,
+          "wins": 19,
+          "win": 0.4318181818181818,
+          "total": -1.1567571389204294,
+          "exp": -0.026289934975464304,
+          "pf": 0.9357264997825637,
+          "dd": 5.5959863998277735,
+          "winInterval": [
+            0.29682504164854573,
+            0.5777610925944561
+          ]
+        }
+      ]
+    },
+    "overall": {
+      "days": 330,
+      "weeks": 71,
+      "draws": 10000,
+      "seed": 14092026,
+      "meanDailyR": 0.03300633973903134,
+      "bootstrap95DailyR": [
+        -0.03537979596048709,
+        0.10072298449879806
+      ],
+      "withoutFiveBestR": 3.4349518299992834,
+      "removedTrades": 5,
+      "directions": [
+        {
+          "side": "Long",
+          "count": 113,
+          "wins": 63,
+          "win": 0.5575221238938053,
+          "total": 16.441644356594143,
+          "exp": 0.14550127749198358,
+          "pf": 1.5948906560551401,
+          "dd": 3.210215284751742,
+          "winInterval": [
+            0.46555055620499053,
+            0.6457111861881296
+          ]
+        },
+        {
+          "side": "Short",
+          "count": 121,
+          "wins": 51,
+          "win": 0.4214876033057851,
+          "total": -5.549552242713789,
+          "exp": -0.04586406812160156,
+          "pf": 0.8940103448195907,
+          "dd": 11.901166267632364,
+          "winInterval": [
+            0.3372484956271268,
+            0.5105586455822135
+          ]
+        }
+      ]
+    }
+  },
+  "audit": {
+    "passed": true,
+    "signalPrefixes": 437,
+    "sessionComparisons": 660,
+    "auditedTrades": 468
+  }
+}

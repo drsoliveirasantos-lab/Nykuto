@@ -1,0 +1,22 @@
+import {readFile,writeFile,mkdir} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {resolve,relative} from 'node:path';
+import {execFileSync} from 'node:child_process';
+import assert from 'node:assert/strict';
+import {runAccountDiagnostic} from '../trading/lab/jeu33-diagnostic.mjs';
+const [sourceDir,priorDir,outDir,...extra]=process.argv.slice(2),root=process.cwd();
+assert.ok(!extra.length&&[sourceDir,priorDir,outDir].every(p=>p&&relative(root,resolve(p)).startsWith('../')),'Private paths required');
+const hash=b=>createHash('sha256').update(b).digest('hex');
+const frozen=await readFile('trading/lab/jeu33-freeze.json'),freeze=JSON.parse(frozen);
+for(const [path,pin]of Object.entries(freeze.files))assert.equal(hash(await readFile(path)),pin,path);
+const prePerformanceCommit=execFileSync('git',['log','-1','--format=%H','--','trading/lab/jeu33-freeze.json'],{encoding:'utf8'}).trim();
+assert.equal(hash(execFileSync('git',['show',`${prePerformanceCommit}:trading/lab/jeu33-freeze.json`])),hash(frozen));
+const src=JSON.parse(await readFile('trading/lab/jeu33-source.json'));
+async function readChecked(path,pin){const b=await readFile(path);assert.equal(b.length,pin.bytes);assert.equal(hash(b),pin.sha256);return JSON.parse(b);}
+const bundle=await readChecked(resolve(sourceDir,'dataset.json'),src.inputs.prices),mnq=await readChecked(resolve(sourceDir,'mnq-dataset.json'),src.inputs.mnq);
+const prior=await readChecked(resolve(priorDir,'runs-private.json'),{bytes:1832894,sha256:'573437ac31efa133b6cef198546a7d6d0ae45d9c38fe84a4d0307dd0162feaf2'});
+const result=runAccountDiagnostic(bundle,mnq,prior);
+Object.assign(result.report,{prePerformanceCommit,freezeSha256:hash(frozen),generatedAt:new Date().toISOString()});
+await mkdir(outDir,{recursive:true});
+for(const [name,data]of [['report.json',result.report],['runs-private.json',result.privateRuns]])await writeFile(resolve(outDir,name),JSON.stringify(data)+'\n',{flag:'wx'});
+console.log(JSON.stringify({audit:result.report.audit,views:result.report.views.length}));

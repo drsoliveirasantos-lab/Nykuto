@@ -1,0 +1,25 @@
+{
+  "provider": "Massive",
+  "resolution": "5min",
+  "bytes": 4331838,
+  "sha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09",
+  "retrievedAt": "2026-09-09T05:47:42.614820+00:00",
+  "contracts": [
+    "MESH6",
+    "MESM6",
+    "MESU6",
+    "MYMH6",
+    "MYMM6",
+    "MYMU6",
+    "MGCG6",
+    "MGCJ6",
+    "MGCM6",
+    "MGCQ6",
+    "MGCV6"
+  ],
+  "rawPublic": false,
+  "mnqSource": "Pinned Jeu 14 archive, reused observations",
+  "mnqBytes": 2426693,
+  "mnqSha256": "028e914bb10ea38b73b6fcbc867c5d81937b967701448913fc88ca85746557cf",
+  "reusedSource": "Jeu19 three markets and Jeu14 MNQ; no newly independent observations"
+}

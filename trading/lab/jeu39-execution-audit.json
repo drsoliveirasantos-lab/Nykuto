@@ -1,0 +1,34 @@
+{
+  "schema": "jeu39-execution-audit-v1",
+  "reportSha256": "c1520169a547acf65805f9f1197d1bf137181292f72e747207c52bac4c4b8326",
+  "prePerformanceCommit": "2fc700dfb385f92b001a63fcb642603be51f7bf8",
+  "technicalAuditPassed": true,
+  "fullTextualProtocolConformance": false,
+  "discrepancies": [
+    {
+      "field": "Kronos top-p",
+      "frozenProtocolText": 0,
+      "frozenCodePolicyAndRequestPack": 0.9,
+      "executed": 0.9,
+      "action": "Disclosed after execution. Original freeze retained; no rerun or retrospective correction."
+    }
+  ],
+  "independentArithmeticReview": {
+    "cells": 18,
+    "wholeControls": 6,
+    "dailyRows": 384,
+    "weeklyRows": 90,
+    "frozenDependencies": 62,
+    "decisions": 147,
+    "inputM15Candles": 2752,
+    "inferenceRerun": false
+  },
+  "archive": {
+    "manifest": "jeu39/model-hours-v1/manifest.json",
+    "sha256": "90e3290567fbc376daeca2300261a02dd7fd1c0b0c5295e59e3f5709469729de",
+    "filesReconstructedExactly": 4
+  },
+  "independentPerformanceValidation": false,
+  "selection": null,
+  "executionAllowed": false
+}

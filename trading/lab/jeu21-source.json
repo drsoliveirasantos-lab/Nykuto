@@ -1,0 +1,19 @@
+{
+  "provider": "Massive",
+  "resolution": "5min+native30min",
+  "bytes": 3363302,
+  "sha256": "21bb71d50ef00065a08d8f74ae2b5def70286014d9750fd870e8c8566bb6de5f",
+  "contracts": [
+    "MESH6",
+    "MESM6",
+    "MESU6",
+    "MGCG6",
+    "MGCJ6",
+    "MGCM6",
+    "MGCQ6",
+    "MGCV6"
+  ],
+  "rawPublic": false,
+  "reused5min": "jeu19 source snapshot",
+  "nativeRetrievedAt": "2026-09-09"
+}

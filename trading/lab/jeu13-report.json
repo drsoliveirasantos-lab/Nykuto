@@ -1,0 +1,4606 @@
+{
+  "schema": "jeu13-report-v1",
+  "protocol": "jeu13-v1",
+  "generatedAt": "2026-09-09T02:02:43.960Z",
+  "dataset": {
+    "sha256": "2848c0a5826be842d6b8372f5e8645550af682cf1f709ef3254ee949acaa18b0",
+    "bytes": 713569,
+    "key": "jeu12/mnq-five-minute-2026-v1.json"
+  },
+  "paperEnabled": false,
+  "candidateId": "30-full-both",
+  "control": {
+    "evaluated": true,
+    "candidateId": "30-full-both",
+    "start": "2025-06-01",
+    "end": "2025-07-01",
+    "scoredSessions": 20,
+    "source": {
+      "sha256": "f0342a12c0f96e61d2092a0fcccb0a8ac7dab0f35cbfae7ef8c1b4b45421e50c",
+      "bytes": 273053,
+      "key": "jeu13/june-2025-control-v1.json"
+    },
+    "amendment": "JEU13_AVAILABILITY.md",
+    "initialMissingWarmupBars": 10,
+    "quality": [
+      {
+        "ticker": "MNQM5",
+        "bars": 2418,
+        "expectedSessions": 31,
+        "scoredSessions": 10,
+        "warmup": {
+          "5": 1638,
+          "15": 546,
+          "30": 273
+        },
+        "priceSessions": 31,
+        "scheduleSessions": 31,
+        "uniqueScheduleEvents": 95,
+        "missingPriceDays": [],
+        "missingScheduleDays": []
+      },
+      {
+        "ticker": "MNQU5",
+        "bars": 2106,
+        "expectedSessions": 27,
+        "scoredSessions": 10,
+        "warmup": {
+          "5": 1326,
+          "15": 442,
+          "30": 221
+        },
+        "priceSessions": 27,
+        "scheduleSessions": 27,
+        "uniqueScheduleEvents": 85,
+        "missingPriceDays": [],
+        "missingScheduleDays": []
+      }
+    ],
+    "normal": {
+      "count": 8,
+      "wins": 5,
+      "win": 0.625,
+      "total": 2.609186594615329,
+      "exp": 0.32614832432691615,
+      "pf": 7.27782936334699,
+      "dd": 0.3698630136986301,
+      "winInterval": [
+        0.30573785458380187,
+        0.863158240538479
+      ]
+    },
+    "stress": {
+      "count": 8,
+      "wins": 4,
+      "win": 0.5,
+      "total": 2.4521727121829797,
+      "exp": 0.30652158902287246,
+      "pf": 6.089595443302456,
+      "dd": 0.3938356164383562,
+      "winInterval": [
+        0.21521252682444186,
+        0.7847874731755582
+      ]
+    },
+    "checks": [
+      {
+        "label": "Au moins 12 trades",
+        "pass": false
+      },
+      {
+        "label": "Résultat net positif",
+        "pass": true
+      },
+      {
+        "label": "Résultat positif à coûts doublés",
+        "pass": true
+      },
+      {
+        "label": "Profit factor ≥ 1,10 avant arrondi",
+        "pass": true
+      },
+      {
+        "label": "Drawdown réalisé ≤ 8 R",
+        "pass": true
+      }
+    ],
+    "passed": false,
+    "audit": {
+      "passed": true,
+      "signalPrefixes": 58,
+      "sessionComparisons": 40
+    }
+  },
+  "quality": [
+    {
+      "ticker": "MNQH6",
+      "start": "2026-01-01",
+      "end": "2026-03-01",
+      "bars": 4722,
+      "expectedSessions": 61,
+      "scoredSessions": 39,
+      "warmup": {
+        "5": 1680,
+        "15": 560,
+        "30": 280
+      },
+      "priceSessions": 61,
+      "scheduleSessions": 61,
+      "uniqueScheduleEvents": 187,
+      "missingPriceDays": [],
+      "missingScheduleDays": []
+    },
+    {
+      "ticker": "MNQM6",
+      "start": "2026-04-01",
+      "end": "2026-06-01",
+      "bars": 4524,
+      "expectedSessions": 58,
+      "scoredSessions": 41,
+      "warmup": {
+        "5": 1326,
+        "15": 442,
+        "30": 221
+      },
+      "priceSessions": 58,
+      "scheduleSessions": 58,
+      "uniqueScheduleEvents": 176,
+      "missingPriceDays": [],
+      "missingScheduleDays": []
+    },
+    {
+      "ticker": "MNQU6",
+      "start": "2026-07-01",
+      "end": "2026-09-01",
+      "bars": 4992,
+      "expectedSessions": 64,
+      "scoredSessions": 43,
+      "warmup": {
+        "5": 1638,
+        "15": 546,
+        "30": 273
+      },
+      "priceSessions": 64,
+      "scheduleSessions": 64,
+      "uniqueScheduleEvents": 202,
+      "missingPriceDays": [],
+      "missingScheduleDays": []
+    }
+  ],
+  "audit": {
+    "passed": true,
+    "signalPrefixes": 549,
+    "sessionComparisons": 6642,
+    "auditedTrades": 4648
+  },
+  "results": [
+    {
+      "id": "5-full-both",
+      "timeframe": 5,
+      "hours": {
+        "id": "full",
+        "label": "Full session",
+        "start": 570,
+        "end": 945
+      },
+      "side": "Both",
+      "windows": [
+        {
+          "ticker": "MNQH6",
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "normal": {
+            "count": 89,
+            "wins": 39,
+            "win": 0.43820224719101125,
+            "total": 5.556095994933637,
+            "exp": 0.062428044886894796,
+            "pf": 1.117300163765507,
+            "dd": 10.070344580689824,
+            "winInterval": [
+              0.33979883586693344,
+              0.5417197937129101
+            ]
+          },
+          "stress": {
+            "count": 89,
+            "wins": 39,
+            "win": 0.43820224719101125,
+            "total": 2.187507636792671,
+            "exp": 0.024578737492052485,
+            "pf": 1.0443646114954988,
+            "dd": 10.967940747002658,
+            "winInterval": [
+              0.33979883586693344,
+              0.5417197937129101
+            ]
+          }
+        },
+        {
+          "ticker": "MNQM6",
+          "start": "2026-04-01",
+          "end": "2026-06-01",
+          "normal": {
+            "count": 93,
+            "wins": 47,
+            "win": 0.5053763440860215,
+            "total": 20.319634651029343,
+            "exp": 0.21849069517235853,
+            "pf": 1.4333705782690866,
+            "dd": 7.24682593658094,
+            "winInterval": [
+              0.4055833309701149,
+              0.6047428098619243
+            ]
+          },
+          "stress": {
+            "count": 93,
+            "wins": 47,
+            "win": 0.5053763440860215,
+            "total": 16.98215007058823,
+            "exp": 0.18260376419987343,
+            "pf": 1.349808282328649,
+            "dd": 7.6313150924247495,
+            "winInterval": [
+              0.4055833309701149,
+              0.6047428098619243
+            ]
+          }
+        },
+        {
+          "ticker": "MNQU6",
+          "start": "2026-07-01",
+          "end": "2026-09-01",
+          "normal": {
+            "count": 93,
+            "wins": 35,
+            "win": 0.3763440860215054,
+            "total": -11.877220682380859,
+            "exp": -0.12771205034818128,
+            "pf": 0.7921658705802016,
+            "dd": 18.276701752596157,
+            "winInterval": [
+              0.284633031376476,
+              0.4778657294866242
+            ]
+          },
+          "stress": {
+            "count": 93,
+            "wins": 35,
+            "win": 0.3763440860215054,
+            "total": -14.633960644785663,
+            "exp": -0.15735441553532972,
+            "pf": 0.7515978472215502,
+            "dd": 19.59466919689888,
+            "winInterval": [
+              0.284633031376476,
+              0.4778657294866242
+            ]
+          }
+        }
+      ],
+      "normal": {
+        "count": 275,
+        "wins": 121,
+        "win": 0.44,
+        "total": 13.998509963582114,
+        "exp": 0.05090367259484405,
+        "pf": 1.0924595129988268,
+        "dd": 18.276701752596153,
+        "winInterval": [
+          0.38255711271323384,
+          0.4990961269755357
+        ]
+      },
+      "stress": {
+        "count": 275,
+        "wins": 121,
+        "win": 0.44,
+        "total": 4.5356970625952435,
+        "exp": 0.016493443863982705,
+        "pf": 1.028932749706207,
+        "dd": 20.184546957790694,
+        "winInterval": [
+          0.38255711271323384,
+          0.4990961269755357
+        ]
+      },
+      "checks": [
+        {
+          "id": "count",
+          "label": "Au moins 40 trades",
+          "pass": true
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par période",
+          "pass": true
+        },
+        {
+          "id": "positive",
+          "label": "Chaque période positive",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": false
+        },
+        {
+          "id": "stress",
+          "label": "Coûts doublés : résultat positif",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "5-full-long",
+      "timeframe": 5,
+      "hours": {
+        "id": "full",
+        "label": "Full session",
+        "start": 570,
+        "end": 945
+      },
+      "side": "Long",
+      "windows": [
+        {
+          "ticker": "MNQH6",
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "normal": {
+            "count": 48,
+            "wins": 20,
+            "win": 0.4166666666666667,
+            "total": 1.7346352329171784,
+            "exp": 0.03613823401910788,
+            "pf": 1.072863645847598,
+            "dd": 5.181223306213208,
+            "winInterval": [
+              0.28849459734577015,
+              0.5571891778463536
+            ]
+          },
+          "stress": {
+            "count": 48,
+            "wins": 20,
+            "win": 0.4166666666666667,
+            "total": -0.33110726763675347,
+            "exp": -0.006898068075765697,
+            "pf": 0.9868006670476971,
+            "dd": 5.4347357690529225,
+            "winInterval": [
+              0.28849459734577015,
+              0.5571891778463536
+            ]
+          }
+        },
+        {
+          "ticker": "MNQM6",
+          "start": "2026-04-01",
+          "end": "2026-06-01",
+          "normal": {
+            "count": 71,
+            "wins": 36,
+            "win": 0.5070422535211268,
+            "total": 15.571376115360387,
+            "exp": 0.21931515655437164,
+            "pf": 1.4388444957656246,
+            "dd": 6.758925303180263,
+            "winInterval": [
+              0.3934110961033843,
+              0.6199504568297438
+            ]
+          },
+          "stress": {
+            "count": 71,
+            "wins": 36,
+            "win": 0.5070422535211268,
+            "total": 12.941093104937163,
+            "exp": 0.18226891697094597,
+            "pf": 1.351940759449137,
+            "dd": 7.32113604937582,
+            "winInterval": [
+              0.3934110961033843,
+              0.6199504568297438
+            ]
+          }
+        },
+        {
+          "ticker": "MNQU6",
+          "start": "2026-07-01",
+          "end": "2026-09-01",
+          "normal": {
+            "count": 53,
+            "wins": 20,
+            "win": 0.37735849056603776,
+            "total": -8.142826041153345,
+            "exp": -0.15363822719157255,
+            "pf": 0.7534524739717773,
+            "dd": 13.274194567344317,
+            "winInterval": [
+              0.25936076571733824,
+              0.5119334976390768
+            ]
+          },
+          "stress": {
+            "count": 53,
+            "wins": 20,
+            "win": 0.37735849056603776,
+            "total": -9.83090935085538,
+            "exp": -0.1854888556765166,
+            "pf": 0.7117987890918186,
+            "dd": 14.163762738739813,
+            "winInterval": [
+              0.25936076571733824,
+              0.5119334976390768
+            ]
+          }
+        }
+      ],
+      "normal": {
+        "count": 172,
+        "wins": 76,
+        "win": 0.4418604651162791,
+        "total": 9.163185307124213,
+        "exp": 0.053274333180954724,
+        "pf": 1.099258179523614,
+        "dd": 14.901751344333608,
+        "winInterval": [
+          0.3697174220555406,
+          0.516543849452453
+        ]
+      },
+      "stress": {
+        "count": 172,
+        "wins": 76,
+        "win": 0.4418604651162791,
+        "total": 2.779076486445029,
+        "exp": 0.016157421432819938,
+        "pf": 1.028958644070215,
+        "dd": 17.152045400231202,
+        "winInterval": [
+          0.3697174220555406,
+          0.516543849452453
+        ]
+      },
+      "checks": [
+        {
+          "id": "count",
+          "label": "Au moins 40 trades",
+          "pass": true
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par période",
+          "pass": true
+        },
+        {
+          "id": "positive",
+          "label": "Chaque période positive",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": false
+        },
+        {
+          "id": "stress",
+          "label": "Coûts doublés : résultat positif",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "5-full-short",
+      "timeframe": 5,
+      "hours": {
+        "id": "full",
+        "label": "Full session",
+        "start": 570,
+        "end": 945
+      },
+      "side": "Short",
+      "windows": [
+        {
+          "ticker": "MNQH6",
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "normal": {
+            "count": 59,
+            "wins": 28,
+            "win": 0.4745762711864407,
+            "total": 4.993825707505303,
+            "exp": 0.08464111368653057,
+            "pf": 1.155947723350315,
+            "dd": 9.520392578574986,
+            "winInterval": [
+              0.35265669027401325,
+              0.5996042324268729
+            ]
+          },
+          "stress": {
+            "count": 59,
+            "wins": 27,
+            "win": 0.4576271186440678,
+            "total": 2.9382188876572632,
+            "exp": 0.04980032012978412,
+            "pf": 1.088862258713035,
+            "dd": 10.297397751162979,
+            "winInterval": [
+              0.3370110214024243,
+              0.583423849765719
+            ]
+          }
+        },
+        {
+          "ticker": "MNQM6",
+          "start": "2026-04-01",
+          "end": "2026-06-01",
+          "normal": {
+            "count": 47,
+            "wins": 18,
+            "win": 0.3829787234042553,
+            "total": -2.8864190301097343,
+            "exp": -0.061413170853398605,
+            "pf": 0.9014481125694093,
+            "dd": 7.189849574532617,
+            "winInterval": [
+              0.2579048266351308,
+              0.5257369155602367
+            ]
+          },
+          "stress": {
+            "count": 47,
+            "wins": 18,
+            "win": 0.3829787234042553,
+            "total": -4.524116300433335,
+            "exp": -0.09625779362624118,
+            "pf": 0.8509292601532952,
+            "dd": 7.6518510477994095,
+            "winInterval": [
+              0.2579048266351308,
+              0.5257369155602367
+            ]
+          }
+        },
+        {
+          "ticker": "MNQU6",
+          "start": "2026-07-01",
+          "end": "2026-09-01",
+          "normal": {
+            "count": 61,
+            "wins": 27,
+            "win": 0.4426229508196721,
+            "total": -0.13458639325527877,
+            "exp": -0.0022063343156603077,
+            "pf": 0.9959457186551853,
+            "dd": 6.9860948152470925,
+            "winInterval": [
+              0.32507608033920443,
+              0.5669685329954449
+            ]
+          },
+          "stress": {
+            "count": 61,
+            "wins": 27,
+            "win": 0.4426229508196721,
+            "total": -1.9490336207461043,
+            "exp": -0.03195137083190335,
+            "pf": 0.943053491985168,
+            "dd": 7.8096440581274695,
+            "winInterval": [
+              0.32507608033920443,
+              0.5669685329954449
+            ]
+          }
+        }
+      ],
+      "normal": {
+        "count": 167,
+        "wins": 73,
+        "win": 0.437125748502994,
+        "total": 1.9728202841402973,
+        "exp": 0.011813295114612559,
+        "pf": 1.020874887957426,
+        "dd": 11.110909706210824,
+        "winInterval": [
+          0.3641440744737811,
+          0.5129350444293432
+        ]
+      },
+      "stress": {
+        "count": 167,
+        "wins": 72,
+        "win": 0.4311377245508982,
+        "total": -3.5349310335221746,
+        "exp": -0.021167251697737574,
+        "pf": 0.9637960402002915,
+        "dd": 12.059623440105293,
+        "winInterval": [
+          0.3584073250976594,
+          0.5069650432248101
+        ]
+      },
+      "checks": [
+        {
+          "id": "count",
+          "label": "Au moins 40 trades",
+          "pass": true
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par période",
+          "pass": true
+        },
+        {
+          "id": "positive",
+          "label": "Chaque période positive",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": false
+        },
+        {
+          "id": "stress",
+          "label": "Coûts doublés : résultat positif",
+          "pass": false
+        }
+      ]
+    },
+    {
+      "id": "5-morning-both",
+      "timeframe": 5,
+      "hours": {
+        "id": "morning",
+        "label": "Morning",
+        "start": 570,
+        "end": 720
+      },
+      "side": "Both",
+      "windows": [
+        {
+          "ticker": "MNQH6",
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "normal": {
+            "count": 68,
+            "wins": 31,
+            "win": 0.45588235294117646,
+            "total": 6.212132890300651,
+            "exp": 0.09135489544559781,
+            "pf": 1.1707612065635598,
+            "dd": 7.881148944669471,
+            "winInterval": [
+              0.3430469069536447,
+              0.5734360221570655
+            ]
+          },
+          "stress": {
+            "count": 68,
+            "wins": 31,
+            "win": 0.45588235294117646,
+            "total": 3.958062790229218,
+            "exp": 0.05820680573866497,
+            "pf": 1.1052184711236506,
+            "dd": 8.748731542685292,
+            "winInterval": [
+              0.3430469069536447,
+              0.5734360221570655
+            ]
+          }
+        },
+        {
+          "ticker": "MNQM6",
+          "start": "2026-04-01",
+          "end": "2026-06-01",
+          "normal": {
+            "count": 63,
+            "wins": 35,
+            "win": 0.5555555555555556,
+            "total": 20.873787720311785,
+            "exp": 0.33132996381447277,
+            "pf": 1.7226715303561835,
+            "dd": 3.2157372071793517,
+            "winInterval": [
+              0.43319420640871287,
+              0.6715309946636732
+            ]
+          },
+          "stress": {
+            "count": 63,
+            "wins": 35,
+            "win": 0.5555555555555556,
+            "total": 18.847114714224755,
+            "exp": 0.29916055101944056,
+            "pf": 1.6331249575541367,
+            "dd": 3.429897127292458,
+            "winInterval": [
+              0.43319420640871287,
+              0.6715309946636732
+            ]
+          }
+        },
+        {
+          "ticker": "MNQU6",
+          "start": "2026-07-01",
+          "end": "2026-09-01",
+          "normal": {
+            "count": 61,
+            "wins": 22,
+            "win": 0.36065573770491804,
+            "total": -9.12317405698601,
+            "exp": -0.14956023044239358,
+            "pf": 0.7720740071793323,
+            "dd": 14.127375821995917,
+            "winInterval": [
+              0.25173936505814554,
+              0.48608326732600293
+            ]
+          },
+          "stress": {
+            "count": 61,
+            "wins": 22,
+            "win": 0.36065573770491804,
+            "total": -10.628985233994978,
+            "exp": -0.17424565957368818,
+            "pf": 0.7410963635049312,
+            "dd": 14.868527803953555,
+            "winInterval": [
+              0.25173936505814554,
+              0.48608326732600293
+            ]
+          }
+        }
+      ],
+      "normal": {
+        "count": 192,
+        "wins": 88,
+        "win": 0.4583333333333333,
+        "total": 17.962746553626417,
+        "exp": 0.09355597163347092,
+        "pf": 1.170602303224406,
+        "dd": 14.127375821995912,
+        "winInterval": [
+          0.38936114895329993,
+          0.5289401721143383
+        ]
+      },
+      "stress": {
+        "count": 192,
+        "wins": 88,
+        "win": 0.4583333333333333,
+        "total": 12.176192270458984,
+        "exp": 0.0634176680753072,
+        "pf": 1.1122852808052466,
+        "dd": 14.868527803953565,
+        "winInterval": [
+          0.38936114895329993,
+          0.5289401721143383
+        ]
+      },
+      "checks": [
+        {
+          "id": "count",
+          "label": "Au moins 40 trades",
+          "pass": true
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par période",
+          "pass": true
+        },
+        {
+          "id": "positive",
+          "label": "Chaque période positive",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": true
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": false
+        },
+        {
+          "id": "stress",
+          "label": "Coûts doublés : résultat positif",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "5-morning-long",
+      "timeframe": 5,
+      "hours": {
+        "id": "morning",
+        "label": "Morning",
+        "start": 570,
+        "end": 720
+      },
+      "side": "Long",
+      "windows": [
+        {
+          "ticker": "MNQH6",
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "normal": {
+            "count": 30,
+            "wins": 14,
+            "win": 0.4666666666666667,
+            "total": 3.3461971897778007,
+            "exp": 0.11153990632592668,
+            "pf": 1.2269951653396483,
+            "dd": 5.169175113442124,
+            "winInterval": [
+              0.30232127224128236,
+              0.6385798671847496
+            ]
+          },
+          "stress": {
+            "count": 30,
+            "wins": 14,
+            "win": 0.4666666666666667,
+            "total": 2.2241972015604246,
+            "exp": 0.07413990671868081,
+            "pf": 1.144974593369223,
+            "dd": 5.338350226884247,
+            "winInterval": [
+              0.30232127224128236,
+              0.6385798671847496
+            ]
+          }
+        },
+        {
+          "ticker": "MNQM6",
+          "start": "2026-04-01",
+          "end": "2026-06-01",
+          "normal": {
+            "count": 46,
+            "wins": 27,
+            "win": 0.5869565217391305,
+            "total": 18.35917188284659,
+            "exp": 0.3991124322357954,
+            "pf": 1.9353900801264587,
+            "dd": 4.689566451203106,
+            "winInterval": [
+              0.4433924238701789,
+              0.7171160670289898
+            ]
+          },
+          "stress": {
+            "count": 46,
+            "wins": 27,
+            "win": 0.5869565217391305,
+            "total": 16.808084643766705,
+            "exp": 0.365393144429711,
+            "pf": 1.8298412260644017,
+            "dd": 4.879132902406212,
+            "winInterval": [
+              0.4433924238701789,
+              0.7171160670289898
+            ]
+          }
+        },
+        {
+          "ticker": "MNQU6",
+          "start": "2026-07-01",
+          "end": "2026-09-01",
+          "normal": {
+            "count": 30,
+            "wins": 10,
+            "win": 0.3333333333333333,
+            "total": -7.408636092712285,
+            "exp": -0.24695453642374285,
+            "pf": 0.6397088808081968,
+            "dd": 10.900629182392793,
+            "winInterval": [
+              0.19230295526846194,
+              0.5122027418616973
+            ]
+          },
+          "stress": {
+            "count": 30,
+            "wins": 10,
+            "win": 0.3333333333333333,
+            "total": -8.210227810912764,
+            "exp": -0.2736742603637588,
+            "pf": 0.6113654764962021,
+            "dd": 11.416631968836764,
+            "winInterval": [
+              0.19230295526846194,
+              0.5122027418616973
+            ]
+          }
+        }
+      ],
+      "normal": {
+        "count": 106,
+        "wins": 51,
+        "win": 0.4811320754716981,
+        "total": 14.2967329799121,
+        "exp": 0.13487483943313303,
+        "pf": 1.2602648592189842,
+        "dd": 12.098202543915392,
+        "winInterval": [
+          0.3883495495648824,
+          0.5752343749227435
+        ]
+      },
+      "stress": {
+        "count": 106,
+        "wins": 51,
+        "win": 0.4811320754716981,
+        "total": 10.822054034414355,
+        "exp": 0.1020948493812675,
+        "pf": 1.1907898083560282,
+        "dd": 13.089360713318984,
+        "winInterval": [
+          0.3883495495648824,
+          0.5752343749227435
+        ]
+      },
+      "checks": [
+        {
+          "id": "count",
+          "label": "Au moins 40 trades",
+          "pass": true
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par période",
+          "pass": true
+        },
+        {
+          "id": "positive",
+          "label": "Chaque période positive",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": true
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": false
+        },
+        {
+          "id": "stress",
+          "label": "Coûts doublés : résultat positif",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "5-morning-short",
+      "timeframe": 5,
+      "hours": {
+        "id": "morning",
+        "label": "Morning",
+        "start": 570,
+        "end": 720
+      },
+      "side": "Short",
+      "windows": [
+        {
+          "ticker": "MNQH6",
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "normal": {
+            "count": 42,
+            "wins": 19,
+            "win": 0.4523809523809524,
+            "total": 3.7445830832623055,
+            "exp": 0.08915674007767393,
+            "pf": 1.1579685528879595,
+            "dd": 5.183348578264788,
+            "winInterval": [
+              0.3122316381863852,
+              0.6005113725287732
+            ]
+          },
+          "stress": {
+            "count": 42,
+            "wins": 19,
+            "win": 0.4523809523809524,
+            "total": 2.492439126526218,
+            "exp": 0.059343788726814714,
+            "pf": 1.1021105524610686,
+            "dd": 5.366697156529577,
+            "winInterval": [
+              0.3122316381863852,
+              0.6005113725287732
+            ]
+          }
+        },
+        {
+          "ticker": "MNQM6",
+          "start": "2026-04-01",
+          "end": "2026-06-01",
+          "normal": {
+            "count": 22,
+            "wins": 11,
+            "win": 0.5,
+            "total": 4.872619016827207,
+            "exp": 0.2214826825830549,
+            "pf": 1.4315208841660918,
+            "dd": 3.1035214404303746,
+            "winInterval": [
+              0.3072180469247956,
+              0.6927819530752044
+            ]
+          },
+          "stress": {
+            "count": 22,
+            "wins": 11,
+            "win": 0.5,
+            "total": 4.2573620105774355,
+            "exp": 0.19351645502624706,
+            "pf": 1.367537774448156,
+            "dd": 3.207042880860749,
+            "winInterval": [
+              0.3072180469247956,
+              0.6927819530752044
+            ]
+          }
+        },
+        {
+          "ticker": "MNQU6",
+          "start": "2026-07-01",
+          "end": "2026-09-01",
+          "normal": {
+            "count": 36,
+            "wins": 15,
+            "win": 0.4166666666666667,
+            "total": 0.5148322584437512,
+            "exp": 0.014300896067881978,
+            "pf": 1.0239393103356158,
+            "dd": 4.247642161991182,
+            "winInterval": [
+              0.2714033350508729,
+              0.5780003033572231
+            ]
+          },
+          "stress": {
+            "count": 36,
+            "wins": 15,
+            "win": 0.4166666666666667,
+            "total": -0.3051947072943533,
+            "exp": -0.00847763075817648,
+            "pf": 0.9861347313200747,
+            "dd": 4.493686879892907,
+            "winInterval": [
+              0.2714033350508729,
+              0.5780003033572231
+            ]
+          }
+        }
+      ],
+      "normal": {
+        "count": 100,
+        "wins": 45,
+        "win": 0.45,
+        "total": 9.13203435853327,
+        "exp": 0.0913203435853327,
+        "pf": 1.1616230016551459,
+        "dd": 7.456593729824275,
+        "winInterval": [
+          0.3561437510640346,
+          0.5475557296835656
+        ]
+      },
+      "stress": {
+        "count": 100,
+        "wins": 45,
+        "win": 0.45,
+        "total": 6.444606429809301,
+        "exp": 0.06444606429809302,
+        "pf": 1.1111059684257663,
+        "dd": 7.909103377566834,
+        "winInterval": [
+          0.3561437510640346,
+          0.5475557296835656
+        ]
+      },
+      "checks": [
+        {
+          "id": "count",
+          "label": "Au moins 40 trades",
+          "pass": true
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par période",
+          "pass": true
+        },
+        {
+          "id": "positive",
+          "label": "Chaque période positive",
+          "pass": true
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": true
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Coûts doublés : résultat positif",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "5-afternoon-both",
+      "timeframe": 5,
+      "hours": {
+        "id": "afternoon",
+        "label": "Afternoon",
+        "start": 780,
+        "end": 945
+      },
+      "side": "Both",
+      "windows": [
+        {
+          "ticker": "MNQH6",
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "normal": {
+            "count": 45,
+            "wins": 19,
+            "win": 0.4222222222222222,
+            "total": -3.6978167703720617,
+            "exp": -0.08217370600826804,
+            "pf": 0.8508288526117813,
+            "dd": 11.102865315620086,
+            "winInterval": [
+              0.2896848798168781,
+              0.566994672040555
+            ]
+          },
+          "stress": {
+            "count": 45,
+            "wins": 18,
+            "win": 0.4,
+            "total": -5.886301314105741,
+            "exp": -0.13080669586901647,
+            "pf": 0.7727560926594631,
+            "dd": 12.534274250763609,
+            "winInterval": [
+              0.27024679447957545,
+              0.5454840579085527
+            ]
+          }
+        },
+        {
+          "ticker": "MNQM6",
+          "start": "2026-04-01",
+          "end": "2026-06-01",
+          "normal": {
+            "count": 60,
+            "wins": 18,
+            "win": 0.3,
+            "total": -17.769183697309458,
+            "exp": -0.2961530616218243,
+            "pf": 0.5733976105034683,
+            "dd": 17.769183697309458,
+            "winInterval": [
+              0.19898010252726892,
+              0.42508946966390415
+            ]
+          },
+          "stress": {
+            "count": 60,
+            "wins": 18,
+            "win": 0.3,
+            "total": -20.55756353057783,
+            "exp": -0.3426260588429638,
+            "pf": 0.5284363291560076,
+            "dd": 20.55756353057783,
+            "winInterval": [
+              0.19898010252726892,
+              0.42508946966390415
+            ]
+          }
+        },
+        {
+          "ticker": "MNQU6",
+          "start": "2026-07-01",
+          "end": "2026-09-01",
+          "normal": {
+            "count": 49,
+            "wins": 24,
+            "win": 0.4897959183673469,
+            "total": 6.146879984616857,
+            "exp": 0.1254465302983032,
+            "pf": 1.2880891222265263,
+            "dd": 4.8461617364974385,
+            "winInterval": [
+              0.3557488315940086,
+              0.6253266846659078
+            ]
+          },
+          "stress": {
+            "count": 49,
+            "wins": 24,
+            "win": 0.4897959183673469,
+            "total": 4.146694335233145,
+            "exp": 0.08462641500475807,
+            "pf": 1.1850969718147346,
+            "dd": 5.545971690108151,
+            "winInterval": [
+              0.3557488315940086,
+              0.6253266846659078
+            ]
+          }
+        }
+      ],
+      "normal": {
+        "count": 154,
+        "wins": 61,
+        "win": 0.3961038961038961,
+        "total": -15.320120483064676,
+        "exp": -0.0994813018380823,
+        "pf": 0.8254686531253822,
+        "dd": 30.481922867052504,
+        "winInterval": [
+          0.3222895279874027,
+          0.47497557829636533
+        ]
+      },
+      "stress": {
+        "count": 154,
+        "wins": 60,
+        "win": 0.38961038961038963,
+        "total": -22.297170509450417,
+        "exp": -0.14478682148993777,
+        "pf": 0.7573764982940054,
+        "dd": 34.811585489587344,
+        "winInterval": [
+          0.31617077302808605,
+          0.4684234023984174
+        ]
+      },
+      "checks": [
+        {
+          "id": "count",
+          "label": "Au moins 40 trades",
+          "pass": true
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par période",
+          "pass": true
+        },
+        {
+          "id": "positive",
+          "label": "Chaque période positive",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": false
+        },
+        {
+          "id": "stress",
+          "label": "Coûts doublés : résultat positif",
+          "pass": false
+        }
+      ]
+    },
+    {
+      "id": "5-afternoon-long",
+      "timeframe": 5,
+      "hours": {
+        "id": "afternoon",
+        "label": "Afternoon",
+        "start": 780,
+        "end": 945
+      },
+      "side": "Long",
+      "windows": [
+        {
+          "ticker": "MNQH6",
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "normal": {
+            "count": 20,
+            "wins": 7,
+            "win": 0.35,
+            "total": -3.14158303011567,
+            "exp": -0.1570791515057835,
+            "pf": 0.715632186218361,
+            "dd": 6.913972952180176,
+            "winInterval": [
+              0.18118954786794464,
+              0.5671494897805354
+            ]
+          },
+          "stress": {
+            "count": 20,
+            "wins": 7,
+            "win": 0.35,
+            "total": -4.214728038434997,
+            "exp": -0.21073640192174986,
+            "pf": 0.6389769264068438,
+            "dd": 7.327945904360352,
+            "winInterval": [
+              0.18118954786794464,
+              0.5671494897805354
+            ]
+          }
+        },
+        {
+          "ticker": "MNQM6",
+          "start": "2026-04-01",
+          "end": "2026-06-01",
+          "normal": {
+            "count": 40,
+            "wins": 14,
+            "win": 0.35,
+            "total": -7.781434647354353,
+            "exp": -0.19453586618385882,
+            "pf": 0.698436339952151,
+            "dd": 10.371641561210339,
+            "winInterval": [
+              0.2213433317104915,
+              0.5049440300646263
+            ]
+          },
+          "stress": {
+            "count": 40,
+            "wins": 14,
+            "win": 0.35,
+            "total": -9.814330167929034,
+            "exp": -0.24535825419822585,
+            "pf": 0.6381674118198631,
+            "dd": 11.1668040459416,
+            "winInterval": [
+              0.2213433317104915,
+              0.5049440300646263
+            ]
+          }
+        },
+        {
+          "ticker": "MNQU6",
+          "start": "2026-07-01",
+          "end": "2026-09-01",
+          "normal": {
+            "count": 24,
+            "wins": 11,
+            "win": 0.4583333333333333,
+            "total": 1.7515791880624692,
+            "exp": 0.07298246616926955,
+            "pf": 1.1463434498752596,
+            "dd": 4.21397120950369,
+            "winInterval": [
+              0.2789105835168143,
+              0.6492544644689336
+            ]
+          },
+          "stress": {
+            "count": 24,
+            "wins": 11,
+            "win": 0.4583333333333333,
+            "total": 0.714200399301328,
+            "exp": 0.029758349970888665,
+            "pf": 1.056863574354191,
+            "dd": 4.462438348346858,
+            "winInterval": [
+              0.2789105835168143,
+              0.6492544644689336
+            ]
+          }
+        }
+      ],
+      "normal": {
+        "count": 84,
+        "wins": 32,
+        "win": 0.38095238095238093,
+        "total": -9.171438489407558,
+        "exp": -0.10918379154056616,
+        "pf": 0.812138402683164,
+        "dd": 18.14575689425269,
+        "winInterval": [
+          0.28446988389716343,
+          0.48784756022953724
+        ]
+      },
+      "stress": {
+        "count": 84,
+        "wins": 32,
+        "win": 0.38095238095238093,
+        "total": -13.314857807062706,
+        "exp": -0.15851021198884174,
+        "pf": 0.7407454759350415,
+        "dd": 21.162097267674266,
+        "winInterval": [
+          0.28446988389716343,
+          0.48784756022953724
+        ]
+      },
+      "checks": [
+        {
+          "id": "count",
+          "label": "Au moins 40 trades",
+          "pass": true
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par période",
+          "pass": true
+        },
+        {
+          "id": "positive",
+          "label": "Chaque période positive",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": false
+        },
+        {
+          "id": "stress",
+          "label": "Coûts doublés : résultat positif",
+          "pass": false
+        }
+      ]
+    },
+    {
+      "id": "5-afternoon-short",
+      "timeframe": 5,
+      "hours": {
+        "id": "afternoon",
+        "label": "Afternoon",
+        "start": 780,
+        "end": 945
+      },
+      "side": "Short",
+      "windows": [
+        {
+          "ticker": "MNQH6",
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "normal": {
+            "count": 29,
+            "wins": 14,
+            "win": 0.4827586206896552,
+            "total": -0.05464403648947158,
+            "exp": -0.0018842771203266063,
+            "pf": 0.9963373727381791,
+            "dd": 6.5190780526150895,
+            "winInterval": [
+              0.3138581933079522,
+              0.6556926202943085
+            ]
+          },
+          "stress": {
+            "count": 29,
+            "wins": 13,
+            "win": 0.4482758620689655,
+            "total": -1.295122311015829,
+            "exp": -0.044659390035028584,
+            "pf": 0.9163454250364468,
+            "dd": 7.235930493984384,
+            "winInterval": [
+              0.2841291114874579,
+              0.6245233293193238
+            ]
+          }
+        },
+        {
+          "ticker": "MNQM6",
+          "start": "2026-04-01",
+          "end": "2026-06-01",
+          "normal": {
+            "count": 24,
+            "wins": 5,
+            "win": 0.20833333333333334,
+            "total": -11.703111661954425,
+            "exp": -0.48762965258143437,
+            "pf": 0.3849516741264713,
+            "dd": 11.938321229831363,
+            "winInterval": [
+              0.0924468910478809,
+              0.40470844485235474
+            ]
+          },
+          "stress": {
+            "count": 24,
+            "wins": 5,
+            "win": 0.20833333333333334,
+            "total": -12.671519562257197,
+            "exp": -0.5279799817607166,
+            "pf": 0.36092997620153366,
+            "dd": 12.671519562257197,
+            "winInterval": [
+              0.0924468910478809,
+              0.40470844485235474
+            ]
+          }
+        },
+        {
+          "ticker": "MNQU6",
+          "start": "2026-07-01",
+          "end": "2026-09-01",
+          "normal": {
+            "count": 27,
+            "wins": 13,
+            "win": 0.48148148148148145,
+            "total": 2.9070232845926625,
+            "exp": 0.1076675290589875,
+            "pf": 1.2677791946442256,
+            "dd": 2.1157736468015313,
+            "winInterval": [
+              0.3074295064970908,
+              0.6601467541378958
+            ]
+          },
+          "stress": {
+            "count": 27,
+            "wins": 13,
+            "win": 0.48148148148148145,
+            "total": 1.8575537445442571,
+            "exp": 0.06879828683497248,
+            "pf": 1.1626883124953435,
+            "dd": 2.416715964755253,
+            "winInterval": [
+              0.3074295064970908,
+              0.6601467541378958
+            ]
+          }
+        }
+      ],
+      "normal": {
+        "count": 80,
+        "wins": 32,
+        "win": 0.4,
+        "total": -8.850732413851238,
+        "exp": -0.11063415517314049,
+        "pf": 0.802453806126611,
+        "dd": 19.504956465269576,
+        "winInterval": [
+          0.29961659273441493,
+          0.5095473545185001
+        ]
+      },
+      "stress": {
+        "count": 80,
+        "wins": 31,
+        "win": 0.3875,
+        "total": -12.109088128728775,
+        "exp": -0.1513636016091097,
+        "pf": 0.7408585525070568,
+        "dd": 21.29864145237854,
+        "winInterval": [
+          0.2882439968827771,
+          0.4970654437767524
+        ]
+      },
+      "checks": [
+        {
+          "id": "count",
+          "label": "Au moins 40 trades",
+          "pass": true
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par période",
+          "pass": true
+        },
+        {
+          "id": "positive",
+          "label": "Chaque période positive",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": false
+        },
+        {
+          "id": "stress",
+          "label": "Coûts doublés : résultat positif",
+          "pass": false
+        }
+      ]
+    },
+    {
+      "id": "15-full-both",
+      "timeframe": 15,
+      "hours": {
+        "id": "full",
+        "label": "Full session",
+        "start": 570,
+        "end": 945
+      },
+      "side": "Both",
+      "windows": [
+        {
+          "ticker": "MNQH6",
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "normal": {
+            "count": 47,
+            "wins": 21,
+            "win": 0.44680851063829785,
+            "total": 4.755559880415895,
+            "exp": 0.10118212511523181,
+            "pf": 1.2509456756925694,
+            "dd": 3.445358116800521,
+            "winInterval": [
+              0.31410747474911305,
+              0.5875478626124176
+            ]
+          },
+          "stress": {
+            "count": 47,
+            "wins": 21,
+            "win": 0.44680851063829785,
+            "total": 3.729554360641271,
+            "exp": 0.07935222043917597,
+            "pf": 1.1908315556883544,
+            "dd": 3.5230691747775116,
+            "winInterval": [
+              0.31410747474911305,
+              0.5875478626124176
+            ]
+          }
+        },
+        {
+          "ticker": "MNQM6",
+          "start": "2026-04-01",
+          "end": "2026-06-01",
+          "normal": {
+            "count": 53,
+            "wins": 24,
+            "win": 0.4528301886792453,
+            "total": -4.531593185314137,
+            "exp": -0.08550175821347429,
+            "pf": 0.8178651745567473,
+            "dd": 8.958226317903684,
+            "winInterval": [
+              0.3265736816014746,
+              0.585462573535608
+            ]
+          },
+          "stress": {
+            "count": 53,
+            "wins": 23,
+            "win": 0.4339622641509434,
+            "total": -5.677071393847912,
+            "exp": -0.10711455460090401,
+            "pf": 0.7773525299331,
+            "dd": 9.83480259697554,
+            "winInterval": [
+              0.30950190698960345,
+              0.5673488502023123
+            ]
+          }
+        },
+        {
+          "ticker": "MNQU6",
+          "start": "2026-07-01",
+          "end": "2026-09-01",
+          "normal": {
+            "count": 51,
+            "wins": 29,
+            "win": 0.5686274509803921,
+            "total": 8.969610044135397,
+            "exp": 0.17587470674775288,
+            "pf": 1.5146472524038743,
+            "dd": 4.960288274600327,
+            "winInterval": [
+              0.43265061235058067,
+              0.694989719076657
+            ]
+          },
+          "stress": {
+            "count": 51,
+            "wins": 29,
+            "win": 0.5686274509803921,
+            "total": 8.05671942840165,
+            "exp": 0.15797489075297352,
+            "pf": 1.450834446849638,
+            "dd": 5.294105618492326,
+            "winInterval": [
+              0.43265061235058067,
+              0.694989719076657
+            ]
+          }
+        }
+      ],
+      "normal": {
+        "count": 151,
+        "wins": 74,
+        "win": 0.4900662251655629,
+        "total": 9.193576739237155,
+        "exp": 0.06088461416713348,
+        "pf": 1.1500755829658467,
+        "dd": 8.958226317903682,
+        "winInterval": [
+          0.41157209371469217,
+          0.5690532679452234
+        ]
+      },
+      "stress": {
+        "count": 151,
+        "wins": 73,
+        "win": 0.48344370860927155,
+        "total": 6.109202395195005,
+        "exp": 0.040458294007913946,
+        "pf": 1.0971064768334489,
+        "dd": 9.834802596975543,
+        "winInterval": [
+          0.40514083756405994,
+          0.5625680985357995
+        ]
+      },
+      "checks": [
+        {
+          "id": "count",
+          "label": "Au moins 40 trades",
+          "pass": true
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par période",
+          "pass": true
+        },
+        {
+          "id": "positive",
+          "label": "Chaque période positive",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": true
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": false
+        },
+        {
+          "id": "stress",
+          "label": "Coûts doublés : résultat positif",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "15-full-long",
+      "timeframe": 15,
+      "hours": {
+        "id": "full",
+        "label": "Full session",
+        "start": 570,
+        "end": 945
+      },
+      "side": "Long",
+      "windows": [
+        {
+          "ticker": "MNQH6",
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "normal": {
+            "count": 21,
+            "wins": 9,
+            "win": 0.42857142857142855,
+            "total": 2.2190123928576306,
+            "exp": 0.10566725680274432,
+            "pf": 1.245352427976787,
+            "dd": 3.4994413374356403,
+            "winInterval": [
+              0.24469699486521043,
+              0.6345378370296754
+            ]
+          },
+          "stress": {
+            "count": 21,
+            "wins": 9,
+            "win": 0.42857142857142855,
+            "total": 1.6742946031184587,
+            "exp": 0.07972831443421231,
+            "pf": 1.1786451930465285,
+            "dd": 3.67588158224501,
+            "winInterval": [
+              0.24469699486521043,
+              0.6345378370296754
+            ]
+          }
+        },
+        {
+          "ticker": "MNQM6",
+          "start": "2026-04-01",
+          "end": "2026-06-01",
+          "normal": {
+            "count": 39,
+            "wins": 22,
+            "win": 0.5641025641025641,
+            "total": 2.3672775619642534,
+            "exp": 0.06069942466575009,
+            "pf": 1.1515255097116994,
+            "dd": 2.956862832997424,
+            "winInterval": [
+              0.40975423474522105,
+              0.7069547583829534
+            ]
+          },
+          "stress": {
+            "count": 39,
+            "wins": 21,
+            "win": 0.5384615384615384,
+            "total": 1.4614771802111601,
+            "exp": 0.03747377385156821,
+            "pf": 1.0911593626559455,
+            "dd": 3.2886113648109445,
+            "winInterval": [
+              0.3856918682173881,
+              0.6843335276595165
+            ]
+          }
+        },
+        {
+          "ticker": "MNQU6",
+          "start": "2026-07-01",
+          "end": "2026-09-01",
+          "normal": {
+            "count": 22,
+            "wins": 11,
+            "win": 0.5,
+            "total": -0.9953983949865437,
+            "exp": -0.045245381590297444,
+            "pf": 0.8869061200317668,
+            "dd": 3.117818288547607,
+            "winInterval": [
+              0.3072180469247956,
+              0.6927819530752044
+            ]
+          },
+          "stress": {
+            "count": 22,
+            "wins": 11,
+            "win": 0.5,
+            "total": -1.3958676112528476,
+            "exp": -0.06344852778422035,
+            "pf": 0.8451995729770145,
+            "dd": 3.2950528800875336,
+            "winInterval": [
+              0.3072180469247956,
+              0.6927819530752044
+            ]
+          }
+        }
+      ],
+      "normal": {
+        "count": 82,
+        "wins": 42,
+        "win": 0.5121951219512195,
+        "total": 3.590891559835342,
+        "exp": 0.043791360485796856,
+        "pf": 1.10729113248946,
+        "dd": 5.763076086979336,
+        "winInterval": [
+          0.40590584856555767,
+          0.6173928783920014
+        ]
+      },
+      "stress": {
+        "count": 82,
+        "wins": 41,
+        "win": 0.5,
+        "total": 1.7399041720767712,
+        "exp": 0.021218343561911844,
+        "pf": 1.0505470195098092,
+        "dd": 6.448073820297235,
+        "winInterval": [
+          0.39422642728441165,
+          0.6057735727155883
+        ]
+      },
+      "checks": [
+        {
+          "id": "count",
+          "label": "Au moins 40 trades",
+          "pass": true
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par période",
+          "pass": true
+        },
+        {
+          "id": "positive",
+          "label": "Chaque période positive",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": true
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Coûts doublés : résultat positif",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "15-full-short",
+      "timeframe": 15,
+      "hours": {
+        "id": "full",
+        "label": "Full session",
+        "start": 570,
+        "end": 945
+      },
+      "side": "Short",
+      "windows": [
+        {
+          "ticker": "MNQH6",
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "normal": {
+            "count": 27,
+            "wins": 12,
+            "win": 0.4444444444444444,
+            "total": 1.5206744716852478,
+            "exp": 0.056321276729083256,
+            "pf": 1.1392272850072167,
+            "dd": 3.4453581168005205,
+            "winInterval": [
+              0.2758559767007283,
+              0.6268728052042312
+            ]
+          },
+          "stress": {
+            "count": 27,
+            "wins": 12,
+            "win": 0.4444444444444444,
+            "total": 1.0235137257767803,
+            "exp": 0.037907915769510386,
+            "pf": 1.0913585126657541,
+            "dd": 3.523069174777512,
+            "winInterval": [
+              0.2758559767007283,
+              0.6268728052042312
+            ]
+          }
+        },
+        {
+          "ticker": "MNQM6",
+          "start": "2026-04-01",
+          "end": "2026-06-01",
+          "normal": {
+            "count": 16,
+            "wins": 2,
+            "win": 0.125,
+            "total": -8.940631167986181,
+            "exp": -0.5587894479991363,
+            "pf": 0.2087397011882301,
+            "dd": 8.940631167986181,
+            "winInterval": [
+              0.034976749337057134,
+              0.3602333143674828
+            ]
+          },
+          "stress": {
+            "count": 16,
+            "wins": 2,
+            "win": 0.125,
+            "total": -9.222069415474653,
+            "exp": -0.5763793384671658,
+            "pf": 0.20151343697876473,
+            "dd": 9.222069415474653,
+            "winInterval": [
+              0.034976749337057134,
+              0.3602333143674828
+            ]
+          }
+        },
+        {
+          "ticker": "MNQU6",
+          "start": "2026-07-01",
+          "end": "2026-09-01",
+          "normal": {
+            "count": 29,
+            "wins": 18,
+            "win": 0.6206896551724138,
+            "total": 10.312642822988208,
+            "exp": 0.3556083732064899,
+            "pf": 2.1953730910292193,
+            "dd": 3.4612411910532437,
+            "winInterval": [
+              0.4400222620928496,
+              0.7731220426913266
+            ]
+          },
+          "stress": {
+            "count": 29,
+            "wins": 18,
+            "win": 0.6206896551724138,
+            "total": 9.804676603338267,
+            "exp": 0.3380922966668368,
+            "pf": 2.107438206237282,
+            "dd": 3.745781895112769,
+            "winInterval": [
+              0.4400222620928496,
+              0.7731220426913266
+            ]
+          }
+        }
+      ],
+      "normal": {
+        "count": 72,
+        "wins": 32,
+        "win": 0.4444444444444444,
+        "total": 2.8926861266872756,
+        "exp": 0.04017619620398994,
+        "pf": 1.093770398147746,
+        "dd": 11.438735194036095,
+        "winInterval": [
+          0.33538885104705246,
+          0.5591281422653248
+        ]
+      },
+      "stress": {
+        "count": 72,
+        "wins": 32,
+        "win": 0.4444444444444444,
+        "total": 1.6061209136403953,
+        "exp": 0.022307234911672157,
+        "pf": 1.050816677586906,
+        "dd": 11.853623774316869,
+        "winInterval": [
+          0.33538885104705246,
+          0.5591281422653248
+        ]
+      },
+      "checks": [
+        {
+          "id": "count",
+          "label": "Au moins 40 trades",
+          "pass": true
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par période",
+          "pass": true
+        },
+        {
+          "id": "positive",
+          "label": "Chaque période positive",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": false
+        },
+        {
+          "id": "stress",
+          "label": "Coûts doublés : résultat positif",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "15-morning-both",
+      "timeframe": 15,
+      "hours": {
+        "id": "morning",
+        "label": "Morning",
+        "start": 570,
+        "end": 720
+      },
+      "side": "Both",
+      "windows": [
+        {
+          "ticker": "MNQH6",
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "normal": {
+            "count": 23,
+            "wins": 14,
+            "win": 0.6086956521739131,
+            "total": 10.386198530343423,
+            "exp": 0.4515738491453662,
+            "pf": 2.242443230826727,
+            "dd": 3.046497970332295,
+            "winInterval": [
+              0.4078517960374599,
+              0.7784262201761787
+            ]
+          },
+          "stress": {
+            "count": 23,
+            "wins": 14,
+            "win": 0.6086956521739131,
+            "total": 9.908146202484579,
+            "exp": 0.4307889653254165,
+            "pf": 2.1583282905743486,
+            "dd": 3.092995940664588,
+            "winInterval": [
+              0.4078517960374599,
+              0.7784262201761787
+            ]
+          }
+        },
+        {
+          "ticker": "MNQM6",
+          "start": "2026-04-01",
+          "end": "2026-06-01",
+          "normal": {
+            "count": 21,
+            "wins": 6,
+            "win": 0.2857142857142857,
+            "total": -7.51951693615755,
+            "exp": -0.3580722350551214,
+            "pf": 0.5088509519359,
+            "dd": 9.452250297256255,
+            "winInterval": [
+              0.13813675745628204,
+              0.49956773822837586
+            ]
+          },
+          "stress": {
+            "count": 21,
+            "wins": 6,
+            "win": 0.2857142857142857,
+            "total": -7.9522154119287976,
+            "exp": -0.3786769243775618,
+            "pf": 0.4908986195263266,
+            "dd": 9.82087744228132,
+            "winInterval": [
+              0.13813675745628204,
+              0.49956773822837586
+            ]
+          }
+        },
+        {
+          "ticker": "MNQU6",
+          "start": "2026-07-01",
+          "end": "2026-09-01",
+          "normal": {
+            "count": 24,
+            "wins": 14,
+            "win": 0.5833333333333334,
+            "total": 8.28221833601704,
+            "exp": 0.34509243066737666,
+            "pf": 1.8834637199606692,
+            "dd": 2.475442712107661,
+            "winInterval": [
+              0.3883433764938864,
+              0.7553265275346177
+            ]
+          },
+          "stress": {
+            "count": 24,
+            "wins": 14,
+            "win": 0.5833333333333334,
+            "total": 7.893174460852818,
+            "exp": 0.32888226920220076,
+            "pf": 1.8256538006998662,
+            "dd": 2.5875177573993833,
+            "winInterval": [
+              0.3883433764938864,
+              0.7553265275346177
+            ]
+          }
+        }
+      ],
+      "normal": {
+        "count": 68,
+        "wins": 34,
+        "win": 0.5,
+        "total": 11.148899930202916,
+        "exp": 0.16395441073827818,
+        "pf": 1.3373929489836147,
+        "dd": 9.564163114589814,
+        "winInterval": [
+          0.3843786388809909,
+          0.6156213611190091
+        ]
+      },
+      "stress": {
+        "count": 68,
+        "wins": 34,
+        "win": 0.5,
+        "total": 9.849105251408599,
+        "exp": 0.14483978310895,
+        "pf": 1.2919651166377621,
+        "dd": 10.078983892979931,
+        "winInterval": [
+          0.3843786388809909,
+          0.6156213611190091
+        ]
+      },
+      "checks": [
+        {
+          "id": "count",
+          "label": "Au moins 40 trades",
+          "pass": true
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par période",
+          "pass": true
+        },
+        {
+          "id": "positive",
+          "label": "Chaque période positive",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": true
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": false
+        },
+        {
+          "id": "stress",
+          "label": "Coûts doublés : résultat positif",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "15-morning-long",
+      "timeframe": 15,
+      "hours": {
+        "id": "morning",
+        "label": "Morning",
+        "start": 570,
+        "end": 720
+      },
+      "side": "Long",
+      "windows": [
+        {
+          "ticker": "MNQH6",
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "normal": {
+            "count": 10,
+            "wins": 6,
+            "win": 0.6,
+            "total": 4.745868950624062,
+            "exp": 0.4745868950624062,
+            "pf": 2.153934581668034,
+            "dd": 3.073665086341143,
+            "winInterval": [
+              0.3126695474501864,
+              0.8318224187964902
+            ]
+          },
+          "stress": {
+            "count": 10,
+            "wins": 6,
+            "win": 0.6,
+            "total": 4.495639129248303,
+            "exp": 0.44956391292483033,
+            "pf": 2.06391999806331,
+            "dd": 3.1473301726822847,
+            "winInterval": [
+              0.3126695474501864,
+              0.8318224187964902
+            ]
+          }
+        },
+        {
+          "ticker": "MNQM6",
+          "start": "2026-04-01",
+          "end": "2026-06-01",
+          "normal": {
+            "count": 15,
+            "wins": 5,
+            "win": 0.3333333333333333,
+            "total": -3.925642786890772,
+            "exp": -0.26170951912605145,
+            "pf": 0.6163002693435873,
+            "dd": 5.8583761479894765,
+            "winInterval": [
+              0.15176100694691236,
+              0.5828687484878701
+            ]
+          },
+          "stress": {
+            "count": 15,
+            "wins": 5,
+            "win": 0.3333333333333333,
+            "total": -4.265457212405141,
+            "exp": -0.28436381416034273,
+            "pf": 0.5922926619665043,
+            "dd": 6.134119242757664,
+            "winInterval": [
+              0.15176100694691236,
+              0.5828687484878701
+            ]
+          }
+        },
+        {
+          "ticker": "MNQU6",
+          "start": "2026-07-01",
+          "end": "2026-09-01",
+          "normal": {
+            "count": 9,
+            "wins": 5,
+            "win": 0.5555555555555556,
+            "total": 0.9984376198574854,
+            "exp": 0.11093751331749838,
+            "pf": 1.244847085280957,
+            "dd": 2.0359203748886565,
+            "winInterval": [
+              0.2666473457440297,
+              0.811224570528086
+            ]
+          },
+          "stress": {
+            "count": 9,
+            "wins": 5,
+            "win": 0.5555555555555556,
+            "total": 0.8500960116950143,
+            "exp": 0.09445511241055714,
+            "pf": 1.2045663005201295,
+            "dd": 2.071840749777313,
+            "winInterval": [
+              0.2666473457440297,
+              0.811224570528086
+            ]
+          }
+        }
+      ],
+      "normal": {
+        "count": 34,
+        "wins": 16,
+        "win": 0.47058823529411764,
+        "total": 1.8186637835907753,
+        "exp": 0.05349011128208163,
+        "pf": 1.0987245279035822,
+        "dd": 7.8942965228781325,
+        "winInterval": [
+          0.31451251633111366,
+          0.6326355957994516
+        ]
+      },
+      "stress": {
+        "count": 34,
+        "wins": 16,
+        "win": 0.47058823529411764,
+        "total": 1.0802779285381767,
+        "exp": 0.03177288025112285,
+        "pf": 1.0573298539998177,
+        "dd": 8.205959992534977,
+        "winInterval": [
+          0.31451251633111366,
+          0.6326355957994516
+        ]
+      },
+      "checks": [
+        {
+          "id": "count",
+          "label": "Au moins 40 trades",
+          "pass": false
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par période",
+          "pass": false
+        },
+        {
+          "id": "positive",
+          "label": "Chaque période positive",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Coûts doublés : résultat positif",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "15-morning-short",
+      "timeframe": 15,
+      "hours": {
+        "id": "morning",
+        "label": "Morning",
+        "start": 570,
+        "end": 720
+      },
+      "side": "Short",
+      "windows": [
+        {
+          "ticker": "MNQH6",
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "normal": {
+            "count": 13,
+            "wins": 8,
+            "win": 0.6153846153846154,
+            "total": 5.640329579719361,
+            "exp": 0.43387150613225856,
+            "pf": 2.3281600816523556,
+            "dd": 3.046497970332295,
+            "winInterval": [
+              0.35522480972268555,
+              0.8229055341876319
+            ]
+          },
+          "stress": {
+            "count": 13,
+            "wins": 8,
+            "win": 0.6153846153846154,
+            "total": 5.412507073236274,
+            "exp": 0.41634669794125184,
+            "pf": 2.250495461329491,
+            "dd": 3.092995940664589,
+            "winInterval": [
+              0.35522480972268555,
+              0.8229055341876319
+            ]
+          }
+        },
+        {
+          "ticker": "MNQM6",
+          "start": "2026-04-01",
+          "end": "2026-06-01",
+          "normal": {
+            "count": 6,
+            "wins": 1,
+            "win": 0.16666666666666666,
+            "total": -3.593874149266779,
+            "exp": -0.5989790248777965,
+            "pf": 0.2924083259843677,
+            "dd": 3.593874149266779,
+            "winInterval": [
+              0.03005258587173032,
+              0.563509436563646
+            ]
+          },
+          "stress": {
+            "count": 6,
+            "wins": 1,
+            "win": 0.16666666666666666,
+            "total": -3.6867581995236565,
+            "exp": -0.6144596999206094,
+            "pf": 0.28524121737718156,
+            "dd": 3.6867581995236565,
+            "winInterval": [
+              0.03005258587173032,
+              0.563509436563646
+            ]
+          }
+        },
+        {
+          "ticker": "MNQU6",
+          "start": "2026-07-01",
+          "end": "2026-09-01",
+          "normal": {
+            "count": 15,
+            "wins": 9,
+            "win": 0.6,
+            "total": 7.283780716159553,
+            "exp": 0.48558538107730354,
+            "pf": 2.375099507193617,
+            "dd": 1.9049080615730123,
+            "winInterval": [
+              0.357464427565077,
+              0.8017577191740534
+            ]
+          },
+          "stress": {
+            "count": 15,
+            "wins": 9,
+            "win": 0.6,
+            "total": 7.043078449157804,
+            "exp": 0.4695385632771869,
+            "pf": 2.3032344161652194,
+            "dd": 1.9477471576287844,
+            "winInterval": [
+              0.357464427565077,
+              0.8017577191740534
+            ]
+          }
+        }
+      ],
+      "normal": {
+        "count": 34,
+        "wins": 18,
+        "win": 0.5294117647058824,
+        "total": 9.330236146612137,
+        "exp": 0.2744187101944746,
+        "pf": 1.6380670159353605,
+        "dd": 5.638520327699044,
+        "winInterval": [
+          0.3673644042005483,
+          0.6854874836688863
+        ]
+      },
+      "stress": {
+        "count": 34,
+        "wins": 18,
+        "win": 0.5294117647058824,
+        "total": 8.768827322870422,
+        "exp": 0.2579066859667771,
+        "pf": 1.5888817479448947,
+        "dd": 5.813526680574791,
+        "winInterval": [
+          0.3673644042005483,
+          0.6854874836688863
+        ]
+      },
+      "checks": [
+        {
+          "id": "count",
+          "label": "Au moins 40 trades",
+          "pass": false
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par période",
+          "pass": false
+        },
+        {
+          "id": "positive",
+          "label": "Chaque période positive",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": true
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Coûts doublés : résultat positif",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "15-afternoon-both",
+      "timeframe": 15,
+      "hours": {
+        "id": "afternoon",
+        "label": "Afternoon",
+        "start": 780,
+        "end": 945
+      },
+      "side": "Both",
+      "windows": [
+        {
+          "ticker": "MNQH6",
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "normal": {
+            "count": 28,
+            "wins": 8,
+            "win": 0.2857142857142857,
+            "total": -9.503703096391154,
+            "exp": -0.3394179677282555,
+            "pf": 0.3775226047477809,
+            "dd": 9.503703096391154,
+            "winInterval": [
+              0.15253815848329969,
+              0.470596357370175
+            ]
+          },
+          "stress": {
+            "count": 28,
+            "wins": 8,
+            "win": 0.2857142857142857,
+            "total": -10.132119128241149,
+            "exp": -0.3618613974371839,
+            "pf": 0.3556722418984599,
+            "dd": 10.132119128241149,
+            "winInterval": [
+              0.15253815848329969,
+              0.470596357370175
+            ]
+          }
+        },
+        {
+          "ticker": "MNQM6",
+          "start": "2026-04-01",
+          "end": "2026-06-01",
+          "normal": {
+            "count": 37,
+            "wins": 19,
+            "win": 0.5135135135135135,
+            "total": 0.1431832164198311,
+            "exp": 0.003869816659995435,
+            "pf": 1.011853103814011,
+            "dd": 4.849385009969966,
+            "winInterval": [
+              0.3589463722598092,
+              0.6655384667278896
+            ]
+          },
+          "stress": {
+            "count": 37,
+            "wins": 18,
+            "win": 0.4864864864864865,
+            "total": -0.685141515152617,
+            "exp": -0.018517338247368027,
+            "pf": 0.9450769654256964,
+            "dd": 5.104671148905383,
+            "winInterval": [
+              0.33446153327211037,
+              0.6410536277401908
+            ]
+          }
+        },
+        {
+          "ticker": "MNQU6",
+          "start": "2026-07-01",
+          "end": "2026-09-01",
+          "normal": {
+            "count": 27,
+            "wins": 16,
+            "win": 0.5925925925925926,
+            "total": 2.7918161736764997,
+            "exp": 0.10340059902505555,
+            "pf": 1.3723060280636274,
+            "dd": 2.934407872960875,
+            "winInterval": [
+              0.4072638305536409,
+              0.7548548662714265
+            ]
+          },
+          "stress": {
+            "count": 27,
+            "wins": 16,
+            "win": 0.5925925925925926,
+            "total": 2.2692153549856533,
+            "exp": 0.0840450131476168,
+            "pf": 1.2929592952134954,
+            "dd": 3.1884519576311154,
+            "winInterval": [
+              0.4072638305536409,
+              0.7548548662714265
+            ]
+          }
+        }
+      ],
+      "normal": {
+        "count": 92,
+        "wins": 43,
+        "win": 0.4673913043478261,
+        "total": -6.568703706294825,
+        "exp": -0.07139895332929157,
+        "pf": 0.8114936924427013,
+        "dd": 11.607736175058987,
+        "winInterval": [
+          0.36879946305290146,
+          0.5685972415096268
+        ]
+      },
+      "stress": {
+        "count": 92,
+        "wins": 42,
+        "win": 0.45652173913043476,
+        "total": -8.548045288408105,
+        "exp": -0.09291353574356635,
+        "pf": 0.7621943820038106,
+        "dd": 12.696836540019365,
+        "winInterval": [
+          0.35852497382933834,
+          0.5580039655873659
+        ]
+      },
+      "checks": [
+        {
+          "id": "count",
+          "label": "Au moins 40 trades",
+          "pass": true
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par période",
+          "pass": true
+        },
+        {
+          "id": "positive",
+          "label": "Chaque période positive",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": false
+        },
+        {
+          "id": "stress",
+          "label": "Coûts doublés : résultat positif",
+          "pass": false
+        }
+      ]
+    },
+    {
+      "id": "15-afternoon-long",
+      "timeframe": 15,
+      "hours": {
+        "id": "afternoon",
+        "label": "Afternoon",
+        "start": 780,
+        "end": 945
+      },
+      "side": "Long",
+      "windows": [
+        {
+          "ticker": "MNQH6",
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "normal": {
+            "count": 12,
+            "wins": 4,
+            "win": 0.3333333333333333,
+            "total": -1.7242171269632238,
+            "exp": -0.14368476058026866,
+            "pf": 0.6504159361984647,
+            "dd": 1.9316412973507946,
+            "winInterval": [
+              0.13811783989736134,
+              0.609382412602386
+            ]
+          },
+          "stress": {
+            "count": 12,
+            "wins": 4,
+            "win": 0.3333333333333333,
+            "total": -2.0412039569839107,
+            "exp": -0.1701003297486592,
+            "pf": 0.6035113882221688,
+            "dd": 2.145701484676648,
+            "winInterval": [
+              0.13811783989736134,
+              0.609382412602386
+            ]
+          }
+        },
+        {
+          "ticker": "MNQM6",
+          "start": "2026-04-01",
+          "end": "2026-06-01",
+          "normal": {
+            "count": 27,
+            "wins": 18,
+            "win": 0.6666666666666666,
+            "total": 4.994212657209537,
+            "exp": 0.18497083915590876,
+            "pf": 1.7858306697040054,
+            "dd": 1.7032227535428008,
+            "winInterval": [
+              0.47824419872105484,
+              0.8135694555640665
+            ]
+          },
+          "stress": {
+            "count": 27,
+            "wins": 17,
+            "win": 0.6296296296296297,
+            "total": 4.3553799793093075,
+            "exp": 0.16131036960404843,
+            "pf": 1.6621157059592164,
+            "dd": 1.8246538600517734,
+            "winInterval": [
+              0.442289046234463,
+              0.7846771293206314
+            ]
+          }
+        },
+        {
+          "ticker": "MNQU6",
+          "start": "2026-07-01",
+          "end": "2026-09-01",
+          "normal": {
+            "count": 10,
+            "wins": 4,
+            "win": 0.4,
+            "total": -2.9278109751509485,
+            "exp": -0.29278109751509485,
+            "pf": 0.23986454356592585,
+            "dd": 2.9974080447480183,
+            "winInterval": [
+              0.16817758120350967,
+              0.6873304525498135
+            ]
+          },
+          "stress": {
+            "count": 10,
+            "wins": 4,
+            "win": 0.4,
+            "total": -3.133319143046942,
+            "exp": -0.3133319143046942,
+            "pf": 0.21331044299659388,
+            "dd": 3.177275187002986,
+            "winInterval": [
+              0.16817758120350967,
+              0.6873304525498135
+            ]
+          }
+        }
+      ],
+      "normal": {
+        "count": 49,
+        "wins": 26,
+        "win": 0.5306122448979592,
+        "total": 0.34218455509536405,
+        "exp": 0.006983358267252327,
+        "pf": 1.022602519662247,
+        "dd": 3.567703174746083,
+        "winInterval": [
+          0.39380627019919845,
+          0.6629671810210522
+        ]
+      },
+      "stress": {
+        "count": 49,
+        "wins": 25,
+        "win": 0.5102040816326531,
+        "total": -0.8191431207215438,
+        "exp": -0.016717206545337628,
+        "pf": 0.9478554838257635,
+        "dd": 3.9138805247067983,
+        "winInterval": [
+          0.37467331533409215,
+          0.6442511684059913
+        ]
+      },
+      "checks": [
+        {
+          "id": "count",
+          "label": "Au moins 40 trades",
+          "pass": true
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par période",
+          "pass": false
+        },
+        {
+          "id": "positive",
+          "label": "Chaque période positive",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Coûts doublés : résultat positif",
+          "pass": false
+        }
+      ]
+    },
+    {
+      "id": "15-afternoon-short",
+      "timeframe": 15,
+      "hours": {
+        "id": "afternoon",
+        "label": "Afternoon",
+        "start": 780,
+        "end": 945
+      },
+      "side": "Short",
+      "windows": [
+        {
+          "ticker": "MNQH6",
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "normal": {
+            "count": 16,
+            "wins": 4,
+            "win": 0.25,
+            "total": -7.779485969427934,
+            "exp": -0.48621787308924586,
+            "pf": 0.24729351422024662,
+            "dd": 7.986682589659335,
+            "winInterval": [
+              0.10181901984237346,
+              0.49498768929398645
+            ]
+          },
+          "stress": {
+            "count": 16,
+            "wins": 4,
+            "win": 0.25,
+            "total": -8.090915171257238,
+            "exp": -0.5056821982035774,
+            "pf": 0.23503892238645238,
+            "dd": 8.190061244967875,
+            "winInterval": [
+              0.10181901984237346,
+              0.49498768929398645
+            ]
+          }
+        },
+        {
+          "ticker": "MNQM6",
+          "start": "2026-04-01",
+          "end": "2026-06-01",
+          "normal": {
+            "count": 11,
+            "wins": 1,
+            "win": 0.09090909090909091,
+            "total": -5.109093956918738,
+            "exp": -0.4644630869926125,
+            "pf": 0.14599963905024188,
+            "dd": 5.553717465656585,
+            "winInterval": [
+              0.01623175226282597,
+              0.3773646254862038
+            ]
+          },
+          "stress": {
+            "count": 11,
+            "wins": 1,
+            "win": 0.09090909090909091,
+            "total": -5.321166655752249,
+            "exp": -0.48374242325020445,
+            "pf": 0.13858593232664354,
+            "dd": 5.735964921428715,
+            "winInterval": [
+              0.01623175226282597,
+              0.3773646254862038
+            ]
+          }
+        },
+        {
+          "ticker": "MNQU6",
+          "start": "2026-07-01",
+          "end": "2026-09-01",
+          "normal": {
+            "count": 17,
+            "wins": 12,
+            "win": 0.7058823529411765,
+            "total": 5.719627148827448,
+            "exp": 0.3364486558133793,
+            "pf": 2.5683028658083744,
+            "dd": 2.2168651005164666,
+            "winInterval": [
+              0.468664666737861,
+              0.8672020613444361
+            ]
+          },
+          "stress": {
+            "count": 17,
+            "wins": 12,
+            "win": 0.7058823529411765,
+            "total": 5.402534498032596,
+            "exp": 0.3177961469430939,
+            "pf": 2.4357287379173944,
+            "dd": 2.2852708172794305,
+            "winInterval": [
+              0.468664666737861,
+              0.8672020613444361
+            ]
+          }
+        }
+      ],
+      "normal": {
+        "count": 44,
+        "wins": 17,
+        "win": 0.38636363636363635,
+        "total": -7.168952777519226,
+        "exp": -0.16293074494361878,
+        "pf": 0.6409223839552367,
+        "dd": 13.33320343508452,
+        "winInterval": [
+          0.25720998886701985,
+          0.5337669015379832
+        ]
+      },
+      "stress": {
+        "count": 44,
+        "wins": 17,
+        "win": 0.38636363636363635,
+        "total": -8.009547328976891,
+        "exp": -0.18203516656765661,
+        "pf": 0.6096153527718117,
+        "dd": 13.82688009268595,
+        "winInterval": [
+          0.25720998886701985,
+          0.5337669015379832
+        ]
+      },
+      "checks": [
+        {
+          "id": "count",
+          "label": "Au moins 40 trades",
+          "pass": true
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par période",
+          "pass": false
+        },
+        {
+          "id": "positive",
+          "label": "Chaque période positive",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": false
+        },
+        {
+          "id": "stress",
+          "label": "Coûts doublés : résultat positif",
+          "pass": false
+        }
+      ]
+    },
+    {
+      "id": "30-full-both",
+      "timeframe": 30,
+      "hours": {
+        "id": "full",
+        "label": "Full session",
+        "start": 570,
+        "end": 945
+      },
+      "side": "Both",
+      "windows": [
+        {
+          "ticker": "MNQH6",
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "normal": {
+            "count": 28,
+            "wins": 12,
+            "win": 0.42857142857142855,
+            "total": 1.041939757605737,
+            "exp": 0.037212134200204895,
+            "pf": 1.1110739427130005,
+            "dd": 5.440612164085185,
+            "winInterval": [
+              0.2650829618073122,
+              0.609295210143846
+            ]
+          },
+          "stress": {
+            "count": 28,
+            "wins": 12,
+            "win": 0.42857142857142855,
+            "total": 0.6321045680806849,
+            "exp": 0.022575163145738746,
+            "pf": 1.0658605186647871,
+            "dd": 5.551952898150879,
+            "winInterval": [
+              0.2650829618073122,
+              0.609295210143846
+            ]
+          }
+        },
+        {
+          "ticker": "MNQM6",
+          "start": "2026-04-01",
+          "end": "2026-06-01",
+          "normal": {
+            "count": 28,
+            "wins": 15,
+            "win": 0.5357142857142857,
+            "total": 3.850191347707153,
+            "exp": 0.13750683384668402,
+            "pf": 1.645286141252762,
+            "dd": 4.173680070956288,
+            "winInterval": [
+              0.3581239514210167,
+              0.7046869626034041
+            ]
+          },
+          "stress": {
+            "count": 28,
+            "wins": 15,
+            "win": 0.5357142857142857,
+            "total": 3.457116648190301,
+            "exp": 0.12346845172108219,
+            "pf": 1.561821192336074,
+            "dd": 4.317560580746357,
+            "winInterval": [
+              0.3581239514210167,
+              0.7046869626034041
+            ]
+          }
+        },
+        {
+          "ticker": "MNQU6",
+          "start": "2026-07-01",
+          "end": "2026-09-01",
+          "normal": {
+            "count": 32,
+            "wins": 21,
+            "win": 0.65625,
+            "total": 4.926707305557974,
+            "exp": 0.1539596032986867,
+            "pf": 1.5069395863965696,
+            "dd": 4.1792928445698365,
+            "winInterval": [
+              0.4831077350878594,
+              0.7958976664567146
+            ]
+          },
+          "stress": {
+            "count": 32,
+            "wins": 21,
+            "win": 0.65625,
+            "total": 4.530076397311767,
+            "exp": 0.1415648874159927,
+            "pf": 1.4590269966191711,
+            "dd": 4.413649606421744,
+            "winInterval": [
+              0.4831077350878594,
+              0.7958976664567146
+            ]
+          }
+        }
+      ],
+      "normal": {
+        "count": 88,
+        "wins": 48,
+        "win": 0.5454545454545454,
+        "total": 9.818838410870866,
+        "exp": 0.11157770921444166,
+        "pf": 1.3917230358769102,
+        "dd": 5.478729805107573,
+        "winInterval": [
+          0.44169880685506685,
+          0.6454076895474348
+        ]
+      },
+      "stress": {
+        "count": 88,
+        "wins": 48,
+        "win": 0.5454545454545454,
+        "total": 8.619297613582754,
+        "exp": 0.0979465637907131,
+        "pf": 1.3364297513228927,
+        "dd": 5.894572099553469,
+        "winInterval": [
+          0.44169880685506685,
+          0.6454076895474348
+        ]
+      },
+      "checks": [
+        {
+          "id": "count",
+          "label": "Au moins 40 trades",
+          "pass": true
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par période",
+          "pass": true
+        },
+        {
+          "id": "positive",
+          "label": "Chaque période positive",
+          "pass": true
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": true
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Coûts doublés : résultat positif",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "30-full-long",
+      "timeframe": 30,
+      "hours": {
+        "id": "full",
+        "label": "Full session",
+        "start": 570,
+        "end": 945
+      },
+      "side": "Long",
+      "windows": [
+        {
+          "ticker": "MNQH6",
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "normal": {
+            "count": 11,
+            "wins": 7,
+            "win": 0.6363636363636364,
+            "total": 4.494952536552386,
+            "exp": 0.40863204877748965,
+            "pf": 4.2475247291948275,
+            "dd": 1.0165620343454576,
+            "winInterval": [
+              0.35379677689163724,
+              0.8483377638586862
+            ]
+          },
+          "stress": {
+            "count": 11,
+            "wins": 7,
+            "win": 0.6363636363636364,
+            "total": 4.302882568198412,
+            "exp": 0.391171142563492,
+            "pf": 3.980830360788114,
+            "dd": 1.0429440359576905,
+            "winInterval": [
+              0.35379677689163724,
+              0.8483377638586862
+            ]
+          }
+        },
+        {
+          "ticker": "MNQM6",
+          "start": "2026-04-01",
+          "end": "2026-06-01",
+          "normal": {
+            "count": 21,
+            "wins": 12,
+            "win": 0.5714285714285714,
+            "total": 4.758563349671372,
+            "exp": 0.22659825474625583,
+            "pf": 2.6685645211820663,
+            "dd": 2.067372574381616,
+            "winInterval": [
+              0.3654621629703244,
+              0.7553030051347894
+            ]
+          },
+          "stress": {
+            "count": 21,
+            "wins": 12,
+            "win": 0.5714285714285714,
+            "total": 4.450817816236502,
+            "exp": 0.21194370553507152,
+            "pf": 2.4908382182161906,
+            "dd": 2.1664840491354744,
+            "winInterval": [
+              0.3654621629703244,
+              0.7553030051347894
+            ]
+          }
+        },
+        {
+          "ticker": "MNQU6",
+          "start": "2026-07-01",
+          "end": "2026-09-01",
+          "normal": {
+            "count": 12,
+            "wins": 8,
+            "win": 0.6666666666666666,
+            "total": 0.2213381135294752,
+            "exp": 0.018444842794122934,
+            "pf": 1.05764296147325,
+            "dd": 2.0322254992124655,
+            "winInterval": [
+              0.3906175873976139,
+              0.8618821601026385
+            ]
+          },
+          "stress": {
+            "count": 12,
+            "wins": 8,
+            "win": 0.6666666666666666,
+            "total": 0.05950414728334574,
+            "exp": 0.004958678940278812,
+            "pf": 1.0152725418874051,
+            "dd": 2.06445099842493,
+            "winInterval": [
+              0.3906175873976139,
+              0.8618821601026385
+            ]
+          }
+        }
+      ],
+      "normal": {
+        "count": 44,
+        "wins": 27,
+        "win": 0.6136363636363636,
+        "total": 9.474853999753236,
+        "exp": 0.21533759090348265,
+        "pf": 2.173237589806671,
+        "dd": 2.0673725743816167,
+        "winInterval": [
+          0.46623309846201666,
+          0.7427900111329802
+        ]
+      },
+      "stress": {
+        "count": 44,
+        "wins": 27,
+        "win": 0.6136363636363636,
+        "total": 8.813204531718263,
+        "exp": 0.20030010299359688,
+        "pf": 2.058628331665614,
+        "dd": 2.166484049135474,
+        "winInterval": [
+          0.46623309846201666,
+          0.7427900111329802
+        ]
+      },
+      "checks": [
+        {
+          "id": "count",
+          "label": "Au moins 40 trades",
+          "pass": true
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par période",
+          "pass": false
+        },
+        {
+          "id": "positive",
+          "label": "Chaque période positive",
+          "pass": true
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": true
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Coûts doublés : résultat positif",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "30-full-short",
+      "timeframe": 30,
+      "hours": {
+        "id": "full",
+        "label": "Full session",
+        "start": 570,
+        "end": 945
+      },
+      "side": "Short",
+      "windows": [
+        {
+          "ticker": "MNQH6",
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "normal": {
+            "count": 17,
+            "wins": 5,
+            "win": 0.29411764705882354,
+            "total": -3.4530127789466465,
+            "exp": -0.20311839876156745,
+            "pf": 0.5681833645404092,
+            "dd": 4.424050129739727,
+            "winInterval": [
+              0.13279793865556402,
+              0.5313353332621391
+            ]
+          },
+          "stress": {
+            "count": 17,
+            "wins": 5,
+            "win": 0.29411764705882354,
+            "total": -3.6707780001177253,
+            "exp": -0.21592811765398384,
+            "pf": 0.5498246477053771,
+            "dd": 4.509008862193188,
+            "winInterval": [
+              0.13279793865556402,
+              0.5313353332621391
+            ]
+          }
+        },
+        {
+          "ticker": "MNQM6",
+          "start": "2026-04-01",
+          "end": "2026-06-01",
+          "normal": {
+            "count": 7,
+            "wins": 3,
+            "win": 0.42857142857142855,
+            "total": -0.9083720019642194,
+            "exp": -0.12976742885203135,
+            "pf": 0.7083645261269319,
+            "dd": 2.106307496574672,
+            "winInterval": [
+              0.15821692226262685,
+              0.7495457695909742
+            ]
+          },
+          "stress": {
+            "count": 7,
+            "wins": 3,
+            "win": 0.42857142857142855,
+            "total": -0.9937011680462028,
+            "exp": -0.1419573097208861,
+            "pf": 0.6863281720348926,
+            "dd": 2.151076531610883,
+            "winInterval": [
+              0.15821692226262685,
+              0.7495457695909742
+            ]
+          }
+        },
+        {
+          "ticker": "MNQU6",
+          "start": "2026-07-01",
+          "end": "2026-09-01",
+          "normal": {
+            "count": 20,
+            "wins": 13,
+            "win": 0.65,
+            "total": 4.7053691920285,
+            "exp": 0.235268459601425,
+            "pf": 1.8004073885615064,
+            "dd": 2.544752715282221,
+            "winInterval": [
+              0.43285051021946463,
+              0.8188104521320554
+            ]
+          },
+          "stress": {
+            "count": 20,
+            "wins": 13,
+            "win": 0.65,
+            "total": 4.47057225002842,
+            "exp": 0.223528612501421,
+            "pf": 1.748499191872484,
+            "dd": 2.6540961374644887,
+            "winInterval": [
+              0.43285051021946463,
+              0.8188104521320554
+            ]
+          }
+        }
+      ],
+      "normal": {
+        "count": 44,
+        "wins": 21,
+        "win": 0.4772727272727273,
+        "total": 0.34398441111763567,
+        "exp": 0.00781782752540081,
+        "pf": 1.0202463480474464,
+        "dd": 6.283782283848645,
+        "winInterval": [
+          0.3375475794427176,
+          0.620647798638283
+        ]
+      },
+      "stress": {
+        "count": 44,
+        "wins": 21,
+        "win": 0.4772727272727273,
+        "total": -0.19390691813550787,
+        "exp": -0.004406975412170633,
+        "pf": 0.988788128657831,
+        "dd": 6.427208681475303,
+        "winInterval": [
+          0.3375475794427176,
+          0.620647798638283
+        ]
+      },
+      "checks": [
+        {
+          "id": "count",
+          "label": "Au moins 40 trades",
+          "pass": true
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par période",
+          "pass": false
+        },
+        {
+          "id": "positive",
+          "label": "Chaque période positive",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Coûts doublés : résultat positif",
+          "pass": false
+        }
+      ]
+    },
+    {
+      "id": "30-morning-both",
+      "timeframe": 30,
+      "hours": {
+        "id": "morning",
+        "label": "Morning",
+        "start": 570,
+        "end": 720
+      },
+      "side": "Both",
+      "windows": [
+        {
+          "ticker": "MNQH6",
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "normal": {
+            "count": 16,
+            "wins": 8,
+            "win": 0.5,
+            "total": 3.149154989081779,
+            "exp": 0.19682218681761118,
+            "pf": 1.5628439096540312,
+            "dd": 4.049863032797765,
+            "winInterval": [
+              0.2799923761135083,
+              0.7200076238864916
+            ]
+          },
+          "stress": {
+            "count": 16,
+            "wins": 8,
+            "win": 0.5,
+            "total": 2.919019181139573,
+            "exp": 0.18243869882122332,
+            "pf": 1.5120894263698303,
+            "dd": 4.109546032862305,
+            "winInterval": [
+              0.2799923761135083,
+              0.7200076238864916
+            ]
+          }
+        },
+        {
+          "ticker": "MNQM6",
+          "start": "2026-04-01",
+          "end": "2026-06-01",
+          "normal": {
+            "count": 11,
+            "wins": 6,
+            "win": 0.5454545454545454,
+            "total": 3.6035012538877753,
+            "exp": 0.32759102308070687,
+            "pf": 2.0901420130783284,
+            "dd": 2.1189522241296754,
+            "winInterval": [
+              0.28008775568998817,
+              0.7872904245601196
+            ]
+          },
+          "stress": {
+            "count": 11,
+            "wins": 6,
+            "win": 0.5454545454545454,
+            "total": 3.458349150517884,
+            "exp": 0.31439537731980766,
+            "pf": 2.025035153652085,
+            "dd": 2.1694112975744195,
+            "winInterval": [
+              0.28008775568998817,
+              0.7872904245601196
+            ]
+          }
+        },
+        {
+          "ticker": "MNQU6",
+          "start": "2026-07-01",
+          "end": "2026-09-01",
+          "normal": {
+            "count": 17,
+            "wins": 9,
+            "win": 0.5294117647058824,
+            "total": 0.12843979502978775,
+            "exp": 0.00755528206057575,
+            "pf": 1.0169201821061946,
+            "dd": 3.809407951895741,
+            "winInterval": [
+              0.30962897311549487,
+              0.738351988039119
+            ]
+          },
+          "stress": {
+            "count": 17,
+            "wins": 9,
+            "win": 0.5294117647058824,
+            "total": -0.07197127119208213,
+            "exp": -0.004233604187769537,
+            "pf": 0.9906457620936867,
+            "dd": 3.8852174942487396,
+            "winInterval": [
+              0.30962897311549487,
+              0.738351988039119
+            ]
+          }
+        }
+      ],
+      "normal": {
+        "count": 44,
+        "wins": 23,
+        "win": 0.5227272727272727,
+        "total": 6.881096037999343,
+        "exp": 0.15638854631816687,
+        "pf": 1.417250224065989,
+        "dd": 4.049863032797765,
+        "winInterval": [
+          0.379352201361717,
+          0.6624524205572824
+        ]
+      },
+      "stress": {
+        "count": 44,
+        "wins": 23,
+        "win": 0.5227272727272727,
+        "total": 6.305397060465378,
+        "exp": 0.1433044786469404,
+        "pf": 1.3760358998994626,
+        "dd": 4.109546032862305,
+        "winInterval": [
+          0.379352201361717,
+          0.6624524205572824
+        ]
+      },
+      "checks": [
+        {
+          "id": "count",
+          "label": "Au moins 40 trades",
+          "pass": true
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par période",
+          "pass": false
+        },
+        {
+          "id": "positive",
+          "label": "Chaque période positive",
+          "pass": true
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": true
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Coûts doublés : résultat positif",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "30-morning-long",
+      "timeframe": 30,
+      "hours": {
+        "id": "morning",
+        "label": "Morning",
+        "start": 570,
+        "end": 720
+      },
+      "side": "Long",
+      "windows": [
+        {
+          "ticker": "MNQH6",
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "normal": {
+            "count": 7,
+            "wins": 5,
+            "win": 0.7142857142857143,
+            "total": 4.507219424847958,
+            "exp": 0.643888489263994,
+            "pf": 5.433786894028615,
+            "dd": 1.0165620343454576,
+            "winInterval": [
+              0.35892909014821267,
+              0.9177828342909844
+            ]
+          },
+          "stress": {
+            "count": 7,
+            "wins": 5,
+            "win": 0.7142857142857143,
+            "total": 4.394705855638528,
+            "exp": 0.6278151222340754,
+            "pf": 5.21375040665826,
+            "dd": 1.0429440359576914,
+            "winInterval": [
+              0.35892909014821267,
+              0.9177828342909844
+            ]
+          }
+        },
+        {
+          "ticker": "MNQM6",
+          "start": "2026-04-01",
+          "end": "2026-06-01",
+          "normal": {
+            "count": 9,
+            "wins": 5,
+            "win": 0.5555555555555556,
+            "total": 3.1236456302297775,
+            "exp": 0.3470717366921975,
+            "pf": 2.359827346300871,
+            "dd": 2.1189522241296754,
+            "winInterval": [
+              0.2666473457440297,
+              0.811224570528086
+            ]
+          },
+          "stress": {
+            "count": 9,
+            "wins": 5,
+            "win": 0.5555555555555556,
+            "total": 2.997857872000639,
+            "exp": 0.3330953191111821,
+            "pf": 2.271897926852718,
+            "dd": 2.1694112975744195,
+            "winInterval": [
+              0.2666473457440297,
+              0.811224570528086
+            ]
+          }
+        },
+        {
+          "ticker": "MNQU6",
+          "start": "2026-07-01",
+          "end": "2026-09-01",
+          "normal": {
+            "count": 8,
+            "wins": 5,
+            "win": 0.625,
+            "total": -0.047754206987028036,
+            "exp": -0.0059692758733785045,
+            "pf": 0.9843159902885259,
+            "dd": 2.0322254992124655,
+            "winInterval": [
+              0.30573785458380187,
+              0.863158240538479
+            ]
+          },
+          "stress": {
+            "count": 8,
+            "wins": 5,
+            "win": 0.625,
+            "total": -0.14655823172184856,
+            "exp": -0.01831977896523107,
+            "pf": 0.9525630990172049,
+            "dd": 2.06445099842493,
+            "winInterval": [
+              0.30573785458380187,
+              0.863158240538479
+            ]
+          }
+        }
+      ],
+      "normal": {
+        "count": 24,
+        "wins": 15,
+        "win": 0.625,
+        "total": 7.5831108480907075,
+        "exp": 0.3159629520037795,
+        "pf": 2.192608888621767,
+        "dd": 2.118952224129676,
+        "winInterval": [
+          0.42709619037907065,
+          0.7884086656636855
+        ]
+      },
+      "stress": {
+        "count": 24,
+        "wins": 15,
+        "win": 0.625,
+        "total": 7.246005495917322,
+        "exp": 0.3019168956632217,
+        "pf": 2.1165771648475946,
+        "dd": 2.1694112975744204,
+        "winInterval": [
+          0.42709619037907065,
+          0.7884086656636855
+        ]
+      },
+      "checks": [
+        {
+          "id": "count",
+          "label": "Au moins 40 trades",
+          "pass": false
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par période",
+          "pass": false
+        },
+        {
+          "id": "positive",
+          "label": "Chaque période positive",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": true
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Coûts doublés : résultat positif",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "30-morning-short",
+      "timeframe": 30,
+      "hours": {
+        "id": "morning",
+        "label": "Morning",
+        "start": 570,
+        "end": 720
+      },
+      "side": "Short",
+      "windows": [
+        {
+          "ticker": "MNQH6",
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "normal": {
+            "count": 9,
+            "wins": 3,
+            "win": 0.3333333333333333,
+            "total": -1.3580644357661789,
+            "exp": -0.15089604841846432,
+            "pf": 0.7033832020164867,
+            "dd": 3.0333009984523063,
+            "winInterval": [
+              0.12058159868274293,
+              0.6458026525009102
+            ]
+          },
+          "stress": {
+            "count": 9,
+            "wins": 3,
+            "win": 0.3333333333333333,
+            "total": -1.4756866744989532,
+            "exp": -0.16396518605543925,
+            "pf": 0.6831433929680099,
+            "dd": 3.066601996904612,
+            "winInterval": [
+              0.12058159868274293,
+              0.6458026525009102
+            ]
+          }
+        },
+        {
+          "ticker": "MNQM6",
+          "start": "2026-04-01",
+          "end": "2026-06-01",
+          "normal": {
+            "count": 2,
+            "wins": 1,
+            "win": 0.5,
+            "total": 0.4798556236579983,
+            "exp": 0.23992781182899914,
+            "pf": 1.4758376937948332,
+            "dd": 1.008443908323281,
+            "winInterval": [
+              0.09452865480086614,
+              0.9054713451991339
+            ]
+          },
+          "stress": {
+            "count": 2,
+            "wins": 1,
+            "win": 0.5,
+            "total": 0.4604912785172446,
+            "exp": 0.2302456392586223,
+            "pf": 1.452843736525262,
+            "dd": 1.016887816646562,
+            "winInterval": [
+              0.09452865480086614,
+              0.9054713451991339
+            ]
+          }
+        },
+        {
+          "ticker": "MNQU6",
+          "start": "2026-07-01",
+          "end": "2026-09-01",
+          "normal": {
+            "count": 9,
+            "wins": 4,
+            "win": 0.4444444444444444,
+            "total": 0.1761940020168158,
+            "exp": 0.019577111335201753,
+            "pf": 1.0387567299200098,
+            "dd": 2.019180308535965,
+            "winInterval": [
+              0.188775429471914,
+              0.7333526542559703
+            ]
+          },
+          "stress": {
+            "count": 9,
+            "wins": 4,
+            "win": 0.4444444444444444,
+            "total": 0.07458696052976688,
+            "exp": 0.008287440058862986,
+            "pf": 1.0161989414002741,
+            "dd": 2.0383606170719304,
+            "winInterval": [
+              0.188775429471914,
+              0.7333526542559703
+            ]
+          }
+        }
+      ],
+      "normal": {
+        "count": 20,
+        "wins": 8,
+        "win": 0.4,
+        "total": -0.7020148100913648,
+        "exp": -0.03510074050456824,
+        "pf": 0.9307207044473698,
+        "dd": 3.0333009984523063,
+        "winInterval": [
+          0.21880396741419272,
+          0.613422057684794
+        ]
+      },
+      "stress": {
+        "count": 20,
+        "wins": 8,
+        "win": 0.4,
+        "total": -0.9406084354519417,
+        "exp": -0.047030421772597086,
+        "pf": 0.9084885889640905,
+        "dd": 3.066601996904612,
+        "winInterval": [
+          0.21880396741419272,
+          0.613422057684794
+        ]
+      },
+      "checks": [
+        {
+          "id": "count",
+          "label": "Au moins 40 trades",
+          "pass": false
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par période",
+          "pass": false
+        },
+        {
+          "id": "positive",
+          "label": "Chaque période positive",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Coûts doublés : résultat positif",
+          "pass": false
+        }
+      ]
+    },
+    {
+      "id": "30-afternoon-both",
+      "timeframe": 30,
+      "hours": {
+        "id": "afternoon",
+        "label": "Afternoon",
+        "start": 780,
+        "end": 945
+      },
+      "side": "Both",
+      "windows": [
+        {
+          "ticker": "MNQH6",
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "normal": {
+            "count": 16,
+            "wins": 8,
+            "win": 0.5,
+            "total": -0.4733944494193977,
+            "exp": -0.029587153088712355,
+            "pf": 0.833420685552693,
+            "dd": 1.4571895221349118,
+            "winInterval": [
+              0.2799923761135083,
+              0.7200076238864916
+            ]
+          },
+          "stress": {
+            "count": 16,
+            "wins": 8,
+            "win": 0.5,
+            "total": -0.7233313838542479,
+            "exp": -0.04520821149089049,
+            "pf": 0.7549404308725742,
+            "dd": 1.5076657526498634,
+            "winInterval": [
+              0.2799923761135083,
+              0.7200076238864916
+            ]
+          }
+        },
+        {
+          "ticker": "MNQM6",
+          "start": "2026-04-01",
+          "end": "2026-06-01",
+          "normal": {
+            "count": 19,
+            "wins": 9,
+            "win": 0.47368421052631576,
+            "total": -0.3635873261733407,
+            "exp": -0.019136175061754773,
+            "pf": 0.8891435568696463,
+            "dd": 3.0897084350391397,
+            "winInterval": [
+              0.27329505487448547,
+              0.6829251748817489
+            ]
+          },
+          "stress": {
+            "count": 19,
+            "wins": 9,
+            "win": 0.47368421052631576,
+            "total": -0.6385961890793544,
+            "exp": -0.03361032574101865,
+            "pf": 0.813340628543608,
+            "dd": 3.1943903541278376,
+            "winInterval": [
+              0.27329505487448547,
+              0.6829251748817489
+            ]
+          }
+        },
+        {
+          "ticker": "MNQU6",
+          "start": "2026-07-01",
+          "end": "2026-09-01",
+          "normal": {
+            "count": 17,
+            "wins": 13,
+            "win": 0.7647058823529411,
+            "total": 4.620490359690884,
+            "exp": 0.271793550570052,
+            "pf": 2.8511387815037117,
+            "dd": 1.0091264667535853,
+            "winInterval": [
+              0.5273775411082839,
+              0.9044511092832406
+            ]
+          },
+          "stress": {
+            "count": 17,
+            "wins": 13,
+            "win": 0.7647058823529411,
+            "total": 4.399816997251297,
+            "exp": 0.25881276454419394,
+            "pf": 2.721592615739794,
+            "dd": 1.0182529335071706,
+            "winInterval": [
+              0.5273775411082839,
+              0.9044511092832406
+            ]
+          }
+        }
+      ],
+      "normal": {
+        "count": 52,
+        "wins": 30,
+        "win": 0.5769230769230769,
+        "total": 3.783508584098147,
+        "exp": 0.0727597804634259,
+        "pf": 1.4390400012588114,
+        "dd": 3.5978677867402284,
+        "winInterval": [
+          0.4419408497943149,
+          0.7013215209113954
+        ]
+      },
+      "stress": {
+        "count": 52,
+        "wins": 30,
+        "win": 0.5769230769230769,
+        "total": 3.0378894243176933,
+        "exp": 0.05842095046764795,
+        "pf": 1.3402460785410226,
+        "dd": 3.88729194267661,
+        "winInterval": [
+          0.4419408497943149,
+          0.7013215209113954
+        ]
+      },
+      "checks": [
+        {
+          "id": "count",
+          "label": "Au moins 40 trades",
+          "pass": true
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par période",
+          "pass": true
+        },
+        {
+          "id": "positive",
+          "label": "Chaque période positive",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": true
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Coûts doublés : résultat positif",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "30-afternoon-long",
+      "timeframe": 30,
+      "hours": {
+        "id": "afternoon",
+        "label": "Afternoon",
+        "start": 780,
+        "end": 945
+      },
+      "side": "Long",
+      "windows": [
+        {
+          "ticker": "MNQH6",
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "normal": {
+            "count": 6,
+            "wins": 4,
+            "win": 0.6666666666666666,
+            "total": 0.1371088090637604,
+            "exp": 0.022851468177293402,
+            "pf": 1.3730299174134382,
+            "dd": 0.24529740457732005,
+            "winInterval": [
+              0.29998832134152864,
+              0.9032306674407831
+            ]
+          },
+          "stress": {
+            "count": 6,
+            "wins": 4,
+            "win": 0.6666666666666666,
+            "total": 0.011880022692182635,
+            "exp": 0.0019800037820304392,
+            "pf": 1.029657493742974,
+            "dd": 0.3002605808527793,
+            "winInterval": [
+              0.29998832134152864,
+              0.9032306674407831
+            ]
+          }
+        },
+        {
+          "ticker": "MNQM6",
+          "start": "2026-04-01",
+          "end": "2026-06-01",
+          "normal": {
+            "count": 14,
+            "wins": 7,
+            "win": 0.5,
+            "total": 1.0246402994488766,
+            "exp": 0.0731885928177769,
+            "pf": 1.8731520904348467,
+            "dd": 0.983400938464468,
+            "winInterval": [
+              0.2679886791947528,
+              0.7320113208052472
+            ]
+          },
+          "stress": {
+            "count": 14,
+            "wins": 7,
+            "win": 0.5,
+            "total": 0.8155962574840926,
+            "exp": 0.05825687553457804,
+            "pf": 1.6421470755709993,
+            "dd": 1.0433138225169545,
+            "winInterval": [
+              0.2679886791947528,
+              0.7320113208052472
+            ]
+          }
+        },
+        {
+          "ticker": "MNQU6",
+          "start": "2026-07-01",
+          "end": "2026-09-01",
+          "normal": {
+            "count": 4,
+            "wins": 4,
+            "win": 1,
+            "total": 1.3141336428305528,
+            "exp": 0.3285334107076382,
+            "pf": "Infinity",
+            "dd": 0,
+            "winInterval": [
+              0.5100999795960008,
+              1
+            ]
+          },
+          "stress": {
+            "count": 4,
+            "wins": 4,
+            "win": 1,
+            "total": 1.2510072825864618,
+            "exp": 0.31275182064661544,
+            "pf": "Infinity",
+            "dd": 0,
+            "winInterval": [
+              0.5100999795960008,
+              1
+            ]
+          }
+        }
+      ],
+      "normal": {
+        "count": 24,
+        "wins": 15,
+        "win": 0.625,
+        "total": 2.47588275134319,
+        "exp": 0.10316178130596625,
+        "pf": 2.6066203939465598,
+        "dd": 0.9834009384644681,
+        "winInterval": [
+          0.42709619037907065,
+          0.7884086656636855
+        ]
+      },
+      "stress": {
+        "count": 24,
+        "wins": 15,
+        "win": 0.625,
+        "total": 2.0784835627627367,
+        "exp": 0.08660348178178069,
+        "pf": 2.2440926853607044,
+        "dd": 1.0433138225169545,
+        "winInterval": [
+          0.42709619037907065,
+          0.7884086656636855
+        ]
+      },
+      "checks": [
+        {
+          "id": "count",
+          "label": "Au moins 40 trades",
+          "pass": false
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par période",
+          "pass": false
+        },
+        {
+          "id": "positive",
+          "label": "Chaque période positive",
+          "pass": true
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": true
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Coûts doublés : résultat positif",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "30-afternoon-short",
+      "timeframe": 30,
+      "hours": {
+        "id": "afternoon",
+        "label": "Afternoon",
+        "start": 780,
+        "end": 945
+      },
+      "side": "Short",
+      "windows": [
+        {
+          "ticker": "MNQH6",
+          "start": "2026-01-01",
+          "end": "2026-03-01",
+          "normal": {
+            "count": 10,
+            "wins": 4,
+            "win": 0.4,
+            "total": -0.6105032584831581,
+            "exp": -0.06105032584831581,
+            "pf": 0.753262401211398,
+            "dd": 1.4571895221349118,
+            "winInterval": [
+              0.16817758120350967,
+              0.6873304525498135
+            ]
+          },
+          "stress": {
+            "count": 10,
+            "wins": 4,
+            "win": 0.4,
+            "total": -0.7352114065464306,
+            "exp": -0.07352114065464306,
+            "pf": 0.7118040045313948,
+            "dd": 1.5076657526498634,
+            "winInterval": [
+              0.16817758120350967,
+              0.6873304525498135
+            ]
+          }
+        },
+        {
+          "ticker": "MNQM6",
+          "start": "2026-04-01",
+          "end": "2026-06-01",
+          "normal": {
+            "count": 5,
+            "wins": 2,
+            "win": 0.4,
+            "total": -1.3882276256222177,
+            "exp": -0.2776455251244435,
+            "pf": 0.34091882221385694,
+            "dd": 2.106307496574672,
+            "winInterval": [
+              0.1176182311592533,
+              0.769280067791163
+            ]
+          },
+          "stress": {
+            "count": 5,
+            "wins": 2,
+            "win": 0.4,
+            "total": -1.4541924465634473,
+            "exp": -0.29083848931268946,
+            "pf": 0.32396991683301857,
+            "dd": 2.151076531610883,
+            "winInterval": [
+              0.1176182311592533,
+              0.769280067791163
+            ]
+          }
+        },
+        {
+          "ticker": "MNQU6",
+          "start": "2026-07-01",
+          "end": "2026-09-01",
+          "normal": {
+            "count": 13,
+            "wins": 9,
+            "win": 0.6923076923076923,
+            "total": 3.306356716860332,
+            "exp": 0.2543351320661794,
+            "pf": 2.3246483960795277,
+            "dd": 1.156445878479074,
+            "winInterval": [
+              0.4236888781333764,
+              0.8731950283838191
+            ]
+          },
+          "stress": {
+            "count": 13,
+            "wins": 9,
+            "win": 0.6923076923076923,
+            "total": 3.148809714664835,
+            "exp": 0.242216131897295,
+            "pf": 2.232089324743133,
+            "dd": 1.2220790387205192,
+            "winInterval": [
+              0.4236888781333764,
+              0.8731950283838191
+            ]
+          }
+        }
+      ],
+      "normal": {
+        "count": 28,
+        "wins": 15,
+        "win": 0.5357142857142857,
+        "total": 1.3076258327549564,
+        "exp": 0.0467009225983913,
+        "pf": 1.1847807346987236,
+        "dd": 3.498408261313134,
+        "winInterval": [
+          0.3581239514210167,
+          0.7046869626034041
+        ]
+      },
+      "stress": {
+        "count": 28,
+        "wins": 15,
+        "win": 0.5357142857142857,
+        "total": 0.9594058615549558,
+        "exp": 0.03426449505553413,
+        "pf": 1.1321891780578441,
+        "dd": 3.6074602329786956,
+        "winInterval": [
+          0.3581239514210167,
+          0.7046869626034041
+        ]
+      },
+      "checks": [
+        {
+          "id": "count",
+          "label": "Au moins 40 trades",
+          "pass": false
+        },
+        {
+          "id": "windowCount",
+          "label": "Au moins 12 trades par période",
+          "pass": false
+        },
+        {
+          "id": "positive",
+          "label": "Chaque période positive",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": true
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Coûts doublés : résultat positif",
+          "pass": true
+        }
+      ]
+    }
+  ]
+}

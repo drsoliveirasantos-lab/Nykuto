@@ -65,3 +65,7 @@ des cours (16px minimum), les réglages utilisateur et les cibles tactiles.
 Corriger les inversions dans les composants touchés lors des prochaines mises à jour.
 Pour tout nouveau site ou dépôt créé depuis ce projet, transmettre ce standard
 et le relier au `AGENTS.md` et aux consignes Copilot du nouveau dépôt.
+
+## Reprises du Trading HQ
+
+Avant un nouvel essai, lire `trading/lab/RESEARCH_LESSONS.md`, le catalogue croisé et le dernier protocole. Distinguer une erreur corrigée, une hypothèse rejetée et une amélioration indépendante confirmée. Ne pas convertir un score de confluence en probabilité, modifier les règles après les résultats ou présenter un test logiciel comme preuve de rentabilité. Conserver la mémoire des essais et la mettre à jour avec leurs preuves.

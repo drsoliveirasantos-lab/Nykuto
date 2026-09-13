@@ -1,0 +1,37 @@
+{
+  "schema": "jeu38-archive-v1",
+  "namespace": "TRADING_DATASETS",
+  "prefix": "jeu38/structure-obstacle-v1/",
+  "prePerformanceCommit": "563ab6eff9e475ddcc40058b9fb9b2342ef4618a",
+  "freezeSha256": "77263ba226df486c38565ebd8f06ea639a1037523ba9937a7074d35dd7ea8128",
+  "files": [
+    {
+      "name": "report.json",
+      "bytes": 94837,
+      "sha256": "dc6ea2f52b3f69f0f5dd9e8cd6534ba6498c10b21e96d6fa001244affb4f221f",
+      "encoding": "gzip+base64",
+      "parts": [
+        {
+          "key": "jeu38/structure-obstacle-v1/report.json.gz.b64.part-000",
+          "bytes": 6732,
+          "sha256": "7743fd592ed5f5bb775abef29dd2117dc9bf84e8ce7944e35cdb1bb1bd501b41"
+        }
+      ]
+    },
+    {
+      "name": "runs-private.json",
+      "bytes": 363799,
+      "sha256": "e6f05d0848c2d8e7cdd6032c8d6bd29462c8bf6cf709087fa2c653e1ef7b1776",
+      "encoding": "gzip+base64",
+      "parts": [
+        {
+          "key": "jeu38/structure-obstacle-v1/runs-private.json.gz.b64.part-000",
+          "bytes": 37280,
+          "sha256": "aee23feed8bedfc8ced6a4f287729b267299e55834346cd4f871f57d443f2376"
+        }
+      ]
+    }
+  ],
+  "confirmed": false,
+  "executionAllowed": false
+}

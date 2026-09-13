@@ -1,0 +1,34 @@
+{
+  "game": 56,
+  "status": "protocol-frozen",
+  "researchOnly": true,
+  "executionAllowed": false,
+  "paperPromotion": false,
+  "independentConfirmation": false,
+  "hierarchy": {
+    "context": "15m",
+    "primaryAlert": "5m",
+    "microContext": "1m",
+    "standalone1mProductionAlert": false
+  },
+  "families": ["structure", "momentum", "participation", "levelReaction"],
+  "stage1": {
+    "windowsMinutes": [2, 3, 5],
+    "minimumScores": [2, 3, 4],
+    "cooldownMinutes": 10
+  },
+  "stage2": {
+    "conditionalOnRobustNeighborhood": true,
+    "cooldownMinutes": [5, 10, 20]
+  },
+  "variants": [
+    "reference-no-1m",
+    "confirm-same-side",
+    "warning-opposite",
+    "veto-opposite",
+    "timing-only",
+    "standalone-1m-research-control"
+  ],
+  "primaryMetric": "incremental-expectancy-vs-same-5m-population",
+  "productionDecision": "pending-test"
+}

@@ -1,0 +1,20 @@
+{
+  "schema": "jeu37-source-v1",
+  "baseCommit": "1e8f329216540b4cd954cfca924a4361f7b9ed0b",
+  "inputs": {
+    "prices": {
+      "bytes": 4331838,
+      "sha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09"
+    },
+    "mnq": {
+      "bytes": 2426693,
+      "sha256": "028e914bb10ea38b73b6fcbc867c5d81937b967701448913fc88ca85746557cf"
+    },
+    "prior": {
+      "bytes": 953912,
+      "sha256": "517f4fae40033bc01860ba7a9d0d3b66c41b3945b6ac95aeee8231c0d99181e2"
+    }
+  },
+  "priorArchive": "jeu36/entry-confirmation-v1/manifest.json",
+  "newConfigurations": 5
+}

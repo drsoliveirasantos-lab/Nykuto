@@ -1,0 +1,42 @@
+{
+  "schema": "market-audit-source-v1",
+  "baseCommit": "ede9cdf10f6dca4f8be94b1df7300c989f77f144",
+  "inputs": {
+    "prices": {
+      "bytes": 4331838,
+      "sha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09"
+    },
+    "mnq": {
+      "bytes": 2426693,
+      "sha256": "028e914bb10ea38b73b6fcbc867c5d81937b967701448913fc88ca85746557cf"
+    },
+    "development": {
+      "bytes": 667931,
+      "sha256": "f9e723832d179d507415760dd0942aa1e7cb1e6a13bd4ddc2439d1ce6cf835c1"
+    },
+    "august": {
+      "bytes": 165382,
+      "sha256": "956724bc7aa63689a3d90c1be5495b53697841f768e7abc23dfe532987ddf7eb"
+    }
+  },
+  "publicFiles": {
+    "trading/lab/research-ledger.json": "21da3e2f70f3e527c4ef6e53ddb3fb48ce9cf3a9dbdfd4ff54a9cf4ad439a57b",
+    "trading/lab/jeu19-report.json": "a7f08dce96f0596e93e78dcfc5923fc04d4d6b983fd084edda786b02a3c79912",
+    "trading/lab/jeu20-report.json": "40a89644fc8257a7b4600f441d67fdc68dc13d2a0ce40cc856be4b78874557e1",
+    "trading/lab/jeu21-report.json": "3e94a559dc2cc4acf3321275d81e560e7c7f1204497a1d74f99cd5f0419733d7",
+    "trading/lab/jeu22-report.json": "58544dfba3dc1c77badfd329aaf8115d0a6f13881b527a72767792c1a16fdb58",
+    "trading/lab/jeu23-report.json": "1cb9d946276e74d58b29a8c2146586c31b2e1a82d700c41abee0b0f2e063e1a2",
+    "trading/lab/jeu24-report.json": "fd9a87d4ed562802ef0f98eb995e13b2854fba6d8e2d400b5d942aee92c6b0bb",
+    "trading/lab/jeu25-report.json": "f0a0911e169f3b41e8f4b9c0a61495c847e3e07102e6136a6f31add686a726a1",
+    "trading/lab/jeu26-report.json": "a3e991c45afcd93eca4ec7fe0560c80fcf0da17ebb239436d4a4320bf991af13",
+    "trading/lab/jeu27-report.json": "5b7269aff341fd725bc545e215b8e467f598dd17c03f0ab360c008adac2b36c0",
+    "trading/lab/jeu28-report.json": "5e673a699eb90f28c3f4c4379d2dc9787a8372d97d7c15a26755abd726f5d200",
+    "trading/lab/jeu29-report.json": "0ffe68a1563e1d385afab728726a22e2c8f22db39b8c95262fd1bcdf160709dc",
+    "trading/lab/jeu30-report.json": "0e58b436140e13f7e287cedf334988ba4c2962db8080a84d2e9a683b591e69ff"
+  },
+  "privateArchives": [
+    "jeu29/shared-portfolio-v1/manifest.json",
+    "jeu30/august-v1/manifest.json"
+  ],
+  "newStrategyTrials": 0
+}

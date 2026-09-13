@@ -1,0 +1,46 @@
+{
+  "schema": "nykuto-research-config-v1",
+  "game": 49,
+  "name": "Controlled V11 feature-gate ablation",
+  "symbol": "MNQ",
+  "timeframe": "1m",
+  "evaluationWindow": {
+    "start": "2026-06-01",
+    "end": "2026-08-31"
+  },
+  "screeningBaseline": "Jeu48 emitted continuation markers only",
+  "frozenExecutionReference": {
+    "source": "Jeu47 ORB + anti-late-entry RSI",
+    "trades": 30,
+    "wins": 12,
+    "winRate": 0.4,
+    "totalR": 6.0,
+    "meanRPerTrade": 0.2,
+    "independentlyValidated": false
+  },
+  "singleFeatureGates": [
+    "smma50-aligned",
+    "ichimoku-aligned",
+    "candle-context",
+    "relative-volume-ge-1.50",
+    "confirmed-tokyo-range-break",
+    "target-room-ge-1.25atr-rebuild-required"
+  ],
+  "screenResult": {
+    "retainedCandidate": "confirmed-tokyo-range-break",
+    "candidateStats": {
+      "markers": 62,
+      "hitRate15m": 0.629,
+      "meanDirectionalMove15mPoints": 9.71
+    },
+    "monthStability": {
+      "2026-06": {"markers": 26, "hitRate15m": 0.654, "mean15mPoints": 12.13},
+      "2026-07": {"markers": 14, "hitRate15m": 0.714, "mean15mPoints": 22.29},
+      "2026-08": {"markers": 22, "hitRate15m": 0.545, "mean15mPoints": -1.15}
+    },
+    "productionPromotion": false,
+    "reason": "Small sample and August expectancy deterioration; requires exact ORB parity test and untouched-window confirmation."
+  },
+  "nextTest": "Exact Jeu47 ORB+RSI parity, then ORB+RSI+Tokyo only",
+  "liveOrdersEnabled": false
+}

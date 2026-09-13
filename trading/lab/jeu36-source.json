@@ -1,0 +1,20 @@
+{
+  "schema": "jeu36-source-v1",
+  "baseCommit": "69b14435341da5efd2d8b7840d34868a1e9bfb72",
+  "inputs": {
+    "prices": {
+      "bytes": 4331838,
+      "sha256": "6ba2265d46292bfff985cbbb74ddde8998a56a21f7e086e9d3f768269bcada09"
+    },
+    "mnq": {
+      "bytes": 2426693,
+      "sha256": "028e914bb10ea38b73b6fcbc867c5d81937b967701448913fc88ca85746557cf"
+    },
+    "prior": {
+      "bytes": 969468,
+      "sha256": "a87f0a4c319155930186278b194910b092552a49bbdc947dcded3070eb09f765"
+    }
+  },
+  "priorArchive": "jeu35/market-exits-v1/manifest.json",
+  "newConfigurations": 4
+}

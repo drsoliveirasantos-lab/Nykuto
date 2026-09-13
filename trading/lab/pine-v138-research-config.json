@@ -1,0 +1,65 @@
+{
+  "schema": "nykuto-pine-cross-audit-v1",
+  "date": "2026-09-11",
+  "status": "precheck-only",
+  "executionAllowed": false,
+  "paperEnabled": false,
+  "independentConfirmation": false,
+  "product": "MNQ",
+  "source": "Pine V13.8 CLEAN - Confluence + PnL",
+  "baseline": {
+    "timeframe": "5m",
+    "confluenceMin": 3,
+    "contextBars": 12,
+    "confluenceCooldown": 4,
+    "families": ["rsiRecovery", "divergence", "strongRev", "mssOrBos", "htfTrend", "displacementOrDirectionalVolume"],
+    "precheck": {
+      "cashSessions": 73,
+      "rawSignals": 379,
+      "averageSignalsPerSession": 5.1917808219,
+      "validPlanObservations": 335,
+      "tp2First": 61,
+      "stopFirst": 157,
+      "expired": 117,
+      "indicativeTotalR": -35
+    }
+  },
+  "diagnosticCandidate": {
+    "id": "pine-v138-m5-conf4-context5-cd8",
+    "timeframe": "5m",
+    "confluenceMin": 4,
+    "contextBars": 5,
+    "confluenceCooldown": 8,
+    "familiesUnchanged": true,
+    "promotionAllowed": false,
+    "precheck": {
+      "cashSessions": 73,
+      "rawSignals": 28,
+      "averageSignalsPerSession": 0.3835616438,
+      "validPlanObservations": 20,
+      "tp2First": 7,
+      "stopFirst": 9,
+      "expired": 4,
+      "indicativeTotalR": 5,
+      "monthlyR": {
+        "2026-06": -5,
+        "2026-07": 8,
+        "2026-08": 0,
+        "2026-09-available": 2
+      }
+    }
+  },
+  "doNotPromote": [
+    "baseline confluence 3/6",
+    "09:30-12 post-hoc time filter",
+    "TP3 as default exit",
+    "mandatory HTF alignment on ORB family"
+  ],
+  "nextExactReplay": {
+    "required": true,
+    "parity": ["TradingView session anchoring", "VWAP reset", "Wilder RSI/ATR", "HTF request.security semantics", "pivot equality rules", "ORB construction continuity", "same-bar stop-target priority"],
+    "freezeFirst": true,
+    "doNotRetuneOn": ["2026-06", "2026-07", "2026-08", "2026-09-available"]
+  },
+  "notes": "This file records an external replay precheck. It is not a research-ledger selection and must not be used to enable orders."
+}

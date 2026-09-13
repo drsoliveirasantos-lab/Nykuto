@@ -1,0 +1,7 @@
+export const JEU16_PUBLIC = Object.freeze({
+  "schema": "jeu16-report-v1",
+  "sha256": "b9c118918020da01641e68d7722d3f032e2450e408e85e577da26b34673bf8e9",
+  "bytes": 65220,
+  "freezeSha256": "38303369f53c2f801d353028464898506037d3c838683589d05a5e00e33a4cc2",
+  "protocolSha256": "67b9b05279c64120cbb68775b9d57efba68164d65962f06b57b218b530db4bb9"
+});

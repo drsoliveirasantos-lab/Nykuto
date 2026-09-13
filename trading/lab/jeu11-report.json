@@ -1,0 +1,1074 @@
+{
+  "schema": "jeu11-report-v1",
+  "protocol": "jeu11-v1",
+  "generatedAt": "2026-09-09T01:30:03.392Z",
+  "period": "Avril–mai 2025",
+  "start": "2025-04-01",
+  "endExclusive": "2025-06-01",
+  "dataset": {
+    "sha256": "5a1dff50a8dd510c8e680c0bd0b5bf95bbfc3176c8122933138a29ea8f8f7c6f",
+    "bytes": 133650,
+    "key": "jeu11/mnqm5-apr-may-2025-v1.json"
+  },
+  "quality": {
+    "bars": 1378,
+    "expectedSessions": 53,
+    "scoredSessions": 42,
+    "warmup": 286,
+    "priceSessions": 53,
+    "scheduleSessions": 53,
+    "uniqueScheduleEvents": 161,
+    "missingPriceDays": [],
+    "missingScheduleDays": []
+  },
+  "calculated": true,
+  "status": "Confirmation incomplète",
+  "paperEnabled": false,
+  "audit": {
+    "featurePrefixes": 1378,
+    "sessionComparisons": 672,
+    "auditedTrades": 108,
+    "passed": true
+  },
+  "variants": [
+    {
+      "id": "baseline",
+      "label": "Référence",
+      "filters": [],
+      "normal": {
+        "count": 13,
+        "wins": 3,
+        "win": 0.23076923076923078,
+        "total": -4.434407613377256,
+        "exp": -0.3411082779520966,
+        "pf": 0.45466340456883086,
+        "dd": 4.607616504015779,
+        "winInterval": [
+          0.08179379092465713,
+          0.5025687399512693
+        ],
+        "medianMinutes": 75,
+        "bySide": [
+          {
+            "side": "Long",
+            "count": 7,
+            "wins": 3,
+            "win": 0.42857142857142855,
+            "total": 0.951413415937328,
+            "exp": 0.13591620227676113,
+            "pf": 1.3465122704385148,
+            "dd": 1.3091143416847097,
+            "winInterval": [
+              0.15821692226262685,
+              0.7495457695909742
+            ]
+          },
+          {
+            "side": "Short",
+            "count": 6,
+            "wins": 0,
+            "win": 0,
+            "total": -5.385821029314583,
+            "exp": -0.8976368382190971,
+            "pf": 0,
+            "dd": 5.385821029314583,
+            "winInterval": [
+              0,
+              0.3903430336530645
+            ]
+          }
+        ]
+      },
+      "stress": {
+        "count": 13,
+        "wins": 3,
+        "win": 0.23076923076923078,
+        "total": -4.662726793523444,
+        "exp": -0.35867129180949575,
+        "pf": 0.439037097461708,
+        "dd": 4.773295518196716,
+        "winInterval": [
+          0.08179379092465713,
+          0.5025687399512693
+        ],
+        "medianMinutes": 75,
+        "bySide": [
+          {
+            "side": "Long",
+            "count": 7,
+            "wins": 3,
+            "win": 0.42857142857142855,
+            "total": 0.8315843053829273,
+            "exp": 0.11879775791184675,
+            "pf": 1.2951293342060175,
+            "dd": 1.3540777399731931,
+            "winInterval": [
+              0.15821692226262685,
+              0.7495457695909742
+            ]
+          },
+          {
+            "side": "Short",
+            "count": 6,
+            "wins": 0,
+            "win": 0,
+            "total": -5.494311098906372,
+            "exp": -0.9157185164843953,
+            "pf": 0,
+            "dd": 5.494311098906372,
+            "winInterval": [
+              0,
+              0.3903430336530645
+            ]
+          }
+        ]
+      },
+      "checks": [
+        {
+          "id": "windows",
+          "label": "Trois fenêtres distinctes de deux mois",
+          "pass": false
+        },
+        {
+          "id": "total",
+          "label": "Au moins 40 trades au total",
+          "pass": false
+        },
+        {
+          "id": "window",
+          "label": "Au moins 12 trades dans cette fenêtre",
+          "pass": true
+        },
+        {
+          "id": "positive",
+          "label": "Résultat positif dans cette fenêtre",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Résultat positif à coûts doublés",
+          "pass": false
+        }
+      ],
+      "status": "Non confirmé"
+    },
+    {
+      "id": "trend",
+      "label": "+ Tendance 1 h",
+      "filters": [
+        "trend"
+      ],
+      "normal": {
+        "count": 6,
+        "wins": 2,
+        "win": 0.3333333333333333,
+        "total": -0.5324673532218469,
+        "exp": -0.08874455887030781,
+        "pf": 0.8061790411666234,
+        "dd": 1.3091143416847097,
+        "winInterval": [
+          0.09676933255921683,
+          0.7000116786584712
+        ],
+        "medianMinutes": 52.5,
+        "bySide": [
+          {
+            "side": "Long",
+            "count": 5,
+            "wins": 2,
+            "win": 0.4,
+            "total": 0.4738847338924908,
+            "exp": 0.09477694677849816,
+            "pf": 1.2722129477613409,
+            "dd": 1.3091143416847097,
+            "winInterval": [
+              0.1176182311592533,
+              0.769280067791163
+            ]
+          },
+          {
+            "side": "Short",
+            "count": 1,
+            "wins": 0,
+            "win": 0,
+            "total": -1.0063520871143377,
+            "exp": -1.0063520871143377,
+            "pf": 0,
+            "dd": 1.0063520871143377,
+            "winInterval": [
+              0,
+              0.7934567085261071
+            ]
+          }
+        ]
+      },
+      "stress": {
+        "count": 6,
+        "wins": 2,
+        "win": 0.3333333333333333,
+        "total": -0.6373537035236574,
+        "exp": -0.1062256172539429,
+        "pf": 0.7740481554461373,
+        "dd": 1.3540777399731931,
+        "winInterval": [
+          0.09676933255921683,
+          0.7000116786584712
+        ],
+        "medianMinutes": 52.5,
+        "bySide": [
+          {
+            "side": "Long",
+            "count": 5,
+            "wins": 2,
+            "win": 0.4,
+            "total": 0.37535047070501765,
+            "exp": 0.07507009414100353,
+            "pf": 1.2076000676768033,
+            "dd": 1.3540777399731931,
+            "winInterval": [
+              0.1176182311592533,
+              0.769280067791163
+            ]
+          },
+          {
+            "side": "Short",
+            "count": 1,
+            "wins": 0,
+            "win": 0,
+            "total": -1.012704174228675,
+            "exp": -1.012704174228675,
+            "pf": 0,
+            "dd": 1.012704174228675,
+            "winInterval": [
+              0,
+              0.7934567085261071
+            ]
+          }
+        ]
+      },
+      "checks": [
+        {
+          "id": "windows",
+          "label": "Trois fenêtres distinctes de deux mois",
+          "pass": false
+        },
+        {
+          "id": "total",
+          "label": "Au moins 40 trades au total",
+          "pass": false
+        },
+        {
+          "id": "window",
+          "label": "Au moins 12 trades dans cette fenêtre",
+          "pass": false
+        },
+        {
+          "id": "positive",
+          "label": "Résultat positif dans cette fenêtre",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Résultat positif à coûts doublés",
+          "pass": false
+        }
+      ],
+      "status": "Non confirmé"
+    },
+    {
+      "id": "candle",
+      "label": "+ Bougie englobante",
+      "filters": [
+        "candle"
+      ],
+      "normal": {
+        "count": 0,
+        "wins": 0,
+        "win": null,
+        "total": 0,
+        "exp": null,
+        "pf": null,
+        "dd": 0,
+        "winInterval": null,
+        "medianMinutes": null,
+        "bySide": [
+          {
+            "side": "Long",
+            "count": 0,
+            "wins": 0,
+            "win": null,
+            "total": 0,
+            "exp": null,
+            "pf": null,
+            "dd": 0,
+            "winInterval": null
+          },
+          {
+            "side": "Short",
+            "count": 0,
+            "wins": 0,
+            "win": null,
+            "total": 0,
+            "exp": null,
+            "pf": null,
+            "dd": 0,
+            "winInterval": null
+          }
+        ]
+      },
+      "stress": {
+        "count": 0,
+        "wins": 0,
+        "win": null,
+        "total": 0,
+        "exp": null,
+        "pf": null,
+        "dd": 0,
+        "winInterval": null,
+        "medianMinutes": null,
+        "bySide": [
+          {
+            "side": "Long",
+            "count": 0,
+            "wins": 0,
+            "win": null,
+            "total": 0,
+            "exp": null,
+            "pf": null,
+            "dd": 0,
+            "winInterval": null
+          },
+          {
+            "side": "Short",
+            "count": 0,
+            "wins": 0,
+            "win": null,
+            "total": 0,
+            "exp": null,
+            "pf": null,
+            "dd": 0,
+            "winInterval": null
+          }
+        ]
+      },
+      "checks": [
+        {
+          "id": "windows",
+          "label": "Trois fenêtres distinctes de deux mois",
+          "pass": false
+        },
+        {
+          "id": "total",
+          "label": "Au moins 40 trades au total",
+          "pass": false
+        },
+        {
+          "id": "window",
+          "label": "Au moins 12 trades dans cette fenêtre",
+          "pass": false
+        },
+        {
+          "id": "positive",
+          "label": "Résultat positif dans cette fenêtre",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Résultat positif à coûts doublés",
+          "pass": false
+        }
+      ],
+      "status": "Non confirmé"
+    },
+    {
+      "id": "volume",
+      "label": "+ Volume",
+      "filters": [
+        "volume"
+      ],
+      "normal": {
+        "count": 10,
+        "wins": 2,
+        "win": 0.2,
+        "total": -4.46218351102286,
+        "exp": -0.446218351102286,
+        "pf": 0.33170415444325,
+        "dd": 4.46218351102286,
+        "winInterval": [
+          0.056680947980693314,
+          0.5098431532792765
+        ],
+        "medianMinutes": 60,
+        "bySide": [
+          {
+            "side": "Long",
+            "count": 5,
+            "wins": 2,
+            "win": 0.4,
+            "total": -0.09916378463987247,
+            "exp": -0.019832756927974492,
+            "pf": 0.9571450233792339,
+            "dd": 1.3091143416847097,
+            "winInterval": [
+              0.1176182311592533,
+              0.769280067791163
+            ]
+          },
+          {
+            "side": "Short",
+            "count": 5,
+            "wins": 0,
+            "win": 0,
+            "total": -4.363019726382988,
+            "exp": -0.8726039452765976,
+            "pf": 0,
+            "dd": 4.363019726382988,
+            "winInterval": [
+              0,
+              0.43449149475208104
+            ]
+          }
+        ]
+      },
+      "stress": {
+        "count": 10,
+        "wins": 2,
+        "win": 0.2,
+        "total": -4.627802398338463,
+        "exp": -0.46278023983384625,
+        "pf": 0.32068304984951496,
+        "dd": 4.627802398338463,
+        "winInterval": [
+          0.056680947980693314,
+          0.5098431532792765
+        ],
+        "medianMinutes": 60,
+        "bySide": [
+          {
+            "side": "Long",
+            "count": 5,
+            "wins": 2,
+            "win": 0.4,
+            "total": -0.1790939052952834,
+            "exp": -0.035818781059056684,
+            "pf": 0.9242323832249074,
+            "dd": 1.3540777399731931,
+            "winInterval": [
+              0.1176182311592533,
+              0.769280067791163
+            ]
+          },
+          {
+            "side": "Short",
+            "count": 5,
+            "wins": 0,
+            "win": 0,
+            "total": -4.4487084930431795,
+            "exp": -0.889741698608636,
+            "pf": 0,
+            "dd": 4.4487084930431795,
+            "winInterval": [
+              0,
+              0.43449149475208104
+            ]
+          }
+        ]
+      },
+      "checks": [
+        {
+          "id": "windows",
+          "label": "Trois fenêtres distinctes de deux mois",
+          "pass": false
+        },
+        {
+          "id": "total",
+          "label": "Au moins 40 trades au total",
+          "pass": false
+        },
+        {
+          "id": "window",
+          "label": "Au moins 12 trades dans cette fenêtre",
+          "pass": false
+        },
+        {
+          "id": "positive",
+          "label": "Résultat positif dans cette fenêtre",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Résultat positif à coûts doublés",
+          "pass": false
+        }
+      ],
+      "status": "Non confirmé"
+    },
+    {
+      "id": "events",
+      "label": "Sans jours d’annonces",
+      "filters": [
+        "events"
+      ],
+      "normal": {
+        "count": 12,
+        "wins": 3,
+        "win": 0.25,
+        "total": -3.4280555262629187,
+        "exp": -0.2856712938552432,
+        "pf": 0.5188797700578509,
+        "dd": 4.078793098946278,
+        "winInterval": [
+          0.08894003962896138,
+          0.53231033912066
+        ],
+        "medianMinutes": 75,
+        "bySide": [
+          {
+            "side": "Long",
+            "count": 7,
+            "wins": 3,
+            "win": 0.42857142857142855,
+            "total": 0.951413415937328,
+            "exp": 0.13591620227676113,
+            "pf": 1.3465122704385148,
+            "dd": 1.3091143416847097,
+            "winInterval": [
+              0.15821692226262685,
+              0.7495457695909742
+            ]
+          },
+          {
+            "side": "Short",
+            "count": 5,
+            "wins": 0,
+            "win": 0,
+            "total": -4.379468942200247,
+            "exp": -0.8758937884400494,
+            "pf": 0,
+            "dd": 4.379468942200247,
+            "winInterval": [
+              0,
+              0.43449149475208104
+            ]
+          }
+        ]
+      },
+      "stress": {
+        "count": 12,
+        "wins": 3,
+        "win": 0.25,
+        "total": -3.6500226192947696,
+        "exp": -0.30416855160789746,
+        "pf": 0.49994904980198723,
+        "dd": 4.2168251786459505,
+        "winInterval": [
+          0.08894003962896138,
+          0.53231033912066
+        ],
+        "medianMinutes": 75,
+        "bySide": [
+          {
+            "side": "Long",
+            "count": 7,
+            "wins": 3,
+            "win": 0.42857142857142855,
+            "total": 0.8315843053829273,
+            "exp": 0.11879775791184675,
+            "pf": 1.2951293342060175,
+            "dd": 1.3540777399731931,
+            "winInterval": [
+              0.15821692226262685,
+              0.7495457695909742
+            ]
+          },
+          {
+            "side": "Short",
+            "count": 5,
+            "wins": 0,
+            "win": 0,
+            "total": -4.481606924677696,
+            "exp": -0.8963213849355393,
+            "pf": 0,
+            "dd": 4.481606924677696,
+            "winInterval": [
+              0,
+              0.43449149475208104
+            ]
+          }
+        ]
+      },
+      "checks": [
+        {
+          "id": "windows",
+          "label": "Trois fenêtres distinctes de deux mois",
+          "pass": false
+        },
+        {
+          "id": "total",
+          "label": "Au moins 40 trades au total",
+          "pass": false
+        },
+        {
+          "id": "window",
+          "label": "Au moins 12 trades dans cette fenêtre",
+          "pass": true
+        },
+        {
+          "id": "positive",
+          "label": "Résultat positif dans cette fenêtre",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Résultat positif à coûts doublés",
+          "pass": false
+        }
+      ],
+      "status": "Non confirmé"
+    },
+    {
+      "id": "combined",
+      "label": "Quatre confirmations",
+      "filters": [
+        "trend",
+        "candle",
+        "volume",
+        "events"
+      ],
+      "normal": {
+        "count": 0,
+        "wins": 0,
+        "win": null,
+        "total": 0,
+        "exp": null,
+        "pf": null,
+        "dd": 0,
+        "winInterval": null,
+        "medianMinutes": null,
+        "bySide": [
+          {
+            "side": "Long",
+            "count": 0,
+            "wins": 0,
+            "win": null,
+            "total": 0,
+            "exp": null,
+            "pf": null,
+            "dd": 0,
+            "winInterval": null
+          },
+          {
+            "side": "Short",
+            "count": 0,
+            "wins": 0,
+            "win": null,
+            "total": 0,
+            "exp": null,
+            "pf": null,
+            "dd": 0,
+            "winInterval": null
+          }
+        ]
+      },
+      "stress": {
+        "count": 0,
+        "wins": 0,
+        "win": null,
+        "total": 0,
+        "exp": null,
+        "pf": null,
+        "dd": 0,
+        "winInterval": null,
+        "medianMinutes": null,
+        "bySide": [
+          {
+            "side": "Long",
+            "count": 0,
+            "wins": 0,
+            "win": null,
+            "total": 0,
+            "exp": null,
+            "pf": null,
+            "dd": 0,
+            "winInterval": null
+          },
+          {
+            "side": "Short",
+            "count": 0,
+            "wins": 0,
+            "win": null,
+            "total": 0,
+            "exp": null,
+            "pf": null,
+            "dd": 0,
+            "winInterval": null
+          }
+        ]
+      },
+      "checks": [
+        {
+          "id": "windows",
+          "label": "Trois fenêtres distinctes de deux mois",
+          "pass": false
+        },
+        {
+          "id": "total",
+          "label": "Au moins 40 trades au total",
+          "pass": false
+        },
+        {
+          "id": "window",
+          "label": "Au moins 12 trades dans cette fenêtre",
+          "pass": false
+        },
+        {
+          "id": "positive",
+          "label": "Résultat positif dans cette fenêtre",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Résultat positif à coûts doublés",
+          "pass": false
+        }
+      ],
+      "status": "Non confirmé"
+    },
+    {
+      "id": "long",
+      "label": "Long seulement",
+      "filters": [
+        "long"
+      ],
+      "normal": {
+        "count": 7,
+        "wins": 3,
+        "win": 0.42857142857142855,
+        "total": 0.951413415937328,
+        "exp": 0.13591620227676113,
+        "pf": 1.3465122704385148,
+        "dd": 1.3091143416847097,
+        "winInterval": [
+          0.15821692226262685,
+          0.7495457695909742
+        ],
+        "medianMinutes": 75,
+        "bySide": [
+          {
+            "side": "Long",
+            "count": 7,
+            "wins": 3,
+            "win": 0.42857142857142855,
+            "total": 0.951413415937328,
+            "exp": 0.13591620227676113,
+            "pf": 1.3465122704385148,
+            "dd": 1.3091143416847097,
+            "winInterval": [
+              0.15821692226262685,
+              0.7495457695909742
+            ]
+          },
+          {
+            "side": "Short",
+            "count": 0,
+            "wins": 0,
+            "win": null,
+            "total": 0,
+            "exp": null,
+            "pf": null,
+            "dd": 0,
+            "winInterval": null
+          }
+        ]
+      },
+      "stress": {
+        "count": 7,
+        "wins": 3,
+        "win": 0.42857142857142855,
+        "total": 0.8315843053829273,
+        "exp": 0.11879775791184675,
+        "pf": 1.2951293342060175,
+        "dd": 1.3540777399731931,
+        "winInterval": [
+          0.15821692226262685,
+          0.7495457695909742
+        ],
+        "medianMinutes": 75,
+        "bySide": [
+          {
+            "side": "Long",
+            "count": 7,
+            "wins": 3,
+            "win": 0.42857142857142855,
+            "total": 0.8315843053829273,
+            "exp": 0.11879775791184675,
+            "pf": 1.2951293342060175,
+            "dd": 1.3540777399731931,
+            "winInterval": [
+              0.15821692226262685,
+              0.7495457695909742
+            ]
+          },
+          {
+            "side": "Short",
+            "count": 0,
+            "wins": 0,
+            "win": null,
+            "total": 0,
+            "exp": null,
+            "pf": null,
+            "dd": 0,
+            "winInterval": null
+          }
+        ]
+      },
+      "checks": [
+        {
+          "id": "windows",
+          "label": "Trois fenêtres distinctes de deux mois",
+          "pass": false
+        },
+        {
+          "id": "total",
+          "label": "Au moins 40 trades au total",
+          "pass": false
+        },
+        {
+          "id": "window",
+          "label": "Au moins 12 trades dans cette fenêtre",
+          "pass": false
+        },
+        {
+          "id": "positive",
+          "label": "Résultat positif dans cette fenêtre",
+          "pass": true
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": true
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Résultat positif à coûts doublés",
+          "pass": true
+        }
+      ],
+      "status": "Non confirmé"
+    },
+    {
+      "id": "short",
+      "label": "Short seulement",
+      "filters": [
+        "short"
+      ],
+      "normal": {
+        "count": 6,
+        "wins": 0,
+        "win": 0,
+        "total": -5.385821029314583,
+        "exp": -0.8976368382190971,
+        "pf": 0,
+        "dd": 5.385821029314583,
+        "winInterval": [
+          0,
+          0.3903430336530645
+        ],
+        "medianMinutes": 90,
+        "bySide": [
+          {
+            "side": "Long",
+            "count": 0,
+            "wins": 0,
+            "win": null,
+            "total": 0,
+            "exp": null,
+            "pf": null,
+            "dd": 0,
+            "winInterval": null
+          },
+          {
+            "side": "Short",
+            "count": 6,
+            "wins": 0,
+            "win": 0,
+            "total": -5.385821029314583,
+            "exp": -0.8976368382190971,
+            "pf": 0,
+            "dd": 5.385821029314583,
+            "winInterval": [
+              0,
+              0.3903430336530645
+            ]
+          }
+        ]
+      },
+      "stress": {
+        "count": 6,
+        "wins": 0,
+        "win": 0,
+        "total": -5.494311098906372,
+        "exp": -0.9157185164843953,
+        "pf": 0,
+        "dd": 5.494311098906372,
+        "winInterval": [
+          0,
+          0.3903430336530645
+        ],
+        "medianMinutes": 90,
+        "bySide": [
+          {
+            "side": "Long",
+            "count": 0,
+            "wins": 0,
+            "win": null,
+            "total": 0,
+            "exp": null,
+            "pf": null,
+            "dd": 0,
+            "winInterval": null
+          },
+          {
+            "side": "Short",
+            "count": 6,
+            "wins": 0,
+            "win": 0,
+            "total": -5.494311098906372,
+            "exp": -0.9157185164843953,
+            "pf": 0,
+            "dd": 5.494311098906372,
+            "winInterval": [
+              0,
+              0.3903430336530645
+            ]
+          }
+        ]
+      },
+      "checks": [
+        {
+          "id": "windows",
+          "label": "Trois fenêtres distinctes de deux mois",
+          "pass": false
+        },
+        {
+          "id": "total",
+          "label": "Au moins 40 trades au total",
+          "pass": false
+        },
+        {
+          "id": "window",
+          "label": "Au moins 12 trades dans cette fenêtre",
+          "pass": false
+        },
+        {
+          "id": "positive",
+          "label": "Résultat positif dans cette fenêtre",
+          "pass": false
+        },
+        {
+          "id": "pf",
+          "label": "Profit factor ≥ 1,10 avant arrondi",
+          "pass": false
+        },
+        {
+          "id": "dd",
+          "label": "Drawdown réalisé ≤ 8 R",
+          "pass": true
+        },
+        {
+          "id": "stress",
+          "label": "Résultat positif à coûts doublés",
+          "pass": false
+        }
+      ],
+      "status": "Non confirmé"
+    }
+  ],
+  "events": [
+    {
+      "day": "2025-04-04",
+      "type": "NFP"
+    },
+    {
+      "day": "2025-04-10",
+      "type": "CPI"
+    },
+    {
+      "day": "2025-05-02",
+      "type": "NFP"
+    },
+    {
+      "day": "2025-05-07",
+      "type": "FOMC"
+    },
+    {
+      "day": "2025-05-13",
+      "type": "CPI"
+    }
+  ]
+}
