@@ -1,0 +1,62 @@
+{
+  "schema": "nykuto-pine-fidelity-stage-a-v1",
+  "status": "completed",
+  "scope": "Data and isolated mechanisms only. No full Pine compilation, scanner census, strategy PnL or automatic promotion.",
+  "inputHashes": {
+    "5m_corrected_intermediate.json": "c849ae33101e233ef34f0481510a28ea145e14052d8be611c6e5cf7730fe2479",
+    "1m.json": "1c8fa602a092c7026b858f43943c4468a53eb3072f3332207a214f46e9d7c081",
+    "15m_extended_intermediate.json": "e5c1b2ead931de475015a061c3e970815b083239eb5a90241b79f3d7097cc8e2",
+    "60m.json": "a1a784d78ff9e65e7218ea0f258784df6a68899d52401927267a72313e9358fa"
+  },
+  "bars": {
+    "m5": 142311,
+    "m1": 263190,
+    "m15": 47437,
+    "h1": 21825
+  },
+  "causality": {
+    "emaRsiAtrPrefixChecks": 6,
+    "h1ClosedChecks": 142311,
+    "m15ClosedChecks": 142308,
+    "parityWithTradingView": "not yet measured"
+  },
+  "overnight": {
+    "barsEndingAt0930ExcludedByCloseClock": 519
+  },
+  "geometry": {
+    "bothSidesExamined": 284594,
+    "sessionRiskStopEligible": 263223,
+    "timeFeasibilityAdmissionChangesAtDefault180Minutes": 0,
+    "quantityHistogram": {
+      "normal": {
+        "0": 488,
+        "1": 6166,
+        "2": 13266,
+        "3": 16441,
+        "4": 17240,
+        "5": 221723
+      },
+      "doubleCosts": {
+        "0": 498,
+        "1": 6421,
+        "2": 13975,
+        "3": 17490,
+        "4": 18306,
+        "5": 218634
+      }
+    },
+    "note": "All-bar stop geometries, NOT detected signals or trades. Default maxStop=4ATR and >=45min already imply sqrt(9)=3 to sqrt(36)=6; horizon clamp can be neutral for admission at defaults. TP2/TP3 require separate checks."
+  },
+  "micro": {
+    "comparableM1With21ConsecutiveVolumes": 106820,
+    "participationBooleanChangesUsingPastOnlyMean": 1524,
+    "note": "A feature-definition comparison only. No evidence that one version wins more trades."
+  },
+  "performance": {
+    "executed": false,
+    "opportunities": null,
+    "tp1": null,
+    "netPnl": null
+  },
+  "next": "Pin the full source/configuration and match TradingView bar-level signals before exact census and paired historical outcome runs."
+}

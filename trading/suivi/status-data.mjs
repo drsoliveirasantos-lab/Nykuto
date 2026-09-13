@@ -5,11 +5,11 @@
 export const PROJECT_STATUS = Object.freeze({
   schema: 'nykuto-trading-project-status-v1',
   updatedAt: '2026-09-13',
-  evidenceThrough: '2026-09-12',
+  evidenceThrough: '2026-09-13',
   repository: {
     branch: 'feat/opportunity-census',
-    reviewedBaseRevision: 'cb90c4f',
-    note: 'Le registre décrit le code relu à partir de cette révision et les documents plus récents fournis séparément.'
+    reviewedBaseRevision: '5d8a683 + d32b7a0',
+    note: 'Cette branche réunit le Census, le cycle TP1 et le sizing adaptatif avec le calendrier et l’audit publiés depuis feat/trading-hq-v1.'
   },
   sync: [
     {
@@ -28,7 +28,7 @@ export const PROJECT_STATUS = Object.freeze({
       id: 'pine-source',
       label: 'Référence TradingView',
       state: 'external',
-      detail: 'V15.1.1 Partner Clean est la référence courante, mais son fichier Pine complet n’est pas encore versionné sur cette branche.'
+      detail: 'Partner Clean reste une référence externe. Audit actuel : code V15.1 fourni par Diego avec HUD V15.1.1 ; compilation et parité complètes encore à vérifier.'
     },
     {
       id: 'union-report',
@@ -134,7 +134,7 @@ export const PROJECT_STATUS = Object.freeze({
     id: 'v151-time-pace-exact-union',
     label: 'Union exacte V15.1.1 + Time-Pace',
     state: 'pending',
-    blocker: 'Il faut l’export/reconstruction au niveau opportunité du V15.1.1 : timestamp, sens, famille, timeframe et setup parent.',
+    blocker: 'Données archivées : 142 311 M5 corrigées, M15, H1 et M1. Étape suivante : parité du code fourni et reconstruction des opportunités avec parents causaux ; 11 545 non encore reproduites.',
     dedupeRule: 'Dédupliquer par setup parent causal, pas par simple proximité temporelle.',
     steps: [
       'Mesurer combien des 462 Time-Pace sont déjà dans BASE / BOOST / EMA21 / FAILED / FVG / VWAP.',
@@ -156,7 +156,8 @@ export const PROJECT_STATUS = Object.freeze({
     'Les résultats historiques et tests logiciels ne garantissent aucune rentabilité future.'
   ],
   timeline: [
-    { date: '2026-09-13', title: 'Suivi consolidé ajouté au site', detail: 'État Pine, données, tests externes et code du dépôt séparés explicitement.' },
+    { date: '2026-09-13', title: 'Historique privé et première étape d’audit', detail: '97 blocs sauvegardés et relus ; calendrier M1/M5/M15/H1, 14 tests logiciels et diagnostics historiques. Pas encore de backtest complet du scanner.' },
+    { date: '2026-09-13', title: 'Suivi consolidé publié', detail: 'Les données actuelles sont séparées des chiffres des anciens rapports à reproduire.' },
     { date: '2026-09-12', title: 'Sizing adaptatif ajouté au census', detail: 'Plafond 500 $, EV empirique, shrinkage par n et qualité ; recherche uniquement.' },
     { date: '2026-09-12', title: 'Cycle de vie TP1 et setup lineage', detail: 'Nouvelle opportunité possible après TP1/close sans ré-entrer le même setup parent.' },
     { date: '2026-09-12', title: 'Opportunity Census indépendant', detail: 'Toutes les opportunités distinctes sont visibles sans planActive ni plafond quotidien.' },
@@ -166,6 +167,8 @@ export const PROJECT_STATUS = Object.freeze({
     { date: '2026-09-11', title: 'Jeu 56 micro-1m gelé', detail: 'Le 1m reste un micro-contexte à mesurer, jamais une alerte autonome promue.' }
   ],
   sources: [
+    { label: 'Calendrier et données actuelles', href: '../historique/' },
+    { label: 'Audit du Pine fourni', href: '../historique/PINE_AUDIT.md' },
     { label: 'Protocole Opportunity Census', href: '../lab/OPPORTUNITY_CENSUS_PROTOCOL.md' },
     { label: 'Cycle de vie après TP1', href: '../lab/OPPORTUNITY_LIFECYCLE.md' },
     { label: 'Politique de sizing adaptatif', href: '../lab/ADAPTIVE_RISK_POLICY.md' },
