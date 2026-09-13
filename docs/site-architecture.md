@@ -76,6 +76,19 @@ scripts/prepare-cloudflare-output.js
 
 ## Generated outputs
 
+`trading/historique/` is the maintained MNQ history entry point. Its private
+`/api/lab/history` route uses the existing Access signature verification and
+member middleware, restricts reads to the pinned manifest and bounded dataset
+parts, and never exposes arbitrary KV keys. Canonical prefix:
+`mnq-history/2026-09-13-v1/` in TRADING_DATASETS. The browser verifies gzip/base64
+chunks and exports selected-month or whole-timeframe CSV on explicit request.
+The calendar displays observed UTC data coverage, not certified exchange hours.
+The raw M5 export can be restored using the private three-record correction
+manifest. No raw market prices enter Git. The accompanying isolated Pine
+fidelity specification and Stage A diagnostics are not a full Pine replay.
+`trading/suivi/` distinguishes the separate opportunity-census research branch,
+external Pine/Time-Pace reports and this verified archive.
+
 The private `trading/` site is a separate Cloudflare Pages project,
 `trading-nykuto`, publishing that directory directly from `feat/trading-hq-v1`
 during owner validation. It is not part of the main commercial build outputs.

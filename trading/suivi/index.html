@@ -22,7 +22,7 @@
     </a>
     <div class="topbar-actions">
       <span class="status-pill"><span class="status-dot" aria-hidden="true"></span>Contexte synchronisé</span>
-      <a class="ghost-button" href="../lab/">Ouvrir le Lab</a>
+      <a class="ghost-button" href="../historique/">Historique et audit Pine</a>
     </div>
   </header>
 
@@ -42,7 +42,7 @@
       <dl class="tracker-stamp">
         <div><dt>Mise à jour du suivi</dt><dd id="updatedAt">—</dd></div>
         <div><dt>Informations relues jusqu’au</dt><dd id="evidenceThrough">—</dd></div>
-        <div><dt>Branche contrôlée</dt><dd id="branchState">—</dd></div>
+        <div><dt>Branche de recherche consultée</dt><dd id="branchState">—</dd></div>
       </dl>
     </section>
 
@@ -55,9 +55,9 @@
 
     <section class="snapshot-grid" aria-label="Résumé chiffré actuel">
       <article class="snapshot-card"><span>Référence Pine</span><strong id="pineVersion">—</strong><small id="pineMode">—</small></article>
-      <article class="snapshot-card"><span>Bougies M5</span><strong id="barCount">—</strong><small id="datasetRange">—</small></article>
+      <article class="snapshot-card"><span>M5 des anciens rapports</span><strong id="barCount">—</strong><small id="datasetRange">—</small></article>
       <article class="snapshot-card"><span>Opportunités V15</span><strong id="opportunityCount">—</strong><small id="baselineTp1">—</small></article>
-      <article class="snapshot-card is-pending"><span>Prochain test</span><strong>Union exacte</strong><small>V15.1.1 + Time-Pace</small></article>
+      <article class="snapshot-card is-pending"><span>Base actuelle vérifiée</span><strong>142 311 M5</strong><small><a href="../historique/">Calendrier et première étape d’audit</a></small></article>
     </section>
 
     <section class="tracker-grid">
@@ -69,13 +69,13 @@
       </article>
 
       <article class="tracker-panel" aria-labelledby="repo-title">
-        <div class="tracker-panel-head"><div><p class="panel-kicker">CODE DU SITE</p><h3 id="repo-title">Couches déjà implémentées</h3></div><span class="tracker-chip is-research">Recherche</span></div>
+        <div class="tracker-panel-head"><div><p class="panel-kicker">BRANCHE DE RECHERCHE SÉPARÉE</p><h3 id="repo-title">Couches déjà versionnées</h3></div><span class="tracker-chip is-research">Recherche</span></div>
         <div id="repositoryResearch" class="research-stack"></div>
       </article>
     </section>
 
     <section class="tracker-panel tracker-wide" aria-labelledby="tiers-title">
-      <div class="tracker-panel-head"><div><p class="panel-kicker">BASELINE V15.1.1</p><h3 id="tiers-title">11 545 opportunités historiques distinctes</h3></div><span class="tracker-chip is-synced">Référence actuelle</span></div>
+      <div class="tracker-panel-head"><div><p class="panel-kicker">ANCIENS RAPPORTS V15.1.1</p><h3 id="tiers-title">11 545 opportunités rapportées, à reproduire</h3></div><span class="tracker-chip is-external">Rapport externe</span></div>
       <div class="table-scroll" role="region" aria-label="Tiers du Pine V15.1.1" tabindex="0">
         <table>
           <caption>Le TP1 global est une mesure historique. Il ne transforme pas le tier en probabilité garantie.</caption>

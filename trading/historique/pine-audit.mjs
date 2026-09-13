@@ -3,7 +3,7 @@
 export const AUDIT = Object.freeze({
   id:'pine-v151-fidelity-2026-09-13', source:'Pine V15.1 Explainable State Engine, HUD V15.1.1, pasted by owner',
   compiledInTradingView:false, performanceReplayed:false, executionAllowed:false,
-  resultSummary:'Audit technique commencé : corrections isolées soumises aux tests de régression et aux contrôles sur historique. Les performances du scanner complet restent à reproduire.',
+  resultSummary:'Première étape terminée : 14 tests logiciels passent, dont 80 000 combinaisons de sizing. Sur l’historique : 519 dernières bougies overnight exclues par l’ancienne horloge ; 1 524 diagnostics de participation M1 changent sur 106 820 minutes comparables avec une moyenne strictement passée. Ces observations ne mesurent pas la rentabilité du scanner.',
   findings:[
     {id:'A01',priority:'P0',title:'Unité de temps opérationnelle',anchor:'is5m = chartSeconds > 60 and chartSeconds <= 300',impact:'Le code autorise aussi les graphiques 2, 3 et 4 minutes, malgré des règles calibrées en M5.',fix:'Exiger exactement 300 secondes pour les plans et alertes ; contexte informatif sur les autres unités.'},
     {id:'A02',priority:'P0',title:'Ancien plan écrasé avant ses sorties',anchor:'Latest-signal Trade Map before Evaluate targets',impact:'Un nouveau plan admis peut remplacer les niveaux avant le contrôle TP/SL de la bougie qui vient de clôturer.',fix:'Évaluer et journaliser les événements de l’ancien plan, puis admettre le nouveau ; séparer census, suivi et carte visible.'},

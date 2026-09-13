@@ -47,6 +47,13 @@ Nykuto must never claim to:
 
 ## Editable production sources
 
+The private Trading HQ additionally owns `trading/historique/`: the versioned
+MNQ data calendar, integrity-checked private loader and Pine fidelity audit.
+Raw OHLCV stays in TRADING_DATASETS, not Git. See its README for canonical keys,
+source corrections and missing-volume/minute intervals. `trading/suivi/` exposes
+external reports separately from verified data and completed software checks.
+Neither page activates trading or certifies historical strategy performance.
+
 The current production source of truth is the static root site:
 
 - root HTML pages;
