@@ -71,6 +71,9 @@ The current production source of truth is the static root site:
 - `trading/`, the private Trading HQ published separately from its validation
   branch; its lab protocol and data boundaries are documented in
   `trading/lab/INDEPENDENT_VALIDATION.md`;
+- `trading/suivi/`, the presentation-only project status registry that separates
+  the current Pine reference, versioned research code, externally supplied
+  reports and pending validation work;
 - `workers/trading-alerts/`, the isolated TradingView webhook receiver; private
   inbox, shared validation and deployment details live in `trading/alerts/`;
 - `scripts/prepare-cloudflare-output.js`;
@@ -525,3 +528,11 @@ Game43 adds a reusable past-window normalization module and two isolated entry-e
 
 
 Game43 completed once at frozen commit1c776a3073bc04423179236b1ac42591694a0cdf. Both normalized-entry variants veto zero signals and preserve all48 full accounts. Neither is retained: no strict improvement.16 exact controls,984 chronological prefixes per layer; outputs verified without rerun. See trading/lab/JEU43_RESULTS.md and jeu43-summary.json. Private detailed calendars/results archived separately; no UI calendar recomputation. Ledger97/catalog114 preserve prior95/112. No activation or new campaign.
+
+`trading/suivi/` records the state reviewed on 13 September 2026 without
+rewriting frozen research. Its baseline is the externally supplied Pine
+V15.1.1 state (132,650 M5 bars and 11,545 opportunities), while the repository
+implementation is identified separately from supplied Time-Pace and FAILED
+audits. The exact V15.1.1 + Time-Pace union remains pending and must deduplicate
+by causal setup parent. The page is informational only: no Paper, Shadow,
+broker execution or automatic strategy promotion is enabled.

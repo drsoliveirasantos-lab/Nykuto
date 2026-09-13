@@ -8,8 +8,8 @@ export const PROJECT_STATUS = Object.freeze({
   evidenceThrough: '2026-09-13',
   repository: {
     branch: 'feat/opportunity-census',
-    reviewedBaseRevision: 'cb90c4f',
-    note: 'Cette branche de recherche est consultée séparément ; le calendrier et l’audit sont publiés depuis feat/trading-hq-v1.'
+    reviewedBaseRevision: '5d8a683 + d32b7a0',
+    note: 'Cette branche réunit le Census, le cycle TP1 et le sizing adaptatif avec le calendrier et l’audit publiés depuis feat/trading-hq-v1.'
   },
   sync: [
     {
@@ -169,9 +169,9 @@ export const PROJECT_STATUS = Object.freeze({
   sources: [
     { label: 'Calendrier et données actuelles', href: '../historique/' },
     { label: 'Audit du Pine fourni', href: '../historique/PINE_AUDIT.md' },
-    { label: 'Protocole Opportunity Census (branche séparée)', href: 'https://github.com/drsoliveirasantos-lab/Nykuto/blob/5d8a6834d88320fbe02c08ff0793592f5d54e5d8/trading/lab/OPPORTUNITY_CENSUS_PROTOCOL.md' },
-    { label: 'Cycle de vie après TP1 (branche séparée)', href: 'https://github.com/drsoliveirasantos-lab/Nykuto/blob/5d8a6834d88320fbe02c08ff0793592f5d54e5d8/trading/lab/OPPORTUNITY_LIFECYCLE.md' },
-    { label: 'Sizing adaptatif (branche séparée)', href: 'https://github.com/drsoliveirasantos-lab/Nykuto/blob/5d8a6834d88320fbe02c08ff0793592f5d54e5d8/trading/lab/ADAPTIVE_RISK_POLICY.md' },
+    { label: 'Protocole Opportunity Census', href: '../lab/OPPORTUNITY_CENSUS_PROTOCOL.md' },
+    { label: 'Cycle de vie après TP1', href: '../lab/OPPORTUNITY_LIFECYCLE.md' },
+    { label: 'Politique de sizing adaptatif', href: '../lab/ADAPTIVE_RISK_POLICY.md' },
     { label: 'Protocole Jeu 56', href: '../lab/JEU56_PROTOCOL.md' },
     { label: 'Pine V15.1.1 Partner Clean', detail: 'document fourni hors dépôt' },
     { label: 'Time-Pace Full History corrigé', detail: 'document fourni hors dépôt' },

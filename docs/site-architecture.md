@@ -92,6 +92,11 @@ external Pine/Time-Pace reports and this verified archive.
 The private `trading/` site is a separate Cloudflare Pages project,
 `trading-nykuto`, publishing that directory directly from `feat/trading-hq-v1`
 during owner validation. It is not part of the main commercial build outputs.
+`/suivi/` is its compact project-status surface. `status-data.mjs` records the
+reviewed Pine reference, repository implementation, externally supplied results
+and pending tests as separate states; `suivi.mjs` renders that registry without
+recomputing performance. This route does not read broker state or activate
+Paper/Shadow execution.
 Its `/lab/` includes an independent-validation module, with pure CSV parsing,
 indicators and browser simulation modules. The default Jeu 04 snapshot loads
 from `trading/functions/api/lab/jeu04.js`, backed by the private

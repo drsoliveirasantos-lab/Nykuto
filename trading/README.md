@@ -2,6 +2,19 @@
 
 Private personal trading workspace intended for `trading.nykuto.com`.
 
+## Consolidated project status
+
+`/suivi/` is the concise state-of-work page. Its `status-data.mjs` registry
+separates four things that must not be conflated: the current externally supplied
+Pine reference, implementation already present in the repository, retrospective
+research results supplied outside the branch, and the next validation still to
+run. The page currently records V15.1.1, the 132,650-bar / 11,545-opportunity
+baseline, the corrected Time-Pace results, the exploratory FAILED integrity
+audit and the exact union checklist.
+
+This is a presentation and continuity layer only. It does not modify frozen
+reports, run a strategy, connect a broker, or enable Paper/Shadow execution.
+
 ## Pine parity V9 — September 11, 2026
 
 Trading Nykuto now carries a dedicated Pine parity reference for manual TradingView use. See `lab/NYKUTO_PINE_PARITY_V9.md` and `lab/nykuto-signal-v9.pine`.
