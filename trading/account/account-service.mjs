@@ -1,5 +1,5 @@
 import { APPEARANCE_KEY, validateAppearance } from '../performance/appearance-core.mjs';
-import { authenticate } from '../functions/api/lab/jeu04.js';
+import { authenticate } from './access-auth.mjs';
 export { json } from '../alerts/alert-service.mjs';
 export class AccountError extends Error {
   constructor(message, status = 400) { super(message); this.status = status; }

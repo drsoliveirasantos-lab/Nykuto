@@ -42,7 +42,10 @@ function renderSnapshot() {
   byId('updatedAt').textContent = formattedDate(status.updatedAt);
   byId('evidenceThrough').textContent = formattedDate(status.evidenceThrough);
   byId('branchState').textContent = `${status.repository.branch} · base ${status.repository.reviewedBaseRevision}`;
-  byId('pineVersion').textContent = 'V15.1.1';
+  byId('pineVersion').textContent = status.pine.shortVersion;
+  const currentM5=status.currentAudit.history.datasets.find(dataset=>dataset.id==='m5');
+  byId('currentBarCount').textContent = `${number.format(currentM5.count)} M5`;
+  byId('currentCoverage').textContent = `${number.format(status.currentAudit.history.datasets.find(dataset=>dataset.id==='m1').count)} M1 avec volume`;
   byId('pineMode').textContent = status.pine.mode;
   byId('barCount').textContent = number.format(status.dataset.bars);
   byId('datasetRange').textContent = `${formattedDate(status.dataset.from)} → ${formattedDate(status.dataset.through)}`;

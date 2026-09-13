@@ -1,8 +1,9 @@
+import { CURRENT_AUDIT } from '../historique/current-audit.mjs';
 // Nykuto Trading — visible project status registry.
 // Presentation-only: this file records the reviewed state and never activates
 // a signal, Paper/Shadow execution, broker route or automatic promotion.
 
-export const PROJECT_STATUS = Object.freeze({
+const LEGACY_STATUS = Object.freeze({
   schema: 'nykuto-trading-project-status-v1',
   updatedAt: '2026-09-13',
   evidenceThrough: '2026-09-13',
@@ -177,4 +178,29 @@ export const PROJECT_STATUS = Object.freeze({
     { label: 'Time-Pace Full History corrigé', detail: 'document fourni hors dépôt' },
     { label: 'Audit Failed Breakout Integrity', detail: 'conversation et micro-replay exploratoire fournis' }
   ]
+});
+
+// Preserve the externally reported historical figures above; current evidence is separate.
+export const PROJECT_STATUS = Object.freeze({
+  ...LEGACY_STATUS,
+  updatedAt: CURRENT_AUDIT.date,
+  evidenceThrough: CURRENT_AUDIT.date,
+  repository: {branch:'feat/trading-hq-v1', reviewedBaseRevision:'d32b7a0', note:'Site protégé et données vérifiées ; les sources Pine privées restent hors dépôt public.'},
+  currentAudit: CURRENT_AUDIT,
+  pine: {...LEGACY_STATUS.pine, version:`NYKUTO V${CURRENT_AUDIT.pine.version}`, shortVersion:`V${CURRENT_AUDIT.pine.version}`, rules:[
+    'Toutes les opportunités distinctes sont recensées ; le replay séquentiel est séparé, sans quota quotidien artificiel.',
+    'La correction du suivi traite l’ancien plan avant une nouvelle admission, l’ouverture avant les extrêmes et les trous de données comme inconnus.',
+    'Stop structurel avant sizing ; plafond de 500 $ de perte planifiée sur toute la position.',
+    'Les horaires MNQ retirent l’ancienne pause 16:15–16:30 New York ; le flat configuré reste à 16:45.',
+    'Les statistiques présentées ne valident pas toutes les sorties partielles du Pine ni une rentabilité future.'
+  ]},
+  sync: [
+    {id:'history',label:'Données et volumes',state:'synced',detail:'352 800 M1 avec volume ; 1 020 minutes retrouvées et 154 770 volumes auparavant inconnus complétés. 354 033 M5 vérifiées.'},
+    {id:'software',label:'Conformité du suivi',state:'implemented',detail:'45 contrôles des mécanismes TP/SL, horaires, gaps et quantité ; causalité vérifiée sur des préfixes historiques.'},
+    {id:'pine-source',label:'Version Pine',state:CURRENT_AUDIT.pine.nativeCompileVerified?'implemented':'pending',detail:CURRENT_AUDIT.pine.nativeCompileVerified?'Source privée compilée sur TradingView ; parité exhaustive avec le moteur de recherche non certifiée.':'Révision technique préparée ; vérification native TradingView encore en cours.'},
+    {id:'evidence',label:'Résultat historique',state:'external',detail:'31 679 opportunités et 12 074 scénarios séquentiels. Moyenne après coûts négative dans la convention analytique étudiée ; aucune rentabilité validée.'}
+  ],
+  nextTest:{...LEGACY_STATUS.nextTest, blocker:'La base et les volumes sont complétés sur la fenêtre accessible. Restent la parité exhaustive des sorties partielles et une validation prospective ; aucune fusion automatique de nouvelles familles.'},
+  sources:[{label:'Audit actuel et limites',href:'../historique/AUDIT_COMPLET_2026-09-13.md'},...LEGACY_STATUS.sources],
+  timeline:[{date:CURRENT_AUDIT.date,title:'Données complétées et audit technique',detail:'352 800 M1 avec volume ; historique M5 étendu à septembre 2021, contrôles de causalité et suivi TP/SL. Aucun nouveau filtre de stratégie promu.'},...LEGACY_STATUS.timeline],
 });

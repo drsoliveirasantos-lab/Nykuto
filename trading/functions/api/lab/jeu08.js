@@ -1,11 +1,13 @@
-import { authorized } from './jeu04.js';
+import { authorizeDataset, DATASET_HEADERS } from './jeu04.js';
 import { COLLECTION_KEY, inspectCollection } from '../../../lab/prospective-collection.mjs';
 
-export async function onRequest({ request, env }) {
-  const headers = { 'Cache-Control': 'private, no-store', 'Content-Type': 'application/json; charset=utf-8', 'X-Content-Type-Options': 'nosniff', 'X-Robots-Tag': 'noindex, nofollow, noarchive', Vary: 'Cookie, Cf-Access-Jwt-Assertion' };
+export async function onRequest(context) {
+  const { request, env } = context;
+  const headers = { ...DATASET_HEADERS, 'Content-Type': 'application/json; charset=utf-8' };
   const reply = (body, status = 200) => Response.json(body, { status, headers });
   if (request.method !== 'GET') return reply({ error: 'Lecture uniquement.' }, 405);
-  if (!await authorized(request)) return reply({ error: 'Reconnecte-toi au site pour lire la collecte.' }, 401);
+  const rejection = await authorizeDataset(context);
+  if (rejection) return reply({ error: rejection.status === 403 ? 'Collecte réservée au propriétaire.' : 'Reconnecte-toi au site pour lire la collecte.' }, rejection.status);
   try {
     const stored = await env.TRADING_DATASETS?.get(COLLECTION_KEY);
     if (!stored) return reply({ error: 'Collecte non initialisée.' }, 503);

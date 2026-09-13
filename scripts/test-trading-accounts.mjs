@@ -86,6 +86,17 @@ test('middleware rejects inactive users, gates connections onboarding and marks 
   let prepended='';globalThis.HTMLRewriter=class{on(selector,handler){handler.element({prepend:s=>{prepended+=s;},append:()=>{}});return this;}transform(response){return response;}};
   try { response=await middleware(context);assert.equal(called,true);assert.match(response.headers.get('Cache-Control'),/private, no-store/);assert.match(prepended,/account\/session.js/); } finally { delete globalThis.HTMLRewriter; }
 });
+test('middleware keeps the research vault invisible to testers and available to the owner', async () => {
+  const env={TRADING_USERS:accountDatabase()};
+  for(const path of ['/historique/','/historique/replay/sources/nykuto.pine','/lab/','/models/','/analysis/','/suivi/','/live/README.md']){
+    let called=false;const context=await ctx(env,a,path);context.next=async()=>{called=true;return new Response('sensitive',{headers:{'Content-Type':'text/plain'}});};
+    const response=await middleware(context);assert.equal(response.status,404,path);assert.equal(called,false,path);assert.match(response.headers.get('Cache-Control'),/private, no-store/);
+  }
+  let called=false;const api=await ctx(env,a,'/api/lab/history');api.next=async()=>{called=true;return Response.json({secret:true});};
+  assert.equal((await middleware(api)).status,403);assert.equal(called,false);
+  const ownerContext=await ctx(env,owner,'/historique/history.mjs');ownerContext.next=async()=>new Response('owner-data',{headers:{'Content-Type':'text/javascript'}});
+  const ownerResponse=await middleware(ownerContext);assert.equal(ownerResponse.status,200);assert.equal(await ownerResponse.text(),'owner-data');assert.match(ownerResponse.headers.get('Cache-Control'),/private, no-store/);assert.equal(ownerResponse.headers.get('Cross-Origin-Resource-Policy'),'same-origin');
+});
 test('personal TradingView deliveries and private URLs never cross account boundaries', async () => {
   const records=new Map(), kv={async get(k){return records.get(k)?.value||null;},async put(k,value,options={}){records.set(k,{value,metadata:options.metadata});},async list({prefix}){return {keys:[...records].filter(([k])=>k.startsWith(prefix)).map(([name,v])=>({name,metadata:v.metadata})),list_complete:true};}};
   const env={TRADING_USERS:accountDatabase(),TRADING_ALERTS:kv}, token='d'.repeat(64), url=`https://nykuto-trading-alerts.test.workers.dev/personal/${a.id}/${token}`;

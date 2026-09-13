@@ -6,15 +6,22 @@
   if(!nav){nav=document.createElement('nav');nav.className='section-nav';document.querySelector('.topbar')?.after(nav);}
   nav.id='siteNavigation';nav.setAttribute('aria-label','Navigation du Trading HQ');
   const entries=[
-    [modules.length?'#dashboard':'/#dashboard','Dashboard'],
-    [modules.length?'#risk':'/#risk','Risque'],
-    [modules.length?'#journal':'/#journal','Journal'],
-    [modules.length?'#plan':'/#plan','Plan'],
-    ['/analysis/','Analyse'],['/models/','Modèles et sources'],['/assist/','Trade assisté'],['/replay/','Replay'],['/lab/','Lab'],['/historique/','Historique'],['/suivi/','Suivi'],
-    ['/discipline/','Avant un trade'],['/alerts/','Alertes'],
-    ['/connections/','Connexions'],['/live/','Flux Lucid'],['/account/#feedback','Retours'],['/account/','Mon compte'],['/cdn-cgi/access/logout','Déconnexion']
+    [modules.length?'#dashboard':'/#dashboard','Dashboard',false],
+    [modules.length?'#risk':'/#risk','Risque',false],
+    [modules.length?'#journal':'/#journal','Journal',false],
+    [modules.length?'#plan':'/#plan','Plan',false],
+    ['/analysis/','Analyse',true],['/models/','Modèles et sources',true],['/assist/','Trade assisté',false],['/replay/','Replay',false],['/lab/','Lab',true],['/historique/','Historique',true],['/suivi/','Suivi',true],
+    ['/discipline/','Avant un trade',false],['/alerts/','Alertes',false],
+    ['/connections/','Connexions',false],['/live/','Flux Lucid',true],['/account/#feedback','Retours',false],['/account/','Mon compte',false],['/cdn-cgi/access/logout','Déconnexion',false]
   ];
-  nav.replaceChildren(...entries.map(([href,label])=>{const a=document.createElement('a');a.href=href;a.textContent=label;return a;}));
+  const links=entries.map(([href,label,ownerOnly])=>{const a=document.createElement('a');a.href=href;a.textContent=label;if(ownerOnly){a.hidden=true;a.dataset.ownerOnly='true';}return a;});
+  nav.replaceChildren(...links);
+  window.Nykuto?.ready.then(()=>{
+    for(const link of links.filter(item=>item.dataset.ownerOnly)){
+      if(window.Nykuto.user?.role==='owner')link.hidden=false;
+      else link.remove();
+    }
+  }).catch(()=>{});
   const menu=document.createElement('button');menu.type='button';menu.className='site-menu';menu.setAttribute('aria-controls',nav.id);
   nav.before(menu);
   let expanded=false;

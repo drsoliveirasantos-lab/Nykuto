@@ -4,7 +4,7 @@ const path = require('path');
 const { spawnSync } = require('child_process');
 
 const root = process.cwd();
-const functionsRoot = path.join(root, 'functions');
+const functionsRoots = ['functions', 'trading/functions'].map(directory => path.join(root, directory));
 const files = [];
 
 function visit(directory) {
@@ -15,7 +15,7 @@ function visit(directory) {
   }
 }
 
-visit(functionsRoot);
+for (const directory of functionsRoots) visit(directory);
 for (const file of files) {
   const source = fs.readFileSync(file, 'utf8');
   const checked = spawnSync(process.execPath, ['--input-type=module', '--check'], { input: source, encoding: 'utf8' });

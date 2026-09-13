@@ -1,46 +1,39 @@
 // Private snapshot: no market data or Alpaca credential is included in Git.
-// Cloudflare Access protects all site domains; verify its signature here too.
-const ISSUER = 'https://nykuto.cloudflareaccess.com';
-const AUDIENCE = 'c32e7605f403b5782f17f3ba017488d62e13599d14811f0a15a3d914c4b50190';
-export const DATASET_KEY = 'jeu04/spy-15m-2025-12-2026-06-v1.csv';
-let cachedKeys = null, keysUntil = 0;
-const bytes = value => Uint8Array.from(atob(value.replace(/-/g, '+').replace(/_/g, '/')), c => c.charCodeAt(0));
-const decode = value => JSON.parse(new TextDecoder().decode(bytes(value)));
+// Research datasets require both a signed Access identity and the server-side owner role.
+import { authenticate } from '../../../account/access-auth.mjs';
+import { member, AccountError } from '../../../account/account-service.mjs';
 
-export async function authenticate(request) {
+export { authenticate };
+export const DATASET_KEY = 'jeu04/spy-15m-2025-12-2026-06-v1.csv';
+
+export const DATASET_HEADERS = Object.freeze({
+  'Cache-Control': 'private, no-store',
+  'Cross-Origin-Resource-Policy': 'same-origin',
+  'X-Content-Type-Options': 'nosniff',
+  'X-Robots-Tag': 'noindex, nofollow, noarchive',
+  'Vary': 'Cookie, Cf-Access-Jwt-Assertion',
+});
+
+const denied = (message, status) => new Response(message, { status, headers: DATASET_HEADERS });
+
+/** Return null only for the active owner recorded in D1. */
+export async function authorizeDataset(context) {
   try {
-    const token = request.headers.get('Cf-Access-Jwt-Assertion');
-    if (!token || token.length > 16384) return false;
-    const parts = token.split('.');
-    if (parts.length !== 3) return false;
-    const [header, claims] = parts.slice(0, 2).map(decode);
-    const now = Date.now() / 1000;
-    if (header.alg !== 'RS256' || typeof header.kid !== 'string' || claims.iss !== ISSUER ||
-        !Array.isArray(claims.aud) || !claims.aud.includes(AUDIENCE) ||
-        !Number.isFinite(claims.exp) || claims.exp <= now ||
-        !Number.isFinite(claims.iat) || claims.iat > now + 30 ||
-        (claims.nbf !== undefined && (!Number.isFinite(claims.nbf) || claims.nbf > now + 30))) return false;
-    if (!cachedKeys || Date.now() >= keysUntil) {
-      const response = await fetch(`${ISSUER}/cdn-cgi/access/certs`, { signal: AbortSignal.timeout(5000) });
-      if (!response.ok) return false;
-      const payload = await response.json();
-      if (!Array.isArray(payload.keys)) return false;
-      cachedKeys = payload.keys; keysUntil = Date.now() + 60000;
-    }
-    const jwk = cachedKeys.find(key => key.kid === header.kid && key.kty === 'RSA' && (!key.alg || key.alg === 'RS256'));
-    if (!jwk) return false;
-    const key = await crypto.subtle.importKey('jwk', jwk, { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' }, false, ['verify']);
-    const valid = await crypto.subtle.verify('RSASSA-PKCS1-v1_5', key, bytes(parts[2]), new TextEncoder().encode(`${parts[0]}.${parts[1]}`));
-    return valid ? claims : false;
-  } catch { return false; }
+    const user = await member(context);
+    return user.role === 'owner' ? null : denied('Owner access required', 403);
+  } catch (error) {
+    return denied(error instanceof AccountError ? error.message : 'Dataset unavailable', error instanceof AccountError ? error.status : 503);
+  }
 }
 
-export const authorized = async request => Boolean(await authenticate(request));
-
-export async function serveDataset({ request, env }, key, contentType) {
-  const headers = { 'Cache-Control': 'private, no-store', 'X-Content-Type-Options': 'nosniff', 'X-Robots-Tag': 'noindex, nofollow, noarchive', 'Vary': 'Cookie, Cf-Access-Jwt-Assertion' };
+export async function serveDataset({ request, env } = {}, key, contentType, { ownerVerified = false } = {}) {
+  const context = { request, env };
+  const headers = DATASET_HEADERS;
   if (request.method !== 'GET') return new Response('Method not allowed', { status: 405, headers: { ...headers, Allow: 'GET' } });
-  if (!await authorized(request)) return new Response('Authentication required', { status: 401, headers });
+  if (!ownerVerified) {
+    const rejection = await authorizeDataset(context);
+    if (rejection) return rejection;
+  }
   try {
     const csv = await env.TRADING_DATASETS?.get(key);
     if (!csv) return new Response('Dataset unavailable', { status: 503, headers });
