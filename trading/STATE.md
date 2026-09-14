@@ -34,11 +34,11 @@ M10 and M30 remain useful context. M1–M4 are retained as microstructure sensor
 - No retrospective management rule is promoted to live exits.
 - Old CSVs lack complete per-price-cell MAX BUY/MAX SELL locations, centroids and concentration; V2 prospective collection is required for true absorption/acceptance tests.
 
-## Corrected personal Nykuto Pro architecture — 10/10
+## Hardened personal Nykuto Pro architecture — 10/10 v2.2
 
-A manual TradingView compile of the first 9/9 CORE revealed a hard compiled-token failure: **102,768 compiled tokens vs TradingView limit 100,256**. The cause was architectural: combining the already-large V15.2.8 CORE with the full M5 Footprint cell-level collector pushed the script beyond the compiler limit.
+A manual TradingView compile of the first 9/9 CORE revealed a hard compiled-token failure: **102,768 compiled tokens vs TradingView limit 100,256**. The corrected architecture separates M5 Footprint into its own sensor and keeps the CORE Footprint-free.
 
-The corrected architecture therefore separates M5 Footprint into its own sensor. The target stack is now **ten active Pro scripts**, not nine:
+Target stack:
 
 - `[1/10] NYKUTO PRO — CORE` — V15.2.8 Bridge engine + slim 9-sensor hub; **no `request.footprint()`**.
 - `[2/10] NYKUTO PRO — M1 MICRO SENSOR`
@@ -53,13 +53,34 @@ The corrected architecture therefore separates M5 Footprint into its own sensor.
 
 Only `[1/10]` owns the visible operational HUD. Sensors remain visually silent except for Data Window/export outputs.
 
-### Why 10/10 is safer
+### v2.2 hardening now applied to the private package
 
-- Each sensor contains exactly one `request.footprint()` call, respecting TradingView's one-footprint-request-per-script runtime rule.
-- CORE contains zero Footprint requests and uses nine `input.source()` links, staying under the official maximum of ten external source inputs.
-- M5 Footprint no longer consumes compiled-token budget inside the legacy V15.2.8 CORE.
-- `shorttitle` values are kept below TradingView's recommended/validated length.
-- The commercial/partner script is untouched.
+- Common sensor contract upgraded to **schema v3**.
+- Every packet carries: schema version, sensor ID, online bit, direction class, role state, data-quality class, flags and compact source-close timestamp.
+- CORE validates **expected sensor ID + schema + online state + source age**. A wrong input mapping must become `INCOMPLETE` instead of silently being accepted.
+- Each sensor publishes `DATA_QUALITY` 0/1/2/3 using Footprint availability, row count, volume sanity, concentration and saturation checks.
+- M1–M4 now expose a temporal micro-state machine: stable / first flip / building / persistent / chaos.
+- M5 now carries current flow plus absorption/exhaustion SHADOW context.
+- M10 remains pressure/intensity.
+- M15 keeps POC migration and acceleration context.
+- M30 now separates quiet / normal / expansion / extreme activity.
+- M45 keeps slow-regime persistence / flip state.
+- CORE includes a lightweight **SHADOW Health Engine** combining M5 flow, price response in R and M15 POC support into HEALTHY / WEAK / PERSISTENT WEAK / RECOVERED / FAILURE diagnostics. It does not change exits.
+- CORE HUD supports `Mobile`, `Diagnostic` and `Research` modes; Mobile stays compact.
+- Sensors contain no alerts. Operational/priority alert ownership remains centralized in CORE.
+- All new states remain research-only and do not change BUY/SELL admission, SL, TP, size or risk.
+
+### Static audit of private package
+
+The hardened package was generated with these structural checks:
+
+- CORE: 1 `indicator()`, 0 `strategy()`, 0 Footprint calls, 9 `input.source()` links.
+- Each sensor: 1 `indicator()`, 0 `strategy()`, exactly 1 `request.footprint()`.
+- `shorttitle` lengths are 7–8 characters.
+- Previous suspicious comma-separated typed declarations were removed from generated sensors/hub.
+- Packet/schema fields are present in all sensors.
+
+This remains a **static audit only**. Pine compilation in TradingView is still the authoritative final check.
 
 ### Sensor roles
 
@@ -73,7 +94,7 @@ Only `[1/10]` owns the visible operational HUD. Sensors remain visually silent e
 - M30: activity / expansion / runner context.
 - M45: slow regime, STALE/FRESH.
 
-Each sensor exports a compact packet to CORE plus richer research fields for Data Window/CSV: delta, Delta30, POC move/acceleration, MAX BUY/SELL, MAX +/- delta levels, centroids, concentration, flow-efficiency, imbalance stacks, absorption/exhaustion proxies, close timestamp and availability.
+Each sensor exports a compact packet to CORE plus richer research fields for Data Window/CSV: delta, Delta30, POC move/acceleration, MAX BUY/SELL, MAX +/- delta levels, centroids, concentration, flow-efficiency, imbalance stacks, absorption/exhaustion proxies, row count, quality and close timestamp.
 
 ## 1R
 
@@ -89,18 +110,19 @@ Each sensor exports a compact packet to CORE plus richer research fields for Dat
 - `trading/lab/FOOTPRINT_PRO_WAVE12_SENSOR_ROLE_RESULTS.md`
 - `scripts/run-trading-footprint-pro-v1.mjs`
 
-Private Pine package currently prepared outside the public repository: `Nykuto_Pro_10_of_10_CORRECTED_20260914.zip`.
+Private Pine package currently prepared outside the public repository: `Nykuto_Pro_10_of_10_v2_2_HARDENED_20260914.zip`.
 
 ## Next action
 
-1. Discard the earlier 9/9 Pine package.
-2. Compile the corrected 10/10 package beginning with sensors 2→10, then CORE 1/10.
-3. Connect each CORE source to the corresponding sensor `NYK10_PACKET` output.
-4. Verify `SYSTEM 10/10`.
-5. Verify Data Window fields and exact source-close timestamps.
-6. Replay at least five historical signals and reload the chart to test no-repaint persistence.
-7. Freeze the prospective ruleset and begin collection without threshold changes.
-8. Promote no new gate, risk or management rule until prospective observations are accumulated.
+1. Discard the earlier 9/9 package and the first corrected 10/10 package in favor of v2.2 hardened.
+2. Compile sensors 2→10 first, starting with M1.
+3. Fix any compiler-level Pine incompatibility once in the shared template before copying the fix to the other sensors.
+4. Compile CORE 1/10 last.
+5. Connect each source to the correct `NYK10_PACKET` and verify `SYSTEM 10/10`.
+6. In Diagnostic mode, verify data quality and source age.
+7. Replay at least five historical signals and reload the chart to test closed-bar persistence/no-repaint behavior.
+8. Freeze the prospective ruleset and begin collection without threshold changes.
+9. Promote no new gate, risk or management rule until prospective observations are accumulated.
 
 ## Resume procedure for a new chat
 
