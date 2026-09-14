@@ -32,51 +32,106 @@ M10 and M30 remain useful context. M1–M4 are retained as microstructure sensor
 - Live-health research distinguishes flow holding, weakening, recovery and failure after entry.
 - Price response is required alongside Footprint deterioration before treating a trade as failed; flow opposition alone is not sufficient.
 - No retrospective management rule is promoted to live exits.
-- Old CSVs lack complete per-price-cell MAX BUY/MAX SELL locations, centroids and concentration; V2 prospective collection is required for true absorption/acceptance tests.
 
-## Hardened personal Nykuto Pro architecture — 11/11 v2.4
+## Live TradingView architecture — v3.0 CLEAN MEMORY
 
-A manual TradingView compile showed that embedding the sensor hub inside the large V15.2.8 execution script exceeded the Pine compiled-token ceiling (`103,446` vs `100,256`). Comments were also stripped for readability, but comments are not the real compiled-token driver. The architectural fix is to split execution and context/HUD into separate scripts.
+Manual TradingView testing exposed two separate platform ceilings:
 
-Target stack:
+1. Embedding the research hub inside the large V15.2.8 execution script exceeded the compiled-token ceiling (`103,446` vs `100,256`).
+2. A separate HUD directly reading EXEC plus all nine Footprint sensors appeared initially and then disappeared while TradingView progressively loaded the sources, with `Memory limits exceeded`. Reducing HUD plots and source history alone did not solve this reliably.
 
-- `[1/11] NYKUTO PRO — EXEC CORE` — V15.2.8 Bridge execution engine, no Footprint request, original plan logic preserved. Exports one compact `NYK24_PLAN_PACKET` only.
-- `[2/11] NYKUTO PRO — M1 MICRO SENSOR`
-- `[3/11] NYKUTO PRO — M2 MICRO SENSOR`
-- `[4/11] NYKUTO PRO — M3 MICRO SENSOR`
-- `[5/11] NYKUTO PRO — M4 MICRO SENSOR`
-- `[6/11] NYKUTO PRO — M5 FLOW SENSOR`
-- `[7/11] NYKUTO PRO — M10 PRESSURE SENSOR`
-- `[8/11] NYKUTO PRO — M15 FLOW SENSOR`
-- `[9/11] NYKUTO PRO — M30 ACTIVITY SENSOR`
-- `[10/11] NYKUTO PRO — M45 REGIME SENSOR`
-- `[11/11] NYKUTO PRO — HUD HUB` — separate lightweight overlay. Uses exactly 10 `input.source()` links: 1 plan packet + 9 sensor packets. Contains no Footprint request and no trade execution.
+The v3.0 live architecture therefore uses a two-stage fan-in. The nine Footprint sensors remain independent, but the final HUD no longer reads them directly.
 
-The EXEC CORE owns the actual Nykuto operational visuals/signals. The HUD HUB owns the compact research/context HUD. The nine sensors remain visually silent/overlay-only and can be hidden without stopping calculation.
+### Layer A — execution + nine minimal Footprint sensors
 
-### v2.4 hardening
+- `NYKEXEC` — current personal EXEC CORE derived from V15.2.8; no Footprint request; exports compact `NYK24_PLAN_PACKET`.
+- `NYK2/10` — M1 micro sensor.
+- `NYK3/10` — M2 micro sensor.
+- `NYK4/10` — M3 micro sensor.
+- `NYK5/10` — M4 micro sensor.
+- `NYK6/10` — M5 flow sensor.
+- `NYK7/10` — M10 pressure sensor.
+- `NYK8/10` — M15 flow/POC sensor.
+- `NYK9/10` — M30 activity sensor.
+- `NYK10/10` — M45 regime sensor.
 
-- Common sensor contract remains schema v3.
-- Every sensor packet carries schema version, sensor ID, online bit, direction class, role state, data-quality class, flags and compact source-close timestamp.
-- HUD HUB validates expected sensor ID + schema + online state + source age.
-- M1–M4 expose temporal micro states; M5 carries current flow/absorption/exhaustion SHADOW; M10 pressure; M15 POC/flow; M30 activity; M45 slow regime.
-- Health Engine remains SHADOW and is now computed in the separate HUD HUB from M5 flow + price response in R + M15 POC support.
-- `M15+POC`, `STALE`, micro cascade, persistent weakness, recovery and trade-failure outputs remain diagnostics only.
-- No new state modifies BUY/SELL admission, SL, TP, size or risk.
-- Verbose historical comments were removed from the private EXEC CORE copy to improve readability. Detailed research history remains in the repository instead of being duplicated in Pine source.
+Each live sensor now has:
 
-### Token-limit safety
+- exactly one `request.footprint()`;
+- exactly one exported plot: `NYK10_PACKET`;
+- no external `input.source()`;
+- `max_bars_back=80` and `calc_bars_count=80`;
+- no heavy per-price row loop in the live version unless its role requires a built-in Footprint field (M15 uses only POC);
+- the same compact schema-v3 packet contract used by downstream hubs.
 
-The reason for 11/11 is architectural, not cosmetic:
+Rich cell-level research collectors are intentionally not part of the live layout. They can be run separately for explicit export/research sessions so they do not destabilize the operational chart.
 
-- V15.2.8 execution logic remains isolated in one script that already compiled before the research hub was added.
-- HUD HUB is a small independent script, so future context features no longer consume the execution CORE token budget.
-- Sensors each keep exactly one `request.footprint()`.
-- HUD HUB has 10 external sources exactly, matching the current source budget design.
+### Layer B — three lightweight aggregation hubs
 
-This remains a static/package-level design until each script is compiled manually in TradingView.
+- `NYKMIC` — MICRO HUB. Reads M1/M2/M3/M4 only (4 sources) and exports one `NYK_MICRO_PACKET`.
+- `NYKFLW` — FLOW HUB. Reads M5/M10/M15 only (3 sources) and exports one `NYK_FLOW_PACKET`.
+- `NYKREG` — REGIME HUB. Reads M30/M45 only (2 sources) and exports one `NYK_REGIME_PACKET`.
 
-### Sensor roles
+These hubs contain no `request.footprint()` and each exports one compact packet.
+
+### Layer C — final NYKHUD
+
+Final `NYKHUD` reads only four external sources:
+
+1. `NYKEXEC: NYK24_PLAN_PACKET`
+2. `NYKMIC: NYK_MICRO_PACKET`
+3. `NYKFLW: NYK_FLOW_PACKET`
+4. `NYKREG: NYK_REGIME_PACKET`
+
+Therefore the final HUD no longer loads nine Footprint-backed external series directly. It reconstructs:
+
+- system health;
+- micro cascade / chaos / M1 noise / building state;
+- M10 pressure alignment;
+- M15 + POC confirmation;
+- M30 activity state;
+- M45 regime / STALE;
+- live Health state from M5 flow + current R response + M15 POC support;
+- centralized priority alerts.
+
+The HUD has no Footprint request and no research plots.
+
+### Expected diagnostic state
+
+When wired correctly in Diagnostic mode:
+
+- `SYSTEM 10/10`
+- `MICRO 4/4`
+- `FLOW 3/3`
+- `REGIME 2/2`
+- `EXEC OK`
+
+The `10/10` count represents EXEC + the nine Footprint sensor roles. The three hubs and HUD are transport/aggregation layers and are not additional market-role votes.
+
+## Visual policy
+
+- `NYKUTO STANDARD — PARTNERS` remains untouched.
+- Personal Nykuto Pro visual options must separate display from calculation.
+- Hiding an `Afficher ...` visual must not disable the underlying calculation.
+- The live Footprint sensors and intermediate hubs should be visually silent/hidden; only EXEC and the compact HUD need to be visible.
+- Do not remove BUY/SELL, Entry, SL, TP or other operational visuals when the user asks only to hide a specific guide line.
+
+## Alert policy
+
+Only final `NYKHUD` should own phone-priority research alerts. Sensors and intermediate hubs remain silent.
+
+Current alert classes are SHADOW/diagnostic only:
+
+- IMPORTANT: M15+POC strong confirm.
+- IMPORTANT: micro cascade against current plan.
+- CRITICAL: STALE / CHASE.
+- CRITICAL: trade failure.
+- CRITICAL: persistent weakening.
+- CRITICAL: system incomplete.
+
+Create one TradingView alert on `NYKHUD -> Any alert() function call` after the final HUD is stable.
+
+## Sensor roles
 
 - M1: first detector / noise discriminator.
 - M2: first confirmation of M1.
@@ -102,19 +157,20 @@ This remains a static/package-level design until each script is compiled manuall
 - `trading/lab/FOOTPRINT_PRO_WAVE12_SENSOR_ROLE_RESULTS.md`
 - `scripts/run-trading-footprint-pro-v1.mjs`
 
-Private package currently prepared outside the public repository: `Nykuto_Pro_11_of_11_v2_4_SPLIT_CORE_20260914.zip`.
+Private live package prepared outside the public repository: `Nykuto_Pro_v3_0_CLEAN_MEMORY_ARCHITECTURE.zip`.
 
 ## Next action
 
-1. Treat the previous 9/9 and 10/10 CORE packages as obsolete.
-2. Compile `[1/11] EXEC CORE` and confirm it still compiles with the tiny plan-packet addition.
-3. Compile sensors `[2/11]` through `[10/11]`.
-4. Compile `[11/11] HUD HUB` last.
-5. Connect `NYK24_PLAN_PACKET` plus each correct `NYK10_PACKET` and verify `SYSTEM 11/11`.
-6. Keep all sensors hidden/overlay-only; only EXEC CORE and HUD HUB need to remain visible.
-7. Replay at least five historical signals and reload the chart to test closed-bar persistence/no-repaint behavior.
-8. Freeze the prospective ruleset and begin collection without threshold changes.
-9. Promote no new gate, risk or management rule until prospective observations are accumulated.
+1. Treat prior direct-fan-in HUD versions as obsolete for live use.
+2. Keep current NYKEXEC.
+3. Replace the nine live Footprint sensor codes with v3.0 minimal sensors.
+4. Add and wire MICRO HUB, FLOW HUB and REGIME HUB.
+5. Replace NYKHUD with v3.0 final HUD and connect only four external sources.
+6. Confirm `SYSTEM 10/10`, `MICRO 4/4`, `FLOW 3/3`, `REGIME 2/2`, `EXEC OK` without a runtime-memory error.
+7. Only after that create the single NYKHUD phone alert.
+8. Replay at least five historical signals and reload the chart to test closed-bar persistence/no-repaint behavior.
+9. Freeze the prospective ruleset and begin collection without threshold changes.
+10. Promote no new gate, risk or management rule until prospective observations are accumulated.
 
 ## Resume procedure for a new chat
 
