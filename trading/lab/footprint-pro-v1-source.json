@@ -1,0 +1,17 @@
+{
+  "schema": "nykuto-footprint-pro-v1-source-v1",
+  "asOf": "2026-09-14",
+  "symbol": "CME_MINI_DL:MNQ1!",
+  "note": "Private TradingView Footprint CSVs. Raw prices stay outside Git; only hashes, coverage and aggregate results are committed.",
+  "files": {
+    "1": {"basename":"CME_MINI_MNQ1!, 1_c6979.csv","bytes":6297136,"sha256":"64ae2f01e60dc503b08971090f361e85f683f1d980d0ee9a49d2cc6e11079224"},
+    "2": {"basename":"CME_MINI_MNQ1!, 2_1e444.csv","bytes":6654363,"sha256":"47aa877ffefd0318850d35d346a511848503f56ab0a3205ef111a533d630b9a2"},
+    "3": {"basename":"CME_MINI_MNQ1!, 3_15d06.csv","bytes":6759627,"sha256":"455e734baa11610064379eff91ac049d05dcc50b7be219de9eecbc4fb68b95b6"},
+    "4": {"basename":"CME_MINI_MNQ1!, 4_5be5e.csv","bytes":6870926,"sha256":"872095e6eaddd8633eca58347d947ac7adb166175b2fe290ec88b680d9ff27ea"},
+    "5": {"basename":"CME_MINI_MNQ1!, 5_4449c.csv","bytes":6730566,"sha256":"f1ffb2ad47a4e261167c18cd3429c8990db8fd6d92485832d0e374566ce1cee0"},
+    "10": {"basename":"CME_MINI_MNQ1!, 10_769cf.csv","bytes":5232317,"sha256":"600739f5fae9d34ba0f6b9e043957b55921c345cbf05bbc053cf0435f6261c7d"},
+    "15": {"basename":"CME_MINI_MNQ1!, 15_1d4ec.csv","bytes":4718542,"sha256":"d998886d408ea0e72ceb74f5a6ef8e8a8e5470d454c6712ed072d47241ec5ebc"},
+    "30": {"basename":"CME_MINI_MNQ1!, 30_1fd4e.csv","bytes":4203476,"sha256":"943fef027a396d7dc6aff437c9dc168e56ca67d8e8f202591922e9ae7a4af8fe"},
+    "45": {"basename":"CME_MINI_MNQ1!, 45_af227.csv","bytes":4321096,"sha256":"6107f45b88a8e50a9436b61c22bdfa1a7ad4daef3524ad37c84b485d221c6732"}
+  }
+}

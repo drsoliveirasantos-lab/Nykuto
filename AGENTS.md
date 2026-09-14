@@ -68,4 +68,4 @@ et le relier au `AGENTS.md` et aux consignes Copilot du nouveau dépôt.
 
 ## Reprises du Trading HQ
 
-Avant un nouvel essai, lire `trading/lab/RESEARCH_LESSONS.md`, le catalogue croisé et le dernier protocole. Distinguer une erreur corrigée, une hypothèse rejetée et une amélioration indépendante confirmée. Ne pas convertir un score de confluence en probabilité, modifier les règles après les résultats ou présenter un test logiciel comme preuve de rentabilité. Conserver la mémoire des essais et la mettre à jour avec leurs preuves.
+Avant toute reprise du Trading HQ, lire d'abord `trading/STATE.md` lorsqu'il existe : ce fichier indique la branche de travail, le protocole courant et les fichiers canoniques à relire. Avant un nouvel essai, lire ensuite `trading/lab/RESEARCH_LESSONS.md`, le catalogue croisé et le dernier protocole. Distinguer une erreur corrigée, une hypothèse rejetée et une amélioration indépendante confirmée. Ne pas convertir un score de confluence en probabilité, modifier les règles après les résultats ou présenter un test logiciel comme preuve de rentabilité. Conserver la mémoire des essais et la mettre à jour avec leurs preuves.
