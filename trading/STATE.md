@@ -27,13 +27,17 @@ M10 and M30 remain useful context, but test 1 does not show incremental improvem
 
 ## Provisional personal Nykuto Pro layout
 
-Pending final interface/no-repaint test, the target is **three active Pro scripts**:
+The first architecture test and TradingView interface-limit review support **three active Pro scripts**:
 
 - `[1/3] NYKUTO PRO — CORE M5`
 - `[2/3] NYKUTO PRO — M15 FLOW SENSOR`
 - `[3/3] NYKUTO PRO — M45 REGIME SENSOR`
 
 Only `[1/3]` should own the visible phone HUD and priority Footprint alerts. Sensors should be visually silent except for Data Window/source outputs.
+
+The provisional CORE interface uses 9 of the 10 available external `input.source()` links: six M15 outputs and three M45 outputs. The CORE calculates its own M5 Footprint. Exact signal-time source-close timestamps are part of the interface contract so the TradingView replay can audit no-repaint behavior.
+
+This architecture is technically frozen for implementation, but it is **not operationally validated** until the three Pine files compile in TradingView and the five-signal replay/reload no-repaint check passes.
 
 `NYKUTO STANDARD — PARTNERS` stays separate and may be hidden on Diego's personal chart.
 
@@ -45,15 +49,24 @@ Only `[1/3]` should own the visible phone HUD and priority Footprint alerts. Sen
 
 - `trading/lab/FOOTPRINT_PRO_V1_PROTOCOL.md`
 - `trading/lab/FOOTPRINT_PRO_V1_RESULTS.md`
+- `trading/lab/FOOTPRINT_PRO_V1_INTERFACE.md`
 - `trading/lab/footprint-pro-v1-source.json`
 - `trading/lab/footprint-pro-v1-summary.csv`
 - `scripts/run-trading-footprint-pro-v1.mjs`
+
+## Next action
+
+1. Generate the three complete `[1/3]`, `[2/3]`, `[3/3]` Pine scripts from the frozen interface contract.
+2. Compile them manually in TradingView.
+3. Connect the nine sensor outputs to CORE.
+4. Verify five historical signals in Replay, then reload the chart and confirm the attached M15/M45 values remain identical.
+5. If compilation and replay pass, freeze the first prospective ruleset and begin collection without threshold changes.
 
 ## Resume procedure for a new chat
 
 1. Read `SOURCE_OF_TRUTH.md`, `AGENTS.md`, `.github/copilot-instructions.md`, `docs/site-architecture.md`.
 2. Read `trading/STATE.md`.
 3. Read `trading/lab/RESEARCH_LESSONS.md` and `trading/lab/research-catalog.json` before proposing another trading experiment.
-4. Read the Footprint Pro protocol/results above.
+4. Read the Footprint Pro protocol/results/interface above.
 5. Never treat a repeated retrospective test as independent evidence.
 6. Do not merge the Footprint Pro branch into Trading production until Diego explicitly validates the merge and checks are green.
