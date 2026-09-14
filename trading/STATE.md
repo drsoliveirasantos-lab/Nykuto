@@ -1,7 +1,7 @@
 # Nykuto Trading — current state
 
 Last updated: 2026-09-14  
-Purpose: stable handoff for new ChatGPT conversations and future contributors. Read this file before continuing Trading work, then follow the linked protocol/results.
+Purpose: stable handoff for new ChatGPT conversations and future contributors. Read this file before continuing Trading work.
 
 ## Production boundary
 
@@ -23,85 +23,83 @@ Current hierarchy remains:
 4. FLOW ACCEPTANCE A+ — optimized on seen data; SHADOW only.
 5. M5 Delta30 30–50 — small-sample ELITE research only.
 
-M10 and M30 remain useful context. M1–M4 have not validated as admission gates, but they are now explicitly retained as microstructure sensors for temporal/conditional role discovery rather than discarded.
+M10 and M30 remain useful context. M1–M4 are retained as microstructure sensors for temporal/conditional role discovery, not admission gates.
 
 ## Wave 2+ additions
 
-New SHADOW candidates and management observations remain research-only:
-
-- `M15_POC_ACCEL_ATR > 0` is a leading positive quality field.
-- `STALE + M15 POC opposed` is a leading STALE severity field (`STALE+`).
-- M5 flow streak/maturity, session and volatility remain diagnostics.
-- Live health research distinguishes flow holding, weakening, recovery and failure after entry.
+- `M15_POC_ACCEL_ATR > 0` remains a leading positive SHADOW quality field.
+- `STALE + M15 POC opposed` remains a leading STALE severity field (`STALE+`).
+- Live-health research distinguishes flow holding, weakening, recovery and failure after entry.
 - Price response is required alongside Footprint deterioration before treating a trade as failed; flow opposition alone is not sufficient.
-- No retrospective management rule is promoted to live exits yet.
+- No retrospective management rule is promoted to live exits.
+- Old CSVs lack complete per-price-cell MAX BUY/MAX SELL locations, centroids and concentration; V2 prospective collection is required for true absorption/acceptance tests.
 
-The old aggregate CSVs do not contain full per-price-cell MAX BUY/MAX SELL locations, centroids or concentration, so true price-level absorption/acceptance tests require V2 prospective collection.
+## Corrected personal Nykuto Pro architecture — 10/10
 
-## Personal Nykuto Pro architecture — expanded research stack
+A manual TradingView compile of the first 9/9 CORE revealed a hard compiled-token failure: **102,768 compiled tokens vs TradingView limit 100,256**. The cause was architectural: combining the already-large V15.2.8 CORE with the full M5 Footprint cell-level collector pushed the script beyond the compiler limit.
 
-The project is no longer optimizing for the minimum number of scripts. Diego accepts several hidden sensor scripts if they improve data collection, auditability and future role discovery.
+The corrected architecture therefore separates M5 Footprint into its own sensor. The target stack is now **ten active Pro scripts**, not nine:
 
-Target research layout is now **nine active Pro scripts**:
+- `[1/10] NYKUTO PRO — CORE` — V15.2.8 Bridge engine + slim 9-sensor hub; **no `request.footprint()`**.
+- `[2/10] NYKUTO PRO — M1 MICRO SENSOR`
+- `[3/10] NYKUTO PRO — M2 MICRO SENSOR`
+- `[4/10] NYKUTO PRO — M3 MICRO SENSOR`
+- `[5/10] NYKUTO PRO — M4 MICRO SENSOR`
+- `[6/10] NYKUTO PRO — M5 FLOW SENSOR`
+- `[7/10] NYKUTO PRO — M10 PRESSURE SENSOR`
+- `[8/10] NYKUTO PRO — M15 FLOW SENSOR`
+- `[9/10] NYKUTO PRO — M30 ACTIVITY SENSOR`
+- `[10/10] NYKUTO PRO — M45 REGIME SENSOR`
 
-- `[1/9] NYKUTO PRO — CORE M5`
-- `[2/9] NYKUTO PRO — M1 MICRO SENSOR`
-- `[3/9] NYKUTO PRO — M2 MICRO SENSOR`
-- `[4/9] NYKUTO PRO — M3 MICRO SENSOR`
-- `[5/9] NYKUTO PRO — M4 MICRO SENSOR`
-- `[6/9] NYKUTO PRO — M10 PRESSURE SENSOR`
-- `[7/9] NYKUTO PRO — M15 FLOW SENSOR`
-- `[8/9] NYKUTO PRO — M30 ACTIVITY SENSOR`
-- `[9/9] NYKUTO PRO — M45 REGIME SENSOR`
+Only `[1/10]` owns the visible operational HUD. Sensors remain visually silent except for Data Window/export outputs.
 
-Only `[1/9]` should own the visible phone HUD, labels and priority alerts. All other sensors should be visually silent except for Data Window/export outputs.
+### Why 10/10 is safer
 
-### Sensor role principle
+- Each sensor contains exactly one `request.footprint()` call, respecting TradingView's one-footprint-request-per-script runtime rule.
+- CORE contains zero Footprint requests and uses nine `input.source()` links, staying under the official maximum of ten external source inputs.
+- M5 Footprint no longer consumes compiled-token budget inside the legacy V15.2.8 CORE.
+- `shorttitle` values are kept below TradingView's recommended/validated length.
+- The commercial/partner script is untouched.
 
-Each timeframe has a role to discover rather than an equal vote:
+### Sensor roles
 
 - M1: first detector / noise discriminator.
 - M2: first confirmation of M1.
 - M3: persistence / maturation.
-- M4: bridge from microstructure to M5 execution.
-- M5: Nykuto execution and live-health engine.
+- M4: bridge from microstructure to M5.
+- M5: current execution-flow / health Footprint.
 - M10: intermediate pressure.
 - M15: decision layer, POC migration, acceptance/response.
-- M30: activity/expansion/runner context.
+- M30: activity / expansion / runner context.
 - M45: slow regime, STALE/FRESH.
 
-The research objective is incremental, conditional and temporal value — not simple alignment counts.
-
-### CORE interface / source-budget rule
-
-TradingView external-source limits mean the CORE cannot directly wire every raw output from every sensor. Sensors should therefore export rich research fields for CSV/Data Window while exposing compact `STATE_CODE` / health outputs to CORE. Secondary fields should remain export-only or be packed into state codes.
-
-Each sensor should publish quality metadata such as availability, source-close timestamp, data age, row count and schema version. CORE must be able to display a `SYSTEM 9/9` health state and mark dependent states `INCOMPLETE` when a sensor is missing/stale.
+Each sensor exports a compact packet to CORE plus richer research fields for Data Window/CSV: delta, Delta30, POC move/acceleration, MAX BUY/SELL, MAX +/- delta levels, centroids, concentration, flow-efficiency, imbalance stacks, absorption/exhaustion proxies, close timestamp and availability.
 
 ## 1R
 
-1R remains an explicit benchmark. Historical tests show a universal 1R cap often raises win rate while reducing expectancy. Management is increasingly state-dependent; no target change is promoted.
+1R remains an explicit benchmark. Historical tests show a universal 1R cap often raises win rate while reducing expectancy. No target change is promoted.
 
-## Canonical files for this work
+## Canonical research files
 
 - `trading/lab/FOOTPRINT_PRO_V1_PROTOCOL.md`
 - `trading/lab/FOOTPRINT_PRO_V1_RESULTS.md`
 - `trading/lab/FOOTPRINT_PRO_V1_INTERFACE.md`
 - `trading/lab/FOOTPRINT_PRO_WAVE2_RESULTS.md`
 - `trading/lab/FOOTPRINT_PRO_WAVE12_SENSOR_ROLE_DISCOVERY_PROTOCOL.md`
-- `trading/lab/footprint-pro-v1-source.json`
-- `trading/lab/footprint-pro-v1-summary.csv`
+- `trading/lab/FOOTPRINT_PRO_WAVE12_SENSOR_ROLE_RESULTS.md`
 - `scripts/run-trading-footprint-pro-v1.mjs`
+
+Private Pine package currently prepared outside the public repository: `Nykuto_Pro_10_of_10_CORRECTED_20260914.zip`.
 
 ## Next action
 
-1. Build the sensor contract for all 9 scripts, with common quality/audit fields and compact CORE-facing state codes.
-2. Re-run retrospective role-discovery tests where historical coverage exists: micro lead/lag, cascade depth, recovery, M4↔M5 disagreement, M10 conditional pressure, M30 runner/activity and cross-TF redundancy.
-3. Generate the nine Pine scripts on the research branch, leaving `NYKUTO STANDARD — PARTNERS` unchanged.
-4. Ensure V2 prospectively exports per-price-cell MAX BUY/MAX SELL/MAX +/- delta prices, centroids, concentration/entropy, imbalance location and post-entry snapshots.
-5. Compile all nine manually in TradingView and connect CORE inputs.
-6. Verify `SYSTEM 9/9`, timestamps, replay/reload no-repaint behavior and sensor failure handling.
-7. Freeze the prospective ruleset and begin collecting without threshold changes.
+1. Discard the earlier 9/9 Pine package.
+2. Compile the corrected 10/10 package beginning with sensors 2→10, then CORE 1/10.
+3. Connect each CORE source to the corresponding sensor `NYK10_PACKET` output.
+4. Verify `SYSTEM 10/10`.
+5. Verify Data Window fields and exact source-close timestamps.
+6. Replay at least five historical signals and reload the chart to test no-repaint persistence.
+7. Freeze the prospective ruleset and begin collection without threshold changes.
 8. Promote no new gate, risk or management rule until prospective observations are accumulated.
 
 ## Resume procedure for a new chat
@@ -110,6 +108,5 @@ Each sensor should publish quality metadata such as availability, source-close t
 2. Read `trading/STATE.md`.
 3. Read `trading/lab/RESEARCH_LESSONS.md` and `trading/lab/research-catalog.json` before proposing another trading experiment.
 4. Read the Footprint Pro protocol/results/interface and latest Wave reports.
-5. Read `trading/lab/FOOTPRINT_PRO_WAVE12_SENSOR_ROLE_DISCOVERY_PROTOCOL.md` before changing sensor architecture.
-6. Never treat a repeated retrospective test as independent evidence.
-7. Do not merge the Footprint Pro branch into Trading production until Diego explicitly validates the merge and checks are green.
+5. Never treat a repeated retrospective test as independent evidence.
+6. Do not merge the Footprint Pro branch into Trading production until Diego explicitly validates the merge and checks are green.
