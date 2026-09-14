@@ -23,50 +23,64 @@ Current hierarchy remains:
 4. FLOW ACCEPTANCE A+ — optimized on seen data; SHADOW only.
 5. M5 Delta30 30–50 — small-sample ELITE research only.
 
-M10 and M30 remain useful context, but test 1 does not show incremental improvement when they are required on top of M15+POC / Flow Response. M1–M4 remain micro diagnostics.
+M10 and M30 remain useful context. M1–M4 have not validated as admission gates, but they are now explicitly retained as microstructure sensors for temporal/conditional role discovery rather than discarded.
 
-## Wave 2 additions
+## Wave 2+ additions
 
-Wave 2 screens mechanism-level features and trade-path behavior without changing any production logic.
+New SHADOW candidates and management observations remain research-only:
 
-New SHADOW candidates:
+- `M15_POC_ACCEL_ATR > 0` is a leading positive quality field.
+- `STALE + M15 POC opposed` is a leading STALE severity field (`STALE+`).
+- M5 flow streak/maturity, session and volatility remain diagnostics.
+- Live health research distinguishes flow holding, weakening, recovery and failure after entry.
+- Price response is required alongside Footprint deterioration before treating a trade as failed; flow opposition alone is not sufficient.
+- No retrospective management rule is promoted to live exits yet.
 
-- `M15_POC_ACCEL_ATR > 0` is the strongest new positive quality field. Inside M15+POC it produced sequential n=36, about +0.674R/trade, PF ~4.32, and remained about +0.221R after removing the top five trades. An opportunity-level day-block comparison against other M15+POC observations produced an incremental interval approximately [+0.027R, +1.195R]. This is still retrospective and is not a hard gate.
-- `STALE + M15 POC opposed` is the strongest new severity field. Sequential n=219, about -0.247R/trade, PF ~0.50, and about -0.310R after removing the top five. The day-block comparison versus other STALE observations produced an interval approximately [-0.400R, -0.035R]. Proposed research label: `STALE+`.
-- M5 flow streak/maturity, session and volatility remain diagnostics only.
+The old aggregate CSVs do not contain full per-price-cell MAX BUY/MAX SELL locations, centroids or concentration, so true price-level absorption/acceptance tests require V2 prospective collection.
 
-Management research is now explicitly state-dependent:
+## Personal Nykuto Pro architecture — expanded research stack
 
-- M15+POC: HOLD60 ~+0.684R; TP2.5/60 ~+0.679R; both remain positive after top-five removal.
-- Flow Response: HOLD30 remains better than HOLD60 and the tested runner variants.
-- Flow Acceptance A+: TP2.5/60 is strong historically but doubly exploratory because the parent rule was already optimized on seen data.
-- STALE remains negative under every tested management policy.
+The project is no longer optimizing for the minimum number of scripts. Diego accepts several hidden sensor scripts if they improve data collection, auditability and future role discovery.
 
-Path geometry over up to 60 minutes reinforces the distinction: M15+POC and Flow Acceptance have higher median MFE and lower median adverse excursion than STALE. No target or stop rule is promoted from this retrospective work.
+Target research layout is now **nine active Pro scripts**:
 
-The old aggregate CSVs do not contain per-price-cell MAX BUY/MAX SELL locations, centroids or concentration, so true price-level absorption/acceptance tests must wait for V2 prospective collection.
+- `[1/9] NYKUTO PRO — CORE M5`
+- `[2/9] NYKUTO PRO — M1 MICRO SENSOR`
+- `[3/9] NYKUTO PRO — M2 MICRO SENSOR`
+- `[4/9] NYKUTO PRO — M3 MICRO SENSOR`
+- `[5/9] NYKUTO PRO — M4 MICRO SENSOR`
+- `[6/9] NYKUTO PRO — M10 PRESSURE SENSOR`
+- `[7/9] NYKUTO PRO — M15 FLOW SENSOR`
+- `[8/9] NYKUTO PRO — M30 ACTIVITY SENSOR`
+- `[9/9] NYKUTO PRO — M45 REGIME SENSOR`
 
-## Provisional personal Nykuto Pro layout
+Only `[1/9]` should own the visible phone HUD, labels and priority alerts. All other sensors should be visually silent except for Data Window/export outputs.
 
-The first architecture test and TradingView interface-limit review support **three active Pro scripts**:
+### Sensor role principle
 
-- `[1/3] NYKUTO PRO — CORE M5`
-- `[2/3] NYKUTO PRO — M15 FLOW SENSOR`
-- `[3/3] NYKUTO PRO — M45 REGIME SENSOR`
+Each timeframe has a role to discover rather than an equal vote:
 
-Only `[1/3]` should own the visible phone HUD and priority Footprint alerts. Sensors should be visually silent except for Data Window/source outputs.
+- M1: first detector / noise discriminator.
+- M2: first confirmation of M1.
+- M3: persistence / maturation.
+- M4: bridge from microstructure to M5 execution.
+- M5: Nykuto execution and live-health engine.
+- M10: intermediate pressure.
+- M15: decision layer, POC migration, acceptance/response.
+- M30: activity/expansion/runner context.
+- M45: slow regime, STALE/FRESH.
 
-The provisional CORE interface uses 9 of the 10 available external `input.source()` links: six M15 outputs and three M45 outputs. The CORE calculates its own M5 Footprint. Exact signal-time source-close timestamps are part of the interface contract so the TradingView replay can audit no-repaint behavior.
+The research objective is incremental, conditional and temporal value — not simple alignment counts.
 
-Wave 2 means the M15 sensor should also collect/export POC velocity/acceleration and POC-opposition research fields. Where the 10-source budget prevents direct CORE wiring, secondary fields should remain export-only or be packed into a sensor state code rather than adding another required script.
+### CORE interface / source-budget rule
 
-This architecture is technically frozen for implementation, but it is **not operationally validated** until the three Pine files compile in TradingView and the five-signal replay/reload no-repaint check passes.
+TradingView external-source limits mean the CORE cannot directly wire every raw output from every sensor. Sensors should therefore export rich research fields for CSV/Data Window while exposing compact `STATE_CODE` / health outputs to CORE. Secondary fields should remain export-only or be packed into state codes.
 
-`NYKUTO STANDARD — PARTNERS` stays separate and may be hidden on Diego's personal chart.
+Each sensor should publish quality metadata such as availability, source-close timestamp, data age, row count and schema version. CORE must be able to display a `SYSTEM 9/9` health state and mark dependent states `INCOMPLETE` when a sensor is missing/stale.
 
 ## 1R
 
-1R is explicitly retained as a benchmark. Test 1 compares the same candidate families under HOLD30 and a conservative TP1/1R cap. The 1R cap generally raises observed win rate but reduces expectancy on the already-seen June–September data. Wave 2 additionally shows that management performance differs by market state, so one universal 1R/runner rule is not justified. No target change is promoted.
+1R remains an explicit benchmark. Historical tests show a universal 1R cap often raises win rate while reducing expectancy. Management is increasingly state-dependent; no target change is promoted.
 
 ## Canonical files for this work
 
@@ -74,25 +88,28 @@ This architecture is technically frozen for implementation, but it is **not oper
 - `trading/lab/FOOTPRINT_PRO_V1_RESULTS.md`
 - `trading/lab/FOOTPRINT_PRO_V1_INTERFACE.md`
 - `trading/lab/FOOTPRINT_PRO_WAVE2_RESULTS.md`
+- `trading/lab/FOOTPRINT_PRO_WAVE12_SENSOR_ROLE_DISCOVERY_PROTOCOL.md`
 - `trading/lab/footprint-pro-v1-source.json`
 - `trading/lab/footprint-pro-v1-summary.csv`
 - `scripts/run-trading-footprint-pro-v1.mjs`
 
 ## Next action
 
-1. Generate the three complete `[1/3]`, `[2/3]`, `[3/3]` Pine scripts from the frozen interface contract, including Wave 2 SHADOW collection fields.
-2. Ensure V2 prospectively exports per-price-cell MAX BUY/MAX SELL/MAX +/- delta prices, flow concentration/centroid fields and live post-entry flow snapshots.
-3. Compile the three scripts manually in TradingView.
-4. Connect the sensor outputs to CORE.
-5. Verify five historical signals in Replay, then reload the chart and confirm the attached M15/M45 values remain identical.
-6. If compilation and replay pass, freeze the first prospective ruleset and begin collection without threshold changes.
-7. Promote no new gate, risk or management rule until prospective observations are accumulated.
+1. Build the sensor contract for all 9 scripts, with common quality/audit fields and compact CORE-facing state codes.
+2. Re-run retrospective role-discovery tests where historical coverage exists: micro lead/lag, cascade depth, recovery, M4↔M5 disagreement, M10 conditional pressure, M30 runner/activity and cross-TF redundancy.
+3. Generate the nine Pine scripts on the research branch, leaving `NYKUTO STANDARD — PARTNERS` unchanged.
+4. Ensure V2 prospectively exports per-price-cell MAX BUY/MAX SELL/MAX +/- delta prices, centroids, concentration/entropy, imbalance location and post-entry snapshots.
+5. Compile all nine manually in TradingView and connect CORE inputs.
+6. Verify `SYSTEM 9/9`, timestamps, replay/reload no-repaint behavior and sensor failure handling.
+7. Freeze the prospective ruleset and begin collecting without threshold changes.
+8. Promote no new gate, risk or management rule until prospective observations are accumulated.
 
 ## Resume procedure for a new chat
 
 1. Read `SOURCE_OF_TRUTH.md`, `AGENTS.md`, `.github/copilot-instructions.md`, `docs/site-architecture.md`.
 2. Read `trading/STATE.md`.
 3. Read `trading/lab/RESEARCH_LESSONS.md` and `trading/lab/research-catalog.json` before proposing another trading experiment.
-4. Read the Footprint Pro protocol/results/interface and Wave 2 report above.
-5. Never treat a repeated retrospective test as independent evidence.
-6. Do not merge the Footprint Pro branch into Trading production until Diego explicitly validates the merge and checks are green.
+4. Read the Footprint Pro protocol/results/interface and latest Wave reports.
+5. Read `trading/lab/FOOTPRINT_PRO_WAVE12_SENSOR_ROLE_DISCOVERY_PROTOCOL.md` before changing sensor architecture.
+6. Never treat a repeated retrospective test as independent evidence.
+7. Do not merge the Footprint Pro branch into Trading production until Diego explicitly validates the merge and checks are green.
