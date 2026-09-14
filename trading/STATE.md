@@ -34,53 +34,47 @@ M10 and M30 remain useful context. M1–M4 are retained as microstructure sensor
 - No retrospective management rule is promoted to live exits.
 - Old CSVs lack complete per-price-cell MAX BUY/MAX SELL locations, centroids and concentration; V2 prospective collection is required for true absorption/acceptance tests.
 
-## Hardened personal Nykuto Pro architecture — 10/10 v2.2
+## Hardened personal Nykuto Pro architecture — 11/11 v2.4
 
-A manual TradingView compile of the first 9/9 CORE revealed a hard compiled-token failure: **102,768 compiled tokens vs TradingView limit 100,256**. The corrected architecture separates M5 Footprint into its own sensor and keeps the CORE Footprint-free.
+A manual TradingView compile showed that embedding the sensor hub inside the large V15.2.8 execution script exceeded the Pine compiled-token ceiling (`103,446` vs `100,256`). Comments were also stripped for readability, but comments are not the real compiled-token driver. The architectural fix is to split execution and context/HUD into separate scripts.
 
 Target stack:
 
-- `[1/10] NYKUTO PRO — CORE` — V15.2.8 Bridge engine + slim 9-sensor hub; **no `request.footprint()`**.
-- `[2/10] NYKUTO PRO — M1 MICRO SENSOR`
-- `[3/10] NYKUTO PRO — M2 MICRO SENSOR`
-- `[4/10] NYKUTO PRO — M3 MICRO SENSOR`
-- `[5/10] NYKUTO PRO — M4 MICRO SENSOR`
-- `[6/10] NYKUTO PRO — M5 FLOW SENSOR`
-- `[7/10] NYKUTO PRO — M10 PRESSURE SENSOR`
-- `[8/10] NYKUTO PRO — M15 FLOW SENSOR`
-- `[9/10] NYKUTO PRO — M30 ACTIVITY SENSOR`
-- `[10/10] NYKUTO PRO — M45 REGIME SENSOR`
+- `[1/11] NYKUTO PRO — EXEC CORE` — V15.2.8 Bridge execution engine, no Footprint request, original plan logic preserved. Exports one compact `NYK24_PLAN_PACKET` only.
+- `[2/11] NYKUTO PRO — M1 MICRO SENSOR`
+- `[3/11] NYKUTO PRO — M2 MICRO SENSOR`
+- `[4/11] NYKUTO PRO — M3 MICRO SENSOR`
+- `[5/11] NYKUTO PRO — M4 MICRO SENSOR`
+- `[6/11] NYKUTO PRO — M5 FLOW SENSOR`
+- `[7/11] NYKUTO PRO — M10 PRESSURE SENSOR`
+- `[8/11] NYKUTO PRO — M15 FLOW SENSOR`
+- `[9/11] NYKUTO PRO — M30 ACTIVITY SENSOR`
+- `[10/11] NYKUTO PRO — M45 REGIME SENSOR`
+- `[11/11] NYKUTO PRO — HUD HUB` — separate lightweight overlay. Uses exactly 10 `input.source()` links: 1 plan packet + 9 sensor packets. Contains no Footprint request and no trade execution.
 
-Only `[1/10]` owns the visible operational HUD. Sensors remain visually silent except for Data Window/export outputs.
+The EXEC CORE owns the actual Nykuto operational visuals/signals. The HUD HUB owns the compact research/context HUD. The nine sensors remain visually silent/overlay-only and can be hidden without stopping calculation.
 
-### v2.2 hardening now applied to the private package
+### v2.4 hardening
 
-- Common sensor contract upgraded to **schema v3**.
-- Every packet carries: schema version, sensor ID, online bit, direction class, role state, data-quality class, flags and compact source-close timestamp.
-- CORE validates **expected sensor ID + schema + online state + source age**. A wrong input mapping must become `INCOMPLETE` instead of silently being accepted.
-- Each sensor publishes `DATA_QUALITY` 0/1/2/3 using Footprint availability, row count, volume sanity, concentration and saturation checks.
-- M1–M4 now expose a temporal micro-state machine: stable / first flip / building / persistent / chaos.
-- M5 now carries current flow plus absorption/exhaustion SHADOW context.
-- M10 remains pressure/intensity.
-- M15 keeps POC migration and acceleration context.
-- M30 now separates quiet / normal / expansion / extreme activity.
-- M45 keeps slow-regime persistence / flip state.
-- CORE includes a lightweight **SHADOW Health Engine** combining M5 flow, price response in R and M15 POC support into HEALTHY / WEAK / PERSISTENT WEAK / RECOVERED / FAILURE diagnostics. It does not change exits.
-- CORE HUD supports `Mobile`, `Diagnostic` and `Research` modes; Mobile stays compact.
-- Sensors contain no alerts. Operational/priority alert ownership remains centralized in CORE.
-- All new states remain research-only and do not change BUY/SELL admission, SL, TP, size or risk.
+- Common sensor contract remains schema v3.
+- Every sensor packet carries schema version, sensor ID, online bit, direction class, role state, data-quality class, flags and compact source-close timestamp.
+- HUD HUB validates expected sensor ID + schema + online state + source age.
+- M1–M4 expose temporal micro states; M5 carries current flow/absorption/exhaustion SHADOW; M10 pressure; M15 POC/flow; M30 activity; M45 slow regime.
+- Health Engine remains SHADOW and is now computed in the separate HUD HUB from M5 flow + price response in R + M15 POC support.
+- `M15+POC`, `STALE`, micro cascade, persistent weakness, recovery and trade-failure outputs remain diagnostics only.
+- No new state modifies BUY/SELL admission, SL, TP, size or risk.
+- Verbose historical comments were removed from the private EXEC CORE copy to improve readability. Detailed research history remains in the repository instead of being duplicated in Pine source.
 
-### Static audit of private package
+### Token-limit safety
 
-The hardened package was generated with these structural checks:
+The reason for 11/11 is architectural, not cosmetic:
 
-- CORE: 1 `indicator()`, 0 `strategy()`, 0 Footprint calls, 9 `input.source()` links.
-- Each sensor: 1 `indicator()`, 0 `strategy()`, exactly 1 `request.footprint()`.
-- `shorttitle` lengths are 7–8 characters.
-- Previous suspicious comma-separated typed declarations were removed from generated sensors/hub.
-- Packet/schema fields are present in all sensors.
+- V15.2.8 execution logic remains isolated in one script that already compiled before the research hub was added.
+- HUD HUB is a small independent script, so future context features no longer consume the execution CORE token budget.
+- Sensors each keep exactly one `request.footprint()`.
+- HUD HUB has 10 external sources exactly, matching the current source budget design.
 
-This remains a **static audit only**. Pine compilation in TradingView is still the authoritative final check.
+This remains a static/package-level design until each script is compiled manually in TradingView.
 
 ### Sensor roles
 
@@ -93,8 +87,6 @@ This remains a **static audit only**. Pine compilation in TradingView is still t
 - M15: decision layer, POC migration, acceptance/response.
 - M30: activity / expansion / runner context.
 - M45: slow regime, STALE/FRESH.
-
-Each sensor exports a compact packet to CORE plus richer research fields for Data Window/CSV: delta, Delta30, POC move/acceleration, MAX BUY/SELL, MAX +/- delta levels, centroids, concentration, flow-efficiency, imbalance stacks, absorption/exhaustion proxies, row count, quality and close timestamp.
 
 ## 1R
 
@@ -110,16 +102,16 @@ Each sensor exports a compact packet to CORE plus richer research fields for Dat
 - `trading/lab/FOOTPRINT_PRO_WAVE12_SENSOR_ROLE_RESULTS.md`
 - `scripts/run-trading-footprint-pro-v1.mjs`
 
-Private Pine package currently prepared outside the public repository: `Nykuto_Pro_10_of_10_v2_2_HARDENED_20260914.zip`.
+Private package currently prepared outside the public repository: `Nykuto_Pro_11_of_11_v2_4_SPLIT_CORE_20260914.zip`.
 
 ## Next action
 
-1. Discard the earlier 9/9 package and the first corrected 10/10 package in favor of v2.2 hardened.
-2. Compile sensors 2→10 first, starting with M1.
-3. Fix any compiler-level Pine incompatibility once in the shared template before copying the fix to the other sensors.
-4. Compile CORE 1/10 last.
-5. Connect each source to the correct `NYK10_PACKET` and verify `SYSTEM 10/10`.
-6. In Diagnostic mode, verify data quality and source age.
+1. Treat the previous 9/9 and 10/10 CORE packages as obsolete.
+2. Compile `[1/11] EXEC CORE` and confirm it still compiles with the tiny plan-packet addition.
+3. Compile sensors `[2/11]` through `[10/11]`.
+4. Compile `[11/11] HUD HUB` last.
+5. Connect `NYK24_PLAN_PACKET` plus each correct `NYK10_PACKET` and verify `SYSTEM 11/11`.
+6. Keep all sensors hidden/overlay-only; only EXEC CORE and HUD HUB need to remain visible.
 7. Replay at least five historical signals and reload the chart to test closed-bar persistence/no-repaint behavior.
 8. Freeze the prospective ruleset and begin collection without threshold changes.
 9. Promote no new gate, risk or management rule until prospective observations are accumulated.
