@@ -1,0 +1,45 @@
+/* Nykuto Trading — compact command center layer */
+:root{--cc-sidebar:224px;--cc-top:66px}
+body{background:radial-gradient(circle at 78% -20%,rgba(53,201,149,.09),transparent 32rem),#050a12}
+.topbar{height:var(--cc-top);padding:.65rem 1.1rem .65rem calc(var(--cc-sidebar) + 1.15rem)}
+.section-nav{position:fixed;left:0;top:0;bottom:0;width:var(--cc-sidebar);z-index:30;display:flex;flex-direction:column;gap:.3rem;padding:5.25rem .75rem 1rem;overflow-y:auto;border-right:1px solid var(--line);border-bottom:0;background:rgba(5,10,18,.96);backdrop-filter:blur(18px)}
+.section-nav::before{content:'COMMAND CENTER';position:absolute;top:1.1rem;left:1rem;color:var(--accent);font-size:.68rem;font-weight:800;letter-spacing:.13em}
+.section-nav a{display:flex;align-items:center;min-height:40px;padding:.58rem .72rem;border:1px solid transparent;border-radius:10px}
+.section-nav a:hover,.section-nav a:focus-visible{border-color:var(--line);background:var(--surface-2);color:var(--text)}
+main,footer{margin-left:var(--cc-sidebar);max-width:none}
+main{padding:.75rem}
+.page-section{padding:1rem;scroll-margin-top:78px}
+.page-section+.page-section{border-top:0;margin-top:.35rem}
+.hero-section{padding-top:1rem}
+.section-heading{margin-bottom:.8rem;align-items:center}
+.section-heading h2{margin:.08rem 0 .18rem}
+.kpi-grid{gap:.55rem;margin-bottom:.65rem}
+.kpi-card{padding:.78rem .85rem;box-shadow:none}
+.kpi-value{font-size:1.22rem}
+.performance{margin-top:.55rem}
+.performance>.perf-heading{padding:.75rem .85rem;border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,rgba(13,26,43,.95),rgba(8,18,31,.95))}
+#perfInputs{position:sticky;top:calc(var(--cc-top) + .5rem);z-index:10;margin:.55rem 0;padding:.65rem;border:1px solid var(--line);border-radius:12px;background:rgba(7,16,27,.96);backdrop-filter:blur(12px)}
+.perf-stats{gap:.5rem!important}
+.perf-layout{gap:.55rem!important}
+.perf-calendar-scroll,.perf-table-wrap,.table-wrap{max-height:62vh;overflow:auto;overscroll-behavior:contain}
+.panel,.result-card,.journal-stats article{box-shadow:none}
+details.perf-method{margin:.45rem 0;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+details.perf-method>summary{cursor:pointer;padding:.72rem .85rem;font-weight:700;color:#dce6f2;list-style:none}
+details.perf-method>summary::-webkit-details-marker{display:none}
+details.perf-method>summary::after{content:'＋';float:right;color:var(--muted)}
+details.perf-method[open]>summary::after{content:'−'}
+details.perf-method>p,details.perf-method>form{margin:.1rem .85rem .8rem}
+.market-layout,.risk-layout{gap:.6rem}
+.chart-frame{height:min(62vh,620px);min-height:440px}
+.form-panel,.trade-form{padding:.8rem}
+.table-panel{max-height:66vh;overflow:auto}
+/* Optional archive stack: any future lab group can use .archive-stack/details */
+.archive-stack{display:grid;gap:.45rem}
+.archive-stack details{border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden}
+.archive-stack summary{cursor:pointer;padding:.72rem .85rem;font-weight:750;list-style:none}
+.archive-stack summary::-webkit-details-marker{display:none}
+.archive-stack summary::after{content:'▸';float:right;color:var(--muted)}
+.archive-stack details[open] summary::after{content:'▾'}
+.archive-stack .archive-content{max-height:60vh;overflow:auto;padding:.2rem .85rem .85rem;border-top:1px solid var(--line)}
+@media(max-width:900px){:root{--cc-sidebar:0px}.topbar{padding:.65rem 1rem}.section-nav{position:sticky;top:var(--cc-top);bottom:auto;width:auto;height:auto;flex-direction:row;padding:.45rem 1rem;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line)}.section-nav::before{display:none}main,footer{margin-left:0}main{padding:0}.page-section{padding:1rem}.section-nav a{min-height:36px}.chart-frame{height:58vh;min-height:420px}}
+@media(max-width:560px){.topbar{height:60px}.brand-wrap .eyebrow{display:none}.section-nav{top:60px}.page-section{padding:.8rem}.section-heading{align-items:flex-start}.kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.kpi-card{padding:.68rem}.kpi-meta{display:none}#perfInputs{top:105px;max-height:42vh;overflow:auto}.perf-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}.chart-frame{height:52vh;min-height:390px}}
